@@ -1,7 +1,7 @@
 {
     "name": "GitVersion feature",
     "id": "gitversion",
-    "version": "1.0.1",
+    "version": "1.0.4",
     "description": "Add gitversion to your devcontainer",
     "options": {
         "version": {
