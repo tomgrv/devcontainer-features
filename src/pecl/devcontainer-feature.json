@@ -1,0 +1,20 @@
+{
+    "name": "PECL Install feature",
+    "id": "pecl",
+    "version": "1.0.4",
+    "description": "Add pecl",
+    "options": {
+        "extension": {
+            "type": "string",
+            "default": "zip",
+            "description": "The extension to install"
+        }
+    },
+    "dependsOn": {
+        "ghcr.io/devcontainers/features/php": "lts"
+    },
+    "installsAfter": [
+        "ghcr.io/devcontainers/features/common-utils",
+        "ghcr.io/devcontainers/features/php"
+    ]
+}
