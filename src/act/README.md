@@ -19,6 +19,6 @@ This feature provides a tool for running GitHub Actions locally
 |-----|-----|-----|-----|
 | version | The version of GitUtils to install. | string | latest |
 
----
+## Contributing
 
-_Note: This file was auto-generated from the [devcontainer-feature.json](https://github.com/devcontainers/feature-starter/blob/main/src/color/devcontainer-feature.json).  Add additional notes to a `NOTES.md`._
+If you have a feature that you would like to add to this repository, please open an issue or submit a pull request.
