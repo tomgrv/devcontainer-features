@@ -1,13 +1,13 @@
 
-# My Favorite Color (color)
+# Nektos/Act
 
-A feature to remind you of your favorite color
+This feature provides a tool for running GitHub Actions locally
 
 ## Example Usage
 
 ```json
 "features": {
-    "ghcr.io/devcontainers/feature-starter/color:1": {
+    "ghcr.io/tomgrv/devcontainer-features/act:1": {
         "version": "latest"
     }
 }
@@ -17,9 +17,7 @@ A feature to remind you of your favorite color
 
 | Options Id | Description | Type | Default Value |
 |-----|-----|-----|-----|
-| favorite | Choose your favorite color. | string | red |
-
-
+| version | The version of GitUtils to install. | string | latest |
 
 ---
 
