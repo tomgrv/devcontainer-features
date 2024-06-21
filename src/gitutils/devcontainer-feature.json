@@ -1,0 +1,13 @@
+{
+    "name": "Git Aliases",
+    "id": "gitutils",
+    "version": "1.0.5",
+    "description": "A feature to add useful Git aliases to your shell.",
+    "installsAfter": [
+        "ghcr.io/devcontainers/features/common-utils",
+        "ghcr.io/tomgrv/devcontainer-features/gitversion"
+    ],
+    "dependsOn": {
+        "ghcr.io/tomgrv/devcontainer-features/gitversion": "5.*"
+    }
+}
