@@ -1,0 +1,13 @@
+{
+    "scripts": {
+        "lint": "lint-staged"
+    },
+    "lint-staged": {
+        "*.{js,jsx,ts,tsx,md,html,css,json,vue, yaml, yml}": [
+            "prettier --write"
+        ],
+        "*.php": [
+            "composer lint"
+        ]
+    }
+}
