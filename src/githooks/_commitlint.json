@@ -1,4 +1,9 @@
 {
+    "config": {
+        "commitizen": {
+            "path": "@commitlint/cz-commitlint"
+        }
+    },
     "commitlint": {
         "extends": ["@commitlint/config-conventional"],
         "rules": {
