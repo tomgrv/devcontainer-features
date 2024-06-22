@@ -2,8 +2,8 @@
 set -e
 
 ### Init directories
-source=$(dirname $(readlink -f $0))
-feature=$(basename $source)
+export source=$(dirname $(readlink -f $0))
+export feature=$(basename $source)
 echo "Configuring feature <$feature>..."
 
 ### Go to the module root
