@@ -1,0 +1,12 @@
+{
+    "scripts": {
+        "update": "npm-check-updates -i -u",
+        "update-all": "npm run update -ws --root",
+        "test": "echo \"Warning: no test specified\""
+    },
+    "commit-and-tag-version": {
+        "scripts": {
+            "prebump": "gitversion -config .gitversion -showvariable MajorMinorPatch"
+        }
+    }
+}

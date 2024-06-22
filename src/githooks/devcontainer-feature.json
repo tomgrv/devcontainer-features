@@ -1,0 +1,13 @@
+{
+    "name": "Git Hooks",
+    "id": "githooks",
+    "version": "1.0.6",
+    "description": "A feature to add useful Git hooks to your project",
+    "installsAfter": [
+        "ghcr.io/devcontainers/features/common-utils"
+    ],
+    "dependsOn": {
+        "ghcr.io/devcontainers/features/node": {}
+    },
+    "entrypoint": "git /usr/local/share/githooks/config.sh"
+}

@@ -13,15 +13,15 @@
                 ]
             },
             "extensions": [
-                "mads-hartmann.bash-ide-vscode"
+                "mads-hartmann.bash-ide-vscode",
+                "mhutchie.git-graph"
             ]
         }
     },
     "features": {
         "ghcr.io/devcontainers/features/docker-in-docker:2": {},
-        "../src/gitutils": {},
-        "../src/gitversion": {}
+        "ghcr.io/tomgrv/devcontainer-features/gitutils": {},
+        "ghcr.io/tomgrv/devcontainer-features/githooks": {}
     },
-    "remoteUser": "node",
     "updateContentCommand": "npm install -g @devcontainers/cli"
 }
