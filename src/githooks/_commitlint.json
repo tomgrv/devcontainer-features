@@ -1,0 +1,31 @@
+{
+    "commitlint": {
+        "extends": ["@commitlint/config-conventional"],
+        "rules": {
+            "subject-case": [
+                2,
+                "never",
+                ["start-case", "pascal-case", "upper-case"]
+            ],
+            "scope-enum": [
+                2,
+                "always",
+                [
+                    "deps",
+                    "release",
+                    "security",
+                    "i18n",
+                    "config",
+                    "add",
+                    "remove",
+                    "breaking",
+                    "modules",
+                    "packages",
+                    "ui-ux",
+                    "api",
+                    "model"
+                ]
+            ]
+        }
+    }
+}
