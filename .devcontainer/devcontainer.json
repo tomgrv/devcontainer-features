@@ -5,9 +5,7 @@
             "settings": {
                 "json.schemas": [
                     {
-                        "fileMatch": [
-                            "*/devcontainer-feature.json"
-                        ],
+                        "fileMatch": ["*/devcontainer-feature.json"],
                         "url": "https://raw.githubusercontent.com/devcontainers/spec/main/schemas/devContainerFeature.schema.json"
                     }
                 ]
