@@ -2,9 +2,9 @@
 set -e
 
 ### Init directories
-source=$(dirname $(readlink -f $0))
-feature=$(basename $source)
-target=/usr/local/share/$feature
+export source=$(dirname $(readlink -f $0))
+export feature=$(basename $source)
+export target=/usr/local/share/$feature
 echo "Activating feature <$feature>..."
 mkdir -p $target
 
@@ -27,5 +27,5 @@ git config --system alias.init-${feature%_*} "!sh -c '$target/configure.sh' - "
 echo "Calling all install scripts in $source..."
 find $source -type f -name "install-*.sh" | while read script; do
     echo "Calling $script..."
-    sh $script
+    sh $script 
 done

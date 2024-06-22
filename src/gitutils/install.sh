@@ -2,9 +2,9 @@
 set -e
 
 ### Init directories
-source=$(dirname $(readlink -f $0))
-feature=$(basename $source)
-target=/usr/local/share/$feature
+export source=$(dirname $(readlink -f $0))
+export feature=$(basename $source)
+export target=/usr/local/share/$feature
 echo "Activating feature <$feature>..."
 mkdir -p $target
 
