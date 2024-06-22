@@ -21,7 +21,7 @@ cp $source/configure*.sh $target
 chmod +x $target/configure*.sh
 
 ### Create git alias to configure hooks behaviors in current repository
-git config --system alias.init-$feature "!sh -c '$source/configure.sh' - "
+git config --system alias.init-${feature%_*} "!sh -c '$source/configure.sh' - "
 
 ### Call all the install-xxx scripts in the feature directory
 echo "Calling all install scripts in $source..."
