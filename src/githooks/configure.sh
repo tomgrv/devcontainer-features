@@ -3,7 +3,7 @@ set -e
 
 ### Init directories
 export source=$(dirname $(readlink -f $0))
-export feature=$(basename $source)
+export feature=$(basename $source | sed 's/_.*$//')
 echo "Configuring feature <$feature>..."
 
 ### Go to the module root
@@ -11,7 +11,7 @@ cd "$(git rev-parse --show-toplevel)" >/dev/null
 
 ### Create package.json if not exists or is empty
 echo "Merge all package folder json files into top level package.json" | npx chalk-cli --stdin blue
-if [ ! -f package.json -o  ! -s package.json ]; then
+if [ ! -f package.json -o ! -s package.json ]; then
     echo "{}" >package.json
 fi
 
