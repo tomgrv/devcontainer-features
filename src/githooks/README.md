@@ -1,41 +1,31 @@
+<!-- @format -->
 
-# Git Utils
+# Git Hooks
 
-This feature provides a set of utilities for working with Git repositories.
+This feature provides a set of hooks for working with Git repositories.
 
-The following aliases are included: [./alias.json](./src/gitutils/alias.json)
+The following hooks are included:
+
+-   `pre-commit` - Runs `git-pre-commit` to validate the code before committing and `lint-staged` to lint and format staged files
+-   `prepare-commit-msg` - Runs `commitizen` to prepare commit messages
+-   `commit-msg` - Runs `commitlint` to validate commit messages
+-   `post-merge` - Handle changes in package.json and composer.json after a merge
+-   `post-checkout` - Runs `git update` to update the current branch with the latest changes from the remote
+-   `pre-push` - Runs `validate-branch-name` to validate the branch name before pushing
 
 ## Example Usage
 
 ```json
 "features": {
-    "ghcr.io/tomgrv/devcontainer-features/gitutils:1": {
-        "version": "latest"
-    }
+    "ghcr.io/tomgrv/devcontainer-features/githooks:1": {}
 }
 ```
 
-## Options
+## Configuration
 
-| Options Id | Description | Type | Default Value |
-|-----|-----|-----|-----|
-| version | The version of GitUtils to install. | string | latest |
+All hooks utilities are installed globally and can be configured in the `package.json` file.
 
-## GitFlow
-
-Additionnaly, the feature installs the [git-flow](https:://github.com/nvie/gitflow) extension and sets up the Git configuration to use it.
-
-Shortcuts are also added to the `git` command to make it easier to use the `git-flow` commands:
-
-- `git beta` is a shortcut for `git flow release start`
-- `git hfix` is a shortcut for `git flow hotfix start`
-- `git prod` is a shortcut for `git flow release finish` and `git flow hotfix finish`
-
-Those shortcuts work in cunjunction with the `gitversion` utility to automatically update the version number of the application.
-
-## Interactive Utilities
-
-- `git fixup` - Amend the specified commit with current changes and rebase
+A default configuration is provided for each utility, but you can override it by modifying the `package.json` file.
 
 ## Contributing
 

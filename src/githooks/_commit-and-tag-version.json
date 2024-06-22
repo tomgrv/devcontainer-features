@@ -50,6 +50,6 @@
         ]
     },
     "scripts": {
-        "release": "commit-and-tag-version --no-verify --"
+        "release": "npx commit-and-tag-version --no-verify --"
     }
 }
