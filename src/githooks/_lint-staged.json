@@ -1,13 +1,11 @@
 {
     "scripts": {
-        "lint": "lint-staged"
+        "lint": "npx lint-staged"
     },
     "lint-staged": {
         "*.{js,jsx,ts,tsx,md,html,css,json,vue, yaml, yml}": [
-            "prettier --write"
+            "npx prettier --write"
         ],
-        "*.php": [
-            "composer lint"
-        ]
+        "*.php": ["composer lint"]
     }
 }
