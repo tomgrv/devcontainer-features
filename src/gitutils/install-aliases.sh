@@ -23,7 +23,7 @@ done
 
 ### For each script starting with _, create corresponding git alias without _ from script name
 echo "Configuring scripts with <$target/_xx.sh>..."
-for script in $source/_*.sh; do
+for script in $target/_*.sh; do
     alias=$(basename $script | sed -e 's/^_//g' -e 's/.sh$//g')
     git config --system alias.$alias "!sh -c '$(readlink -f $script)' - "
     echo "Created alias $alias => $(readlink -f $script)"
