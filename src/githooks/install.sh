@@ -13,8 +13,9 @@ mkdir -p $target
 ### For each json file starting with _ in the feature directory, copy it to the target directory
 echo "Copying json files to $target..."
 find $source -type f -name "_*.json" | while read file; do
-    cp $file $target/$(basename $file)
-    echo "Copied $file => $target/$(basename $file)"
+    name=$(basename $file)
+    cp $file $target/$name
+    echo "Copied $file => $target/$name"
 done
 
 ### For each sh scrrip starting with _ in the feature directory, copy it to the target directory
