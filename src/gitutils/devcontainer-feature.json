@@ -1,14 +1,15 @@
 {
     "name": "Git Aliases",
     "id": "gitutils",
-    "version": "1.3.0",
+    "version": "1.4.0",
     "description": "A feature to add useful Git aliases to your shell.",
     "installsAfter": [
         "ghcr.io/devcontainers/features/common-utils",
         "ghcr.io/tomgrv/devcontainer-features/gitversion"
     ],
     "dependsOn": {
+        "ghcr.io/devcontainers/features/node": "lts",
         "ghcr.io/tomgrv/devcontainer-features/gitversion": "5.*"
     },
-    "entrypoint": "git init-gitutils"
+    "postStartCommand": "/usr/local/share/githooks/configure.sh"
 }
