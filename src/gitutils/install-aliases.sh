@@ -1,9 +1,14 @@
 #!/bin/sh
 set -e
 
-### Install GitFlow
-sudo apt-get update
-sudo apt-get install -y git-flow dos2unix jq
+### Install GitFlow with apt on Ubuntu or apk on Alpine
+if [ -f /etc/alpine-release ]; then
+    apk update
+    apk add git-flow dos2unix jq
+else
+    apt-get update
+    apt-get install -y git-flow dos2unix jq
+fi
 
 ### For each entry in config.json file next to this file, create corresponding git config from key and value.
 ### if value is an object, parse it as json and create dotted keys
