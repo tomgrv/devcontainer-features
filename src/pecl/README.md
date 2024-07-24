@@ -1,17 +1,13 @@
 
-# PECL Feature
+# PECL Install feature (pecl)
 
-This feature installs the PHP Extension Community Library (PECL) in the dev container. PECL is a repository for PHP extensions.
-
-More information about PECL can be found on the [PECL website](https://pecl.php.net/).
+Add pecl
 
 ## Example Usage
 
 ```json
 "features": {
-    "ghcr.io/tomgrv/devcontainer-features/pecl:1": {
-        "extension": "zip"
-    }
+    "ghcr.io/tomgrv/devcontainer-features/pecl:1": {}
 }
 ```
 
@@ -19,8 +15,10 @@ More information about PECL can be found on the [PECL website](https://pecl.php.
 
 | Options Id | Description | Type | Default Value |
 |-----|-----|-----|-----|
-| version | The version of GitVersion to install. | string | latest |
+| extension | The extension to install | string | zip |
 
-## Contributing
 
-If you have a feature that you would like to add to this repository, please open an issue or submit a pull request.
+
+---
+
+_Note: This file was auto-generated from the [devcontainer-feature.json](https://github.com/tomgrv/devcontainer-features/blob/main/src/pecl/devcontainer-feature.json).  Add additional notes to a `NOTES.md`._

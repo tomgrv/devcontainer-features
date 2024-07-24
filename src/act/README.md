@@ -1,15 +1,13 @@
 
-# Nektos/Act
+# Nektos Act (act)
 
-This feature provides a tool for running GitHub Actions locally
+A tool for running GitHub Actions locally
 
 ## Example Usage
 
 ```json
 "features": {
-    "ghcr.io/tomgrv/devcontainer-features/act:1": {
-        "version": "latest"
-    }
+    "ghcr.io/tomgrv/devcontainer-features/act:1": {}
 }
 ```
 
@@ -17,8 +15,10 @@ This feature provides a tool for running GitHub Actions locally
 
 | Options Id | Description | Type | Default Value |
 |-----|-----|-----|-----|
-| version | The version of GitUtils to install. | string | latest |
+| version | The version of act to install | string | master |
 
-## Contributing
 
-If you have a feature that you would like to add to this repository, please open an issue or submit a pull request.
+
+---
+
+_Note: This file was auto-generated from the [devcontainer-feature.json](https://github.com/tomgrv/devcontainer-features/blob/main/src/act/devcontainer-feature.json).  Add additional notes to a `NOTES.md`._
