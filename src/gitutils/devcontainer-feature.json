@@ -11,5 +11,5 @@
         "ghcr.io/devcontainers/features/node": "lts",
         "ghcr.io/tomgrv/devcontainer-features/gitversion": "5.*"
     },
-    "postStartCommand": "/usr/local/share/githooks/configure.sh"
+    "postStartCommand": "/usr/local/share/gitutils/configure.sh"
 }
