@@ -18,7 +18,7 @@ fi
 ### Merge all package folder json files into top level package.json
 find $source -name _*.json | sort | while read file; do
     echo "Merge $file" | npx chalk-cli --stdin yellow
-    jq -s '.[1] * .[0]' $file package.json >/tmp/package.json && mv -f /tmp/package.json package.json
+    jq -s '.[1] * .[0]' $file package.json >.package.json.$$ && mv -f .package.json.$$ package.json
 done
 
 ### Call all configure-xxx.sh scripts
