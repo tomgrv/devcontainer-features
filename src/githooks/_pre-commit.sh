@@ -8,7 +8,7 @@ fi
 
 # Check if the current Git command is a rebase
 if test "$GIT_COMMAND" = "rebase"; then
-    npx chalk-cli --no-stdin -t "{green ✔} Skip pre-commit hook during rebase"
+    npx --yes chalk-cli --no-stdin -t "{green ✔} Skip pre-commit hook during rebase"
     exit 0
 fi
 
@@ -38,5 +38,5 @@ if git diff --cached --name-only | grep -q "composer.json"; then
     git add composer.lock
 fi
 
-npx git-precommit-checks
-npx lint-staged --cwd ${INIT_CWD:-$PWD}
+npx --yes git-precommit-checks
+npx --yes lint-staged --cwd ${INIT_CWD:-$PWD}

@@ -1,11 +1,13 @@
 {
     "scripts": {
-        "lint": "npx lint-staged"
+        "lint": "npx --yes git pushlint-staged"
     },
     "lint-staged": {
         "*.{js,jsx,ts,tsx,md,html,css,json,vue, yaml, yml}": [
-            "npx prettier --write"
+            "npx --yes prettier --write"
         ],
-        "*.php": ["composer lint"]
+        "*.php": [
+            "composer lint"
+        ]
     }
 }
