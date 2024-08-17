@@ -8,12 +8,12 @@ fi
 
 # Install commitizen plugins
 PLUGINS=$(cat package.json | npx jqn '.config.commitizen.path' | tr -d "'[]:")
-npm list --global $PLUGINS 2>/dev/null 1>&2 || npm install --global $PLUGINS 2>/dev/null 1>&2
-npm list --global commitizen 2>/dev/null 1>&2 || npm install --global commitizen 2>/dev/null 1>&2
+npm list $PLUGINS 2>/dev/null 1>&2 || npm install --no-save $PLUGINS 2>/dev/null 1>&2
+npm list commitizen 2>/dev/null 1>&2 || npm install --no-save commitizen 2>/dev/null 1>&2
 
 # Edit commit message
 if [ $(grep -cv -e '^#' -e '^$' .git/COMMIT_EDITMSG) -eq 0 ]; then
-  (exec </dev/tty && npx cz --hook || npx chalk-cli --no-stdin -t "{red !} Unable to start commitizen.") || npx chalk-cli --no-stdin -t "{red !} Commitizen failed."
+  (exec </dev/tty && npx cz --hook || npx --yes chalk-cli --no-stdin -t "{red !} Unable to start commitizen.") || npx --yes chalk-cli --no-stdin -t "{red !} Commitizen failed."
 else
-  npx chalk-cli --no-stdin -t "{blue →} Commitizen not relevant. Skipping..."
+  npx --yes chalk-cli --no-stdin -t "{blue →} Commitizen not relevant. Skipping..."
 fi

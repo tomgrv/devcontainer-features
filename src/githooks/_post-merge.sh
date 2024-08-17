@@ -14,6 +14,6 @@ isChanged() {
 # Checkout composer.lock or package-lock.json if changed
 if isChanged 'composer.lock' || isChanged 'package-lock.json'; then
   git checkout --theirs composer.lock package-lock.json && git add composer.lock package-lock.json
-  npx chalk-cli --no-stdin -t "{green.bold Files <package-lock.json> or <composer.lock> changed.}"
-  npx chalk-cli --no-stdin -t "{green.bold Run composer/npm install to bring your dependencies up to date.}"
+  npx --yes chalk-cli --no-stdin -t "{green.bold Files <package-lock.json> or <composer.lock> changed.}"
+  npx --yes chalk-cli --no-stdin -t "{green.bold Run composer/npm install to bring your dependencies up to date.}"
 fi
