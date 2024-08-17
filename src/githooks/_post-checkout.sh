@@ -18,6 +18,6 @@ isRebase() {
 
 # Check if the current Git command is a rebase
 if test "$GIT_COMMAND" = "rebase"; then
-  npx chalk-cli --no-stdin -t "{green ✔} Skip post-checkout hook during rebase."
+  npx --yes chalk-cli --no-stdin -t "{green ✔} Skip post-checkout hook during rebase."
   exit 0
 fi
