@@ -6,12 +6,6 @@ if [ -n "$(git diff --cached --name-only | grep -E 'composer.lock|package-lock.j
 	exit 1
 fi
 
-## Do not fixup if no files are staged
-if [ -z "$(git diff --cached --name-only)" ]; then
-	echo 'No files are staged, fixup is not allowed.'
-	exit 1
-fi
-
 #### Goto repository root
 cd "$(git rev-parse --show-toplevel)" >/dev/null
 
@@ -21,6 +15,12 @@ git fetch --progress --prune --recurse-submodules=no origin >/dev/null
 #### CHECK IF FIXUP COMMIT EXISTS
 echo 'Check if fixup commit exists...'
 if ! git isFixup; then
+
+	## Do not fixup if no files are staged
+	if [ -z "$(git diff --cached --name-only)" ]; then
+		echo 'No files are staged, fixup is not allowed.'
+		exit 1
+	fi
 
 	#### LOOK FOR COMMIT TO FIXUP IF NOT GIVEN AS PARAMETER
 	if [ -z "$1" ]; then
