@@ -10,6 +10,7 @@ fi
 PLUGINS=$(cat package.json | npx jqn '.config.commitizen.path' | tr -d "'[]:")
 npm list $PLUGINS 2>/dev/null 1>&2 || npm install --no-save $PLUGINS 2>/dev/null 1>&2
 npm list commitizen 2>/dev/null 1>&2 || npm install --no-save commitizen 2>/dev/null 1>&2
+npm list @commitlint/cli 2>/dev/null 1>&2 || npm install --no-save @commitlint/cli 2>/dev/null 1>&2
 
 # Edit commit message
 if [ $(grep -cv -e '^#' -e '^$' .git/COMMIT_EDITMSG) -eq 0 ]; then
