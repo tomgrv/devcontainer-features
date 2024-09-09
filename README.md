@@ -18,11 +18,11 @@ The [GitUtils](./src/gitutils/) feature installs a collection of Git utilities i
 
 The following utilities are included: [./src/gitutils/alias.json](./src/gitutils/alias.json)
 
-#### Interactive Utilities
+#### 🖥️ Interactive Utilities
 
 - `git fixup` - Amend the specified commit with current changes and rebase
 
-#### GitFlow
+#### 🚀 GitFlow
 
 Additionnaly, the feature installs the [git-flow](https:://github.com/nvie/gitflow) extension and sets up the Git configuration to use it.
 
