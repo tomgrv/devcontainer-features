@@ -32,7 +32,7 @@ if git diff --cached --name-only | grep -q "composer.json"; then
 
     # ensure that the composer.json is valid and composer.lock is up-to-date
     composer validate --no-check-publish || true
-    composer update --no-interaction --no-progress --no-suggest --no-dev || true
+    composer update --no-interaction --no-progress || true
 
     # commit the updated composer.lock
     git add composer.lock
