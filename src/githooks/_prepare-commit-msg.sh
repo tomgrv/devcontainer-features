@@ -14,7 +14,7 @@ npm list @commitlint/cli 2>/dev/null 1>&2 || npm install --no-save @commitlint/c
 
 # Edit commit message
 if [ $(grep -cv -e '^#' -e '^$' .git/COMMIT_EDITMSG) -eq 0 ]; then
-  (exec </dev/tty && npx cz --hook || npx --yes chalk-cli --no-stdin -t "{red !} Unable to start commitizen.") || npx --yes chalk-cli --no-stdin -t "{red !} Commitizen failed."
+  (exec </dev/tty && npx --yes git-cz --hook || npx --yes chalk-cli --no-stdin -t "{red !} Unable to start commitizen.") || npx --yes chalk-cli --no-stdin -t "{red !} Commitizen failed."
 else
   npx --yes chalk-cli --no-stdin -t "{blue →} Commitizen not relevant. Skipping..."
 fi
