@@ -26,3 +26,6 @@ find $source -name configure-*.sh | sort | while read file; do
     echo "Run $file" | npx chalk-cli --stdin yellow
     $file
 done
+
+### Sort package.json
+npx --yes sort-package-json
