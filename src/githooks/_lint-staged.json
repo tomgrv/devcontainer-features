@@ -1,6 +1,6 @@
 {
     "scripts": {
-        "lint": "npx --yes git pushlint-staged"
+        "lint": "npx --yes lint-staged"
     },
     "lint-staged": {
         "*.{js,jsx,ts,tsx,md,html,css,json,vue, yaml, yml}": [
@@ -8,6 +8,9 @@
         ],
         "*.php": [
             "composer lint"
+        ],
+        "package.json": [
+            "npx --yes sort-package-json"
         ]
     }
 }
