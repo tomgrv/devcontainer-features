@@ -29,13 +29,13 @@ if ! git isFixup; then
 	fi
 
 	#### LOOK FOR COMMIT TO FIXUP IF NOT GIVEN AS PARAMETER OR IF --force IS USED
-	if [ "$1" = '--force' ]; then
+	if [ "$1" = "--force" ]; then
 		#### GET COMMIT TO FIXUP
-		echo 'Get commit to fixup by rewriting history...'
-		git histo
+		echo 'Get commit to fixup by overwritting pushed history...'
+		git forceable
 		read -p 'What commit to fix? ' sha
 	elif [ -z "$1" ]; then
-		echo 'Get commit to fixup without rewriting history...'
+		echo 'Get commit to fixup without overwritting pushed history...'
 		git fixable
 		read -p 'What commit to fix? ' sha
 	else
