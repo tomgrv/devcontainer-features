@@ -23,8 +23,40 @@ fi
 ### Stash all changes including untracked files
 stash=$(git stash -u && echo true)
 
-### Ask to restart in container if this is not already the case
+### Merge all files from stub folder to root with git merge-file
+echo "Merging stubs files" | npx --yes chalk-cli --stdin blue
+for file in $(find ./stubs -type f); do
+
+    ### Get middle part of the path
+    folder=$(dirname ${file#./stubs/})
+
+    ### Create folder if not exists
+    mkdir -p $folder
+
+    ### Merge file
+    echo "Merge $folder/$(basename $file)" | npx --yes chalk-cli --stdin yellow
+    git merge-file -p $file $folder/$(basename $file) ${folder#./}/$(basename $file) >$folder/$(basename $file)
+done
+
+### Find all file with a trailing slash outside dist folder, make sure they are added to .gitignore and remove the trailing slash
+echo "Add files to .gitignore" | npx --yes chalk-cli --stdin blue
+for file in $(find . -type f -name "#*" -not -path "./stubs/*" -not -path "./node_modules/*" -not -path "./vendors/*"); do
+
+    echo "Add $file to .gitignore" | npx --yes chalk-cli --stdin yellow
+
+     ### Remove trailing # and leading ./#
+    clean=${file#./#}
+
+    ### Add to .gitignore if not already there
+    grep -qxF $clean .gitignore || echo "$clean" >>.gitignore
+
+    ### Rename file
+    mv $file $clean
+done
+
+### Ask eventualy to deploy in container if this is not already the case
 if [ "$CODESPACES" != "true" ] && [ "$REMOTE_CONTAINERS" != "true" ]; then
+
     echo "You are not in a container" | npx --yes chalk-cli --stdin green
 
     ### Call the install.sh script in all selected features
