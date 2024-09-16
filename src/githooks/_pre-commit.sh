@@ -16,7 +16,7 @@ fi
 if git diff --cached --name-only | grep -q "package.json"; then
 
     # ensure that the package.json is valid and package-lock.json is up-to-date
-    WORKSP=$(cat package.json | npx jqn '.workspaces' | tr -d "'[]:")
+    WORKSP=$(cat package.json | npx --yes jqn '.workspaces' | tr -d "'[]:")
     if test "$WORKSP" = "undefined"; then
         npm install || true
     else

@@ -5,7 +5,7 @@ cd "$(git rev-parse --show-toplevel)" >/dev/null
 
 #### EXIT IF OTHER RELEASE EXISTS
 if [ -f .git/RELEASE ] && [ -n "$(git branch --list release/* | grep -v $(cat .git/RELEASE))" ]; then
-    npx chalk-cli --no-stdin -t "{red Other release exists, cannot proceed}"
+    npx --yes chalk-cli --no-stdin -t "{red Other release exists, cannot proceed}"
     exit 1
 fi
 
