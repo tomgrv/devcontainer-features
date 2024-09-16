@@ -15,7 +15,7 @@ if [ -n "$1" ]; then
             echo "Usage: $0 [--help|--stubs|--all|<features>]"
             exit 
             ;;
-        --all)
+        --all|--start)
             echo "All selected" | npx --yes chalk-cli --stdin green
             stubs=1
             features=$(jq -r '.config.local[]' package.json)
@@ -53,7 +53,10 @@ if [ "$stubs" -eq "1" ]; then
 
         ### Merge file
         echo "Merge $folder/$(basename $file)" | npx --yes chalk-cli --stdin yellow
-        git merge-file -p $file $folder/$(basename $file) ${folder#./}/$(basename $file) >$folder/$(basename $file)
+        git merge-file -p $file $folder/$(basename $file) ${folder#./}/$(basename $file) > $folder/$(basename $file)
+
+        ### Apply rights
+        chmod $(stat -c "%a" $file) $folder/$(basename $file)
     done
 
     ### Find all file with a trailing slash outside dist folder, make sure they are added to .gitignore and remove the trailing slash
@@ -116,3 +119,8 @@ git checkout -- . && git reset && git add .
 
 ### Unstash changes
 test -n "$stash" && git stash apply && git stash drop
+
+### Start script
+if [ "$1" = "--start" ]; then
+    ./.devcontainer/start.sh
+fi
