@@ -1,4 +1,123 @@
 {
+  "name": "@tomgrv/devutils",
+  "version": "1.0.0",
+  "description": "Configure dev environment with devcontainer, gitflow, gitversion, git aliases & hooks. Can be used a devcontainer features",
+  "keywords": [
+    "dev",
+    "git",
+    "hooks",
+    "commitlint",
+    "commitizen",
+    "lint-staged",
+    "prettier",
+    "devmoji",
+    "git-precommit-checks",
+    "husky",
+    "conventional-changelog",
+    "gitversion",
+    "gitflow",
+    "changelog",
+    "semver"
+  ],
+  "homepage": "https://github.com/tomgrv/devcontainer-features#readme",
+  "bugs": {
+    "url": "https://github.com/tomgrv/devcontainer-features/issues",
+    "email": "project@hostname.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tomgrv/devcontainer-features.git"
+  },
+  "funding": {
+    "type": "individual",
+    "url": "https://buymeacoffee.com/tomgrv"
+  },
+  "author": "tomgrv",
+  "type": "module",
+  "bin": "./local-install.sh",
+  "scripts": {
+    "lint": "npx --yes lint-staged",
+    "release": "npx --yes commit-and-tag-version --no-verify --",
+    "test": "echo \"Warning: no test specified\"",
+    "update": "npm-check-updates -i -u",
+    "update-all": "npm run update -ws --root"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ],
+    "rules": {
+      "subject-case": [
+        2,
+        "never",
+        [
+          "start-case",
+          "pascal-case",
+          "upper-case"
+        ]
+      ],
+      "scope-enum": [
+        2,
+        "always",
+        [
+          "deps",
+          "release",
+          "security",
+          "i18n",
+          "config",
+          "add",
+          "remove",
+          "breaking",
+          "modules",
+          "packages",
+          "ui-ux",
+          "api",
+          "model"
+        ]
+      ]
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,md,html,css,json,vue, yaml, yml}": [
+      "npx --yes prettier --write"
+    ],
+    "*.php": [
+      "composer lint"
+    ],
+    "package.json": [
+      "npx --yes sort-package-json"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "@commitlint/cz-commitlint"
+    },
+    "local": [
+      "gitutils",
+      "githooks"
+    ]
+  },
+  "prettier": {
+    "insertPragma": true,
+    "semi": false,
+    "singleQuote": true,
+    "tabWidth": 4,
+    "trailingComma": "es5"
+  },
+  "peerDependencies": {
+    "@commitlint/cli": "^19.2.2",
+    "@commitlint/config-conventional": "^19.2.2",
+    "@commitlint/core": "^19.2.2",
+    "@commitlint/cz-commitlint": "^19.2.0",
+    "commit-and-tag-version": "^12.4.1",
+    "commitizen": "^4.3.0",
+    "conventional-changelog-cli": "^2.1.1",
+    "devmoji": "^2.3.0",
+    "git-precommit-checks": "3.1.0",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2",
+    "prettier": "^3.2.5"
+  },
   "commit-and-tag-version": {
     "bumpFiles": [
       {
@@ -47,53 +166,9 @@
         "type": "test",
         "hidden": true
       }
-    ]
-  },
-  "scripts": {
-    "release": "npx commit-and-tag-version --no-verify --",
-    "lint": "npx lint-staged",
-    "update": "npx npm-check-updates -i -u",
-    "update-all": "npx npm run update -ws --root",
-    "test": "echo \"Warning: no test specified\""
-  },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
     ],
-    "rules": {
-      "subject-case": [
-        2,
-        "never",
-        [
-          "start-case",
-          "pascal-case",
-          "upper-case"
-        ]
-      ],
-      "scope-enum": [
-        2,
-        "always",
-        [
-          "deps",
-          "release",
-          "security",
-          "i18n",
-          "config",
-          "add",
-          "remove",
-          "breaking",
-          "modules",
-          "packages",
-          "ui-ux",
-          "api",
-          "model"
-        ]
-      ]
-    }
-  },
-  "config": {
-    "commitizen": {
-      "path": "@commitlint/cz-commitlint"
+    "scripts": {
+      "prebump": "gitversion -config .gitversion -showvariable MajorMinorPatch"
     }
   },
   "git-precommit-checks": {
@@ -109,20 +184,5 @@
         "regex": "(?:FIXME|TODO)"
       }
     ]
-  },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx,md,html,css,json,vue, yaml, yml}": [
-      "npx prettier --write"
-    ],
-    "*.php": [
-      "composer lint"
-    ]
-  },
-  "prettier": {
-    "trailingComma": "es5",
-    "tabWidth": 4,
-    "semi": false,
-    "singleQuote": true,
-    "insertPragma": true
   }
 }
