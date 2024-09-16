@@ -1,6 +1,28 @@
+<!-- @format -->
+
 # Dev Container Features
 
 This repository contains a collection of features that can be used to enhance the development experience in a [Visual Studio Code Dev Container](https://code.visualstudio.com/docs/remote/containers). The features are organized in separate folders and can be used individually.
+
+## Installation
+
+To install stubs in current repo
+
+```sh
+npx tomgrv/devcontainer-features -- --stubs
+```
+
+To install devcontainer feature(s) locally:
+
+```sh
+npx tomgrv/devcontainer-features -- gitutils
+```
+
+To setup a full dev environnement locally (repo + features)
+
+```sh
+npx tomgrv/devcontainer-features -- --all
+```
 
 ## Features Overview
 
@@ -16,17 +38,17 @@ More information about GitVersion can be found on the [GitVersion GitHub page](h
 
 Configure developpement environnement in one step in conjunction with following packages:
 
-* @commitlint/cli
-* @commitlint/config-conventional
-* @commitlint/core
-* @commitlint/cz-commitlint
-* commitizen
-* conventional-changelog-cli
-* devmoji
-* git-precommit-checks
-* lint-staged
-* prettier
-* sort-package-json
+-   @commitlint/cli
+-   @commitlint/config-conventional
+-   @commitlint/core
+-   @commitlint/cz-commitlint
+-   commitizen
+-   conventional-changelog-cli
+-   devmoji
+-   git-precommit-checks
+-   lint-staged
+-   prettier
+-   sort-package-json
 
 ### GitUtils
 
@@ -36,8 +58,8 @@ The following utilities are included: [./src/gitutils/alias.json](./src/gitutils
 
 #### 🖥️ Interactive Utilities
 
-- `git fixup` - Amend the specified commit with current changes and rebase
-- `git fixauthor` - Amend commits with specified author and rebase
+-   `git fixup` - Amend the specified commit with current changes and rebase
+-   `git fixauthor` - Amend commits with specified author and rebase
 
 #### 🚀 GitFlow
 
@@ -47,9 +69,9 @@ Configure developpement environnement in one step with:
 
 Shortcuts are also added to the `git` command to make it easier to use the `git-flow` commands:
 
-- `git beta` is a shortcut for `git flow release start`
-- `git hfix` is a shortcut for `git flow hotfix start`
-- `git prod` is a shortcut for `git flow release finish` and `git flow hotfix finish`
+-   `git beta` is a shortcut for `git flow release start`
+-   `git hfix` is a shortcut for `git flow hotfix start`
+-   `git prod` is a shortcut for `git flow release finish` and `git flow hotfix finish`
 
 Those shortcuts work in cunjunction with the `gitversion` utility to automatically update the version number of the application.
 
