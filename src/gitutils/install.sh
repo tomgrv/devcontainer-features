@@ -4,7 +4,7 @@ set -e
 ### Init directories
 export source=$(dirname $(readlink -f $0))
 export feature=$(basename $source | sed 's/_.*$//')
-export target=/usr/local/share/$feature
+export target=${1:-/usr/local/share}/$feature
 echo "Activating feature <$feature>..."
 
 ### Makes sure the target directory exists

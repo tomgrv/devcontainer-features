@@ -12,6 +12,22 @@ Originally, GitVersion was designed to be used in a CI/CD pipeline. However, it 
 
 More information about GitVersion can be found on the [GitVersion GitHub page](https://github.com/GitTools/GitVersion).
 
+### GitHooks
+
+Configure developpement environnement in one step in conjunction with following packages:
+
+* @commitlint/cli
+* @commitlint/config-conventional
+* @commitlint/core
+* @commitlint/cz-commitlint
+* commitizen
+* conventional-changelog-cli
+* devmoji
+* git-precommit-checks
+* lint-staged
+* prettier
+* sort-package-json
+
 ### GitUtils
 
 The [GitUtils](./src/gitutils/) feature installs a collection of Git utilities in the dev container. The utilities are useful for automating Git workflows.
@@ -21,10 +37,13 @@ The following utilities are included: [./src/gitutils/alias.json](./src/gitutils
 #### 🖥️ Interactive Utilities
 
 - `git fixup` - Amend the specified commit with current changes and rebase
+- `git fixauthor` - Amend commits with specified author and rebase
 
 #### 🚀 GitFlow
 
 Additionnaly, the feature installs the [git-flow](https:://github.com/nvie/gitflow) extension and sets up the Git configuration to use it.
+
+Configure developpement environnement in one step with:
 
 Shortcuts are also added to the `git` command to make it easier to use the `git-flow` commands:
 
