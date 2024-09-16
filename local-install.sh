@@ -4,6 +4,7 @@
 cd $(git rev-parse --show-toplevel) >/dev/null
 
 ### Load all features locally installable
+source=$(dirname $(readlink -f $0))
 features=""
 stubs="0"
 
@@ -11,28 +12,28 @@ stubs="0"
 if [ -n "$1" ]; then
 
     case $1 in
-        --help)
-            echo "Usage: $0 [--help|--stubs|--all|<features>]"
-            exit 
-            ;;
-        --all|--start)
-            echo "All selected" | npx --yes chalk-cli --stdin green
-            stubs=1
-            features=$(jq -r '.config.local[]' package.json)
-            break;
-            ;;
-        --stubs)
-            echo "Stubs selected" | npx --yes chalk-cli --stdin green
-            stubs=1
-            ;;
-        --*)
-            echo "Wrong arguments: See --help" | npx --yes chalk-cli --stdin red
-            exit
-            ;;
-        *)
-            echo "Features selected: $*" | npx --yes chalk-cli --stdin green
-            features=$*
-            ;;
+    --help)
+        echo "Usage: $0 [--help|--stubs|--all|<features>]"
+        exit
+        ;;
+    --all | --start)
+        echo "All selected" | npx --yes chalk-cli --stdin green
+        stubs=1
+        features=$(jq -r '.config.local[]' package.json)
+        break
+        ;;
+    --stubs)
+        echo "Stubs selected" | npx --yes chalk-cli --stdin green
+        stubs=1
+        ;;
+    --*)
+        echo "Wrong arguments: See --help" | npx --yes chalk-cli --stdin red
+        exit
+        ;;
+    *)
+        echo "Features selected: $*" | npx --yes chalk-cli --stdin green
+        features=$*
+        ;;
     esac
 fi
 
@@ -43,17 +44,17 @@ if [ "$stubs" -eq "1" ]; then
 
     ### Merge all files from stub folder to root with git merge-file
     echo "Merging stubs files" | npx --yes chalk-cli --stdin blue
-    for file in $(find ./stubs -type f); do
+    for file in $(find $source/stubs -type f); do
 
         ### Get middle part of the path
-        folder=$(dirname ${file#./stubs/})
+        folder=$(dirname ${file#$source/stubs/})
 
         ### Create folder if not exists
         mkdir -p $folder
 
         ### Merge file
         echo "Merge $folder/$(basename $file)" | npx --yes chalk-cli --stdin yellow
-        git merge-file -p $file $folder/$(basename $file) ${folder#./}/$(basename $file) > $folder/$(basename $file)
+        git merge-file -p $file $folder/$(basename $file) ${folder#$source/}/$(basename $file) >$folder/$(basename $file)
 
         ### Apply rights
         chmod $(stat -c "%a" $file) $folder/$(basename $file)
@@ -84,10 +85,10 @@ if [ -n "$features" ]; then
 
         ### Call the install.sh script in all selected features
         for feature in $features; do
-            if [ -f "./src/$feature/install.sh" ]; then
+            if [ -f "$source/src/$feature/install.sh" ]; then
                 ### Run the install.sh script
                 echo "Running src/$feature/install.sh..." | npx --yes chalk-cli --stdin blue
-                bash ./src/$feature/install.sh /tmp 
+                bash $source/src/$feature/install.sh /tmp
             else
                 echo "$feature not found" | npx --yes chalk-cli --stdin red
             fi
@@ -106,7 +107,7 @@ if [ -n "$features" ]; then
     else
         echo "You are in a container: use devutils as devcontainer features:" | npx --yes chalk-cli --stdin magenta
         for feature in $features; do
-            echo "ghcr.io/tomgrv/devcontainer-features/$feature" 
+            echo "ghcr.io/tomgrv/devcontainer-features/$feature"
         done | npx --yes chalk-cli --stdin magenta
         exit
     fi
@@ -122,5 +123,5 @@ test -n "$stash" && git stash apply && git stash drop
 
 ### Start script
 if [ "$1" = "--start" ]; then
-    ./.devcontainer/start.sh
+    $source/.devcontainer/start.sh
 fi
