@@ -31,8 +31,8 @@
                     "php-refresh-routes": ["**/[Rr]outes/*.php"],
                     "php-refresh-db": [
                         // "**/migrations/*.php"
-                ]
-            },
+                    ]
+                },
                 "editor.formatOnSave": true,
                 "editor.formatOnPaste": true,
                 "todo-tree.general.tags": [
