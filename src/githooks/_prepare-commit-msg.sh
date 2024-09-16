@@ -7,7 +7,7 @@ if [ -t 1 ]; then
 fi
 
 # Install commitizen plugins
-PLUGINS=$(cat package.json | npx jqn '.config.commitizen.path' | tr -d "'[]:")
+PLUGINS=$(cat package.json | npx --yes jqn '.config.commitizen.path' | tr -d "'[]:")
 npm list $PLUGINS 2>/dev/null 1>&2 || npm install --no-save $PLUGINS 2>/dev/null 1>&2
 npm list commitizen 2>/dev/null 1>&2 || npm install --no-save commitizen 2>/dev/null 1>&2
 npm list @commitlint/cli 2>/dev/null 1>&2 || npm install --no-save @commitlint/cli 2>/dev/null 1>&2
