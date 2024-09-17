@@ -15,7 +15,7 @@
     "ignore": "grep -qxF \"$1\" .gitignore || echo \"$1\" >>.gitignore && git rm --cached \"$1\" 2>/dev/null",
     "undo": "git reset --soft HEAD^ --",
     "crush": "git amend --no-verify && git push --force",
-    "amend": "git diff-index --cached --quiet HEAD || git commit --amend --no-verify -C HEAD",
+    "amend": "git diff-index --cached --quiet HEAD || git commit --amend -C HEAD",
     "edit": "git commit --amend --edit",
     "continue": "git checkout -- . && git rebase --continue",
     "co": "git commit -m \"$1\"",
