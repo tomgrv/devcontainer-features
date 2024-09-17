@@ -78,7 +78,7 @@
         }
     },
     "lint-staged": {
-        "*.{js,jsx,ts,tsx,md,html,css,json,vue, yaml, yml}": [
+        "*.{js,jsx,ts,tsx,md,html,css,json,vue, yaml, yml, sh}": [
             "npx --yes prettier --write"
         ],
         "*.php": [
@@ -99,6 +99,9 @@
     },
     "prettier": {
         "insertPragma": true,
+        "plugins": [
+            "prettier-plugin-sh"
+        ],
         "semi": false,
         "singleQuote": true,
         "tabWidth": 4,

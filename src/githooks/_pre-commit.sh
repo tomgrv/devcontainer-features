@@ -1,5 +1,6 @@
 #!/bin/sh
 export PATH=/usr/bin:$PATH
+source=$(dirname $(readlink -f $0))
 
 # Enable colors
 if [ -t 1 ]; then
@@ -38,5 +39,9 @@ if git diff --cached --name-only | grep -q "composer.json"; then
     git add composer.lock
 fi
 
+# Install Prettier plugins
+npm install --no-save $(cat package.json | npx --yes jqn '.prettier.plugins' | tr -d "'[]:,") 2>/dev/null 1>&2
+
+# Run pre-commit checks
 npx --yes git-precommit-checks
 npx --yes lint-staged --cwd ${INIT_CWD:-$PWD}

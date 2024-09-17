@@ -9,32 +9,61 @@ features=""
 stubs="0"
 
 ### Handles arguments
-if [ -n "$1" ]; then
-
-    case $1 in
-    --help)
-        echo "Usage: $0 [--help|--stubs|--all|<features>]"
+while getopts ":hasp:" opt $@; do
+    case $opt in
+    h)
+        echo "Usage: $0 [-h|-a|-s|-p file|<features>]"
+        echo "  -h: Display this help"
+        echo "  -a: All features"
+        echo "  -s: Stubs only"
+        echo "  -p: Display a json key from specified file"
+        echo -n "  <features>: List of features to install. Available features: "
+        cat package.json | npx --yes jqn '.config.local' | tr -d "'[]:," | npx --yes chalk-cli --stdin blue
         exit
         ;;
-    --all | --start)
+    a)
         echo "All selected" | npx --yes chalk-cli --stdin green
         stubs=1
         features=$(jq -r '.config.local[]' package.json)
         break
         ;;
-    --stubs)
+    s)
         echo "Stubs selected" | npx --yes chalk-cli --stdin green
         stubs=1
         ;;
-    --*)
-        echo "Wrong arguments: See --help" | npx --yes chalk-cli --stdin red
+    p)
+        file="$OPTARG"
+        if [ ! -f "$file" ]; then
+            echo "$file not found" | npx --yes chalk-cli --stdin red
+            exit
+        fi
+        ;;
+    \?)
+        echo "Invalid option: -$OPTARG" | npx --yes chalk-cli --stdin red
         exit
         ;;
-    *)
-        echo "Features selected: $*" | npx --yes chalk-cli --stdin green
-        features=$*
+    :)
+        echo "Option -$OPTARG requires an argument." | npx --yes chalk-cli --stdin red
+        exit
         ;;
     esac
+done >&2
+
+# Shift off the options and optional --
+shift $((OPTIND - 1))
+
+# Handle remaining arguments as features
+if [ $# -gt 0 ]; then
+    features="$@"
+    if [ -f "$file" ]; then
+        pkg=$(cat $file | npx --yes jqn $features | tr -d "'[]:,")
+        for package in $pkg; do
+            npm list $package 2>/dev/null 1>&2 || npm install --no-save $package 2>/dev/null 1>&2 && echo "Installed $package" | npx --yes chalk-cli --stdin green || echo "Failed to install $package" | npx --yes chalk-cli --stdin red
+        done
+        exit
+    else
+        echo "Selected features: $features" | npx --yes chalk-cli --stdin green
+    fi
 fi
 
 ### Stash all changes including untracked files

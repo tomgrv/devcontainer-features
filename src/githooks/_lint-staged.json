@@ -3,7 +3,7 @@
         "lint": "npx --yes lint-staged"
     },
     "lint-staged": {
-        "*.{js,jsx,ts,tsx,md,html,css,json,vue, yaml, yml}": [
+        "*.{js,jsx,ts,tsx,md,html,css,json,vue, yaml, yml,sh}": [
             "npx --yes prettier --write"
         ],
         "*.php": [
