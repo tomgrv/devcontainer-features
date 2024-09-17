@@ -4,6 +4,7 @@
         "tabWidth": 4,
         "semi": false,
         "singleQuote": true,
-        "insertPragma": true
+        "insertPragma": true,
+        "plugins": ["prettier-plugin-sh"]
     }
 }
