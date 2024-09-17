@@ -1,2 +1,2 @@
 tasks:
-- command: ./local-install.sh
+- command: ./local-install.sh -a
