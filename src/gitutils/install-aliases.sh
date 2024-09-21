@@ -18,7 +18,7 @@ done
 ### if value is an object, parse it as json and create dotted keys
 echo "Configuring git with <$source/config.json>..."
 jq -r 'paths(scalars) as $p | [($p|join(".")), (getpath($p)|tostring)] | join(" ")' $source/config.json | while read key value; do
-    git config --global $key "$value"
+    git config --system $key "$value"
     echo "Created config $key => $value"
 done
 
@@ -26,7 +26,7 @@ done
 echo "Configuring aliases with <$source/alias.json>..."
 jq -r 'keys[]' $source/alias.json | dos2unix | while read key; do
     value=$(jq -r ".$key" $source/alias.json)
-    git config --global alias.$key "!sh -c '$value' - "
+    git config --system alias.$key "!sh -c '$value' - "
     echo "Created alias $key => $value"
 done
 
@@ -34,6 +34,6 @@ done
 echo "Configuring scripts with <$target/_xx.sh>..."
 for script in $target/_*.sh; do
     alias=$(basename $script | sed -e 's/^_//g' -e 's/.sh$//g')
-    git config --global alias.$alias "!sh -c '$(readlink -f $script)' - "
+    git config --system alias.$alias "!sh -c '$(readlink -f $script)' - "
     echo "Created alias $alias => $(readlink -f $script)"
 done
