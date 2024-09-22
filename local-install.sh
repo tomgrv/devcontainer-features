@@ -24,7 +24,7 @@ while getopts ":hasp:" opt $@; do
     a)
         echo "All selected" | npx --yes chalk-cli --stdin green
         stubs=1
-        features=$(jq -r '.config.local[]' package.json)
+        features=$(jq -r '.config.local[]' $source/package.json)
         break
         ;;
     s)
