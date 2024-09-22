@@ -1,5 +1,5 @@
 {
-    "name": "Perspikapps/DevContainer",
+    "name": "tomgrv/devcontainer-features",
     // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
     "image": "mcr.microsoft.com/devcontainers/base:jammy",
     // Features to add to the dev container. More info: https://containers.dev/features.
