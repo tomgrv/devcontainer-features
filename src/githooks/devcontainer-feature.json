@@ -1,7 +1,17 @@
 {
     "name": "Git Hooks",
-    "version": "1.4.1",
+    "version": "2.0.0",
     "description": "A feature to add useful Git hooks to your project",
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "conventionalCommits.gitmoji": false
+            },
+            "extensions": [
+                "vivaxy.vscode-conventional-commits"
+            ]
+        }
+    },
     "dependsOn": {
         "ghcr.io/devcontainers/features/node": {}
     },
