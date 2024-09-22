@@ -1,6 +1,6 @@
 {
     "name": "Git Hooks",
-    "version": "1.4.0",
+    "version": "1.4.1",
     "description": "A feature to add useful Git hooks to your project",
     "dependsOn": {
         "ghcr.io/devcontainers/features/node": {}
