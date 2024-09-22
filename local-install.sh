@@ -69,6 +69,13 @@ fi
 ### Stash all changes including untracked files
 stash=$(git stash -u && echo true)
 
+
+### Force line endings to LF for all text files
+echo "Force line endings to LF for all text files" | npx --yes chalk-cli --stdin blue
+git ls-files -z | xargs -0 rm
+git checkout .
+
+### Merge all files from stub folder to root with git merge-file
 if [ "$stubs" -eq "1" ]; then
 
     ### Merge all files from stub folder to root with git merge-file
