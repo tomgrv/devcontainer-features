@@ -1,0 +1,62 @@
+{
+    "name": "Laravel settings",
+    "version": "1.0.0",
+    "description": "A feature to add useful laravel settings to your shell.",
+    "containerEnv": {
+        "APP_DEBUG": "true",
+        "APP_ENV": "local",
+        "APP_PORT": "80",
+        "LARAVEL_SAIL": "1",
+        "SAIL_XDEBUG_MODE": "develop,debug",
+        "SAIL_XDEBUG_CONFIG": "client_host=host.docker.internal  idekey=vscode",
+        "XDEBUG_MODE": "off"
+    },
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "triggerTaskOnSave.tasks": {
+                    "php-refresh-config": [
+                        "**/config.php",
+                        "config/*.php",
+                        ".env"
+                    ],
+                    "php-refresh-views": [
+                        "packages/**/*.blade.php"
+                    ],
+                    "php-refresh-routes": [
+                        "**/[Rr]outes/*.php"
+                    ],
+                    "php-refresh-db": []
+                }
+            },
+            "extensions": [
+                "actboy168.tasks",
+                "spmeesseman.vscode-taskexplorer",
+                "gruntfuggly.triggertaskonsave",
+                "entexa.tall-stack",
+                "formulahendry.auto-rename-tag",
+                "formulahendry.auto-close-tag",
+                "absszero.vscode-laravel-goto",
+                "marabesi.php-import-checker",
+                "alexcvzz.vscode-sqlite",
+                "bmewburn.vscode-intelephense-client",
+                "onecentlin.laravel-blade",
+                "xdebug.php-debug",
+                "misterj.laravel-expack",
+                "devsense.composer-php-vscode",
+                "christian-kohler.npm-intellisense",
+                "davidanson.vscode-markdownlint",
+                "pcbowers.alpine-intellisense"
+            ]
+        }
+    },
+    "dependsOn": {
+        "ghcr.io/devcontainers/features/node": "lts",
+        "ghcr.io/devcontainers/features/php": "lts"
+    },
+    "id": "larasets",
+    "installsAfter": [
+        "ghcr.io/devcontainers/features/common-utils"
+    ],
+    "postStartCommand": "/usr/local/share/larasets/configure.sh"
+}

@@ -1,15 +1,29 @@
 {
     "name": "Git Aliases",
-    "id": "gitutils",
-    "version": "1.8.2",
+    "version": "2.0.0",
     "description": "A feature to add useful Git aliases to your shell.",
-    "installsAfter": [
-        "ghcr.io/devcontainers/features/common-utils",
-        "ghcr.io/tomgrv/devcontainer-features/gitversion"
-    ],
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "explorer.excludeGitIgnore": true
+            },
+            "extensions": [
+                "donjayamanne.githistory",
+                "tomblind.scm-buttons-vscode",
+                "mhutchie.git-graph",
+                "softwareape.rebaser",
+                "arturock.gitstash"
+            ]
+        }
+    },
     "dependsOn": {
         "ghcr.io/devcontainers/features/node": "lts",
         "ghcr.io/tomgrv/devcontainer-features/gitversion": "5.*"
     },
+    "id": "gitutils",
+    "installsAfter": [
+        "ghcr.io/devcontainers/features/common-utils",
+        "ghcr.io/tomgrv/devcontainer-features/gitversion"
+    ],
     "postStartCommand": "/usr/local/share/gitutils/configure.sh"
 }
