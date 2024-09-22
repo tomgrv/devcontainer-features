@@ -86,6 +86,9 @@
         ],
         "package.json": [
             "npx --yes sort-package-json"
+        ],
+        "src/**/*.json": [
+            "npx --yes sort-package-json"
         ]
     },
     "config": {
