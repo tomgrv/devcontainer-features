@@ -4,7 +4,7 @@ source=$(dirname $(readlink -f $0))
 
 # Enable colors
 if [ -t 1 ]; then
-    exec >/dev/tty 2>&1
+    exec > /dev/tty 2>&1
 fi
 
 # Check if the current Git command is a rebase
@@ -33,14 +33,14 @@ if git diff --cached --name-only | grep -q "composer.json"; then
 
     # ensure that the composer.json is valid and composer.lock is up-to-date
     composer validate --no-check-publish || true
-    composer update --no-interaction --no-progress --ignore-platform-reqs || true
+    composer install --no-interaction --no-progress --ignore-platform-reqs || true
 
     # commit the updated composer.lock
     git add composer.lock
 fi
 
 # Install Prettier plugins
-npm install --no-save $(cat package.json | npx --yes jqn '.prettier.plugins' | tr -d "'[]:,") 2>/dev/null 1>&2
+npm install --no-save $(cat package.json | npx --yes jqn '.prettier.plugins' | tr -d "'[]:,") 2> /dev/null 1>&2
 
 # Run pre-commit checks
 npx --yes git-precommit-checks
