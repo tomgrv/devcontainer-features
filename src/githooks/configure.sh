@@ -12,7 +12,11 @@ cd "$(git rev-parse --show-toplevel)" >/dev/null
 ### Create package.json if not exists or is empty
 echo "Merge all package folder json files into top level package.json" | npx --yes chalk-cli --stdin blue
 if [ ! -f package.json -o ! -s package.json ]; then
+    # Create empty package.json
     echo "{}" >package.json
+else
+    # Pre-sort
+    npx --yes sort-package-json
 fi
 
 ### Merge all package folder json files into top level package.json
