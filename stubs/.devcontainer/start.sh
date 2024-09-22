@@ -34,3 +34,7 @@ elif [ -f ${containerWorkspaceFolder:-.}/artisan ]; then
     php -d xdebug.mode=off artisan migrate --seed
     npx --yes pm2 --name MixWatch start npm -- run watch
 fi
+
+### Self update
+echo "Self updating devcontainer..."
+npx --yes $(sed -e 's://.*$::g' .devcontainer/devcontainer.json | npx --yes jqn '.name' | tr -d "'[]:,") 2> /dev/null 1>&2
