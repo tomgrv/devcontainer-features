@@ -25,14 +25,12 @@
                         "config/*.php",
                         ".env"
                     ],
-                    "php-refresh-views": [
-                        //"packages/**/*.blade.php"
-                    ],
+                    "php-refresh-views": ["packages/**/*.blade.php"],
                     "php-refresh-routes": ["**/[Rr]outes/*.php"],
                     "php-refresh-db": [
                         // "**/migrations/*.php"
-                ]
-            },
+                    ]
+                },
                 "editor.formatOnSave": true,
                 "editor.formatOnPaste": true,
                 "todo-tree.general.tags": [
@@ -46,7 +44,10 @@
                     "NOTE"
                 ],
                 "conventionalCommits.gitmoji": false,
-                "explorer.excludeGitIgnore": true
+                "explorer.excludeGitIgnore": true,
+                "editor.indentSize": "tabSize",
+                "editor.detectIndentation": true,
+                "editor.tabSize": 4
             },
             "extensions": [
                 "vivaxy.vscode-conventional-commits",
