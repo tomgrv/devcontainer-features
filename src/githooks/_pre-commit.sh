@@ -32,7 +32,7 @@ fi
 if git diff --cached --name-only | grep -q "composer.json"; then
 
     # ensure that the composer.json is valid and composer.lock is up-to-date
-    composer update --lock --ignore-platform-reqs --no-scripts --no-interaction --no-progress --no-autoloader
+    composer update --lock --ignore-platform-reqs --no-scripts --no-interaction --no-progress --no-autoloader --no-publish
 
     # commit the updated composer.lock
     git add composer.lock
