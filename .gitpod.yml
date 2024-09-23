@@ -1,2 +1,2 @@
 tasks:
-- command: ./local-install.sh -a
+- command: npm exec tomgrv/devcontainer-features -- -a
