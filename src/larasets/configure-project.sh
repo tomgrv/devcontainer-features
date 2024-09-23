@@ -8,11 +8,11 @@ fi
 
 ### Install npm dependencies if package.json exists
 if [ -f ${containerWorkspaceFolder:-.}/package.json ]; then
-    npm install --ws --if-present --include-workspace-root
+    npm install --ws --if-present --include-workspace-root || npm install
 fi
 
 ### Init db if sqlite
-if [ -f $DB_DATABASE ]; then
+if [ -n "$DB_DATABASE" ] && [ -f "$DB_DATABASE" ]; then
     touch $DB_DATABASE
 fi
 
