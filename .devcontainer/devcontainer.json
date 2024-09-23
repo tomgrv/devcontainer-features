@@ -7,8 +7,9 @@
         "ghcr.io/devcontainers/features/node": "lts",
         "ghcr.io/devcontainers/features/php": "lts",
         "ghcr.io/devcontainers/features/docker-in-docker:2": "lts",
-        "ghcr.io/tomgrv/devcontainer-features/gitutils:1": {},
-        "ghcr.io/tomgrv/devcontainer-features/githooks:1": {}
+        "ghcr.io/tomgrv/devcontainer-features/gitutils:2": {},
+        "ghcr.io/tomgrv/devcontainer-features/githooks:2": {},
+        "ghcr.io/tomgrv/devcontainer-features/larasets:1": {}
     },
     // Use 'forwardPorts' to make a list of ports inside the container available locally.
     // "forwardPorts": [],
@@ -19,18 +20,6 @@
         "vscode": {
             // Set *default* container specific settings.json values on container create.
             "settings": {
-                "triggerTaskOnSave.tasks": {
-                    "php-refresh-config": [
-                        "**/config.php",
-                        "config/*.php",
-                        ".env"
-                    ],
-                    "php-refresh-views": ["packages/**/*.blade.php"],
-                    "php-refresh-routes": ["**/[Rr]outes/*.php"],
-                    "php-refresh-db": [
-                        // "**/migrations/*.php"
-                    ]
-                },
                 "editor.formatOnSave": true,
                 "editor.formatOnPaste": true,
                 "todo-tree.general.tags": [
@@ -43,57 +32,30 @@
                     "[x]",
                     "NOTE"
                 ],
-                "conventionalCommits.gitmoji": false,
-                "explorer.excludeGitIgnore": true,
                 "editor.indentSize": "tabSize",
                 "editor.detectIndentation": true,
                 "editor.tabSize": 4
             },
             "extensions": [
-                "vivaxy.vscode-conventional-commits",
                 "actboy168.tasks",
                 "spmeesseman.vscode-taskexplorer",
                 "gruntfuggly.triggertaskonsave",
-                "entexa.tall-stack",
                 "github.codespaces",
                 "natizyskunk.sftp",
                 "formulahendry.auto-rename-tag",
                 "formulahendry.auto-close-tag",
-                "absszero.vscode-laravel-goto",
-                "marabesi.php-import-checker",
-                "alexcvzz.vscode-sqlite",
-                "bmewburn.vscode-intelephense-client",
                 "gruntfuggly.todo-tree",
-                "onecentlin.laravel-blade",
                 "github.copilot",
                 "github.copilot-chat",
-                "donjayamanne.githistory",
-                "xdebug.php-debug",
-                "tomblind.scm-buttons-vscode",
-                "misterj.laravel-expack",
-                "devsense.composer-php-vscode",
-                "mhutchie.git-graph",
-                "christian-kohler.npm-intellisense",
-                "davidanson.vscode-markdownlint",
                 "github.vscode-github-actions",
-                "pcbowers.alpine-intellisense",
-                "softwareape.rebaser",
-                "arturock.gitstash"
+                "foxundermoon.shell-format"
             ]
         }
     },
     // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
     // "remoteUser": "root"
     // Define env vars to set in the container.
-    "remoteEnv": {
-        "APP_DEBUG": "true",
-        "APP_ENV": "local",
-        "APP_PORT": "80",
-        "LARAVEL_SAIL": "1",
-        "SAIL_XDEBUG_MODE": "develop,debug",
-        "SAIL_XDEBUG_CONFIG": "client_host=host.docker.internal  idekey=vscode",
-        "XDEBUG_MODE": "off"
-    },
+    "remoteEnv": {},
     // Ensure the container is correctly configured for the workspace.
     "postStartCommand": "sh .devcontainer/start.sh"
 }
