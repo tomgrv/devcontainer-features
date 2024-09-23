@@ -1,20 +1,20 @@
 {
     "name": "GitVersion feature",
-    "id": "gitversion",
-    "version": "1.0.5",
+    "version": "1.1.0",
     "description": "Add gitversion to your devcontainer",
+    "dependsOn": {
+        "ghcr.io/devcontainers/features/dotnet": "lts"
+    },
+    "id": "gitversion",
+    "installsAfter": [
+        "ghcr.io/devcontainers/features/common-utils",
+        "ghcr.io/devcontainers/features/dotnet"
+    ],
     "options": {
         "version": {
             "type": "string",
             "default": "5.*",
             "description": "The version of GitVersion to install"
         }
-    },
-    "dependsOn": {
-        "ghcr.io/devcontainers/features/dotnet": "lts"
-    },
-    "installsAfter": [
-        "ghcr.io/devcontainers/features/common-utils",
-        "ghcr.io/devcontainers/features/dotnet"
-    ]
+    }
 }
