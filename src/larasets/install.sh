@@ -28,8 +28,8 @@ find $source -type f -name "_*.sh" | while read script; do
 done
 
 ### Copy the config script to the target directory and create a git alias for it
-cp $source/configure*.sh $target
-chmod +x $target/configure*.sh
+find $source -type f -name "configure*.sh" -exec cp {} $target \;
+find $target -type f -name "configure*.sh" -exec chmod +x {} \;
 
 ### Call all the install-xxx scripts in the feature directory
 echo "Calling all install scripts in $source..."
@@ -37,4 +37,3 @@ find $source -type f -name "install-*.sh" | while read script; do
     echo "Calling $script..."
     sh $script
 done
-
