@@ -33,3 +33,4 @@ Homestead.yaml
 .rej
 .orig
 .gitattributes
+./src/gitutils/stubs/#.gitattributes
