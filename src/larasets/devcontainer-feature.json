@@ -1,6 +1,6 @@
 {
     "name": "Laravel settings",
-    "version": "1.0.7",
+    "version": "1.0.8",
     "description": "A feature to add useful laravel settings to your shell.",
     "containerEnv": {
         "APP_DEBUG": "true",
