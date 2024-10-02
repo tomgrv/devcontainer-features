@@ -29,8 +29,8 @@ echo "Activating feature <$feature>..."
 mkdir -p $target
 
 ### Copy the config script to the target directory and create a git alias for it
-find $source -type f -name "configure*.sh" -exec cp {} $target \;
-find $target -type f -name "configure*.sh" -exec chmod +x {} \;
+find $source \( -name "_*" -o -name "configure*.sh" \) -type f -exec cp {} $target \;
+find $target -type f -name "*.sh" -exec chmod +x {} \;
 
 ### Call all the install-xxx scripts in the feature directory
 echo "Calling all install scripts in $source..."

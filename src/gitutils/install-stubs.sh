@@ -2,7 +2,7 @@
 set -e
 
 ### Merge all files from stub folder to root with git merge-file
-echo "Merging stubs files" | npx --yes chalk-cli --stdin blue
+echo "Merging stubs files..."
 for file in $(find $source/stubs -type f); do
 
   ### Get middle part of the path
@@ -12,7 +12,7 @@ for file in $(find $source/stubs -type f); do
   mkdir -p $folder
 
   ### Merge file
-  echo "Merge $folder/$(basename $file)" | npx --yes chalk-cli --stdin yellow
+  echo "Merge $folder/$(basename $file)"
   git merge-file -p $file $folder/$(basename $file) ${folder#$source/}/$(basename $file) >$folder/$(basename $file)
 
   ### Apply rights
@@ -20,10 +20,10 @@ for file in $(find $source/stubs -type f); do
 done
 
 ### Find all file with a trailing slash outside dist folder, make sure they are added to .gitignore and remove the trailing slash
-echo "Add files to .gitignore" | npx --yes chalk-cli --stdin blue
+echo "Add files to .gitignore..."
 for file in $(find . -type f -name "#*" -not -path "./stubs/*" -not -path "./node_modules/*" -not -path "./vendors/*"); do
 
-  echo "Add $file to .gitignore" | npx --yes chalk-cli --stdin yellow
+  echo "Add $file to .gitignore"
 
   ### Remove trailing # and leading ./#
   clean=${file#./#}
