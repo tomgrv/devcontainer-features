@@ -4,7 +4,7 @@ source=$(dirname $(readlink -f $0))
 
 # Enable colors
 if [ -t 1 ]; then
-    exec > /dev/tty 2>&1
+    exec >/dev/tty 2>&1
 fi
 
 # Check if the current Git command is a rebase
@@ -17,6 +17,8 @@ fi
 if git diff --cached --name-only | grep -q "package.json"; then
 
     # ensure that the package.json is valid and package-lock.json is up-to-date
+    npx --yes chalk-cli --no-stdin -t "{blue →}  Ensure that the package.json is valid and package-lock.json is up-to-date..."
+
     WORKSP=$(cat package.json | npx --yes jqn '.workspaces' | tr -d "'[]:")
     if test "$WORKSP" = "undefined"; then
         npm install || true
@@ -32,6 +34,7 @@ fi
 if git diff --cached --name-only | grep -q "composer.json"; then
 
     # ensure that the composer.json is valid and composer.lock is up-to-date
+    npx --yes chalk-cli --no-stdin -t "{blue →}  Ensure that the composer.json is valid and composer.lock is up-to-date..."
     composer update --lock --ignore-platform-reqs --no-scripts --no-interaction --no-progress --no-autoloader --no-publish
 
     # commit the updated composer.lock
@@ -39,7 +42,7 @@ if git diff --cached --name-only | grep -q "composer.json"; then
 fi
 
 # Install Prettier plugins
-npm install --no-save $(cat package.json | npx --yes jqn '.prettier.plugins' | tr -d "'[]:,") 2> /dev/null 1>&2
+npm install --no-save $(cat package.json | npx --yes jqn '.prettier.plugins' | tr -d "'[]:,") 2>/dev/null 1>&2
 
 # Run pre-commit checks
 npx --yes git-precommit-checks

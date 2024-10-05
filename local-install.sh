@@ -69,7 +69,6 @@ fi
 ### Stash all changes including untracked files
 stash=$(git stash -u && echo true)
 
-
 ### Force line endings to LF for all text files
 echo "Force line endings to LF for all text files" | npx --yes chalk-cli --stdin blue
 git ls-files -z | xargs -0 rm
@@ -156,8 +155,3 @@ git checkout -- . && git reset && git add .
 
 ### Unstash changes
 test -n "$stash" && git stash apply && git stash drop
-
-### Start script
-if [ "$1" = "--start" ]; then
-    $source/.devcontainer/start.sh
-fi
