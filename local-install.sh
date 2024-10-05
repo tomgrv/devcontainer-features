@@ -24,7 +24,8 @@ while getopts ":hasp:" opt $@; do
     a)
         echo "All selected" | npx --yes chalk-cli --stdin green
         stubs=1
-        features=$(jq -r '.config.local[]' $source/package.json)
+        features=$(sed '/^\s*\/\//d' $source/stubs/.devcontainer/devcontainer.json | jq -r '.features | to_entries[] | select(.key | contains("tomgrv/devcontainer-features"))| .key| 
+ split("/")[-1] | split(":")[0]')
         break
         ;;
     s)
