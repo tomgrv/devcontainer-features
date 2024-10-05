@@ -1,11 +1,12 @@
 {
     "name": "Git Aliases",
-    "version": "2.1.9",
+    "version": "2.2.0",
     "description": "A feature to add useful Git aliases to your shell.",
     "customizations": {
         "vscode": {
             "settings": {
-                "explorer.excludeGitIgnore": true
+                "explorer.excludeGitIgnore": true,
+                "git.autorefresh": true
             },
             "extensions": [
                 "donjayamanne.githistory",
