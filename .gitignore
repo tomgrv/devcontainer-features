@@ -28,6 +28,7 @@ Homestead.yaml
 .history
 .version.json
 /.mono
+/.toolkit
 
 ## Diff
 .rej
