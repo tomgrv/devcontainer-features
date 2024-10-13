@@ -9,10 +9,10 @@ features=""
 stubs="0"
 
 ### Handles arguments
-while getopts ":hasp:" opt $@; do
+while getopts ":hausp:" opt $@; do
     case $opt in
     h)
-        echo "Usage: $0 [-h|-a|-s|-p file|<features>]"
+        echo "Usage: $0 [-h|-a|-u|-s|-p file|<features>]"
         echo "  -h: Display this help"
         echo "  -a: All features"
         echo "  -s: Stubs only"
@@ -22,10 +22,17 @@ while getopts ":hasp:" opt $@; do
         exit
         ;;
     a)
-        echo "All selected" | npx --yes chalk-cli --stdin green
+        echo "Add default features" | npx --yes chalk-cli --stdin green
         stubs=1
         features=$(sed '/^\s*\/\//d' $source/stubs/.devcontainer/devcontainer.json | jq -r '.features | to_entries[] | select(.key | contains("tomgrv/devcontainer-features"))| .key| 
  split("/")[-1] | split(":")[0]')
+        break
+        ;;
+    u)
+        echo "Update features" | npx --yes chalk-cli --stdin green
+        stubs=1
+        features=$(sed '/^\s*\/\//d' $source/.devcontainer/devcontainer.json | jq -r '.features | to_entries[] | select(.key | contains("tomgrv/devcontainer-features"))| .key| 
+split("/")[-1] | split(":")[0]')
         break
         ;;
     s)
