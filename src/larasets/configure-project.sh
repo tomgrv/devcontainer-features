@@ -35,7 +35,7 @@ if [ -f ${containerWorkspaceFolder:-.}/vendor/bin/sail ] && [ "${LARAVEL_SAIL}" 
     ${containerWorkspaceFolder:-.}/vendor/bin/sail artisan config:cache
     ${containerWorkspaceFolder:-.}/vendor/bin/sail artisan view:cache
     ${containerWorkspaceFolder:-.}/vendor/bin/sail artisan route:cache
-    ${containerWorkspaceFolder:-.}/vendor/bin/sail artisan migrate --seed --graceful
+    ${containerWorkspaceFolder:-.}/vendor/bin/sail artisan migrate --seed --graceful --no-interaction
     ${containerWorkspaceFolder:-.}/vendor/bin/sail npx --yes pm2 --name devserver start npm -- run dev
 
 elif [ -f ${containerWorkspaceFolder:-.}/artisan ]; then
@@ -45,7 +45,7 @@ elif [ -f ${containerWorkspaceFolder:-.}/artisan ]; then
     php -d xdebug.mode=off artisan config:cache
     php -d xdebug.mode=off artisan view:cache
     php -d xdebug.mode=off artisan route:cache
-    php -d xdebug.mode=off artisan migrate --seed --graceful
+    php -d xdebug.mode=off artisan migrate --seed --graceful --no-interaction
     npx --yes pm2 --name devserver start npm -- run dev
 else
     echo "No laravel project found" | npx --yes chalk-cli --stdin yellow
