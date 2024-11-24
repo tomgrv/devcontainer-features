@@ -1,6 +1,6 @@
 {
     "name": "Laravel settings",
-    "version": "1.0.10",
+    "version": "1.0.11",
     "description": "A feature to add useful laravel settings to your shell.",
     "containerEnv": {
         "APP_DEBUG": "true",
@@ -53,8 +53,8 @@
         }
     },
     "dependsOn": {
-        "ghcr.io/devcontainers/features/node": "lts",
-        "ghcr.io/devcontainers/features/php": "lts",
+        "ghcr.io/devcontainers/features/node:1": "lts",
+        "ghcr.io/devcontainers/features/php:1": "8.3",
         "ghcr.io/devcontainers/features/docker-in-docker": "lts"
     },
     "id": "larasets",
