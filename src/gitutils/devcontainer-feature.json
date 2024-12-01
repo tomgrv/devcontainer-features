@@ -1,6 +1,6 @@
 {
     "name": "Git Aliases",
-    "version": "2.2.0",
+    "version": "2.2.3",
     "description": "A feature to add useful Git aliases to your shell.",
     "customizations": {
         "vscode": {
