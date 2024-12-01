@@ -1,4 +1,9 @@
 {
+    "core": {
+        "editor": "code --wait",
+        "autocrlf": "input",
+        "filemode": false
+    },
     "gitflow": {
         "branch": {
             "master": "main",
@@ -12,9 +17,5 @@
             "support": "support/",
             "versiontag": "v"
         }
-    },
-    "core": {
-        "editor": "code --wait",
-        "autocrlf": "input"
     }
 }
