@@ -92,6 +92,9 @@
         ],
         ".devcontainer/*": [
             "cp -u -t ./stubs/.devcontainer "
+        ],
+        "composer.lock": [
+            "composer validate --ansi --strict"
         ]
     },
     "config": {
