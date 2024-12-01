@@ -1,6 +1,9 @@
 #!/bin/sh
 set -e
 
+### Get indent size from devcontainer.json with jq, default to 2 if not found
+export tabSize=$(sed 's/\/\/.*//' .devcontainer/devcontainer.json | jq '.customizations.vscode.settings["editor.tabSize"] // 2')
+
 ### Init directories
 export source=$(dirname $(readlink -f $0))
 export feature=$(basename $source | sed 's/_.*$//')
@@ -22,13 +25,13 @@ fi
 ### Merge all package folder json files into top level package.json
 find $source -name _*.json | sort | while read file; do
     echo "Merge $file" | npx --yes chalk-cli --stdin yellow
-    jq -s '.[1] * .[0]' $file package.json >.package.json.$$ && mv -f .package.json.$$ package.json
+    jq --indent ${tabSize:-2} -s '.[0] * .[1]' $file package.json >/tmp/package.json && mv -f /tmp/package.json package.json
 done
 
 ### Call all configure-xxx.sh scripts
 find $source -name configure-*.sh | sort | while read file; do
     echo "Run $file" | npx --yes chalk-cli --stdin yellow
-    $file
+    $file || true
 done
 
 ### Sort package.json
