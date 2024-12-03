@@ -13,10 +13,16 @@ if [ -f ${containerWorkspaceFolder:-.}/package.json ]; then
     npm install --ws --if-present --include-workspace-root || npm install
 fi
 
-### Init db if sqlite
-if [ -n "$DB_DATABASE" ] && [ -f "$DB_DATABASE" ]; then
-    echo "Init db $DB_DATABASE"
-    touch $DB_DATABASE
+### Init db if sqlite and not exists
+if [ -n "$DB_CONNECTION" ] && [ "$DB_CONNECTION" = "sqlite" ]; then
+
+    ### Set default sqlite db
+    if [ -z "$DB_DATABASE" ]; then
+        export DB_DATABASE=database/database.sqlite
+    fi
+
+    echo "Ensure sqlite db $DB_DATABASE exist" | npx --yes chalk-cli --stdin blue
+    touch ${containerWorkspaceFolder:-.}/$DB_DATABASE
 fi
 
 ### Init env
