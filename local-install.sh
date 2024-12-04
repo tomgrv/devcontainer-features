@@ -97,7 +97,7 @@ if [ "$stubs" -eq "1" ]; then
 
         ### Merge file
         echo "Merge $folder/$(basename $file)" | npx --yes chalk-cli --stdin yellow
-        git merge-file -p $file $folder/$(basename $file) ${folder#$source/}/$(basename $file) >$folder/$(basename $file)
+        rsync -u $file $folder/$(basename $file)
 
         ### Apply rights
         chmod $(stat -c "%a" $file) $folder/$(basename $file)
