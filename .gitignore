@@ -33,5 +33,3 @@ Homestead.yaml
 ## Diff
 .rej
 .orig
-.gitattributes
-./src/gitutils/stubs/#.gitattributes
