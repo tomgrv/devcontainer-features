@@ -12,40 +12,30 @@ fi
 $SUDO cat <<EOF >~/.bash_aliases
 
 alias gitv='gitversion'
-alias sail='sh $([ -f sail ] && echo sail || echo \${containerWorkspaceFolder:-.}/vendor/bin/sail)'
+alias sail='sh $([ -f sail ] && echo sail || echo ${containerWorkspaceFolder:-.}/vendor/bin/sail)'
 
 art() {
     test -n "\$LARAVEL_SAIL" && test "\$LARAVEL_SAIL" -eq 1 && sail artisan "\$@" || php -d xdebug.mode=off \${CODESPACE_VSCODE_FOLDER:-.}/artisan "\$@"
-}
+} && export -f art
 
-export -f art
-
-srv()  {
+srv() {
     test -n "\$LARAVEL_SAIL" && test "\$LARAVEL_SAIL" -eq 1 && sail npx --yes pm2 "\$@" || npx --yes pm2 "\$@"
-}
+} && export -f srv
 
-export -f srv
-
-run()  {
+run() {
     srv restart server_\$1 || srv --name server_\$1 start npm -- run \$1
-}
+} && export -f run
 
-export -f run
-
-log()  {
+log() {
     srv logs server_\$1
-}
-
-export -f log
+} && export -f log
 
 refresh() {
     art config:cache
     art view:cache
     art route:cache
     art optimize:clear
-}
-
-export -f refresh
+} && export -f refresh
 
 init() {
     test -f \${CODESPACE_VSCODE_FOLDER:-.}/artisan || return 1
@@ -54,7 +44,6 @@ init() {
     refresh
     art migrate --graceful --no-interaction
     run dev
-}
+} && export -f init
 
-export -f init
 EOF
