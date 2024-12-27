@@ -7,8 +7,8 @@
         "ghcr.io/devcontainers/features/node:1": "lts",
         "ghcr.io/devcontainers/features/php:1": "8.3",
         "ghcr.io/devcontainers/features/docker-in-docker:2": {},
-        "ghcr.io/tomgrv/devcontainer-features/gitutils:2.2": {},
-        "ghcr.io/tomgrv/devcontainer-features/githooks:2.1": {}
+        "ghcr.io/tomgrv/devcontainer-features/gitutils:3": {},
+        "ghcr.io/tomgrv/devcontainer-features/githooks:3": {}
     },
     // Use 'forwardPorts' to make a list of ports inside the container available locally.
     // "forwardPorts": [],

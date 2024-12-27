@@ -1,6 +1,6 @@
 {
     "name": "Git Hooks",
-    "version": "2.1.8",
+    "version": "3.0.2",
     "description": "A feature to add useful Git hooks to your project",
     "customizations": {
         "vscode": {
@@ -13,11 +13,12 @@
         }
     },
     "dependsOn": {
-        "ghcr.io/devcontainers/features/node": {}
+        "ghcr.io/devcontainers/features/node": {},
+        "ghcr.io/tomgrv/devcontainer-features/common-utils": {}
     },
     "id": "githooks",
     "installsAfter": [
-        "ghcr.io/devcontainers/features/common-utils"
+        "ghcr.io/tomgrv/devcontainer-features/common-utils"
     ],
-    "postStartCommand": "/usr/local/share/githooks/configure.sh"
+    "postStartCommand": "configure-feature githooks"
 }
