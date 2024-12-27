@@ -1,0 +1,19 @@
+{
+    "name": "Common Utils",
+    "version": "1.1.5",
+    "description": "Common utils for tomgrv/devcontainer-features",
+    "dependsOn": {
+        "ghcr.io/devcontainers/features/common-utils": {}
+    },
+    "id": "common-utils",
+    "installsAfter": [
+        "ghcr.io/devcontainers/features/common-utils"
+    ],
+    "options": {
+        "utils": {
+            "type": "string",
+            "default": "jq dos2unix",
+            "description": "utilities to install"
+        }
+    }
+}

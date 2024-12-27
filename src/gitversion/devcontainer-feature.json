@@ -1,13 +1,14 @@
 {
     "name": "GitVersion feature",
-    "version": "1.1.9",
+    "version": "3.0.1",
     "description": "Add gitversion to your devcontainer",
     "dependsOn": {
-        "ghcr.io/devcontainers/features/dotnet": "lts"
+        "ghcr.io/devcontainers/features/dotnet": "",
+        "ghcr.io/tomgrv/devcontainer-features/common-utils": ""
     },
     "id": "gitversion",
     "installsAfter": [
-        "ghcr.io/devcontainers/features/common-utils",
+        "ghcr.io/tomgrv/devcontainer-features/common-utils",
         "ghcr.io/devcontainers/features/dotnet"
     ],
     "options": {
@@ -17,5 +18,5 @@
             "description": "The version of GitVersion to install"
         }
     },
-    "postStartCommand": "/usr/local/share/gitversion/configure.sh"
+    "postStartCommand": "configure-feature gitversion"
 }

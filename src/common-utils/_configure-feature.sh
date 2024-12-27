@@ -1,19 +1,29 @@
 #!/bin/sh
 set -e
 
+### Check if feature is provided
+if [ -z "$1" ]; then
+    echo "Usage: $0 <feature>"
+    exit 1
+fi
+
+### Init directories
+export feature=$1
+export source=/usr/local/share/$1
+
 ### Get indent size from devcontainer.json with jq, default to 2 if not found
 export tabSize=$(sed 's/\/\/.*//' .devcontainer/devcontainer.json | jq '.customizations.vscode.settings["editor.tabSize"] // 2')
 
-### Init directories
-export source=$(dirname $(readlink -f $0))
-export feature=$(basename $source | sed 's/_.*$//')
-echo "Configuring feature <$feature>..."
+echo "Configuring feature <$feature>"
+echo "from <$source>"
 
 ### Go to the module root
 cd "$(git rev-parse --show-toplevel)" >/dev/null
 
-### Create package.json if not exists or is empty
+### Log
 echo "Merge all package folder json files into top level package.json" | npx --yes chalk-cli --stdin blue
+
+### Create package.json if not exists or is empty
 if [ ! -f package.json -o ! -s package.json ]; then
     # Create empty package.json
     echo "{}" >package.json
