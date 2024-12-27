@@ -6,7 +6,9 @@
         "APP_DEBUG": "true",
         "APP_ENV": "local",
         "APP_PORT": "80",
-        "LARAVEL_SAIL": "1",
+        "APP_URL": "https:\/\/${localEnv:CODESPACE_NAME}-${containerEnv:APP_PORT}.${localEnv:GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}",
+        "ASSET_URL": "${containerEnv:APP_URL}"
+        "LARAVEL_SAIL": "1",,
         "DB_CONNECTION": "sqlite",
         "DB_DATABASE": "database/database.sqlite",
         "SAIL_XDEBUG_MODE": "develop,debug",
