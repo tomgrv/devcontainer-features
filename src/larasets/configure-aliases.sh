@@ -12,11 +12,6 @@ fi
 $SUDO cat <<EOF >~/.bash_aliases
 
 alias gitv='gitversion'
-alias sail='sh $([ -f sail ] && echo sail || echo ${containerWorkspaceFolder:-.}/vendor/bin/sail)'
-
-art() {
-    test -n "\$LARAVEL_SAIL" && test "\$LARAVEL_SAIL" -eq 1 && sail artisan "\$@" || php -d xdebug.mode=off \${CODESPACE_VSCODE_FOLDER:-.}/artisan "\$@"
-} && export -f art
 
 srv() {
     test -n "\$LARAVEL_SAIL" && test "\$LARAVEL_SAIL" -eq 1 && sail npx --yes pm2 "\$@" || npx --yes pm2 "\$@"
