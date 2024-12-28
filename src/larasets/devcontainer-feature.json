@@ -1,25 +1,16 @@
 {
     "name": "Laravel settings",
-    "version": "3.0.2",
+    "version": "3.0.7",
     "description": "A feature to add useful laravel settings to your shell.",
     "containerEnv": {
         "APP_DEBUG": "true",
         "APP_ENV": "local",
-        "APP_PORT": "80",
-        "APP_URL": "https://${localEnv:CODESPACE_NAME}-${containerEnv:APP_PORT}.${localEnv:GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}",
-        "ASSET_URL": "${containerEnv:APP_URL}",
         "LARAVEL_SAIL": "1",
         "DB_CONNECTION": "sqlite",
         "DB_DATABASE": "database/database.sqlite",
         "SAIL_XDEBUG_MODE": "develop,debug",
         "SAIL_XDEBUG_CONFIG": "client_host=host.docker.internal idekey=vscode",
-        "XDEBUG_MODE": "off",
-        "MAIL_MAILER": "smtp",
-        "MAIL_HOST": "mailpit",
-        "MAIL_PORT": "1025",
-        "MAIL_USERNAME": "null",
-        "MAIL_PASSWORD": "null",
-        "MAIL_ENCRYPTION": "null"
+        "XDEBUG_MODE": "off"
     },
     "customizations": {
         "vscode": {
@@ -83,6 +74,9 @@
     "id": "larasets",
     "installsAfter": [
         "ghcr.io/tomgrv/devcontainer-features/common-utils"
+    ],
+    "legacyIds": [
+        "larasets"
     ],
     "postStartCommand": "configure-feature larasets"
 }
