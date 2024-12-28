@@ -22,3 +22,4 @@ done
 
 ### Install this feature
 $(dirname $0)/_install-feature.sh
+$(dirname $0)/_install-bin.sh
