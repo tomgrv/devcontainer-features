@@ -1,6 +1,6 @@
 {
     "name": "GitVersion feature",
-    "version": "3.0.1",
+    "version": "3.0.2",
     "description": "Add gitversion to your devcontainer",
     "dependsOn": {
         "ghcr.io/devcontainers/features/dotnet": "",
