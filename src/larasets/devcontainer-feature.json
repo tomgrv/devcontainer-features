@@ -1,42 +1,146 @@
 {
     "name": "Laravel settings",
-    "version": "3.0.2",
+    "version": "3.0.12",
     "description": "A feature to add useful laravel settings to your shell.",
     "containerEnv": {
         "APP_DEBUG": "true",
         "APP_ENV": "local",
-        "APP_PORT": "80",
-        "APP_URL": "https://${localEnv:CODESPACE_NAME}-${containerEnv:APP_PORT}.${localEnv:GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}",
-        "ASSET_URL": "${containerEnv:APP_URL}",
         "LARAVEL_SAIL": "1",
         "DB_CONNECTION": "sqlite",
         "DB_DATABASE": "database/database.sqlite",
         "SAIL_XDEBUG_MODE": "develop,debug",
         "SAIL_XDEBUG_CONFIG": "client_host=host.docker.internal idekey=vscode",
-        "XDEBUG_MODE": "off",
-        "MAIL_MAILER": "smtp",
-        "MAIL_HOST": "mailpit",
-        "MAIL_PORT": "1025",
-        "MAIL_USERNAME": "null",
-        "MAIL_PASSWORD": "null",
-        "MAIL_ENCRYPTION": "null"
+        "XDEBUG_MODE": "off"
     },
     "customizations": {
         "vscode": {
             "settings": {
                 "triggerTaskOnSave.tasks": {
-                    "php-refresh-config": [
+                    "art-cache-config": [
                         "**/config.php",
                         "config/*.php",
                         ".env"
                     ],
-                    "php-refresh-views": [
+                    "art-cache-views": [
                         "packages/**/*.blade.php"
                     ],
-                    "php-refresh-routes": [
+                    "art-cache-routes": [
                         "**/[Rr]outes/*.php"
-                    ],
-                    "php-refresh-db": []
+                    ]
+                },
+                "launch": {
+                    "configurations": [
+                        {
+                            "name": "Listen for Xdebug from Laravel sail",
+                            "type": "php",
+                            "request": "launch",
+                            "port": 9003,
+                            "pathMappings": {
+                                "/var/www/html": "${workspaceFolder}"
+                            }
+                        }
+                    ]
+                },
+                "tasks": {
+                    "version": "2.0.0",
+                    "tasks": [
+                        {
+                            "label": "art-cache-config",
+                            "type": "shell",
+                            "command": "art config:cache",
+                            "presentation": {
+                                "panel": "dedicated",
+                                "reveal": "silent",
+                                "close": true
+                            }
+                        },
+                        {
+                            "label": "art-cache-views",
+                            "type": "shell",
+                            "command": "art view:cache",
+                            "hide": true,
+                            "presentation": {
+                                "panel": "dedicated",
+                                "reveal": "silent",
+                                "close": true
+                            }
+                        },
+                        {
+                            "label": "art-cache-routes",
+                            "type": "shell",
+                            "command": "art route:cache",
+                            "hide": true,
+                            "presentation": {
+                                "panel": "dedicated",
+                                "reveal": "silent",
+                                "close": true
+                            }
+                        },
+                        {
+                            "label": "up",
+                            "dependsOn": [
+                                "sail up",
+                                "art-cache-config",
+                                "art-cache-views",
+                                "art-cache-routes",
+                                "queue",
+                                "schedule",
+                                "vite"
+                            ],
+                            "dependsOrder": "sequence"
+                        },
+                        {
+                            "label": "sail up",
+                            "type": "shell",
+                            "command": "sail up --wait && seed",
+                            "presentation": {
+                                "panel": "dedicated",
+                                "reveal": "silent",
+                                "close": true
+                            },
+                            "hide": true
+                        },
+                        {
+                            "label": "sail down",
+                            "type": "shell",
+                            "command": "sail down",
+                            "presentation": {
+                                "panel": "dedicated",
+                                "reveal": "silent",
+                                "close": true
+                            },
+                            "hide": true
+                        },
+                        {
+                            "label": "queue",
+                            "type": "shell",
+                            "command": "art queue:listen sync --queue=default --sleep=3 --tries=3",
+                            "presentation": {
+                                "panel": "dedicated",
+                                "reveal": "silent"
+                            },
+                            "hide": true
+                        },
+                        {
+                            "label": "schedule",
+                            "type": "shell",
+                            "command": "art schedule:work",
+                            "presentation": {
+                                "panel": "dedicated",
+                                "reveal": "silent"
+                            },
+                            "hide": true
+                        },
+                        {
+                            "label": "vite",
+                            "type": "shell",
+                            "command": "run dev",
+                            "presentation": {
+                                "panel": "dedicated",
+                                "reveal": "always"
+                            }
+                        }
+                    ]
                 }
             },
             "extensions": [
@@ -58,20 +162,7 @@
                 "davidanson.vscode-markdownlint",
                 "pcbowers.alpine-intellisense",
                 "laravel.vscode-laravel"
-            ],
-            "launch": {
-                "configurations": [
-                    {
-                        "name": "Listen for Xdebug from Laravel sail",
-                        "type": "php",
-                        "request": "launch",
-                        "port": 9003,
-                        "pathMappings": {
-                            "/var/www/html": "${workspaceFolder}"
-                        }
-                    }
-                ]
-            }
+            ]
         }
     },
     "dependsOn": {
@@ -83,6 +174,9 @@
     "id": "larasets",
     "installsAfter": [
         "ghcr.io/tomgrv/devcontainer-features/common-utils"
+    ],
+    "legacyIds": [
+        "larasets"
     ],
     "postStartCommand": "configure-feature larasets"
 }
