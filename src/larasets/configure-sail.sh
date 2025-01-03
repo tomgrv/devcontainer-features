@@ -6,5 +6,5 @@ init
 
 ### Build sail if needed
 if [ -n "$LARAVEL_SAIL" ] && [ "$LARAVEL_SAIL" -eq 1 ]; then
-    sail build --no-cache
+    sail build
 fi
