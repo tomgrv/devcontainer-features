@@ -13,8 +13,10 @@ if test "$GIT_COMMAND" = "rebase"; then
     exit 0
 fi
 
+echo $GIT_COMMAND
+
 # Check if the current commit contains package.json changes
-if git diff --cached --name-only | grep -q "package.json"; then
+if git diff ${@:---cached --name-only} | grep -q "package.json"; then
 
     # ensure that the package.json is valid and package-lock.json is up-to-date
     npx --yes chalk-cli --no-stdin -t "{blue →}  Ensure that the package.json is valid and package-lock.json is up-to-date..."
@@ -31,7 +33,7 @@ if git diff --cached --name-only | grep -q "package.json"; then
 fi
 
 # Check if the current commit contains composer.json changes
-if git diff --cached --name-only | grep -q "composer.json"; then
+if git diff ${@:---cached --name-only} | grep -q "composer.json"; then
 
     # ensure that the composer.json is valid and composer.lock is up-to-date
     npx --yes chalk-cli --no-stdin -t "{blue →}  Ensure that the composer.json is valid and composer.lock is up-to-date..."
