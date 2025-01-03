@@ -53,7 +53,7 @@ if ! git isFixup; then
 	fi
 
 	#### START REBASE
-	git rebase -i --autosquash $sha~ --autostash --no-verify
+	git rebase -i --autosquash $sha~ --autostash --no-verify --exec '[ -f .git/hooks/pre-commit ] && (.git/hooks/pre-commit --name-only HEAD HEAD~1 && git commit --amend --no-edit --no-verify) || true'
 else
 	echo -e "\e[32mExisting !fixup commit found. Continue rebasing...\e[0m"
 
