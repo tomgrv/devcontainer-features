@@ -1,6 +1,6 @@
 {
     "name": "Laravel settings",
-    "version": "3.0.13",
+    "version": "3.0.14",
     "description": "A feature to add useful laravel settings to your shell.",
     "containerEnv": {
         "APP_DEBUG": "true",
@@ -119,7 +119,29 @@
                                 "panel": "dedicated",
                                 "reveal": "silent"
                             },
-                            "hide": true
+                            "hide": true,
+                            "isBackground": true,
+                            "problemMatcher": {
+                                "owner": "artisan",
+                                "fileLocation": [
+                                    "relative",
+                                    "${workspaceFolder}"
+                                ],
+                                "source": "artisan",
+                                "pattern": {
+                                    "regexp": "^\\s*(ERROR)\\s*(.*)$",
+                                    "file": 1,
+                                    "line": 2,
+                                    "column": 3,
+                                    "severity": 4,
+                                    "message": 5
+                                },
+                                "background": {
+                                    "activeOnStart": true,
+                                    "beginsPattern": "^\\s*(INFO)\\s*(.*)$",
+                                    "endsPattern": "^\\s*(INFO)\\s*(.*)$"
+                                }
+                            }
                         },
                         {
                             "label": "schedule",
@@ -129,7 +151,29 @@
                                 "panel": "dedicated",
                                 "reveal": "silent"
                             },
-                            "hide": true
+                            "hide": true,
+                            "isBackground": true,
+                            "problemMatcher": {
+                                "owner": "artisan",
+                                "fileLocation": [
+                                    "relative",
+                                    "${workspaceFolder}"
+                                ],
+                                "source": "artisan",
+                                "pattern": {
+                                    "regexp": "^\\s*(ERROR)\\s*(.*)$",
+                                    "file": 1,
+                                    "line": 2,
+                                    "column": 3,
+                                    "severity": 4,
+                                    "message": 5
+                                },
+                                "background": {
+                                    "activeOnStart": true,
+                                    "beginsPattern": "^\\s*(INFO)\\s*(.*)$",
+                                    "endsPattern": "^\\s*(INFO)\\s*(.*)$"
+                                }
+                            }
                         },
                         {
                             "label": "vite",
@@ -138,6 +182,28 @@
                             "presentation": {
                                 "panel": "dedicated",
                                 "reveal": "always"
+                            },
+                            "isBackground": true,
+                            "problemMatcher": {
+                                "owner": "vite",
+                                "fileLocation": [
+                                    "relative",
+                                    "${workspaceFolder}"
+                                ],
+                                "source": "vite",
+                                "pattern": {
+                                    "regexp": "^\\s*(Error)\\s*(.*)$",
+                                    "file": 1,
+                                    "line": 2,
+                                    "column": 3,
+                                    "severity": 4,
+                                    "message": 5
+                                },
+                                "background": {
+                                    "activeOnStart": true,
+                                    "beginsPattern": "^VITE v\\d+\\.\\d+\\.\\d+\\s+ready in \\d+ ms$",
+                                    "endsPattern": "^VITE v\\d+\\.\\d+\\.\\d+\\s+ready in \\d+ ms$"
+                                }
                             }
                         }
                     ]
