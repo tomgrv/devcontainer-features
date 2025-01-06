@@ -1,6 +1,6 @@
 {
     "name": "Git Aliases",
-    "version": "3.1.0",
+    "version": "3.2.0",
     "description": "A feature to add useful Git aliases to your shell.",
     "customizations": {
         "vscode": {
@@ -29,5 +29,5 @@
         "ghcr.io/tomgrv/devcontainer-features/common-utils",
         "ghcr.io/tomgrv/devcontainer-features/gitversion"
     ],
-    "postStartCommand": "configure-feature gitutils"
+    "postCreateCommand": "configure-feature gitutils"
 }
