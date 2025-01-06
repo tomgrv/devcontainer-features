@@ -1,6 +1,6 @@
 {
     "name": "Laravel settings",
-    "version": "3.0.14",
+    "version": "3.2.0",
     "description": "A feature to add useful laravel settings to your shell.",
     "containerEnv": {
         "APP_DEBUG": "true",
@@ -244,5 +244,5 @@
     "legacyIds": [
         "larasets"
     ],
-    "postStartCommand": "configure-feature larasets"
+    "postCreateCommand": "configure-feature larasets"
 }
