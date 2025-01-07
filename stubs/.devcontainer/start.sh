@@ -10,4 +10,4 @@ fi
 
 ### Self update
 echo "Self updating devcontainer..."
-npx --yes $(sed -e 's://.*$::g' .devcontainer/devcontainer.json | npx --yes jqn '.name' | tr -d "'[]:,") -u
+npx --yes $(sed -e 's://.*$::g' ${containerWorkspaceFolder:-.}/.devcontainer/devcontainer.json | npx --yes jqn '.name' | tr -d "'[]:,") -u
