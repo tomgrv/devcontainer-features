@@ -6,6 +6,7 @@
             "name": "Listen for XDebug",
             "type": "php",
             "request": "launch",
+            "preLaunchTask": "up",
             "port": 9003,
             "pathMappings": {
                 "/var/www/html": "${workspaceFolder}"
