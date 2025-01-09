@@ -8,6 +8,7 @@
             "hide": true,
             "presentation": {
                 "panel": "dedicated",
+                "clear": true,
                 "reveal": "silent",
                 "close": true
             }
@@ -19,6 +20,7 @@
             "hide": true,
             "presentation": {
                 "panel": "dedicated",
+                "clear": true,
                 "reveal": "silent",
                 "close": true
             }
@@ -30,6 +32,7 @@
             "hide": true,
             "presentation": {
                 "panel": "dedicated",
+                "clear": true,
                 "reveal": "silent",
                 "close": true
             }
@@ -37,30 +40,31 @@
         {
             "label": "up",
             "dependsOn": [
-                "sail up",
-                "seed",
-                "queue",
-                "schedule",
+                "sail-up",
+                "art-queue",
+                "art-schedule",
                 "vite"
             ],
             "dependsOrder": "sequence"
         },
         {
-            "label": "sail up",
+            "label": "sail-up",
             "type": "shell",
-            "command": "sail up --build --wait",
+            "command": "sail up --build --wait && sail composer dump-autoload",
             "presentation": {
                 "panel": "dedicated",
-                "reveal": "silent"
-            }
+                "clear": true,
+                "close": true
+            },
+            "hide": true
         },
         {
-            "label": "sail down",
+            "label": "sail-down",
             "type": "shell",
             "command": "sail down",
             "presentation": {
                 "panel": "dedicated",
-                "reveal": "silent",
+                "clear": true,
                 "close": true
             },
             "hide": true
@@ -68,9 +72,10 @@
         {
             "label": "art-queue",
             "type": "shell",
-            "command": "art queue:listen sync --queue=default --sleep=3 --tries=3",
+            "command": "art queue:listen --sleep=3 --tries=3",
             "presentation": {
                 "panel": "dedicated",
+                "clear": true,
                 "reveal": "silent"
             },
             "hide": true,
@@ -82,18 +87,21 @@
                     "${workspaceFolder}"
                 ],
                 "source": "artisan",
-                "pattern": {
-                    "regexp": "^\\s*(ERROR)\\s*(.*)$",
-                    "file": 1,
-                    "line": 2,
-                    "column": 3,
-                    "severity": 4,
-                    "message": 5
-                },
+                "pattern": [
+                    {
+                        "regexp": "Exception",
+                        "message": 1
+                    },
+                    {
+                        "regexp": "^\\s*at\\s*([/\\w]+):(\\d+)$",
+                        "file": 1,
+                        "line": 2
+                    }
+                ],
                 "background": {
                     "activeOnStart": true,
-                    "beginsPattern": "^\\s*(INFO)\\s*(.*)$",
-                    "endsPattern": "^\\s*(INFO)\\s*(.*)$"
+                    "beginsPattern": "^\\s*(INFO)",
+                    "endsPattern": "."
                 }
             }
         },
@@ -103,6 +111,7 @@
             "command": "art schedule:work",
             "presentation": {
                 "panel": "dedicated",
+                "clear": true,
                 "reveal": "silent"
             },
             "hide": true,
@@ -114,27 +123,31 @@
                     "${workspaceFolder}"
                 ],
                 "source": "artisan",
-                "pattern": {
-                    "regexp": "^\\s*(ERROR)\\s*(.*)$",
-                    "file": 1,
-                    "line": 2,
-                    "column": 3,
-                    "severity": 4,
-                    "message": 5
-                },
+                "pattern": [
+                    {
+                        "regexp": "Exception",
+                        "message": 1
+                    },
+                    {
+                        "regexp": "^\\s*at\\s*([/\\w]+):(\\d+)$",
+                        "file": 1,
+                        "line": 2
+                    }
+                ],
                 "background": {
                     "activeOnStart": true,
-                    "beginsPattern": "^\\s*(INFO)\\s*(.*)$",
-                    "endsPattern": "^\\s*(INFO)\\s*(.*)$"
+                    "beginsPattern": "^\\s*(INFO)",
+                    "endsPattern": "."
                 }
             }
         },
         {
             "label": "vite",
             "type": "shell",
-            "command": "run dev",
+            "command": "srv dev",
             "presentation": {
                 "panel": "dedicated",
+                "clear": true,
                 "reveal": "always"
             },
             "isBackground": true,
@@ -156,7 +169,7 @@
                 "background": {
                     "activeOnStart": true,
                     "beginsPattern": "^VITE v\\d+\\.\\d+\\.\\d+\\s+ready in \\d+ ms$",
-                    "endsPattern": "^VITE v\\d+\\.\\d+\\.\\d+\\s+ready in \\d+ ms$"
+                    "endsPattern": "."
                 }
             }
         }
