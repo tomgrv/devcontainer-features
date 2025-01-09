@@ -37,7 +37,7 @@ if git diff ${@:---cached --name-only} | grep -q "composer.json"; then
 
     # ensure that the composer.json is valid and composer.lock is up-to-date
     npx --yes chalk-cli --no-stdin -t "{blue →}  Ensure that the composer.json is valid and composer.lock is up-to-date..."
-    composer update --lock --ignore-platform-reqs --no-scripts --no-interaction --no-progress --no-autoloader --no-publish
+    composer update --lock --ignore-platform-reqs --no-scripts --no-interaction --no-progress --no-autoloader
 
     # commit the updated composer.lock
     git add composer.lock
