@@ -1,0 +1,164 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "art-cache-config",
+            "type": "shell",
+            "command": "art config:cache",
+            "hide": true,
+            "presentation": {
+                "panel": "dedicated",
+                "reveal": "silent",
+                "close": true
+            }
+        },
+        {
+            "label": "art-cache-views",
+            "type": "shell",
+            "command": "art view:cache",
+            "hide": true,
+            "presentation": {
+                "panel": "dedicated",
+                "reveal": "silent",
+                "close": true
+            }
+        },
+        {
+            "label": "art-cache-routes",
+            "type": "shell",
+            "command": "art route:cache",
+            "hide": true,
+            "presentation": {
+                "panel": "dedicated",
+                "reveal": "silent",
+                "close": true
+            }
+        },
+        {
+            "label": "up",
+            "dependsOn": [
+                "sail up",
+                "seed",
+                "queue",
+                "schedule",
+                "vite"
+            ],
+            "dependsOrder": "sequence"
+        },
+        {
+            "label": "sail up",
+            "type": "shell",
+            "command": "sail up --build --wait",
+            "presentation": {
+                "panel": "dedicated",
+                "reveal": "silent"
+            }
+        },
+        {
+            "label": "sail down",
+            "type": "shell",
+            "command": "sail down",
+            "presentation": {
+                "panel": "dedicated",
+                "reveal": "silent",
+                "close": true
+            },
+            "hide": true
+        },
+        {
+            "label": "art-queue",
+            "type": "shell",
+            "command": "art queue:listen sync --queue=default --sleep=3 --tries=3",
+            "presentation": {
+                "panel": "dedicated",
+                "reveal": "silent"
+            },
+            "hide": true,
+            "isBackground": true,
+            "problemMatcher": {
+                "owner": "artisan",
+                "fileLocation": [
+                    "relative",
+                    "${workspaceFolder}"
+                ],
+                "source": "artisan",
+                "pattern": {
+                    "regexp": "^\\s*(ERROR)\\s*(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "severity": 4,
+                    "message": 5
+                },
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": "^\\s*(INFO)\\s*(.*)$",
+                    "endsPattern": "^\\s*(INFO)\\s*(.*)$"
+                }
+            }
+        },
+        {
+            "label": "art-schedule",
+            "type": "shell",
+            "command": "art schedule:work",
+            "presentation": {
+                "panel": "dedicated",
+                "reveal": "silent"
+            },
+            "hide": true,
+            "isBackground": true,
+            "problemMatcher": {
+                "owner": "artisan",
+                "fileLocation": [
+                    "relative",
+                    "${workspaceFolder}"
+                ],
+                "source": "artisan",
+                "pattern": {
+                    "regexp": "^\\s*(ERROR)\\s*(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "severity": 4,
+                    "message": 5
+                },
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": "^\\s*(INFO)\\s*(.*)$",
+                    "endsPattern": "^\\s*(INFO)\\s*(.*)$"
+                }
+            }
+        },
+        {
+            "label": "vite",
+            "type": "shell",
+            "command": "run dev",
+            "presentation": {
+                "panel": "dedicated",
+                "reveal": "always"
+            },
+            "isBackground": true,
+            "problemMatcher": {
+                "owner": "vite",
+                "fileLocation": [
+                    "relative",
+                    "${workspaceFolder}"
+                ],
+                "source": "vite",
+                "pattern": {
+                    "regexp": "^\\s*(Error)\\s*(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "severity": 4,
+                    "message": 5
+                },
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": "^VITE v\\d+\\.\\d+\\.\\d+\\s+ready in \\d+ ms$",
+                    "endsPattern": "^VITE v\\d+\\.\\d+\\.\\d+\\s+ready in \\d+ ms$"
+                }
+            }
+        }
+    ]
+}
