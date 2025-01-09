@@ -37,10 +37,9 @@
         {
             "label": "up",
             "dependsOn": [
-                "sail up",
-                "seed",
-                "queue",
-                "schedule",
+                "sail-restart",
+                "art-queue",
+                "art-schedule",
                 "vite"
             ],
             "dependsOrder": "sequence"
