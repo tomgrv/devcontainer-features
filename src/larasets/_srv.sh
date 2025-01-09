@@ -4,7 +4,9 @@ set -e
 workspace=${containerWorkspaceFolder:-${CODESPACE_VSCODE_FOLDER:-.}}
 if [ -n "$LARAVEL_SAIL" ] && [ "$LARAVEL_SAIL" -eq 1 ]
 then
-    sail npm run "$@"
+    server='sail npx --yes pm2'
 else
-    npm run "$@"
+    server='npx --yes pm2'
 fi
+
+$server restart server_\$1 || $server --name server_\$1 start npm -- run "\$@"
