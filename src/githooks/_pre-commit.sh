@@ -23,9 +23,9 @@ if git diff ${@:---cached --name-only} | grep -q "package.json"; then
 
     WORKSP=$(cat package.json | npx --yes jqn '.workspaces' | tr -d "'[]:")
     if test "$WORKSP" = "undefined"; then
-        npm install || true
+        npm install --package-lock || true
     else
-        npm install --ws --if-present --include-workspace-root || true
+        npm install --package-lock --ws --if-present --include-workspace-root || true
     fi
 
     # commit the updated package-lock.json
@@ -37,7 +37,9 @@ if git diff ${@:---cached --name-only} | grep -q "composer.json"; then
 
     # ensure that the composer.json is valid and composer.lock is up-to-date
     npx --yes chalk-cli --no-stdin -t "{blue →}  Ensure that the composer.json is valid and composer.lock is up-to-date..."
-    composer update --lock --ignore-platform-reqs --no-scripts --no-interaction --no-progress --no-autoloader
+    composer validate --no-check-all --strict 2>&1 | grep -oP 'Required package "\K[^"]+' | while read -r package; do
+        composer require --ignore-platform-reqs --no-scripts --no-interaction --no-progress --no-install "$package"
+    done
 
     # commit the updated composer.lock
     git add composer.lock
