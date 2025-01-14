@@ -1,12 +1,11 @@
 {
-    "align": "git stash save --keep-index --include-untracked  && git reset --hard $(git rev-parse --abbrev-ref --symbolic-full-name @{u})",
     "amend": "git diff-index --cached --quiet HEAD || git commit --amend -C HEAD",
     "beta": "git release-beta",
     "cleanup": "git stash save --include-untracked  --keep-index; git clean --force -d -x -e \".env*\"; git stash apply --index; git stash drop",
     "co": "git commit -m \"$1\"",
     "conflict": "git diff --name-only --diff-filter=U",
     "continue": "git checkout -- . && git rebase --continue",
-    "crush": "git commit --amend --no-verify -C HEAD",
+    "crush": "git stash save --keep-index --include-untracked  && git reset --hard $(git rev-parse --abbrev-ref --symbolic-full-name @{u})",
     "edit": "git commit --amend --edit",
     "fixable": "git log --oneline $(git rev-parse --abbrev-ref --symbolic-full-name @{u})..HEAD",
     "forceable": "git log --oneline $(echo $(git rev-parse --abbrev-ref --symbolic-full-name @{u};git log --merges --first-parent -1 --pretty=%h)| tail -1)..HEAD $*",
@@ -21,6 +20,7 @@
     "isRebase": "git rev-parse --git-dir | grep -q rebase-merge || git rev-parse --git-dir | grep -q rebase-apply",
     "prod": "git release-prod",
     "renameTag": "set -e;git tag $2 $1; git tag -d $1;git push origin :refs/tags/$1;git push --tags",
+    "stack": "git commit --amend --no-verify -C HEAD",
     "sync": "git fetch --progress --prune --recurse-submodules=no origin && git stash save --keep-index --include-untracked && git merge --ff-only @{u} && git stash pop --index || git stash drop",
     "undo": "git reset --soft HEAD^ --"
 }
