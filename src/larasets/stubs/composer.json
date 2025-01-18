@@ -1,0 +1,17 @@
+{
+    "scripts": {
+        "link": [
+            "composer config repositories.local '{\"type\": \"path\", \"url\": \"@additional_args\"}' --file composer.json"
+        ]
+    },
+    "config": {
+        "allow-plugins": {
+            "wikimedia/composer-merge-plugin": true
+        },
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
