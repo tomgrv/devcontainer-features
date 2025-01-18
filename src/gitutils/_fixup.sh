@@ -9,16 +9,16 @@ fi
 #### Goto repository root
 cd "$(git rev-parse --show-toplevel)" >/dev/null
 
-#### INTEGRATE MODIFICATIONS
+#### Integrate modifications from remote
 git fetch --progress --prune --recurse-submodules=no origin >/dev/null
 
-#### LOAD PARAMETER
+#### Display help
 if [ "$1" = '--help' ]; then
-	echo 'Usage: git fixup [--force] [<commit>]'
+	echo 'Usage: git fixup [--force|<commit>]'
 	exit 0
 fi
 
-#### CHECK IF FIXUP COMMIT EXISTS
+#### Check if fixup commit exists
 echo 'Check if fixup commit exists...'
 if ! git isFixup; then
 
@@ -28,22 +28,10 @@ if ! git isFixup; then
 		exit 1
 	fi
 
-	#### LOOK FOR COMMIT TO FIXUP IF NOT GIVEN AS PARAMETER OR IF --force IS USED
-	if [ "$1" = "--force" ]; then
-		#### GET COMMIT TO FIXUP
-		echo 'Get commit to fixup by overwritting pushed history...'
-		git forceable
-		read -p 'What commit to fix? ' sha
-	elif [ -z "$1" ]; then
-		echo 'Get commit to fixup without overwritting pushed history...'
-		git fixable
-		read -p 'What commit to fix? ' sha
-	else
-		#### USE COMMIT TO FIXUP FROM PARAMETER
-		sha=$1
-	fi
+	#### Get commit to fixup
+	sha=$(git getcommit "$@")
 
-	#### DISPLAY COMMIT TO FIXUP
+	#### Display commit to fixup
 	echo 'Fixup commit given:' $sha
 
 	## Create fixup commit and exit if commit is not done
@@ -52,14 +40,14 @@ if ! git isFixup; then
 		exit 1
 	fi
 
-	#### START REBASE
+	#### Start rebase
 	git rebase -i --autosquash $sha~ --autostash --no-verify --exec '[ -f .git/hooks/pre-commit ] && (.git/hooks/pre-commit --name-only HEAD HEAD~1 && git commit --amend --no-edit --no-verify) || true'
 else
 	echo -e "\e[32mExisting !fixup commit found. Continue rebasing...\e[0m"
 
-	#### STAGE CONFLICTED FILES AND CONTINUE REBASE
+	#### Stage all changes
 	git add --update && git rebase --continue
 fi
 
-#### BACK
+#### Back to previous directory
 cd - >/dev/null
