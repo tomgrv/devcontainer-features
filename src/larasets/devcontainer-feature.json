@@ -1,6 +1,6 @@
 {
     "name": "Laravel settings",
-    "version": "3.2.6",
+    "version": "3.3.0",
     "description": "A feature to add useful laravel settings to your shell.",
     "containerEnv": {
         "APP_DEBUG": "true",
@@ -37,18 +37,17 @@
                 "entexa.tall-stack",
                 "formulahendry.auto-rename-tag",
                 "formulahendry.auto-close-tag",
-                "absszero.vscode-laravel-goto",
                 "marabesi.php-import-checker",
                 "alexcvzz.vscode-sqlite",
                 "bmewburn.vscode-intelephense-client",
                 "onecentlin.laravel-blade",
                 "xdebug.php-debug",
-                "misterj.laravel-expack",
                 "devsense.composer-php-vscode",
                 "christian-kohler.npm-intellisense",
                 "davidanson.vscode-markdownlint",
                 "pcbowers.alpine-intellisense",
-                "laravel.vscode-laravel"
+                "laravel.vscode-laravel",
+                "aaron-bond.better-comments"
             ]
         }
     },
