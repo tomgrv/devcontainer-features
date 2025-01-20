@@ -59,6 +59,16 @@
             "hide": true
         },
         {
+            "label": "sail-restart",
+            "type": "shell",
+            "command": "sail restart && sail composer dump-autoload",
+            "presentation": {
+                "panel": "dedicated",
+                "clear": true,
+                "close": true
+            }
+        },
+        {
             "label": "sail-down",
             "type": "shell",
             "command": "sail down",
@@ -66,8 +76,7 @@
                 "panel": "dedicated",
                 "clear": true,
                 "close": true
-            },
-            "hide": true
+            }
         },
         {
             "label": "art-queue",
