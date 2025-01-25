@@ -39,15 +39,12 @@
                 "actboy168.tasks",
                 "spmeesseman.vscode-taskexplorer",
                 "gruntfuggly.triggertaskonsave",
-                "github.codespaces",
                 "natizyskunk.sftp",
                 "formulahendry.auto-rename-tag",
                 "formulahendry.auto-close-tag",
                 "gruntfuggly.todo-tree",
-                "github.copilot",
-                "github.copilot-chat",
-                "github.vscode-github-actions",
-                "foxundermoon.shell-format"
+                "foxundermoon.shell-format",
+                "richie5um2.vscode-sort-json"
             ]
         }
     },

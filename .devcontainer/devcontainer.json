@@ -46,7 +46,9 @@
                 "github.copilot",
                 "github.copilot-chat",
                 "github.vscode-github-actions",
-                "foxundermoon.shell-format"
+                "gitHub.vscode-pull-request-github",
+                "foxundermoon.shell-format",
+                "richie5um2.vscode-sort-json"
             ]
         }
     },
