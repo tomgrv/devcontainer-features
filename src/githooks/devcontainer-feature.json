@@ -8,17 +8,21 @@
                 "conventionalCommits.gitmoji": false
             },
             "extensions": [
-                "vivaxy.vscode-conventional-commits"
+                "vivaxy.vscode-conventional-commits",
+                "softwareape.rebaser",
+                "tomblind.scm-buttons-vscode"
             ]
         }
     },
     "dependsOn": {
         "ghcr.io/devcontainers/features/node": {},
-        "ghcr.io/tomgrv/devcontainer-features/common-utils": {}
+        "ghcr.io/tomgrv/devcontainer-features/common-utils": {},
+        "ghcr.io/tomgrv/devcontainer-features/gitutils": {}
     },
     "id": "githooks",
     "installsAfter": [
-        "ghcr.io/tomgrv/devcontainer-features/common-utils"
+        "ghcr.io/tomgrv/devcontainer-features/common-utils",
+        "ghcr.io/tomgrv/devcontainer-features/gitutils"
     ],
     "postCreateCommand": "configure-feature githooks"
 }

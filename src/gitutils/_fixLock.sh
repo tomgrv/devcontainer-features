@@ -22,7 +22,9 @@ echo "Fixing commit: $sha"
 git filter-branch --tree-filter '
     composer validate --no-check-all --strict 2>&1 | grep -oP "Required package \"\K[^\"]+" | while read -r package; do
         composer require --ignore-platform-reqs --no-scripts --no-interaction --no-progress --no-install "$package"
-    done
+    done;
+    npm install --ws --package-lock-only;
+    git add $(find . -name "composer.lock") $(find . -name "package-lock.json") || true
 ' $sha..HEAD
 
 ### Unstash changes
