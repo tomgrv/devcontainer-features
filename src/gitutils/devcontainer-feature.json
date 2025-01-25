@@ -1,6 +1,6 @@
 {
     "name": "Git Aliases",
-    "version": "3.4.0",
+    "version": "3.4.2",
     "description": "A feature to add useful Git aliases to your shell.",
     "customizations": {
         "vscode": {
@@ -12,8 +12,13 @@
                 "donjayamanne.githistory",
                 "tomblind.scm-buttons-vscode",
                 "mhutchie.git-graph",
-                "softwareape.rebaser",
-                "arturock.gitstash"
+                "arturock.gitstash",
+                "github.copilot",
+                "github.copilot-chat",
+                "github.vscode-github-actions",
+                "gitHub.vscode-pull-request-github",
+                "github.codespaces",
+                "waderyan.gitblame"
             ]
         }
     },
@@ -29,5 +34,8 @@
         "ghcr.io/tomgrv/devcontainer-features/common-utils",
         "ghcr.io/tomgrv/devcontainer-features/gitversion"
     ],
-    "postCreateCommand": "configure-feature gitutils"
+    "postCreateCommand": "configure-feature gitutils",
+    "postStartCommand": [
+        "git discardMode"
+    ]
 }

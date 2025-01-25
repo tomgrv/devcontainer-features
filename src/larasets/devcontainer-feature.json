@@ -26,9 +26,7 @@
                     "art-cache-routes": [
                         "**/[Rr]outes/*.php"
                     ]
-                },
-                "LaravelExtraIntellisense.phpCommand": "docker-compose exec -w /var/www/html laravel.test php -r \"{code}\"",
-                "LaravelExtraIntellisense.basePathForCode": "/var/www/html"
+                }
             },
             "extensions": [
                 "actboy168.tasks",
