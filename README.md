@@ -30,10 +30,6 @@ npx tomgrv/devcontainer-features -- --all
 
 The [GitVersion](./src/gitversion/) feature installs GitVersion in the dev container. GitVersion is a tool that calculates a version number based on the Git history. The version number is written to a file that can be used in the build process.
 
-Originally, GitVersion was designed to be used in a CI/CD pipeline. However, it can also be used in a dev container to calculate the version number of the application.
-
-More information about GitVersion can be found on the [GitVersion GitHub page](https://github.com/GitTools/GitVersion).
-
 ### GitHooks
 
 Configure developpement environnement in one step in conjunction with following packages:
@@ -54,32 +50,9 @@ Configure developpement environnement in one step in conjunction with following 
 
 The [GitUtils](./src/gitutils/) feature installs a collection of Git utilities in the dev container. The utilities are useful for automating Git workflows.
 
-The following utilities are included: [./src/gitutils/alias.json](./src/gitutils/alias.json)
-
-#### 🖥️ Interactive Utilities
-
--   `git fixup` - Amend the specified commit with current changes and rebase
--   `git fixauthor` - Amend commits with specified author and rebase
-
-#### 🚀 GitFlow
-
-Additionnaly, the feature installs the [git-flow](https:://github.com/nvie/gitflow) extension and sets up the Git configuration to use it.
-
-Configure developpement environnement in one step with:
-
-Shortcuts are also added to the `git` command to make it easier to use the `git-flow` commands:
-
--   `git beta` is a shortcut for `git flow release start`
--   `git hfix` is a shortcut for `git flow hotfix start`
--   `git prod` is a shortcut for `git flow release finish` and `git flow hotfix finish`
-
-Those shortcuts work in cunjunction with the `gitversion` utility to automatically update the version number of the application.
-
 ### Act
 
 The [Act](./src/act/) feature installs the [nektos/act] tool in the dev container. Act is a tool that allows you to run GitHub Actions locally.
-
-Originally, Act was designed to be used in a CI/CD pipeline. However, it can also be used in a dev container to test GitHub Actions locally.
 
 More information about Act can be found on the [Act GitHub page](https://github.com/nektos/act).
 
