@@ -9,7 +9,7 @@ fi
 
 # Check if the current Git command is a rebase
 if test "$GIT_COMMAND" = "rebase"; then
-    npx --yes chalk-cli --no-stdin -t "{green ✔} Skip pre-commit hook during rebase"
+    npx --yes chalk-cli --no-stdin -t "{green ✔}  Skip pre-commit hook during rebase"
     exit 0
 fi
 
@@ -28,8 +28,12 @@ if git diff ${@:---cached --name-only} | grep -q "package.json"; then
         npm install --package-lock --ws --if-present --include-workspace-root || true
     fi
 
-    # commit the updated package-lock.json
-    git add package-lock.json
+    # commit the updated package-lock.json if file changed
+    if git diff --quiet package-lock.json; then
+        npx --yes chalk-cli --no-stdin -t "{green ✔}  package-lock.json update not required"
+    else
+        git add package-lock.json && npx --yes chalk-cli --no-stdin -t "{yellow ⚠}  Updated package-lock.json"
+    fi
 fi
 
 # Check if the current commit contains composer.json changes
@@ -38,11 +42,18 @@ if git diff ${@:---cached --name-only} | grep -q "composer.json"; then
     # ensure that the composer.json is valid and composer.lock is up-to-date
     npx --yes chalk-cli --no-stdin -t "{blue →}  Ensure that the composer.json is valid and composer.lock is up-to-date..."
     composer validate --no-check-all --strict 2>&1 | grep -oP 'Required package "\K[^"]+' | while read -r package; do
-        composer require --ignore-platform-reqs --no-scripts --no-interaction --no-progress --no-install "$package"
+        composer require --ignore-platform-reqs --with-all-dependencies --no-scripts --no-interaction --no-progress --no-install "$package"
     done
 
-    # commit the updated composer.lock
-    git add composer.lock
+    # Update composer.lock
+    composer validate --no-check-all --strict && composer update --lock --minimal-changes --ignore-platform-reqs --with-all-dependencies --no-scripts --no-interaction --no-progress --no-install
+
+    # commit the updated composer.lock if file changed
+    if git diff --quiet composer.lock; then
+        npx --yes chalk-cli --no-stdin -t "{green ✔}  composer.lock update not required"
+    else
+        git add composer.lock && npx --yes chalk-cli --no-stdin -t "{yellow ⚠}  Updated composer.lock"
+    fi
 fi
 
 # Install Prettier plugins

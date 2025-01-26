@@ -1,6 +1,6 @@
 {
     "name": "Git Hooks",
-    "version": "3.2.3",
+    "version": "3.2.6",
     "description": "A feature to add useful Git hooks to your project",
     "customizations": {
         "vscode": {
