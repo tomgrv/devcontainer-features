@@ -23,6 +23,10 @@ More information about GitVersion can be found on the [GitVersion GitHub page](h
 |-----|-----|-----|-----|
 | version | The version of GitVersion to install. | string | latest |
 
+## Functional Coverage
+
+- Installs GitVersion to calculate the version number of the application based on Git history.
+
 ## Contributing
 
 If you have a feature that you would like to add to this repository, please open an issue or submit a pull request.

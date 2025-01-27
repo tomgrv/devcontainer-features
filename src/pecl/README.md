@@ -21,6 +21,12 @@ More information about PECL can be found on the [PECL website](https://pecl.php.
 |-----|-----|-----|-----|
 | version | The version of GitVersion to install. | string | latest |
 
+## Functional Coverage
+
+- Installs specified PECL extensions.
+- Supports specifying the extension to install.
+
+
 ## Contributing
 
 If you have a feature that you would like to add to this repository, please open an issue or submit a pull request.
