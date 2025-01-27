@@ -55,6 +55,12 @@ The feature also includes the following VS Code customizations:
     -   `editor.detectIndentation`: `true`
     -   `editor.tabSize`: `4`
 
+
+## Functional Coverage
+
+- Installs specified common utilities such as jq and dos2unix.
+- Supports specifying additional utilities to install.
+
 ## Contributing
 
 If you have a feature that you would like to add to this repository, please open an issue or submit a pull request.

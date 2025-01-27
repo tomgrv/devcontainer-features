@@ -18,9 +18,15 @@ The following aliases are included: [./alias.json](./src/gitutils/alias.json)
 
 ## Options
 
-| Options Id | Description                         | Type   | Default Value |
-| ---------- | ----------------------------------- | ------ | ------------- |
-| version    | The version of GitUtils to install. | string | latest        |
+| Options Id | Description | Type | Default Value |
+|-----|-----|-----|-----|
+| version | The version of GitUtils to install. | string | latest |
+
+## Functional Coverage
+
+Installs a collection of Git utilities.
+Installs the git-flow extension and sets up Git configuration to use it.
+Adds shortcuts to the git command for easier use of git-flow commands.
 
 ## GitFlow
 

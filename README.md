@@ -2,33 +2,49 @@
 
 # Dev Container Features
 
-This repository contains a collection of features that can be used to enhance the development experience in a [Visual Studio Code Dev Container](https://code.visualstudio.com/docs/remote/containers). The features are organized in separate folders and can be used individually.
+This repository contains a collection of features that can be used to enhance the development experience in a [Visual Studio Code Dev Container](https://code.visualstudio.com/docs/remote/containers).
+
+The features are organized in separate folders and can be used individually in a `devcontainer.json` file
+
 
 ## Installation
 
-To install stubs in current repo
+Installation script can be run locally and/or in devcontainer environnement
+
+When run locally:
+- features are installed in local environment.
+- a `devcontainer.json` file is eventually created for remote development experience.
 
 ```sh
-npx tomgrv/devcontainer-features -- --stubs
+npx tomgrv/devcontainer-features -- --h
 ```
 
-To install devcontainer feature(s) locally:
+#### To install only stubs
+
+```sh
+npx tomgrv/devcontainer-features -- --s
+```
+
+#### To install a specific devcontainer feature(s) 
 
 ```sh
 npx tomgrv/devcontainer-features -- gitutils
 ```
 
-To setup a full dev environnement locally (repo + features)
+#### To setup a full dev environnement with 
+
+- [GitUtils](./src/gitutils/)
+- [GitHooks](./src/githooks/)
 
 ```sh
-npx tomgrv/devcontainer-features -- --all
+npx tomgrv/devcontainer-features -- --a
 ```
 
 ## Features Overview
 
-### GitVersion
+### GitUtils
 
-The [GitVersion](./src/gitversion/) feature installs GitVersion in the dev container. GitVersion is a tool that calculates a version number based on the Git history. The version number is written to a file that can be used in the build process.
+The [GitUtils](./src/gitutils/) feature installs a collection of Git utilities in the dev container. The utilities are useful for automating Git workflows.
 
 ### GitHooks
 
@@ -46,9 +62,9 @@ Configure developpement environnement in one step in conjunction with following 
 -   prettier
 -   sort-package-json
 
-### GitUtils
+### GitVersion
 
-The [GitUtils](./src/gitutils/) feature installs a collection of Git utilities in the dev container. The utilities are useful for automating Git workflows.
+The [GitVersion](./src/gitversion/) feature installs GitVersion in the dev container. GitVersion is a tool that calculates a version number based on the Git history. The version number is written to a file that can be used in the build process.
 
 ### Act
 

@@ -12,6 +12,13 @@ This feature provides a set of settings and utilities for working with Laravel p
 }
 ```
 
+## Functional Coverage
+
+- Configures Laravel environment variables.
+- Provides tasks for caching configuration, views, and routes.
+- Supports Laravel Sail for containerized development.
+- Installs necessary extensions and tools for Laravel development.
+
 ## Configuration
 
 The following environment variables are set by default:
@@ -54,16 +61,39 @@ The feature also includes the following VS Code customizations:
         -   `art-cache-views`: `packages/**/*.blade.php`
         -   `art-cache-routes`: `**/[Rr]outes/*.php`
 
-## Utilities
+## Shell Utilities
 
 The following utilities are included by default:
 
--   `art` - Run Laravel Artisan commands, locally or within the Laravel Sail environment if it is running.
 -   `init` - Initialize the Laravel project by installing dependencies and setting up the environment.
--   `run` - Run npm scripts, locally or within the Laravel Sail environment if it is running.
 -   `sail` - Run Laravel Sail commands.
 -   `seed` - Run database migrations and seed the database.
--   `srv` - Start and manage PM2 processes for the Laravel application.
+-   `art` - Run Laravel Artisan commands, locally or within the Laravel Sail environment if it is running.
+    - Use `art <...>` as you would do with `[php|sail] artisan <...>`
+-   `srv` - Start and manage PM2 processes, locally or within the Laravel Sail environment if it is running.
+    - Use `srv <...>` as you would do with `<sail> npm run <...>`
+-   `fwd` - Manage port forwarding form `local` to `remote`
+-   `run` - Run npm scripts, locally or within the Laravel Sail environment if it is running.
+    - Use `run <...>` as you would do with `<sail> npm run <...>`
+
+## Composer Utilities
+
+The following utilities are added to root composer:
+
+-   `inst` - Install dependencies ignoring platform requirements.
+-   `link` - Configure local repositories.
+-   `lint` - Run Pint linter on staged files (--dirty by default).
+-   `lock` - Validate and update composer.lock with minimal changes.
+-   `req` - Require a package with all dependencies ignoring platform requirements.
+-   `req-all` - Require a package across all packages managed by Lerna ignoring platform requirements.
+-   `reqdev` - Require a development package with all dependencies.
+-   `reqdev-all` - Require a development package across all packages managed by Lerna.
+-   `rmv` - Remove a package with all dependencies ignoring platform requirements.
+-   `rmv-all` - Remove a package across all packages managed by Lerna ignoring platform requirements.
+-   `test` - Run Pest tests.
+-   `test-coverage` - Run Pest tests with coverage.
+-   `upg` - Update dependencies with all dependencies ignoring platform requirements.
+-   `upg-all` - Update dependencies across all packages managed by Lerna ignoring platform requirements.
 
 ## Contributing
 

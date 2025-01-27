@@ -16,7 +16,7 @@ while getopts ":hausp:" opt $@; do
         echo "  -h: Display this help"
         echo "  -a: All features"
         echo "  -s: Stubs only"
-        echo "  -p: Display a json key from specified file"
+        echo "  -p: Specify package.json file to use"
         echo -n "  <features>: List of features to install. Available features: "
         cat package.json | npx --yes jqn '.config.local' | tr -d "'[]:," | npx --yes chalk-cli --stdin blue
         exit
