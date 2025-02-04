@@ -1,7 +1,7 @@
 #!/bin/sh
 # Check if at least one old email is provided
-if [ "$#" -lt 1 ]; then
-  echo "Usage: $0 <old-email-1> [<old-email-2> ... <old-email-n>]"
+if [ "$#" -lt 1 ] || [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
+  echo "Usage: git fixauthor <old-email> [<old-email> ...]"
   exit 1
 fi
 
