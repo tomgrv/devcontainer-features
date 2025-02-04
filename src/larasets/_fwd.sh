@@ -1,6 +1,20 @@
 #!/bin/sh
 set -e
 
+### Help
+if [ "x$1" = "xhelp" ] || [ "x$1" = "x-h" ] || [ "x$1" = "x--help" ] || [ -z "$1" ]; then
+    echo "Usage: $0 [remote|local]"
+    echo "  remote: set APP_URL and VITE_HOST to use the codespace url"
+    echo "  local: remove APP_URL and VITE_HOST to use localhost"
+    exit 0
+fi >&2
+
+### Check if the environment variables are set
+if [ -z "$GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN" ] || [ -z "$CODESPACE_NAME" ]; then
+    echo "GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN and CODESPACE_NAME must be set, force to local"
+    $1=local
+fi >&2
+
 ### Function to update or replace export entry in .bashrc
 setexport() {
     local key="$1"
@@ -28,7 +42,7 @@ setexport() {
 }
 
 ### Define urls if using a web editor with http port redirection
-if [ "$1" = "remote" ]; then
+if [ "x$1" = "xremote" ]; then
 
     ### update or add APP_URL
     setexport APP_URL "https://$CODESPACE_NAME-${APP_PORT:-80}.$GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN"
@@ -38,11 +52,10 @@ if [ "$1" = "remote" ]; then
 fi
 
 ### Define urls if using a local editor with localhost port redirection
-if [ "$1" = "local" ] || [ -z "$1" ]; then
+if [ "x$1" = "xlocal" ] || [ -z "$1" ]; then
     ### remove APP_URL
     setexport APP_URL
 
     ### remove VITE_HOST
     setexport VITE_HOST
 fi
-

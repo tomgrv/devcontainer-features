@@ -44,7 +44,9 @@
                 "formulahendry.auto-close-tag",
                 "gruntfuggly.todo-tree",
                 "foxundermoon.shell-format",
-                "richie5um2.vscode-sort-json"
+                "richie5um2.vscode-sort-json",
+                "github.vscode-github-actions",
+                "ms-azuretools.vscode-docker"
             ]
         }
     },
