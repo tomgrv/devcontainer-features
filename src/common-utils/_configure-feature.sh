@@ -1,8 +1,8 @@
 #!/bin/sh
 set -e
 
-### Check if feature is provided
-if [ -z "$1" ]; then
+### Help
+if [ "$1" = "-h" ] || [ -z "$1" ]; then
     echo "Usage: $0 <feature>"
     exit 1
 fi
