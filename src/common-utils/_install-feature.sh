@@ -1,20 +1,8 @@
 #!/bin/sh
 set -e
 
-### Init directories
-caller_filename=$(ps -o args= $PPID)
-caller_filepath=$(readlink -f ${caller_filename##/bin/sh})
-export source=$(dirname $caller_filepath)
-export feature=$(basename $source | sed 's/_.*$//')
-export target=${1:-/usr/local/share}/$feature
-
-### Logs
-echo "Activating feature <$feature>"
-echo "from <$source>"
-echo "to <$target>"
-
-### Makes sure the target directory exists
-mkdir -p $target
+### Context
+. "$(dirname $0)/_install-context.sh" "$@"
 
 ### Install specific utils
 find $source \( -name "_*" -o -name "configure-*.sh" \) -type f -exec cp {} $target \;
