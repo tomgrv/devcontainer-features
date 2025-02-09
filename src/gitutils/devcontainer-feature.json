@@ -1,6 +1,6 @@
 {
     "name": "Git Aliases",
-    "version": "3.4.4",
+    "version": "4.0.0",
     "description": "A feature to add useful Git aliases to your shell.",
     "customizations": {
         "vscode": {
@@ -24,8 +24,8 @@
     },
     "dependsOn": {
         "ghcr.io/devcontainers/features/node": "",
-        "ghcr.io/tomgrv/devcontainer-features/gitversion": "5.*",
-        "ghcr.io/tomgrv/devcontainer-features/common-utils": {
+        "ghcr.io/tomgrv/devcontainer-features/gitversion:4": "5.*",
+        "ghcr.io/tomgrv/devcontainer-features/common-utils:2": {
             "utils": "jq dos2unix git-flow"
         }
     },

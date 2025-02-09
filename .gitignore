@@ -28,8 +28,9 @@ Homestead.yaml
 .history
 .version.json
 /.mono
-/.toolkit
 
-## Diff
-.rej
-.orig
+## Vite
+/public/build
+/public/hot
+/public/css
+/public/js
