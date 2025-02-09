@@ -16,13 +16,13 @@ When run locally:
 - a `devcontainer.json` file is eventually created for remote development experience.
 
 ```sh
-npx tomgrv/devcontainer-features -- --h
+npx tomgrv/devcontainer-features -h
 ```
 
 #### To install only stubs
 
 ```sh
-npx tomgrv/devcontainer-features -- --s
+npx tomgrv/devcontainer-features -s
 ```
 
 #### To install a specific devcontainer feature(s) 
@@ -37,7 +37,7 @@ npx tomgrv/devcontainer-features -- gitutils
 - [GitHooks](./src/githooks/)
 
 ```sh
-npx tomgrv/devcontainer-features -- --a
+npx tomgrv/devcontainer-features -a
 ```
 
 ## Features Overview
