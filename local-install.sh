@@ -1,146 +1,105 @@
 #!/bin/sh
 
-### Go to root
+# Go to the root directory of the git repository
 cd $(git rev-parse --show-toplevel) >/dev/null
 
-### Load all features locally installable
+# Add common utils to the PATH
+export PATH=$PATH:$(dirname $0)/src/common-utils
+
+# Load the directory of the current script
 source=$(dirname $(readlink -f $0))
-features=""
-stubs="0"
 
-### Handles arguments
-while getopts ":hausp:" opt $@; do
-    case $opt in
-    h)
-        echo "Usage: $0 [-h|-a|-u|-s|-p file|<features>]"
-        echo "  -h: Display this help"
-        echo "  -a: All features"
-        echo "  -s: Stubs only"
-        echo "  -p: Specify package.json file to use"
-        echo -n "  <features>: List of features to install. Available features: "
-        cat package.json | npx --yes jqn '.config.local' | tr -d "'[]:," | npx --yes chalk-cli --stdin blue
-        exit
-        ;;
-    a)
-        echo "Add default features" | npx --yes chalk-cli --stdin green
-        stubs=1
-        features=$(sed '/^\s*\/\//d' $source/stubs/.devcontainer/devcontainer.json | jq -r '.features | to_entries[] | select(.key | contains("tomgrv/devcontainer-features"))| .key| 
- split("/")[-1] | split(":")[0]')
-        break
-        ;;
-    u)
-        echo "Update features" | npx --yes chalk-cli --stdin green
-        stubs=1
-        features=$(sed '/^\s*\/\//d' $source/.devcontainer/devcontainer.json | jq -r '.features | to_entries[] | select(.key | contains("tomgrv/devcontainer-features"))| .key| 
-split("/")[-1] | split(":")[0]')
-        break
-        ;;
-    s)
-        echo "Stubs selected" | npx --yes chalk-cli --stdin green
-        stubs=1
-        ;;
-    p)
-        file="$OPTARG"
-        if [ ! -f "$file" ]; then
-            echo "$file not found" | npx --yes chalk-cli --stdin red
-            exit
-        fi
-        ;;
-    \?)
-        echo "Invalid option: -$OPTARG" | npx --yes chalk-cli --stdin red
-        exit
-        ;;
-    :)
-        echo "Option -$OPTARG requires an argument." | npx --yes chalk-cli --stdin red
-        exit
-        ;;
-    esac
-done >&2
+# Prepare for local installation by creating a temporary directory and linking common utils
+mkdir -p /tmp/common-utils
+find $PWD/$(dirname $0)/src/common-utils/ -type f -name "_*.sh" -exec echo {} \; -exec chmod +x {} \; | while read file; do
+    # Create a symbolic link in /usr/local/bin with the script name (without the leading underscore and .sh extension)
+    link=/tmp/common-utils/$(basename $file | sed 's/^_//;s/.sh$//')
+    ln -sf $file $link
+done
+export PATH=$PATH:/tmp/common-utils
 
-# Shift off the options and optional --
-shift $((OPTIND - 1))
+# Load arguments for the script
+. zz_args "Install features locally" $0 "$@" <<-help
+    a -         all         Install all features
+    u -         upd         Update all features
+    s -         stubs       Install stubs only
+    p -         package     Specify package.json file to use
+    + features  features    List of features to install
+help
 
-# Handle remaining arguments as features
-if [ $# -gt 0 ]; then
-    features="$@"
-    if [ -f "$file" ]; then
-        pkg=$(cat $file | npx --yes jqn $features | tr -d "'[]:,")
-        for package in $pkg; do
-            npm list $package 2>/dev/null 1>&2 || npm install --no-save $package 2>/dev/null 1>&2 && echo "Installed $package" | npx --yes chalk-cli --stdin green || echo "Failed to install $package" | npx --yes chalk-cli --stdin red
-        done
+# If 'all' argument is provided, set stubs and features to install all default features
+if [ -n "$all" ]; then
+    echo "Add default features" | npx --yes chalk-cli --stdin green
+    stubs=1
+    features=$(sed '/^\s*\/\//d' $source/stubs/.devcontainer/devcontainer.json | jq -r '.features | to_entries[] | select(.key | contains("tomgrv/devcontainer-features"))| .key| 
+    split("/")[-1] | split(":")[0]')
+fi
+
+# If 'upd' argument is provided, set stubs and features to update all features
+if [ -n "$upd" ]; then
+    echo "Update features" | npx --yes chalk-cli --stdin green
+    stubs=1
+    features=$(sed '/^\s*\/\//d' $source/.devcontainer/devcontainer.json | jq -r '.features | to_entries[] | select(.key | contains("tomgrv/devcontainer-features"))| .key|
+    split("/")[-1] | split(":")[0]')
+fi
+
+# If 'stubs' argument is provided, indicate that stubs are selected
+if [ -n "$stubs" ]; then
+    echo "Stubs selected" | npx --yes chalk-cli --stdin green
+fi
+
+# If 'package' argument is provided, use the specified package.json file
+if [ -n "$package" ]; then
+    file="$package"
+    if [ ! -f "$file" ]; then
+        echo "$file not found" | npx --yes chalk-cli --stdin red
         exit
-    else
-        echo "Selected features: $features" | npx --yes chalk-cli --stdin green
+    fi
+
+    echo "Using $file" | npx --yes chalk-cli --stdin green
+
+    # Extract features from the package.json file if not already set
+    if [ -z "$features" ]; then
+        features=$(cat $file | jq -r '.devcontainer.features | to_entries[] | select(.key | contains("tomgrv/devcontainer-features"))| .key| split("/")[-1] | split(":")[0]')
     fi
 fi
 
-### Stash all changes including untracked files
-stash=$(git stash -u && echo true)
-
-### Force line endings to LF for all text files
-echo "Force line endings to LF for all text files" | npx --yes chalk-cli --stdin blue
-git ls-files -z | xargs -0 rm
-git checkout .
-
-### Merge all files from stub folder to root with git merge-file
-if [ "$stubs" -eq "1" ]; then
-
-    ### Merge all files from stub folder to root with git merge-file
-    echo "Merging stubs files" | npx --yes chalk-cli --stdin blue
-    for file in $(find $source/stubs -type f); do
-
-        ### Get middle part of the path
-        folder=$(dirname ${file#$source/stubs/})
-
-        ### Create folder if not exists
-        mkdir -p $folder
-
-        ### Merge file
-        echo "Merge $folder/$(basename $file)" | npx --yes chalk-cli --stdin yellow
-        rsync -u $file $folder/$(basename $file)
-
-        ### Apply rights
-        chmod $(stat -c "%a" $file) $folder/$(basename $file)
-    done
-
-    ### Find all file with a trailing slash outside dist folder, make sure they are added to .gitignore and remove the trailing slash
-    echo "Add files to .gitignore" | npx --yes chalk-cli --stdin blue
-    for file in $(find . -type f -name "#*" -not -path "./stubs/*" -not -path "./node_modules/*" -not -path "./vendors/*"); do
-
-        echo "Add $file to .gitignore" | npx --yes chalk-cli --stdin yellow
-
-        ### Remove trailing # and leading ./#
-        clean=${file#./#}
-
-        ### Add to .gitignore if not already there
-        grep -qxF $clean .gitignore || echo "$clean" >>.gitignore
-
-        ### Rename file
-        mv $file $clean
-    done
+# If no features are selected, display an error message
+if [ -z "$features" ]; then
+    echo "No features selected" | npx --yes chalk-cli --stdin red
+else
+    echo "Selected features: $features" | npx --yes chalk-cli --stdin green
 fi
 
+# Merge all files from the stub folder to the root using git merge-file if stubs are selected
+if [ -n "$stubs" ]; then
+    ./src/common-utils/_install-stubs.sh -s . -t . || exit
+fi
+
+# If features are selected, proceed with installation
 if [ -n "$features" ]; then
-    ### Ask eventualy to deploy in container if this is not already the case
+
+    # Create an alias for the _install-feature.sh script
+    alias install-feature=$(dirname $0)/src/common-utils/_install-feature.sh
+
+    # Check if the script is running inside a container
     if [ "$CODESPACES" != "true" ] && [ "$REMOTE_CONTAINERS" != "true" ]; then
 
         echo "You are not in a container" | npx --yes chalk-cli --stdin green
 
-        ### Call the install.sh script in all selected features
+        # Run the install.sh script for each selected feature
         for feature in $features; do
             if [ -f "$source/src/$feature/install.sh" ]; then
-                ### Run the install.sh script
                 echo "Running src/$feature/install.sh..." | npx --yes chalk-cli --stdin blue
-                bash $source/src/$feature/install.sh /tmp
+                bash $source/src/$feature/install.sh -t /tmp
             else
                 echo "$feature not found" | npx --yes chalk-cli --stdin red
             fi
         done
 
-        ### Call the configure.sh script in all selected features
+        # Run the configure.sh script for each selected feature
         for feature in $features; do
-            if [ -f "./src/$feature/configure.sh" ]; then
-                ### Run the install.sh script
+            if [ -f "/tmp/src/$feature/configure.sh" ]; then
                 echo "Running src/$feature/configure.sh..." | npx --yes chalk-cli --stdin blue
                 bash /tmp/$feature/configure.sh
             else
@@ -148,6 +107,7 @@ if [ -n "$features" ]; then
             fi
         done
     else
+        # If inside a container, suggest using devutils as devcontainer features
         echo "You are in a container: use devutils as devcontainer features:" | npx --yes chalk-cli --stdin magenta
         for feature in $features; do
             echo "ghcr.io/tomgrv/devcontainer-features/$feature"
@@ -155,11 +115,3 @@ if [ -n "$features" ]; then
         exit
     fi
 fi
-
-### Stage non withespace changes
-git ls-files --others --exclude-standard | xargs -I {} bash -c 'if [ -s "{}" ]; then git add "{}"; fi'
-git diff -w --no-color | git apply --cached --ignore-whitespace --allow-empty
-git checkout -- . && git reset && git add .
-
-### Unstash changes
-test -n "$stash" && git stash apply && git stash drop

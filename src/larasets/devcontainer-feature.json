@@ -52,7 +52,7 @@
         "ghcr.io/devcontainers/features/node:1": "",
         "ghcr.io/devcontainers/features/php:1": "8.3",
         "ghcr.io/devcontainers/features/docker-in-docker": "",
-        "ghcr.io/tomgrv/devcontainer-features/common-utils": ""
+        "ghcr.io/tomgrv/devcontainer-features/common-utils:2": ""
     },
     "id": "larasets",
     "installsAfter": [

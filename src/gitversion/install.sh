@@ -1,6 +1,5 @@
 #!/bin/sh
-set -e
 
 ### Install feature
-install-feature
-install-stubs
+. install-feature
+. install-stubs
