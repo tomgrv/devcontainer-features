@@ -1,6 +1,5 @@
 #!/bin/sh
-set -e
 
 ### Install this feature
-install-feature
-install-bin
+. install-feature
+. install-bin
