@@ -1,6 +1,6 @@
 {
     "name": "Laravel settings",
-    "version": "3.5.3",
+    "version": "3.5.4",
     "description": "A feature to add useful laravel settings to your shell.",
     "containerEnv": {
         "APP_DEBUG": "true",
@@ -29,7 +29,6 @@
                 }
             },
             "extensions": [
-                "actboy168.tasks",
                 "spmeesseman.vscode-taskexplorer",
                 "gruntfuggly.triggertaskonsave",
                 "entexa.tall-stack",
