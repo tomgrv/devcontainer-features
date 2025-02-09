@@ -1,6 +1,6 @@
 {
     "name": "Common Utils",
-    "version": "1.1.6",
+    "version": "1.2.0",
     "description": "Common utils for tomgrv/devcontainer-features",
     "dependsOn": {
         "ghcr.io/devcontainers/features/common-utils": {}
@@ -14,6 +14,41 @@
             "type": "string",
             "default": "jq dos2unix",
             "description": "utilities to install"
+        }
+    },
+    "customizations": {
+        "vscode": {
+            // Set *default* container specific settings.json values on container create.
+            "settings": {
+                "editor.formatOnSave": true,
+                "editor.formatOnPaste": true,
+                "todo-tree.general.tags": [
+                    "BUG",
+                    "HACK",
+                    "FIXME",
+                    "TODO",
+                    "XXX",
+                    "[ ]",
+                    "[x]",
+                    "NOTE"
+                ],
+                "editor.indentSize": "tabSize",
+                "editor.detectIndentation": true,
+                "editor.tabSize": 4
+            },
+            "extensions": [
+                "actboy168.tasks",
+                "spmeesseman.vscode-taskexplorer",
+                "gruntfuggly.triggertaskonsave",
+                "natizyskunk.sftp",
+                "formulahendry.auto-rename-tag",
+                "formulahendry.auto-close-tag",
+                "gruntfuggly.todo-tree",
+                "foxundermoon.shell-format",
+                "richie5um2.vscode-sort-json",
+                "github.vscode-github-actions",
+                "ms-azuretools.vscode-docker"
+            ]
         }
     }
 }
