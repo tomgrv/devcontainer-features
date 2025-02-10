@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Source the argument parsing script to handle input arguments
-. zz_args "Configure specified feature" $0 "$@" <<-help
+zz_args "Configure specified feature" $0 "$@" || exit 1 <<-help
     s source    source      Force source directory
 	- feature	feature		Feature name
 help
