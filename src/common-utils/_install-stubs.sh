@@ -1,7 +1,9 @@
 #!/bin/sh
 
 # Source the context script to initialize variables and settings
-. zz_context "$@"
+eval $(
+    zz_context "$@"
+)
 
 echo "Installing stubs from <$feature>..."
 
