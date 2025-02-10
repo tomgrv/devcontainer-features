@@ -1,10 +1,10 @@
 #!/bin/sh
 
 # Source the argument parsing script to handle input arguments
-. zz_args "Export Source/Targets folders depending on feature context" $0 "$@" <<-help
-	s source 	source		Force source directory
-    t target	target		Force target directory
-    - caller	caller		Force caller script
+zz_args "Export Source/Targets folders depending on feature context" $0 "$@" <<-help
+        s source 	source		Force source directory
+        t target	target		Force target directory
+        - caller	caller		Force caller script
 help
 
 # If the source directory is not set, initialize it based on the script context
