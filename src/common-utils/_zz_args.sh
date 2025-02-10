@@ -1,45 +1,45 @@
 #!/bin/sh
 
 # Initialize variables
-typeset var count="0"
-typeset var value=""
-typeset var argname=""
-typeset var varname=""
-typeset var varnames=""
-typeset var argnames=""
-typeset var datatype=""
-typeset var help=""
-typeset var invert=""
+count="0"
+value=""
+argname=""
+varname=""
+varnames=""
+argnames=""
+datatype=""
+help=""
+invert=""
 
 # Check if there are any arguments passed
 test $# -lt 1 && return 1
 
 # Set the title from the first argument
-typeset title=$1 && shift
+title=$1 && shift
 
 # Set the caller from the second argument
-typeset caller=$1 && shift
+caller=$1 && shift
 
 # Read argument definitions from standard input
 while read argname datatype varname help; do
 
     # Check if the argument requires a value
     if [ "$datatype" = "-" ]; then
-        typeset name=""
+        name=""
     else
-        typeset name="<$datatype>"
+        name="<$datatype>"
     fi
 
     # Check if the argument is optional
     if [ "$argname" = "-" ] || [ "$argname" = "+" ]; then
-        typeset line="<$datatype>"
+        line="<$datatype>"
         helpinfo="$helpinfo\n\t$(printf '%-12s : %s' "$name" "$help")"
     else
         if [ "$datatype" = "-" ]; then
-            typeset line="[-$argname]"
+            line="[-$argname]"
             argnames="$argnames$argname"
         else
-            typeset line="[-$argname <$datatype>]"
+            line="[-$argname <$datatype>]"
             argnames="$argnames$argname:"
         fi
 
@@ -58,7 +58,8 @@ while getopts :$argnames value "$@"; do
     if [ "$value" = "?" ]; then
         break
     fi
-    typeset var naming=$(echo -e "$varnames" | grep -E "^$value" | cut -f2)
+    
+    naming=$(echo -e "$varnames" | grep -E "^$value" | cut -f2)
 
     if [ -n "$OPTARG" ]; then
         export "$naming=$OPTARG"
