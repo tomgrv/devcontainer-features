@@ -1,53 +1,63 @@
 #!/bin/sh
 
 # Source the argument parsing script to handle input arguments
-. zz_args "Export Source/Targets folders depending on feature context" $0 "$@" <<-help
-	s source 	source		Force source directory
-    t target	target		Force target directory
-    - caller	caller		Force caller script
+
+eval $(
+    zz_args "Export Source/Targets folders depending on feature context" $0 "$@" <<-help
+        s source 	source		Force source directory
+        t target	target		Force target directory
+        - caller	caller		Force caller script
 help
+)
 
-# If the source directory is not set, initialize it based on the script context
-if [ -z "$caller" ]; then
+# If the source directory is set, resolve the full path
+if [ -n "$source" ]; then
+    source=$(readlink -f $source)
 
-    # Determine the caller script
-    if [ "$(uname -o)" = "Msys" ]; then
-        caller=$(tr -d '\0' </proc/$PPID/cmdline | sed 's/ .*$//')
-    else
-        caller=$(ps -o args= $PPID)
-    fi
+# If the source directory is not set, initialize it based on the caller script
+else
 
-    echo "Caller script is <$caller>" >&2
-    caller=$(readlink -f ${caller##/bin/sh})
-
-    # If the caller script cannot be determined, exit with an error
     if [ -z "$caller" ]; then
-        echo "Not in script context" | npx --yes chalk-cli --stdin red
-        exit 1
+
+        # Determine the caller script, remove /bin/xxx from the beginning of the command line and empty lines
+        caller=$(readlink -f $PWD/$(tr '\0' '\n' </proc/$PPID/cmdline | sed 's/^\/bin\/.*$//' | grep -v '^$' | head -n 1))
+        echo "Caller script is <$caller>" >&2
+
+        # If the caller script cannot be determined, exit with an error
+        if [ -z "$caller" ]; then
+            echo "Not in script context" >&2
+            exit 1
+        fi
+
     fi
+
+    # Set the source directory to the directory of the caller script if not already set. Remove trailing . or / from the path
+    source=$(readlink -f $(dirname $caller))
 fi
 
-# Set the source directory to the directory of the caller script
-export source=${source:-$(dirname $caller)}
-
-# Set the feature name based on the source directory
-export feature=$(basename $source | sed 's/_.*$//')
+# Set the feature name based name of the source directory, remove last _number if present
+feature=$(basename $source | sed 's/_[0-9]*$//')
 
 # If the target directory is not set, initialize it based on the feature name
 if [ -z "$target" ]; then
 
     if [ -w /usr/local/share ]; then
-        export target=${target:-/usr/local/share/$feature}
+        target=/usr/local/share/$feature
     elif [ -w /tmp ]; then
-        export target=${target:-/tmp/$feature}
+        target=/tmp/$feature
     else
         echo "No writeable directory found" >&2
         exit 1
     fi
-
 fi
-
-echo "Selected context for <$feature> is '$source' => '$target'" >&2
 
 # Create the target directory if it does not exist
 mkdir -p $target
+
+# Log the results
+echo "Selected context for <$feature> is '$source' => '$target'" >&2
+
+# Results
+echo source=$source
+echo feature=$feature
+echo target=$target
