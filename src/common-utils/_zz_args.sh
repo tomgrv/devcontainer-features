@@ -12,13 +12,13 @@ help=""
 invert=""
 
 # Display help information if no arguments are passed
-if [ $# -lt 1 ] || [ "$1" = "-h" ] || [ "$1" = "help" ]; then
-    echo "Usage: $(basename $0) <title> <caller> <<--help
+if test $# -lt 1; then
+    echo "Usage: $(basename $0) <title> <caller> <<-help
         ...
         <argname> <datatype> <varname> <help>
         ...
         help" >&2
-    exit 1
+    return 1
 fi
 
 # Set the title from the first argument
@@ -26,6 +26,8 @@ title=$1 && shift
 
 # Set the caller from the second argument
 caller=$1 && shift
+
+echo "$title from $caller"
 
 # Read argument definitions from standard input
 while read argname datatype varname help; do
@@ -79,11 +81,11 @@ done
 if [ "$OPTARG" = "h" ] || [ "$OPTARG" = "help" ]; then
 
     (
-        echo -e ""
-        echo -e "$title"
-        echo -e ""
-        echo -e "Usage: $(basename $caller)$lineinfo; use -h for more information."
-        echo -e "$helpinfo"
+        echo ""
+        echo "$title"
+        echo ""
+        echo "Usage: $(basename $caller)$lineinfo; use -h for more information."
+        echo "$helpinfo"
     ) >&2
 
     exit 1

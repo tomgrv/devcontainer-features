@@ -2,9 +2,9 @@
 
 # Source the argument parsing script to handle input arguments
 . zz_args "Export Source/Targets folders depending on feature context" $0 "$@" <<-help
-	s source 	source		Force source directory
-    t target	target		Force target directory
-    - caller	caller		Force caller script
+        s source 	source		Force source directory
+        t target	target		Force target directory
+        - caller	caller		Force caller script
 help
 
 # If the source directory is not set, initialize it based on the script context
@@ -12,13 +12,13 @@ if [ -z "$caller" ]; then
 
     # Determine the caller script
     if [ "$(uname -o)" = "Msys" ]; then
-        caller=$(tr -d '\0' </proc/$PPID/cmdline | sed 's/ .*$//')
+        caller=$(tr '\0' '\n' </proc/$PPID/cmdline | head -n 1)
     else
-        caller=$(ps -o args= $PPID)
+        caller=$(ps -o args= $PPID | cut -d ' ' -f 1)
     fi
 
+    caller=$(readlink -f ${caller##/bin/sh} | head -n 1)
     echo "Caller script is <$caller>" >&2
-    caller=$(readlink -f ${caller##/bin/sh})
 
     # If the caller script cannot be determined, exit with an error
     if [ -z "$caller" ]; then
