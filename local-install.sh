@@ -19,13 +19,15 @@ done
 export PATH=$PATH:/tmp/common-utils
 
 # Load arguments for the script
-. zz_args "Install features locally" $0 "$@" <<-help
+eval $(
+    ./src/common-utils/_zz_args.sh "Install features locally" $0 "$@" <<-help
     a -         all         Install all features
     u -         upd         Update all features
     s -         stubs       Install stubs only
     p -         package     Specify package.json file to use
     + features  features    List of features to install
 help
+)
 
 # If 'all' argument is provided, set stubs and features to install all default features
 if [ -n "$all" ]; then

@@ -1,7 +1,14 @@
 #!/bin/sh
 
 # Source the context script to initialize variables and settings
-. zz_context "$@"
+eval $(
+    zz_context "$@"
+)
+
+if [ -z "$feature" ]; then
+    echo "Usage: install-feature <feature>"
+    exit 1
+fi
 
 echo "Installing feature <$feature>..."
 
@@ -13,5 +20,5 @@ find $target -type f -name "*.sh" -exec chmod +x {} \;
 echo "Calling all install scripts in '$source'..."
 find $source -type f -name "install-*.sh" | while read script; do
     echo "Calling $script..."
-    sh $script
+    sh $script "$@"
 done
