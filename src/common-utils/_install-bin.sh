@@ -1,7 +1,14 @@
 #!/bin/sh
 
 # Source the context script to initialize variables and settings
-. zz_context "$@" 
+eval $(
+    zz_context "$@"
+)
+
+if [ -z "$feature" ]; then
+    echo "Usage: install-bin <feature>"
+    exit 1
+fi
 
 echo "Installing bin scripts form '$target'..."
 
