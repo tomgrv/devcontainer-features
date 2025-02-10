@@ -1,5 +1,5 @@
 #!/bin/sh
 
 ### Install this feature
-. install-feature
-. install-bin
+install-feature $0
+install-bin $0
