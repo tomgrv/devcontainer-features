@@ -1,10 +1,10 @@
 #!/bin/sh
 
 # Source the argument parsing script to handle input arguments
-. zz_args "Configure specified feature" $0 "$@" <<-help
+zz_args "Configure specified feature" $0 "$@" <<-help
     s source    source      Force source directory
 	- feature	feature		Feature name
-help
+help || exit 1
 
 # Initialize the source directory based on the feature name
 export source=${source:-/usr/local/share/$feature}
