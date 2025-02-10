@@ -12,13 +12,13 @@ help=""
 invert=""
 
 # Display help information if no arguments are passed
-if [ $# -lt 1 ] || [ "$1" = "-h" ] || [ "$1" = "help" ]; then
-    echo "Usage: $(basename $0) <title> <caller> <<--help
+if test $# -lt 1; then
+    echo "Usage: $(basename $0) <title> <caller> <<-help
         ...
         <argname> <datatype> <varname> <help>
         ...
         help" >&2
-    exit 1
+    return 1
 fi
 
 # Set the title from the first argument
@@ -66,12 +66,12 @@ while getopts :$argnames value "$@"; do
         break
     fi
 
-    naming=$(echo -e "$varnames" | grep -E "^$value" | cut -f2)
+    naming=$(echo "$varnames" | grep -E "^$value" | cut -f2)
 
     if [ -n "$OPTARG" ]; then
-        export "$naming=$OPTARG"
+        echo "$naming=$OPTARG"
     else
-        export "$naming=-$value"
+        echo "$naming=-$value"
     fi
 done
 
@@ -79,11 +79,11 @@ done
 if [ "$OPTARG" = "h" ] || [ "$OPTARG" = "help" ]; then
 
     (
-        echo -e ""
-        echo -e "$title"
-        echo -e ""
-        echo -e "Usage: $(basename $caller)$lineinfo; use -h for more information."
-        echo -e "$helpinfo"
+        echo ""
+        echo "$title"
+        echo ""
+        echo "Usage: $(basename $caller)$lineinfo; use -h for more information."
+        echo "$helpinfo"
     ) >&2
 
     exit 1
@@ -95,16 +95,16 @@ else
     shift $(expr "$OPTIND" - 1)
 
     # Process remaining '-' parameters
-    for arg in $(echo -e $varnames | grep -E "^-" | cut -f2); do
+    for arg in $(echo $varnames | grep -E "^-" | cut -f2); do
         if [ "$#" -gt "0" ]; then
-            export "$arg=$1" && shift 1
+            echo "$arg=$1" && shift 1
         fi
     done
 
     # Process remaining '+' parameters
-    for arg in $(echo -e $varnames | grep -E "^\+" | cut -f2); do
+    for arg in $(echo $varnames | grep -E "^\+" | cut -f2); do
         if [ "$#" -gt "0" ]; then
-            export "$arg=$(echo $@ | sed "s/ /\\\\ /g")" && shift $#
+            echo "$arg=$(echo $@ | sed "s/ /\\\\ /g")" && shift $#
         fi
     done
 

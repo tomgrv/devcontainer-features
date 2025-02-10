@@ -1,16 +1,23 @@
 #!/bin/sh
 
 # Source the argument parsing script to handle input arguments
-. zz_args "Configure specified feature" $0 "$@" <<-help
+eval $(
+    zz_args "Configure specified feature" $0 "$@" <<-help
     s source    source      Force source directory
 	- feature	feature		Feature name
 help
+)
+
+if [ -z "$feature" ]; then
+    echo "Usage: configure-feature <feature>"
+    exit 1
+fi
 
 # Initialize the source directory based on the feature name
 export source=${source:-/usr/local/share/$feature}
 
 # Get the indent size from devcontainer.json with jq, default to 2 if not found
-export tabSize=$(sed 's/\/\/.*//' .devcontainer/devcontainer.json | jq '.customizations.vscode.settings["editor.tabSize"] // 2')
+export tabSize=4
 
 echo "Configuring feature <$feature>"
 echo "from <$source>"
