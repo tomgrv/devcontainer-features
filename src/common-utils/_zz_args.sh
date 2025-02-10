@@ -11,6 +11,8 @@ datatype=""
 help=""
 invert=""
 
+echo "----------------------->$@<---->$1<-------------------"
+
 # Display help information if no arguments are passed
 if [ $# -lt 1 ] || [ "$1" = "-h" ] || [ "$1" = "help" ]; then
     echo "Usage: $(basename $0) <title> <caller> <<--help
