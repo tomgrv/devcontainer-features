@@ -90,9 +90,6 @@
         "package.json": [
             "npx --yes sort-package-json"
         ],
-        "src/**/*.json": [
-            "npx --yes sort-package-json"
-        ],
         ".devcontainer/*": [
             "cp -u -t ./stubs/.devcontainer "
         ]
