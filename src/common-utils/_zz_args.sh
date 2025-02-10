@@ -12,7 +12,7 @@ help=""
 invert=""
 
 # Display help information if no arguments are passed
-if [ $# -lt 1 ] || [ "$1" = "-h" ] || [ "$1" = "help" ]; then
+if [ $# -lt 1 ] || [ "x$1" = "x-h" ] || [ "x$1" = "xhelp" ]; then
     echo "Usage: $(basename $0) <title> <caller> <<--help
         ...
         <argname> <datatype> <varname> <help>
