@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Source the context script to initialize variables and settings
-. zz_context "$@" 
+zz_context "$@" || exit 1
 
 echo "Installing bin scripts form '$target'..."
 
