@@ -25,10 +25,10 @@ for bin in $UTILS; do
 done
 
 # Prepare for installation
-ln -sf _zz_args.sh zz_args
-ln -sf _zz_context.sh zz_context
-export PATH=$PWD:$PATH
+ln -sf $PWD/$(dirname $0)/_zz_args.sh $PWD/$(dirname $0)/zz_args
+ln -sf $PWD/$(dirname $0)/_zz_context.sh $PWD/$(dirname $0)/zz_context
+export PATH=$PWD/$(dirname $0):$PATH
 
-# Install the feature
-. $(dirname $0)/_install-feature.sh -s $PWD/$(dirname $0)
-. $(dirname $0)/_install-bin.sh -s $PWD/$(dirname $0)
+# Prepare for installation
+$(dirname $0)/_install-feature.sh -s $PWD/$(dirname $0)
+$(dirname $0)/_install-bin.sh -s $PWD/$(dirname $0)
