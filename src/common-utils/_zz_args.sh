@@ -11,8 +11,15 @@ datatype=""
 help=""
 invert=""
 
-# Check if there are any arguments passed
-test $# -lt 1 && return 1
+# Display help information if no arguments are passed
+if [ $# -lt 1 ] || [ "$1" = "-h" ] || [ "$1" = "help" ]; then
+    echo "Usage: $(basename $0) <title> <caller> <<--help
+        ...
+        <argname> <datatype> <varname> <help>
+        ...
+        help" >&2
+    exit 1
+fi
 
 # Set the title from the first argument
 title=$1 && shift
@@ -58,7 +65,7 @@ while getopts :$argnames value "$@"; do
     if [ "$value" = "?" ]; then
         break
     fi
-    
+
     naming=$(echo -e "$varnames" | grep -E "^$value" | cut -f2)
 
     if [ -n "$OPTARG" ]; then
