@@ -1,5 +1,9 @@
 #!/bin/sh
 
+eval $(
+    zz_context "$@"
+)
+
 # Detect if --system flag can be used for writing
 if git config --system test.key test.value >/dev/null 2>&1; then
     GIT_CONFIG_SCOPE="--system"
