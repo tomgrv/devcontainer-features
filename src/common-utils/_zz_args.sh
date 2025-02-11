@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Source colors script
+. zz_colors
+
 # Initialize variables
 count="0"
 value=""
@@ -82,8 +85,9 @@ if [ "$OPTARG" = "h" ] || [ "$OPTARG" = "help" ]; then
         echo ""
         echo "$title"
         echo ""
-        echo "Usage: $(basename $caller)$lineinfo; use -h for more information."
+        echo "Usage: ${Yellow}$(basename $caller)$lineinfo${None}; use ${Yellow}-h${None} for more information."
         echo "$helpinfo"
+        echo ""
     ) >&2
 
     exit 1

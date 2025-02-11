@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Source colors script
+. zz_colors
+
 # Source the context script to initialize variables and settings
 eval $(
     zz_context "$@"
@@ -10,37 +13,35 @@ if [ -z "$feature" ]; then
     exit 1
 fi
 
-echo "Installing stubs from <$feature>..."
+echo "Installing stubs from <${Purple}$feature${None}>..."
 
 # Merge all files from the stubs folder to the root with git merge-file
-for file in $(find $source/stubs -type f); do
+for file in $(find $source/stubs -type f -name ".*" -o -type f); do
 
-    # Get the middle part of the path
+    # Get the relative of the path
     folder=$(dirname ${file#$source/stubs/})
+    dest=$folder/$(basename $file | sed 's/\.\./\./g')
 
     # Create the folder if it does not exist
     mkdir -p $folder
 
+    # if filename starts with #, add it to .gitignore without the #
+    if [ $(basename $file | cut -c1) = "#" ]; then
+
+        # Remove # occurrences in the file path
+        dest=$(echo $dest | sed 's/\/\#/\//g')
+
+        echo "Add '$dest' to .gitignore"
+
+        # Add to .gitignore if not already there
+        grep -qxF $dest .gitignore || echo "$dest" >>.gitignore
+    fi
+
     # Merge the file
-    echo "Merge $folder/$(basename $file)"
-    git merge-file -p $file $folder/$(basename $file) ${folder#$source/}/$(basename $file) >$folder/$(basename $file)
+    echo "${Yellow}Merge $dest${None}"
+    git merge-file -p $file $dest $dest >$dest
 
     # Apply the same permissions as the original file
-    chmod $(stat -c "%a" $file) $folder/$(basename $file)
-done
+    chmod $(stat -c "%a" $file) $dest
 
-# Find all files with a trailing slash outside the dist folder, make sure they are added to .gitignore and remove the trailing slash
-echo "Add files to .gitignore"
-for file in $(find . -type f -name "#*" ! -path "*/stubs/*" ! -path "./node_modules/*" ! -path "./vendors/*"); do
-
-    echo "Add $file to .gitignore"
-
-    # Remove # occurrences in the file path
-    clean=${file#./#}
-
-    # Add to .gitignore if not already there
-    grep -qxF $clean .gitignore || echo "$clean" >>.gitignore
-
-    # Rename the file
-    mv $file $clean
 done
