@@ -6,9 +6,7 @@
         "ghcr.io/devcontainers/features/common-utils": {}
     },
     "id": "common-utils",
-    "installsAfter": [
-        "ghcr.io/devcontainers/features/common-utils"
-    ],
+    "installsAfter": ["ghcr.io/devcontainers/features/common-utils"],
     "options": {
         "utils": {
             "type": "string",
@@ -20,7 +18,6 @@
         "vscode": {
             // Set *default* container specific settings.json values on container create.
             "settings": {
-                "terminal.integrated.defaultProfile.linux": "zsh",
                 "editor.formatOnSave": true,
                 "editor.formatOnPaste": true,
                 "todo-tree.general.tags": [

@@ -34,7 +34,11 @@
     },
     "author": "tomgrv",
     "type": "module",
-    "bin": "./local-install.sh",
+    "bin": "./install.sh",
+    "files": [
+        "./src/*",
+        "./stubs/*"
+    ],
     "scripts": {
         "lint": "npx --yes lint-staged",
         "release": "npx --yes commit-and-tag-version --no-verify --",
@@ -84,11 +88,11 @@
         "*.{js,jsx,ts,tsx,md,html,css,json,vue, yaml, yml, sh}": [
             "npx --yes prettier --write"
         ],
-        "composer.lock": [
-            "composer validate --ansi --strict"
-        ],
         "package.json": [
             "npx --yes sort-package-json"
+        ],
+        "composer.lock": [
+            "composer validate --ansi --strict"
         ],
         ".devcontainer/*": [
             "cp -u -t ./stubs/.devcontainer "
