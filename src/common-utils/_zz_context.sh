@@ -1,7 +1,9 @@
 #!/bin/sh
 
-# Source the argument parsing script to handle input arguments
+# Source colors script
+. zz_colors
 
+# Manage arguments
 eval $(
     zz_args "Export Source/Targets folders depending on feature context" $0 "$@" <<-help
         s source 	source		Force source directory
@@ -25,7 +27,7 @@ else
 
         # If the caller script cannot be determined, exit with an error
         if [ -z "$caller" ]; then
-            echo "Not in script context" >&2
+            echo "${Red}Not in script context${None}" >&2
             exit 1
         fi
 
@@ -46,7 +48,7 @@ if [ -z "$target" ]; then
     elif [ -w /tmp ]; then
         target=/tmp/$feature
     else
-        echo "No writeable directory found" >&2
+        echo "${Red}No writeable directory found${None}" >&2
         exit 1
     fi
 fi
@@ -55,7 +57,7 @@ fi
 mkdir -p $target
 
 # Log the results
-echo "Selected context for <$feature> is '$source' => '$target'" >&2
+echo "Selected context for <${Purple}$feature${None}> is '$source' => '$target'" >&2
 
 # Results
 echo source=$source
