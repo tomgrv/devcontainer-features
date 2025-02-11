@@ -7,7 +7,7 @@
     "continue": "git checkout -- . && git rebase --continue",
     "crush": "git stash save --keep-index --include-untracked  && git reset --hard $(git rev-parse --abbrev-ref --symbolic-full-name @{u})",
     "edit": "git commit --amend --edit",
-    "fixMode": "git diff -p -R --no-color | grep -E \"^(diff|(old|new) mode)\" --color=never | git apply",
+    "fixMode": "git diff -p -R --no-color | grep -E \"^(diff|(old|new) mode)\" --color=never | git apply --allow-empty",
     "fixable": "git log --oneline $(git rev-parse --abbrev-ref --symbolic-full-name @{u})..HEAD",
     "forceable": "git log --oneline $(echo $(git rev-parse --abbrev-ref --symbolic-full-name @{u};git log --merges --first-parent -1 --pretty=%h)| tail -1)..HEAD $*",
     "go": "git commit -m \"$1\" --all",
