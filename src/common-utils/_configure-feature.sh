@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Source colors script
+. zz_colors
+
 # Source the argument parsing script to handle input arguments
 eval $(
     zz_args "Configure specified feature" $0 "$@" <<-help
@@ -19,14 +22,14 @@ export source=${source:-/usr/local/share/$feature}
 # Get the indent size from devcontainer.json with jq, default to 2 if not found
 export tabSize=4
 
-echo "Configuring feature <$feature>"
+echo "Configuring feature <${Purple}$feature${None}>"
 echo "from <$source>"
 
 # Go to the module root
 cd "$(git rev-parse --show-toplevel)" >/dev/null
 
 # Log the merging process
-echo "Merge all package folder json files into top level package.json" | npx --yes chalk-cli --stdin blue
+echo "${Blue}Merge all package folder json files into top level package.json${None}"
 
 # Create package.json if it does not exist or is empty
 if [ ! -f package.json -o ! -s package.json ]; then
@@ -39,14 +42,13 @@ fi
 
 # Merge all package folder json files into the top-level package.json
 find $source -name _*.json | sort | while read file; do
-    echo "Merge $file" | npx --yes chalk-cli --stdin yellow
+    echo "${Yellow}Merge $file${None}"
     jq --indent ${tabSize:-2} -s '.[0] * .[1]' $file package.json >/tmp/package.json && mv -f /tmp/package.json package.json
 done
 
 # Call all configure-xxx.sh scripts
 find $source -name configure-*.sh | sort | while read file; do
-    echo "Run $file" | npx --yes chalk-cli --stdin yellow
-    $file || true
+    echo "${Yellow}Run $file${None}"
 done
 
 # Sort the final package.json
