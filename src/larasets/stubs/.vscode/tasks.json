@@ -38,14 +38,42 @@
             }
         },
         {
-            "label": "up",
+            "label": "▶️ Run",
             "dependsOn": [
                 "sail-up",
+                "sail-dump",
                 "art-queue",
                 "art-schedule",
                 "vite"
             ],
             "dependsOrder": "sequence"
+        },
+        {
+            "label": "⏩ Up",
+            "dependsOn": [
+                "sail-up",
+                "vite",
+                "sail-dump",
+            ],
+            "dependsOrder": "sequence"
+        },
+        {
+            "label": "🔄️ Refresh",
+            "dependsOn": [
+                "sail-dump"
+            ],
+            "dependsOrder": "sequence"
+        },
+        {
+            "label": "sail-dump",
+            "type": "shell",
+            "command": "sail composer dump-autoload",
+            "presentation": {
+                "panel": "dedicated",
+                "clear": true,
+                "close": true
+            },
+            "hide": true
         },
         {
             "label": "sail-up",
@@ -66,7 +94,8 @@
                 "panel": "dedicated",
                 "clear": true,
                 "close": true
-            }
+            },
+            "hide": true
         },
         {
             "label": "sail-down",
@@ -76,7 +105,8 @@
                 "panel": "dedicated",
                 "clear": true,
                 "close": true
-            }
+            },
+            "hide": true
         },
         {
             "label": "art-queue",
@@ -159,6 +189,7 @@
                 "clear": true,
                 "reveal": "always"
             },
+            "hide": true,
             "isBackground": true,
             "problemMatcher": {
                 "owner": "vite",
