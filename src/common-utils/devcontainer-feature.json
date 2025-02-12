@@ -1,14 +1,12 @@
 {
     "name": "Common Utils",
-    "version": "2.2.5",
+    "version": "2.2.6",
     "description": "Common utils for tomgrv/devcontainer-features",
     "dependsOn": {
         "ghcr.io/devcontainers/features/common-utils": {}
     },
     "id": "common-utils",
-    "installsAfter": [
-        "ghcr.io/devcontainers/features/common-utils"
-    ],
+    "installsAfter": ["ghcr.io/devcontainers/features/common-utils"],
     "options": {
         "utils": {
             "type": "string",
