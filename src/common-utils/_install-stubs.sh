@@ -39,7 +39,7 @@ for file in $(find $source/stubs -type f -name ".*" -o -type f); do
 
     # Merge the file
     echo "${Yellow}Merge $dest${None}"
-    git merge-file -p $file $dest $dest >$dest
+    git merge-file -p $dest $dest $file >$dest
 
     # Apply the same permissions as the original file
     chmod $(stat -c "%a" $file) $dest
