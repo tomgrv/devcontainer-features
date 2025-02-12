@@ -25,7 +25,7 @@ for bin in $UTILS; do
 done
 
 # Prepare for installation
-ln -sf $PWD/$(dirname $0)/_colors.sh $PWD/$(dirname $0)/colors
+ln -sf $PWD/$(dirname $0)/_zz_colors.sh $PWD/$(dirname $0)/zz_colors
 ln -sf $PWD/$(dirname $0)/_zz_args.sh $PWD/$(dirname $0)/zz_args
 ln -sf $PWD/$(dirname $0)/_zz_context.sh $PWD/$(dirname $0)/zz_context
 export PATH=$PWD/$(dirname $0):$PATH
