@@ -28,6 +28,44 @@ echo "from <$source>"
 # Go to the module root
 cd "$(git rev-parse --show-toplevel)" >/dev/null
 
+# Deploy stubs if existing
+if [ -d $source/stubs ]; then
+
+    echo "${Blue}Deploy stubs${None}"
+
+    find $source/stubs -type f -name ".*" -o -type f | while read file; do
+
+        # Get the relative of the path
+        folder=$(dirname ${file#$source/stubs/})
+
+        # Get the destination file path
+        dest=$folder/$(basename $file | sed 's/\.\./\./g')
+
+        # Create the folder if it does not exist
+        mkdir -p $folder
+
+        # if filename starts with #, add it to .gitignore without the #
+        if [ $(basename $file | cut -c1) = "#" ]; then
+
+            # Remove # occurrences in the file path
+            dest=$(echo $dest | sed 's/\/\#/\//g')
+
+            echo "Add '$dest' to .gitignore"
+
+            # Add to .gitignore if not already there
+            grep -qxF $dest .gitignore || echo "$dest" >>.gitignore
+        fi
+
+        # Merge the file
+        echo "${Yellow}Merging '$dest'...${None}"
+        git merge-file -p -L current -L base -L stubs $dest /dev/null $file >$dest
+
+        # Apply the same permissions as the original file
+        chmod $(stat -c "%a" $file) $dest
+
+    done
+fi
+
 # Log the merging process
 echo "${Blue}Merge all package folder json files into top level package.json${None}"
 
@@ -41,13 +79,13 @@ else
 fi
 
 # Merge all package folder json files into the top-level package.json
-find $source -name _*.json | sort | while read file; do
+find $source -maxdepth 1 -name _*.json  | sort | while read file; do
     echo "${Yellow}Merge $file${None}"
     jq --indent ${tabSize:-2} -s '.[0] * .[1]' $file package.json >/tmp/package.json && mv -f /tmp/package.json package.json
 done
 
 # Call all configure-xxx.sh scripts
-find $source -name configure-*.sh | sort | while read file; do
+find $source -maxdepth 1 -name configure-*.sh | sort | while read file; do
     echo "${Yellow}Run $file${None}"
 done
 

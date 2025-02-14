@@ -4,11 +4,7 @@
         {
             "label": "⏬ Update Features",
             "type": "shell",
-            "command": "npm exec --yes tomgrv/devcontainer-features -- -u",
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
+            "command": "npm exec --yes -- tomgrv/devcontainer-features -s",
             "problemMatcher": []
         }
     ]
