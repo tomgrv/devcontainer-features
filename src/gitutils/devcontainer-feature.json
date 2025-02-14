@@ -34,6 +34,9 @@
         "ghcr.io/tomgrv/devcontainer-features/common-utils",
         "ghcr.io/tomgrv/devcontainer-features/gitversion"
     ],
-    "postCreateCommand": "configure-feature gitutils",
+    "postCreateCommand": {
+        "stubs": "install-stubs gitutils",
+        "config": "configure-feature gitutils"
+    },
     "postStartCommand": "git fixMode"
 }
