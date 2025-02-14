@@ -1,7 +1,3 @@
-## Modules
-/node_modules
-**/node_modules
-
 ## Storage
 /public/storage
 /storage
@@ -11,26 +7,9 @@
 **/vendor
 _ide_helper.php
 
-## DotEnv
-.env*
-!.env.project
-!.env.vault
-
-## Logs
-*.log
-*.cache
-
 ## Homestead
 Homestead.json
 Homestead.yaml
-
-## Misc
-.history
-.version.json
-.mono
-.toolkit
-bin
-obj
 
 ## Vite
 /public/build
