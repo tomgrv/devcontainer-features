@@ -4,7 +4,7 @@
 
 ## Storage
 /public/storage
-./storage
+/storage
 
 ## Composer
 /vendor
@@ -27,10 +27,14 @@ Homestead.yaml
 ## Misc
 .history
 .version.json
-/.mono
+.mono
+.toolkit
+bin
+obj
 
 ## Vite
 /public/build
 /public/hot
 /public/css
 /public/js
+./.gitattributes

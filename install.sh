@@ -109,12 +109,23 @@ if [ -n "$features" ]; then
                 echo "${Red}$feature not found${None}"
             fi
         done
+
+    elif [ -n "$stubs" ]
+    then
+
+        # stubs are selected, deploy stubs of the selected features  
+        for feature in $features; do
+            echo "${Yellow}Deploying stubs for $feature...${None}"
+             $source/src/common-utils/_install-stubs.sh -s ./src/$feature -t . 
+            echo "${Green}Stubs for $feature deployed${None}"
+        done
+        
     else
         # If inside a container, suggest using devutils as devcontainer features
         echo "${Purple}You are in a container: use devutils as devcontainer features:${None}"
         for feature in $features; do
             echo "${Purple}ghcr.io/tomgrv/devcontainer-features/$feature${None}"
         done
-        exit
+     
     fi
 fi
