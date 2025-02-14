@@ -73,7 +73,7 @@ fi
 # Merge all files from the stub folder to the root using git merge-file if stubs are selected
 if [ -n "$stubs" ]; then
     echo "${Yellow}Installing stubs...${None}"
-    $source/src/common-utils/_install-stubs.sh -s $source -t . || exit 1
+    $source/src/common-utils/_configure-feature.sh -s $source .
     echo "${Green}Stubs installed${None}"
 fi
 
@@ -92,7 +92,7 @@ if [ -n "$features" ]; then
         for feature in $features; do
             if [ -f "$source/src/$feature/install.sh" ]; then
                 echo "${Yellow}Running src/$feature/install.sh...${None}"
-                sh $source/src/$feature/install.sh -t /tmp
+                sh $source/src/$feature/install.sh
                 echo "${Green}$feature installed${None}"
             else
                 echo "${Red}$feature not found${None}"
@@ -101,20 +101,37 @@ if [ -n "$features" ]; then
 
         # Run the configure.sh script for each selected feature
         for feature in $features; do
-            if [ -f "/tmp/src/$feature/configure.sh" ]; then
-                echo "${Yellow}Running src/$feature/configure.sh...${None}"
-                sh /tmp/$feature/configure.sh
+            if [ -d "/tmp/$feature" ]; then
+                echo "${Yellow}Configuring /tmp/$feature...${None}"
+                sh $source/src/common-utils/_configure-feature.sh -s /tmp/$feature $feature
                 echo "${Green}$feature configured${None}"
             else
                 echo "${Red}$feature not found${None}"
             fi
         done
+
+    elif [ -n "$stubs" ]
+    then
+
+        # stubs are selected, configure stubs of the selected features  
+        for feature in $features; do
+            echo "${Yellow}Deploying stubs for $feature...${None}"
+            $source/src/common-utils/_configure-feature.sh -s $source/src/$feature $feature
+            echo "${Green}Stubs for $feature deployed${None}"
+        done
+        
     else
         # If inside a container, suggest using devutils as devcontainer features
         echo "${Purple}You are in a container: use devutils as devcontainer features:${None}"
         for feature in $features; do
             echo "${Purple}ghcr.io/tomgrv/devcontainer-features/$feature${None}"
         done
-        exit
+     
     fi
 fi
+
+# Remoce all links to common utils
+echo "Remove temp files..."
+find $source/src/common-utils/ -type f -name "_*.sh" -exec echo {} \; -exec chmod +x {} \; | while read file; do
+    rm $source/src/common-utils/$(basename $file | sed 's/^_//;s/.sh$//')
+done
