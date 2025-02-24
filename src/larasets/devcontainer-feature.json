@@ -1,6 +1,6 @@
 {
     "name": "Laravel settings",
-    "version": "4.0.0",
+    "version": "4.0.1",
     "description": "A feature to add useful laravel settings to your shell.",
     "containerEnv": {
         "APP_DEBUG": "true",
@@ -20,12 +20,8 @@
                         "config/*.php",
                         ".env"
                     ],
-                    "art-cache-views": [
-                        "packages/**/*.blade.php"
-                    ],
-                    "art-cache-routes": [
-                        "**/[Rr]outes/*.php"
-                    ]
+                    "art-cache-views": ["packages/**/*.blade.php"],
+                    "art-cache-routes": ["**/[Rr]outes/*.php"]
                 }
             },
             "extensions": [
@@ -55,14 +51,10 @@
         "ghcr.io/tomgrv/devcontainer-features/common-utils:3": ""
     },
     "id": "larasets",
-    "installsAfter": [
-        "ghcr.io/tomgrv/devcontainer-features/common-utils"
-    ],
-    "legacyIds": [
-        "larasets"
-    ],
+    "installsAfter": ["ghcr.io/tomgrv/devcontainer-features/common-utils"],
+    "legacyIds": ["larasets"],
     "postCreateCommand": {
-        "stubs": "install-stubs larasets",
-        "config": "configure-feature larasets"
+        "stubs": "sudo install-stubs larasets",
+        "config": "sudo configure-feature larasets"
     }
 }
