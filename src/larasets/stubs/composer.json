@@ -46,12 +46,18 @@
     },
     "config": {
         "allow-plugins": {
-            "wikimedia/composer-merge-plugin": true
+            "wikimedia/composer-merge-plugin": true,
+            "ergebnis/composer-normalize": true
         },
         "optimize-autoloader": true,
         "preferred-install": "dist",
         "sort-packages": true
     },
-    "minimum-stability": "stable",
+    "require-dev": {
+        "pestphp/pest": "^1.0",
+        "pestphp/pest-plugin-laravel": "^1.0",
+        "laravel/pint": "^1.0",
+        "ergebnis/composer-normalize": "^2.7"
+    },
     "prefer-stable": true
 }
