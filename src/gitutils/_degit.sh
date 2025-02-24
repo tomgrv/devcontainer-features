@@ -2,11 +2,9 @@
 
 # Check if repository is provided
 if [ "$#" -lt 1 ]; then
-  echo "Usage: $0 <github repository> [<directory>]"
-  exit 1
+    echo "Usage: $0 <github repository> [<directory>]"
+    exit 1
 fi
-
-set -euo pipefail
 
 # Get repository URL from argument
 repo="${1}"
@@ -29,21 +27,20 @@ echo "Directory: ${directory}"
 
 # Download and extract repository per host
 case $host in
-    "gitlab.com")
-        curl --location "https://gitlab.com/${repo}/-/archive/master/${repo}-master.tar.gz" | \
-            tar --extract --ungzip --strip-components=1 --directory "${directory}"
-        ;;
-    "bitbucket.org")
-        curl --location "https://bitbucket.org/${repo}/get/master.tar.gz" | \
-            tar --extract --ungzip --strip-components=1 --directory "${directory}"
-        ;;
-    "github.com")
-        curl --location "https://api.github.com/repos/${repo}/tarball" | \
-            tar --extract --ungzip --strip-components=1 --directory "${directory}"
-        ;;
-    *)
-        echo "Unsupported host: ${host}"
-        exit 1
-        ;;
+"gitlab.com")
+    curl --location "https://gitlab.com/${repo}/-/archive/master/${repo}-master.tar.gz" |
+        tar --extract --ungzip --strip-components=1 --directory "${directory}"
+    ;;
+"bitbucket.org")
+    curl --location "https://bitbucket.org/${repo}/get/master.tar.gz" |
+        tar --extract --ungzip --strip-components=1 --directory "${directory}"
+    ;;
+"github.com")
+    curl --location "https://api.github.com/repos/${repo}/tarball" |
+        tar --extract --ungzip --strip-components=1 --directory "${directory}"
+    ;;
+*)
+    echo "Unsupported host: ${host}"
+    exit 1
+    ;;
 esac
-
