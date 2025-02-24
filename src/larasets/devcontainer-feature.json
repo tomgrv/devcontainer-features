@@ -1,6 +1,6 @@
 {
     "name": "Laravel settings",
-    "version": "4.0.1",
+    "version": "4.0.2",
     "description": "A feature to add useful laravel settings to your shell.",
     "containerEnv": {
         "APP_DEBUG": "true",
@@ -54,7 +54,7 @@
     "installsAfter": ["ghcr.io/tomgrv/devcontainer-features/common-utils"],
     "legacyIds": ["larasets"],
     "postCreateCommand": {
-        "stubs": "sudo install-stubs larasets",
-        "config": "sudo configure-feature larasets"
+        "stubs": "install-stubs larasets",
+        "config": "configure-feature larasets"
     }
 }
