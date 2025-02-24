@@ -1,0 +1,6 @@
+{
+    "lint-staged": {
+        "*.php": ["composer lint"],
+        "composer.json": ["composer normalize"]
+    }
+}
