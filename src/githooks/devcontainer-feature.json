@@ -1,6 +1,6 @@
 {
     "name": "Git Hooks",
-    "version": "5.1.0",
+    "version": "5.1.1",
     "description": "A feature to add useful Git hooks to your project",
     "customizations": {
         "vscode": {
@@ -25,7 +25,7 @@
         "ghcr.io/tomgrv/devcontainer-features/gitutils"
     ],
     "postCreateCommand": {
-        "stubs": "sudo install-stubs githooks",
-        "config": "sudo configure-feature githooks"
+        "stubs": "install-stubs githooks",
+        "config": "configure-feature githooks"
     }
 }
