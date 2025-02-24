@@ -1,6 +1,6 @@
 {
     "name": "GitVersion feature",
-    "version": "5.0.2",
+    "version": "5.1.0",
     "description": "Add gitversion to your devcontainer",
     "dependsOn": {
         "ghcr.io/devcontainers/features/dotnet": "",
@@ -19,7 +19,6 @@
         }
     },
     "postCreateCommand": {
-        "stubs": "install-stubs gitversion",
         "config": "configure-feature gitversion"
     }
 }
