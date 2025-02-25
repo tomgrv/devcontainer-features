@@ -1,0 +1,12 @@
+{
+    "prettier": {
+        "insertPragma": true,
+        "plugins": [
+            "prettier-plugin-sh"
+        ],
+        "semi": false,
+        "singleQuote": true,
+        "tabWidth": 4,
+        "trailingComma": "es5"
+    }
+}

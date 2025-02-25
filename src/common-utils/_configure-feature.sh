@@ -67,27 +67,28 @@ if [ -d $source/stubs ]; then
 fi
 
 # Log the merging process
-echo "${Blue}Merge all package folder json files into top level package.json${None}"
+echo "${Blue}Merge all package folder json files into top level xxx.json${None}"
 
-# Create package.json if it does not exist or is empty
-if [ ! -f package.json -o ! -s package.json ]; then
-    # Create an empty package.json
-    echo "{}" >package.json
-else
-    # Pre-sort the existing package.json
-    npx --yes sort-package-json
-fi
+for package in package composer; do
 
-# Merge all package folder json files into the top-level package.json
-find $source -maxdepth 1 -name _*.json  | sort | while read file; do
-    echo "${Yellow}Merge $file${None}"
-    jq --indent ${tabSize:-2} -s '.[0] * .[1]' $file package.json >/tmp/package.json && mv -f /tmp/package.json package.json
+    # Create package.json if it does not exist or is empty
+    if [ ! -f $package.json -o ! -s $package.json ]; then
+        # Create an empty package.json
+        echo "{}" >$package.json
+    else
+        # Pre-sort the existing package.json
+        normalize-json -t ${tabSize:-4} $package.json
+    fi
+
+    # Merge all package folder json files into the top-level package.json
+    find $source -maxdepth 1 -name _*.$package.json | sort | while read file; do
+        echo "${Yellow}Merge $file${None}"
+        jq --indent ${tabSize:-4} -s '.[0] * .[1]' $file $package.json >/tmp/$package.json && mv -f /tmp/$package.json $package.json
+    done
+
 done
 
 # Call all configure-xxx.sh scripts
 find $source -maxdepth 1 -name configure-*.sh | sort | while read file; do
     echo "${Yellow}Run $file${None}"
 done
-
-# Sort the final package.json
-npx --yes sort-package-json

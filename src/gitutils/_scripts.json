@@ -1,7 +1,7 @@
 {
     "scripts": {
+        "test": "echo \"Warning: no test specified\"",
         "update": "npm-check-updates -i -u",
-        "update-all": "npm run update -ws --root",
-        "test": "echo \"Warning: no test specified\""
+        "update-all": "npm run update -ws --root"
     }
 }
