@@ -53,7 +53,7 @@
             "dependsOn": [
                 "sail-up",
                 "vite",
-                "sail-dump",
+                "sail-dump"
             ],
             "dependsOrder": "sequence"
         },
