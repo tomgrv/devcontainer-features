@@ -1,7 +1,5 @@
 #!/bin/sh
-set -e
 
-echo "Activating feature 'nektos/act'"
-
-### Install Act
-curl --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/nektos/act/${VERSION}/install.sh | bash -s -- -b /usr/local/bin
+### Install this feature
+install-feature $0
+install-bin $0
