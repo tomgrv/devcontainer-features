@@ -1,7 +1,7 @@
 {
     "name": "Nektos Act",
     "id": "act",
-    "version": "1.0.9",
+    "version": "1.2.0",
     "description": "A tool for running GitHub Actions locally",
     "installsAfter": [
         "ghcr.io/devcontainers/features/common-utils",
