@@ -1,4 +1,7 @@
 {
+    "scripts": {
+        "release": "npx --yes commit-and-tag-version --no-verify --"
+    },
     "commit-and-tag-version": {
         "bumpFiles": [
             {
@@ -16,40 +19,37 @@
         ],
         "types": [
             {
-                "type": "feat",
-                "section": "Features"
+                "section": "Features",
+                "type": "feat"
             },
             {
-                "type": "fix",
-                "section": "Bug Fixes"
+                "section": "Bug Fixes",
+                "type": "fix"
             },
             {
-                "type": "chore",
-                "hidden": true
+                "hidden": true,
+                "type": "chore"
             },
             {
-                "type": "docs",
-                "hidden": true
+                "hidden": true,
+                "type": "docs"
             },
             {
-                "type": "style",
-                "hidden": true
+                "hidden": true,
+                "type": "style"
             },
             {
-                "type": "refactor",
-                "hidden": true
+                "hidden": true,
+                "type": "refactor"
             },
             {
-                "type": "perf",
-                "hidden": true
+                "hidden": true,
+                "type": "perf"
             },
             {
-                "type": "test",
-                "hidden": true
+                "hidden": true,
+                "type": "test"
             }
         ]
-    },
-    "scripts": {
-        "release": "npx --yes commit-and-tag-version --no-verify --"
     }
 }
