@@ -1,7 +1,19 @@
 {
+    "id": "gitutils",
     "name": "Git Aliases",
-    "version": "5.3.0",
     "description": "A feature to add useful Git aliases to your shell.",
+    "version": "5.3.0",
+    "dependsOn": {
+        "ghcr.io/devcontainers/features/node": "",
+        "ghcr.io/tomgrv/devcontainer-features/gitversion:5": "5.*",
+        "ghcr.io/tomgrv/devcontainer-features/common-utils:3": {
+            "utils": "jq dos2unix git-flow"
+        }
+    },
+    "installsAfter": [
+        "ghcr.io/tomgrv/devcontainer-features/common-utils",
+        "ghcr.io/tomgrv/devcontainer-features/gitversion"
+    ],
     "customizations": {
         "vscode": {
             "settings": {
@@ -22,18 +34,6 @@
             ]
         }
     },
-    "dependsOn": {
-        "ghcr.io/devcontainers/features/node": "",
-        "ghcr.io/tomgrv/devcontainer-features/gitversion:5": "5.*",
-        "ghcr.io/tomgrv/devcontainer-features/common-utils:3": {
-            "utils": "jq dos2unix git-flow"
-        }
-    },
-    "id": "gitutils",
-    "installsAfter": [
-        "ghcr.io/tomgrv/devcontainer-features/common-utils",
-        "ghcr.io/tomgrv/devcontainer-features/gitversion"
-    ],
     "postCreateCommand": {
         "config": "configure-feature gitutils"
     },

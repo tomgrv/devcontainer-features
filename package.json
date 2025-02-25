@@ -21,9 +21,16 @@
     ],
     "homepage": "https://github.com/tomgrv/devcontainer-features#readme",
     "bugs": {
-        "url": "https://github.com/tomgrv/devcontainer-features/issues",
-        "email": "project@hostname.com"
+        "email": "project@hostname.com",
+        "url": "https://github.com/tomgrv/devcontainer-features/issues"
     },
+    "author": "tomgrv",
+    "files": [
+        "./src/*",
+        "./stubs/*"
+    ],
+    "bin": "./install.sh",
+    "type": "module",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/tomgrv/devcontainer-features.git"
@@ -32,13 +39,6 @@
         "type": "individual",
         "url": "https://buymeacoffee.com/tomgrv"
     },
-    "author": "tomgrv",
-    "type": "module",
-    "bin": "./install.sh",
-    "files": [
-        "./src/*",
-        "./stubs/*"
-    ],
     "scripts": {
         "lint": "npx --yes lint-staged",
         "release": "npx --yes commit-and-tag-version --no-verify --",
@@ -46,20 +46,97 @@
         "update": "npm-check-updates -i -u",
         "update-all": "npm run update -ws --root"
     },
+    "config": {
+        "commitizen": {
+            "path": "@commitlint/cz-commitlint"
+        },
+        "local": [
+            "gitutils",
+            "githooks"
+        ]
+    },
+    "peerDependencies": {
+        "@commitlint/cli": "^19.2.2",
+        "@commitlint/config-conventional": "^19.2.2",
+        "@commitlint/core": "^19.2.2",
+        "@commitlint/cz-commitlint": "^19.2.0",
+        "commit-and-tag-version": "^12.4.1",
+        "commitizen": "^4.3.0",
+        "conventional-changelog-cli": "^2.1.1",
+        "devmoji": "^2.3.0",
+        "git-precommit-checks": "3.1.0",
+        "husky": "^9.0.11",
+        "lint-staged": "^15.2.2",
+        "prettier": "^3.2.5"
+    },
+    "prettier": {
+        "insertPragma": true,
+        "plugins": [
+            "prettier-plugin-sh"
+        ],
+        "semi": false,
+        "singleQuote": true,
+        "tabWidth": 4,
+        "trailingComma": "es5"
+    },
+    "commit-and-tag-version": {
+        "bumpFiles": [
+            {
+                "filename": "composer.json",
+                "type": "json"
+            },
+            {
+                "filename": "package.json",
+                "type": "json"
+            },
+            {
+                "filename": "VERSION",
+                "type": "plain-text"
+            }
+        ],
+        "scripts": {
+            "prebump": "gitversion -config .gitversion -showvariable MajorMinorPatch"
+        },
+        "types": [
+            {
+                "section": "Features",
+                "type": "feat"
+            },
+            {
+                "section": "Bug Fixes",
+                "type": "fix"
+            },
+            {
+                "hidden": true,
+                "type": "chore"
+            },
+            {
+                "hidden": true,
+                "type": "docs"
+            },
+            {
+                "hidden": true,
+                "type": "style"
+            },
+            {
+                "hidden": true,
+                "type": "refactor"
+            },
+            {
+                "hidden": true,
+                "type": "perf"
+            },
+            {
+                "hidden": true,
+                "type": "test"
+            }
+        ]
+    },
     "commitlint": {
         "extends": [
             "@commitlint/config-conventional"
         ],
         "rules": {
-            "subject-case": [
-                2,
-                "never",
-                [
-                    "start-case",
-                    "pascal-case",
-                    "upper-case"
-                ]
-            ],
             "scope-enum": [
                 2,
                 "always",
@@ -78,110 +155,16 @@
                     "api",
                     "model"
                 ]
+            ],
+            "subject-case": [
+                2,
+                "never",
+                [
+                    "start-case",
+                    "pascal-case",
+                    "upper-case"
+                ]
             ]
-        }
-    },
-    "lint-staged": {
-        "*.php": [
-            "composer lint"
-        ],
-        "*.{js,jsx,ts,tsx,md,html,css,json,vue, yaml, yml, sh}": [
-            "npx --yes prettier --write"
-        ],
-        "package.json": [
-            "npx --yes sort-package-json"
-        ],
-        "composer.lock": [
-            "composer validate --ansi --strict"
-        ],
-        ".devcontainer/*": [
-            "cp -u -t ./stubs/.devcontainer "
-        ]
-    },
-    "config": {
-        "commitizen": {
-            "path": "@commitlint/cz-commitlint"
-        },
-        "local": [
-            "gitutils",
-            "githooks"
-        ]
-    },
-    "prettier": {
-        "insertPragma": true,
-        "plugins": [
-            "prettier-plugin-sh"
-        ],
-        "semi": false,
-        "singleQuote": true,
-        "tabWidth": 4,
-        "trailingComma": "es5"
-    },
-    "peerDependencies": {
-        "@commitlint/cli": "^19.2.2",
-        "@commitlint/config-conventional": "^19.2.2",
-        "@commitlint/core": "^19.2.2",
-        "@commitlint/cz-commitlint": "^19.2.0",
-        "commit-and-tag-version": "^12.4.1",
-        "commitizen": "^4.3.0",
-        "conventional-changelog-cli": "^2.1.1",
-        "devmoji": "^2.3.0",
-        "git-precommit-checks": "3.1.0",
-        "husky": "^9.0.11",
-        "lint-staged": "^15.2.2",
-        "prettier": "^3.2.5"
-    },
-    "commit-and-tag-version": {
-        "bumpFiles": [
-            {
-                "filename": "composer.json",
-                "type": "json"
-            },
-            {
-                "filename": "package.json",
-                "type": "json"
-            },
-            {
-                "filename": "VERSION",
-                "type": "plain-text"
-            }
-        ],
-        "types": [
-            {
-                "type": "feat",
-                "section": "Features"
-            },
-            {
-                "type": "fix",
-                "section": "Bug Fixes"
-            },
-            {
-                "type": "chore",
-                "hidden": true
-            },
-            {
-                "type": "docs",
-                "hidden": true
-            },
-            {
-                "type": "style",
-                "hidden": true
-            },
-            {
-                "type": "refactor",
-                "hidden": true
-            },
-            {
-                "type": "perf",
-                "hidden": true
-            },
-            {
-                "type": "test",
-                "hidden": true
-            }
-        ],
-        "scripts": {
-            "prebump": "gitversion -config .gitversion -showvariable MajorMinorPatch"
         }
     },
     "git-precommit-checks": {
@@ -196,6 +179,20 @@
                 "nonBlocking": "true",
                 "regex": "(?:FIXME|TODO)"
             }
+        ]
+    },
+    "lint-staged": {
+        "*.php": [
+            "composer lint"
+        ],
+        "*.{js,jsx,ts,tsx,md,html,css,json,vue, yaml, yml, sh}": [
+            "npx --yes prettier --write"
+        ],
+        ".devcontainer/*": [
+            "cp -u -t ./stubs/.devcontainer "
+        ],
+        "package.json": [
+            "npx --yes sort-package-json"
         ]
     }
 }

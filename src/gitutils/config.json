@@ -1,19 +1,19 @@
 {
     "core": {
-        "editor": "code --wait",
         "autocrlf": "input",
+        "editor": "code --wait",
         "filemode": false
     },
     "gitflow": {
         "branch": {
-            "master": "main",
-            "develop": "develop"
+            "develop": "develop",
+            "master": "main"
         },
         "prefix": {
-            "feature": "feature/",
             "bugfix": "bugfix/",
-            "release": "release/",
+            "feature": "feature/",
             "hotfix": "hotfix/",
+            "release": "release/",
             "support": "support/",
             "versiontag": "v"
         }
