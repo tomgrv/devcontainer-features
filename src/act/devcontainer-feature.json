@@ -1,8 +1,11 @@
 {
-    "name": "Nektos Act",
     "id": "act",
-    "version": "1.2.0",
+    "name": "Nektos Act",
     "description": "A tool for running GitHub Actions locally",
+    "version": "1.2.0",
+    "dependsOn": {
+        "ghcr.io/devcontainers/features/docker-in-docker": {}
+    },
     "installsAfter": [
         "ghcr.io/devcontainers/features/common-utils",
         "ghcr.io/devcontainers/features/docker-in-docker"
@@ -13,8 +16,5 @@
             "description": "The version of act to install",
             "default": "master"
         }
-    },
-    "dependsOn": {
-        "ghcr.io/devcontainers/features/docker-in-docker": {}
     }
 }
