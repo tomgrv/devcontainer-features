@@ -1,7 +1,17 @@
 {
+    "id": "larasets",
     "name": "Laravel settings",
-    "version": "4.2.0",
     "description": "A feature to add useful laravel settings to your shell.",
+    "version": "4.2.0",
+    "dependsOn": {
+        "ghcr.io/devcontainers/features/node:1": "",
+        "ghcr.io/devcontainers/features/php:1": "8.3",
+        "ghcr.io/devcontainers/features/docker-in-docker": "",
+        "ghcr.io/tomgrv/devcontainer-features/common-utils:3": ""
+    },
+    "installsAfter": [
+        "ghcr.io/tomgrv/devcontainer-features/common-utils"
+    ],
     "containerEnv": {
         "APP_DEBUG": "true",
         "APP_ENV": "local",
@@ -20,8 +30,12 @@
                         "config/*.php",
                         ".env"
                     ],
-                    "art-cache-views": ["packages/**/*.blade.php"],
-                    "art-cache-routes": ["**/[Rr]outes/*.php"]
+                    "art-cache-views": [
+                        "packages/**/*.blade.php"
+                    ],
+                    "art-cache-routes": [
+                        "**/[Rr]outes/*.php"
+                    ]
                 }
             },
             "extensions": [
@@ -44,15 +58,9 @@
             ]
         }
     },
-    "dependsOn": {
-        "ghcr.io/devcontainers/features/node:1": "",
-        "ghcr.io/devcontainers/features/php:1": "8.3",
-        "ghcr.io/devcontainers/features/docker-in-docker": "",
-        "ghcr.io/tomgrv/devcontainer-features/common-utils:3": ""
-    },
-    "id": "larasets",
-    "installsAfter": ["ghcr.io/tomgrv/devcontainer-features/common-utils"],
-    "legacyIds": ["larasets"],
+    "legacyIds": [
+        "larasets"
+    ],
     "postCreateCommand": {
         "config": "configure-feature larasets"
     }
