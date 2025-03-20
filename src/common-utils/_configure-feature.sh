@@ -77,12 +77,13 @@ for package in package composer; do
         echo "{}" >$package.json
     else
         # Pre-sort the existing package.json
+        echo "${Yellow}Pre-merge normalize $package.json${None}"
         normalize-json -t ${tabSize:-4} $package.json
     fi
 
     # Merge all package folder json files into the top-level package.json
     find $source -maxdepth 1 -name _*.$package.json | sort | while read file; do
-        echo "${Yellow}Merge $file${None}"
+        echo "${Yellow}Merge $file in $package.json${None}"
         jq --indent ${tabSize:-4} -s '.[0] * .[1]' $file $package.json >/tmp/$package.json && mv -f /tmp/$package.json $package.json
     done
 
