@@ -608,12 +608,16 @@ if validate "$json" "$schema"; then
 else
     echo -e "${Red}JSON is empty or invalid${None}" >&2
     exit 1
-fi | traverse $json >/tmp/$$.json
+fi >/tmp/$$.json
 
-if test -z "$save"; then
-    jq -C --indent ${tabSize:-2} . /tmp/$$.json
-else
-    jq -M --indent ${tabSize:-4} . /tmp/$$.json >$json
+# Handle output
+if test -s /tmp/$$.json; then
+    if test -z "$save"; then
+        traverse $json /tmp/$$.json | jq -C --indent ${tabSize:-2} .
+    else
+        traverse $json /tmp/$$.json | jq -M --indent ${tabSize:-4} . >$json
+    fi
 fi
 
-#rm -f /tmp/$$.json
+# Clean up
+rm -f /tmp/$$.json
