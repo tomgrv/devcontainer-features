@@ -20,7 +20,7 @@ help
 
 # Check if JSON exists and is readable
 if test -z "$json" && test ! -f "$json"; then
-    echo -e "${Red}JSON is missing${End}"
+    echo -e "${Red}JSON is missing${End}" >&2
     exit 1
 fi
 
@@ -106,14 +106,14 @@ get_path() {
             gsub("\\["; ".") | gsub("\\]"; "") | split(".") | map(
                 select(length > 0) | gsub("^\"|\"$";"") | if test("^[0-9]+$") then tonumber else . end
             );
-        getpath($path | split_path)'
+        getpath($path | split_path)' 2>/dev/null
 }
 
 # Function to get remove comments from JSON.
 # Do not remove comments inside strings.
 load_json() {
     local file=${1:--}
-    sed -e 's:^[[:blank:]]*//.*$::g' $file
+    sed -e 's:^[[:blank:]]*//.*$::g' $file 2>/dev/null
 }
 
 load_json_schema() {
@@ -286,7 +286,7 @@ validate() {
     fi
 
     # Log
-    echo -e "${lvl}${Blue}Parsing schema <${path:-.}> == <${real:-.}>${None} at level <$level>\r" >&2
+    echo -e "${lvl}${Blue}Parsing schema <${path:-.}> == <${real:-.}>${None} at level <$level>${End}" >&2
 
     # get 1st level entry points (oneOf, allOf, anyOf, properties) and loop through them
     for entry in '"$id"' '"not"' '"oneOf"' '"allOf"' '"anyOf"' '"type"' '"required"' '"$ref"' '"properties"' '"items"' '"additionalProperties"'; do
@@ -296,7 +296,7 @@ validate() {
             continue
         fi
 
-        echo -e "${lvl}- Processing <${Blue}${path}:$entry${None}>\r" >&2
+        echo -e "${lvl}- Processing <${Blue}${path}:$entry${None}>${End}" >&2
 
         case $entry in
 
@@ -323,7 +323,7 @@ validate() {
             fi
 
             echo -e "${lvl}- Ref is ${Yellow}${ref}${End}" >&2
-            echo -e "${lvl}  From ${Yellow}${id}${None}...\r" >&2
+            echo -e "${lvl}  From ${Yellow}${id}${None}...${End}" >&2
 
             # separate uri before # from fragment after #
             local uri=$(echo $ref | awk -F '#' '{print $1}')
@@ -331,16 +331,16 @@ validate() {
 
             # if ref is a url, download it and use it as schema
             if test -n "$(echo $uri | grep -E '^http')"; then
-                echo -e "${lvl}- Loading ${Yellow}${uri}${None}...\r" >&2
+                echo -e "${lvl}- Loading ${Yellow}${uri}${None}...${End}" >&2
                 schema=$(get_schema_json $uri)
             elif test -n "$uri"; then
                 # check if file exists
                 if test -f "$uri"; then
-                    echo -e "${lvl}- Loading ${Yellow}${uri}${None}...\r" >&2
+                    echo -e "${lvl}- Loading ${Yellow}${uri}${None}...${End}" >&2
                     schema=$(load_json_schema $uri)
                 elif test -n "$id"; then
                     # load schema from file
-                    echo -e "${lvl}- Loading ${Yellow}$(dirname $id)/$uri${None}...\r" >&2
+                    echo -e "${lvl}- Loading ${Yellow}$(dirname $id)/$uri${None}...${End}" >&2
                     schema=$(get_schema_json $(dirname $id)/$uri)
                 else
                     echo -e "${Red}Unable to resolve reference $ref with $id${End}" >&2
@@ -504,16 +504,16 @@ validate() {
             props=$(get_keys "$path.$entry" <<<"$schema" | tr "\n" " ")
 
             # Log
-            #echo -e "${lvl}- Properties are ${Purple}$props${End}" >&2
+            #echo  "${lvl}- Properties are ${Purple}$props${End}" >&2
 
             # Loop through properties
             for prop in $props; do
 
-                #echo -e "${lvl}- Processing property ${Purple}$prop${End}" >&2
+                #echo  "${lvl}- Processing property ${Purple}$prop${End}" >&2
                 if $not is_existing_path "$real.$prop" <<<"$json"; then
 
                     # Log
-                    echo -e "${lvl}- Processing <${Purple}$prop${None}>\r" >&2
+                    echo -e "${lvl}- Processing <${Purple}$prop${None}>${End}" >&2
 
                     # Parse sub schema
                     if ! validate "$json" "$schema" "$path.$entry.$prop" "$real.$prop" "$path.$entry.$prop" "$not" "$level"; then
@@ -526,7 +526,7 @@ validate() {
                 fi
             done
 
-            echo -e "${real:-.}"
+            echo "${real:-.}"
             ;;
 
         \"additionalProperties\")
@@ -539,10 +539,10 @@ validate() {
                 for prop in $(get_keys "$real" <<<"$json" | sort); do
 
                     if ! grep -q "$prop" <<<"$props"; then
-                        echo -e "${lvl}- Adding additional property <${Purple}$real.$prop${None}>\r" >&2
+                        echo -e "${lvl}- Adding additional property <${Purple}$real.$prop${None}>${End}" >&2
 
                         # Keep track of validated path
-                        echo -e "$real.$prop"
+                        echo "$real.$prop"
                     fi
                 done
             fi
