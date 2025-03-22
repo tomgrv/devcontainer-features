@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Source colors script
 . zz_colors
@@ -72,9 +72,9 @@ while getopts :$argnames value "$@"; do
     naming=$(echo -e "$varnames" | grep -E "^$value" | cut -f2)
 
     if [ -n "$OPTARG" ]; then
-        echo -e "$naming=$OPTARG"
+        echo "$naming=$OPTARG"
     else
-        echo -e "$naming=-$value"
+        echo "$naming=-$value"
     fi
 done
 
@@ -82,18 +82,18 @@ done
 if [ "$OPTARG" = "h" ] || [ "$OPTARG" = "help" ]; then
 
     (
-        echo ""
-        echo -e "$title"
-        echo ""
-        echo "Usage: ${Yellow}$(basename $caller)$lineinfo${None}; use ${Yellow}-h${None} for more information."
-        echo -e "$helpinfo"
-        echo ""
+        echo "${End}"
+        echo "$title${End}"
+        echo "${End}"
+        echo "Usage: ${Yellow}$(basename $caller)$lineinfo${None}; use ${Yellow}-h${None} for more information.${End}"
+        echo "$helpinfo${End}"
+        echo "${End}"
     ) >&2
 
     exit 1
 
 elif [ "$OPTARG" = "@" ]; then
-    echo "Stop processing arguments !" >&2
+    echo "Stop processing arguments !${End}" >&2
 else
     # Shift the processed arguments
     shift $(expr "$OPTIND" - 1)
@@ -101,14 +101,14 @@ else
     # Process remaining '-' parameters
     for arg in $(echo $varnames | grep -E "^-" | cut -f2); do
         if [ "$#" -gt "0" ]; then
-            echo -e "$arg=$1" && shift 1
+            echo "$arg=$1" && shift 1
         fi
     done
 
     # Process remaining '+' parameters
     for arg in $(echo $varnames | grep -E "^\+" | cut -f2); do
         if [ "$#" -gt "0" ]; then
-            echo -e "$arg=$(echo $@ | sed "s/ /\\\\ /g")" && shift $#
+            echo "$arg=$(echo $@ | sed "s/ /\\\\ /g")" && shift $#
         fi
     done
 

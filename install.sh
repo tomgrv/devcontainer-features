@@ -28,7 +28,7 @@ help
 
 # If 'all' argument is provided, set stubs and features to install all default features
 if [ -n "$all" ]; then
-    echo -e "${Yellow}Add default features${End}"
+    echo "${Yellow}Add default features${End}"
     stubs=1
     features=$(sed '/^\s*\/\//d' $source/stubs/.devcontainer/devcontainer.json | jq -r '.features | to_entries[] | select(.key | contains("tomgrv/devcontainer-features"))| .key| 
     split("/")[-1] | split(":")[0]')
@@ -36,7 +36,7 @@ fi
 
 # If 'upd' argument is provided, set stubs and features to update all features
 if [ -n "$upd" ]; then
-    echo -e "${Green}Update features${End}"
+    echo "${Green}Update features${End}"
     stubs=1
     features=$(sed '/^\s*\/\//d' $source/.devcontainer/devcontainer.json | jq -r '.features | to_entries[] | select(.key | contains("tomgrv/devcontainer-features"))| .key|
     split("/")[-1] | split(":")[0]')
@@ -44,18 +44,18 @@ fi
 
 # If 'stubs' argument is provided, indicate that stubs are selected
 if [ -n "$stubs" ]; then
-    echo -e "${Green}Stubs selected${End}"
+    echo "${Green}Stubs selected${End}"
 fi
 
 # If 'package' argument is provided, use the specified package.json file
 if [ -n "$package" ]; then
     file="$package"
     if [ ! -f "$file" ]; then
-        echo -e "${Red}File not found: $file${End}"
+        echo "${Red}File not found: $file${End}"
         exit
     fi
 
-    echo -e "${Green}Using $file${End}"
+    echo "${Green}Using $file${End}"
 
     # Extract features from the package.json file if not already set
     if [ -z "$features" ]; then
@@ -65,16 +65,16 @@ fi
 
 # If no features are selected, display an error message
 if [ -z "$features" ]; then
-    echo -e "${Red}No features selected${End}"
+    echo "${Red}No features selected${End}"
 else
-    echo -e "${Green}Selected features: $features${End}"
+    echo "${Green}Selected features: $features${End}"
 fi
 
 # Merge all files from the stub folder to the root using git merge-file if stubs are selected
 if [ -n "$stubs" ]; then
-    echo -e "${Yellow}Installing stubs...${End}"
+    echo "${Yellow}Installing stubs...${End}"
     $source/src/common-utils/_configure-feature.sh -s $source .
-    echo -e "${Green}Stubs installed${End}"
+    echo "${Green}Stubs installed${End}"
 fi
 
 # If features are selected, proceed with installation
@@ -86,27 +86,27 @@ if [ -n "$features" ]; then
     # Check if the script is running inside a container
     if [ "$CODESPACES" != "true" ] && [ "$REMOTE_CONTAINERS" != "true" ]; then
 
-        echo -e "${Red}You are not in a container${End}"
+        echo "${Red}You are not in a container${End}"
 
         # Run the install.sh script for each selected feature
         for feature in $features; do
             if [ -f "$source/src/$feature/install.sh" ]; then
-                echo -e "${Yellow}Running src/$feature/install.sh...${End}"
+                echo "${Yellow}Running src/$feature/install.sh...${End}"
                 sh $source/src/$feature/install.sh
-                echo -e "${Green}$feature installed${End}"
+                echo "${Green}$feature installed${End}"
             else
-                echo -e "${Red}$feature not found${End}"
+                echo "${Red}$feature not found${End}"
             fi
         done
 
         # Run the configure.sh script for each selected feature
         for feature in $features; do
             if [ -d "/tmp/$feature" ]; then
-                echo -e "${Yellow}Configuring /tmp/$feature...${End}"
+                echo "${Yellow}Configuring /tmp/$feature...${End}"
                 sh $source/src/common-utils/_configure-feature.sh -s /tmp/$feature $feature
-                echo -e "${Green}$feature configured${End}"
+                echo "${Green}$feature configured${End}"
             else
-                echo -e "${Red}$feature not found${End}"
+                echo "${Red}$feature not found${End}"
             fi
         done
 
@@ -114,16 +114,16 @@ if [ -n "$features" ]; then
 
         # stubs are selected, configure stubs of the selected features
         for feature in $features; do
-            echo -e "${Yellow}Deploying stubs for $feature...${End}"
+            echo "${Yellow}Deploying stubs for $feature...${End}"
             $source/src/common-utils/_configure-feature.sh -s $source/src/$feature $feature
-            echo -e "${Green}Stubs for $feature deployed${End}"
+            echo "${Green}Stubs for $feature deployed${End}"
         done
 
     else
         # If inside a container, suggest using devutils as devcontainer features
-        echo -e "${Purple}You are in a container: use devutils as devcontainer features:${End}"
+        echo "${Purple}You are in a container: use devutils as devcontainer features:${End}"
         for feature in $features; do
-            echo -e "${Purple}ghcr.io/tomgrv/devcontainer-features/$feature${End}"
+            echo "${Purple}ghcr.io/tomgrv/devcontainer-features/$feature${End}"
         done
 
     fi
