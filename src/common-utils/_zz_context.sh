@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Source colors script
 . zz_colors
@@ -23,11 +23,11 @@ else
 
         # Determine the caller script, remove /bin/xxx from the beginning of the command line and empty lines
         caller=$(readlink -f $PWD/$(tr '\0' '\n' </proc/$PPID/cmdline | sed 's/^\/bin\/.*$//' | grep -v '^$' | head -n 1))
-        echo "Caller script is <$caller>" >&2
+        echo "Caller script is <$caller>${End}" >&2
 
         # If the caller script cannot be determined, exit with an error
         if [ -z "$caller" ]; then
-            echo -e "${Red}Not in script context${End}" >&2
+            echo "${Red}Not in script context${End}" >&2
             exit 1
         fi
 
@@ -48,7 +48,7 @@ if [ -z "$target" ]; then
     elif [ -w /tmp ]; then
         target=/tmp/$feature
     else
-        echo -e "${Red}No writeable directory found${End}" >&2
+        echo "${Red}No writeable directory found${End}" >&2
         exit 1
     fi
 fi
@@ -57,7 +57,7 @@ fi
 mkdir -p $target
 
 # Log the results
-echo "Selected context for <${Purple}$feature${None}> is '$source' => '$target'" >&2
+echo "Selected context for <${Purple}$feature${None}> is '$source' => '$target'${End}" >&2
 
 # Results
 echo source=$source
