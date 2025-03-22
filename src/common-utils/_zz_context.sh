@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Source colors script
 . zz_colors
@@ -27,7 +27,7 @@ else
 
         # If the caller script cannot be determined, exit with an error
         if [ -z "$caller" ]; then
-            echo "${Red}Not in script context${None}" >&2
+            echo -e "${Red}Not in script context${End}" >&2
             exit 1
         fi
 
@@ -48,7 +48,7 @@ if [ -z "$target" ]; then
     elif [ -w /tmp ]; then
         target=/tmp/$feature
     else
-        echo "${Red}No writeable directory found${None}" >&2
+        echo -e "${Red}No writeable directory found${End}" >&2
         exit 1
     fi
 fi
