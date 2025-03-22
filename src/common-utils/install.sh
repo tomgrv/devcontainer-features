@@ -6,10 +6,10 @@ UTILS="${UTILS:-"jq dos2unix"}"
 ### Install utils
 for bin in $UTILS; do
 
-	echo "Checking $bin..." >&2
+	echo "Checking $bin...${End}"
 
 	if [ -n "$(command -v $bin)" ]; then
-		echo -e "$bin is installed."
+		echo "$bin is installed.${End}"
 	elif [ -f /etc/alpine-release ]; then
 		apk update
 		apk add $bin
@@ -19,10 +19,10 @@ for bin in $UTILS; do
 	elif [ $(uname -o) = "Msys" ]; then
 		winget install -s winget -e --name $bin --location /tmp/common-utils
 	else
-		echo "Please install $bin."
+		echo "Please install $bin.${End}"
 		exit 1
 	fi
-done
+done >&2
 
 # Prepare for installation
 ln -sf $PWD/$(dirname $0)/_zz_colors.sh $PWD/$(dirname $0)/zz_colors
