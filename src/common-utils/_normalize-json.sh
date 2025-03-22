@@ -60,21 +60,6 @@ is_true() {
     get_path "$path" -r | jq -e 'if . == true then . else null end' >/dev/null
 }
 
-# Function to check if root path and additonal properties are allowed
-is_allowed() {
-    local path=${1:-.}
-
-    if test "$path" == "."; then
-        if test -n "$allow"; then
-            echo -e "${lvl}- ${Purple}Additional properties allowed at root level${None}" >&2
-            return 0
-        else
-            echo -e "${lvl}- ${Yellow}Additional properties not allowed at root level${None}" >&2
-            return 1
-        fi
-    fi
-}
-
 # Function to get the type of JSON element
 get_json_array() {
     local path=${1:-.}
@@ -185,6 +170,39 @@ get_schema_json() {
     fi
 }
 
+# Function to get the schema file
+get_schema() {
+    local schema=$1
+    local lvl=$2
+    local allow=$3
+
+    # if schema is a file, load it
+    if test -f "$schema"; then
+        echo -e "${lvl}${Green}Loading schema ${UGreen}$schema${None}" >&2
+        schema=$(load_json_schema $schema)
+    fi
+
+    # if schema is a url, download it
+    if test -n "$(echo $schema | grep -E '^http')"; then
+        echo -e "${lvl}${Green}Downloading schema ${UGreen}$schema${None}" >&2
+        schema=$(get_schema_json $schema)
+    fi
+
+    # if schema is not a valid JSON, return error
+    if ! is_json <<<"$schema"; then
+        echo -e "${Red}Invalid schema${None}" >&2
+        exit 1
+    fi
+
+    # if allow flag is set, allow additional properties at root level
+    if test -n "$allow"; then
+        echo -e "${lvl}${Purple}Additional properties allowed at root level${None}" >&2
+        echo $schema | jq '. + {"additionalProperties": true}'
+    else
+        echo $schema
+    fi
+}
+
 traverse() {
     local json=$1
     local list=${2:--}
@@ -241,23 +259,8 @@ validate() {
         exit 1
     fi
 
-    # if schema is a file, load it
-    if test -f "$schema"; then
-        echo -e "${lvl}${Green}Loading schema ${UGreen}$schema${None}" >&2
-        schema=$(load_json_schema $schema)
-    fi
-
-    # if schema is a url, download it
-    if test -n "$(echo $schema | grep -E '^http')"; then
-        echo -e "${lvl}${Green}Downloading schema ${UGreen}$schema${None}" >&2
-        schema=$(get_schema_json $schema)
-    fi
-
-    # if schema is not a valid JSON, return error
-    if ! is_json <<<"$schema"; then
-        echo -e "${Red}Invalid schema${None}" >&2
-        exit 1
-    fi
+    # load schema
+    schema=$(get_schema "$schema" "$lvl")
 
     # Local Variables
     local entry=""
@@ -529,11 +532,12 @@ validate() {
         \"additionalProperties\")
 
             echo -e "${lvl}- Processing ${BWhite}Additional properties${None}" >&2
-            if is_allowed "$real" || is_existing_path "$path.$entry" <<<"$schema"; then
+            if is_existing_path "$path.$entry" <<<"$schema"; then
 
                 echo -e "${lvl}- ${Purple}Additional properties allowed for ${real:-.}${None}" >&2
 
                 for prop in $(get_keys "$real" <<<"$json" | sort); do
+
                     if ! grep -q "$prop" <<<"$props"; then
                         echo -e "${lvl}- Adding additional property <${Purple}$real.$prop${None}>" >&2
 
@@ -572,7 +576,7 @@ if [ -n "$import" ] && [ ! -f "$schema" ]; then
     schema=$(get_schema_url $search)
 
     # log
-    echo -e "${Yellow}Infering schema from schema store for ${UYellow}$search${Yellow} ${schema:+"found!"}${None}${None}" >&2
+    echo -e "${Yellow}Infering schema from schema store for ${UYellow}$search${Yellow} ${schema:+"found!"}${None}" >&2
 fi
 
 # if schema file does not exist, use fallback schema
@@ -601,6 +605,9 @@ if test -z "$schema"; then
     exit 1
 fi
 
+# Allow additional properties at root level
+schema=$(get_schema "$schema" "" "$allow")
+
 # Strip comments from JSON and go through normalization
 # if parse "$json" "$schema" >/dev/null; then ## Uncomment this line to enable debug output
 if validate "$json" "$schema"; then
@@ -615,9 +622,9 @@ if test -s /tmp/$$.json; then
     if test -z "$save"; then
         traverse $json /tmp/$$.json | jq -C --indent ${tabSize:-2} .
     else
-        traverse $json /tmp/$$.json | jq -M --indent ${tabSize:-4} . >$json
+        traverse $json /tmp/$$.json | jq -M --indent ${tabSize:-4} . >/tmp/$$.tmp && mv /tmp/$$.tmp $json
     fi
 fi
 
 # Clean up
-rm -f /tmp/$$.json
+rm -f /tmp/$$.*

@@ -78,7 +78,7 @@ for package in package composer; do
     else
         # Pre-sort the existing package.json
         echo "${Yellow}Pre-merge normalize $package.json${None}"
-        normalize-json -t ${tabSize:-4} $package.json
+        normalize-json -s -a -i -t ${tabSize:-4} $package.json
     fi
 
     # Merge all package folder json files into the top-level package.json
