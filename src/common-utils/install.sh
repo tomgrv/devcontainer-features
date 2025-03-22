@@ -9,7 +9,7 @@ for bin in $UTILS; do
 	echo "Checking $bin..." >&2
 
 	if [ -n "$(command -v $bin)" ]; then
-		echo "$bin is installed."
+		echo -e "$bin is installed."
 	elif [ -f /etc/alpine-release ]; then
 		apk update
 		apk add $bin

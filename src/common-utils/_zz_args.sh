@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Source colors script
 . zz_colors
@@ -69,12 +69,12 @@ while getopts :$argnames value "$@"; do
         break
     fi
 
-    naming=$(echo "$varnames" | grep -E "^$value" | cut -f2)
+    naming=$(echo -e "$varnames" | grep -E "^$value" | cut -f2)
 
     if [ -n "$OPTARG" ]; then
-        echo "$naming=$OPTARG"
+        echo -e "$naming=$OPTARG"
     else
-        echo "$naming=-$value"
+        echo -e "$naming=-$value"
     fi
 done
 
@@ -83,10 +83,10 @@ if [ "$OPTARG" = "h" ] || [ "$OPTARG" = "help" ]; then
 
     (
         echo ""
-        echo "$title"
+        echo -e "$title"
         echo ""
         echo "Usage: ${Yellow}$(basename $caller)$lineinfo${None}; use ${Yellow}-h${None} for more information."
-        echo "$helpinfo"
+        echo -e "$helpinfo"
         echo ""
     ) >&2
 
@@ -101,14 +101,14 @@ else
     # Process remaining '-' parameters
     for arg in $(echo $varnames | grep -E "^-" | cut -f2); do
         if [ "$#" -gt "0" ]; then
-            echo "$arg=$1" && shift 1
+            echo -e "$arg=$1" && shift 1
         fi
     done
 
     # Process remaining '+' parameters
     for arg in $(echo $varnames | grep -E "^\+" | cut -f2); do
         if [ "$#" -gt "0" ]; then
-            echo "$arg=$(echo $@ | sed "s/ /\\\\ /g")" && shift $#
+            echo -e "$arg=$(echo $@ | sed "s/ /\\\\ /g")" && shift $#
         fi
     done
 
