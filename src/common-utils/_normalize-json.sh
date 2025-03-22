@@ -7,7 +7,7 @@
 eval $(
     zz_args "Normalize JSON according to schema" $0 "$@" <<-help
         s -         save	    save normalized json to original file
-        t -         tabSize	    tab size for indentation
+        t tabSize   tabSize	    tab size for indentation
         a -         allow	    allow additional properties at root level
         d -         debug	    debug output
         f fallback  fallback	fallback schema to use if none found locally
