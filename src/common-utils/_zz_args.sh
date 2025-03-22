@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Source colors script
 . zz_colors
@@ -101,14 +101,14 @@ else
     # Process remaining '-' parameters
     for arg in $(echo $varnames | grep -E "^-" | cut -f2); do
         if [ "$#" -gt "0" ]; then
-            echo -e "$arg=$1" && shift 1
+            echo "$arg=$1" && shift 1
         fi
     done
 
     # Process remaining '+' parameters
     for arg in $(echo $varnames | grep -E "^\+" | cut -f2); do
         if [ "$#" -gt "0" ]; then
-            echo -e "$arg=$(echo $@ | sed "s/ /\\\\ /g")" && shift $#
+            echo "$arg=$(echo $@ | sed "s/ /\\\\ /g")" && shift $#
         fi
     done
 
