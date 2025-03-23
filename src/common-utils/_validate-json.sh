@@ -468,7 +468,7 @@ if [ -n "$local" ]; then
     schema=$local/_$type.schema.json
 
     # log
-    zz_log i "Infering schema from local folder {U $folder} for {UYellow $json}"
+    zz_log i "Infering schema from local folder {U $local} for {UYellow $json}"
 fi
 
 # Check if schema file exists, and if not and import allowed, download it from schema store
