@@ -1,9 +1,7 @@
 {
     "prettier": {
         "insertPragma": true,
-        "plugins": [
-            "prettier-plugin-sh"
-        ],
+        "plugins": ["prettier-plugin-sh"],
         "semi": false,
         "singleQuote": true,
         "tabWidth": 4,
