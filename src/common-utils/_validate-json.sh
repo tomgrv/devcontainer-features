@@ -9,7 +9,7 @@ eval $(
         a -         allow	    allow additional properties at root level
         d -         debug	    debug output
         f fallback  fallback	fallback schema to use if none found locally
-        l local     local	    infer schema in <local> folder from json file name (x.y.json => <local>/y.schema.json)
+        l local     local	    infer schema in <local> folder from json file name (x.y.json => <local>/y.schema.json). Use "true" to use script folder
         i -         import	    infer on schema store if nothing found locally (x.y.json => "y" on schema store)
         - json	    json		json to normalize
         + schema	schema		schema to use for normalization
@@ -460,11 +460,15 @@ if [ -n "$local" ]; then
     # Identify package type from file name just before json extension
     type=$(basename -s .json $json | sed -E 's/.*\.(.*)/\1/')
 
+    if [ "$local" == "true" ]; then
+        local=$(dirname $0)
+    fi
+
     # Identify schema file
     schema=$local/_$type.schema.json
 
     # log
-    zz_log i "Infering schema from local folder for {UYellow $json}"
+    zz_log i "Infering schema from local folder {U $folder} for {UYellow $json}"
 fi
 
 # Check if schema file exists, and if not and import allowed, download it from schema store
@@ -519,7 +523,7 @@ fi
 
 # Validate JSON according to schema and display valid json paths
 if validate "$json" "$schema"; then
-    zz_log s "JSON is valid and normalized"
+    zz_log s "File {U $json} valid"
 else
-    zz_log e "JSON is empty or invalid" && exit 1
+    zz_log e "File {U $json} empty or invalid" && exit 1
 fi | sed -n -e 's/^.//g' -e '/^$/d' -e 'G; s/\n/&&/; /^\([ -~]*\n\).*\n\1/d; s/\n//; h; P'
