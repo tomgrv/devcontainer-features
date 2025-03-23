@@ -7,31 +7,31 @@ lvl="$1" && shift
 
 case $lvl in
 i*)
-    picto="→"
-    base="Blue"
+    picto="{BBlue →} "
+    base="White"
     ;;
 w*)
-    picto="!"
+    picto="{BYellow !} "
     base="Yellow"
     ;;
 e*)
-    picto="✕"
+    picto="{BRed ✕} "
     base="Red"
     ;;
 s*)
-    picto="✔"
+    picto="{BGreen ✔} "
     base="Green"
     ;;
+-)
+    picto="  "
+    base="White"
+    ;;
 *)
-    picto="$lvl"
+    picto="$lvl "
     base="White"
     ;;
 esac
 
 eval "$(
-    if [ -n "$picto" ]; then
-        echo "echo \"{B $picto} $*\${End}\""
-    else
-        echo "echo \"$*\${End}\""
-    fi | sed -E "s/\{([A-Z]) /{\1${base} /g;s/\{([a-zA-Z]+) ([^}]*)\}/\${\1}\2\${${base}}/g; s/\r//g; "
+    echo "echo \"$picto$*\${End}\"" | sed -E "s/\{([A-Z]) /{\1${base} /g;s/\{([a-zA-Z]+) ([^}]*)\}/\${\1}\2\${${base}}/g; s/\r//g; "
 )" >&2
