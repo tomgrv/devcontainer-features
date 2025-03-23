@@ -519,7 +519,7 @@ fi
 
 # Validate JSON according to schema and display valid json paths
 if validate "$json" "$schema"; then
-    zz_log s "JSON is valid and normalized"
+    zz_log s "File {U $json} valid"
 else
-    zz_log e "JSON is empty or invalid" && exit 1
+    zz_log e "File {U $json} empty or invalid" && exit 1
 fi | sed -n -e 's/^.//g' -e '/^$/d' -e 'G; s/\n/&&/; /^\([ -~]*\n\).*\n\1/d; s/\n//; h; P'
