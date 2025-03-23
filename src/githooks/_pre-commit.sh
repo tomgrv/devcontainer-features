@@ -9,7 +9,7 @@ fi
 
 # Check if the current Git command is a rebase
 if test "$GIT_COMMAND" = "rebase"; then
-    npx --yes chalk-cli --no-stdin -t "{green ✔}  Skip pre-commit hook during rebase"
+    zz_log s "Skip pre-commit hook during rebase"
     exit 0
 fi
 
@@ -19,7 +19,7 @@ echo $GIT_COMMAND
 if git diff ${@:---cached --name-only} | grep -q "package.json"; then
 
     # ensure that the package.json is valid and package-lock.json is up-to-date
-    npx --yes chalk-cli --no-stdin -t "{blue →}  Ensure that the package.json is valid and package-lock.json is up-to-date..."
+    zz_log i "Ensure that the package.json is valid and package-lock.json is up-to-date..."
 
     ws=$(npm pkg get workspaces)
     if test "$ws" = "undefined" || test "$ws" = "{}"; then
@@ -30,9 +30,9 @@ if git diff ${@:---cached --name-only} | grep -q "package.json"; then
 
     # commit the updated package-lock.json if file changed
     if git diff --quiet package-lock.json; then
-        npx --yes chalk-cli --no-stdin -t "{green ✔}  package-lock.json update not required"
+        zz_log s "package-lock.json update not required"
     else
-        git add package-lock.json && npx --yes chalk-cli --no-stdin -t "{yellow ⚠}  Updated package-lock.json"
+        git add package-lock.json && zz_log w "Updated package-lock.json"
     fi
 fi
 
@@ -40,7 +40,7 @@ fi
 if git diff ${@:---cached --name-only} | grep -q "composer.json"; then
 
     # ensure that the composer.json is valid and composer.lock is up-to-date
-    npx --yes chalk-cli --no-stdin -t "{blue →}  Ensure that the composer.json is valid and composer.lock is up-to-date..."
+    zz_log i "Ensure that the composer.json is valid and composer.lock is up-to-date..."
     composer validate --no-check-all --strict 2>&1 | grep -oP 'Required package "\K[^"]+' | while read -r package; do
         composer require --ignore-platform-reqs --with-all-dependencies --no-scripts --no-interaction --no-progress --no-install "$package"
     done
@@ -50,9 +50,9 @@ if git diff ${@:---cached --name-only} | grep -q "composer.json"; then
 
     # commit the updated composer.lock if file changed
     if git diff --quiet composer.lock; then
-        npx --yes chalk-cli --no-stdin -t "{green ✔}  composer.lock update not required"
+        zz_log s "composer.lock update not required"
     else
-        git add composer.lock && npx --yes chalk-cli --no-stdin -t "{yellow ⚠}  Updated composer.lock"
+        git add composer.lock && zz_log w "Updated composer.lock"
     fi
 fi
 
