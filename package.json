@@ -24,6 +24,13 @@
         "url": "https://github.com/tomgrv/devcontainer-features/issues",
         "email": "project@hostname.com"
     },
+    "author": "tomgrv",
+    "files": [
+        "./src/*",
+        "./stubs/*"
+    ],
+    "bin": "./install.sh",
+    "type": "module",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/tomgrv/devcontainer-features.git"
@@ -32,71 +39,12 @@
         "type": "individual",
         "url": "https://buymeacoffee.com/tomgrv"
     },
-    "author": "tomgrv",
-    "type": "module",
-    "bin": "./install.sh",
-    "files": [
-        "./src/*",
-        "./stubs/*"
-    ],
     "scripts": {
         "lint": "npx --yes lint-staged",
         "release": "npx --yes commit-and-tag-version --no-verify --",
         "test": "echo \"Warning: no test specified\"",
         "update": "npm-check-updates -i -u",
         "update-all": "npm run update -ws --root"
-    },
-    "commitlint": {
-        "extends": [
-            "@commitlint/config-conventional"
-        ],
-        "rules": {
-            "subject-case": [
-                2,
-                "never",
-                [
-                    "start-case",
-                    "pascal-case",
-                    "upper-case"
-                ]
-            ],
-            "scope-enum": [
-                2,
-                "always",
-                [
-                    "deps",
-                    "release",
-                    "security",
-                    "i18n",
-                    "config",
-                    "add",
-                    "remove",
-                    "breaking",
-                    "modules",
-                    "packages",
-                    "ui-ux",
-                    "api",
-                    "model"
-                ]
-            ]
-        }
-    },
-    "lint-staged": {
-        "*.php": [
-            "composer lint"
-        ],
-        "*.{js,jsx,ts,tsx,md,html,css,json,vue, yaml, yml, sh}": [
-            "npx --yes prettier --write"
-        ],
-        "package.json": [
-            "npx --yes sort-package-json"
-        ],
-        "composer.lock": [
-            "composer validate --ansi --strict"
-        ],
-        ".devcontainer/*": [
-            "cp -u -t ./stubs/.devcontainer "
-        ]
     },
     "config": {
         "commitizen": {
@@ -106,16 +54,6 @@
             "gitutils",
             "githooks"
         ]
-    },
-    "prettier": {
-        "insertPragma": true,
-        "plugins": [
-            "prettier-plugin-sh"
-        ],
-        "semi": false,
-        "singleQuote": true,
-        "tabWidth": 4,
-        "trailingComma": "es5"
     },
     "peerDependencies": {
         "@commitlint/cli": "^19.2.2",
@@ -130,6 +68,16 @@
         "husky": "^9.0.11",
         "lint-staged": "^15.2.2",
         "prettier": "^3.2.5"
+    },
+    "prettier": {
+        "insertPragma": true,
+        "plugins": [
+            "prettier-plugin-sh"
+        ],
+        "semi": false,
+        "singleQuote": true,
+        "tabWidth": 4,
+        "trailingComma": "es5"
     },
     "commit-and-tag-version": {
         "bumpFiles": [
@@ -184,6 +132,41 @@
             "prebump": "gitversion -config .gitversion -showvariable MajorMinorPatch"
         }
     },
+    "commitlint": {
+        "extends": [
+            "@commitlint/config-conventional"
+        ],
+        "rules": {
+            "scope-enum": [
+                2,
+                "always",
+                [
+                    "deps",
+                    "release",
+                    "security",
+                    "i18n",
+                    "config",
+                    "add",
+                    "remove",
+                    "breaking",
+                    "modules",
+                    "packages",
+                    "ui-ux",
+                    "api",
+                    "model"
+                ]
+            ],
+            "subject-case": [
+                2,
+                "never",
+                [
+                    "start-case",
+                    "pascal-case",
+                    "upper-case"
+                ]
+            ]
+        }
+    },
     "git-precommit-checks": {
         "rules": [
             {
@@ -196,6 +179,26 @@
                 "nonBlocking": "true",
                 "regex": "(?:FIXME|TODO)"
             }
+        ]
+    },
+    "lint-staged": {
+        "*.php": [
+            "composer lint"
+        ],
+        "*.{js,jsx,ts,tsx,md,html,css,json,vue, yaml, yml, sh}": [
+            "npx --yes prettier --write"
+        ],
+        "*.json": [
+            "normalize-json -s -a -i -t 4 -l true"
+        ],
+        "package.json": [
+            "npx --yes sort-package-json"
+        ],
+        "composer.lock": [
+            "composer validate --ansi --strict"
+        ],
+        ".devcontainer/*": [
+            "cp -u -t ./stubs/.devcontainer "
         ]
     }
 }

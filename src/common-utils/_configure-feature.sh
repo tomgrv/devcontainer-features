@@ -22,16 +22,22 @@ export source=${source:-/usr/local/share/$feature}
 # Get the indent size from devcontainer.json with jq, default to 2 if not found
 export tabSize=4
 
-echo "Configuring feature <${Purple}$feature${None}>${End}"
-echo "from <$source>${End}"
+zz_log i "Configure feature <{Purple $feature}>"
+zz_log - "From {U $source}"
 
 # Go to the module root
 cd "$(git rev-parse --show-toplevel)" >/dev/null
 
+# Ensure the source directory exists
+if [ ! -d $source ]; then
+    zz_log e "Source directory <$source> does not exist"
+    exit 1
+fi
+
 # Deploy stubs if existing
 if [ -d $source/stubs ]; then
 
-    echo "${Blue}Deploy stubs${End}"
+    zz_log i "Deploy stubs"
 
     find $source/stubs -type f -name ".*" -o -type f | while read file; do
 
@@ -50,14 +56,15 @@ if [ -d $source/stubs ]; then
             # Remove # occurrences in the file path
             dest=$(echo $dest | sed 's/\/\#/\//g')
 
-            echo "Add '$dest' to .gitignore${End}"
+            # Add to .gitignore if not already there
+            zz_log i "Add {U $dest} to .gitignore"
 
             # Add to .gitignore if not already there
             grep -qxF $dest .gitignore || echo -e "$dest" >>.gitignore
         fi
 
         # Merge the file
-        echo -e "${Yellow}Merging '$dest'...${End}"
+        zz_log i "Merge {U $file} in {U $dest}"
         git merge-file -p -L current -L base -L stubs $dest /dev/null $file >$dest
 
         # Apply the same permissions as the original file
@@ -67,7 +74,7 @@ if [ -d $source/stubs ]; then
 fi
 
 # Log the merging process
-echo "${Blue}Merge all package folder json files into top level xxx.json${End}"
+zz_log i "Merge all package folder json files into top level xxx.json"
 
 for package in package composer; do
 
@@ -75,22 +82,21 @@ for package in package composer; do
     if [ ! -f $package.json -o ! -s $package.json ]; then
         # Create an empty package.json
         echo "{}" >$package.json
-    else
-        # Pre-sort the existing package.json
-        echo "${Yellow}Pre-merge normalize $package.json${End}"
-        normalize-json -s -a -i -t ${tabSize:-4} $package.json
     fi
 
     # Merge all package folder json files into the top-level package.json
     find $source -maxdepth 1 -name _*.$package.json | sort | while read file; do
-        echo "${Yellow}Merge $file in $package.json${End}"
+        zz_log i "Merge {U $file} in {U $package.json}"
         jq --indent ${tabSize:-4} -s '.[0] * .[1]' $file $package.json >/tmp/$package.json && mv -f /tmp/$package.json $package.json
     done
 
+    # Post merge normalize package.json
+    zz_log i "Post-merge normalize {U $package.json}"
+    normalize-json -s -a -i -t ${tabSize:-4} $package.json
 done
 
 # Call all configure-xxx.sh scripts
 find $source -maxdepth 1 -name configure-*.sh | sort | while read file; do
-    echo "${Yellow}Run $file${End}"
+    zz_log i "Run {U $file}"
     $file
 done

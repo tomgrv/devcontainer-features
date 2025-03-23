@@ -27,7 +27,7 @@ zz_log i "Normalizing JSON..."
 list=$(validate-json ${allow:+-a} ${debug:+-d} ${fallback:+-f "$fallback"} ${local:+-l "$local"} ${import:+-i} "$json" "$schema")
 
 if test -z "$list"; then
-    zz_log e "JSON not valid, cannot normalize" && exit 1
+    zz_log e "JSON {U $json} not valid, cannot normalize" && exit 1
 fi
 
 # Normalize JSON
@@ -63,6 +63,9 @@ if test -s /tmp/$$.json; then
     else
         jq -M --indent ${tabSize:-4} . /tmp/$$.json >$json
     fi
+    zz_log s "File {U $json} normalized"
+else
+    zz_log e "File {U $json} not normalized"
 fi
 
 # Clean up
