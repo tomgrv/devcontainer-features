@@ -20,8 +20,6 @@ eval $(
 help
 )
 
-echo "Arguments: $@" >&2
-
 # Validate JSON
 zz_log i "Normalizing JSON..."
 list=$(validate-json ${allow:+-a} ${debug:+-d} ${fallback:+-f "$fallback"} ${local:+-l "$local"} ${import:+-i} "$json" "$schema")
