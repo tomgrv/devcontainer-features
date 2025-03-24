@@ -86,7 +86,7 @@ get_array_items() {
 # Function to get keys of a JSON object
 get_keys() {
     local path=${1:-.}
-    get_path "$path" -r | jq -r 'if type == "object" then keys_unsorted else [] end' | sed -e 's/^\[//g' -e 's/\]$//g' -e 's/,$//g' -e 's/^[[:blank:]]*//g' -e '/^$/d'
+    get_path "$path" -r | tee /dev/stderr | jq -r 'if type == "object" then keys_unsorted else [] end' | sed -e 's/^\[//g' -e 's/\]$//g' -e 's/,$//g' -e 's/^[[:blank:]]*//g' -e '/^$/d'
 }
 
 # Function to get value at a given path
@@ -210,7 +210,7 @@ validate() {
         \"\$id\")
 
             #log
-            zz_log "${lvl} -" "Processing ${BWhite}\\\\\$id"
+            zz_log "${lvl} -" "Processing {B Id}"
 
             # get id from schema
             id=$(get_json "$path.$entry" <<<"$schema" || echo ".")
@@ -439,7 +439,7 @@ validate() {
 
                 for prop in $(get_keys "$real" <<<"$json" | sort); do
 
-                    if ! grep -q "$prop" <<<"$props"; then
+                    if ! grep -q -x "$prop" <<<"$props"; then
                         zz_log "${lvl} -" "Adding additional property <${Purple}$real.$prop${None}>"
 
                         # Keep track of validated path
