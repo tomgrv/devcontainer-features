@@ -33,5 +33,8 @@ case $lvl in
 esac
 
 eval "$(
-    echo "echo \"$picto$@\${End}\"" | sed -E "s/\{([A-Z]) /{\1${base} /g;s/\{([a-zA-Z]+) ([^}]*)\}/\${\1}\2\${${base}}/g;s/\\\\/\\\\\\\\/g;s/\r//g; "
+    echo "echo $picto$@\${End}" \
+        | sed 's/\\/\\\\\\\\/g' \
+        | sed -E "s/\{([A-Z]) /{\1${base} /g;s/\{([a-zA-Z]+) ([^}]*)\}/\${\1}\2\${${base}}/g;s/\r//g;" \
+        | sed 's/\\/\\\\/g'
 )" >&2
