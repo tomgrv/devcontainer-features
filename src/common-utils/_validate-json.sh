@@ -210,7 +210,7 @@ validate() {
         \"\$id\")
 
             #log
-            zz_log "${lvl} -" "Processing ${BWhite}\\\\\$id"
+            zz_log "${lvl} -" "Processing {B Id}"
 
             # get id from schema
             id=$(get_json "$path.$entry" <<<"$schema" || echo ".")
@@ -427,7 +427,7 @@ validate() {
                 fi
             done
 
-            echo "${real:-.}"
+            #echo "${real:-.}"
             ;;
 
         \"additionalProperties\")
@@ -439,7 +439,7 @@ validate() {
 
                 for prop in $(get_keys "$real" <<<"$json" | sort); do
 
-                    if ! grep -q "$prop" <<<"$props"; then
+                    if ! grep -q -x "$prop" <<<"$props"; then
                         zz_log "${lvl} -" "Adding additional property <${Purple}$real.$prop${None}>"
 
                         # Keep track of validated path

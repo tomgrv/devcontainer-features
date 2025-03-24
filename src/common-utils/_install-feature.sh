@@ -13,7 +13,7 @@ if [ -z "$feature" ]; then
     exit 1
 fi
 
-echo  "Installing feature <${Purple}$feature${None}>...${End}"
+echo "Installing feature <${Purple}$feature${None}>...${End}"
 
 # Copy stubs to the target directory
 if [ -d $source/stubs ]; then
@@ -31,6 +31,6 @@ find $target -type f -name "*.sh" -exec chmod +x {} \;
 echo "${Blue}Calling all install scripts in '$source'...${End}"
 find $source -type f -name "install-*.sh" | while read script; do
     echo "${Yellow}Calling $script...${End}"
-    sh $script "$@"
+    sh -c "$script $@"
     echo "${Green}Done!${End}"
 done
