@@ -5,7 +5,7 @@
 
 # Source the argument parsing script to handle input arguments
 eval $(
-    zz_args "Configure specified feature" $0 "$@" <<-help
+    zz_args "Configure specified feature" $0 "$@" <<- help
     s source    source      Force source directory
 	- feature	feature		Feature name
 help
@@ -26,7 +26,7 @@ zz_log i "Configure feature <{Purple $feature}>"
 zz_log - "From {U $source}"
 
 # Go to the module root
-cd "$(git rev-parse --show-toplevel)" >/dev/null
+cd "$(git rev-parse --show-toplevel)" > /dev/null
 
 # Ensure the source directory exists
 if [ ! -d $source ]; then
@@ -60,12 +60,12 @@ if [ -d $source/stubs ]; then
             zz_log i "Add {U $dest} to .gitignore"
 
             # Add to .gitignore if not already there
-            grep -qxF $dest .gitignore || echo -e "$dest" >>.gitignore
+            grep -qxF $dest .gitignore || echo -e "$dest" >> .gitignore
         fi
 
         # Merge the file
         zz_log i "Merge {U $file} in {U $dest}"
-        git merge-file -p -L current -L base -L stubs $dest /dev/null $file >$dest
+        git merge-file -p -L current -L base -L stubs $dest /dev/null $file > $dest
 
         # Apply the same permissions as the original file
         chmod $(stat -c "%a" $file) $dest
@@ -81,13 +81,13 @@ for package in package composer; do
     # Create package.json if it does not exist or is empty
     if [ ! -f $package.json -o ! -s $package.json ]; then
         # Create an empty package.json
-        echo "{}" >$package.json
+        echo "{}" > $package.json
     fi
 
     # Merge all package folder json files into the top-level package.json
     find $source -maxdepth 1 -name _*.$package.json | sort | while read file; do
         zz_log i "Merge {U $file} in {U $package.json}"
-        jq --indent ${tabSize:-4} -s '.[0] * .[1]' $file $package.json >/tmp/$package.json && mv -f /tmp/$package.json $package.json
+        jq --indent ${tabSize:-4} -r -s '.[0] * .[1]' $file $package.json > /tmp/$$.json && mv -f /tmp/$$.json $package.json
     done
 
     # Post merge normalize package.json
