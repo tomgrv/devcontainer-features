@@ -7,7 +7,7 @@ set -e
 
 # Function to print help and manage arguments
 eval $(
-    zz_args "Normalize JSON according to schema" $0 "$@" <<-help
+    zz_args "Normalize JSON according to schema" $0 "$@" <<- help
         w -         write	    write normalized json to original file
         t tabSize   tabSize	    tab size for indentation
         c -         cache	    allow caching of schema validation map
@@ -54,16 +54,22 @@ for file in $files; do
         def traverse($paths): 
             . as $in
             | reduce paths($paths) as $p 
-                (null; setpath($p; $in | getpath($p)));
-        
-        traverse(transform($list))' >/tmp/$$.json
+                (null; setpath($p; $in | 
+                                    getpath($p) | 
+                                    if type == "object" then with_entries(.key |= .) |
+                                    to_entries |
+                                    sort_by(.key) |
+                                    from_entries else . end
+                                )
+                );
+        traverse(transform($list))' > /tmp/$$.json
 
     # Handle output
     if test -s /tmp/$$.json; then
         if test -z "$write"; then
             jq -C --indent ${tabSize:-2} . /tmp/$$.json
         else
-            jq -M --indent ${tabSize:-4} . /tmp/$$.json >$file
+            jq -M --indent ${tabSize:-4} . /tmp/$$.json > $file
         fi
         zz_log s "File {U $file} normalized"
     else
