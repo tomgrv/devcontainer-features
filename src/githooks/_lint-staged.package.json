@@ -10,7 +10,7 @@
             "npx --yes prettier --write"
         ],
         "*.json": [
-            "normalize-json -s -a -i -t 4 -l true"
+            "normalize-json -c -w -a -i -t 4 -l true"
         ]
     }
 }
