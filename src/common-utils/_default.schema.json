@@ -31,13 +31,19 @@
             }
         },
         "dependsOn": {
-            "type": "array",
+            "type": [
+                "array",
+                "object"
+            ],
             "items": {
                 "type": "string"
             }
         },
         "installsAfter": {
-            "type": "array",
+            "type": [
+                "array",
+                "object"
+            ],
             "items": {
                 "type": "string"
             }

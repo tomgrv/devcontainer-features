@@ -1,24 +1,16 @@
 {
+    "id": "common-utils",
     "name": "Common Utils",
-    "version": "3.4.3",
     "description": "Common utils for tomgrv/devcontainer-features",
+    "version": "3.5.1",
     "dependsOn": {
         "ghcr.io/devcontainers/features/common-utils": {}
     },
-    "id": "common-utils",
     "installsAfter": [
         "ghcr.io/devcontainers/features/common-utils"
     ],
-    "options": {
-        "utils": {
-            "type": "string",
-            "default": "jq dos2unix",
-            "description": "utilities to install"
-        }
-    },
     "customizations": {
         "vscode": {
-            // Set *default* container specific settings.json values on container create.
             "settings": {
                 "editor.formatOnSave": true,
                 "editor.formatOnPaste": true,
@@ -49,6 +41,13 @@
                 "github.vscode-github-actions",
                 "ms-azuretools.vscode-docker"
             ]
+        }
+    },
+    "options": {
+        "utils": {
+            "type": "string",
+            "default": "jq dos2unix",
+            "description": "utilities to install"
         }
     }
 }
