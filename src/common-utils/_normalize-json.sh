@@ -38,24 +38,29 @@ for file in $files; do
             $lst | split("\n") 
                 | map(select(length > 0))
                 | map(
-                    split("\".\"") 
-                    | map(gsub("^\"|\"$"; "") | select(length > 0))                   
+                   split(".") | map(fromjson)
                 );
         def xpath($ary):
             . as $in
             | if ($ary|length) == 0 then null
                 else $ary[0] as $k
-                | if $k == []
-                then range(0;length) as $i | $in[$i] | xpath($ary[1:]) | [$i] + .
-                else .[$k] | xpath($ary[1:]) | [$k] + . 
-                end
-                end ;
+                    | if $k == []
+                        then range(0;length) as $i | $in[$i] | xpath($ary[1:]) | [$i] + .
+                        else .[$k] | xpath($ary[1:]) | [$k] + . 
+                        end
+                end;
         def paths($ary): $ary[] as $path | xpath($path);
         def traverse($paths): 
             . as $in
             | reduce paths($paths) as $p 
-                (null; setpath($p; $in | getpath($p)));
-        
+                (null; setpath($p; $in 
+                            | getpath($p)
+                            | if type == "object" then with_entries(.key |= .)
+                            | to_entries
+                            | sort_by(.key)
+                            | from_entries else . end
+                        )
+                );
         traverse(transform($list))' >/tmp/$$.json
 
     # Handle output

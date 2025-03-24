@@ -2,7 +2,7 @@
     "id": "common-utils",
     "name": "Common Utils",
     "description": "Common utils for tomgrv/devcontainer-features",
-    "version": "3.5.2",
+    "version": "3.7.6",
     "dependsOn": {
         "ghcr.io/devcontainers/features/common-utils": {}
     },
@@ -49,5 +49,8 @@
             "default": "jq dos2unix",
             "description": "utilities to install"
         }
+    },
+    "postCreateCommand": {
+        "config": "configure-feature common-utils"
     }
 }
