@@ -8,11 +8,12 @@ eval $(
     zz_args "Validate JSON according to schema" $0 "$@" <<-help
         a -         allow	    allow additional properties at root level
         d -         debug	    debug output
+        c -         cache	    allow caching
         f fallback  fallback	fallback schema to use if none found locally
         l local     local	    infer schema in <local> folder from json file name (x.y.json => <local>/y.schema.json). Use "true" to use script folder
         i -         import	    infer on schema store if nothing found locally (x.y.json => "y" on schema store)
-        - json	    json		json to normalize
-        + schema	schema		schema to use for normalization
+        s schema	schema		schema to use to validate json
+        - json	    json		json to validate
 help
 )
 
@@ -455,24 +456,26 @@ validate() {
 }
 
 # if local flag is set, get schema from json file name
-if [ -n "$local" ]; then
+if [ -n "$local" ] && [ -z "$schema" ]; then
 
     # Identify package type from file name just before json extension
     type=$(basename -s .json $json | sed -E 's/.*\.(.*)/\1/')
 
     if [ "$local" == "true" ]; then
-        local=$(dirname $0)
+        local=$(dirname $(readlink -f $0))
     fi
 
-    # Identify schema file
-    schema=$local/_$type.schema.json
+    # Check if schema file exists
+    if [ -f "$local/_$type.schema.json" ]; then
+        schema=$local/_$type.schema.json
+    fi
 
     # log
     zz_log i "Infering schema from local folder {U $local} for {UYellow $json}"
 fi
 
 # Check if schema file exists, and if not and import allowed, download it from schema store
-if [ -n "$import" ] && [ ! -f "$schema" ]; then
+if [ -n "$import" ] && [ -z "$schema" ]; then
 
     search=$(basename -s .json $json | sed -E 's/.*\.(.*)/\1/').json
 
@@ -480,18 +483,14 @@ if [ -n "$import" ] && [ ! -f "$schema" ]; then
     schema=$(get_schema_url $search)
 
     # log
-    zz_log i "Infering schema from schema store for {U $search} ${schema:+"found!"}"
+    zz_log i "Infering schema from schema store for {UYellow $search} ${schema:+"found!"}"
 fi
 
 # if schema file does not exist, use fallback schema
 if [ -n "$fallback" ] && [ -z "$schema" ]; then
 
-    if [ "$fallback" == "true" ]; then
-        if [ -n "$local" ]; then
-            schema=$(readlink -f $local)/_default.schema.json
-        else
-            schema=$(dirname $0)/_default.schema.json
-        fi
+    if [ "$fallback" == "local" ] && [ -n "$local" ]; then
+        schema=$(readlink -f $local)/_default.schema.json
     elif [ -f "$fallback" ]; then
         schema=$fallback
     else
@@ -502,13 +501,13 @@ if [ -n "$fallback" ] && [ -z "$schema" ]; then
     zz_log w "Using fallback schema {UYellow $schema}"
 fi
 
+# Download schema file and add id to it if not present
+schema=$(zz_json -s "$schema")
+
 # Check if schema is readable
 if test -z "$schema"; then
     zz_log e "Schema is missing" && exit 1
 fi
-
-# Download schema file and add id to it if not present
-schema=$(zz_json -s "$schema")
 
 # if schema is not a valid JSON, return error
 if ! is_json <<<"$schema"; then
@@ -521,9 +520,25 @@ if test -n "$allow"; then
     schema=$(echo "$schema" | jq '. + {"additionalProperties": true}' -)
 fi
 
-# Validate JSON according to schema and display valid json paths
-if validate "$json" "$schema"; then
-    zz_log s "File {U $json} valid"
+# is cache flag is set, cache schema
+hash=$(
+    (
+        jq 'paths | map(tostring) | join(".")' $json
+        echo "$schema" | jq 'paths | map(tostring) | join(".")'
+    ) | sort -u | md5sum | awk '{print $1}'
+)
+map=~/.cache/$hash.schema.map
+zz_log i "Hash is {B $hash}"
+
+if test -n "$cache" && test -s $map; then
+    zz_log i "Using cached validation map"
+    cat $map
 else
-    zz_log e "File {U $json} empty or invalid" && exit 1
-fi | sed -n -e 's/^.//g' -e '/^$/d' -e 'G; s/\n/&&/; /^\([ -~]*\n\).*\n\1/d; s/\n//; h; P'
+
+    # Validate JSON according to schema and display valid json paths
+    if validate "$json" "$schema"; then
+        zz_log s "File {U $json} valid"
+    else
+        zz_log e "File {U $json} empty or invalid" && exit 1
+    fi | sed -n -e 's/^.//g' -e '/^$/d' -e 'G; s/\n/&&/; /^\([ -~]*\n\).*\n\1/d; s/\n//; h; P' | tee $map
+fi
