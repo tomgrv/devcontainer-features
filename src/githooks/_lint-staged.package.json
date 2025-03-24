@@ -6,11 +6,11 @@
         "*.php": [
             "composer lint"
         ],
-        "*.{js,jsx,ts,tsx,md,html,css,json,vue, yaml, yml, sh}": [
+        "*.{js,jsx,ts,tsx,md,html,css,vue,yaml,yml,sh}": [
             "npx --yes prettier --write"
         ],
         "*.json": [
-            "normalize-json -s -a -i -t 4 -l true"
+            "normalize-json -c -w -a -i -t 4 -f local -l true"
         ]
     }
 }

@@ -92,7 +92,7 @@ for package in package composer; do
 
     # Post merge normalize package.json
     zz_log i "Post-merge normalize {U $package.json}"
-    normalize-json -s -a -i -t ${tabSize:-4} $package.json
+    normalize-json -c -w -a -i -t ${tabSize:-4} $package.json
 done
 
 # Call all configure-xxx.sh scripts

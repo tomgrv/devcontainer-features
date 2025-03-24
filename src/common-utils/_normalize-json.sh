@@ -8,28 +8,32 @@ set -e
 # Function to print help and manage arguments
 eval $(
     zz_args "Normalize JSON according to schema" $0 "$@" <<-help
-        s -         save	    save normalized json to original file
+        w -         write	    write normalized json to original file
         t tabSize   tabSize	    tab size for indentation
+        c -         cache	    allow caching of schema validation map
         a -         allow	    allow additional properties at root level
         d -         debug	    debug output
         f fallback  fallback	fallback schema to use if none found locally
         l local     local	    infer schema in <local> folder from json file name (x.y.json => <local>/y.schema.json)
         i -         import	    infer on schema store if nothing found locally (x.y.json => "y" on schema store)
-        - json	    json		json to normalize
-        + schema	schema		schema to use for normalization
+        s schema	schema		schema to use for normalization
+        + files	    files		jsons to normalize
+        
 help
 )
 
-# Validate JSON
-zz_log i "Normalizing JSON..."
-list=$(validate-json ${allow:+-a} ${debug:+-d} ${fallback:+-f "$fallback"} ${local:+-l "$local"} ${import:+-i} "$json" "$schema")
+for file in $files; do
 
-if test -z "$list"; then
-    zz_log e "JSON {U $json} not valid, cannot normalize" && exit 1
-fi
+    # Validate JSON
+    zz_log i "Normalizing {U $file}..."
+    list=$(validate-json ${allow:+-a} ${cache:+-c} ${debug:+-d} ${fallback:+-f "$fallback"} ${local:+-l "$local"} ${import:+-i} ${schema:+-s"$schema"} $file)
 
-# Normalize JSON
-zz_json $json | jq -r --arg list "$list" '
+    if test -z "$list"; then
+        zz_log e "JSON {U $file} not valid, cannot normalize" && exit 1
+    fi
+
+    # Normalize JSON
+    zz_json $file | jq -r --arg list "$list" '
         def transform($lst):
             $lst | split("\n") 
                 | map(select(length > 0))
@@ -54,17 +58,18 @@ zz_json $json | jq -r --arg list "$list" '
         
         traverse(transform($list))' >/tmp/$$.json
 
-# Handle output
-if test -s /tmp/$$.json; then
-    if test -z "$save"; then
-        jq -C --indent ${tabSize:-2} . /tmp/$$.json
+    # Handle output
+    if test -s /tmp/$$.json; then
+        if test -z "$write"; then
+            jq -C --indent ${tabSize:-2} . /tmp/$$.json
+        else
+            jq -M --indent ${tabSize:-4} . /tmp/$$.json >$file
+        fi
+        zz_log s "File {U $file} normalized"
     else
-        jq -M --indent ${tabSize:-4} . /tmp/$$.json >$json
+        zz_log e "File {U $file} not normalized"
     fi
-    zz_log s "File {U $json} normalized"
-else
-    zz_log e "File {U $json} not normalized"
-fi
 
-# Clean up
-rm -f /tmp/$$.*
+    # Clean up
+    rm -f /tmp/$$.*
+done
