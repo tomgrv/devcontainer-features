@@ -6,30 +6,30 @@
 lvl="$1" && shift
 
 case $lvl in
-i*)
-    picto="{BBlue →} "
-    base="White"
-    ;;
-w*)
-    picto="{BYellow !} "
-    base="Yellow"
-    ;;
-e*)
-    picto="{BRed ✕} "
-    base="Red"
-    ;;
-s*)
-    picto="{BGreen ✔} "
-    base="Green"
-    ;;
--)
-    picto="  "
-    base="White"
-    ;;
-*)
-    picto="$lvl "
-    base="White"
-    ;;
+    i*)
+        picto="{BBlue →} "
+        base="White"
+        ;;
+    w*)
+        picto="{BYellow !} "
+        base="Yellow"
+        ;;
+    e*)
+        picto="{BRed ✕} "
+        base="Red"
+        ;;
+    s*)
+        picto="{Green ✔} "
+        base="Green"
+        ;;
+    -)
+        picto="  "
+        base="White"
+        ;;
+    *)
+        picto="$lvl "
+        base="White"
+        ;;
 esac
 
 eval "$(
