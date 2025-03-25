@@ -2,7 +2,7 @@
     "id": "githooks",
     "name": "Git Hooks",
     "description": "A feature to add useful Git hooks to your project",
-    "version": "5.7.3",
+    "version": "5.7.5",
     "dependsOn": {
         "ghcr.io/devcontainers/features/node": {},
         "ghcr.io/tomgrv/devcontainer-features/common-utils:3": {},

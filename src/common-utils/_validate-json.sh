@@ -531,7 +531,7 @@ map=~/.cache/$hash.schema.map
 zz_log i "Hash is {B $hash}"
 
 if test -n "$cache" && test -s $map; then
-    zz_log i "Using cached validation map"
+    zz_log - "Using cached validation map"
     cat $map
 else
 
