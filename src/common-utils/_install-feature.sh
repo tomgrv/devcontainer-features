@@ -13,14 +13,14 @@ if [ -z "$feature" ]; then
     exit 1
 fi
 
-echo "Installing feature <${Purple}$feature${None}>...${End}"
+zz_log i "Installing feature {Purple $feature}..."
 
 # Copy stubs to the target directory
 if [ -d $source/stubs ]; then
-    echo "${Blue}Copying stubs to '$target'...${End}"
+    zz_log i "Copying stubs to {U $target}..."
     mkdir -p $target/stubs && cp -r $source/stubs/* $target/stubs
 else
-    echo "${Yellow}No stubs found in '$source'${End}"
+    zz_log w "No stubs found in {U $source}"
 fi
 
 # Install specific utils by copying them to the target directory and making them executable
@@ -28,9 +28,7 @@ find $source \( -name "_*" -o -name "configure-*.sh" -o -path "stubs" \) -type f
 find $target -type f -name "*.sh" -exec chmod +x {} \;
 
 # Call all the install-xxx scripts in the feature directory
-echo "${Blue}Calling all install scripts in '$source'...${End}"
 find $source -type f -name "install-*.sh" | while read script; do
-    echo "${Yellow}Calling $script...${End}"
-    sh -c "$script $@"
-    echo "${Green}Done!${End}"
+    zz_log i "Calling {U $script}..."
+    sh -c "$script $@" && zz_log s "Done!" || zz_log e "Failed!"
 done
