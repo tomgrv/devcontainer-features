@@ -3,8 +3,9 @@
 ### Options
 UTILS="${UTILS:-"jq dos2unix"}"
 
-### Prepare for installation
-for util in "colors" "args" "context" "json" "log"; do
+### Link to utils, retrieve name after _zz_ / before .sh and create a symlink
+find $PWD/$(dirname $0) -type f -name "_zz_*.sh" -exec basename {} \; | sed 's/_zz_\(.*\)\.sh/\1/' | while read util; do
+    chmod +x $PWD/$(dirname $0)/_zz_${util}.sh
     ln -sf $PWD/$(dirname $0)/_zz_${util}.sh $PWD/$(dirname $0)/zz_${util}
 done
 export PATH=$PWD/$(dirname $0):$PATH
