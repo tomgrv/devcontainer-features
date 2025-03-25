@@ -97,6 +97,6 @@ done
 
 # Call all configure-xxx.sh scripts
 find $source -maxdepth 1 -name configure-*.sh | sort | while read file; do
-    zz_log i "Run {U $file}"
-    $file
+    zz_log i "Calling {U $file}..."
+    sh -c "$file" && zz_log s "Done!" || zz_log e "Failed!"
 done
