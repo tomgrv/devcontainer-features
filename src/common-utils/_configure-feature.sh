@@ -101,6 +101,9 @@ for package in package composer; do
     else
         zz_log - "No merged $package.json to normalize"
     fi
+
+    # Reset the file variable
+    unset file
 done
 
 # Call all configure-xxx.sh scripts
