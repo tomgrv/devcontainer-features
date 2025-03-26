@@ -2,11 +2,11 @@
     "id": "larasets",
     "name": "Laravel settings",
     "description": "A feature to add useful laravel settings to your shell.",
-    "version": "4.2.1",
+    "version": "4.2.3",
     "dependsOn": {
+        "ghcr.io/devcontainers/features/docker-in-docker": "",
         "ghcr.io/devcontainers/features/node:1": "",
         "ghcr.io/devcontainers/features/php:1": "8.3",
-        "ghcr.io/devcontainers/features/docker-in-docker": "",
         "ghcr.io/tomgrv/devcontainer-features/common-utils:3": ""
     },
     "installsAfter": [
@@ -15,10 +15,10 @@
     "containerEnv": {
         "APP_DEBUG": "true",
         "APP_ENV": "local",
-        "LARAVEL_SAIL": "1",
         "DB_CONNECTION": "sqlite",
-        "SAIL_XDEBUG_MODE": "develop,debug",
+        "LARAVEL_SAIL": "1",
         "SAIL_XDEBUG_CONFIG": "client_host=host.docker.internal idekey=vscode",
+        "SAIL_XDEBUG_MODE": "develop,debug",
         "XDEBUG_MODE": "off"
     },
     "customizations": {
