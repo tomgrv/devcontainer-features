@@ -78,21 +78,29 @@ zz_log i "Merge all package folder json files into top level xxx.json"
 
 for package in package composer; do
 
-    # Create package.json if it does not exist or is empty
-    if [ ! -f $package.json -o ! -s $package.json ]; then
-        # Create an empty package.json
-        echo "{}" > $package.json
-    fi
-
     # Merge all package folder json files into the top-level package.json
-    find $source -maxdepth 1 -name _*.$package.json | sort | while read file; do
+    for file in $(find $source -maxdepth 1 -name _*.$package.json | sort); do
+
+        # Create package.json if it does not exist or is empty
+        if [ ! -f $package.json -o ! -s $package.json ]; then
+            # Create an empty package.json
+            echo "{}" > $package.json
+        fi
+
+        # Merge the file
         zz_log i "Merge {U $file} in {U $package.json}"
         jq --indent ${tabSize:-4} -r -s '.[0] * .[1]' $file $package.json > /tmp/$$.json && mv -f /tmp/$$.json $package.json
+
     done
 
-    # Post merge normalize package.json
-    zz_log i "Post-merge normalize {U $package.json}"
-    normalize-json -c -w -a -i -t ${tabSize:-4} $package.json
+    # Normalize the file if needed
+    if [ -n "$file" -a -s $package.json ]; then
+        # Post merge normalize package.json
+        zz_log i "Post-merge normalize {U $package.json}"
+        normalize-json -c -w -a -i -t ${tabSize:-4} $package.json
+    else
+        zz_log - "No merged $package.json to normalize"
+    fi
 done
 
 # Call all configure-xxx.sh scripts
