@@ -3,14 +3,14 @@
         "lint": "npx --yes lint-staged"
     },
     "lint-staged": {
+        "*.json": [
+            "normalize-json -c -w -a -i -t 4 -f local -l true"
+        ],
         "*.php": [
             "composer lint"
         ],
-        "*.{js,jsx,ts,tsx,md,html,css,vue,yaml,yml,sh}": [
+        "*.{js,jsx,ts,tsx,md,html,css,vue,yaml,yml}": [
             "npx --yes prettier --write"
-        ],
-        "*.json": [
-            "normalize-json -c -w -a -i -t 4 -f local -l true"
         ]
     }
 }

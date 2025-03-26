@@ -5,13 +5,13 @@ workspace=${containerWorkspaceFolder:-${CODESPACE_VSCODE_FOLDER:-.}}
 
 ### Install composer dependencies if composer.json exists
 if [ -f $workspace/composer.json ]; then
-    echo "Install composer dependencies" | npx --yes chalk-cli --stdin blue
+    zz_log i "Install composer dependencies"
     composer install --ansi --ignore-platform-reqs --no-interaction --no-progress
 fi
 
 ### Install npm dependencies if package.json exists
 if [ -f $workspace/package.json ]; then
-    echo "Install npm dependencies" | npx --yes chalk-cli --stdin blue
+    zz_log i "Install npm dependencies"
     npm install --ws --if-present --include-workspace-root || npm install
 fi
 
@@ -23,12 +23,12 @@ if [ -n "$DB_CONNECTION" ] && [ "$DB_CONNECTION" = "sqlite" ]; then
         export DB_DATABASE=database/database.sqlite
     fi
 
-    echo "Ensure sqlite db $DB_DATABASE exist" | npx --yes chalk-cli --stdin blue
+    zz_log i "Ensure sqlite db {Purple $DB_DATABASE} exist"
     touch $workspace/$DB_DATABASE
 fi
 
 ### Init env
-echo "Init dotenv" | npx --yes chalk-cli --stdin blue
+zz_log i "Init {B dotenv}"
 touch $workspace/.env
 
 ### Add APP_KEY to .env if it does not exist, in one line
