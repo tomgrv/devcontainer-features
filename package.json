@@ -188,14 +188,11 @@
         "*.php": [
             "composer lint"
         ],
-        "*.{js,jsx,ts,tsx,md,html,css,vue,yaml,yml,sh}": [
+        "*.{js,jsx,ts,tsx,md,html,css,vue,yaml,yml}": [
             "npx --yes prettier --write"
         ],
         ".devcontainer/*": [
             "cp -u -t ./stubs/.devcontainer "
-        ],
-        "composer.lock": [
-            "composer validate --ansi --strict"
         ]
     }
 }
