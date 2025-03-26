@@ -21,8 +21,8 @@
     ],
     "homepage": "https://github.com/tomgrv/devcontainer-features#readme",
     "bugs": {
-        "url": "https://github.com/tomgrv/devcontainer-features/issues",
-        "email": "project@hostname.com"
+        "email": "project@hostname.com",
+        "url": "https://github.com/tomgrv/devcontainer-features/issues"
     },
     "author": "tomgrv",
     "files": [
@@ -94,6 +94,9 @@
                 "type": "plain-text"
             }
         ],
+        "scripts": {
+            "prebump": "gitversion -config .gitversion -showvariable MajorMinorPatch"
+        },
         "types": [
             {
                 "type": "feat",
@@ -127,10 +130,7 @@
                 "type": "test",
                 "hidden": true
             }
-        ],
-        "scripts": {
-            "prebump": "gitversion -config .gitversion -showvariable MajorMinorPatch"
-        }
+        ]
     },
     "commitlint": {
         "extends": [
@@ -182,20 +182,20 @@
         ]
     },
     "lint-staged": {
+        "*.json": [
+            "normalize-json -c -w -a -i -t 4 -f local -l true"
+        ],
         "*.php": [
             "composer lint"
         ],
         "*.{js,jsx,ts,tsx,md,html,css,vue,yaml,yml,sh}": [
             "npx --yes prettier --write"
         ],
-        "*.json": [
-            "normalize-json -c -w -a -i -t 4 -f local -l true"
+        ".devcontainer/*": [
+            "cp -u -t ./stubs/.devcontainer "
         ],
         "composer.lock": [
             "composer validate --ansi --strict"
-        ],
-        ".devcontainer/*": [
-            "cp -u -t ./stubs/.devcontainer "
         ]
     }
 }
