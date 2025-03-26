@@ -25,7 +25,7 @@ help
 for file in $files; do
 
     # Check if file exists
-    if ! test -f "$file"; then
+    if ! test -s "$file"; then
         zz_log e "File {U $file} not found" && continue
     fi
 
