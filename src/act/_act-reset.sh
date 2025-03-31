@@ -1,3 +1,4 @@
 #!/bin/sh
 
-rm ~/.config/act/actrc
+rm -rf ~/.config/act/actrc
+rm -rf ~/.docker
