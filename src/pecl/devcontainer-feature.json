@@ -2,9 +2,11 @@
     "id": "pecl",
     "name": "PECL Install feature",
     "description": "Add pecl",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "dependsOn": {
-        "ghcr.io/devcontainers/features/php": "lts"
+        "ghcr.io/devcontainers/features/php:1": {
+            "version": "8.2"
+        }
     },
     "installsAfter": [
         "ghcr.io/devcontainers/features/common-utils",
