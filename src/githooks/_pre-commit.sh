@@ -46,7 +46,7 @@ if git diff ${@:---cached --name-only} | grep -q "composer.json"; then
     done
 
     # Update composer.lock
-    composer validate --no-check-all --strict && composer update --lock --minimal-changes --ignore-platform-reqs --with-all-dependencies --no-scripts --no-interaction --no-progress --no-install
+    composer validate --no-check-all --strict || composer update --lock --minimal-changes --ignore-platform-reqs --with-all-dependencies --no-scripts --no-interaction --no-progress --no-install
 
     # commit the updated composer.lock if file changed
     if git diff --quiet composer.lock; then
