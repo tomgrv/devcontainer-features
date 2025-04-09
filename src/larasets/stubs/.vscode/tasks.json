@@ -212,6 +212,16 @@
                     "endsPattern": "."
                 }
             }
+        },
+        {
+            "label": "ide-helper",
+            "type": "shell",
+            "command": "art ide-helper:generate --ansi && art ide-helper:meta --ansi && art ide-helper:models --write --ansi",
+            "presentation": {
+                "panel": "dedicated",
+                "clear": true,
+                "reveal": "silent"
+            }
         }
     ]
 }
