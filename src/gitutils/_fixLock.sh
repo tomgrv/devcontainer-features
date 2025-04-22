@@ -24,6 +24,7 @@ git filter-branch --tree-filter '
         composer require --ignore-platform-reqs --no-scripts --no-interaction --no-progress --no-install "$package"
     done;
     npm install --ws --package-lock-only;
+    composer update --lock --minimal-changes --ignore-platform-reqs --with-all-dependencies --no-scripts --no-interaction --no-progress --no-install
     git add $(find . -name "composer.lock") $(find . -name "package-lock.json") || true
 ' $sha..HEAD
 
