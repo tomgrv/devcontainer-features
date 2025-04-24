@@ -2,12 +2,6 @@
     "name": "",
     "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
     "features": {
-        "ghcr.io/devcontainers/features/node:1": {
-            "version": "lts"
-        },
-        "ghcr.io/devcontainers/features/php:1": {
-            "version": "8.2"
-        },
         "ghcr.io/devcontainers/features/docker-in-docker:2": {},
         "ghcr.io/tomgrv/devcontainer-features/gitutils:5": {},
         "ghcr.io/tomgrv/devcontainer-features/githooks:5": {}
@@ -15,5 +9,5 @@
     "postCreateCommand": ".devcontainer/create.sh",
     "customizations": {},
     "remoteEnv": {},
-    "postStartCommand": ".devcontainer/start.sh"
+    "postStartCommand": ".devcontainer/start.sh",
 }
