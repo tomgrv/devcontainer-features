@@ -15,5 +15,8 @@
     "postCreateCommand": ".devcontainer/create.sh",
     "customizations": {},
     "remoteEnv": {},
-    "postStartCommand": ".devcontainer/start.sh"
+    "postStartCommand": ".devcontainer/start.sh",
+    "mounts": [
+        "type=bind,source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/home/root/.ssh,readonly"
+    ]
 }
