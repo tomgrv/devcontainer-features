@@ -38,8 +38,15 @@ fi
 if [ -n "$upd" ]; then
     echo "${Green}Update features${End}"
     stubs=1
-    features=$(sed '/^\s*\/\//d' $source/.devcontainer/devcontainer.json | jq -r '.features | to_entries[] | select(.key | contains("tomgrv/devcontainer-features"))| .key|
-    split("/")[-1] | split(":")[0]')
+    features=$(
+        sed '/^\s*\/\//d' .devcontainer/devcontainer.json |
+            jq -r '.features | to_entries[] |
+                    select(.key | contains("tomgrv/devcontainer-features")) |
+                    .key | 
+                    split("/")[-1] |
+                    split(":")[0]' |
+            tr '\n' ' '
+    )
 fi
 
 # If 'stubs' argument is provided, indicate that stubs are selected
