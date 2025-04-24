@@ -63,9 +63,14 @@ if [ -d $source/stubs ]; then
             grep -qxF $dest .gitignore || echo "$dest" >>.gitignore
         fi
 
-        # Merge the file
-        zz_log i "Merge {U $file} in {U $dest}"
-        git merge-file -p -L current -L base -L stubs $dest /dev/null $file >$dest
+        # Use git merge-file to merge the file
+        if [ -f $dest ]; then
+            zz_log i "Using git merge-file to merge {U $file} into {U $dest}..."
+            git merge-file -q $dest $file $file
+        else
+            zz_log i "Destination file {U $dest} does not exist. Copying {U $file} to {U $dest}..."
+            cp $file $dest
+        fi
 
         # Apply the same permissions as the original file
         chmod $(stat -c "%a" $file) $dest
@@ -87,17 +92,17 @@ for package in package composer; do
             echo "{}" >$package.json
         fi
 
-        # Merge the file
-        zz_log i "Merge {U $file} in {U $package.json}"
-        jq --indent ${tabSize:-4} -r -s '.[0] * .[1]' $file $package.json >/tmp/$$.json && mv -f /tmp/$$.json $package.json
+        # Merge the file & add keys if not already there. make sure source json does not contain any comments
+        zz_log i "Merge {U $file} in {U $package.json}..."
+        zz_json $package.json | jq --indent ${tabSize:-4} -r -s '.[0] * .[1]' $file - >/tmp/$$.json && mv -f /tmp/$$.json $package.json
 
     done
 
     # Normalize the file if needed
     if [ -n "$file" -a -s $package.json ]; then
         # Post merge normalize package.json
-        zz_log i "Post-merge normalize {U $package.json}"
-        normalize-json -c -w -a -i -t ${tabSize:-4} $package.json
+        zz_log i "Post-merge normalize {U $package.json}..."
+        normalize-json -c -w -a -i -t ${tabSize:-4} $package.json 2>/dev/null
     else
         zz_log - "No merged $package.json to normalize"
     fi
