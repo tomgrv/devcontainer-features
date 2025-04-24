@@ -11,5 +11,8 @@
     "remoteEnv": {},
     "postCreateCommand": ".devcontainer/create.sh",
     "postStartCommand": ".devcontainer/start.sh",
-    "customizations": {}
+    "customizations": {},
+    "mounts": [
+        "type=bind,source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/home/vscode/.ssh,readonly"
+    ]
 }
