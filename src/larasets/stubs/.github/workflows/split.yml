@@ -1,0 +1,77 @@
+# @format
+
+name: 'Packages Split'
+
+on:
+    push:
+        branches:
+            - main
+        tags:
+            - '*'
+
+env:
+    # 1. for Github split
+    GITHUB_TOKEN: ${{ secrets.SPLIT_TOKEN }}
+jobs:
+    packages-matrix:
+        runs-on: ubuntu-latest
+        outputs:
+            matrix: ${{ steps.matrix.outputs.content }}
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+            - name: Set up PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: "${{ inputs.php-version || '8.3' }}"
+            - name: PHP Install Dependencies
+              uses: ramsey/composer-install@v3
+              with:
+                  composer-options: '--no-dev --no-scripts'
+            - name: Generate package matrix
+              id: matrix
+              run: |
+                  echo "content=$(composer show --direct --path --format=json | jq -c --arg pwd "$(pwd)/packages" '{target: [.installed[] | select((.path | startswith($pwd)) and (.source != null)) | { path: (.path | sub($pwd + "/"; "")), organization: (.name | split("/")[0]), name: (.name | split("/")[1])}]}')" >> $GITHUB_OUTPUT
+    packages-split:
+        runs-on: ubuntu-latest
+        needs: packages-matrix
+        strategy:
+            fail-fast: false
+            matrix: ${{ fromJSON(needs.packages-matrix.outputs.matrix) }}
+        steps:
+            - uses: actions/checkout@v2
+            # no tag
+            - if: ${{ !startsWith(github.ref, 'refs/tags/') }}
+              uses: symplify/monorepo-split-github-action@v2.3.0
+              with:
+                  # Split the package directory based on the matrix
+                  package_directory: '${{ matrix.target.path }}'
+
+                  # Use the organization from the matrix
+                  repository_organization: '${{ github.repository_owner }}'
+
+                  # Use the repository name from the matrix
+                  repository_name: '${{ matrix.target.name }}'
+
+                  # Use the current committer's username and email for the split commit
+                  user_name: '${{ github.actor }}'
+                  user_email: '${{ github.event.pusher.email }}'
+
+            # with tag
+            - if: ${{ startsWith(github.ref, 'refs/tags/') }}
+              uses: symplify/monorepo-split-github-action@v2.3.0
+              with:
+                  tag: ${GITHUB_REF#refs/tags/}
+
+                  # Split the package directory based on the matrix
+                  package_directory: '${{ matrix.target.path }}'
+
+                  # Use the organization from the matrix
+                  repository_organization: '${{ github.repository_owner }}'
+
+                  # Use the repository name from the matrix
+                  repository_name: '${{ matrix.target.name }}'
+
+                  # Use the current committer's username and email for the split commit
+                  user_name: '${{ github.actor }}'
+                  user_email: '${{ github.event.pusher.email }}'
