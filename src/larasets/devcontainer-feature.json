@@ -2,7 +2,7 @@
     "id": "larasets",
     "name": "Laravel settings",
     "description": "A feature to add useful laravel settings to your shell.",
-    "version": "4.3.0",
+    "version": "4.4.0",
     "dependsOn": {
         "ghcr.io/devcontainers/features/docker-in-docker": "",
         "ghcr.io/devcontainers/features/node:1": "lts",
@@ -23,25 +23,6 @@
     },
     "customizations": {
         "vscode": {
-            "settings": {
-                "triggerTaskOnSave.tasks": {
-                    "art-cache-config": [
-                        "**/config.php",
-                        "config/*.php",
-                        ".env"
-                    ],
-                    "art-cache-views": [
-                        "packages/**/*.blade.php"
-                    ],
-                    "art-cache-routes": [
-                        "**/[Rr]outes/*.php"
-                    ],
-                    "ide-helper": [
-                        "bootstrap/**/*.php",
-                        "**/composer.lock"
-                    ]
-                }
-            },
             "extensions": [
                 "spmeesseman.vscode-taskexplorer",
                 "gruntfuggly.triggertaskonsave",
