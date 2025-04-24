@@ -1,0 +1,7 @@
+{
+    "secrets": {
+        "SSH_PRIVATE_KEY": {
+            "description": "This is the SSH private key used to identify the application."
+        }
+    }
+}
