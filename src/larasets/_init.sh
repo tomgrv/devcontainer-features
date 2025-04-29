@@ -32,4 +32,4 @@ zz_log i "Init {B dotenv}"
 touch $workspace/.env
 
 ### Add APP_KEY to .env if it does not exist, in one line
-grep -q "APP_KEY" $workspace/.env || echo APP_KEY=null >>$workspace/.env
+grep -q "APP_KEY" $workspace/.env || echo APP_KEY= >>$workspace/.env
