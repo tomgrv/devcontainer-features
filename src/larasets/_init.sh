@@ -32,4 +32,15 @@ zz_log i "Init {B dotenv}"
 touch $workspace/.env
 
 ### Add APP_KEY to .env if it does not exist, in one line
-grep -q "APP_KEY" $workspace/.env || echo APP_KEY=null >>$workspace/.env
+grep -q "APP_KEY" $workspace/.env || echo APP_KEY= >>$workspace/.env
+
+### Daytona support (codeanywhere)
+if [ -n "DAYTONA_WS_ID" ]; then
+    echo "Running in Daytona workspace"
+
+    # Define if not defined or replace APP_URL in env file
+    export APP_URL="https://${APP_PORT:-80}-${DAYTONA_WS_ID}.${DAYTONA_WS_DOMAIN}"
+
+    # Replace APP_URL in .env file if it exists
+    grep -q "APP_URL" $workspace/.env || echo "APP_URL=${APP_URL}" >>$workspace/.env && sed -i "s|^APP_URL=.*|APP_URL=${APP_URL}|" $workspace/.env
+fi
