@@ -29,6 +29,7 @@ if ! git isFixup; then
 	fi
 
 	#### Get commit to fixup
+
 	sha=$(git getcommit "$@")
 
 	#### Display commit to fixup
