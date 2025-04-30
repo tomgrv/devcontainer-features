@@ -4,13 +4,8 @@ eval $(
     zz_context "$@"
 )
 
-# Detect if --system flag can be used for writing
-if git config --system test.key test.value >/dev/null 2>&1; then
-    GIT_CONFIG_SCOPE="--system"
-    git config --system --unset test.key
-else
-    GIT_CONFIG_SCOPE="--global"
-fi
+# Set Context
+GIT_CONFIG_SCOPE="--system"
 
 # Check if jq is installed
 if ! command -v jq >/dev/null 2>&1; then
@@ -34,7 +29,7 @@ if [ -f "$source/alias.json" ]; then
     zz_log i "Configuring aliases with {U $source/alias.json}..."
     jq -r 'keys[]' $source/alias.json | dos2unix | while read key; do
         value=$(jq -r ".$key" $source/alias.json)
-        git config $GIT_CONFIG_SCOPE alias.$key "!sh -c '$value' -- \"\$@\"" && zz_log - "Created alias {B $key} => {B $value}"
+        git config $GIT_CONFIG_SCOPE alias.$key "!sh -c \"$value \$@\"" && zz_log - "Created alias {B $key} => {B $value}"
     done
 fi
 
