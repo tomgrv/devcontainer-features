@@ -4,13 +4,8 @@ eval $(
     zz_context "$@"
 )
 
-# Detect if --system flag can be used for writing
-if git config --system test.key test.value >/dev/null 2>&1; then
-    GIT_CONFIG_SCOPE="--system"
-    git config --system --unset test.key
-else
-    GIT_CONFIG_SCOPE="--global"
-fi
+# Set Context
+GIT_CONFIG_SCOPE="--system"
 
 # Check if jq is installed
 if ! command -v jq >/dev/null 2>&1; then
@@ -42,5 +37,5 @@ fi
 zz_log i "Configuring scripts with {U $feature/_xx.sh}..."
 for script in $target/_*.sh; do
     alias=$(basename $script | sed -e 's/^_//g' -e 's/.sh$//g')
-    git config $GIT_CONFIG_SCOPE alias.$alias "!sh -c '$(readlink -f $script)' -- \"\$@\"" && zz_log - "Created alias {B $alias} => {B $(readlink -f $script)}"
+    git config $GIT_CONFIG_SCOPE alias.$alias "!sh -c '$(readlink -f $script) \$1 \$2 \$3 \$4 \$5 \$6 \$7 \$8 \$9' -- \"\$@\"" && zz_log - "Created alias {B $alias} => {B $(readlink -f $script)}"
 done
