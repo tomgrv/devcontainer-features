@@ -4,13 +4,8 @@ eval $(
     zz_context "$@"
 )
 
-# Detect if --system flag can be used for writing
-if git config --system test.key test.value >/dev/null 2>&1; then
-    GIT_CONFIG_SCOPE="--system"
-    git config --system --unset test.key
-else
-    GIT_CONFIG_SCOPE="--global"
-fi
+# Set Context
+GIT_CONFIG_SCOPE="--system"
 
 # Check if jq is installed
 if ! command -v jq >/dev/null 2>&1; then
