@@ -13,4 +13,7 @@ for f in known_hosts id_rsa; do
     fi
 done
 
+### Add ssh-keyscan to known_hosts
+sudo mkdir -p /home/vscode/.ssh
+sudo chmod 700 /home/vscode/.ssh
 ssh-keyscan github.com >>/home/vscode/.ssh/known_hosts
