@@ -1,24 +1,26 @@
 #!/bin/sh
 
+set -e
+
+# Source colors script
+. zz_colors
+
+# Function to print help and manage arguments
+eval $(
+    zz_args "List git history and asks for commit" $0 "$@" <<-help
+		    f -        force     allow overwritting pushed history
+			- sha      sha       sha commit to fixup
+	help
+)
+
 #### Go to repository root
 cd "$(git rev-parse --show-toplevel)"
 
-#### Get calling script name without extension and starting _
-script=$(basename $0 .sh | sed 's/^_//')
-
-#### Display help
-if [ "$1" = '--help' ]; then
-    echo 'Usage: git '$script' [--force|<commit>]'
-    exit 0
-fi
-
-#### List commits to fixup and ask user to choose one
-if [ "$1" = "--force" ]; then
-    echo 'Get commit to fixup by overwritting pushed history...' >&2
+if [ -n "$force" ]; then
+    zz_log w "Force mode enabled, overwriting pushed history"
     git forceable >&2
     read -p 'What commit to fix? ' sha
-elif [ -z "$1" ]; then
-    echo 'Get commit to fixup without overwritting pushed history...' >&2
+elif [ -z "$sha" ]; then
     git fixable >&2
     read -p 'What commit to fix? ' sha
 else
