@@ -6,11 +6,18 @@ if [ "$#" -lt 1 ]; then
     exit 1
 fi
 
-# Get repository URL from argument
-repo="${1}"
+set -e
 
-# Get directory from argument or use current directory
-directory="${2:-.}"
+# Source colors script
+. zz_colors
+
+# Function to print help and manage arguments
+eval $(
+    zz_args "Clone and degit a repository" $0 "$@" <<-help
+		    - repo      repo        repository to clone
+			- directory directory   directory to degit into
+	help
+)
 
 # Get the repository host
 host=$(echo "${repo}" | sed -E 's/https?:\/\/([^/]+)\/.*/\1/')
@@ -18,12 +25,17 @@ host=$(echo "${repo}" | sed -E 's/https?:\/\/([^/]+)\/.*/\1/')
 # Keep only the repository name
 repo=$(echo "${repo}" | sed -E 's/.*github.com\/([^/]+)\/([^/]+).*/\1\/\2/')
 
-# Create directory if it doesn't exist
-mkdir -p "${directory}"
+# Check if the directory is provided
+if [ -z "${directory}" ]; then
+    directory=.
+fi
 
 # Trace
-echo "Repository: ${repo}"
-echo "Directory: ${directory}"
+zz_log i "Repository: ${repo}"
+zz_log i "Directory: ${directory}"
+
+# Create directory if it doesn't exist
+mkdir -p "${directory}"
 
 # Download and extract repository per host
 case $host in
@@ -40,7 +52,7 @@ case $host in
         tar --extract --ungzip --strip-components=1 --directory "${directory}"
     ;;
 *)
-    echo "Unsupported host: ${host}"
+    zz_log e "Unsupported host: {U ${host}}"
     exit 1
     ;;
 esac
