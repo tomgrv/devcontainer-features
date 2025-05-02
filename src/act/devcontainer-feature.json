@@ -2,7 +2,7 @@
     "id": "act",
     "name": "Nektos Act",
     "description": "A tool for running GitHub Actions locally",
-    "version": "1.4.2",
+    "version": "1.5.0",
     "dependsOn": {
         "ghcr.io/devcontainers/features/docker-in-docker": {}
     },
