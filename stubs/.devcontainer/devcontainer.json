@@ -1,13 +1,15 @@
 {
-    "name": "",
     "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+    "name": "",
     "features": {
-        "ghcr.io/devcontainers/features/docker-in-docker:2": {},
-        "ghcr.io/tomgrv/devcontainer-features/gitutils:5": {},
-        "ghcr.io/tomgrv/devcontainer-features/githooks:5": {}
+        "ghcr.io/devcontainers/features/docker-in-docker": {},
+        "ghcr.io/devcontainers/features/node": "lts",
+        "ghcr.io/devcontainers/features/php": "8.2",
+        "ghcr.io/tomgrv/devcontainer-features/githooks": {},
+        "ghcr.io/tomgrv/devcontainer-features/gitutils": {}
     },
-    "postCreateCommand": ".devcontainer/create.sh",
-    "customizations": {},
     "remoteEnv": {},
+    "postCreateCommand": ".devcontainer/create.sh",
     "postStartCommand": ".devcontainer/start.sh",
+    "customizations": {}
 }
