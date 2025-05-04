@@ -2,7 +2,7 @@
     "id": "common-utils",
     "name": "Common Utils",
     "description": "Common utils for tomgrv/devcontainer-features",
-    "version": "3.8.10",
+    "version": "3.9.0",
     "dependsOn": {
         "ghcr.io/devcontainers/features/common-utils": {}
     },
@@ -30,16 +30,16 @@
             },
             "extensions": [
                 "actboy168.tasks",
-                "spmeesseman.vscode-taskexplorer",
-                "gruntfuggly.triggertaskonsave",
-                "natizyskunk.sftp",
-                "formulahendry.auto-rename-tag",
                 "formulahendry.auto-close-tag",
-                "gruntfuggly.todo-tree",
+                "formulahendry.auto-rename-tag",
                 "foxundermoon.shell-format",
-                "richie5um2.vscode-sort-json",
                 "github.vscode-github-actions",
-                "ms-azuretools.vscode-docker"
+                "gruntfuggly.todo-tree",
+                "gruntfuggly.triggertaskonsave",
+                "ms-azuretools.vscode-docker",
+                "natizyskunk.sftp",
+                "spmeesseman.vscode-taskexplorer",
+                "Tyriar.sort-lines"
             ]
         }
     },
