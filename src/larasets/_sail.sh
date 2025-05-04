@@ -1,5 +1,8 @@
 #!/bin/sh
 set -e
 
-workspace=${containerWorkspaceFolder:-${CODESPACE_VSCODE_FOLDER:-.}}
-sh $([ -f "sail" ] && echo sail || [ -f "$workspace/vendor/bin/sail" ] && echo $workspace/vendor/bin/sail) "$@"
+#### Goto repository root
+cd "$(git rev-parse --show-toplevel)" >/dev/null
+
+#### Execute command
+sh $([ -f "sail" ] && echo sail || [ -f "./vendor/bin/sail" ] && echo ./vendor/bin/sail) "$@"
