@@ -6,6 +6,18 @@
             "type": "shell",
             "command": "git align",
             "problemMatcher": []
+        },
+        {
+            "label": "⤵️ Amend",
+            "type": "shell",
+            "command": "git amend",
+            "problemMatcher": []
+        },
+        {
+            "label": "⏫ Push force",
+            "type": "shell",
+            "command": "git push --force",
+            "problemMatcher": []
         }
     ]
 }
