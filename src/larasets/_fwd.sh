@@ -19,6 +19,12 @@ help
 #### Goto repository root
 cd "$(git rev-parse --show-toplevel)" >/dev/null
 
+#### Environment variables
+if [ -z "$APP_PORT" ]; then
+    zz_log w "APP_PORT is not set. Loading from .env file."
+    APP_PORT=$(awk -F'=' '/^APP_PORT=/ {print $2}' .env)
+fi
+
 #### Load preset values
 case "$preset" in
 github)
@@ -84,6 +90,8 @@ setexport() {
         # Add the new entry
         echo "$key=$value" >>"$env_file"
     fi
+
+    zz_log i "$key: $value"
 }
 
 case "$mode" in
@@ -102,3 +110,5 @@ local)
     exit 1
     ;;
 esac
+
+zz_log s "Port forwarding configured successfully on {Purple $mode} mode"
