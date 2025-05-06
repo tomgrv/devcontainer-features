@@ -19,6 +19,46 @@ help
 #### Goto repository root
 cd "$(git rev-parse --show-toplevel)" >/dev/null
 
+#### Function to update or replace export entry in .bashrc
+setexport() {
+    local key="$1"
+    local value="$2"
+
+    # Check if the key is provided
+    touch ./.env
+
+    ### In .bashrc
+    local bashrc="$HOME/.bashrc"
+    if grep -q "^export $key=" "$bashrc"; then
+        # Replace the existing entry
+        sed -i "s|^export $key=.*|export $key=$value|" "$bashrc"
+    else
+        # Add the new entry
+        echo "export $key=$value" >>"$bashrc"
+    fi
+
+    ### In .env
+    local env_file=".env"
+    if grep -q "^$key=" "$env_file"; then
+        # Replace the existing entry
+        sed -i "s|^$key=.*|$key=$value|" "$env_file"
+    else
+        # Add the new entry
+        echo "$key=$value" >>"$env_file"
+    fi
+
+    zz_log i "$key: $value"
+}
+
+#### Environment variables
+if [ -z "$APP_PORT" ]; then
+    zz_log w "APP_PORT is not set. Loading from .env file."
+    APP_PORT=$(awk -F'=' '/^APP_PORT=/ {print $2}' .env)
+else
+    zz_log i "APP_PORT is set to $APP_PORT."
+    setexport APP_PORT "$APP_PORT"
+fi
+
 #### Load preset values
 case "$preset" in
 github)
@@ -57,35 +97,6 @@ local)
     ;;
 esac
 
-#### Function to update or replace export entry in .bashrc
-setexport() {
-    local key="$1"
-    local value="$2"
-
-    # Check if the key is provided
-    touch ./.env
-
-    ### In .bashrc
-    local bashrc="$HOME/.bashrc"
-    if grep -q "^export $key=" "$bashrc"; then
-        # Replace the existing entry
-        sed -i "s|^export $key=.*|export $key=$value|" "$bashrc"
-    else
-        # Add the new entry
-        echo "export $key=$value" >>"$bashrc"
-    fi
-
-    ### In .env
-    local env_file=".env"
-    if grep -q "^$key=" "$env_file"; then
-        # Replace the existing entry
-        sed -i "s|^$key=.*|$key=$value|" "$env_file"
-    else
-        # Add the new entry
-        echo "$key=$value" >>"$env_file"
-    fi
-}
-
 case "$mode" in
 remote)
     # Set the APP_URL and VITE_HOST for remote mode
@@ -102,3 +113,5 @@ local)
     exit 1
     ;;
 esac
+
+zz_log s "Port forwarding configured successfully on {Purple $mode} mode"
