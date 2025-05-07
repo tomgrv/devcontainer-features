@@ -1,4 +1,5 @@
 #!/bin/sh
+
 set -e
 
 #### Goto repository root
@@ -16,37 +17,22 @@ if [ -f "./package.json" ]; then
     npm install --ws --if-present --include-workspace-root || npm install
 fi
 
-### Default DB_CONNECTION
-if [ -z "$DB_CONNECTION" ]; then
-    export DB_CONNECTION=sqlite
-fi
-
-### Init db if sqlite and not exists
-case $DB_CONNECTION in
-sqlite)
-    zz_log i "DB_CONNECTION is {Purple $DB_CONNECTION}"
-    ### Set default sqlite db
-    if [ -z "$DB_DATABASE" ]; then
-        export DB_DATABASE=database/database.sqlite
-    fi
-
-    zz_log i "Ensure sqlite db {Purple $DB_DATABASE} exist"
-    touch ./$DB_DATABASE
-    ;;
-*)
-    zz_log w "DB_CONNECTION {Purple $DB_CONNECTION} is not supported yet"
-    exit 1
-    ;;
-esac
-
 ### Init env
 zz_log i "Init {B dotenv}"
 touch ./.env
 
 ### Add APP_KEY to .env if it does not exist, in one line
-grep -q "APP_KEY"./.env || echo APP_KEY= >>./.env
+zz_log i "Ensure APP_KEY is set in .env"
+grep -q "APP_KEY" ./.env || echo APP_KEY= >>./.env
+
+### Generate app key
+zz_log i "Generate app key"
+art config:clear
+art config:cache
+art key:generate --force
 
 ### Daytona support (codeanywhere)
+zz_log i "Use {B fwd} to forward ports according to the environment"
 if [ -n "$DAYTONA_WS_ID" ]; then
     zz_log i "Daytona/Codeanywhere support"
     fwd daytona
