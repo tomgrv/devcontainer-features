@@ -41,21 +41,9 @@
             "label": "▶️ Run",
             "dependsOn": [
                 "sail-up",
-                "sail-dump",
-                "art-queue",
-                "art-schedule",
                 "vite"
             ],
-            "dependsOrder": "sequence"
-        },
-        {
-            "label": "⏩ Up",
-            "dependsOn": [
-                "sail-up",
-                "vite",
-                "sail-dump"
-            ],
-            "dependsOrder": "sequence"
+            "dependsOrder": "parallel"
         },
         {
             "label": "🔄️ Refresh",
@@ -78,7 +66,7 @@
         {
             "label": "sail-up",
             "type": "shell",
-            "command": "sail up --build --wait && sail composer dump-autoload",
+            "command": "sail up",
             "presentation": {
                 "panel": "dedicated",
                 "clear": true,

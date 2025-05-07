@@ -101,11 +101,13 @@ case "$mode" in
 remote)
     # Set the APP_URL and VITE_HOST for remote mode
     setexport APP_URL "https://${prefix:+${APP_PORT:-80}-}$codespace${suffix:+-${APP_PORT:-80}}${domain:+.$domain}"
+    setexport ASSET_URL "https://${prefix:+${APP_PORT:-80}-}$codespace${suffix:+-${APP_PORT:-80}}${domain:+.$domain}"
     setexport VITE_HOST "${prefix:+${VITE_PORT:-5173}-}$codespace${suffix:+-${VITE_PORT:-5173}}${domain:+.$domain}"
     ;;
 local)
     # Set the APP_URL and VITE_HOST for local mode
     setexport APP_URL "http://$codespace${domain:+.$domain}:${APP_PORT:-80}"
+    setexport ASSET_URL "http://$codespace${domain:+.$domain}:${APP_PORT:-80}"
     setexport VITE_HOST "$codespace${domain:+.$domain}:${VITE_PORT:-5173}"
     ;;
 *)
