@@ -2,32 +2,32 @@
 
 set -e
 
-# Source colors script
+# Source colors script for colored output
 . zz_colors
 
-# Function to print help and manage arguments
+# Parse arguments and display help if needed
 eval $(
     zz_args "Run act with predefined arguments" $0 "$@" <<-help
 	help
 )
 
-#### Goto repository root
+# Navigate to the repository root
 cd "$(git rev-parse --show-toplevel)" >/dev/null
 
-for e in "SSH_KNOWN_HOSTS<ssh-keyscan -H ${KNOWN_HOST}" "SSH_PRIVATE_KEY" "SSH_CONFIG"; do
+# Loop through predefined environment variables
+for e in "KNOWN_HOSTS" "SSH_PRIVATE_KEY" "SSH_CONFIG"; do
 
-    # extract the alias name from the first part of the string
-    # and the underlying value from the second part
+    # Extract the alias name (before '<') and the underlying value (after '<')
     a=$(echo "$e" | cut -d'<' -f1)
     v=$(echo "$e" | cut -d'<' -f2 -s)
 
-    # Set alias name to the value of the underlying variable
+    # Set the alias name to the value of the underlying variable if it exists
     if [ -n "$v" ]; then
         zz_log i "Setting <{B $a}>..."
         eval export $a="\$($v)"
     fi
 
-    # Build the argument to pass to act
+    # Build the argument to pass to act if the alias has a value
     if [ -n "$(eval echo "\$$a")" ]; then
         zz_log i "Passing <{B $a}>..."
         ARGS="$ARGS --secret $a"
@@ -35,7 +35,5 @@ for e in "SSH_KNOWN_HOSTS<ssh-keyscan -H ${KNOWN_HOST}" "SSH_PRIVATE_KEY" "SSH_C
 
 done
 
-echo act --artifact-server-path ./.artifacts $ARGS "$@"
-
-#### Back to previous directory
-cd - >/dev/null
+# Run the act command with the constructed arguments
+act --artifact-server-path ./.artifacts $ARGS "$@"

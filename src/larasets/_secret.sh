@@ -15,7 +15,7 @@ if [ ! -x "$HOME/.composer/vendor/bin/dep" ]; then
 fi
 
 #### Initialize command
-command="ssh-agent sh -c 'echo \"\$SSH_PRIVATE_KEY\" | ssh-add - && $@'"
+command="ssh-agent sh -c \"echo '\$SSH_PRIVATE_KEY' | ssh-add - && "$(printf "'%s' " "$@")"\""
 
 #### Test if doppler is installed
 if ! command -v doppler >/dev/null 2>&1; then
