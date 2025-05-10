@@ -2,7 +2,7 @@
     "id": "larasets",
     "name": "Laravel settings",
     "description": "A feature to add useful laravel settings to your shell.",
-    "version": "5.3.0",
+    "version": "5.2.0",
     "dependsOn": {
         "ghcr.io/devcontainers/features/docker-in-docker": "",
         "ghcr.io/devcontainers/features/node:1": "lts",
@@ -31,7 +31,6 @@
                 "bmewburn.vscode-intelephense-client",
                 "christian-kohler.npm-intellisense",
                 "davidanson.vscode-markdownlint",
-                "devsense.composer-php-vscode",
                 "doppler.doppler-vscode",
                 "entexa.tall-stack",
                 "formulahendry.auto-close-tag",

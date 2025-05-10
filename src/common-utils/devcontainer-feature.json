@@ -2,7 +2,7 @@
     "id": "common-utils",
     "name": "Common Utils",
     "description": "Common utils for tomgrv/devcontainer-features",
-    "version": "3.9.0",
+    "version": "3.10.0",
     "dependsOn": {
         "ghcr.io/devcontainers/features/common-utils": {}
     },
@@ -36,7 +36,7 @@
                 "github.vscode-github-actions",
                 "gruntfuggly.todo-tree",
                 "gruntfuggly.triggertaskonsave",
-                "ms-azuretools.vscode-docker",
+                "ms-azuretools.vscode-containers",
                 "natizyskunk.sftp",
                 "spmeesseman.vscode-taskexplorer",
                 "Tyriar.sort-lines"
