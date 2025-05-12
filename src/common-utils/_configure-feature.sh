@@ -81,34 +81,39 @@ fi
 # Log the merging process
 zz_log i "Merge all package folder json files into top level xxx.json"
 
-for package in package composer; do
+for type in package composer; do
 
-    # Merge all package folder json files into the top-level package.json
-    for file in $(find $source -maxdepth 1 -name _*.$package.json | sort); do
+    # find all package folder json files in the current directory
+    find . -name $type.json -type f ! -path '*/node_modules/*' ! -path '*/vendor/*' | while read package; do
 
-        # Create package.json if it does not exist or is empty
-        if [ ! -f $package.json -o ! -s $package.json ]; then
-            # Create an empty package.json
-            echo "{}" >$package.json
+        # Merge all package folder json files into the top-level package.json
+        for tmpl in $(find $source -maxdepth 1 -name _*.$type.json | sort); do
+
+            # Create package.json if it does not exist or is empty
+            if [ ! -f $package -o ! -s $package ]; then
+                # Create an empty package.json
+                echo "{}" >$package
+            fi
+
+            # Merge the tmpl & add keys if not already there. make sure source json does not contain any comments
+            zz_log i "Merge {U $tmpl} in {U $package}..."
+            zz_json $package | jq --indent ${tabSize:-4} -r -s '.[0] * .[1]' $tmpl - >/tmp/$$.json && mv -f /tmp/$$.json $package
+
+        done
+
+        # Normalize the file if needed
+        if [ -n "$tmpl" -a -s $package ]; then
+            # Post merge normalize package.json
+            zz_log i "Post-merge normalize {U $package}..."
+            normalize-json -c -w -a -i -t ${tabSize:-4} $package 2>/dev/null
+        else
+            zz_log - "No merged $package to normalize"
         fi
 
-        # Merge the file & add keys if not already there. make sure source json does not contain any comments
-        zz_log i "Merge {U $file} in {U $package.json}..."
-        zz_json $package.json | jq --indent ${tabSize:-4} -r -s '.[0] * .[1]' $file - >/tmp/$$.json && mv -f /tmp/$$.json $package.json
+        # Reset the tmpl variable
+        unset tmpl
 
     done
-
-    # Normalize the file if needed
-    if [ -n "$file" -a -s $package.json ]; then
-        # Post merge normalize package.json
-        zz_log i "Post-merge normalize {U $package.json}..."
-        normalize-json -c -w -a -i -t ${tabSize:-4} $package.json 2>/dev/null
-    else
-        zz_log - "No merged $package.json to normalize"
-    fi
-
-    # Reset the file variable
-    unset file
 done
 
 # Call all configure-xxx.sh scripts

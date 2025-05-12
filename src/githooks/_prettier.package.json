@@ -1,7 +1,18 @@
 {
     "prettier": {
         "insertPragma": true,
-        "plugins": ["prettier-plugin-sh"],
+        "overrides": [
+            {
+                "files": "*.yml",
+                "options": {
+                    "useTabs": true,
+                    "tabWidth": 2
+                }
+            }
+        ],
+        "plugins": [
+            "prettier-plugin-sh"
+        ],
         "semi": false,
         "singleQuote": true,
         "tabWidth": 4,
