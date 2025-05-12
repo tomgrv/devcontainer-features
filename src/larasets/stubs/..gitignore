@@ -6,6 +6,7 @@
 /vendor
 **/vendor
 _ide_helper.php
+.phpstorm.meta.php
 
 ## Homestead
 Homestead.json
