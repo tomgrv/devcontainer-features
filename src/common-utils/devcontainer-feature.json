@@ -2,7 +2,7 @@
     "id": "common-utils",
     "name": "Common Utils",
     "description": "Common utils for tomgrv/devcontainer-features",
-    "version": "3.10.0",
+    "version": "3.11.0",
     "dependsOn": {
         "ghcr.io/devcontainers/features/common-utils": {}
     },
