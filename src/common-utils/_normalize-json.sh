@@ -37,6 +37,17 @@ for file in $files; do
         zz_log e "JSON {U $file} not valid, cannot normalize" && exit 1
     fi
 
+    # Detect tab size if not set
+    # Use basic shell to determine the tab size with the indentation of the second line of the file
+    if test -z "$tabSize"; then
+        tabSize=$(head -n 2 "$file" | tail -n 1 | sed 's/^\( *\).*/\1/' | tr -d '\n' | wc -c)
+        if test -z "$tabSize"; then
+            tabSize=2
+        fi
+    fi
+
+    zz_log i "Tab size: $tabSize"
+
     # Normalize JSON
     zz_json $file | jq -r --arg list "$list" '
         def transform($lst):

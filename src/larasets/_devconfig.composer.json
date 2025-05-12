@@ -1,11 +1,11 @@
 {
     "require-dev": {
-        "laravel/pint": "^1.0",
-        "pestphp/pest": "^1.0",
-        "pestphp/pest-plugin-laravel": "^1.0"
-    },
-    "require": {
-        "php": "^8.3"
+        "laravel/pint": "",
+        "pestphp/pest": "",
+        "pestphp/pest-plugin-laravel": "",
+        "nunomaduro/collision": "",
+        "nunomaduro/phpinsights": "",
+        "pestphp/pest-plugin-arch": ""
     },
     "prefer-stable": true,
     "config": {

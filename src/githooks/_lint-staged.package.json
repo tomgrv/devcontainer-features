@@ -1,10 +1,11 @@
 {
     "scripts": {
-        "lint": "npx --yes lint-staged"
+        "lint": "npx --yes lint-staged -p false"
     },
     "lint-staged": {
         "*.json": [
-            "normalize-json -c -w -a -i -t 4 -f local -l true"
+            "normalize-json -c -w -a -i -f local -l true",
+            "npx --yes prettier --write"
         ],
         "*.php": [
             "composer lint"
