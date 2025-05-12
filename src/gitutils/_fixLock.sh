@@ -1,35 +1,47 @@
 #!/bin/sh
 
-#### Go to root directory
+set -e
+
+# Source colors script for colored output
+. zz_colors
+
+# Go to root directory
 cd "$(git rev-parse --show-toplevel)"
 
-### Stash all changes including untracked files
-git stash -u
+# List files with conflicts and filter only lock files
+conflicted_files=$(git diff --name-only --diff-filter=U | grep -E 'composer.lock|package-lock.json|yarn.lock')
 
-#### Get commit to fixup
-sha=$(git getcommit "$@")
+# Process each lock file with conflicts
+for file in $conflicted_files; do
 
-#### Check if fixup commit is valid
-if [ -z "$sha" ]; then
-    echo "No commit to fixup"
-    exit 1
-fi
+    # Keep incoming changes by checking out the "ours" version of the file
+    zz_log i "Fixing merge conflict in $file"
+    git checkout --ours "$file"
 
-#### Display commit to fixup
-echo "Fixing commit: $sha"
-
-### Redo all composer.lock files
-git filter-branch --tree-filter '
-    composer validate --no-check-all --strict 2>&1 | grep -oP "Required package \"\K[^\"]+" | while read -r package; do
-        composer require --ignore-platform-reqs --no-scripts --no-interaction --no-progress --no-install "$package"
-    done;
-    npm install --ws --package-lock-only;
-    composer update --lock --minimal-changes --ignore-platform-reqs --with-all-dependencies --no-scripts --no-interaction --no-progress --no-install
-    git add $(find . -name "composer.lock") $(find . -name "package-lock.json") || true
-' $sha..HEAD
-
-### Unstash changes
-git stash pop
-
-#### Back to previous directory
-cd - >/dev/null
+    # Regenerate the lock file based on the type of file
+    case "$file" in
+    composer.lock)
+        # Regenerate composer.lock file with minimal changes
+        zz_log i "Regenerating composer.lock..."
+        composer update --lock --minimal-changes --ignore-platform-reqs --with-all-dependencies --no-scripts --no-interaction --no-progress --no-install
+        ;;
+    package-lock.json)
+        # Check if the project uses npm workspaces and regenerate package-lock.json accordingly
+        zz_log i "Regenerating package-lock.json..."
+        ws=$(npm pkg get workspaces)
+        if test "$ws" = "undefined" || test "$ws" = "{}"; then
+            npm install --package-lock
+        else
+            npm install --package-lock --ws --if-present --include-workspace-root
+        fi
+        ;;
+    yarn.lock)
+        # Regenerate yarn.lock file
+        zz_log i "Regenerating yarn.lock..."
+        yarn install --check-files
+        ;;
+    esac
+    # Stage the updated lock file for commit
+    zz_log i "Staging $file for commit..."
+    git add "$file"
+done

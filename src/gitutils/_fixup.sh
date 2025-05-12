@@ -8,49 +8,64 @@ set -e
 # Function to print help and manage arguments
 eval $(
 	zz_args "Fix git history" $0 "$@" <<-help
-		    f -        force     allow overwritting pushed history
-			- sha      sha       sha commit to fixup
+		    f -      force     allow overwritting pushed history
+			e -      edit      edit commit message
+			p -      push      push to remote
+			- sha    sha       sha commit to fixup
 	help
 )
 
-## Do not fixup if staged files contains composer.lock or package-lock.json
+# Do not fixup if staged files contain composer.lock or package-lock.json
 if [ -n "$(git diff --cached --name-only | grep -E 'composer.lock|package-lock.json')" ]; then
 	echo 'Packages lock file are staged, fixup is not allowed.'
 	exit 1
 fi
 
-#### Goto repository root
+# Prepare environment variables GIT_EDITOR based on edit option
+if [ -z "$edit" ]; then
+	export GIT_EDITOR=":"
+fi
+
+# Navigate to the repository root
 cd "$(git rev-parse --show-toplevel)" >/dev/null
 
-#### Integrate modifications from remote
+# Fetch updates from the remote repository
 git fetch --progress --prune --recurse-submodules=no origin >/dev/null
 
-#### Check if fixup commit exists
+# Check if a fixup commit already exists
 if git isFixup; then
 	zz_log e 'Fixup commit found, please continue rebasing...'
 	exit 1
 fi
 
-## Do not fixup if no files are staged
+# Ensure there are staged files before proceeding
 if [ -z "$(git diff --cached --name-only)" ]; then
 	zz_log e 'No files are staged, fixup is not allowed.'
 	exit 1
 fi
 
-#### Get commit to fixup
-sha=$(git getcommit $sha)
+# Retrieve the commit SHA to fixup
+sha=$(git getcommit $force $sha)
 
-#### Display commit to fixup
+# Log the commit SHA to be fixed up
 zz_log i "Fixup commit given: $sha"
 
-## Create fixup commit and exit if commit is not done
-if ! git commit --fixup $sha --no-verify; then
+# Create a fixup commit and handle failure
+if ! git commit --fixup $sha; then
 	zz_log e 'Fixup commit failed...'
 	exit 1
 fi
 
-#### Start rebase
-git rebase -i --autosquash $sha~ --autostash --no-verify --exec '[ -f .git/hooks/pre-commit ] && (.git/hooks/pre-commit --name-only HEAD HEAD~1 && git commit --amend --no-edit --no-verify) || true'
+# Start an interactive rebase with autosquash
+git rebase -i --autosquash $sha~ --autostash --no-verify --reschedule-failed-exec --exec 'git hook run --ignore-missing pre-commit -- HEAD HEAD~1 && git commit --amend --no-edit --no-verify' --no-verify
 
-#### Back to previous directory
-cd - >/dev/null
+# if rebase successful and push option is set, push force the changes
+if [ "$?" -eq 0 -a -n "$push" ]; then
+	# Check if the branch is already pushed
+	if git rev-parse --verify --quiet origin/HEAD >/dev/null; then
+		zz_log i "Pushing to remote..."
+		git push --force-with-lease origin HEAD
+	else
+		zz_log i "Branch not pushed, skipping push..."
+	fi
+fi
