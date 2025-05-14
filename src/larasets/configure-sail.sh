@@ -44,7 +44,7 @@ else
 fi
 
 ### Build sail if needed
-if [ -n "$LARAVEL_SAIL" ] && [ "$LARAVEL_SAIL" -eq 1 ]; then
+if [ -z "$LARAVEL_SAIL" ] || [ "$LARAVEL_SAIL" -eq 1 ]; then
     sail build
 fi
 
