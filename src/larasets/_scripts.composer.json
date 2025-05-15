@@ -39,24 +39,12 @@
             "@composer require --ignore-platform-reqs --with-all-dependencies",
             "@composer helpers"
         ],
-        "req-all": [
-            "npx lerna exec -- composer require --ignore-platform-reqs --with-all-dependencies --no-install --no-interaction @additional_args; composer req @additional_args",
-            "@composer helpers"
-        ],
         "reqdev": [
             "@composer require --ignore-platform-reqs --with-all-dependencies --dev ",
             "@composer helpers"
         ],
-        "reqdev-all": [
-            "npx lerna exec -- composer require --ignore-platform-reqs --with-all-dependencies --no-install --no-interaction --dev @additional_args; composer reqdev @additional_args",
-            "@composer helpers"
-        ],
         "rmv": [
             "@composer remove --ignore-platform-reqs --with-all-dependencies",
-            "@composer helpers"
-        ],
-        "rmv-all": [
-            "npx lerna exec -- composer remove --ignore-platform-reqs --with-all-dependencies --no-install --no-interaction @additional_args; composer rmv @additional_args",
             "@composer helpers"
         ],
         "test": [
@@ -67,10 +55,6 @@
         ],
         "upg": [
             "@composer update --ignore-platform-reqs --with-all-dependencies",
-            "@composer helpers"
-        ],
-        "upg-all": [
-            "npx lerna exec -- composer upgrade --ignore-platform-reqs --with-all-dependencies --no-install --no-interaction @additional_args; composer upg @additional_args",
             "@composer helpers"
         ]
     }
