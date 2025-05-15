@@ -1,22 +1,25 @@
 {
     "scripts": {
+        "base": [
+            "composer @additional_args --ignore-platform-reqs --with-all-dependencies --minimal-changes --ansi"
+        ],
         "helpers": [
             "@php artisan ide-helper:generate --ansi",
             "@php artisan ide-helper:meta --ansi"
         ],
         "inst": [
-            "@composer install --ignore-platform-reqs",
-            "@composer helpers"
+            "composer install --ignore-platform-reqs"
         ],
         "link": [
-            "@composer config repositories.local '{\"type\": \"path\", \"url\": \"@additional_args\"}' --file composer.json"
+            "composer config repositories.local '{\"type\": \"path\", \"url\": \"@additional_args\"}' --file composer.json"
         ],
         "lint": [
             "vendor/bin/pint --ansi --dirty"
         ],
         "lock": [
-            "@composer validate --no-check-all --strict 2>&1 | grep -oP 'Required package \"\\K[^\"]+' | while read -r package; do @composer require --ignore-platform-reqs --no-scripts --no-interaction --no-progress --no-install \"$package\"; done;",
-            "@composer update --lock --minimal-changes --ignore-platform-reqs --no-scripts --no-interaction --no-progress --no-install"
+            "composer validate --no-check-all --strict 2>&1 | grep -Eoi 'Required \\(in require-dev\\) package \\\"[^\\\"]+' | cut -d\"\\\"\" -f2 | xargs -r -I{} composer reqdev {}",
+            "composer validate --no-check-all --strict 2>&1 | grep -Eoi 'Required package \\\"[^\\\"]+' | cut -d\"\\\"\" -f2 | xargs -r -I{} composer req {}",
+            "@base update --lock --no-scripts --no-interaction --no-progress --no-install"
         ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
@@ -36,28 +39,16 @@
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
         ],
         "req": [
-            "@composer require --ignore-platform-reqs --with-all-dependencies",
-            "@composer helpers"
-        ],
-        "req-all": [
-            "npx lerna exec -- composer require --ignore-platform-reqs --with-all-dependencies --no-install --no-interaction @additional_args; composer req @additional_args",
-            "@composer helpers"
+            "@base require",
+            "@helpers @no_additional_args"
         ],
         "reqdev": [
-            "@composer require --ignore-platform-reqs --with-all-dependencies --dev ",
-            "@composer helpers"
-        ],
-        "reqdev-all": [
-            "npx lerna exec -- composer require --ignore-platform-reqs --with-all-dependencies --no-install --no-interaction --dev @additional_args; composer reqdev @additional_args",
-            "@composer helpers"
+            "@base require --dev",
+            "@helpers @no_additional_args"
         ],
         "rmv": [
-            "@composer remove --ignore-platform-reqs --with-all-dependencies",
-            "@composer helpers"
-        ],
-        "rmv-all": [
-            "npx lerna exec -- composer remove --ignore-platform-reqs --with-all-dependencies --no-install --no-interaction @additional_args; composer rmv @additional_args",
-            "@composer helpers"
+            "@base remove",
+            "@helpers @no_additional_args"
         ],
         "test": [
             "vendor/bin/pest"
@@ -66,12 +57,8 @@
             "vendor/bin/pest --coverage"
         ],
         "upg": [
-            "@composer update --ignore-platform-reqs --with-all-dependencies",
-            "@composer helpers"
-        ],
-        "upg-all": [
-            "npx lerna exec -- composer upgrade --ignore-platform-reqs --with-all-dependencies --no-install --no-interaction @additional_args; composer upg @additional_args",
-            "@composer helpers"
+            "@base update",
+            "@helpers @no_additional_args"
         ]
     }
 }
