@@ -1,8 +1,5 @@
 #!/bin/sh
 
-# Go to the root directory of the original script
-cd $(git rev-parse --show-toplevel)
-
 # Load the directory of the current script
 source=$(dirname $(readlink -f $0))
 
