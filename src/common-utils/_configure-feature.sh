@@ -23,10 +23,8 @@ export source=${source:-/usr/local/share/$feature}
 export tabSize=4
 
 zz_log i "Configure feature <{Purple $feature}>"
+zz_log - "In {U $(pwd)}"
 zz_log - "From {U $source}"
-
-# Go to the module root
-cd "$(git rev-parse --show-toplevel)" >/dev/null
 
 # Ensure the source directory exists
 if [ ! -d $source ]; then
@@ -84,7 +82,8 @@ zz_log i "Merge all package folder json files into top level xxx.json"
 for type in package composer; do
 
     # find all package folder json files in the current directory
-    find . -name $type.json -type f ! -path '*/node_modules/*' ! -path '*/vendor/*' | while read package; do
+    #find . -name $type.json -type f ! -path '*/node_modules/*' ! -path '*/vendor/*' | while read package; do
+    for package in $type.json; do
 
         # Merge all package folder json files into the top-level package.json
         for tmpl in $(find $source -maxdepth 1 -name _*.$type.json | sort); do
@@ -116,8 +115,16 @@ for type in package composer; do
     done
 done
 
-# Call all configure-xxx.sh scripts
-find $source -maxdepth 1 -name configure-*.sh | sort | while read file; do
-    zz_log i "Calling {U $file}..."
-    sh -c "$file" && zz_log s "Done!" || zz_log e "Failed!"
-done
+# if in top level directory, call configure scripts
+if [ "$(pwd)" = "$(git rev-parse --show-toplevel)" ]; then
+
+    zz_log s "Running on top level directory!"
+
+    # Call all configure-xxx.sh scripts
+    find $source -maxdepth 1 -name configure-*.sh | sort | while read file; do
+        zz_log i "Calling {U $file}..."
+        sh -c "$file" && zz_log s "Done!" || zz_log e "Failed!"
+    done
+else
+    zz_log w "Not in top level directory, skipping configure scripts"
+fi

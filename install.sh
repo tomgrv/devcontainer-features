@@ -6,6 +6,8 @@ source=$(dirname $(readlink -f $0))
 # Source the common utils
 . $source/src/common-utils/_zz_colors.sh
 
+alias zz_log=$source/src/common-utils/_zz_logs.sh
+
 # Prepare for local installation by creating a temporary directory and linking common utils
 find $source/src/common-utils/ -type f -name "_*.sh" -exec echo {} \; -exec chmod +x {} \; | while read file; do
     ln -sf $file $source/src/common-utils/$(basename $file | sed 's/^_//;s/.sh$//')
@@ -22,6 +24,8 @@ eval $(
     + features  features    List of features to install
 help
 )
+
+zz_log i "Installing devcontainer/features"
 
 # If 'all' argument is provided, set stubs and features to install all default features
 if [ -n "$all" ]; then
@@ -88,7 +92,7 @@ if [ -n "$features" ]; then
     alias install-feature=$(dirname $0)/src/common-utils/_install-feature.sh
 
     # Check if the script is running inside a container
-    if [ "$CODESPACES" != "true" ] && [ "$REMOTE_CONTAINERS" != "true" ]; then
+    if [ "$CODESPACES" != "true" ] && [ "$REMOTE_CONTAINERS" != "true" ] && [ -z "$DEV_CONTAINER_FILE_PATH"]; then
 
         echo "${Red}You are not in a container${End}"
 
