@@ -7,7 +7,7 @@ set_permissions() {
     local type="$1"
     local name="$2"
     local perm="$3"
-    echo "Setting permissions $perm for typer <$type> with name pattern '$name'"
+    echo "Setting permissions $perm for type <$type> with name pattern '$name'"
     git ls-files -o -i --exclude-standard | grep -v '/$' | xargs -I {} find "{}" -type "$type" -name "$name" -exec chmod "$perm" {} \;
 }
 
