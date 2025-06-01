@@ -59,7 +59,7 @@ if git diff --name-only ${@:---cached} | grep -q "composer.json"; then
 fi
 
 # Install Prettier & Commitlint plugins if they are not already installed
-npm install -g --no-save $(cat package.json | npx --yes jqn '.prettier.plugins//"",.commitlint.extend//""' | tr -d "'[]:,\"\n") 2>/dev/null 1>&2
+npm install --no-save $(cat package.json | npx --yes jqn '.prettier.plugins//"",.commitlint.extend//""' | tr -d "'[]:,\"\n") 2>/dev/null 1>&2
 
 # Run pre-commit checks
 npx --yes git-precommit-checks
