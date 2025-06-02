@@ -1,10 +1,20 @@
 {
-    "\"doppler": {
+    "doppler": {
         "autocomplete": {
-            "enable\"": null
+            "enable": null
         },
         "hover": {
-            "enable\"": null
+            "enable": null
         }
+    },
+    "workbench.colorCustomizations": {
+        "titleBar.activeBackground": "#9DC08B",
+        "titleBar.border": "#9DC08B",
+        "titleBar.activeForeground": "#374633",
+        "titleBar.inactiveBackground": "#acc99c",
+        "titleBar.inactiveForeground": "#556252",
+        "activityBar.background": "#9DC08B",
+        "activityBar.foreground": "#374633",
+        "activityBar.inactiveForeground": "#2c3829"
     }
 }

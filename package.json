@@ -71,6 +71,15 @@
     },
     "prettier": {
         "insertPragma": true,
+        "overrides": [
+            {
+                "files": "*.yml",
+                "options": {
+                    "useTabs": true,
+                    "tabWidth": 2
+                }
+            }
+        ],
         "plugins": [
             "prettier-plugin-sh"
         ],
@@ -137,6 +146,15 @@
             "@commitlint/config-conventional"
         ],
         "rules": {
+            "subject-case": [
+                2,
+                "never",
+                [
+                    "start-case",
+                    "pascal-case",
+                    "upper-case"
+                ]
+            ],
             "scope-enum": [
                 2,
                 "always",
@@ -154,15 +172,6 @@
                     "ui-ux",
                     "api",
                     "model"
-                ]
-            ],
-            "subject-case": [
-                2,
-                "never",
-                [
-                    "start-case",
-                    "pascal-case",
-                    "upper-case"
                 ]
             ]
         }

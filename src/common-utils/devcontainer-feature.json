@@ -2,7 +2,7 @@
     "id": "common-utils",
     "name": "Common Utils",
     "description": "Common utils for tomgrv/devcontainer-features",
-    "version": "3.13.1",
+    "version": "3.14.0",
     "dependsOn": {
         "ghcr.io/devcontainers/features/common-utils": {}
     },
@@ -40,7 +40,8 @@
                 "natizyskunk.sftp",
                 "spmeesseman.vscode-taskexplorer",
                 "Tyriar.sort-lines",
-                "luggage66.AWK"
+                "luggage66.AWK",
+                "AngelLuisAlmaraz.project-colorize"
             ]
         }
     },
