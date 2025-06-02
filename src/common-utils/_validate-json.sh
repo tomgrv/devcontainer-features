@@ -25,19 +25,19 @@ is_json() {
 # Function to check if JSON is an array
 is_json_array() {
     local path=${1:-.}
-    is_existing_path "$path" | jq -e 'if type == "array" then . else null end' >/dev/null
+    get_path "$path" -r | jq -e 'if type == "array" then . else null end' >/dev/null
 }
 
 # Function to check if JSON is an object
 is_json_object() {
     local path=${1:-.}
-    is_existing_path "$path" | jq -e 'if type == "object" then . else null end' >&2 #>/dev/null
+    get_path "$path" -r | jq -e 'if type == "object" then . else null end' >/dev/null
 }
 
 # Function to check if JSON contains a $ref
 is_json_ref() {
     local path=${1:-.}
-    is_existing_path "$path" | jq -e 'if type == "object" and has("$ref") then . else null end' >/dev/null
+    get_path "$path" -r | jq -e 'if type == "object" and has("$ref") then . else null end' >/dev/null
 }
 
 # Function to check if a path exists in JSON
