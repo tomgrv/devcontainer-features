@@ -45,8 +45,8 @@ if [ -z "$target" ]; then
 
     if [ -w /usr/local/share ]; then
         target=/usr/local/share/$feature
-    elif [ -w /tmp ]; then
-        target=/tmp/$feature
+    #elif [ -w /tmp ]; then
+    #    target=/tmp/$feature
     else
         echo "${Red}No writeable directory found${End}" >&2
         exit 1
