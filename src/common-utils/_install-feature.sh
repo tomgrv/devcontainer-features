@@ -18,7 +18,7 @@ zz_log i "Installing feature {Purple $feature}..."
 # Copy stubs to the target directory
 if [ -d $source/stubs ]; then
     zz_log i "Copying stubs to {U $target}..."
-    mkdir -p $target/stubs && cp -r $source/stubs/* $target/stubs
+    cp -a $source/stubs $target
 else
     zz_log w "No stubs found in {U $source}"
 fi
