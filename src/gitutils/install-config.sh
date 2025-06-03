@@ -27,8 +27,8 @@ fi
 ### For each entry in alias.json file next to this file, create corresponding git alias from key and value
 if [ -f "$source/alias.json" ]; then
     zz_log i "Configuring aliases with {U $source/alias.json}..."
-    jq -r 'keys[]' $source/alias.json | dos2unix | while read key; do
-        value=$(jq -r ".$key" $source/alias.json)
+    jq -r 'keys[]' $source/alias.json | while read key; do
+        value=$(jq -r ".$key.cmd" $source/alias.json)
         git config $GIT_CONFIG_SCOPE alias.$key "!sh -c '$value' -- \"\$@\"" && zz_log - "Created alias {B $key} => {B $value}"
     done
 fi
