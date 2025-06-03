@@ -16,7 +16,7 @@
         {
             "label": "⏫ Push force",
             "type": "shell",
-            "command": "git push --force",
+            "command": "git pf",
             "problemMatcher": []
         }
     ]
