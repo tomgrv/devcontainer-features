@@ -15,7 +15,7 @@ help
 # if schema is a url, download it
 if test -n "$(echo $source | grep -E '^http')"; then
     zz_log i "Downloading file from {U $source}"
-    curl -s $source
+    curl -L -s $source
     if [ $? -ne 0 ]; then
         zz_log e "Unable to download file {U $source}" && exit 1
     fi
