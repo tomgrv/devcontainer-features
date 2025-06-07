@@ -11,6 +11,10 @@
         "cmd": "git diff-index --cached --quiet HEAD || git commit --amend --reset-author -C HEAD",
         "help": "Amend the last commit if there are staged changes."
     },
+    "beta": {
+        "cmd": "git release-beta",
+        "help": "Run release-beta command."
+    },
     "cleanup": {
         "cmd": "git stash save --include-untracked  --keep-index; git clean --force -d -x -e \".env*\"; git stash apply --index; git stash drop",
         "help": "Stash all changes, clean untracked files except .env*, and restore stash."
@@ -31,6 +35,10 @@
         "cmd": "git commit --amend --edit",
         "help": "Edit the last commit message and content."
     },
+    "feat": {
+        "cmd": "git flow start feature $1",
+        "help": "Start a new git flow feature branch."
+    },
     "fixable": {
         "cmd": "git log --oneline $(git rev-parse --abbrev-ref --symbolic-full-name @{u})..HEAD",
         "help": "Show commits ahead of upstream."
@@ -47,26 +55,6 @@
         "cmd": "git diff -p -R --no-color | grep -E \"^(diff|(old|new) mode)\" --color=never | git apply --allow-empty --no-index",
         "help": "Restore file mode changes from diff."
     },
-    "flwb": {
-        "cmd": "git release-beta",
-        "help": "Run release-beta command."
-    },
-    "flwf": {
-        "cmd": "git flow start feature $1",
-        "help": "Start a new git flow feature branch."
-    },
-    "flwh": {
-        "cmd": "git release-hotfix",
-        "help": "Run release-hotfix command."
-    },
-    "flwp": {
-        "cmd": "git release-prod",
-        "help": "Run release-prod command."
-    },
-    "flwt": {
-        "cmd": "git tag -a $1 -m \"$1\" && git push origin $1",
-        "help": "Create and push an annotated tag."
-    },
     "forceable": {
         "cmd": "git log --oneline $(echo $(git rev-parse --abbrev-ref --symbolic-full-name @{u};git log --merges --first-parent -1 --pretty=%h)| tail -1)..HEAD $*",
         "help": "Show commits since last merge or upstream."
@@ -74,6 +62,10 @@
     "go": {
         "cmd": "git commit -m \"$1\" --all",
         "help": "Commit all changes with a message."
+    },
+    "hfix": {
+        "cmd": "git release-hotfix",
+        "help": "Run release-hotfix command."
     },
     "hint": {
         "cmd": "if \"$2\" = \"-h\"; then echo \"Usage: $2\"; git config --get-regexp \"^alias\\.\" | awk \\'{printf \"%-20s\",$1 }\\'",
@@ -110,6 +102,14 @@
     "pf": {
         "cmd": "git push --force-with-lease",
         "help": "Push with force-with-lease."
+    },
+    "prod": {
+        "cmd": "git release-prod",
+        "help": "Run release-prod command."
+    },
+    "ptag": {
+        "cmd": "git tag -a $1 -m \"$1\" && git push origin $1",
+        "help": "Create and push an annotated tag."
     },
     "refresh": {
         "cmd": "git stash save --keep-index --include-untracked  && git reset --hard $(git rev-parse --abbrev-ref --symbolic-full-name @{u})",
