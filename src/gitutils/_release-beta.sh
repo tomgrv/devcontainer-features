@@ -17,6 +17,3 @@ GIT_EDITOR=:
 
 #### START RELEASE
 git flow release start $GBV && git push origin release/$GBV
-
-#### BACK
-cd - >/dev/null
