@@ -66,6 +66,3 @@ if npx --yes commit-and-tag-version --skip.tag --no-verify --release-as $GBV; th
 else
     zz_log e "Cannot update version & finish release"
 fi
-
-#### BACK
-cd - >/dev/null

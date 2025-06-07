@@ -4,19 +4,17 @@
 cd "$(git rev-parse --show-toplevel)" >/dev/null
 
 #### GET BUMP VERSION
-GBV=$(gitversion -config .gitversion -showvariable MajorMinorPatch)
+MAJOR=$(gitversion -config .gitversion -showvariable Major)
+MINOR=$(gitversion -config .gitversion -showvariable Minor)
 
 #### SAVE CURRENT STATUS
-git stash save --all "Before hotfix/$GBV"
+git stash save --all "Before hotfix/$MAJOR.$MINOR.X"
 
 #### PREVENT GIT EDITOR PROMPT
-GIT_EDITOR=: 
+GIT_EDITOR=:
 
 #### START HOTFIX
-git flow hotfix start $GBV
+git flow hotfix start $MAJOR.$MINOR.X
 
 #### RESTORE STATUS
 git stash apply
-
-#### BACK
-cd - >/dev/null
