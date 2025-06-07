@@ -31,6 +31,10 @@
         "cmd": "git commit --amend --edit",
         "help": "Edit the last commit message and content."
     },
+    "feat": {
+        "cmd": "git flow start feature $1",
+        "help": "Start a new git flow feature branch."
+    },
     "fixable": {
         "cmd": "git log --oneline $(git rev-parse --abbrev-ref --symbolic-full-name @{u})..HEAD",
         "help": "Show commits ahead of upstream."
@@ -47,24 +51,20 @@
         "cmd": "git diff -p -R --no-color | grep -E \"^(diff|(old|new) mode)\" --color=never | git apply --allow-empty --no-index",
         "help": "Restore file mode changes from diff."
     },
-    "flwb": {
+    "flb": {
         "cmd": "git release-beta",
         "help": "Run release-beta command."
     },
-    "flwf": {
-        "cmd": "git flow start feature $1",
-        "help": "Start a new git flow feature branch."
-    },
-    "flwh": {
+    "flf": {
         "cmd": "git release-hotfix",
         "help": "Run release-hotfix command."
     },
-    "flwp": {
+    "flp": {
         "cmd": "git release-prod",
         "help": "Run release-prod command."
     },
-    "flwt": {
-        "cmd": "git tag -a $1 -m \"$1\" && git push origin $1",
+    "flt": {
+        "cmd": "git tag -a $1 -m \"$1\"; git push origin $1",
         "help": "Create and push an annotated tag."
     },
     "forceable": {
