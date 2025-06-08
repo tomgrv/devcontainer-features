@@ -8,7 +8,7 @@
         "help": "Create a new alias for a git command. Usage: git alias <alias> <help> <command>"
     },
     "amend": {
-        "cmd": "git diff-index --cached --quiet HEAD || git commit --amend --reset-author -C HEAD",
+        "cmd": "git diff-index --cached --quiet HEAD && exit 1 || git commit --amend --reset-author -C HEAD",
         "help": "Amend the last commit if there are staged changes."
     },
     "cleanup": {
@@ -64,7 +64,7 @@
         "help": "Run release-prod command."
     },
     "flt": {
-        "cmd": "git tag -a $1 -m \"$1\"; git push origin $1",
+        "cmd": "git tag -a $1 -m \"$1\" && git push origin $1",
         "help": "Create and push an annotated tag."
     },
     "forceable": {
