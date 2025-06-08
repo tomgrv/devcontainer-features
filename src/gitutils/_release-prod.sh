@@ -66,3 +66,6 @@ if npx --yes commit-and-tag-version --skip.tag --no-verify --release-as $GBV; th
 else
     zz_log e "Cannot update version & finish release"
 fi
+
+# Follow major/minor tags
+$(dirname $0)/_follow.sh
