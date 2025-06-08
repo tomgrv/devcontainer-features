@@ -35,5 +35,16 @@ for e in "KNOWN_HOSTS" "SSH_PRIVATE_KEY" "SSH_CONFIG"; do
 
 done
 
+# Handle artifact server path
+if [ -n "$ARTIFACT_SERVER_PATH" ]; then
+    export ACT_ARTIFACT_SERVER_PATH=./.artifacts
+    zz_log i "Using artifact server path: <{B $ARTIFACT_SERVER_PATH}>"
+fi
+
+(
+    echo *
+    echo !.gitignore
+) >$ARTIFACT_SERVER_PATH/.gitignore
+
 # Run the act command with the constructed arguments
-act --artifact-server-path ./.artifacts $ARGS "$@"
+act --artifact-server-path $ARTIFACT_SERVER_PATH $ARGS "$@"
