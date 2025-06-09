@@ -8,16 +8,13 @@ set -e
 # Function to print help and manage arguments
 eval $(
 	zz_args "Fix privacy in history" $0 "$@" <<-help
-		p -      push      push to remote
-		e -      edit      edit commit message
-		- sha    sha       sha commit to start from
+		p -      push       push to remote
+		o old    old        old email to replace
+		n new    new        new name to replace with
+		a author author     author name to replace with
+		- sha    sha        sha commit to start from
 	help
 )
-
-# Prepare environment variables GIT_EDITOR based on edit option
-if [ -z "$edit" ]; then
-	export GIT_EDITOR=":"
-fi
 
 # Navigate to the repository root
 cd "$(git rev-parse --show-toplevel)" >/dev/null
@@ -25,34 +22,61 @@ cd "$(git rev-parse --show-toplevel)" >/dev/null
 # Fetch updates from the remote repository
 git fetch --progress --prune --recurse-submodules=no origin >/dev/null
 
+# Check if the old option is set
+if [ -z "$old" ]; then
+	zz_log e "You must specify the old email to replace with -o option"
+	exit 1
+fi
+
+# Check if the new option is set
+if [ -z "$new" ]; then
+	zz_log w "New email is not specified, it will be taken from the specified commit"
+fi
+
+# Check if the author option is set
+if [ -z "$author" ]; then
+	zz_log w "Author is not specified, it will be taken from the specified commit"
+fi
+
 # Retrieve the commit SHA to fixup
 sha=$(git getcommit $force $sha)
 
 # Log the commit SHA to be fixed up
 zz_log i "Fix privacy from commit: $sha"
 
-author=$(git log -1 --format='%an <%ae>' $sha)
-
-zz_log i "Using author: $author"s
-
-# verify git config
-gitname=$(git config --get user.name)
-gitmail=$(git config --get user.email)
-if [ -z "$gitname" -o -z "$gitmail" ]; then
-	zz_log e "Git user.name or user.email not set"
-	exit 1
+if [ -n "$new" ]; then
+	zz_log i "Setting new email for git config"
+	git config user.email "$new"
+else
+	zz_log s "Take email from specified commit"
+	new=$(git log -1 --pretty=format:'%ae' "$sha")
 fi
 
-# Rebase and amend the commit author
-git rebase --no-verify --exec "git commit --no-verify --amend --author='$author' --no-edit" $sha^
+if [ -n "$author" ]; then
+	echo "Setting new author for git config"
+	git config user.name "$author"
+else
+	zz_log s "Take author from specified commit"
+	author=$(git log -1 --pretty=format:'%an' "$sha")
+fi
 
-# if rebase successful and push option is set, push force the changes
-if [ "$?" -eq 0 -a -n "$push" ]; then
-	# Check if the branch is already pushed
-	if git rev-parse --verify --quiet origin/HEAD >/dev/null; then
-		zz_log i "Pushing to remote..."
-		git push --force-with-lease origin HEAD
-	else
-		zz_log i "Branch not pushed, skipping push..."
-	fi
+git filter-branch --env-filter "
+if [ \"\$GIT_COMMITTER_EMAIL\" = \"$old\" ]
+then
+    GIT_COMMITTER_NAME=\"$author\"
+    GIT_COMMITTER_EMAIL=\"$new\"
+fi
+if [ \"\$GIT_AUTHOR_EMAIL\" = \"$old\" ]
+then
+    GIT_AUTHOR_NAME=\"$author\"
+    GIT_AUTHOR_EMAIL=\"$new\"
+fi
+" --tag-name-filter cat -- --branches --tags
+
+if [ -n "$push" ]; then
+	zz_log i "Pushing changes to remote"
+	git push --force --progress --recurse-submodules=no origin --all
+	git push --force --progress --recurse-submodules=no origin --tags
+else
+	zz_log w "Changes are not pushed to remote, use -p option to push"
 fi
