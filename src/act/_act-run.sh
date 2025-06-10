@@ -36,8 +36,8 @@ for e in "KNOWN_HOSTS" "SSH_PRIVATE_KEY" "SSH_CONFIG"; do
 done
 
 # Handle artifact server path
-if [ -n "$ARTIFACT_SERVER_PATH" ]; then
-    export ACT_ARTIFACT_SERVER_PATH=./.artifacts
+if [ -z "$ARTIFACT_SERVER_PATH" ]; then
+    export ARTIFACT_SERVER_PATH=./.artifacts
     zz_log i "Using artifact server path: <{B $ARTIFACT_SERVER_PATH}>"
 fi
 
