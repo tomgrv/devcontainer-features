@@ -89,7 +89,7 @@ if [ "$OPTARG" = "h" ] || [ "$OPTARG" = "help" ]; then
         echo "$helpinfo${End}"
         echo "${End}"
     ) >&2
-
+    echo "exit 1"
     exit 1
 
 elif [ "$OPTARG" = "@" ]; then
