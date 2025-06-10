@@ -59,6 +59,10 @@
         "cmd": "git log --oneline $(echo $(git rev-parse --abbrev-ref --symbolic-full-name @{u};git log --merges --first-parent -1 --pretty=%h)| tail -1)..HEAD $*",
         "help": "Show commits since last merge or upstream."
     },
+    "ft": {
+        "cmd": "git followtags",
+        "help": "Create and push an annotated tag, make all subtags follow this tag."
+    },
     "go": {
         "cmd": "git commit -m \"$1\" --all",
         "help": "Commit all changes with a message."
@@ -122,10 +126,6 @@
     "sync": {
         "cmd": "git fetch --progress --prune --recurse-submodules=no origin && git stash save --keep-index --include-untracked && git merge --ff-only @{u} && git stash pop --index || git stash drop",
         "help": "Fetch, stash, fast-forward merge, and restore stash."
-    },
-    "tagf": {
-        "cmd": "git tag-follow",
-        "help": "Create and push an annotated tag, make all subtags follow this tag."
     },
     "undo": {
         "cmd": "git reset --soft HEAD^ --",
