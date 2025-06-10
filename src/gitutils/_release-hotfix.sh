@@ -3,18 +3,17 @@
 #### Goto repository root
 cd "$(git rev-parse --show-toplevel)" >/dev/null
 
-#### GET BUMP VERSION
-MAJOR=$(gitversion -config .gitversion -showvariable Major)
-MINOR=$(gitversion -config .gitversion -showvariable Minor)
+#### GET last vX.Y.Z tag on the main branch
+last=$(git describe --tags --abbrev=0 --match "v[0-9]*.[0-9]*.[0-9]*" main | sed 's/^v//')
 
 #### SAVE CURRENT STATUS
-git stash save --all "Before hotfix/$MAJOR.$MINOR.X"
+git stash save --include-untracked "Before hotfix/$last"
 
 #### PREVENT GIT EDITOR PROMPT
 GIT_EDITOR=:
 
 #### START HOTFIX
-git flow hotfix start $MAJOR.$MINOR.X
+git flow hotfix start $last
 
 #### RESTORE STATUS
 git stash apply

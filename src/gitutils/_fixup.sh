@@ -1,10 +1,5 @@
 #!/bin/sh
 
-set -e
-
-# Source colors script
-. zz_colors
-
 # Function to print help and manage arguments
 eval $(
 	zz_args "Fix git history" $0 "$@" <<-help
@@ -17,7 +12,7 @@ eval $(
 
 # Do not fixup if staged files contain composer.lock or package-lock.json
 if [ -n "$(git diff --cached --name-only | grep -E 'composer.lock|package-lock.json')" ]; then
-	echo 'Packages lock file are staged, fixup is not allowed.'
+	zz_log e 'Packages lock file are staged, fixup is not allowed.'
 	exit 1
 fi
 
