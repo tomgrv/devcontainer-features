@@ -68,4 +68,4 @@ else
 fi
 
 # Follow major/minor tags
-$(dirname $0)/_follow.sh
+$(dirname $0)/_tag-follow.sh v$GBV

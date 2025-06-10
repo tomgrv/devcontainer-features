@@ -11,6 +11,10 @@
         "cmd": "git diff-index --cached --quiet HEAD && exit 1 || git commit --amend --reset-author -C HEAD",
         "help": "Amend the last commit if there are staged changes."
     },
+    "beta": {
+        "cmd": "git release-beta",
+        "help": "Run release-beta command."
+    },
     "cleanup": {
         "cmd": "git stash save --include-untracked  --keep-index; git clean --force -d -x -e \".env*\"; git stash apply --index; git stash drop",
         "help": "Stash all changes, clean untracked files except .env*, and restore stash."
@@ -51,22 +55,6 @@
         "cmd": "git diff -p -R --no-color | grep -E \"^(diff|(old|new) mode)\" --color=never | git apply --allow-empty --no-index",
         "help": "Restore file mode changes from diff."
     },
-    "flb": {
-        "cmd": "git release-beta",
-        "help": "Run release-beta command."
-    },
-    "flf": {
-        "cmd": "git release-hotfix",
-        "help": "Run release-hotfix command."
-    },
-    "flp": {
-        "cmd": "git release-prod",
-        "help": "Run release-prod command."
-    },
-    "flt": {
-        "cmd": "git tag -a $1 && git push origin $1",
-        "help": "Create and push an annotated tag."
-    },
     "forceable": {
         "cmd": "git log --oneline $(echo $(git rev-parse --abbrev-ref --symbolic-full-name @{u};git log --merges --first-parent -1 --pretty=%h)| tail -1)..HEAD $*",
         "help": "Show commits since last merge or upstream."
@@ -82,6 +70,10 @@
     "histo": {
         "cmd": "git log --oneline $(git log --merges --first-parent -1 --pretty=%h) $*",
         "help": "Show log since last merge."
+    },
+    "hotfix": {
+        "cmd": "git release-hotfix",
+        "help": "Run release-hotfix command."
     },
     "ignore": {
         "cmd": "grep -qxF \"$1\" .gitignore || echo \"$1\" >>.gitignore && git rm --cached \"$1\" 2>/dev/null",
@@ -111,6 +103,10 @@
         "cmd": "git push --force-with-lease",
         "help": "Push with force-with-lease."
     },
+    "prod": {
+        "cmd": "git release-prod",
+        "help": "Run release-prod command."
+    },
     "refresh": {
         "cmd": "git stash save --keep-index --include-untracked  && git reset --hard $(git rev-parse --abbrev-ref --symbolic-full-name @{u})",
         "help": "Stash, reset to upstream, and restore stash."
@@ -126,6 +122,10 @@
     "sync": {
         "cmd": "git fetch --progress --prune --recurse-submodules=no origin && git stash save --keep-index --include-untracked && git merge --ff-only @{u} && git stash pop --index || git stash drop",
         "help": "Fetch, stash, fast-forward merge, and restore stash."
+    },
+    "tagf": {
+        "cmd": "git tag-follow",
+        "help": "Create and push an annotated tag, make all subtags follow this tag."
     },
     "undo": {
         "cmd": "git reset --soft HEAD^ --",
