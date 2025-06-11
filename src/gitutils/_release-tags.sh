@@ -19,7 +19,7 @@ if [ -n "$tag" ]; then
     found=$(git tag --sort=v:refname | grep "$tag" | tail -n1)
 else
     # If no tag is specified, use gitversion to find the release tag
-    tag=$(gitversion -config .gitversion -showvariable SemVer)
+    tag=$prefix$(gitversion -config .gitversion -showvariable SemVer)
     zz_log s "Tag from gitversion: $tag"
 fi
 
