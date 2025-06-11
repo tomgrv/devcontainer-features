@@ -8,6 +8,7 @@ set -e
 # Function to print help and manage arguments
 eval $(
 	zz_args "Fix privacy in history" $0 "$@" <<-help
+		f -      force      force overwrite backup
 		p -      push       push to remote
 		o old    old        old email to replace
 		n new    new        new name to replace with
@@ -60,7 +61,7 @@ else
 	author=$(git log -1 --pretty=format:'%an' "$sha")
 fi
 
-git filter-branch --env-filter "
+git filter-branch $force --env-filter "
 if [ \"\$GIT_COMMITTER_EMAIL\" = \"$old\" ]
 then
     GIT_COMMITTER_NAME=\"$author\"
