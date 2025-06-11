@@ -1,10 +1,5 @@
 #!/bin/sh
 
-set -e
-
-# Source colors script
-. zz_colors
-
 # Function to print help and manage arguments
 eval $(
     zz_args "Release production branch" $0 "$@" <<-help
@@ -68,4 +63,4 @@ else
 fi
 
 # Follow major/minor tags
-$(dirname $0)/_tag-follow.sh v$GBV
+$(dirname $0)/_release-tags.sh $GBV
