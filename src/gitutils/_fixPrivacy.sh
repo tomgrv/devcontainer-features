@@ -25,8 +25,11 @@ git fetch --progress --prune --recurse-submodules=no origin >/dev/null
 
 # Check if the old option is set
 if [ -z "$old" ]; then
-	zz_log e "You must specify the old email to replace with -o option"
-	exit 1
+	zz_log w "Old email is not specified, it will be taken from the last commit"
+	old=$(git log -1 --pretty=format:'%ae')
+	
+	# Asks for confirmation to proceed with the old email
+	zz_ask Yn "Do you want to proceed with this <$old> as old email?" || exit 1
 fi
 
 # Check if the new option is set
