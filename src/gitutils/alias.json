@@ -48,8 +48,8 @@
         "help": "Remove all git aliases from global/local config."
     },
     "fixAuthor": {
-        "cmd": "git config \"${1---global}\" user.name \"$(git log -2 --pretty=format:'%an' | tail -1)\" && git config \"${1---global}\" user.email \"$(git log -2 --pretty=format:'%ae' | tail -1)\"",
-        "help": "Set user.name and user.email to previous commit's author."
+        "cmd": "git config --global --remove-section user; git getcommit -f $1 | xargs -I {} sh -c 'git config user.name $(git log -1 --pretty=format:'%an' {}); git config user.email $(git log -1 --pretty=format:'%ae' {})'",
+        "help": "Set user.name and user.email to specified commit's author."
     },
     "fixMode": {
         "cmd": "git diff -p -R --no-color | grep -E \"^(diff|(old|new) mode)\" --color=never | git apply --allow-empty --no-index",
