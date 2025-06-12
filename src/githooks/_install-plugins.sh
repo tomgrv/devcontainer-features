@@ -1,25 +1,36 @@
 #!/bin/sh
 
 json_key=$1
-json_file=${2:-package.json}
+json_file=${2:-./package.json}
 
 plugins=$(cat $json_file | npx --yes jqn "$1" | tr -d "'[]:,\"")
 
 if [ -z "$plugins" ]; then
     zz_log w "No plugins found at key {B $json_key} in {U $json_file}"
-elif ! npm list $plugins 2>/dev/null 1>&2; then
-
-    config=$(dirname $0)/.ci-plugins
-
-    # Save the plugins to a config file
-    zz_log i "Adding plugins {B $plugins} to list of CI dependencies ..."
-    echo "$plugins" | sed 's/^ *//;s/ *$//' | grep -v --file=$config >>$config
-
-    # Reload the plugins list
-    plugins=$(cat $config | tr '\n' ' ')
-
-    # Install the plugins
-    zz_log i "Installing plugins {B $plugins} ..."
-    npm install --no-save $plugins 2>/dev/null 1>&2
-    zz_log s "Plugins {B $plugins} installed successfully!"
+    exit 0
 fi
+
+# Load the config file
+config=$(dirname $0)/.ci-plugins
+
+# foreach plugin, check if it is already installed
+for plugin in $plugins; do
+
+    if ! npm list $plugin 2>/dev/null 1>&2; then
+        # Save the plugins to a config file
+        zz_log i "Adding plugin {B $plugin} to list of CI dependencies ..."
+        echo "$plugin" | sed 's/^ *//;s/ *$//' | grep -v --file=$config >>$config
+    fi 
+done
+
+# Reload the plugins list
+plugins=$(cat $config | tr '\n' ' ')
+
+# Install the plugins
+zz_log i "Installing plugins {B $plugins} ..."
+if ! npm install --no-save $plugins 2>/dev/null 1>&2 ; then
+    zz_log e "Failed to install one of plugins {B $plugins}!"
+    exit 1
+fi
+
+zz_log s "Plugins {B $plugins} installed successfully!"
