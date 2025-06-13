@@ -29,10 +29,3 @@ if [ -f "$source/alias.json" ]; then
         git config --system alias.$key "!sh -c '$value' -- \"\$@\"" && zz_log - "Created alias {B $key} => {B $value}"
     done
 fi
-
-### For each script starting with _, create corresponding git alias without _ from script name
-zz_log i "Configuring scripts with {U $feature/_xx.sh}..."
-for script in $target/_*.sh; do
-    alias=$(basename $script | sed -e 's/^_//g' -e 's/.sh$//g')
-    git config --system alias.$alias "!sh -c '$(readlink -f $script) \$1 \$2 \$3 \$4 \$5 \$6 \$7 \$8 \$9' -- \"\$@\"" && zz_log - "Created alias {B $alias} => {B $(readlink -f $script)}"
-done
