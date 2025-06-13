@@ -3,11 +3,15 @@
 # Function to print help and manage arguments
 eval $(
     zz_args "Manage tag & following tags" $0 "$@" <<-help
+            f -        force      Force tag creation even if it exists
+            t -        prefix     Prefix to use for the tag (default: v)
 		    - tag      tag        Tag to create or follow
 	help
 )
 
-prefix=$(git config gitflow.prefix.versiontag || echo "v")
+if [ -z "$prefix" ]; then
+    prefix=$(git config gitflow.prefix.versiontag || echo "v")
+fi
 
 if [ -n "$tag" ]; then
 
@@ -26,7 +30,9 @@ fi
 # Create tag if needed
 if [ -z "$found" ]; then
     zz_log w "No tags found in the repository, creating a new tag: $tag"
-    git tag -a "$tag" -m "$tag"
+    npx --yes commit-and-tag-version --no-verify --release-as "$tag" ${prefix:+--t "$prefix"} ${force:+---tag-force}
+    zz_log i "Tag $tag created successfully"
+
 else
     zz_log i "Tag $tag already exists as $found, following it"
     tag=$found

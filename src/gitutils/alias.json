@@ -3,10 +3,6 @@
         "cmd": "git rebase --abort",
         "help": "Abort an ongoing rebase."
     },
-    "alias": {
-        "cmd": "git config --system \"alias.$1\" \"!sh -c 'set -e; git hint \\\"$2\\\" \\$1; $3' -- \\$@\"",
-        "help": "Create a new alias for a git command. Usage: git alias <alias> <help> <command>"
-    },
     "amend": {
         "cmd": "git diff-index --cached --quiet HEAD && exit 1 || git commit --amend --reset-author -C HEAD",
         "help": "Amend the last commit if there are staged changes."
@@ -66,10 +62,6 @@
     "hfix": {
         "cmd": "git release-hotfix",
         "help": "Run release-hotfix command."
-    },
-    "hint": {
-        "cmd": "if \"$2\" = \"-h\"; then echo \"Usage: $2\"; git config --get-regexp \"^alias\\.\" | awk '{printf \"%-20s\",\\$1 }'",
-        "help": "Display help hint for aliases. Usage: git hint <help message> [<args>]"
     },
     "histo": {
         "cmd": "git log --oneline $(git log --merges --first-parent -1 --pretty=%h) $*",

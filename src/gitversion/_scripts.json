@@ -1,7 +1,0 @@
-{
-    "commit-and-tag-version": {
-        "scripts": {
-            "prebump": "gitversion -config .gitversion -showvariable MajorMinorPatch"
-        }
-    }
-}

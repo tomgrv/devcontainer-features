@@ -30,7 +30,8 @@
                 "github.vscode-github-actions",
                 "gitHub.vscode-pull-request-github",
                 "github.codespaces",
-                "waderyan.gitblame"
+                "waderyan.gitblame",
+                "shyykoserhiy.git-autoconfig"
             ]
         }
     },

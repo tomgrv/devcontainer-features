@@ -1,10 +1,5 @@
 #!/bin/sh
 
-set -e
-
-# Source colors script
-. zz_colors
-
 # Function to print help and manage arguments
 eval $(
 	zz_args "Fix privacy in history" $0 "$@" <<-help
@@ -27,7 +22,7 @@ git fetch --progress --prune --recurse-submodules=no origin >/dev/null
 if [ -z "$old" ]; then
 	zz_log w "Old email is not specified, it will be taken from the last commit"
 	old=$(git log -1 --pretty=format:'%ae')
-	
+
 	# Asks for confirmation to proceed with the old email
 	zz_ask Yn "Do you want to proceed with this <$old> as old email?" || exit 1
 fi
@@ -75,7 +70,7 @@ then
     GIT_AUTHOR_NAME=\"$author\"
     GIT_AUTHOR_EMAIL=\"$new\"
 fi
-" --tag-name-filter cat -- --branches --tags
+" --tag-name-filter cat -- --branches --tags ${sha:---all}${sha:+..HEAD}
 
 if [ -n "$push" ]; then
 	zz_log i "Pushing changes to remote"
@@ -84,3 +79,8 @@ if [ -n "$push" ]; then
 else
 	zz_log w "Changes are not pushed to remote, use -p option to push"
 fi
+
+# Clean up the original refs
+rm -rf .git/refs/original/
+git reflog expire --expire=now --all
+git gc --prune=now
