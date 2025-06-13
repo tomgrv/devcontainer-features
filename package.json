@@ -69,6 +69,9 @@
         "lint-staged": "^15.2.2",
         "prettier": "^3.2.5"
     },
+    "workspaces": [
+        "src/*"
+    ],
     "prettier": {
         "insertPragma": true,
         "overrides": [
@@ -143,7 +146,8 @@
     },
     "commitlint": {
         "extends": [
-            "@commitlint/config-conventional"
+            "@commitlint/config-conventional",
+            "@commitlint/config-workspace-scopes"
         ],
         "rules": {
             "subject-case": [
@@ -159,19 +163,12 @@
                 2,
                 "always",
                 [
-                    "deps",
-                    "release",
-                    "security",
-                    "i18n",
-                    "config",
-                    "add",
-                    "remove",
-                    "breaking",
-                    "modules",
-                    "packages",
-                    "ui-ux",
-                    "api",
-                    "model"
+                    "gitutils",
+                    "githooks",
+                    "gitversion",
+                    "larasets",
+                    "pecl",
+                    "common-utils"
                 ]
             ]
         }
