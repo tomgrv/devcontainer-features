@@ -15,10 +15,6 @@
         "cmd": "git stash save --include-untracked  --keep-index; git clean --force -d -x -e \".env*\"; git stash apply --index; git stash drop",
         "help": "Stash all changes, clean untracked files except .env*, and restore stash."
     },
-    "co": {
-        "cmd": "git commit -m \"$1\"",
-        "help": "Commit with a message."
-    },
     "conflict": {
         "cmd": "git diff --name-only --diff-filter=U",
         "help": "List files with merge conflicts."
@@ -32,7 +28,7 @@
         "help": "Edit the last commit message and content."
     },
     "feat": {
-        "cmd": "git flow start feature $1",
+        "cmd": "git flow feature start $1",
         "help": "Start a new git flow feature branch."
     },
     "fixable": {
@@ -48,7 +44,7 @@
         "help": "Set user.name and user.email to specified commit's author."
     },
     "fixMode": {
-        "cmd": "git diff -p -R --no-color | grep -E \"^(diff|(old|new) mode)\" --color=never | git apply --allow-empty --no-index",
+        "cmd": "git diff -p -R --no-color | grep -E \"^(diff|(old|new) mode)\" --color=never | git apply --allow-empty --no-index; exit 0",
         "help": "Restore file mode changes from diff."
     },
     "forceable": {
