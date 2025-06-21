@@ -44,7 +44,7 @@
         "help": "Set user.name and user.email to specified commit's author."
     },
     "fixMode": {
-        "cmd": "git diff -p -R --no-color | grep -E \"^(diff|(old|new) mode)\" --color=never | git apply --allow-empty --no-index; exit 0",
+        "cmd": "git diff -p -R --no-color | grep -E \"^(diff|(old|new) mode)\" --color=never | grep -vF \"$(git ls-files --deleted)\" | git apply --allow-empty --no-index; exit 0",
         "help": "Restore file mode changes from diff."
     },
     "forceable": {

@@ -2,9 +2,6 @@
 
 set -e
 
-# Source colors script for colored output
-. zz_colors
-
 # Go to root directory
 cd "$(git rev-parse --show-toplevel)"
 

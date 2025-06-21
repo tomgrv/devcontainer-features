@@ -6,11 +6,6 @@ if [ "$#" -lt 1 ]; then
     exit 1
 fi
 
-set -e
-
-# Source colors script
-. zz_colors
-
 # Function to print help and manage arguments
 eval $(
     zz_args "Clone and degit a repository" $0 "$@" <<-help
