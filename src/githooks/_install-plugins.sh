@@ -27,6 +27,12 @@ done
 # Reload the plugins list
 plugins=$(cat $config | tr '\n' ' ')
 
+# If no plugins are left, exit
+if [ -z "$plugins" ]; then
+    zz_log w "No plugins to install!"
+    exit 0
+fi
+
 # Install the plugins
 zz_log i "Installing plugins {B $plugins} ..."
 if ! npm install --no-save $plugins 2>/dev/null 1>&2; then
