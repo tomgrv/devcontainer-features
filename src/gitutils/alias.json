@@ -32,7 +32,7 @@
         "help": "Start a new git flow feature branch."
     },
     "fixable": {
-        "cmd": "git log --oneline $(git rev-parse --abbrev-ref --symbolic-full-name @{u})..HEAD",
+        "cmd": "git log --oneline $(git rev-parse --abbrev-ref --symbolic-full-name @{u} || git merge-base HEAD develop)..HEAD",
         "help": "Show commits ahead of upstream."
     },
     "fixAliases": {
@@ -48,7 +48,7 @@
         "help": "Restore file mode changes from diff."
     },
     "forceable": {
-        "cmd": "git log --oneline $(echo $(git rev-parse --abbrev-ref --symbolic-full-name @{u};git log --merges --first-parent -1 --pretty=%h)| tail -1)..HEAD $*",
+        "cmd": "git log --oneline $(echo $(git rev-parse --abbrev-ref --symbolic-full-name @{u} || git merge-base HEAD develop;git log --merges --first-parent -1 --pretty=%h)| tail -1)..HEAD $*",
         "help": "Show commits since last merge or upstream."
     },
     "go": {

@@ -17,7 +17,7 @@ git fetch --progress --prune --recurse-submodules=no origin >/dev/null
 if [ -n "$force" ]; then
     zz_log w "Force mode enabled, overwriting pushed history"
     git forceable >&2
-    read -p 'Whish commit? ' sha
+    read -p 'Which commit? ' sha
 elif [ -z "$sha" ]; then
     git fixable >&2
     read -p 'Which commit? ' sha
