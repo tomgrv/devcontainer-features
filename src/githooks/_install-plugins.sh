@@ -25,7 +25,7 @@ for plugin in $plugins; do
 done
 
 # Reload the plugins list
-plugins=$(cat $config | tr '\n' ' ')
+plugins=$(cat $config | grep -v '^$' | tr '\n' ' ')
 
 # If no plugins are left, exit
 if [ -z "$plugins" ]; then
