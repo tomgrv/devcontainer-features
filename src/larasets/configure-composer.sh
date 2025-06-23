@@ -1,5 +1,4 @@
 #!/bin/sh
-set -e
 
 #### Goto repository root
 cd "$(git rev-parse --show-toplevel)" >/dev/null
