@@ -1,0 +1,14 @@
+{
+    "tasks": [
+        {
+            "label": "📝 Ide Helper",
+            "type": "shell",
+            "command": "art ide-helper:generate --ansi && art ide-helper:meta --ansi && art ide-helper:models --write --ansi",
+            "presentation": {
+                "panel": "shared",
+                "close": true,
+                "reveal": "silent"
+            }
+        }
+    ]
+}
