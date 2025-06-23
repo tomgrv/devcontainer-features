@@ -1,15 +1,12 @@
 #!/bin/sh
 
-# Source colors script
-. zz_colors
-
 # Source the context script to initialize variables and settings
 eval $(
     zz_context "$@"
 )
 
 if [ -z "$feature" ]; then
-    echo "Usage: install-bin <feature>${End}"
+    echo "Usage: install-bin <feature>"
     exit 1
 fi
 
