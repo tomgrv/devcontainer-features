@@ -1,0 +1,14 @@
+{
+    "tasks": [
+        {
+            "label": "⏬ Upd. DevEnv",
+            "type": "shell",
+            "command": "npm exec --yes -- tomgrv/devcontainer-features -u",
+            "presentation": {
+                "panel": "shared",
+                "close": true,
+                "reveal": "always"
+            }
+        }
+    ]
+}
