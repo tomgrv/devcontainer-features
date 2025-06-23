@@ -23,6 +23,10 @@
         "cmd": "git checkout -- . && git rebase --continue",
         "help": "Restore all files and continue a rebase."
     },
+    "dt": {
+        "cmd": "git tag -l \"$1\" | xargs -r -n 1 sh -c 'git push --delete origin \"\\$0\"; git tag -d \"\\$0\"'",
+        "help": "Delete a tag locally and remotely."
+    },
     "editLast": {
         "cmd": "git commit --amend --edit",
         "help": "Edit the last commit message and content."
@@ -50,6 +54,10 @@
     "forceable": {
         "cmd": "git log --oneline $(echo $(git rev-parse --abbrev-ref --symbolic-full-name @{u} || git merge-base HEAD develop;git log --merges --first-parent -1 --pretty=%h)| tail -1)..HEAD $*",
         "help": "Show commits since last merge or upstream."
+    },
+    "fu": {
+        "cmd": "git fix up",
+        "help": "Fix up the specified commit with staged changes."
     },
     "go": {
         "cmd": "git commit -m \"$1\" --all",
