@@ -15,6 +15,10 @@
         "cmd": "git stash save --include-untracked  --keep-index; git clean --force -d -x -e \".env*\"; git stash apply --index; git stash drop",
         "help": "Stash all changes, clean untracked files except .env*, and restore stash."
     },
+    "clear": {
+        "cmd": "git status --porcelain | awk '$1 ~ /^[AM?]/ {print $2}' | xargs -I {} sh -c 'test ! -s \"{}\" && echo \"Deleting empty file: {}\" && rm \"{}\"'",
+        "help": "Delete all empty files in the repository."
+    },
     "conflict": {
         "cmd": "git diff --name-only --diff-filter=U",
         "help": "List files with merge conflicts."
