@@ -108,7 +108,7 @@ local)
     # Set the APP_URL and VITE_HOST for local mode
     setexport APP_URL "http://$codespace${domain:+.$domain}:${APP_PORT:-80}"
     setexport ASSET_URL "http://$codespace${domain:+.$domain}:${APP_PORT:-80}"
-    setexport VITE_HOST "$codespace${domain:+.$domain}:${VITE_PORT:-5173}"
+    setexport VITE_HOST ""
     ;;
 *)
     zz_log e "Invalid mode. Use 'remote' or 'local'."

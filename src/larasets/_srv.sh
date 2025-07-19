@@ -11,5 +11,5 @@ else
     server='npx --yes pm2'
 fi
 
-$server restart server_$1 || $server --name server_$1 start "FORCE_COLOR=1 npm -- run \"$@\""
+$server restart --update-env server_$1 || $server --name server_$1 start "FORCE_COLOR=1 npm -- run \"$@\""
 $server log --raw --out server_$1
