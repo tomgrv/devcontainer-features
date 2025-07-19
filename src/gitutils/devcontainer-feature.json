@@ -2,7 +2,7 @@
     "id": "gitutils",
     "name": "Git Aliases",
     "description": "A feature to add useful Git aliases to your shell.",
-    "version": "5.24.0",
+    "version": "5.24.1",
     "dependsOn": {
         "ghcr.io/devcontainers/features/node:1": "lts",
         "ghcr.io/tomgrv/devcontainer-features/common-utils:3": {
@@ -39,6 +39,6 @@
         "config": "configure-feature gitutils"
     },
     "postStartCommand": {
-        "files": "git fixMode"
+        "files": "git fix mode"
     }
 }
