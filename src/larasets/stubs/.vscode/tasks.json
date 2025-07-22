@@ -2,66 +2,92 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "art-cache-config",
+            "label": "❇️ Optimize",
             "type": "shell",
-            "command": "art config:cache",
+            "command": "art optimize",
+            "presentation": {
+                "panel": "dedicated",
+                "clear": true,
+                "reveal": "always",
+                "close": true
+            }
+        },
+        {
+            "label": "🔄️ Refresh",
+            "type": "shell",
+            "command": "art migrate:fresh --seed",
+            "presentation": {
+                "panel": "dedicated",
+                "clear": true,
+                "reveal": "always",
+                "close": true
+            }
+        },
+        {
+            "label": "art-serve",
+            "type": "shell",
+            "command": "art serve",
             "hide": true,
             "presentation": {
                 "panel": "dedicated",
                 "clear": true,
                 "reveal": "silent",
                 "close": true
+            },
+            "problemMatcher": {
+                "owner": "artisan",
+                "fileLocation": [
+                    "relative",
+                    "${workspaceFolder}"
+                ],
+                "source": "artisan",
+                "pattern": [
+                    {
+                        "regexp": "Exception",
+                        "message": 1
+                    },
+                    {
+                        "regexp": "^\\s*at\\s*([/\\w]+):(\\d+)$",
+                        "file": 1,
+                        "line": 2
+                    }
+                ],
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": "^\\s*(INFO)",
+                    "endsPattern": "."
+                }
             }
         },
         {
-            "label": "art-cache-views",
-            "type": "shell",
-            "command": "art view:cache",
-            "hide": true,
-            "presentation": {
-                "panel": "dedicated",
-                "clear": true,
-                "reveal": "silent",
-                "close": true
-            }
-        },
-        {
-            "label": "art-cache-routes",
-            "type": "shell",
-            "command": "art route:cache",
-            "hide": true,
-            "presentation": {
-                "panel": "dedicated",
-                "clear": true,
-                "reveal": "silent",
-                "close": true
-            }
-        },
-        {
-            "label": "▶️ Run",
+            "label": "▶️ Serve",
             "dependsOn": [
-                "sail-up",
-                "vite"
+                "❇️ Optimize",
+                "art-serve",
+                "vite",
+                "art-queue",
+                "art-schedule"
             ],
             "dependsOrder": "parallel"
         },
         {
-            "label": "🔄️ Refresh",
+            "label": "▶️ Sail",
             "dependsOn": [
-                "sail-dump"
+                "sail-up",
+                "❇️ Optimize",
+                "vite",
+                "art-queue",
+                "art-schedule"
             ],
             "dependsOrder": "sequence"
         },
         {
-            "label": "sail-dump",
-            "type": "shell",
-            "command": "sail composer dump-autoload",
-            "presentation": {
-                "panel": "dedicated",
-                "clear": true,
-                "close": true
-            },
-            "hide": true
+            "label": "⤵️ Install",
+            "dependsOn": [
+                "composer inst",
+                "npm install"
+            ],
+            "dependsOrder": "parallel"
         },
         {
             "label": "sail-up",
@@ -77,7 +103,7 @@
         {
             "label": "sail-restart",
             "type": "shell",
-            "command": "sail restart && sail composer dump-autoload",
+            "command": "sail restart",
             "presentation": {
                 "panel": "dedicated",
                 "clear": true,
