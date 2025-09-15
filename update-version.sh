@@ -31,8 +31,8 @@ extract_semver_from_describe() {
 if command -v dotnet-gitversion >/dev/null 2>&1; then
     # Try to get MajorMinorPatch from GitVersion
     GITVERSION_OUTPUT=$(dotnet-gitversion -config .gitversion -showvariable MajorMinorPatch 2>/dev/null || echo "")
-    # Check if output is a valid version number (only digits and dots)
-    if [ -n "$GITVERSION_OUTPUT" ] && echo "$GITVERSION_OUTPUT" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+$'; then
+    # Check if output is a valid version number (only digits and dots) and not default
+    if [ -n "$GITVERSION_OUTPUT" ] && echo "$GITVERSION_OUTPUT" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+$' && [ "$GITVERSION_OUTPUT" != "1.0.0" ]; then
         update_version_file "$GITVERSION_OUTPUT"
         exit 0
     fi
