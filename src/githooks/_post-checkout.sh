@@ -21,3 +21,10 @@ if test "$GIT_COMMAND" = "rebase"; then
   zz_log s "Skip post-checkout hook during rebase."
   exit 0
 fi
+
+# Update VERSION file with current GitVersion semver
+if [ -f "./update-version.sh" ]; then
+  ./update-version.sh || zz_log w "Failed to update VERSION file"
+else
+  zz_log w "update-version.sh script not found, skipping VERSION file update"
+fi
