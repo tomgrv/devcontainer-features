@@ -21,10 +21,12 @@ update_version_file() {
 # Function to extract semver from git describe
 extract_semver_from_describe() {
     local describe_output="$1"
-    # Extract version from patterns like:
+    # Extract version from tags ending with a semantic version, e.g.:
     # feature_larasets_5.10.2-1-g97bdb34 -> 5.10.2-1-g97bdb34
-    # feature_larasets_5.10.2 -> 5.10.2
-    echo "$describe_output" | sed -E 's/^[^_]*_[^_]*_([0-9]+\.[0-9]+\.[0-9]+.*)/\1/' | head -1
+    # release_5.10.2 -> 5.10.2
+    # v5.10.2 -> 5.10.2
+    # The regex matches any tag ending with X.Y.Z (optionally with suffixes).
+    echo "$describe_output" | sed -E 's/.*[_v]([0-9]+\.[0-9]+\.[0-9]+([-a-zA-Z0-9\.]*)?)/\1/' | head -1
 }
 
 # Try GitVersion first (if available and working)
