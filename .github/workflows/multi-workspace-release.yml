@@ -1,0 +1,94 @@
+name: "Multi-workspace Release Automation"
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run mode (no actual changes)"
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  multi-workspace-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      packages: read
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
+          cache: 'npm'
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.x'
+
+      - name: Install GitVersion
+        run: |
+          dotnet tool install --global GitVersion.Tool --version 5.*
+
+      - name: Install git-flow
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y git-flow
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run multi-workspace release
+        id: release
+        env:
+          DRY_RUN: ${{ inputs.dry_run }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          chmod +x .github/scripts/multi-workspace-release.sh
+          .github/scripts/multi-workspace-release.sh
+
+      - name: Create Pull Request
+        if: steps.release.outputs.release_branch != '' && !inputs.dry_run
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ steps.release.outputs.release_branch }}
+          base: main
+          title: "Release: ${{ steps.release.outputs.release_version }}"
+          body: |
+            ## Multi-workspace Release: ${{ steps.release.outputs.release_version }}
+
+            This PR contains automated version updates for the following workspaces:
+
+            ${{ steps.release.outputs.updated_workspaces }}
+
+            ### Changes:
+            - ✅ Created gitflow release branch before version updates
+            - ✅ Analyzed conventional commits per workspace
+            - ✅ Updated versions following semver rules
+            - ✅ Updated only modified workspaces
+
+            ### Release Information:
+            - **Release Branch:** `${{ steps.release.outputs.release_branch }}`
+            - **Base Version:** `${{ steps.release.outputs.base_version }}`
+            - **New Version:** `${{ steps.release.outputs.release_version }}`
+
+            This release was generated automatically using the multi-workspace release workflow.
+
+          labels: |
+            release
+            automated
