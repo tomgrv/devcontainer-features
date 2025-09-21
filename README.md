@@ -6,6 +6,23 @@ This repository contains a collection of features that can be used to enhance th
 
 The features are organized in separate folders and can be used individually in a `devcontainer.json` file
 
+## 🚀 Multi-workspace Release Automation
+
+This repository includes an automated release workflow that handles version management for multiple workspaces (devcontainer features) according to semantic versioning and conventional commit standards.
+
+**Key Features:**
+- ✅ **Workspace Change Detection**: Automatically detects which workspaces have been modified
+- ✅ **Conventional Commit Analysis**: Analyzes commit messages for semantic version bumps  
+- ✅ **Gitflow Integration**: Creates release branches following gitflow conventions
+- ✅ **Individual Version Management**: Updates only the workspaces that have changed
+- ✅ **Automated Pull Requests**: Creates PR to merge release branch into main
+
+For detailed documentation, see: [Multi-workspace Release Documentation](./docs/multi-workspace-release.md)
+
+**Quick Start:**
+1. Go to **Actions** tab in GitHub
+2. Select **"Multi-workspace Release Automation"**
+3. Click **"Run workflow"** (optionally enable dry run mode for testing)
 
 ## Installation
 
