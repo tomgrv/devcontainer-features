@@ -6,7 +6,7 @@ source=$(dirname $(readlink -f $0))
 # Source the common utils
 . $source/src/common-utils/_zz_colors.sh
 
-alias zz_log=$source/src/common-utils/_zz_logs.sh
+alias zz_log=$source/src/common-utils/_zz_log.sh
 
 # Prepare for local installation by creating a temporary directory and linking common utils
 find $source/src/common-utils/ -type f -name "_*.sh" -exec echo {} \; -exec chmod +x {} \; | while read file; do
