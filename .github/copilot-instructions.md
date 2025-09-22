@@ -6,26 +6,43 @@ This repository contains a collection of devcontainer features that enhance deve
 
 **Always reference these instructions first and fallback to search or bash commands only when you encounter unexpected information that does not match the info here.**
 
+## Critical Guidelines for Code Changes
+
+**MINIMAL CHANGES ONLY**: Make the smallest possible changes to address the specific request. Do NOT modify files that are not directly related to the task:
+
+- **Package files** (`package.json`, `package-lock.json`) should only be modified if explicitly required for the feature being worked on
+- **Build artifacts** and **symlinks** should not be committed unless they are the direct target of the request
+- **Repository setup** (symlinks, environment bootstrapping) should be done for development/testing only, not committed
+- **Infrastructure changes** should be avoided unless they are specifically requested
+
+When working on feature requests:
+1. Identify the **exact files** that need to be modified for the request
+2. Make changes **only** to those files
+3. Use temporary setup for development/testing but revert any unrelated changes before committing
+4. Focus on the **specific feature or fix** requested, not general repository improvements
+
 ## Quick Reference for Copilot Agents
 
 **CRITICAL**: This repository has specific setup requirements and known issues. Follow the bootstrap commands exactly to avoid common problems.
 
 **NEVER CANCEL** any npm or installation commands - they complete quickly but require proper timeouts.
 
-## Essential Setup Commands (Run These First)
+## Essential Setup Commands (For Development/Testing Only - DO NOT COMMIT)
+
+**IMPORTANT**: These commands are for local development and testing only. Do NOT commit the resulting changes (symlinks, package modifications) unless they are specifically part of the requested feature.
 
 ```bash
 # 1. Bootstrap the repository (4 seconds total)
 npm install                                    # 3 seconds - installs dependencies
 npm install prettier-plugin-sh               # 1 second - required for linting
 
-# 2. Fix known symlink issues (5 seconds)
+# 2. Fix known symlink issues (5 seconds) - FOR TESTING ONLY
 find src/common-utils/ -type f -name "_*.sh" -exec chmod +x {} \;
 find src/common-utils/ -type f -name "_*.sh" | while read file; do 
   ln -sf $file src/common-utils/$(basename $file | sed 's/^_//;s/.sh$//'); 
 done
 
-# 3. Workaround for install script typo (1 second)
+# 3. Workaround for install script typo (1 second) - FOR TESTING ONLY
 ln -sf src/common-utils/_zz_log.sh src/common-utils/_zz_logs.sh
 ```
 
@@ -93,9 +110,10 @@ ls -la .devcontainer/ .vscode/  # Verify files created
 
 ## Common Workflows for Copilot Agents
 
-### 🚀 First-time Repository Setup
+### 🚀 First-time Repository Setup (Development/Testing Only)
 ```bash
-# Run this exactly - all commands are required
+# Run this exactly - all commands are required FOR TESTING ONLY
+# DO NOT COMMIT the resulting symlinks or package changes unless specifically requested
 cd /home/runner/work/devcontainer-features/devcontainer-features
 npm install
 npm install prettier-plugin-sh
