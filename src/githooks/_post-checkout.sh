@@ -22,9 +22,5 @@ if test "$GIT_COMMAND" = "rebase"; then
   exit 0
 fi
 
-# Update VERSION file with current GitVersion semver
-if [ -f "./update-version.sh" ]; then
-  ./update-version.sh || zz_log w "Failed to update VERSION file"
-else
-  zz_log w "update-version.sh script not found, skipping VERSION file update"
-fi
+# Update VERSION file with current GitVersion semver using update-version script in the git hooks directory
+git hook run update-version || zz_log w "Failed to update VERSION file"

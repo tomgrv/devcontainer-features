@@ -12,9 +12,9 @@ update_version_file() {
     local version="$1"
     if [ -n "$version" ]; then
         echo "$version" > "$VERSION_FILE"
-        echo "Updated VERSION file to: $version"
+        zz_log s "Updated VERSION file to: $version"
     else
-        echo "Warning: Could not determine version"
+        zz_log w "Could not determine version"
     fi
 }
 
@@ -34,7 +34,7 @@ if command -v dotnet-gitversion >/dev/null 2>&1; then
     # Try to get MajorMinorPatch from GitVersion
     GITVERSION_OUTPUT=$(dotnet-gitversion -config .gitversion -showvariable MajorMinorPatch 2>/dev/null || echo "")
     # Check if output is a valid version number (only digits and dots) and not default
-    if [ -n "$GITVERSION_OUTPUT" ] && echo "$GITVERSION_OUTPUT" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+$' && [ "$GITVERSION_OUTPUT" != "1.0.0" ]; then
+    if [ -n "$GITVERSION_OUTPUT" ] && echo "$GITVERSION_OUTPUT" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+$'; then
         update_version_file "$GITVERSION_OUTPUT"
         exit 0
     fi
@@ -50,7 +50,7 @@ fi
 
 # Final fallback - keep existing version or use default
 if [ -f "$VERSION_FILE" ]; then
-    echo "Warning: Could not determine new version, keeping existing VERSION file"
+    zz_log w "Could not determine new version, keeping existing VERSION file"
 else
     update_version_file "1.0.0"
 fi
