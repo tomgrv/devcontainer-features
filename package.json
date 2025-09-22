@@ -42,7 +42,11 @@
     "scripts": {
         "lint": "npx --yes lint-staged",
         "release": "npx --yes commit-and-tag-version --no-verify --",
-        "test": "echo \"Warning: no test specified\"",
+        "test": "./test-pr-workflow.sh",
+        "test:pr-workflow": "./test-pr-workflow.sh",
+        "test:devcontainer": "find src -name 'devcontainer-feature.json' -exec jq empty {} \\;",
+        "test:sample": "./tests/sample-test-case.sh",
+        "test:all": "npm run test:pr-workflow && npm run test:sample",
         "update": "npm-check-updates -i -u",
         "update-all": "npm run update -ws --root"
     },
