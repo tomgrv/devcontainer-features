@@ -12,6 +12,7 @@
 *.cache
 
 ## Misc
+VERSION
 .history
 .version.json
 .mono

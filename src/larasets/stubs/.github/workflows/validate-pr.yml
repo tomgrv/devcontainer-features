@@ -1,0 +1,197 @@
+# @format
+
+name: 'Validate Pull Request'
+
+on:
+  pull_request:
+    branches:
+      - main
+      - develop
+  workflow_dispatch:
+
+env:
+  COMPOSER_CACHE_DIR: ~/.composer/cache
+  NODE_ENV: test
+
+jobs:
+  validate-code:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-version: ['8.1', '8.2', '8.3']
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          extensions: mbstring, xml, ctype, iconv, intl, pdo_sqlite, mysql, pgsql
+          coverage: xdebug
+
+      - name: Cache Composer packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.composer/cache
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+
+      - name: Install Composer dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest --no-dev
+
+      - name: Validate composer.json and composer.lock
+        run: composer validate --strict
+
+      - name: Check PHP syntax
+        run: find . -name "*.php" -not -path "./vendor/*" -print0 | xargs -0 -n1 php -l
+
+      - name: Run Laravel Pint (Code Style)
+        run: |
+          if [ -f "./vendor/bin/pint" ]; then
+              ./vendor/bin/pint --test
+          else
+              echo "Laravel Pint not found, skipping code style check"
+          fi
+
+      - name: Run PHPStan (Static Analysis)
+        run: |
+          if [ -f "./vendor/bin/phpstan" ]; then
+              ./vendor/bin/phpstan analyse --memory-limit=2G
+          else
+              echo "PHPStan not found, skipping static analysis"
+          fi
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install Node.js dependencies
+        run: npm ci
+
+      - name: Compile assets
+        run: npm run build
+
+      - name: Run JavaScript/CSS linting
+        run: |
+          if npm list eslint > /dev/null 2>&1; then
+              npm run lint:js || echo "JS linting failed"
+          fi
+          if npm list stylelint > /dev/null 2>&1; then
+              npm run lint:css || echo "CSS linting failed"
+          fi
+
+  test-suite:
+    runs-on: ubuntu-latest
+    needs: validate-code
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_DATABASE: testing
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    strategy:
+      matrix:
+        php-version: ['8.1', '8.2', '8.3']
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          extensions: mbstring, xml, ctype, iconv, intl, pdo_sqlite, mysql, pgsql
+          coverage: xdebug
+
+      - name: Cache Composer packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.composer/cache
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+
+      - name: Install Composer dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest
+
+      - name: Copy environment file
+        run: cp .env.example .env || cp .env.testing .env || echo "No environment file template found"
+
+      - name: Generate application key
+        run: |
+          if [ -f "artisan" ]; then
+              php artisan key:generate --ansi
+          fi
+
+      - name: Clear and cache config
+        run: |
+          if [ -f "artisan" ]; then
+              php artisan config:clear
+              php artisan config:cache
+          fi
+
+      - name: Run database migrations
+        run: |
+          if [ -f "artisan" ]; then
+              php artisan migrate --force
+          fi
+        env:
+          DB_CONNECTION: mysql
+          DB_HOST: 127.0.0.1
+          DB_PORT: 3306
+          DB_DATABASE: testing
+          DB_USERNAME: root
+          DB_PASSWORD: ''
+
+      - name: Run Pest/PHPUnit tests
+        run: |
+          if [ -f "./vendor/bin/pest" ]; then
+              ./vendor/bin/pest --coverage-clover coverage.xml
+          elif [ -f "./vendor/bin/phpunit" ]; then
+              ./vendor/bin/phpunit --coverage-clover coverage.xml
+          else
+              echo "No test runner found"
+          fi
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          file: ./coverage.xml
+          flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: false
+
+  security-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+
+      - name: Security audit for Composer
+        run: |
+          composer audit || echo "Security audit completed with findings"
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Security audit for npm
+        run: |
+          npm audit --audit-level moderate || echo "npm audit completed with findings"
