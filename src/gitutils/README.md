@@ -82,6 +82,7 @@ The following aliases are provided to enhance your Git workflow:
 -   `git isDirty <file>` - Check if the specified file has uncommitted changes.
 -   `git isFixup` - Check if the last commit is a fixup commit.
 -   `git isRebase` - Check if a rebase is in progress.
+-   `git pn` - Push without running pre-push hooks.
 -   `git prod` - Finish a release or hotfix branch using Git Flow.
 -   `git recallId <key>` - Set the Git user name and email to the author of the last commit.
 -   `git renameTag <old> <new>` - Rename a tag.

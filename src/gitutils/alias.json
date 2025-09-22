@@ -99,6 +99,10 @@
         "cmd": "git push --force-with-lease $1",
         "help": "Push with force-with-lease."
     },
+    "pn": {
+        "cmd": "git push --no-verify",
+        "help": "Push without running pre-push hooks."
+    },
     "prod": {
         "cmd": "git release-prod",
         "help": "Run release-prod command."
