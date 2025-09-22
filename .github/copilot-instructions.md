@@ -4,155 +4,159 @@
 
 This repository contains a collection of devcontainer features that enhance development environments. It provides Git utilities, hooks, version management, and other development tools that can be installed individually or as a complete development setup.
 
-Always reference these instructions first and fallback to search or bash commands only when you encounter unexpected information that does not match the info here.
+**Always reference these instructions first and fallback to search or bash commands only when you encounter unexpected information that does not match the info here.**
 
-## Working Effectively
+## Quick Reference for Copilot Agents
 
-### Bootstrap and Setup
+**CRITICAL**: This repository has specific setup requirements and known issues. Follow the bootstrap commands exactly to avoid common problems.
 
-- Clone the repository and navigate to the root directory
-- Node.js and npm are required (tested with Node v20.19.5, npm 10.8.2)
-- Run `npm install` to install dependencies -- takes 3 seconds. NEVER CANCEL. Set timeout to 5+ minutes.
-- Install missing prettier plugin: `npm install prettier-plugin-sh` -- takes 1 second. Required for linting.
-- Fix common-utils symlinks with: `find src/common-utils/ -type f -name "_*.sh" -exec chmod +x {} \; && find src/common-utils/ -type f -name "_*.sh" | while read file; do ln -sf $file src/common-utils/$(basename $file | sed 's/^_//;s/.sh$//'); done`
-- Create workaround for install script typo: `ln -sf src/common-utils/_zz_log.sh src/common-utils/_zz_logs.sh`
+**NEVER CANCEL** any npm or installation commands - they complete quickly but require proper timeouts.
 
-### Building and Testing
-
-- `npm run lint` -- lints staged files using lint-staged. Takes 1-2 seconds. Set timeout to 2+ minutes.
-- `npm test` -- currently only outputs a warning message, no actual tests exist  
-- `npm run release` -- creates release using commit-and-tag-version
-- Install devcontainers CLI: `npm install -g @devcontainers/cli` -- takes 30-60 seconds. Set timeout to 3+ minutes.
-
-### Installing Features
-
-- Local installation script: `./install.sh -h` for help
-- Install stubs only: `./install.sh -s` -- takes 10-15 seconds in git repo
-- Install specific feature: `./install.sh gitutils` -- takes 5-10 seconds
-- Install all default features: `./install.sh -a` -- takes 15-20 seconds
-- Via npx: `npx tomgrv/devcontainer-features -h` -- downloads and runs, takes 2 seconds after first time
-
-### Validation
-
-- Features validate automatically during GitHub Actions CI
-- No manual tests exist for individual features
-- Install validation: Create test directory, run `git init`, then run install commands
-- Check created files in `.devcontainer/` and `.vscode/` directories after installation
-
-## Repository Structure
-
-### Key Features (src/ directory)
-
-- **gitutils**: Git aliases and utilities for workflow automation
-- **githooks**: Development environment setup with commitlint, prettier, lint-staged
-- **gitversion**: GitVersion tool for semantic versioning based on Git history
-- **act**: Nektos/act tool for running GitHub Actions locally
-- **pecl**: PHP Extension Community Library (PECL) installer
-- **larasets**: Laravel-specific development tools
-- **common-utils**: Shared utilities used by other features
-
-### Configuration Files
-
-- `package.json`: Main package configuration with npm scripts and dependencies
-- `install.sh`: Main installation script (has typo bug - see workaround above)
-- `.github/workflows/`: CI/CD pipelines for validation and publishing
-- `stubs/`: Template files for devcontainer and VS Code configuration
-
-## Known Issues and Workarounds
-
-### Critical Installation Bug
-
-The `install.sh` script has a typo on line 9: references `_zz_logs.sh` but file is `_zz_log.sh`.
-**WORKAROUND**: Always run this after cloning: `ln -sf src/common-utils/_zz_log.sh src/common-utils/_zz_logs.sh`
-
-### Container vs Local Installation
-
-- Features are designed for devcontainer environments
-- Local installation has limited functionality ("No writeable directory found" messages are normal)
-- Some features require Docker or specific dependencies not available in local environment
-
-## Validation Scenarios
-
-### Basic Feature Installation Test
-
-1. Create test directory: `mkdir /tmp/feature-test && cd /tmp/feature-test`
-2. Initialize git: `git init`
-3. Install stubs: `/path/to/install.sh -s`
-4. Verify created files: `ls -la .devcontainer/ .vscode/`
-5. Check devcontainer.json contains expected features
-
-### NPX Installation Test
-
-1. Create clean directory: `mkdir /tmp/npx-test && cd /tmp/npx-test`
-2. Run: `npx tomgrv/devcontainer-features -s`
-3. Verify same stubs are created as local installation
-
-### Linting Test
-
-1. Stage some files: `git add .`
-2. Run: `npm run lint`
-3. Should process staged files or show "No staged files found"
-
-## Common Commands Reference
-
-### Repository Setup (first time)
+## Essential Setup Commands (Run These First)
 
 ```bash
-git clone <repo-url>
-cd devcontainer-features
-npm install
-npm install prettier-plugin-sh
+# 1. Bootstrap the repository (4 seconds total)
+npm install                                    # 3 seconds - installs dependencies
+npm install prettier-plugin-sh               # 1 second - required for linting
+
+# 2. Fix known symlink issues (5 seconds)
 find src/common-utils/ -type f -name "_*.sh" -exec chmod +x {} \;
-find src/common-utils/ -type f -name "_*.sh" | while read file; do ln -sf $file src/common-utils/$(basename $file | sed 's/^_//;s/.sh$//'); done
+find src/common-utils/ -type f -name "_*.sh" | while read file; do 
+  ln -sf $file src/common-utils/$(basename $file | sed 's/^_//;s/.sh$//'); 
+done
+
+# 3. Workaround for install script typo (1 second)
 ln -sf src/common-utils/_zz_log.sh src/common-utils/_zz_logs.sh
 ```
 
-### Quick Feature Test
+**Set timeouts to 5+ minutes for ALL commands to prevent premature cancellation.**
 
+## Core Development Commands
+
+| Command | Purpose | Duration | Notes |
+|---------|---------|----------|-------|
+| `npm run lint` | Lint staged files | 1-2s (empty), 15s (with files) | Uses lint-staged, only lints staged files |
+| `npm test` | Run tests | <1s | Currently only shows warning - no tests exist |
+| `./install.sh -s` | Install stubs only | 10-15s | Creates `.devcontainer/` and `.vscode/` configs |
+| `./install.sh -a` | Install all features | 15-20s | Full feature installation |
+| `./install.sh gitutils` | Install specific feature | 5-10s | Install individual feature by name |
+| `npx tomgrv/devcontainer-features -h` | NPX installation | 2s (cached) | Alternative installation method |
+
+**Validation Commands:**
 ```bash
-cd /tmp && mkdir test-features && cd test-features
+# Quick feature test
+mkdir /tmp/test-features && cd /tmp/test-features
 git init
 /path/to/devcontainer-features/install.sh -s
-ls -la .devcontainer/ .vscode/
+ls -la .devcontainer/ .vscode/  # Verify files created
 ```
 
-### Pre-commit Validation
+## Repository Architecture
 
+### 7 Devcontainer Features (`src/` directory)
+
+| Feature | Purpose | Key Files |
+|---------|---------|-----------|
+| **gitutils** | Git aliases and workflow automation | Aliases for common git operations |
+| **githooks** | Development environment setup | commitlint, prettier, lint-staged, husky |
+| **gitversion** | Semantic versioning | GitVersion tool for automated versioning |
+| **act** | Local GitHub Actions | Nektos/act for running actions locally |
+| **pecl** | PHP Extensions | PECL installer for PHP development |
+| **larasets** | Laravel tools | Laravel-specific development utilities |
+| **common-utils** | Shared utilities | Scripts used by other features |
+
+### Key Configuration Files
+
+- `package.json` - Main configuration with npm scripts, dependencies, prettier, commitlint
+- `install.sh` - Installation script (**has typo bug** - see workaround above)
+- `.github/workflows/` - CI/CD: `validate.yml`, `release.yaml`
+- `stubs/` - Template files for `.devcontainer/` and `.vscode/` configs
+
+## Critical Issues & Workarounds
+
+### 🐛 Install Script Typo (Line 9)
+**Problem**: Script references `_zz_logs.sh` but file is `_zz_log.sh`  
+**Fix**: `ln -sf src/common-utils/_zz_log.sh src/common-utils/_zz_logs.sh`
+
+### 📦 Missing Prettier Plugin  
+**Problem**: Linting fails without `prettier-plugin-sh`  
+**Fix**: `npm install prettier-plugin-sh` (included in setup commands above)
+
+### 🔗 Broken Symlinks in common-utils
+**Problem**: Shell scripts not executable and symlinks missing  
+**Fix**: Run the chmod and symlink commands from setup section above
+
+### 🐳 Container vs Local Behavior
+- Features designed for **devcontainer environments**
+- Local installation shows "No writeable directory found" - **this is normal**
+- Some features require Docker/specific dependencies not available locally
+
+## Common Workflows for Copilot Agents
+
+### 🚀 First-time Repository Setup
 ```bash
-git add .
-npm run lint
-# Make any needed changes, then commit
+# Run this exactly - all commands are required
+cd /home/runner/work/devcontainer-features/devcontainer-features
+npm install
+npm install prettier-plugin-sh
+find src/common-utils/ -type f -name "_*.sh" -exec chmod +x {} \;
+find src/common-utils/ -type f -name "_*.sh" | while read file; do 
+  ln -sf $file src/common-utils/$(basename $file | sed 's/^_//;s/.sh$//'); 
+done
+ln -sf src/common-utils/_zz_log.sh src/common-utils/_zz_logs.sh
 ```
 
-## Directory Structure Reference
+### 🧪 Testing Changes
+```bash
+# 1. Create test environment
+mkdir /tmp/feature-test && cd /tmp/feature-test
+git init
 
-```
-.
-├── .devcontainer/          # Repository's own devcontainer config
-├── .github/workflows/      # CI/CD: validate.yml, release.yaml
-├── .vscode/               # VS Code configuration
-├── src/                   # All devcontainer features
-│   ├── common-utils/      # Shared utilities and scripts
-│   ├── gitutils/          # Git aliases and utilities
-│   ├── githooks/          # Git hooks and linting setup
-│   ├── gitversion/        # GitVersion semantic versioning
-│   ├── act/               # GitHub Actions local runner
-│   ├── pecl/              # PHP extensions
-│   └── larasets/          # Laravel development tools
-├── stubs/                 # Template files for new projects
-├── install.sh            # Main installation script (has typo bug)
-├── package.json          # npm configuration and scripts
-└── README.md             # Basic usage documentation
+# 2. Test installation
+/home/runner/work/devcontainer-features/devcontainer-features/install.sh -s
+
+# 3. Verify results
+ls -la .devcontainer/ .vscode/
+cat .devcontainer/devcontainer.json  # Should contain features array
 ```
 
-## Expected Timing
+### ✅ Pre-commit Validation
+```bash
+git add .                # Stage your changes
+npm run lint            # Lint staged files (1-15 seconds)
+# Fix any linting issues, then commit
+```
 
-- `npm install`: 3 seconds
-- `npm install prettier-plugin-sh`: 1 second
-- `npm run lint`: 1-2 seconds (without staged files), up to 15 seconds (with files)
-- `./install.sh -s`: 10-15 seconds
-- `./install.sh -a`: 15-20 seconds  
-- `npx tomgrv/devcontainer-features`: 2 seconds (after first download)
-- Feature installation: 5-10 seconds per feature
+### 📦 NPX Alternative Testing
+```bash
+# Test the NPX installation method
+mkdir /tmp/npx-test && cd /tmp/npx-test
+git init
+npx tomgrv/devcontainer-features -s
+# Should create same files as local installation
+```
 
-**NEVER CANCEL** any npm or installation commands. Always set timeouts of 5+ minutes for safety.
+## Performance Expectations
+
+⚡ **Timing Reference** (all validated):
+
+| Operation | Expected Duration | Timeout Setting |
+|-----------|------------------|-----------------|
+| `npm install` | 3 seconds | 5+ minutes |
+| `npm install prettier-plugin-sh` | 1 second | 2+ minutes |
+| `npm run lint` (no files) | 1-2 seconds | 2+ minutes |
+| `npm run lint` (with files) | up to 15 seconds | 2+ minutes |
+| `./install.sh -s` | 10-15 seconds | 2+ minutes |
+| `./install.sh -a` | 15-20 seconds | 3+ minutes |
+| `./install.sh <feature>` | 5-10 seconds | 2+ minutes |
+| `npx tomgrv/devcontainer-features` | 2 seconds (cached) | 2+ minutes |
+
+⚠️ **CRITICAL**: Always set generous timeouts. Commands complete quickly but need buffer for system variations.
+
+## Troubleshooting Guide
+
+**❌ "No staged files found"** → Normal when running `npm run lint` with no staged changes  
+**❌ "No writeable directory found"** → Normal for local installation, features designed for containers  
+**❌ "_zz_logs.sh: No such file"** → Run the typo workaround: `ln -sf src/common-utils/_zz_log.sh src/common-utils/_zz_logs.sh`  
+**❌ "prettier-plugin-sh not found"** → Run: `npm install prettier-plugin-sh`  
+**❌ "Permission denied" on scripts** → Run: `find src/common-utils/ -type f -name "_*.sh" -exec chmod +x {} \;`
