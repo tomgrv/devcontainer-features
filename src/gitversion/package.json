@@ -1,0 +1,9 @@
+{
+    "name": "@tomgrv/gitversion",
+    "version": "5.2.1",
+    "description": "Minimal package file for gitversion workspace",
+    "config": {
+        "sync-version": "devcontainer-feature.json"
+    },
+    "private": true
+}

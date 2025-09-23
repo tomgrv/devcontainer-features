@@ -1,0 +1,9 @@
+{
+    "name": "@tomgrv/act",
+    "version": "1.6.1",
+    "description": "Minimal package file for act workspace",
+    "config": {
+        "sync-version": "devcontainer-feature.json"
+    },
+    "private": true
+}
