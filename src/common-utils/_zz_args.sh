@@ -41,8 +41,11 @@ while read argname datatype varname help; do
     fi
 
     # Check if the argument is optional
-    if [ "$argname" = "-" ] || [ "$argname" = "+" ]; then
+    if [ "$argname" = "-" ]; then
         line="<$datatype>"
+        helpinfo="$helpinfo\n\t$(printf '%-12s : %s' "$name" "$help")"
+    elif [ "$argname" = "+" ]; then
+        line="<$datatype...>"
         helpinfo="$helpinfo\n\t$(printf '%-12s : %s' "$name" "$help")"
     else
         if [ "$datatype" = "-" ]; then
@@ -72,7 +75,7 @@ while getopts :$argnames value "$@"; do
     naming=$(echo -e "$varnames" | grep -E "^$value" | cut -f2)
 
     if [ -n "$OPTARG" ]; then
-        echo "$naming=$OPTARG"
+        echo "$naming=\"$OPTARG\""
     else
         echo "$naming=-$value"
     fi
@@ -85,7 +88,7 @@ if [ "$OPTARG" = "h" ] || [ "$OPTARG" = "help" ]; then
         echo "${End}"
         echo "$title${End}"
         echo "${End}"
-        echo "Usage: ${Yellow}$(basename $caller)$lineinfo${None}; use ${Yellow}-h${None} for more information.${End}"
+        echo "Usage: ${Yellow}$(basename $caller)$lineinfo${None}; Use ${Yellow}-h${None} for more information.${End}"
         echo "$helpinfo${End}"
         echo "${End}"
     ) >&2
