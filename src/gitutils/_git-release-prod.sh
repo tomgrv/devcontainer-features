@@ -37,14 +37,8 @@ if [ -z "$flow" ] || [ -z "$name" ]; then
     exit 1
 fi
 
-# Get bump version from gitversion
-GBV=$(gitversion -config .gitversion -showvariable MajorMinorPatch)
-if [ -z "$GBV" ]; then
-    zz_log e "Cannot get version from .gitversion"
-    exit 1
-fi
-
-zz_log i "Bump version: {Blue $GBV}"
+# Bump version
+GBV=$(bump-version -w)
 
 # Prevent git editor prompt during finish
 GIT_EDITOR=:
@@ -63,4 +57,4 @@ else
 fi
 
 # Follow major/minor tags
-$(dirname $0)/_release-tags.sh $GBV
+$(dirname $0)/_git-release-tags.sh $GBV
