@@ -37,7 +37,6 @@ if [ -z "$flow" ] || [ -z "$name" ]; then
     exit 1
 fi
 
-
 # Prevent git editor prompt during finish
 GIT_EDITOR=:
 
