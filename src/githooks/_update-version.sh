@@ -7,7 +7,7 @@ set -e
 # Define the VERSION file path
 VERSION_FILE="VERSION"
 
-# Function to update VERSION file
+# Function to update VERSION file and make sure VERSION is not committed
 update_version_file() {
     local version="$1"
     if [ -n "$version" ]; then
@@ -16,6 +16,9 @@ update_version_file() {
     else
         zz_log w "Could not determine version"
     fi
+
+    # Ensure VERSION file is not committed
+    git rm --cached "$VERSION_FILE" >/dev/null 2>&1 || true
 }
 
 # Function to extract semver from git describe
