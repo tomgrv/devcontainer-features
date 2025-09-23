@@ -1,0 +1,344 @@
+# @format
+
+name: Multi-Workspace Release Automation
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run mode (only show what would be done)'
+        type: boolean
+        default: false
+        required: false
+      base_branch:
+        description: 'Base branch to compare against'
+        type: string
+        default: 'main'
+        required: false
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: read
+
+jobs:
+  multi-workspace-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: |
+          npm ci
+          npm install -g @commitlint/cli @commitlint/config-conventional
+
+      - name: Setup Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global init.defaultBranch main
+
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v0.10.2
+        with:
+          versionSpec: '5.x'
+
+      - name: Install git-flow
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y git-flow
+
+      - name: Detect workspace changes and calculate versions
+        id: detect_changes
+        run: |
+          # Create the detection script
+          cat > detect_workspace_changes.sh << 'EOF'
+          #!/bin/bash
+          set -e
+
+          BASE_BRANCH="${{ github.event.inputs.base_branch || 'main' }}"
+          DRY_RUN="${{ github.event.inputs.dry_run }}"
+          WORKSPACES=(act common-utils githooks gitutils gitversion larasets pecl)
+          CHANGED_WORKSPACES=()
+          RELEASE_DATA=""
+
+          echo "=== Multi-Workspace Release Detection ==="
+          echo "Base branch: $BASE_BRANCH"
+          echo "Dry run mode: $DRY_RUN"
+          echo
+
+          # Function to get current version from devcontainer-feature.json
+          get_current_version() {
+            local workspace=$1
+            jq -r '.version' "src/$workspace/devcontainer-feature.json"
+          }
+
+          # Function to analyze conventional commits for a workspace
+          analyze_commits() {
+            local workspace=$1
+            local commits=$(git log $BASE_BRANCH..HEAD --oneline --grep="^feat($workspace):" --grep="^fix($workspace):" --grep="^BREAKING CHANGE" --grep="($workspace)!" || echo "")
+            
+            local has_breaking=false
+            local has_feat=false
+            local has_fix=false
+            
+            if echo "$commits" | grep -q "BREAKING CHANGE\|($workspace)!"; then
+              has_breaking=true
+            fi
+            
+            if echo "$commits" | grep -q "^[a-f0-9]* feat($workspace):"; then
+              has_feat=true
+            fi
+            
+            if echo "$commits" | grep -q "^[a-f0-9]* fix($workspace):"; then
+              has_fix=true
+            fi
+            
+            # Determine bump type based on conventional commits
+            if [ "$has_breaking" = true ]; then
+              echo "major"
+            elif [ "$has_feat" = true ]; then
+              echo "minor"
+            elif [ "$has_fix" = true ]; then
+              echo "patch"
+            else
+              echo "none"
+            fi
+          }
+
+          # Function to calculate next version using semver
+          calculate_next_version() {
+            local current_version=$1
+            local bump_type=$2
+            
+            if [ "$bump_type" = "none" ]; then
+              echo "$current_version"
+              return
+            fi
+            
+            IFS='.' read -ra VERSION_PARTS <<< "$current_version"
+            local major=${VERSION_PARTS[0]}
+            local minor=${VERSION_PARTS[1]}
+            local patch=${VERSION_PARTS[2]}
+            
+            case $bump_type in
+              major)
+                major=$((major + 1))
+                minor=0
+                patch=0
+                ;;
+              minor)
+                minor=$((minor + 1))
+                patch=0
+                ;;
+              patch)
+                patch=$((patch + 1))
+                ;;
+            esac
+            
+            echo "$major.$minor.$patch"
+          }
+
+          # Check each workspace for changes
+          for workspace in "${WORKSPACES[@]}"; do
+            echo "--- Analyzing workspace: $workspace ---"
+            
+            # Check if there are file changes in this workspace
+            changed_files=$(git diff --name-only $BASE_BRANCH..HEAD -- "src/$workspace/" || echo "")
+            
+            if [ -n "$changed_files" ]; then
+              echo "✓ Files changed in src/$workspace/:"
+              echo "$changed_files" | sed 's/^/  /'
+              
+              current_version=$(get_current_version "$workspace")
+              bump_type=$(analyze_commits "$workspace")
+              next_version=$(calculate_next_version "$current_version" "$bump_type")
+              
+              echo "  Current version: $current_version"
+              echo "  Bump type: $bump_type"
+              echo "  Next version: $next_version"
+              
+              if [ "$current_version" != "$next_version" ]; then
+                CHANGED_WORKSPACES+=("$workspace")
+                RELEASE_DATA="${RELEASE_DATA}${workspace}:${current_version}:${next_version}:${bump_type};"
+                echo "  → Will be updated to $next_version"
+              else
+                echo "  → No version change needed"
+              fi
+            else
+              echo "  No changes detected"
+            fi
+            echo
+          done
+
+          # Set output variables
+          if [ ${#CHANGED_WORKSPACES[@]} -gt 0 ]; then
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            echo "changed_workspaces=${CHANGED_WORKSPACES[*]}" >> $GITHUB_OUTPUT
+            echo "release_data=$RELEASE_DATA" >> $GITHUB_OUTPUT
+            
+            echo "=== Summary ==="
+            echo "Workspaces to be released: ${CHANGED_WORKSPACES[*]}"
+          else
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "No workspaces need version updates."
+          fi
+          EOF
+
+          chmod +x detect_workspace_changes.sh
+          ./detect_workspace_changes.sh
+
+      - name: Create release branch and update versions
+        if: steps.detect_changes.outputs.has_changes == 'true' && github.event.inputs.dry_run != 'true'
+        id: create_release
+        run: |
+          # Parse release data
+          IFS=';' read -ra RELEASES <<< "${{ steps.detect_changes.outputs.release_data }}"
+
+          # Calculate release branch name based on highest version change
+          RELEASE_VERSION=""
+          HIGHEST_MAJOR=0
+          HIGHEST_MINOR=0
+          HIGHEST_PATCH=0
+
+          for release in "${RELEASES[@]}"; do
+            if [ -n "$release" ]; then
+              IFS=':' read -ra RELEASE_INFO <<< "$release"
+              workspace=${RELEASE_INFO[0]}
+              next_version=${RELEASE_INFO[2]}
+              
+              IFS='.' read -ra VERSION_PARTS <<< "$next_version"
+              major=${VERSION_PARTS[0]}
+              minor=${VERSION_PARTS[1]}
+              patch=${VERSION_PARTS[2]}
+              
+              if [ $major -gt $HIGHEST_MAJOR ] || 
+                 ([ $major -eq $HIGHEST_MAJOR ] && [ $minor -gt $HIGHEST_MINOR ]) || 
+                 ([ $major -eq $HIGHEST_MAJOR ] && [ $minor -eq $HIGHEST_MINOR ] && [ $patch -gt $HIGHEST_PATCH ]); then
+                HIGHEST_MAJOR=$major
+                HIGHEST_MINOR=$minor
+                HIGHEST_PATCH=$patch
+                RELEASE_VERSION="$major.$minor.$patch"
+              fi
+            fi
+          done
+
+          RELEASE_BRANCH="release/multi-workspace-$RELEASE_VERSION"
+          echo "release_branch=$RELEASE_BRANCH" >> $GITHUB_OUTPUT
+          echo "release_version=$RELEASE_VERSION" >> $GITHUB_OUTPUT
+
+          # Initialize git-flow if not already initialized
+          if [ ! -f .git/config ] || ! git config --get gitflow.branch.master >/dev/null 2>&1; then
+            echo "Initializing git-flow..."
+            git flow init -d
+          fi
+
+          # Create release branch using git-flow
+          echo "Creating release branch: $RELEASE_BRANCH"
+          git flow release start "multi-workspace-$RELEASE_VERSION"
+
+          # Update versions in each changed workspace
+          for release in "${RELEASES[@]}"; do
+            if [ -n "$release" ]; then
+              IFS=':' read -ra RELEASE_INFO <<< "$release"
+              workspace=${RELEASE_INFO[0]}
+              current_version=${RELEASE_INFO[1]}
+              next_version=${RELEASE_INFO[2]}
+              bump_type=${RELEASE_INFO[3]}
+              
+              echo "Updating $workspace from $current_version to $next_version"
+              
+              # Update devcontainer-feature.json
+              jq --arg version "$next_version" '.version = $version' \
+                "src/$workspace/devcontainer-feature.json" > tmp.json && \
+                mv tmp.json "src/$workspace/devcontainer-feature.json"
+              
+              # Stage the changes
+              git add "src/$workspace/devcontainer-feature.json"
+            fi
+          done
+
+          # Commit the version updates
+          commit_message="chore: release multi-workspace v$RELEASE_VERSION
+
+          Updated workspaces:
+          $(for release in "${RELEASES[@]}"; do
+            if [ -n "$release" ]; then
+              IFS=':' read -ra RELEASE_INFO <<< "$release"
+              echo "- ${RELEASE_INFO[0]}: ${RELEASE_INFO[1]} → ${RELEASE_INFO[2]}"
+            fi
+          done)"
+
+          git commit -m "$commit_message"
+
+          # Push release branch
+          git push origin "$RELEASE_BRANCH"
+
+      - name: Create Pull Request
+        if: steps.detect_changes.outputs.has_changes == 'true' && github.event.inputs.dry_run != 'true'
+        uses: actions/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ steps.create_release.outputs.release_branch }}
+          base: ${{ github.event.inputs.base_branch || 'main' }}
+          title: 'Release: Multi-workspace v${{ steps.create_release.outputs.release_version }}'
+          body: |
+            ## Multi-Workspace Release v${{ steps.create_release.outputs.release_version }}
+
+            This PR contains version updates for multiple workspaces based on conventional commit analysis.
+
+            ### Changed Workspaces
+            ${{ steps.detect_changes.outputs.changed_workspaces }}
+
+            ### Release Details
+            ```
+            ${{ steps.detect_changes.outputs.release_data }}
+            ```
+
+            ### Commit Analysis
+            This release was automatically generated by analyzing conventional commits since the last release.
+
+            - `feat(workspace):` → minor version bump
+            - `fix(workspace):` → patch version bump  
+            - `BREAKING CHANGE` or `feat(workspace)!:` → major version bump
+
+            ### Gitflow Process
+            1. ✅ Release branch created: `${{ steps.create_release.outputs.release_branch }}`
+            2. ✅ Workspace versions updated according to semver
+            3. ⏳ Ready for review and merge to `${{ github.event.inputs.base_branch || 'main' }}`
+
+            ---
+            *This PR was automatically created by the Multi-Workspace Release workflow.*
+          draft: false
+
+      - name: Summary
+        run: |
+          echo "## Multi-Workspace Release Summary" >> $GITHUB_STEP_SUMMARY
+
+          if [ "${{ steps.detect_changes.outputs.has_changes }}" = "true" ]; then
+            echo "### ✅ Changes Detected" >> $GITHUB_STEP_SUMMARY
+            echo "**Changed workspaces:** ${{ steps.detect_changes.outputs.changed_workspaces }}" >> $GITHUB_STEP_SUMMARY
+            
+            if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
+              echo "### 🔍 Dry Run Mode" >> $GITHUB_STEP_SUMMARY
+              echo "No actual changes were made. This was a preview of what would happen." >> $GITHUB_STEP_SUMMARY
+            else
+              echo "### 🚀 Release Created" >> $GITHUB_STEP_SUMMARY
+              echo "**Release branch:** ${{ steps.create_release.outputs.release_branch }}" >> $GITHUB_STEP_SUMMARY
+              echo "**Release version:** ${{ steps.create_release.outputs.release_version }}" >> $GITHUB_STEP_SUMMARY
+              echo "**Pull request:** Automatically created for review" >> $GITHUB_STEP_SUMMARY
+            fi
+          else
+            echo "### ℹ️ No Changes" >> $GITHUB_STEP_SUMMARY
+            echo "No workspaces have changes that require version updates." >> $GITHUB_STEP_SUMMARY
+          fi
