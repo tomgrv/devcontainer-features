@@ -54,6 +54,30 @@ fi
 # Start an interactive rebase with autosquash
 git rebase -i --autosquash $sha~ --autostash --no-verify --reschedule-failed-exec --exec 'git hook run --ignore-missing pre-commit -- HEAD HEAD~1 && git commit --amend --no-edit --no-verify' --no-verify
 
+while [ $? -eq 0 ]; do
+
+	# Check if there are any composer conflicts during the rebase
+	if grep -q "^<<<<<<< \|^======= \|^>>>>>>> " composer.lock; then
+		# accept incoming changes in composer.lock
+		git checkout --theirs composer.lock
+
+		# run composer lock to update the lock file
+		composer lock || zz_log e 'Please resolve composer.lock conflicts manually.'
+	fi
+
+	# Check if there are any package-lock conflicts during the rebase
+	if grep -q "^<<<<<<< \|^======= \|^>>>>>>> " package-lock.json; then
+		# accept incoming changes in package-lock.json
+		git checkout --theirs package-lock.json
+
+		# run npm install to update the lock file
+		npm install || zz_log e 'Please resolve package-lock.json conflicts manually.'
+	fi
+
+	# Continue the rebase process
+	git rebase --continue
+done
+
 # if rebase successful and push option is set, push force the changes
 if [ "$?" -eq 0 -a -n "$push" ]; then
 	# Check if the branch is already pushed
