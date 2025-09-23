@@ -6,12 +6,12 @@ This repository contains a collection of features that can be used to enhance th
 
 The features are organized in separate folders and can be used individually in a `devcontainer.json` file
 
-
 ## Installation
 
 Installation script can be run locally and/or in devcontainer environnement
 
 When run locally:
+
 - features are installed in local environment.
 - a `devcontainer.json` file is eventually created for remote development experience.
 
@@ -25,13 +25,13 @@ npx tomgrv/devcontainer-features -h
 npx tomgrv/devcontainer-features -s
 ```
 
-#### To install a specific devcontainer feature(s) 
+#### To install a specific devcontainer feature(s)
 
 ```sh
 npx tomgrv/devcontainer-features -- gitutils
 ```
 
-#### To setup a full dev environnement with 
+#### To setup a full dev environnement with
 
 - [GitUtils](./src/gitutils/)
 - [GitHooks](./src/githooks/)
@@ -39,6 +39,15 @@ npx tomgrv/devcontainer-features -- gitutils
 ```sh
 npx tomgrv/devcontainer-features -a
 ```
+
+## Release Management
+
+This repository supports automated multi-workspace releases with semantic versioning and conventional commits. See [Multi-Workspace Release Documentation](./docs/MULTI_WORKSPACE_RELEASE.md) for detailed information on:
+
+- **Automated Release Process**: Triggered manually via GitHub Actions
+- **Conventional Commits**: Automatic version bump calculation
+- **Gitflow Integration**: Proper release branch management
+- **Selective Updates**: Only changed workspaces get version bumps
 
 ## Features Overview
 
@@ -50,17 +59,17 @@ The [GitUtils](./src/gitutils/) feature installs a collection of Git utilities i
 
 Configure developpement environnement in one step in conjunction with following packages:
 
--   @commitlint/cli
--   @commitlint/config-conventional
--   @commitlint/core
--   @commitlint/cz-commitlint
--   commitizen
--   conventional-changelog-cli
--   devmoji
--   git-precommit-checks
--   lint-staged
--   prettier
--   sort-package-json
+- @commitlint/cli
+- @commitlint/config-conventional
+- @commitlint/core
+- @commitlint/cz-commitlint
+- commitizen
+- conventional-changelog-cli
+- devmoji
+- git-precommit-checks
+- lint-staged
+- prettier
+- sort-package-json
 
 ### GitVersion
 
