@@ -3,10 +3,23 @@ set -e
 
 echo "Installing package managers for GitHub Copilot Agent Environment..."
 
+# Define a simple logging function if zz_log is not available
+if ! command -v zz_log >/dev/null 2>&1; then
+    zz_log() {
+        case $1 in
+            "i") echo "→ $2" ;;
+            "s") echo "✔ $2" ;;
+            "w") echo "⚠ $2" ;;
+            "e") echo "✖ $2" ;;
+            *) echo "$*" ;;
+        esac
+    }
+fi
+
 # Get the package managers list from options
 PACKAGE_MANAGERS="${PACKAGEMANAGERS:-npm pip cargo}"
 
-zz_log i "Installing package managers: {B $PACKAGE_MANAGERS}"
+zz_log i "Installing package managers: $PACKAGE_MANAGERS"
 
 for manager in $PACKAGE_MANAGERS; do
     case $manager in
@@ -64,7 +77,7 @@ for manager in $PACKAGE_MANAGERS; do
             fi
             ;;
         *)
-            zz_log w "Unknown package manager: {B $manager}"
+            zz_log w "Unknown package manager: $manager"
             ;;
     esac
 done

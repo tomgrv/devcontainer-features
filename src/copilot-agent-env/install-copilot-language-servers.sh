@@ -3,17 +3,30 @@ set -e
 
 echo "Installing language servers for GitHub Copilot Agent Environment..."
 
+# Define a simple logging function if zz_log is not available
+if ! command -v zz_log >/dev/null 2>&1; then
+    zz_log() {
+        case $1 in
+            "i") echo "→ $2" ;;
+            "s") echo "✔ $2" ;;
+            "w") echo "⚠ $2" ;;
+            "e") echo "✖ $2" ;;
+            *) echo "$*" ;;
+        esac
+    }
+fi
+
 # Get the language servers list from options
 LANGUAGE_SERVERS="${LANGUAGESERVERS:-typescript python rust go}"
 
-zz_log i "Installing language servers: {B $LANGUAGE_SERVERS}"
+zz_log i "Installing language servers: $LANGUAGE_SERVERS"
 
 for server in $LANGUAGE_SERVERS; do
     case $server in
         "typescript"|"ts")
             zz_log i "Installing TypeScript language server..."
             if command -v npm >/dev/null 2>&1; then
-                npm install -g typescript @typescript-eslint/language-server
+                npm install -g typescript typescript-language-server
                 zz_log s "TypeScript language server installed"
             else
                 zz_log w "npm not found, skipping TypeScript language server"
@@ -55,7 +68,7 @@ for server in $LANGUAGE_SERVERS; do
             fi
             ;;
         *)
-            zz_log w "Unknown language server: {B $server}"
+            zz_log w "Unknown language server: $server"
             ;;
     esac
 done

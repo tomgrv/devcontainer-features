@@ -3,10 +3,23 @@ set -e
 
 echo "Installing development tools for GitHub Copilot Agent Environment..."
 
+# Define a simple logging function if zz_log is not available
+if ! command -v zz_log >/dev/null 2>&1; then
+    zz_log() {
+        case $1 in
+            "i") echo "→ $2" ;;
+            "s") echo "✔ $2" ;;
+            "w") echo "⚠ $2" ;;
+            "e") echo "✖ $2" ;;
+            *) echo "$*" ;;
+        esac
+    }
+fi
+
 # Get the development tools list from options
 DEVELOPMENT_TOOLS="${DEVELOPMENTTOOLS:-curl git jq tree ripgrep fd}"
 
-zz_log i "Installing development tools: {B $DEVELOPMENT_TOOLS}"
+zz_log i "Installing development tools: $DEVELOPMENT_TOOLS"
 
 # Update package lists
 if command -v apt-get >/dev/null 2>&1; then
@@ -84,7 +97,7 @@ for tool in $DEVELOPMENT_TOOLS; do
             zz_log s "fd installed"
             ;;
         *)
-            zz_log w "Unknown development tool: {B $tool}"
+            zz_log w "Unknown development tool: $tool"
             ;;
     esac
 done

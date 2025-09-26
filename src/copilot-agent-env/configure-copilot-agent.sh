@@ -1,6 +1,19 @@
 #!/bin/sh
 set -e
 
+# Define a simple logging function if zz_log is not available
+if ! command -v zz_log >/dev/null 2>&1; then
+    zz_log() {
+        case $1 in
+            "i") echo "→ $2" ;;
+            "s") echo "✔ $2" ;;
+            "w") echo "⚠ $2" ;;
+            "e") echo "✖ $2" ;;
+            *) echo "$*" ;;
+        esac
+    }
+fi
+
 zz_log i "Configuring GitHub Copilot Agent Environment..."
 
 # Get configuration from environment variables
@@ -65,8 +78,8 @@ alias diskusage='df -h'
 EOF
 
 zz_log s "GitHub Copilot Agent Environment configuration completed!"
-zz_log i "Available tools: {B $DEVELOPMENT_TOOLS}"
-zz_log i "Package managers: {B $PACKAGE_MANAGERS}"
+zz_log i "Available tools: $DEVELOPMENT_TOOLS"
+zz_log i "Package managers: $PACKAGE_MANAGERS"
 if [ "$ENABLE_LANGUAGE_SUPPORT" = "true" ]; then
-    zz_log i "Language servers: {B $LANGUAGE_SERVERS}"
+    zz_log i "Language servers: $LANGUAGE_SERVERS"
 fi
