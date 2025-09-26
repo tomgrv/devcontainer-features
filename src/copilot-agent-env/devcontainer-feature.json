@@ -1,0 +1,70 @@
+{
+    "id": "copilot-agent-env",
+    "name": "GitHub Copilot Agent Environment",
+    "description": "Preinstalls tools and dependencies for optimal GitHub Copilot agent performance",
+    "version": "1.0.0",
+    "dependsOn": {
+        "ghcr.io/devcontainers/features/common-utils": {}
+    },
+    "installsAfter": [
+        "ghcr.io/devcontainers/features/common-utils"
+    ],
+    "options": {
+        "languageServers": {
+            "type": "string",
+            "default": "typescript python rust go",
+            "description": "Language servers to install for better code understanding"
+        },
+        "developmentTools": {
+            "type": "string", 
+            "default": "curl git jq tree ripgrep fd",
+            "description": "Essential development tools for code analysis"
+        },
+        "packageManagers": {
+            "type": "string",
+            "default": "npm pip cargo",
+            "description": "Package managers for dependency installation"
+        },
+        "enableLanguageSupport": {
+            "type": "boolean",
+            "default": true,
+            "description": "Install language-specific tooling and runtime support"
+        }
+    },
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "terminal.integrated.defaultProfile.linux": "bash",
+                "terminal.integrated.profiles.linux": {
+                    "bash": {
+                        "path": "/bin/bash",
+                        "args": ["-l"]
+                    }
+                },
+                "files.associations": {
+                    "*.env*": "properties",
+                    "Dockerfile*": "dockerfile",
+                    "*.yml": "yaml",
+                    "*.yaml": "yaml"
+                },
+                "editor.suggest.snippetsPreventQuickSuggestions": false,
+                "editor.tabCompletion": "on",
+                "editor.wordBasedSuggestions": "matchingDocuments"
+            },
+            "extensions": [
+                "github.copilot",
+                "github.copilot-chat", 
+                "ms-vscode.vscode-json",
+                "ms-python.python",
+                "rust-lang.rust-analyzer",
+                "golang.go",
+                "ms-vscode.vscode-typescript-next",
+                "bradlc.vscode-tailwindcss",
+                "ms-vscode.vscode-node-azure-pack"
+            ]
+        }
+    },
+    "postCreateCommand": {
+        "config": "configure-feature copilot-agent-env"
+    }
+}

@@ -168,7 +168,8 @@
                     "gitversion",
                     "larasets",
                     "pecl",
-                    "common-utils"
+                    "common-utils",
+                    "copilot-agent-env"
                 ]
             ]
         }
@@ -200,5 +201,8 @@
         ".devcontainer/*": [
             "cp -u -t ./stubs/.devcontainer "
         ]
+    },
+    "dependencies": {
+        "prettier-plugin-sh": "^0.18.0"
     }
 }
