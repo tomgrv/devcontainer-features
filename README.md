@@ -78,6 +78,17 @@ The [PECL](./src/pecl/) feature installs the PHP Extension Community Library (PE
 
 More information about PECL can be found on the [PECL website](https://pecl.php.net/).
 
+### GitHub Copilot Agent Environment
+
+The [Copilot Agent Environment](./src/copilot-agent-env/) feature preinstalls tools and dependencies for optimal GitHub Copilot agent performance. This feature sets up development tools, language servers, package managers, and VS Code extensions that enhance the development experience when working with GitHub Copilot agents.
+
+Key features include:
+- Development tools (curl, git, jq, tree, ripgrep, fd)
+- Language servers for TypeScript, Python, Rust, and Go
+- Package managers (npm, pip, cargo)
+- Pre-configured VS Code settings and extensions for Copilot
+- Environment setup with useful aliases and PATH configuration
+
 ## Contributing
 
 If you have a feature that you would like to add to this repository, please open an issue or submit a pull request.
