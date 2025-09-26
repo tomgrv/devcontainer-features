@@ -168,7 +168,8 @@
                     "gitversion",
                     "larasets",
                     "pecl",
-                    "common-utils"
+                    "common-utils",
+                    "copilot-agent-env"
                 ]
             ]
         }
