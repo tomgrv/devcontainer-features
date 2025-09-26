@@ -1,10 +1,58 @@
 <!-- @format -->
 
-# AGENTS.md - Devcontainer Features Repository Guide
+# AGENTS.md
 
-This guide helps GitHub Copilot and other AI agents understand how to work effectively with the `tomgrv/devcontainer-features` repository. It provides comprehensive context about the repository structure, development patterns, and owner preferences.
+This file provides guidance to AI agents when working with code in the `tomgrv/devcontainer-features` repository.
 
-## Repository Overview
+## Common Commands
+
+### Essential Bootstrap (Development/Testing Only)
+
+```bash
+# DO NOT COMMIT these changes - for local development only
+cd /home/runner/work/devcontainer-features/devcontainer-features
+npm install && npm install prettier-plugin-sh
+find src/common-utils/ -type f -name "_*.sh" -exec chmod +x {} \;
+find src/common-utils/ -type f -name "_*.sh" | while read file; do
+    ln -sf $file src/common-utils/$(basename $file | sed 's/^_//;s/.sh$//')
+done
+ln -sf src/common-utils/_zz_log.sh src/common-utils/_zz_logs.sh
+```
+
+### Development
+
+- `npm install` - Install dependencies
+- `npm install prettier-plugin-sh` - Required for shell script linting
+- `npm run lint` - Lint staged files (1-15 seconds depending on staged files)
+- `npm test` - Run tests (currently shows warning - no tests exist)
+
+### Installation Commands
+
+- `./install.sh -s` - Install stubs only (10-15s, creates `.devcontainer/` and `.vscode/` configs)
+- `./install.sh -a` - Install all features (15-20s, full feature installation)
+- `./install.sh gitutils` - Install specific feature (5-10s)
+- `./install.sh -h` - Show help and available options
+
+### NPX Alternative
+
+- `npx tomgrv/devcontainer-features -h` - Help (2s cached)
+- `npx tomgrv/devcontainer-features -s` - Stubs only
+- `npx tomgrv/devcontainer-features -a` - All features
+- `npx tomgrv/devcontainer-features -- gitutils githooks` - Specific features
+
+### Testing & Validation
+
+```bash
+# Quick feature test in temporary environment
+mkdir /tmp/test-features && cd /tmp/test-features && git init
+/home/runner/work/devcontainer-features/devcontainer-features/install.sh -s
+ls -la .devcontainer/ .vscode/ # Verify files created
+
+# Pre-commit validation
+git add . && npm run lint # Lint staged changes
+```
+
+## High-Level Architecture
 
 **tomgrv/devcontainer-features** is a collection of VS Code Dev Container features that enhance development environments with Git utilities, hooks, version management, and specialized tools. The repository follows a modular architecture where each feature can be used independently or as part of a complete development setup.
 
@@ -15,11 +63,34 @@ This guide helps GitHub Copilot and other AI agents understand how to work effec
 - **Development automation**: Focus on Git workflows, commit standards, and developer productivity
 - **Container-first**: Designed primarily for devcontainer environments
 
+### Repository Structure
+
+```
+devcontainer-features/
+├── .github/
+│   ├── copilot-instructions.md         # Technical setup guide
+│   └── workflows/
+│       ├── validate.yml                # PR validation
+│       └── release.yaml                # Auto-publish features
+├── src/                                # Feature definitions
+│   ├── common-utils/                   # Foundation utilities
+│   ├── gitutils/                       # Git workflow tools
+│   ├── githooks/                       # Code quality hooks
+│   ├── gitversion/                     # Semantic versioning
+│   ├── act/                           # GitHub Actions locally
+│   ├── pecl/                          # PHP extensions
+│   └── larasets/                      # Laravel development
+├── stubs/                             # Template configurations
+│   ├── .devcontainer/                 # Container templates
+│   └── .vscode/                       # VS Code templates
+├── install.sh                         # Universal installer
+├── package.json                       # Project configuration
+└── AGENTS.md                          # This file
+```
+
 ## Repository Architecture
 
-### Features (`src/` directory)
-
-The repository contains 7 main devcontainer features:
+The repository contains 7 main devcontainer features that can be used independently or together:
 
 #### 1. **common-utils** (Foundation)
 
@@ -83,14 +154,14 @@ The repository contains 7 main devcontainer features:
 ### Key Configuration Files
 
 - **`package.json`**: Main project configuration with npm scripts, prettier settings, commitlint rules
-- **`install.sh`**: Universal installation script (⚠️ has known typo bug)
+- **`install.sh`**: Universal installation script (⚠️ has known typo bug on line 9)
 - **`.github/workflows/`**: CI/CD automation (`validate.yml`, `release.yaml`)
 - **`stubs/`**: Template files for `.devcontainer/` and `.vscode/` configurations
 - **`.github/copilot-instructions.md`**: Existing technical setup guide (complementary to this file)
 
-## Development Patterns & Owner Preferences
+## Development Patterns
 
-### Code Style & Standards
+### Code Style Standards
 
 ```json
 {
@@ -132,9 +203,9 @@ mkdir src/my-feature/stubs # Template files
 - **Automation**: GitVersion calculates versions from Git history
 - **Files**: Updates `package.json`, `composer.json`, `VERSION`
 
-## Common Development Workflows
+## Common Workflows
 
-### 🚀 Feature Development
+### Feature Development
 
 1. **Setup Environment** (use existing `.github/copilot-instructions.md` setup commands)
 2. **Create Feature Branch**: `git checkout -b feature/new-feature`
@@ -143,27 +214,27 @@ mkdir src/my-feature/stubs # Template files
 5. **Validate**: `npm run lint` (staged files only)
 6. **Commit**: Use conventional commit format
 
-### 🐛 Bug Fixes
+### Bug Fixes
 
 1. **Identify Scope**: Which feature(s) are affected
 2. **Minimal Changes**: Only modify necessary files
 3. **Test Fix**: Use temporary test environment
 4. **Validate**: Ensure existing functionality not broken
 
-### 📝 Documentation Updates
+### Documentation Updates
 
 1. **Feature README**: Update `src/feature/README.md`
 2. **Main README**: Update root `README.md` if adding new features
 3. **No Build Required**: Documentation changes don't need linting/building
 
-### 🔧 Configuration Changes
+### Configuration Changes
 
 1. **Feature Config**: `src/feature/devcontainer-feature.json`
 2. **Dependencies**: Update `dependsOn` and `installsAfter`
 3. **VSCode Settings**: Add to `customizations.vscode`
 4. **Validation**: Use devcontainer action to validate JSON
 
-## Installation & Usage Patterns
+## Installation Patterns
 
 ### NPX Installation (Recommended)
 
@@ -199,7 +270,7 @@ git clone https://github.com/tomgrv/devcontainer-features.git
 }
 ```
 
-## Troubleshooting Guide
+## Troubleshooting
 
 ### Common Issues
 
@@ -208,44 +279,12 @@ git clone https://github.com/tomgrv/devcontainer-features.git
 - **Install script typo** → Known issue in line 9, use workaround from copilot-instructions.md
 - **Symlink issues** → Run chmod and symlink commands from setup guide
 
-## Agent Guidelines
-
-### When Working on This Repository
-1. **Read copilot-instructions.md first**: Contains critical setup commands and known issues
-2. **Focus on specific features**: Don't make repository-wide changes unless requested
-3. **Respect modular architecture**: Each feature should be self-contained
-4. **Test changes**: Use temporary environments, don't commit test artifacts
-5. **Follow existing patterns**: Match coding style, commit format, and file organization
-
-### Workflow Automation Preferences
-The repository owner (tomgrv) heavily values automation and developer productivity:
-
-#### Git Workflow Automation
-- **Aliases for Speed**: Provides 40+ Git aliases for common operations
-- **Interactive Tools**: Prefers tools that guide users through complex operations
-- **Conventional Commits**: Strictly enforces commit message standards
-- **Automated Versioning**: Uses GitVersion for semantic release automation
-
-#### Code Quality Automation  
-- **Pre-commit Hooks**: Automatically formats and validates code before commits
-- **Lint-staged**: Only processes changed files for efficiency
-- **JSON Normalization**: Automatically formats and validates JSON configurations
-- **Prettier Integration**: Consistent code formatting across all file types
-
-#### Development Environment Automation
-- **One-command Setup**: `install.sh -a` sets up complete development environment
-- **Template Generation**: Stub files automatically configure containers and VS Code
-- **Dependency Management**: Features automatically install required dependencies
-- **Container Integration**: Seamless integration with VS Code Dev Containers
-
 ### Performance Expectations
 
 - **npm install**: ~3 seconds
 - **./install.sh -s**: 10-15 seconds
 - **./install.sh -a**: 15-20 seconds
 - **npm run lint**: 1-15 seconds (depending on staged files)
-- **Automation over Manual**: If doing something twice, create a script/alias
-- **Developer Experience**: Optimize for developer productivity and ease of use
 
 ### Environment Notes
 
@@ -253,17 +292,40 @@ The repository owner (tomgrv) heavily values automation and developer productivi
 - **"No writeable directory"**: Normal message for local installation
 - **Docker Dependencies**: Some features require Docker/container environment
 
-- Don't create manual processes where automation is possible
-- Don't ignore existing linting and formatting rules
 ## Agent Guidelines
 
-### When Working on This Repository
+### Working with This Repository
 
 1. **Read copilot-instructions.md first**: Contains critical setup commands and known issues
 2. **Focus on specific features**: Don't make repository-wide changes unless requested
 3. **Respect modular architecture**: Each feature should be self-contained
 4. **Test changes**: Use temporary environments, don't commit test artifacts
 5. **Follow existing patterns**: Match coding style, commit format, and file organization
+
+### Owner Preferences
+
+The repository owner (tomgrv) heavily values automation and developer productivity:
+
+#### Git Workflow Automation
+
+- **Aliases for Speed**: Provides 40+ Git aliases for common operations
+- **Interactive Tools**: Prefers tools that guide users through complex operations
+- **Conventional Commits**: Strictly enforces commit message standards
+- **Automated Versioning**: Uses GitVersion for semantic release automation
+
+#### Code Quality Automation
+
+- **Pre-commit Hooks**: Automatically formats and validates code before commits
+- **Lint-staged**: Only processes changed files for efficiency
+- **JSON Normalization**: Automatically formats and validates JSON configurations
+- **Prettier Integration**: Consistent code formatting across all file types
+
+#### Development Environment Automation
+
+- **One-command Setup**: `install.sh -a` sets up complete development environment
+- **Template Generation**: Stub files automatically configure containers and VS Code
+- **Dependency Management**: Features automatically install required dependencies
+- **Container Integration**: Seamless integration with VS Code Dev Containers
 
 ### Best Practices
 
@@ -272,107 +334,8 @@ The repository owner (tomgrv) heavily values automation and developer productivi
 - **Respect dependencies**: Understand feature dependency chain
 - **Document changes**: Update README files when adding features
 - **Test thoroughly**: Use install.sh to validate changes work
-## Quick Reference Commands
-
-### Essential Bootstrap (Development/Testing Only)
-```bash
-# Core setup - DO NOT COMMIT these changes
-cd /home/runner/work/devcontainer-features/devcontainer-features
-npm install && npm install prettier-plugin-sh
-find src/common-utils/ -type f -name "_*.sh" -exec chmod +x {} \;
-find src/common-utils/ -type f -name "_*.sh" | while read file; do 
-  ln -sf $file src/common-utils/$(basename $file | sed 's/^_//;s/.sh$//'); 
-done
-ln -sf src/common-utils/_zz_log.sh src/common-utils/_zz_logs.sh
-```
-
-### Testing & Validation
-```bash
-# Quick feature test
-mkdir /tmp/test-features && cd /tmp/test-features && git init
-/home/runner/work/devcontainer-features/devcontainer-features/install.sh -s
-ls -la .devcontainer/ .vscode/
-
-# Lint staged changes
-git add . && npm run lint
-
-# Test specific feature
-./install.sh gitutils
-```
-
-### NPX Commands
-```bash
-npx tomgrv/devcontainer-features -h      # Help
-npx tomgrv/devcontainer-features -s      # Stubs only  
-npx tomgrv/devcontainer-features -a      # All features
-npx tomgrv/devcontainer-features -- gitutils githooks  # Specific features
-```
-
-## File Structure Reference
-
-```
-devcontainer-features/
-├── .github/
-│   ├── copilot-instructions.md         # Technical setup guide
-│   └── workflows/
-│       ├── validate.yml                # PR validation
-│       └── release.yaml                # Auto-publish features
-├── src/                                # Feature definitions
-│   ├── common-utils/                   # Foundation utilities
-│   ├── gitutils/                       # Git workflow tools
-│   ├── githooks/                       # Code quality hooks
-│   ├── gitversion/                     # Semantic versioning
-│   ├── act/                           # GitHub Actions locally
-│   ├── pecl/                          # PHP extensions
-│   └── larasets/                      # Laravel development
-├── stubs/                             # Template configurations
-│   ├── .devcontainer/                 # Container templates
-│   └── .vscode/                       # VS Code templates
-├── install.sh                         # Universal installer
-├── package.json                       # Project configuration
-└── AGENTS.md                          # This file
-```
-
-## Owner Communication Style
-
-### Commit Message Preferences
-- **Format**: `type(scope): description`
-- **Types**: feat, fix, chore, docs, style, refactor, perf, test
-- **Scopes**: Feature names (gitutils, githooks, etc.)
-- **Style**: Imperative mood, lowercase, no period
-
-### Code Review Expectations  
-- **Focus**: Minimal changes, surgical fixes
-- **Testing**: Evidence that changes work (screenshots for UI, test output for features)
-- **Documentation**: Update READMEs for new features or significant changes
-- **Backwards Compatibility**: Don't break existing feature dependencies
-
-### Communication Patterns
-- **Technical**: Prefers specific, actionable feedback
-- **Automation**: Values tools over manual processes
-- **Modularity**: Appreciates clean separation of concerns
-- **Developer Experience**: Focuses on improving development workflows
-
-## Technical Context
-
-### Known Limitations
-- **Container Focus**: Some features only work in devcontainer environments
-- **Docker Dependencies**: act and larasets require Docker-in-Docker
-- **PHP Version Constraints**: pecl requires PHP 8.2+, larasets uses PHP 8.3
-- **Node Dependencies**: Several features require Node.js LTS
-
-### Performance Considerations
-- **Feature Loading**: common-utils should load first (dependency order)
-- **Installation Time**: Full setup takes 15-20 seconds
-- **Resource Usage**: Docker-based features consume more resources
-- **Network Dependency**: Features download from GitHub Container Registry
-
-### Security Notes
-- **Symlinks**: Temporary symlinks for development should not be committed
-- **Permissions**: Shell scripts need execute permissions
-- **Environment Variables**: larasets includes development-specific env vars
-- **Docker Access**: Some features require elevated Docker permissions
-
+- **Automation over Manual**: If doing something twice, create a script/alias
+- **Developer Experience**: Optimize for developer productivity and ease of use
 
 ### What NOT to Do
 
@@ -381,6 +344,31 @@ devcontainer-features/
 - Don't change repository structure without explicit request
 - Don't break existing feature dependencies
 - Don't commit temporary test files or environments
+- Don't create manual processes where automation is possible
+- Don't ignore existing linting and formatting rules
+
+## Technical Context
+
+### Known Limitations
+
+- **Container Focus**: Some features only work in devcontainer environments
+- **Docker Dependencies**: act and larasets require Docker-in-Docker
+- **PHP Version Constraints**: pecl requires PHP 8.2+, larasets uses PHP 8.3
+- **Node Dependencies**: Several features require Node.js LTS
+
+### Performance Considerations
+
+- **Feature Loading**: common-utils should load first (dependency order)
+- **Installation Time**: Full setup takes 15-20 seconds
+- **Resource Usage**: Docker-based features consume more resources
+- **Network Dependency**: Features download from GitHub Container Registry
+
+### Security Notes
+
+- **Symlinks**: Temporary symlinks for development should not be committed
+- **Permissions**: Shell scripts need execute permissions
+- **Environment Variables**: larasets includes development-specific env vars
+- **Docker Access**: Some features require elevated Docker permissions
 
 ## Integration Points
 
@@ -401,4 +389,4 @@ devcontainer-features/
 - **Versioning**: Semantic versioning with Git tags
 - **Dependencies**: Features can depend on other published features
 
-This guide should help agents understand the repository structure, respect the owner's development patterns, and make effective contributions while maintaining the modular, automation-focused philosophy of the project.
+This guide helps agents understand the repository structure, respect the owner's development patterns, and make effective contributions while maintaining the modular, automation-focused philosophy of the project.
