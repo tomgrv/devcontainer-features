@@ -57,25 +57,29 @@ git rebase -i --autosquash $sha~ --autostash --no-verify --reschedule-failed-exe
 while [ $? -eq 0 ]; do
 
 	# Check if there are any composer conflicts during the rebase
-	if grep -q "^<<<<<<< \|^======= \|^>>>>>>> " composer.lock; then
-		# accept incoming changes in composer.lock
-		git checkout --theirs composer.lock
+	if [ -f composer.lock ]; then
+		if grep -q "^<<<<<<< \|^======= \|^>>>>>>> " composer.lock; then
+			# accept incoming changes in composer.lock
+			git checkout --theirs composer.lock
 
-		# run composer lock to update the lock file
-		composer lock || zz_log e 'Please resolve composer.lock conflicts manually.'
+			# run composer lock to update the lock file
+			composer lock || zz_log e 'Please resolve composer.lock conflicts manually.'
+		fi
 	fi
 
 	# Check if there are any package-lock conflicts during the rebase
-	if grep -q "^<<<<<<< \|^======= \|^>>>>>>> " package-lock.json; then
-		# accept incoming changes in package-lock.json
-		git checkout --theirs package-lock.json
+	if [ -f package-lock.json ]; then
+		if grep -q "^<<<<<<< \|^======= \|^>>>>>>> " package-lock.json; then
+			# accept incoming changes in package-lock.json
+			git checkout --theirs package-lock.json
 
-		# run npm install to update the lock file
-		npm install || zz_log e 'Please resolve package-lock.json conflicts manually.'
+			# run npm install to update the lock file
+			npm install || zz_log e 'Please resolve package-lock.json conflicts manually.'
+		fi
 	fi
 
 	# Continue the rebase process
-	git rebase --continue
+	git rebase --continue 
 done
 
 # if rebase successful and push option is set, push force the changes
