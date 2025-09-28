@@ -1,0 +1,9 @@
+{
+    "name": "@tomgrv/githooks",
+    "version": "0.1.0",
+    "description": "Minimal package file for githooks workspace",
+    "config": {
+        "sync-version": "devcontainer-feature.json"
+    },
+    "private": true
+}

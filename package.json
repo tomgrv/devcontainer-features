@@ -1,6 +1,6 @@
 {
     "name": "@tomgrv/devcontainer-features",
-    "version": "1.0.0",
+    "version": "1.3.0",
     "description": "Configure dev environment with devcontainer, gitflow, gitversion, git aliases & hooks. Can be used a devcontainer features",
     "keywords": [
         "dev",
@@ -102,12 +102,20 @@
                 "type": "json"
             },
             {
+                "filename": "package.json",
+                "type": "json@ws"
+            },
+            {
+                "filename": "devcontainer-feature.json",
+                "type": "json@ws"
+            },
+            {
                 "filename": "VERSION",
                 "type": "plain-text"
             }
         ],
         "scripts": {
-            "prebump": "gitversion -config .gitversion -showvariable MajorMinorPatch"
+            "prebump": "bump-version -d | awk '{print $2}'"
         },
         "types": [
             {

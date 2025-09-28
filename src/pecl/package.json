@@ -1,0 +1,9 @@
+{
+    "name": "@tomgrv/pecl",
+    "version": "0.0.0",
+    "description": "Minimal package file for pecl workspace",
+    "config": {
+        "sync-version": "devcontainer-feature.json"
+    },
+    "private": true
+}

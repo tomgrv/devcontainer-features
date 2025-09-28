@@ -1,0 +1,9 @@
+{
+    "name": "@tomgrv/gitutils",
+    "version": "0.1.0",
+    "description": "Minimal package file for gitutils workspace",
+    "config": {
+        "sync-version": "devcontainer-feature.json"
+    },
+    "private": true
+}

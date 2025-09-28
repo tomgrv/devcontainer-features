@@ -1,0 +1,9 @@
+{
+    "name": "@tomgrv/common-utils",
+    "version": "0.1.0",
+    "description": "Minimal package file for common-utils workspace",
+    "config": {
+        "sync-version": "devcontainer-feature.json"
+    },
+    "private": true
+}

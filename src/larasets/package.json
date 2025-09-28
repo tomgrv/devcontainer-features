@@ -1,0 +1,9 @@
+{
+    "name": "@tomgrv/larasets",
+    "version": "0.0.1",
+    "description": "Minimal package file for larasets workspace",
+    "config": {
+        "sync-version": "devcontainer-feature.json"
+    },
+    "private": true
+}
