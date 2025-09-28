@@ -125,6 +125,7 @@ list_changelog_range() {
 # Automatically determine the next version based on git history and conventional commits
 # Parameters: range (git range specification)
 # Analyzes commits since the last tag to determine version bump (patch, minor, major)
+# Handles full semver format including pre-release and build metadata
 # Returns the next semantic version number
 auto_determine_version() {
     local range="$1"
@@ -140,9 +141,13 @@ auto_determine_version() {
 
     # Extract version numbers from tag (remove 'v' prefix if present)
     local version_num=$(echo "$latest_tag" | sed 's/^v//')
-    local major=$(echo "$version_num" | cut -d. -f1)
-    local minor=$(echo "$version_num" | cut -d. -f2)
-    local patch=$(echo "$version_num" | cut -d. -f3)
+    
+    # Handle full semver format by extracting only the core version (major.minor.patch)
+    # This handles cases like "1.2.3-alpha.1" or "1.2.3+build.1"
+    local core_version=$(echo "$version_num" | sed 's/[-+].*//')
+    local major=$(echo "$core_version" | cut -d. -f1)
+    local minor=$(echo "$core_version" | cut -d. -f2)
+    local patch=$(echo "$core_version" | cut -d. -f3)
 
     # Analyze commits using the provided range to determine bump type
     local bump_type=$(git log --oneline --format="%s" "$range" 2> /dev/null \
@@ -167,7 +172,7 @@ auto_determine_version() {
         "major") echo "$((major + 1)).0.0" ;;
         "minor") echo "${major}.$((minor + 1)).0" ;;
         "patch") echo "${major}.${minor}.$((patch + 1))" ;;
-        *) echo "$version_num" ;;  # No changes detected, keep the same version
+        *) echo "$core_version" ;;  # No changes detected, keep the same core version
     esac
 }
 

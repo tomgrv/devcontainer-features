@@ -370,6 +370,9 @@ else
     exit 1
 fi
 
+# Echo version to stdout for consumption by calling scripts
+echo "$version"
+
 # If tag flag is set, create git tag after bumping files
 if [ -n "$tag" ]; then
     zz_log i "Creating git tag for version $version using bump-tag"
