@@ -37,21 +37,16 @@ if [ -z "$flow" ] || [ -z "$name" ]; then
     exit 1
 fi
 
-# Get bump version from gitversion
-GBV=$(gitversion -config .gitversion -showvariable MajorMinorPatch)
-if [ -z "$GBV" ]; then
-    zz_log e "Cannot get version from .gitversion"
-    exit 1
-fi
-
-zz_log i "Bump version: {Blue $GBV}"
 
 # Prevent git editor prompt during finish
 GIT_EDITOR=:
 
 # Update version, changelog, and finish release
-if npx --yes commit-and-tag-version --skip.tag --no-verify --release-as $GBV; then
-    if git flow $flow finish $name --tagname $GBV --message $GBV --push; then
+#if npx --yes commit-and-tag-version --commit-all --skip.tag --no-verify; then
+GBV=$(bump-changelog -b -m)
+if [ "$?" -eq 0 ] && [ -n "$GBV" ]; then
+    zz_log s "Version & CHANGELOG updated to: {B $GBV}"
+    if git flow $flow finish $name --push; then
         zz_log s "Release finished: {B $GBV}"
         rm -f .git/RELEASE
     else
@@ -63,4 +58,4 @@ else
 fi
 
 # Follow major/minor tags
-$(dirname $0)/_release-tags.sh $GBV
+bump-tag $GBV
