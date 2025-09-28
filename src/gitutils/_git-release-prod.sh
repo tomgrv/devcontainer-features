@@ -46,6 +46,7 @@ GIT_EDITOR=:
 GBV=$(bump-changelog -b -m)
 if [ "$?" -eq 0 ] && [ -n "$GBV" ]; then
     zz_log s "Version & CHANGELOG updated to: {B $GBV}"
+    git commit -am "chore(release): $GBV"
     if git flow $flow finish $name --push; then
         zz_log s "Release finished: {B $GBV}"
         rm -f .git/RELEASE
