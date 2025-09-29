@@ -68,11 +68,15 @@ else
     zz_log s "Tag from gitversion: $tag"
 fi
 
-# Create tag if needed
+# Create or move tag
 if [ -z "$found" ]; then
     zz_log w "No tags found in the repository, creating a new tag: $tag"
     git tag ${force:+-f} $tag $blame_commit || exit 1
     zz_log i "Tag $tag created successfully"
+elif [ -n "$force" ]; then
+    zz_log w "Force flag set, moving existing tag $tag to current commit"
+    git tag -f $tag $blame_commit || exit 1
+    zz_log i "Tag $tag moved successfully"
 else
     zz_log i "Tag $tag already exists as $found"
     tag=$found
