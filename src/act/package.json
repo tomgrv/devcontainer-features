@@ -1,9 +1,22 @@
 {
     "name": "@tomgrv/act",
     "version": "0.0.0",
-    "description": "Minimal package file for act workspace",
-    "config": {
-        "sync-version": "devcontainer-feature.json"
+    "description": "Nektos Act - GitHub Actions local runner integration",
+    "files": [
+        "_*.sh",
+        "install.sh",
+        "install-act.sh",
+        "stubs/**/*"
+    ],
+    "bin": {
+        "act-reset": "./_act-reset.sh",
+        "act-run": "./_act-run.sh"
     },
-    "private": true
+    "scripts": {
+        "install-act": "./install-act.sh",
+        "postinstall": "./install.sh"
+    },
+    "dependencies": {
+        "act": "^0.2.60"
+    }
 }

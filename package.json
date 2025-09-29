@@ -55,6 +55,10 @@
             "githooks"
         ]
     },
+    "devDependencies": {
+        "npm-check-updates": "^16.14.6",
+        "prettier-plugin-sh": "^0.14.0"
+    },
     "peerDependencies": {
         "@commitlint/cli": "^19.2.2",
         "@commitlint/config-conventional": "^19.2.2",
@@ -69,6 +73,7 @@
         "lint-staged": "^15.2.2",
         "prettier": "^3.2.5"
     },
+    "private": true,
     "workspaces": [
         "src/*"
     ],

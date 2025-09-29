@@ -1,9 +1,14 @@
 {
     "name": "@tomgrv/pecl",
     "version": "0.0.0",
-    "description": "Minimal package file for pecl workspace",
-    "config": {
-        "sync-version": "devcontainer-feature.json"
+    "description": "PECL extension installer for PHP development",
+    "files": [
+        "install.sh"
+    ],
+    "scripts": {
+        "postinstall": "./install.sh"
     },
-    "private": true
+    "peerDependencies": {
+        "php": ">=8.2.0"
+    }
 }
