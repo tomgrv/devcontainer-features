@@ -31,10 +31,6 @@
         "cmd": "git tag -l \"$1\" | xargs -r -n 1 sh -c 'git push --delete origin \"\\$0\"; git tag -d \"\\$0\"'",
         "help": "Delete a tag locally and remotely."
     },
-    "editLast": {
-        "cmd": "git commit --amend --edit",
-        "help": "Edit the last commit message and content."
-    },
     "feat": {
         "cmd": "git flow feature start $1",
         "help": "Start a new git flow feature branch."
@@ -46,14 +42,6 @@
     "fixAliases": {
         "cmd": "git config remove-section --global alias; git config remove-section  --local alias",
         "help": "Remove all git aliases from global/local config."
-    },
-    "fixAuthor": {
-        "cmd": "git config --global --remove-section user; git getcommit -f $1 | xargs -I {} sh -c 'git config user.name $(git log -1 --pretty=format:'%an' {}); git config user.email $(git log -1 --pretty=format:'%ae' {})'",
-        "help": "Set user.name and user.email to specified commit's author."
-    },
-    "fixMode": {
-        "cmd": "git fix mode",
-        "help": "Restore file mode changes from diff."
     },
     "forceable": {
         "cmd": "git log --oneline $(echo $(git rev-parse --abbrev-ref --symbolic-full-name @{u} || git merge-base HEAD develop;git log --merges --first-parent -1 --pretty=%h)| tail -1)..HEAD $*",
