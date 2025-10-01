@@ -2,10 +2,10 @@
     "id": "gitversion",
     "name": "GitVersion feature",
     "description": "Add gitversion to your devcontainer",
-    "version": "5.26.0",
+    "version": "5.27.0",
     "dependsOn": {
         "ghcr.io/devcontainers/features/dotnet": "",
-        "ghcr.io/tomgrv/devcontainer-features/common-utils:3": ""
+        "ghcr.io/tomgrv/devcontainer-features/common-utils:5": ""
     },
     "installsAfter": [
         "ghcr.io/tomgrv/devcontainer-features/common-utils",

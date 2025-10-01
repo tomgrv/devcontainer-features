@@ -21,60 +21,6 @@ help
 # Change to repository root to ensure we're working from the correct directory
 cd "$(git rev-parse --show-toplevel)" > /dev/null
 
-# ===== WORKSPACE MANAGEMENT FUNCTIONS =====
-
-# Get workspace directories from package.json workspaces configuration
-# Returns list of workspace directories, falls back to all subdirectories if no workspaces config
-get_workspace_dirs() {
-    if [ -f "package.json" ] && command -v jq > /dev/null 2>&1; then
-        # Try to get workspaces array from package.json
-        local workspaces=$(jq -r '.workspaces[]? // empty' package.json 2> /dev/null)
-
-        if [ -n "$workspaces" ]; then
-            # Use configured workspaces
-            echo "$workspaces" | while read -r workspace_pattern; do
-                # Handle glob patterns by expanding them
-                if echo "$workspace_pattern" | grep -q '\*'; then
-                    # Use find to expand glob patterns like "packages/*"
-                    find . -path "./$workspace_pattern" -type d -mindepth 1 -maxdepth 2 2> /dev/null || true
-                else
-                    # Direct path
-                    if [ -d "$workspace_pattern" ]; then
-                        echo "$workspace_pattern"
-                    fi
-                fi
-            done
-        else
-            # Fallback to all subdirectories
-            find . -type d -mindepth 1 -maxdepth 1
-        fi
-    else
-        # Fallback to all subdirectories when package.json or jq not available
-        find . -type d -mindepth 1 -maxdepth 1
-    fi
-}
-
-# Get affected workspace names from commit history for a given range
-# Parameters: range (git range specification)
-# Returns list of workspace names that have commits with matching scopes
-get_affected_workspaces() {
-    local range="$1"
-
-    # Extract scopes from commits and match against workspace names
-    git log --oneline --format="%s" "$range" 2> /dev/null \
-        | sed -n 's/^[^(]*(\([^)]*\)):.*/\1/p' \
-        | sort -u \
-        | while read -r commit_scope; do
-            # Check if this scope matches any workspace directory
-            get_workspace_dirs | while read -r workspace_dir; do
-                local workspace_name=$(basename "$workspace_dir")
-                if [ "$commit_scope" = "$workspace_name" ]; then
-                    echo "$workspace_dir"
-                fi
-            done
-        done | sort -u
-}
-
 # ===== VERSION DETERMINATION FUNCTIONS =====
 
 # Get all git tags in reverse chronological order (newest first)
@@ -286,14 +232,14 @@ update_files() {
                     return 1
                 fi
                 zz_log i "Minimal mode: only bumping workspaces with related commits"
-                workspace_list=$(get_affected_workspaces "$range")
+                workspace_list=$(git workspaces -r "$range")
 
                 if [ -z "$workspace_list" ]; then
                     zz_log w "No workspaces affected by recent commits - skipping workspace updates"
                     return
                 fi
             else
-                workspace_list=$(get_workspace_dirs)
+                workspace_list=$(git workspaces)
             fi
 
             zz_log i "Bumping version in $filename across workspaces to $version"

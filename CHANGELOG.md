@@ -2,6 +2,36 @@
 
 # Changelog
 
+## v5.27.0 (2025-10-01)
+
+_Commits from: v5.26.0..HEAD_
+
+### 📂 Unscoped changes
+
+#### Bug Fixes
+
+- 🐛 update dependencies ([ed2465e](https://github.com/tomgrv/devcontainer-features/commit/ed2465e7570eec12a4847bed00bafa6967746251))
+
+#### Other changes
+
+- Merge tag 'v5.26.0' into develop ([11f0ad3](https://github.com/tomgrv/devcontainer-features/commit/11f0ad30b2eae7e3faca69a3c426800cb887151d))
+
+### 📦 gitutils changes
+
+#### Bug Fixes
+
+- 🐛 improve error handling for version & CHANGELOG commit ([569cb42](https://github.com/tomgrv/devcontainer-features/commit/569cb423e9d10643d902418c9391f907f524f24c))
+
+#### Features
+
+- ✨ list workspace directories and affected workspaces ([6acab47](https://github.com/tomgrv/devcontainer-features/commit/6acab47128b8119dbfad544dc63e5e081d59c479))
+
+### 📦 gitversion changes
+
+#### Other changes
+
+- ♻️ 🛠️ use git workspaces command ([82ac773](https://github.com/tomgrv/devcontainer-features/commit/82ac77387d98f1d9bedf254db2eb334ef0185853))
+
 ## v5.26.0 (2025-10-01)
 
 _Commits from: v5.25.0..HEAD_
