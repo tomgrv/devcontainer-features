@@ -28,7 +28,10 @@ if [ -z "$flow" ] && [ -f .git/RELEASE ]; then
     flow=release
     name=$(cat .git/RELEASE)
     zz_log i "Release branch found: {Blue $name}"
-    git checkout $flow/$name
+    if ! git checkout $flow/$named; then
+        zz_log e "Cannot switch to $flow/$name branch"
+        exit 1
+    fi
 fi
 
 # Exit if no flow branch is found
@@ -49,9 +52,12 @@ if [ "$?" -eq 0 ] && [ -n "$GBV" ]; then
     if ! git commit -am "chore(release): $GBV"; then
         zz_log e "Cannot commit version & CHANGELOG"
         exit 1
+    else
+        git push origin $flow/$name
+        zz_log s "Version & CHANGELOG committed and pushed"
     fi
 
-    if git flow $flow finish $name --push; then
+    if git flow $flow finish $name --push --message "git flow release" --showcommands  ; then
         zz_log s "Release finished: {B $GBV}"
         rm -f .git/RELEASE
     else
