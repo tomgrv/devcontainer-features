@@ -1,37 +1,37 @@
 {
-    "name": "@tomgrv/larasets",
-    "version": "5.26.0",
-    "description": "Laravel development settings and utilities",
-    "files": [
-        "_*.sh",
-        "_*.json",
-        "_*.composer.json",
-        "configure-*.sh",
-        "install.sh",
-        "stubs/**/*"
-    ],
-    "bin": {
-        "art": "./_art.sh",
-        "dep": "./_dep.sh",
-        "fwd": "./_fwd.sh",
-        "run": "./_run.sh",
-        "sail": "./_sail.sh",
-        "secret": "./_secret.sh",
-        "seed": "./_seed.sh",
-        "srv": "./_srv.sh"
-    },
-    "scripts": {
-        "configure-composer": "./configure-composer.sh",
-        "configure-deployer": "./configure-deployer.sh",
-        "configure-sail": "./configure-sail.sh",
-        "test": "echo \"Warning: no test specified\"",
-        "update": "npm-check-updates -i -u",
-        "update-all": "npm run update -ws --root"
-    },
-    "dependencies": {
-        "npm-check-updates": "*"
-    },
-    "peerDependencies": {
-        "@tomgrv/common-utils": "^5.0.0"
-    }
+  "name": "@tomgrv/larasets",
+  "version": "5.28.1",
+  "description": "Laravel development settings and utilities",
+  "files": [
+    "_*.sh",
+    "_*.json",
+    "_*.composer.json",
+    "configure-*.sh",
+    "install.sh",
+    "stubs/**/*"
+  ],
+  "bin": {
+    "art": "./_art.sh",
+    "dep": "./_dep.sh",
+    "fwd": "./_fwd.sh",
+    "run": "./_run.sh",
+    "sail": "./_sail.sh",
+    "secret": "./_secret.sh",
+    "seed": "./_seed.sh",
+    "srv": "./_srv.sh"
+  },
+  "scripts": {
+    "configure-composer": "./configure-composer.sh",
+    "configure-deployer": "./configure-deployer.sh",
+    "configure-sail": "./configure-sail.sh",
+    "test": "echo \"Warning: no test specified\"",
+    "update": "npm-check-updates -i -u",
+    "update-all": "npm run update -ws --root"
+  },
+  "dependencies": {
+    "npm-check-updates": "*"
+  },
+  "peerDependencies": {
+    "@tomgrv/common-utils": "^5.0.0"
+  }
 }

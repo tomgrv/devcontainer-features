@@ -1,18 +1,18 @@
 {
-    "name": "@tomgrv/act",
-    "version": "0.0.0",
-    "description": "Nektos Act - GitHub Actions local runner integration",
-    "files": [
-        "_*.sh",
-        "install.sh",
-        "install-act.sh",
-        "stubs/**/*"
-    ],
-    "bin": {
-        "act-reset": "./_act-reset.sh",
-        "act-run": "./_act-run.sh"
-    },
-    "scripts": {
-        "install-act": "./install-act.sh"
-    }
+  "name": "@tomgrv/act",
+  "version": "5.28.1",
+  "description": "Nektos Act - GitHub Actions local runner integration",
+  "files": [
+    "_*.sh",
+    "install.sh",
+    "install-act.sh",
+    "stubs/**/*"
+  ],
+  "bin": {
+    "act-reset": "./_act-reset.sh",
+    "act-run": "./_act-run.sh"
+  },
+  "scripts": {
+    "install-act": "./install-act.sh"
+  }
 }

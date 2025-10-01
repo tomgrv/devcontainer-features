@@ -1,216 +1,216 @@
 {
-    "name": "@tomgrv/devcontainer-features",
-    "version": "5.28.0",
-    "description": "Configure dev environment with devcontainer, gitflow, gitversion, git aliases & hooks. Can be used a devcontainer features",
-    "keywords": [
-        "dev",
-        "git",
-        "hooks",
-        "commitlint",
-        "commitizen",
-        "lint-staged",
-        "prettier",
-        "devmoji",
-        "git-precommit-checks",
-        "husky",
-        "conventional-changelog",
-        "gitversion",
-        "gitflow",
-        "changelog",
-        "semver"
-    ],
-    "homepage": "https://github.com/tomgrv/devcontainer-features#readme",
-    "bugs": {
-        "email": "project@hostname.com",
-        "url": "https://github.com/tomgrv/devcontainer-features/issues"
+  "name": "@tomgrv/devcontainer-features",
+  "version": "5.28.1",
+  "description": "Configure dev environment with devcontainer, gitflow, gitversion, git aliases & hooks. Can be used a devcontainer features",
+  "keywords": [
+    "dev",
+    "git",
+    "hooks",
+    "commitlint",
+    "commitizen",
+    "lint-staged",
+    "prettier",
+    "devmoji",
+    "git-precommit-checks",
+    "husky",
+    "conventional-changelog",
+    "gitversion",
+    "gitflow",
+    "changelog",
+    "semver"
+  ],
+  "homepage": "https://github.com/tomgrv/devcontainer-features#readme",
+  "bugs": {
+    "email": "project@hostname.com",
+    "url": "https://github.com/tomgrv/devcontainer-features/issues"
+  },
+  "author": "tomgrv",
+  "files": [
+    "./src/*",
+    "./stubs/*"
+  ],
+  "bin": "./install.sh",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tomgrv/devcontainer-features.git"
+  },
+  "funding": {
+    "type": "individual",
+    "url": "https://buymeacoffee.com/tomgrv"
+  },
+  "scripts": {
+    "lint": "npx --yes lint-staged",
+    "release": "npx --yes commit-and-tag-version --no-verify --",
+    "test": "echo \"Warning: no test specified\"",
+    "update": "npm-check-updates -i -u",
+    "update-all": "npm run update -ws --root"
+  },
+  "config": {
+    "commitizen": {
+      "path": "@commitlint/cz-commitlint"
     },
-    "author": "tomgrv",
-    "files": [
-        "./src/*",
-        "./stubs/*"
-    ],
-    "bin": "./install.sh",
-    "type": "module",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/tomgrv/devcontainer-features.git"
-    },
-    "funding": {
-        "type": "individual",
-        "url": "https://buymeacoffee.com/tomgrv"
-    },
-    "scripts": {
-        "lint": "npx --yes lint-staged",
-        "release": "npx --yes commit-and-tag-version --no-verify --",
-        "test": "echo \"Warning: no test specified\"",
-        "update": "npm-check-updates -i -u",
-        "update-all": "npm run update -ws --root"
-    },
-    "config": {
-        "commitizen": {
-            "path": "@commitlint/cz-commitlint"
-        },
-        "local": [
-            "gitutils",
-            "githooks"
-        ]
-    },
-    "devDependencies": {
-        "npm-check-updates": "*"
-    },
-    "peerDependencies": {
-        "@commitlint/cli": "^19.2.2",
-        "@commitlint/config-conventional": "^19.2.2",
-        "@commitlint/core": "^19.2.2",
-        "@commitlint/cz-commitlint": "^19.2.0",
-        "commit-and-tag-version": "^12.4.1",
-        "commitizen": "^4.3.0",
-        "conventional-changelog-cli": "^2.1.1",
-        "devmoji": "^2.3.0",
-        "git-precommit-checks": "3.1.0",
-        "husky": "^9.0.11",
-        "lint-staged": "^15.2.2",
-        "prettier": "^3.2.5"
-    },
-    "private": true,
-    "workspaces": [
-        "src/*"
-    ],
-    "prettier": {
-        "insertPragma": true,
-        "overrides": [
-            {
-                "files": "*.yml",
-                "options": {
-                    "useTabs": true,
-                    "tabWidth": 2
-                }
-            }
-        ],
-        "plugins": [
-            "prettier-plugin-sh"
-        ],
-        "semi": false,
-        "singleQuote": true,
-        "tabWidth": 4,
-        "trailingComma": "es5"
-    },
-    "commit-and-tag-version": {
-        "bumpFiles": [
-            {
-                "filename": "composer.json",
-                "type": "json"
-            },
-            {
-                "filename": "package.json",
-                "type": "json"
-            },
-            {
-                "filename": "package.json",
-                "type": "json@ws"
-            },
-            {
-                "filename": "devcontainer-feature.json",
-                "type": "json@ws"
-            },
-            {
-                "filename": "VERSION",
-                "type": "plain-text"
-            }
-        ],
-        "scripts": {
-            "prebump": "bump-version -d | awk '{print $2}'"
-        },
-        "types": [
-            {
-                "type": "feat",
-                "section": "Features"
-            },
-            {
-                "type": "fix",
-                "section": "Bug Fixes"
-            },
-            {
-                "type": "chore",
-                "hidden": true
-            },
-            {
-                "type": "docs",
-                "hidden": true
-            },
-            {
-                "type": "style",
-                "hidden": true
-            },
-            {
-                "type": "refactor",
-                "hidden": true
-            },
-            {
-                "type": "perf",
-                "hidden": true
-            },
-            {
-                "type": "test",
-                "hidden": true
-            }
-        ]
-    },
-    "commitlint": {
-        "extends": [
-            "@commitlint/config-conventional",
-            "@commitlint/config-workspace-scopes"
-        ],
-        "rules": {
-            "subject-case": [
-                2,
-                "never",
-                [
-                    "start-case",
-                    "pascal-case",
-                    "upper-case"
-                ]
-            ],
-            "scope-enum": [
-                2,
-                "always",
-                [
-                    "gitutils",
-                    "githooks",
-                    "gitversion",
-                    "larasets",
-                    "pecl",
-                    "common-utils"
-                ]
-            ]
+    "local": [
+      "gitutils",
+      "githooks"
+    ]
+  },
+  "devDependencies": {
+    "npm-check-updates": "*"
+  },
+  "peerDependencies": {
+    "@commitlint/cli": "^19.2.2",
+    "@commitlint/config-conventional": "^19.2.2",
+    "@commitlint/core": "^19.2.2",
+    "@commitlint/cz-commitlint": "^19.2.0",
+    "commit-and-tag-version": "^12.4.1",
+    "commitizen": "^4.3.0",
+    "conventional-changelog-cli": "^2.1.1",
+    "devmoji": "^2.3.0",
+    "git-precommit-checks": "3.1.0",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2",
+    "prettier": "^3.2.5"
+  },
+  "private": true,
+  "workspaces": [
+    "src/*"
+  ],
+  "prettier": {
+    "insertPragma": true,
+    "overrides": [
+      {
+        "files": "*.yml",
+        "options": {
+          "useTabs": true,
+          "tabWidth": 2
         }
+      }
+    ],
+    "plugins": [
+      "prettier-plugin-sh"
+    ],
+    "semi": false,
+    "singleQuote": true,
+    "tabWidth": 4,
+    "trailingComma": "es5"
+  },
+  "commit-and-tag-version": {
+    "bumpFiles": [
+      {
+        "filename": "composer.json",
+        "type": "json"
+      },
+      {
+        "filename": "package.json",
+        "type": "json"
+      },
+      {
+        "filename": "package.json",
+        "type": "json@ws"
+      },
+      {
+        "filename": "devcontainer-feature.json",
+        "type": "json@ws"
+      },
+      {
+        "filename": "VERSION",
+        "type": "plain-text"
+      }
+    ],
+    "scripts": {
+      "prebump": "bump-version -d | awk '{print $2}'"
     },
-    "git-precommit-checks": {
-        "rules": [
-            {
-                "message": "You've got leftover conflict markers",
-                "regex": "/^[<>|=]{4,}/m"
-            },
-            {
-                "filter": "(^package\\.json|\\.git-precommit-checks.json)$",
-                "message": "You have unfinished devs",
-                "nonBlocking": "true",
-                "regex": "(?:FIXME|TODO)"
-            }
+    "types": [
+      {
+        "type": "feat",
+        "section": "Features"
+      },
+      {
+        "type": "fix",
+        "section": "Bug Fixes"
+      },
+      {
+        "type": "chore",
+        "hidden": true
+      },
+      {
+        "type": "docs",
+        "hidden": true
+      },
+      {
+        "type": "style",
+        "hidden": true
+      },
+      {
+        "type": "refactor",
+        "hidden": true
+      },
+      {
+        "type": "perf",
+        "hidden": true
+      },
+      {
+        "type": "test",
+        "hidden": true
+      }
+    ]
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional",
+      "@commitlint/config-workspace-scopes"
+    ],
+    "rules": {
+      "subject-case": [
+        2,
+        "never",
+        [
+          "start-case",
+          "pascal-case",
+          "upper-case"
         ]
-    },
-    "lint-staged": {
-        "*.json": [
-            "normalize-json -c -w -a -i -t 4 -f local -l true"
-        ],
-        "*.php": [
-            "composer lint"
-        ],
-        "*.{js,jsx,ts,tsx,md,html,css,vue,yaml,yml}": [
-            "npx --yes prettier --write"
-        ],
-        ".devcontainer/*": [
-            "cp -u -t ./stubs/.devcontainer "
+      ],
+      "scope-enum": [
+        2,
+        "always",
+        [
+          "gitutils",
+          "githooks",
+          "gitversion",
+          "larasets",
+          "pecl",
+          "common-utils"
         ]
+      ]
     }
+  },
+  "git-precommit-checks": {
+    "rules": [
+      {
+        "message": "You've got leftover conflict markers",
+        "regex": "/^[<>|=]{4,}/m"
+      },
+      {
+        "filter": "(^package\\.json|\\.git-precommit-checks.json)$",
+        "message": "You have unfinished devs",
+        "nonBlocking": "true",
+        "regex": "(?:FIXME|TODO)"
+      }
+    ]
+  },
+  "lint-staged": {
+    "*.json": [
+      "normalize-json -c -w -a -i -t 4 -f local -l true"
+    ],
+    "*.php": [
+      "composer lint"
+    ],
+    "*.{js,jsx,ts,tsx,md,html,css,vue,yaml,yml}": [
+      "npx --yes prettier --write"
+    ],
+    ".devcontainer/*": [
+      "cp -u -t ./stubs/.devcontainer "
+    ]
+  }
 }

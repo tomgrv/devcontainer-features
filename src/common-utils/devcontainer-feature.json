@@ -1,58 +1,58 @@
 {
-    "id": "common-utils",
-    "name": "Common Utils",
-    "description": "Common utils for tomgrv/devcontainer-features",
-    "version": "5.28.0",
-    "dependsOn": {
-        "ghcr.io/devcontainers/features/common-utils": {}
-    },
-    "installsAfter": [
-        "ghcr.io/devcontainers/features/common-utils"
-    ],
-    "customizations": {
-        "vscode": {
-            "settings": {
-                "editor.formatOnSave": true,
-                "editor.formatOnPaste": true,
-                "todo-tree.general.tags": [
-                    "BUG",
-                    "HACK",
-                    "FIXME",
-                    "TODO",
-                    "XXX",
-                    "[ ]",
-                    "[x]",
-                    "NOTE"
-                ],
-                "editor.indentSize": "tabSize",
-                "editor.detectIndentation": true,
-                "editor.tabSize": 4
-            },
-            "extensions": [
-                "actboy168.tasks",
-                "formulahendry.auto-close-tag",
-                "formulahendry.auto-rename-tag",
-                "foxundermoon.shell-format",
-                "github.vscode-github-actions",
-                "gruntfuggly.todo-tree",
-                "gruntfuggly.triggertaskonsave",
-                "ms-azuretools.vscode-containers",
-                "natizyskunk.sftp",
-                "spmeesseman.vscode-taskexplorer",
-                "Tyriar.sort-lines",
-                "luggage66.AWK",
-                "AngelLuisAlmaraz.project-colorize"
-            ]
-        }
-    },
-    "options": {
-        "utils": {
-            "type": "string",
-            "default": "jq dos2unix",
-            "description": "utilities to install"
-        }
-    },
-    "postCreateCommand": {
-        "config": "configure-feature common-utils"
+  "id": "common-utils",
+  "name": "Common Utils",
+  "description": "Common utils for tomgrv/devcontainer-features",
+  "version": "5.28.1",
+  "dependsOn": {
+    "ghcr.io/devcontainers/features/common-utils": {}
+  },
+  "installsAfter": [
+    "ghcr.io/devcontainers/features/common-utils"
+  ],
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "editor.formatOnSave": true,
+        "editor.formatOnPaste": true,
+        "todo-tree.general.tags": [
+          "BUG",
+          "HACK",
+          "FIXME",
+          "TODO",
+          "XXX",
+          "[ ]",
+          "[x]",
+          "NOTE"
+        ],
+        "editor.indentSize": "tabSize",
+        "editor.detectIndentation": true,
+        "editor.tabSize": 4
+      },
+      "extensions": [
+        "actboy168.tasks",
+        "formulahendry.auto-close-tag",
+        "formulahendry.auto-rename-tag",
+        "foxundermoon.shell-format",
+        "github.vscode-github-actions",
+        "gruntfuggly.todo-tree",
+        "gruntfuggly.triggertaskonsave",
+        "ms-azuretools.vscode-containers",
+        "natizyskunk.sftp",
+        "spmeesseman.vscode-taskexplorer",
+        "Tyriar.sort-lines",
+        "luggage66.AWK",
+        "AngelLuisAlmaraz.project-colorize"
+      ]
     }
+  },
+  "options": {
+    "utils": {
+      "type": "string",
+      "default": "jq dos2unix",
+      "description": "utilities to install"
+    }
+  },
+  "postCreateCommand": {
+    "config": "configure-feature common-utils"
+  }
 }
