@@ -2,9 +2,6 @@
 
 set -e
 
-# Source colors script
-. zz_colors
-
 # Function to print help and manage arguments
 eval $(
     zz_args "Delete all descendant tags and branches of a commit" $0 "$@" <<-help

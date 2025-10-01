@@ -6,9 +6,6 @@
 
 set -e
 
-# Source colors script for colored output
-. zz_colors
-
 # Parse arguments and display help if needed
 eval $(
     zz_args "Dispatch Utility" $0 "$@" <<- help
