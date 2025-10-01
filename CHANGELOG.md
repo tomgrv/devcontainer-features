@@ -2,6 +2,42 @@
 
 # Changelog
 
+## v5.28.0 (2025-10-01)
+
+_Commits from: v5.27.0..HEAD_
+
+### 📂 Unscoped changes
+
+#### Bug Fixes
+
+- 🐛 correct variable assignment syntax in argument processing ([ffa8a1e](https://github.com/tomgrv/devcontainer-features/commit/ffa8a1e07e3ad8fdcb49331ea611169868727924))
+- 🐛 remove unnecessary color script sourcing ([0119d55](https://github.com/tomgrv/devcontainer-features/commit/0119d551c762d9583f49ab8c6232fd346bbf7eab))
+
+#### Other changes
+
+- Merge tag 'v5.27.0' into develop ([fc52d6e](https://github.com/tomgrv/devcontainer-features/commit/fc52d6e224126451e0d540797f2f5e60e2d5fe25))
+
+### 📦 gitutils changes
+
+#### Bug Fixes
+
+- 🐛 correct install-plugins in commit hooks ([8d55832](https://github.com/tomgrv/devcontainer-features/commit/8d558327a278fc42ead7325b09f057c95383368d))
+- 🐛 handle branch checkout failure ([33fe044](https://github.com/tomgrv/devcontainer-features/commit/33fe044477d5a184fb9a9770594cc071b738234a))
+
+#### Features
+
+- ✨ improve emoji fix script ([f28ad39](https://github.com/tomgrv/devcontainer-features/commit/f28ad395e08fa861244722c2baba97055bb2fc8a))
+
+#### Other changes
+
+- ♻️ improve scripts ([633ea81](https://github.com/tomgrv/devcontainer-features/commit/633ea8147bb942eb1c8d6ff01ce444c6f46f0ac6))
+
+### 📦 gitversion changes
+
+#### Bug Fixes
+
+- 🐛 improve version bump logic ([31dcaa3](https://github.com/tomgrv/devcontainer-features/commit/31dcaa3760ec8d09e9f9fdc84637d00f915473da))
+
 ## v5.27.0 (2025-10-01)
 
 _Commits from: v5.26.0..HEAD_
