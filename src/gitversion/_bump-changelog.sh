@@ -92,39 +92,6 @@ list_changelog_range() {
     fi
 }
 
-# ===== WORKSPACE MANAGEMENT FUNCTIONS =====
-
-# Get workspace directories from package.json workspaces configuration
-# Returns list of workspace directories, falls back to all subdirectories if no workspaces config
-get_workspace_dirs() {
-    if [ -f "package.json" ] && command -v jq > /dev/null 2>&1; then
-        # Try to get workspaces array from package.json
-        local workspaces=$(jq -r '.workspaces[]? // empty' package.json 2> /dev/null)
-
-        if [ -n "$workspaces" ]; then
-            # Use configured workspaces
-            echo "$workspaces" | while read -r workspace_pattern; do
-                # Handle glob patterns by expanding them
-                if echo "$workspace_pattern" | grep -q '\*'; then
-                    # Use find to expand glob patterns like "packages/*"
-                    find . -path "./$workspace_pattern" -type d -mindepth 1 -maxdepth 2 2> /dev/null || true
-                else
-                    # Direct path
-                    if [ -d "$workspace_pattern" ]; then
-                        echo "$workspace_pattern"
-                    fi
-                fi
-            done
-        else
-            # Fallback to all subdirectories
-            find . -type d -mindepth 1 -maxdepth 1
-        fi
-    else
-        # Fallback to all subdirectories when package.json or jq not available
-        find . -type d -mindepth 1 -maxdepth 1
-    fi
-}
-
 
 # ===== CHANGELOG GENERATION FUNCTIONS =====
 
