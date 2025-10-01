@@ -8,7 +8,9 @@ if [ -t 1 ]; then
 fi
 
 # Install commitizen plugins
-git hook run install-plugins -- '.config.commitizen.path//""'
+git hook run install-plugins -- '[.config.commitizen.path // "", .commitlint.extends // ""]'
+
+
 
 # Edit commit message
 if [ $(grep -cv -e '^#' -e '^$' .git/COMMIT_EDITMSG) -eq 0 ]; then
