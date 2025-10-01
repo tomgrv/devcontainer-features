@@ -1,6 +1,6 @@
 {
     "name": "@tomgrv/larasets",
-    "version": "0.0.1",
+    "version": "5.26.0",
     "description": "Laravel development settings and utilities",
     "files": [
         "_*.sh",
