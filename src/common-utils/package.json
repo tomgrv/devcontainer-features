@@ -1,35 +1,30 @@
 {
-    "name": "@tomgrv/common-utils",
-    "version": "5.28.0",
-    "description": "Common utilities and helper scripts for devcontainer features",
-    "files": [
-        "_*.sh",
-        "_*.json",
-        "install.sh",
-        "stubs/**/*"
-    ],
-    "bin": {
-        "configure-feature": "./_configure-feature.sh",
-        "install-bin": "./_install-bin.sh",
-        "install-feature": "./_install-feature.sh",
-        "normalize-json": "./_normalize-json.sh",
-        "update-tasks": "./_update.tasks.json",
-        "validate-json": "./_validate-json.sh",
-        "zz-args": "./_zz_args.sh",
-        "zz-ask": "./_zz_ask.sh",
-        "zz-colors": "./_zz_colors.sh",
-        "zz-context": "./_zz_context.sh",
-        "zz-dispatch": "./_zz_dispatch.sh",
-        "zz-edit": "./_zz_edit.sh",
-        "zz-input": "./_zz_input.sh",
-        "zz-json": "./_zz_json.sh",
-        "zz-log": "./_zz_log.sh"
-    },
-    "scripts": {
-        "postinstall": "./install.sh"
-    },
-    "dependencies": {
-        "dos2unix": "^7.4.4",
-        "jq": "^1.6.0"
-    }
+  "name": "@tomgrv/common-utils",
+  "version": "5.28.1",
+  "description": "Common utilities and helper scripts for devcontainer features",
+  "files": [
+    "_*.sh",
+    "_*.json",
+    "install.sh",
+    "stubs/**/*"
+  ],
+  "bin": {
+    "configure-feature": "./_configure-feature.sh",
+    "install-bin": "./_install-bin.sh",
+    "install-feature": "./_install-feature.sh",
+    "normalize-json": "./_normalize-json.sh",
+    "update-tasks": "./_update.tasks.json",
+    "validate-json": "./_validate-json.sh",
+    "zz-args": "./_zz_args.sh",
+    "zz-ask": "./_zz_ask.sh",
+    "zz-colors": "./_zz_colors.sh",
+    "zz-context": "./_zz_context.sh",
+    "zz-dispatch": "./_zz_dispatch.sh",
+    "zz-edit": "./_zz_edit.sh",
+    "zz-input": "./_zz_input.sh",
+    "zz-json": "./_zz_json.sh",
+    "zz-log": "./_zz_log.sh"
+  },
+  "scripts": {},
+  "dependencies": {}
 }

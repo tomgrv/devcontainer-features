@@ -28,10 +28,6 @@ if [ -z "$flow" ] && [ -f .git/RELEASE ]; then
     flow=release
     name=$(cat .git/RELEASE)
     zz_log i "Release branch found: {Blue $name}"
-    if ! git checkout $flow/$named; then
-        zz_log e "Cannot switch to $flow/$name branch"
-        exit 1
-    fi
 fi
 
 # Exit if no flow branch is found
@@ -40,15 +36,27 @@ if [ -z "$flow" ] || [ -z "$name" ]; then
     exit 1
 fi
 
+# Extract branch name 
+if ! git checkout $flow/$name; then
+    zz_log e "Cannot switch to $flow/$name branch"
+    exit 1
+fi
+zz_log s "On branch: {Blue $flow/$name}"
+
+# Get the new version from gitversion
+GBV=$(gitversion -config .gitversion -showvariable MajorMinorPatch)
+if [ -z "$GBV" ]; then
+    zz_log e "Cannot get version from .gitversion"
+    exit 1
+fi
+zz_log i "Bump version: {Blue $GBV}"
+
 # Prevent git editor prompt during finish
 GIT_EDITOR=:
 
 # Update version, changelog, and finish release
-#if npx --yes commit-and-tag-version --commit-all --skip.tag --no-verify; then
-GBV=$(bump-changelog -b -m)
-if [ "$?" -eq 0 ] && [ -n "$GBV" ]; then
-    zz_log s "Version & CHANGELOG updated to: {B $GBV}"
-    
+if bump-changelog -f $GBV -b -m; then
+    zz_log s "Version & CHANGELOG updated to: {B $GBV}" 
     if ! git commit -am "chore(release): $GBV"; then
         zz_log e "Cannot commit version & CHANGELOG"
         exit 1
@@ -57,10 +65,11 @@ if [ "$?" -eq 0 ] && [ -n "$GBV" ]; then
         zz_log s "Version & CHANGELOG committed and pushed"
     fi
 
-    if git flow $flow finish $name --push --message "git flow release" --showcommands  ; then
+    if git flow $flow finish $name --push --tagname $GBV --message $GBV ; then
         zz_log s "Release finished: {B $GBV}"
         rm -f .git/RELEASE
     else
+        git undo
         zz_log e "Cannot finish release. CHANGELOG & VERSION are not updated."
     fi
 else
