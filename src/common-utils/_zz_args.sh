@@ -75,7 +75,7 @@ while getopts :$argnames value "$@"; do
     naming=$(echo -e "$varnames" | grep -E "^$value" | cut -f2)
 
     if [ -n "$OPTARG" ]; then
-        echo "$naming=\"$OPTARG\""
+        echo "$naming='$OPTARG'"
     else
         echo "$naming=-$value"
     fi
@@ -104,21 +104,21 @@ else
     # Process remaining '-' parameters
     for arg in $(echo $varnames | grep -E "^-" | cut -f2); do
         if [ "$#" -gt "0" ]; then
-            echo "$arg=$1" && shift 1
+            echo "$arg='$1'" && shift 1
         fi
     done
 
     # Process remaining '=' parameters
     for arg in $(echo $varnames | grep -E "^=" | cut -f2); do
         if [ "$#" -gt "0" ]; then
-            echo "$arg=$1" && shift 1
+            echo "$arg='$1'" && shift 1
         fi
     done
 
     # Process remaining '+' parameters
     for arg in $(echo $varnames | grep -E "^\+" | cut -f2); do
         if [ "$#" -gt "0" ]; then
-            echo "$arg=$(echo $@ | sed "s/ /\\\\ /g")" && shift $#
+            echo "$arg='$(echo $@ | sed "s/ /\\\\ /g")'" && shift $#
         fi
     done
 
