@@ -87,6 +87,10 @@
         "cmd": "git rev-parse --git-dir | grep -q rebase-merge || git rev-parse --git-dir | grep -q rebase-apply",
         "help": "Check if a rebase is in progress."
     },
+    "isUncommited": {
+        "cmd": "git fetch --progress --prune --recurse-submodules=no origin >/dev/null && git diff-index --quiet HEAD -- && exit 0 || exit 1",
+        "help": "Check if file has uncommitted changes."
+    },
     "pf": {
         "cmd": "git push --force-with-lease $1",
         "help": "Push with force-with-lease."

@@ -7,7 +7,7 @@ if [ -t 1 ]; then
 fi
 
 # Install commitizen plugins
-git hook run install-plugins -- '.commitlint.extends//""'
+git hook run install-plugins -- '[.config.commitizen.path // "", .commitlint.extends // ""]'
 
 # Apply commitlint rules to the latest commit message
 zz_log i "Applying commitlint rules to the latest commit..."

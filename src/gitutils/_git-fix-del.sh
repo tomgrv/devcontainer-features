@@ -43,7 +43,7 @@ fi
 zz_log i "Deleting commit: $sha"
 
 # Attempt deletion with fallback to autorebase
-if ! git autorebase ${auto:+-a} -s "$strategy" -o "$sha^" "$sha" HEAD ; then
+if ! git autorebase ${auto:+-a} -s "$strategy" -o "$sha^" "$sha"  ; then
         zz_log e "Failed to delete commit $sha. Please resolve conflicts manually."
         exit 1
 else

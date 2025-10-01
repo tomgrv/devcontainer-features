@@ -5,18 +5,18 @@ eval $(
     zz_args "Automatically handles non-interactive rebasing with conflict resolution" $0 "$@" <<-help
         f -             force       allow overwriting pushed history
         p -             push        push to remote after rebase
-        a -             auto        fully automatic mode - no prompts
+        a -             autosquash  Apply autosquash (default: off)
         n -             no-lock     don't automatically manage lock files
         s strategy      strategy    strategy for conflicts (default: theirs)
         o onto          onto        rebase onto (default: origin/main)
-        - sha          sha          commit/branch to rebase onto (default: origin/main)
-        - branch       branch       alias for sha
+        b branch        branch       branch to rebase (default: current branch)
+        - sha           sha          commit/branch to rebase onto (default: origin/main)
 help
 )
 
 # Set defaults
 strategy="${strategy:-theirs}"
-sha="${sha:-origin/main}"
+sha=$(git getcommit $force $sha)
 lockfile_patterns="${no_lock:+}${no_lock:-package-lock.json yarn.lock composer.lock pnpm-lock.yaml go.sum}"
 
 # Navigate to repository root and validate state
@@ -59,7 +59,7 @@ current_branch=$(git branch --show-current)
 zz_log i "Rebasing '$current_branch' onto '$sha' with '$strategy' strategy"
 
 # Perform rebase with automatic conflict resolution
-if ! git rebase --strategy-option="$strategy" --autosquash --autostash --reschedule-failed-exec --exec 'git hook run --ignore-missing pre-commit -- HEAD HEAD~1 && git commit --amend --no-edit --no-verify' --no-verify ${onto:+--onto "$onto"} "$sha" "$branch"; then
+if ! git rebase --strategy-option="$strategy" ${auto:+--autosquash} --autostash --reschedule-failed-exec --exec 'git hook run --ignore-missing pre-commit -- HEAD HEAD~1 && git commit --amend --no-edit --no-verify' --no-verify ${onto:+--onto "$onto"} "$sha" "$branch"; then
     zz_log w "Resolving conflicts automatically..."
     
     attempts=0

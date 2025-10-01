@@ -76,17 +76,8 @@ list_changelog_range() {
 auto_determine_version() {
     local range="$1"
 
-    # Get the latest version tag, filtering out non-semantic versions
-    local latest_tag=$(get_latest_tag)
-
-    # If no version tags exist, start with 0.1.0
-    if [ -z "$latest_tag" ]; then
-        echo "0.1.0"
-        return
-    fi
-
     # Extract version numbers from tag (remove 'v' prefix if present)
-    local version_num=$(echo "$latest_tag" | sed 's/^v//')
+    local version_num=$(echo "${range%%..*}" | sed 's/^v//')
     
     # Handle full semver format by extracting only the core version (major.minor.patch)
     # This handles cases like "1.2.3-alpha.1" or "1.2.3+build.1"
@@ -96,22 +87,22 @@ auto_determine_version() {
     local patch=$(echo "$core_version" | cut -d. -f3)
 
     # Analyze commits using the provided range to determine bump type
-    local bump_type=$(git log --oneline --format="%s" "$range" 2> /dev/null \
-        | while read -r commit_msg; do
-            # Check for breaking changes
-            if echo "$commit_msg" | grep -q "!:" || git log --oneline --format="%B" "$range" | grep -q "BREAKING CHANGE:"; then
-                echo "major"
-                break
-            fi
-            # Check for features
-            if echo "$commit_msg" | grep -q "^feat[^:]*:"; then
-                echo "minor"
-            fi
-            # Check for fixes
-            if echo "$commit_msg" | grep -q "^fix[^:]*:"; then
-                echo "patch"
-            fi
-        done | head -1)
+    local commits=$(git log --oneline --format="%s" "$range" 2> /dev/null)
+
+    if echo "$commits" | grep -q "^fix"; then
+        bump_type="patch"
+        zz_log i "Detected patch bump in $range commit messages"
+    fi
+        
+    if echo "$commits" | grep -q "^feat"; then
+        bump_type="minor"
+        zz_log i "Detected minor bump in $range commit messages"    
+    fi
+
+    if echo "$commits" | grep -q "!:" || git log --oneline --format="%B" "$range" | grep -q "BREAKING CHANGE:"; then
+        bump_type="major"
+        zz_log i "Detected major bump in $range commit messages"
+    fi
 
     # Calculate new version based on bump type
     case "$bump_type" in
@@ -327,6 +318,7 @@ bump_version_files() {
 
 # Calculate git range for version determination
 range=$(get_latest_range)
+zz_log i "Using git range: $range"
 
 # Auto-determine version if not specified, otherwise format the provided version
 if [ -z "$version" ]; then
