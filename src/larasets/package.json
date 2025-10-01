@@ -24,15 +24,14 @@
         "configure-composer": "./configure-composer.sh",
         "configure-deployer": "./configure-deployer.sh",
         "configure-sail": "./configure-sail.sh",
-        "postinstall": "./install.sh",
         "test": "echo \"Warning: no test specified\"",
-        "update": "npx --yes npm-check-updates -i -u",
+        "update": "npm-check-updates -i -u",
         "update-all": "npm run update -ws --root"
     },
     "dependencies": {
-        "npm-check-updates": "^16.14.6"
+        "npm-check-updates": "*"
     },
     "peerDependencies": {
-        "@tomgrv/common-utils": "^3.17.0"
+        "@tomgrv/common-utils": "^5.0.0"
     }
 }

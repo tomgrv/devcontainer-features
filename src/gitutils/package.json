@@ -35,15 +35,10 @@
         "setrights": "./_setrights.sh",
         "unset": "./_unset.sh"
     },
-    "scripts": {
-        "install-config": "./install-config.sh",
-        "postinstall": "./install.sh"
-    },
-    "dependencies": {
-        "git-flow": "^0.4.2"
-    },
+    "scripts": {},
+    "dependencies": {},
     "peerDependencies": {
-        "@tomgrv/common-utils": "^3.17.0",
-        "@tomgrv/gitversion": "^5.26.4"
+        "@tomgrv/common-utils": "^5.0.0",
+        "@tomgrv/gitversion": "^5.0.0"
     }
 }

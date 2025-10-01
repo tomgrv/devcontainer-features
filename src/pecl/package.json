@@ -5,10 +5,5 @@
     "files": [
         "install.sh"
     ],
-    "scripts": {
-        "postinstall": "./install.sh"
-    },
-    "peerDependencies": {
-        "php": ">=8.2.0"
-    }
+    "scripts": {}
 }

@@ -56,8 +56,7 @@
         ]
     },
     "devDependencies": {
-        "npm-check-updates": "^16.14.6",
-        "prettier-plugin-sh": "^0.14.0"
+        "npm-check-updates": "*"
     },
     "peerDependencies": {
         "@commitlint/cli": "^19.2.2",

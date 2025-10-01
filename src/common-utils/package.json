@@ -25,11 +25,6 @@
         "zz-json": "./_zz_json.sh",
         "zz-log": "./_zz_log.sh"
     },
-    "scripts": {
-        "postinstall": "./install.sh"
-    },
-    "dependencies": {
-        "dos2unix": "^7.4.4",
-        "jq": "^1.6.0"
-    }
+    "scripts": {},
+    "dependencies": {}
 }

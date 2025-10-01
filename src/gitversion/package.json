@@ -16,14 +16,9 @@
         "checkout-version": "./_checkout-version.sh",
         "gv": "./_gv.sh"
     },
-    "scripts": {
-        "install-tools": "./install-tools.sh",
-        "postinstall": "./install.sh"
-    },
-    "dependencies": {
-        "GitVersion.Tool": "^5.12.0"
-    },
+    "scripts": {},
+    "dependencies": {},
     "peerDependencies": {
-        "@tomgrv/common-utils": "^3.17.0"
+        "@tomgrv/common-utils": "^5.0.0"
     }
 }

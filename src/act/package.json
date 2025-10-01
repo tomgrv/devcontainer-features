@@ -13,10 +13,6 @@
         "act-run": "./_act-run.sh"
     },
     "scripts": {
-        "install-act": "./install-act.sh",
-        "postinstall": "./install.sh"
-    },
-    "dependencies": {
-        "act": "^0.2.60"
+        "install-act": "./install-act.sh"
     }
 }
