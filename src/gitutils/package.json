@@ -1,0 +1,49 @@
+{
+    "name": "@tomgrv/gitutils",
+    "version": "5.26.0",
+    "description": "Git utilities and aliases for development workflow",
+    "files": [
+        "_*.sh",
+        "install.sh",
+        "install-config.sh",
+        "alias.json",
+        "config.json",
+        "stubs/**/*"
+    ],
+    "bin": {
+        "deleteChildren": "./_deleteChildren.sh",
+        "git-align": "./_git-align.sh",
+        "git-co": "./_git-co.sh",
+        "git-degit": "./_git-degit.sh",
+        "git-fix": "./_git-fix.sh",
+        "git-fix-author": "./_git-fix-author.sh",
+        "git-fix-emoji": "./_git-fix-emoji.sh",
+        "git-fix-last": "./_git-fix-last.sh",
+        "git-fix-lock": "./_git-fix-lock.sh",
+        "git-fix-mode": "./_git-fix-mode.sh",
+        "git-fix-privacy": "./_git-fix-privacy.sh",
+        "git-fix-up": "./_git-fix-up.sh",
+        "git-forall": "./_git-forall.sh",
+        "git-getcommit": "./_git-getcommit.sh",
+        "git-integrate": "./_git-integrate.sh",
+        "git-pick": "./_git-pick.sh",
+        "git-release": "./_git-release.sh",
+        "git-release-alpha": "./_git-release-alpha.sh",
+        "git-release-beta": "./_git-release-beta.sh",
+        "git-release-hotfix": "./_git-release-hotfix.sh",
+        "git-release-prod": "./_git-release-prod.sh",
+        "setrights": "./_setrights.sh",
+        "unset": "./_unset.sh"
+    },
+    "scripts": {
+        "install-config": "./install-config.sh",
+        "postinstall": "./install.sh"
+    },
+    "dependencies": {
+        "git-flow": "^0.4.2"
+    },
+    "peerDependencies": {
+        "@tomgrv/common-utils": "^3.17.0",
+        "@tomgrv/gitversion": "^5.26.4"
+    }
+}

@@ -1,6 +1,6 @@
 {
     "name": "@tomgrv/devcontainer-features",
-    "version": "1.0.0",
+    "version": "5.26.0",
     "description": "Configure dev environment with devcontainer, gitflow, gitversion, git aliases & hooks. Can be used a devcontainer features",
     "keywords": [
         "dev",
@@ -55,6 +55,10 @@
             "githooks"
         ]
     },
+    "devDependencies": {
+        "npm-check-updates": "^16.14.6",
+        "prettier-plugin-sh": "^0.14.0"
+    },
     "peerDependencies": {
         "@commitlint/cli": "^19.2.2",
         "@commitlint/config-conventional": "^19.2.2",
@@ -69,6 +73,7 @@
         "lint-staged": "^15.2.2",
         "prettier": "^3.2.5"
     },
+    "private": true,
     "workspaces": [
         "src/*"
     ],
@@ -102,12 +107,20 @@
                 "type": "json"
             },
             {
+                "filename": "package.json",
+                "type": "json@ws"
+            },
+            {
+                "filename": "devcontainer-feature.json",
+                "type": "json@ws"
+            },
+            {
                 "filename": "VERSION",
                 "type": "plain-text"
             }
         ],
         "scripts": {
-            "prebump": "gitversion -config .gitversion -showvariable MajorMinorPatch"
+            "prebump": "bump-version -d | awk '{print $2}'"
         },
         "types": [
             {

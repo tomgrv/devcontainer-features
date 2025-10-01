@@ -1,29 +1,29 @@
 #!/bin/sh
 
-# Function to print help and manage arguments
+# Parse arguments and print help if needed
 eval $(
     zz_args "Release production branch" $0 "$@" <<-help
-	help
+help
 )
 
-#### Goto repository root
+# Change to repository root
 cd "$(git rev-parse --show-toplevel)" >/dev/null
 
-#### CHECK IF ON A HOTFIX BRANCH, EXTRACT BRANCH NAME
+# Check if on a hotfix branch and extract branch name
 if [ -n "$(git branch --list hotfix/*)" ]; then
     flow=hotfix
     name=$(git branch --list hotfix/* | sed 's/.*hotfix\///')
     zz_log i "Hotfix branch found: {Yellow $name}"
 fi
 
-#### CHECK IF ON A RELEASE BRANCH, EXTRACT BRANCH NAME
+# Check if on a release branch and extract branch name
 if [ -n "$(git branch --list release/*)" ]; then
     flow=release
     name=$(git branch --list release/* | sed 's/.*release\///')
     zz_log i "Release branch found: {Blue $name}"
 fi
 
-#### CHECK IF A FLOW BRANCH IS FOUND
+# Check if a flow branch is found from .git/RELEASE file
 if [ -z "$flow" ] && [ -f .git/RELEASE ]; then
     flow=release
     name=$(cat .git/RELEASE)
@@ -31,27 +31,22 @@ if [ -z "$flow" ] && [ -f .git/RELEASE ]; then
     git checkout $flow/$name
 fi
 
-#### EXIT IF NO FLOW BRANCH IS FOUND
+# Exit if no flow branch is found
 if [ -z "$flow" ] || [ -z "$name" ]; then
     zz_log e "No flow branch found"
     exit 1
 fi
 
-#### GET BUMP VERSION
-GBV=$(gitversion -config .gitversion -showvariable MajorMinorPatch)
-if [ -z "$GBV" ]; then
-    zz_log e "Cannot get version from .gitversion"
-    exit 1
-fi
-
-zz_log i "Bump version: {Blue $GBV}"
-
-#### PREVENT GIT EDITOR PROMPT
+# Prevent git editor prompt during finish
 GIT_EDITOR=:
 
-#### UPDATE VERSION & CHANGELOG & FINISH RELEASE
-if npx --yes commit-and-tag-version --skip.tag --no-verify --release-as $GBV; then
-    if git flow $flow finish $name --tagname $GBV --message $GBV --push; then
+# Update version, changelog, and finish release
+#if npx --yes commit-and-tag-version --commit-all --skip.tag --no-verify; then
+GBV=$(bump-changelog -b -m)
+if [ "$?" -eq 0 ] && [ -n "$GBV" ]; then
+    zz_log s "Version & CHANGELOG updated to: {B $GBV}"
+    git commit -am "chore(release): $GBV"
+    if git flow $flow finish $name --push; then
         zz_log s "Release finished: {B $GBV}"
         rm -f .git/RELEASE
     else
@@ -63,4 +58,4 @@ else
 fi
 
 # Follow major/minor tags
-$(dirname $0)/_release-tags.sh $GBV
+bump-tag $GBV
