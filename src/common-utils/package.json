@@ -1,6 +1,6 @@
 {
     "name": "@tomgrv/common-utils",
-    "version": "5.26.0",
+    "version": "5.28.0",
     "description": "Common utilities and helper scripts for devcontainer features",
     "files": [
         "_*.sh",
