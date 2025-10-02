@@ -10,7 +10,7 @@ if [ -f .git/RELEASE ] && [ -n "$(git branch --list release/* | grep -v $(cat .g
 fi
 
 #### GET BUMP VERSION
-GBV=$(gitversion -config .gitversion -showvariable MajorMinorPatch | tee .git/RELEASE)
+GBV=$(gv -showvariable MajorMinorPatch | tee .git/RELEASE)
 
 #### PREVENT GIT EDITOR PROMPT
 GIT_EDITOR=:
