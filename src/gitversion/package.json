@@ -1,24 +1,24 @@
 {
-    "name": "@tomgrv/gitversion",
-    "version": "5.30.0-beta.1",
-    "description": "GitVersion integration and version management scripts",
-    "files": [
-        "_*.sh",
-        "install.sh",
-        "install-tools.sh",
-        "_scripts.package.json",
-        "stubs/**/*"
-    ],
-    "bin": {
-        "bump-changelog": "./_bump-changelog.sh",
-        "bump-tag": "./_bump-tag.sh",
-        "bump-version": "./_bump-version.sh",
-        "checkout-version": "./_checkout-version.sh",
-        "gv": "./_gv.sh"
-    },
-    "scripts": {},
-    "dependencies": {},
-    "peerDependencies": {
-        "@tomgrv/common-utils": "^5.0.0"
-    }
+  "name": "@tomgrv/gitversion",
+  "version": "5.30.2",
+  "description": "GitVersion integration and version management scripts",
+  "files": [
+    "_*.sh",
+    "install.sh",
+    "install-tools.sh",
+    "_scripts.package.json",
+    "stubs/**/*"
+  ],
+  "bin": {
+    "bump-changelog": "./_bump-changelog.sh",
+    "bump-tag": "./_bump-tag.sh",
+    "bump-version": "./_bump-version.sh",
+    "checkout-version": "./_checkout-version.sh",
+    "gv": "./_gv.sh"
+  },
+  "scripts": {},
+  "dependencies": {},
+  "peerDependencies": {
+    "@tomgrv/common-utils": "^5.0.0"
+  }
 }

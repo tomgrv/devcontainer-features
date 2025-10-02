@@ -2,6 +2,17 @@
 
 # Changelog
 
+## 5.30.2 (2025-10-02)
+
+_Commits from: v5.30.1..HEAD_
+
+### 📦 gitutils changes
+
+#### Bug Fixes
+
+- 🐛 improve error handling ([5ca79f0](https://github.com/tomgrv/devcontainer-features/commit/5ca79f09b8f5ee3dd14181d53b0b4e43beca9d88))
+- 🐛 rename script setrights ([b099626](https://github.com/tomgrv/devcontainer-features/commit/b0996265881bafc375748a29aaa24051d05298a9))
+
 ## 5.30.1-beta.1 (2025-10-02)
 
 _Commits from: v5.30.0..HEAD_
