@@ -2,6 +2,17 @@
 
 # Changelog
 
+## 5.30.1-beta.1 (2025-10-02)
+
+_Commits from: v5.30.0..HEAD_
+
+### 📦 gitutils changes
+
+#### Bug Fixes
+
+- 🐛 enhance hotfix branch creation and rebase handling ([c17a3d2](https://github.com/tomgrv/devcontainer-features/commit/c17a3d2e086ce09d83b2d443b433c5d632a96616))
+- 🐛 refine version extraction ([9de255e](https://github.com/tomgrv/devcontainer-features/commit/9de255ed621955a6cdaf3793d563e104cff7e13a))
+
 ## 5.30.0-beta.1 (2025-10-02)
 
 _Commits from: v5.29.1..HEAD_
