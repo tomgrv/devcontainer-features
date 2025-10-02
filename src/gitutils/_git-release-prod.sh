@@ -78,7 +78,7 @@ if bump-changelog -f $GBV -b; then
         # Create git tag for the new version
         bump-tag $GBV
     else
-        git undo
+        git undo && git pf
         zz_log e "Cannot finish release. CHANGELOG & VERSION are not updated."
     fi
 else
