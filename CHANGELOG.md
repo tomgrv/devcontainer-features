@@ -2,6 +2,16 @@
 
 # Changelog
 
+## 5.29.1-beta.1 (2025-10-02)
+
+_Commits from: v5.29.0..HEAD_
+
+### 📦 gitutils changes
+
+#### Bug Fixes
+
+- 🐛 update file permissions and cleanup ([646f1d5](https://github.com/tomgrv/devcontainer-features/commit/646f1d5173177465866dd6095b761b07c8950ef4))
+
 ## v5.28.1 (2025-10-01)
 
 _Commits from: v5.28.0..HEAD_
@@ -186,4 +196,4 @@ _Commits from: v5.25.0..HEAD_
 
 ---
 
-_Generated on 2025-10-01 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
+_Generated on 2025-10-02 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
