@@ -12,10 +12,10 @@ set -e
 # Parse command line arguments using zz_args helper
 eval $(
     zz_args "Bump version files utility" $0 "$@" <<- help
-        -   version   version     Version to set in files (optional - will use GitVersion if not provided)
         m   minimal   minimal     Only bump workspace files if commit scope relates to workspace name
         r   range     range       Git range to check for affected workspaces (required for minimal mode)
         d   -         dry_run     Show what would be updated without making changes
+        -   version   version     Version to set in files (optional - will use GitVersion if not provided)
 help
 )
 
@@ -23,23 +23,6 @@ help
 cd "$(git rev-parse --show-toplevel)" > /dev/null
 
 # ===== VERSION DETERMINATION FUNCTIONS =====
-
-# Use GitVersion to determine the current semantic version
-# Returns the semantic version based on git history and conventional commits
-get_gitversion() {
-    local gitversion_output
-    if command -v dotnet-gitversion > /dev/null 2>&1; then
-        gitversion_output=$(dotnet-gitversion -config .gitversion 2>/dev/null)
-        if [ $? -eq 0 ]; then
-            echo "$gitversion_output" | jq -r '.SemVer'
-            return 0
-        fi
-    fi
-    
-    # Fallback to basic version extraction if GitVersion fails
-    zz_log w "GitVersion not available or failed, falling back to tag-based versioning"
-    get_latest_tag | sed 's/^v//' || echo "0.1.0"
-}
 
 # Get the latest semantic version tag from git history (fallback method)
 get_latest_tag() {
@@ -251,7 +234,7 @@ bump_version_files() {
 
 # Determine version using GitVersion or user input
 if [ -z "$version" ]; then
-    version=$(get_gitversion)
+    version=$(gv -showvariable SemVer)
     zz_log s "GitVersion determined version: $version"
 else
     version=$(format_version "$version")

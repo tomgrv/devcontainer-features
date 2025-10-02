@@ -326,7 +326,7 @@ if [ -n "$dry_run" ] || [ -z "$bump" ]; then
 fi
 
 # Determine version and range using the bump-version script
-determined_version=$(bump-version $minimal ${bump_version_dry_run} "$version")
+determined_version=$(bump-version $minimal ${bump_version_dry_run} $version)
 version=$(echo "$determined_version" | awk '{print $2}')
 range=$(echo "$determined_version" | awk '{print $1}')
 if [ -n "$version" ] && [ -n "$range" ]; then
