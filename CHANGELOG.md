@@ -2,6 +2,29 @@
 
 # Changelog
 
+## 5.30.0-beta.1 (2025-10-02)
+
+_Commits from: v5.29.1..HEAD_
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v5.28.1' into develop ([9249443](https://github.com/tomgrv/devcontainer-features/commit/924944383f11e06b79ea6632f21c6bc4cd783eff))
+- Merge tag 'v5.29.1' into develop ([9fb75b6](https://github.com/tomgrv/devcontainer-features/commit/9fb75b61e0ea7396099711fdba5886f488406883))
+
+### 📦 gitutils changes
+
+#### Bug Fixes
+
+- 🐛 update version retrieval ([2e1d1c5](https://github.com/tomgrv/devcontainer-features/commit/2e1d1c56fec50d6a6d9311d6e69d4a62a50caecf))
+
+### 📦 gitversion changes
+
+#### Bug Fixes
+
+- 🐛 correct version determination ([510e87c](https://github.com/tomgrv/devcontainer-features/commit/510e87ca1a4ed527be33fff5e58bd2b6784688b3))
+
 ## 5.29.1-beta.1 (2025-10-02)
 
 _Commits from: v5.29.0..HEAD_
