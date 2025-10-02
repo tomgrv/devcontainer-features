@@ -3,8 +3,6 @@
 # Fix file mode changes from diff
 # Handle the case where no deleted files exist
 
-set -e
-
 # Get the list of deleted files
 deleted_files=$(git ls-files --deleted)
 
