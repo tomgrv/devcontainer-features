@@ -44,7 +44,7 @@ fi
 zz_log s "On branch: {Blue $flow/$name}"
 
 # Get the new version from gitversion
-GBV=$(gitversion -config .gitversion -showvariable MajorMinorPatch)
+GBV=$(gv -showvariable MajorMinorPatch)
 if [ -z "$GBV" ]; then
     zz_log e "Cannot get version from .gitversion"
     exit 1
