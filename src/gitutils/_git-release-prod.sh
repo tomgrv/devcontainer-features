@@ -43,6 +43,12 @@ if ! git checkout $flow/$name >/dev/null 2>&1; then
 fi
 zz_log s "On branch: {Blue $flow/$name}"
 
+# Ensure working directory is clean
+if [ -n "$(git status --porcelain)" ]; then
+    zz_log e "Working directory is not clean. Please commit or stash changes."
+    exit 1
+fi
+
 # Get the new version from gitversion
 GBV=$(gv -showvariable MajorMinorPatch)
 if [ -z "$GBV" ]; then
@@ -68,6 +74,9 @@ if bump-changelog -f $GBV -b; then
     if git flow $flow finish $name --push --tagname $GBV --message $GBV ; then
         zz_log s "Release finished: {B $GBV}"
         rm -f .git/RELEASE
+
+        # Create git tag for the new version
+        bump-tag $GBV
     else
         git undo
         zz_log e "Cannot finish release. CHANGELOG & VERSION are not updated."
@@ -76,5 +85,4 @@ else
     zz_log e "Cannot update version & finish release"
 fi
 
-# Follow major/minor tags
-bump-tag $GBV
+
