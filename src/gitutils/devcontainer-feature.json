@@ -1,44 +1,44 @@
 {
-    "id": "gitutils",
-    "name": "Git Aliases",
-    "description": "A feature to add useful Git aliases to your shell.",
-    "version": "5.28.0",
-    "dependsOn": {
-        "ghcr.io/devcontainers/features/node:1": "lts",
-        "ghcr.io/tomgrv/devcontainer-features/common-utils:5": {
-            "utils": "jq dos2unix git-flow"
-        },
-        "ghcr.io/tomgrv/devcontainer-features/gitversion:5": "5.*"
+  "id": "gitutils",
+  "name": "Git Aliases",
+  "description": "A feature to add useful Git aliases to your shell.",
+  "version": "5.28.1",
+  "dependsOn": {
+    "ghcr.io/devcontainers/features/node:1": "lts",
+    "ghcr.io/tomgrv/devcontainer-features/common-utils:5": {
+      "utils": "jq dos2unix git-flow"
     },
-    "installsAfter": [
-        "ghcr.io/tomgrv/devcontainer-features/common-utils",
-        "ghcr.io/tomgrv/devcontainer-features/gitversion"
-    ],
-    "customizations": {
-        "vscode": {
-            "settings": {
-                "explorer.excludeGitIgnore": true,
-                "git.autorefresh": true
-            },
-            "extensions": [
-                "donjayamanne.githistory",
-                "tomblind.scm-buttons-vscode",
-                "mhutchie.git-graph",
-                "arturock.gitstash",
-                "github.copilot",
-                "github.copilot-chat",
-                "github.vscode-github-actions",
-                "gitHub.vscode-pull-request-github",
-                "github.codespaces",
-                "waderyan.gitblame",
-                "shyykoserhiy.git-autoconfig"
-            ]
-        }
-    },
-    "postCreateCommand": {
-        "config": "configure-feature gitutils"
-    },
-    "postStartCommand": {
-        "files": "git fix mode"
+    "ghcr.io/tomgrv/devcontainer-features/gitversion:5": "5.*"
+  },
+  "installsAfter": [
+    "ghcr.io/tomgrv/devcontainer-features/common-utils",
+    "ghcr.io/tomgrv/devcontainer-features/gitversion"
+  ],
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "explorer.excludeGitIgnore": true,
+        "git.autorefresh": true
+      },
+      "extensions": [
+        "donjayamanne.githistory",
+        "tomblind.scm-buttons-vscode",
+        "mhutchie.git-graph",
+        "arturock.gitstash",
+        "github.copilot",
+        "github.copilot-chat",
+        "github.vscode-github-actions",
+        "gitHub.vscode-pull-request-github",
+        "github.codespaces",
+        "waderyan.gitblame",
+        "shyykoserhiy.git-autoconfig"
+      ]
     }
+  },
+  "postCreateCommand": {
+    "config": "configure-feature gitutils"
+  },
+  "postStartCommand": {
+    "files": "git fix mode"
+  }
 }

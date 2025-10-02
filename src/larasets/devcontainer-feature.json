@@ -1,53 +1,53 @@
 {
-    "id": "larasets",
-    "name": "Laravel settings",
-    "description": "A feature to add useful laravel settings to your shell.",
-    "version": "5.26.0",
-    "dependsOn": {
-        "ghcr.io/devcontainers/features/docker-in-docker": "",
-        "ghcr.io/devcontainers/features/node:1": "lts",
-        "ghcr.io/devcontainers/features/php:1": "8.3",
-        "ghcr.io/metcalfc/devcontainer-features/doppler:0": {},
-        "ghcr.io/tomgrv/devcontainer-features/common-utils:5": {}
-    },
-    "installsAfter": [
-        "ghcr.io/tomgrv/devcontainer-features/common-utils"
-    ],
-    "containerEnv": {
-        "APP_DEBUG": "true",
-        "APP_ENV": "local",
-        "DB_CONNECTION": "sqlite",
-        "DOPPLER_CONFIG": "devpmt_personal",
-        "SAIL_XDEBUG_CONFIG": "client_host=host.docker.internal idekey=vscode",
-        "SAIL_XDEBUG_MODE": "develop,debug",
-        "XDEBUG_MODE": "off"
-    },
-    "customizations": {
-        "vscode": {
-            "extensions": [
-                "aaron-bond.better-comments",
-                "alexcvzz.vscode-sqlite",
-                "bmewburn.vscode-intelephense-client",
-                "christian-kohler.npm-intellisense",
-                "davidanson.vscode-markdownlint",
-                "doppler.doppler-vscode",
-                "entexa.tall-stack",
-                "formulahendry.auto-close-tag",
-                "formulahendry.auto-rename-tag",
-                "gruntfuggly.triggertaskonsave",
-                "laravel.vscode-laravel",
-                "marabesi.php-import-checker",
-                "onecentlin.laravel-blade",
-                "pcbowers.alpine-intellisense",
-                "spmeesseman.vscode-taskexplorer",
-                "xdebug.php-debug"
-            ]
-        }
-    },
-    "legacyIds": [
-        "larasets"
-    ],
-    "postCreateCommand": {
-        "config": "configure-feature larasets"
+  "id": "larasets",
+  "name": "Laravel settings",
+  "description": "A feature to add useful laravel settings to your shell.",
+  "version": "5.28.1",
+  "dependsOn": {
+    "ghcr.io/devcontainers/features/docker-in-docker": "",
+    "ghcr.io/devcontainers/features/node:1": "lts",
+    "ghcr.io/devcontainers/features/php:1": "8.3",
+    "ghcr.io/metcalfc/devcontainer-features/doppler:0": {},
+    "ghcr.io/tomgrv/devcontainer-features/common-utils:5": {}
+  },
+  "installsAfter": [
+    "ghcr.io/tomgrv/devcontainer-features/common-utils"
+  ],
+  "containerEnv": {
+    "APP_DEBUG": "true",
+    "APP_ENV": "local",
+    "DB_CONNECTION": "sqlite",
+    "DOPPLER_CONFIG": "devpmt_personal",
+    "SAIL_XDEBUG_CONFIG": "client_host=host.docker.internal idekey=vscode",
+    "SAIL_XDEBUG_MODE": "develop,debug",
+    "XDEBUG_MODE": "off"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "aaron-bond.better-comments",
+        "alexcvzz.vscode-sqlite",
+        "bmewburn.vscode-intelephense-client",
+        "christian-kohler.npm-intellisense",
+        "davidanson.vscode-markdownlint",
+        "doppler.doppler-vscode",
+        "entexa.tall-stack",
+        "formulahendry.auto-close-tag",
+        "formulahendry.auto-rename-tag",
+        "gruntfuggly.triggertaskonsave",
+        "laravel.vscode-laravel",
+        "marabesi.php-import-checker",
+        "onecentlin.laravel-blade",
+        "pcbowers.alpine-intellisense",
+        "spmeesseman.vscode-taskexplorer",
+        "xdebug.php-debug"
+      ]
     }
+  },
+  "legacyIds": [
+    "larasets"
+  ],
+  "postCreateCommand": {
+    "config": "configure-feature larasets"
+  }
 }

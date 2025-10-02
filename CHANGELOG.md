@@ -2,6 +2,32 @@
 
 # Changelog
 
+## v5.28.1 (2025-10-01)
+
+_Commits from: v5.28.0..HEAD_
+
+### 📂 Unscoped changes
+
+#### Bug Fixes
+
+- 🐛 update package.json files across multiple modules ([eed42a5](https://github.com/tomgrv/devcontainer-features/commit/eed42a568d1ac2f2f28f1442d886b806999adc62))
+
+#### Other changes
+
+- Merge tag 'v5.28.0' into develop ([f8d8983](https://github.com/tomgrv/devcontainer-features/commit/f8d8983a6fab253b4369973a8d59534b4e0ef2e5))
+
+### 📦 gitutils changes
+
+#### Bug Fixes
+
+- 🐛 ensure upstream tracking when pushing changes ([c809a32](https://github.com/tomgrv/devcontainer-features/commit/c809a327d1f07c285d0025eed74b594f0d7f166b))
+
+### 📦 gitversion changes
+
+#### Bug Fixes
+
+- 🐛 enhance version bumping logic ([89b8895](https://github.com/tomgrv/devcontainer-features/commit/89b8895cc7b9d51e2fd565a5929e1ca21c8f23a6))
+
 ## v5.28.0 (2025-10-01)
 
 _Commits from: v5.27.0..HEAD_

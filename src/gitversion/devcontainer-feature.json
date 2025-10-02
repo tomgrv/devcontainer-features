@@ -1,24 +1,24 @@
 {
-    "id": "gitversion",
-    "name": "GitVersion feature",
-    "description": "Add gitversion to your devcontainer",
-    "version": "5.28.0",
-    "dependsOn": {
-        "ghcr.io/devcontainers/features/dotnet": "",
-        "ghcr.io/tomgrv/devcontainer-features/common-utils:5": ""
-    },
-    "installsAfter": [
-        "ghcr.io/tomgrv/devcontainer-features/common-utils",
-        "ghcr.io/devcontainers/features/dotnet"
-    ],
-    "options": {
-        "version": {
-            "type": "string",
-            "default": "5.*",
-            "description": "The version of GitVersion to install"
-        }
-    },
-    "postCreateCommand": {
-        "config": "configure-feature gitversion"
+  "id": "gitversion",
+  "name": "GitVersion feature",
+  "description": "Add gitversion to your devcontainer",
+  "version": "5.28.1",
+  "dependsOn": {
+    "ghcr.io/devcontainers/features/dotnet": "",
+    "ghcr.io/tomgrv/devcontainer-features/common-utils:5": ""
+  },
+  "installsAfter": [
+    "ghcr.io/tomgrv/devcontainer-features/common-utils",
+    "ghcr.io/devcontainers/features/dotnet"
+  ],
+  "options": {
+    "version": {
+      "type": "string",
+      "default": "5.*",
+      "description": "The version of GitVersion to install"
     }
+  },
+  "postCreateCommand": {
+    "config": "configure-feature gitversion"
+  }
 }

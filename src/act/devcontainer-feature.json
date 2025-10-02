@@ -1,25 +1,25 @@
 {
-    "id": "act",
-    "name": "Nektos Act",
-    "description": "A tool for running GitHub Actions locally",
-    "version": "1.6.1",
-    "dependsOn": {
-        "ghcr.io/devcontainers/features/docker-in-docker": {},
-        "ghcr.io/tomgrv/devcontainer-features/common-utils:5": {}
-    },
-    "installsAfter": [
-        "ghcr.io/devcontainers/features/common-utils",
-        "ghcr.io/devcontainers/features/docker-in-docker",
-        "ghcr.io/tomgrv/devcontainer-features/common-utils"
-    ],
-    "options": {
-        "version": {
-            "type": "string",
-            "description": "The version of act to install",
-            "default": "master"
-        }
-    },
-    "postCreateCommand": {
-        "config": "configure-feature act"
+  "id": "act",
+  "name": "Nektos Act",
+  "description": "A tool for running GitHub Actions locally",
+  "version": "5.28.1",
+  "dependsOn": {
+    "ghcr.io/devcontainers/features/docker-in-docker": {},
+    "ghcr.io/tomgrv/devcontainer-features/common-utils:5": {}
+  },
+  "installsAfter": [
+    "ghcr.io/devcontainers/features/common-utils",
+    "ghcr.io/devcontainers/features/docker-in-docker",
+    "ghcr.io/tomgrv/devcontainer-features/common-utils"
+  ],
+  "options": {
+    "version": {
+      "type": "string",
+      "description": "The version of act to install",
+      "default": "master"
     }
+  },
+  "postCreateCommand": {
+    "config": "configure-feature act"
+  }
 }
