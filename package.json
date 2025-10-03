@@ -212,5 +212,8 @@
     ".devcontainer/*": [
       "cp -u -t ./stubs/.devcontainer "
     ]
+  },
+  "dependencies": {
+    "prettier-plugin-sh": "^0.18.0"
   }
 }
