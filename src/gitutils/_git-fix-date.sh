@@ -145,7 +145,7 @@ git log --format="%H|%ai|%ci|%s" --reverse $commit_range | while IFS='|' read co
 			new_committer_date="$c_date $new_time $c_tz"
 			
 			# Always output change plan
-			zz_log - "$(echo $commit_sha | cut -c1-7) | $a_date $a_time → $a_date $new_time | $subject"
+			zz_log - "$(echo "$commit_sha" | cut -c1-7) | $a_date $a_time → $a_date $new_time | $subject"
 			
 			echo "$commit_sha|$new_author_date|$new_committer_date" >> "$temp_map"
 		else
