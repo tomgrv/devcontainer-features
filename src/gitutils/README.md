@@ -19,7 +19,7 @@ The following aliases are included: [./alias.json](./src/gitutils/alias.json)
 ## Options
 
 | Options Id | Description                         | Type   | Default Value |
-| ---------- | ----------------------------------- | ------ | ------------- |
+| ---------- | ------------------------------------ | ------ | -------------- |
 | version    | The version of GitUtils to install. | string | latest        |
 
 ## Functional Coverage
