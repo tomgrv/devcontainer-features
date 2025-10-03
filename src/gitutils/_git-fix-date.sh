@@ -64,10 +64,10 @@ fi
 # Convert days to array for bash processing
 days_array=$(echo "$days" | tr ',' ' ')
 
-zz_log i "Rescheduling commits on days: $days (0=Sunday, 6=Saturday)"
-zz_log i "Time range: $start - $end"
-zz_log i "First half ($start - midpoint) will move to before $before"
-zz_log i "Second half (midpoint - $end) will move to after $after"
+zz_log s "Rescheduling commits on days: $days (0=Sunday, 6=Saturday)"
+zz_log s "Time range: $start - $end"
+zz_log s "First half ($start - midpoint) will move to before $before"
+zz_log s "Second half (midpoint - $end) will move to after $after"
 
 #### Rewrite history to fix dates
 if [ -n "$dryrun" ]; then
@@ -92,11 +92,6 @@ fi
 # Create a temporary mapping file for new times
 temp_map=$(mktemp)
 trap "rm -f $temp_map" EXIT
-
-# Always display the change plan header
-echo "" >&2
-echo "=== Change Plan ===" >&2
-echo "" >&2
 
 # Collect commits that need rescheduling
 git log --format="%H|%ai|%ci|%s" --reverse $commit_range | while IFS='|' read commit_sha author_date committer_date subject; do
@@ -150,7 +145,7 @@ git log --format="%H|%ai|%ci|%s" --reverse $commit_range | while IFS='|' read co
 			new_committer_date="$c_date $new_time $c_tz"
 			
 			# Always output change plan
-			echo "$(echo $commit_sha | cut -c1-7) | $a_date $a_time → $a_date $new_time | $subject" >&2
+			zz_log - "$(echo $commit_sha | cut -c1-7) | $a_date $a_time → $a_date $new_time | $subject"
 			
 			echo "$commit_sha|$new_author_date|$new_committer_date" >> "$temp_map"
 		else
@@ -159,10 +154,6 @@ git log --format="%H|%ai|%ci|%s" --reverse $commit_range | while IFS='|' read co
 		fi
 	done
 
-# Always display the end of change plan
-echo "" >&2
-echo "=== End of Change Plan ===" >&2
-echo "" >&2
 
 # Exit if dry-run mode
 if [ -n "$dryrun" ]; then
