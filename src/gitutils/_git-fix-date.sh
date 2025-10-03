@@ -5,14 +5,22 @@ eval $(
 	zz_args "Fix commit dates and times in git history" $0 "$@" <<-help
 		f -         force       allow overwriting pushed history
 		p -         push        push changes after rewriting history
-		d days      days        days of week to reschedule (0=Sunday, 1=Monday, ..., 6=Saturday, comma-separated)
-		s start     start       start time for rescheduling (HH:MM format, e.g., 08:00)
-		e end       end         end time for rescheduling (HH:MM format, e.g., 20:00)
-		b before    before      time to move first half commits to (HH:MM format)
-		a after     after       time to move second half commits to (HH:MM format)
+		n -         dryrun      dry-run mode: output change plan without applying changes
+		d days      days        days of week to reschedule (default: 1,2,3,4,5 for Mon-Fri; 0=Sunday, 6=Saturday)
+		s start     start       start time for rescheduling (default: 08:00, HH:MM format)
+		e end       end         end time for rescheduling (default: 17:00, HH:MM format)
+		b before    before      time to move first half commits to (default: 06:00, HH:MM format)
+		a after     after       time to move second half commits to (default: 20:00, HH:MM format)
 		- sha       sha         sha commit to fix from
 	help
 )
+
+# Set default values
+days="${days:-1,2,3,4,5}"
+start="${start:-08:00}"
+end="${end:-17:00}"
+before="${before:-06:00}"
+after="${after:-20:00}"
 
 # Navigate to the repository root
 cd "$(git rev-parse --show-toplevel)" >/dev/null
@@ -27,73 +35,67 @@ if ! git diff-index --quiet HEAD --; then
 fi
 
 # Retrieve the commit SHA to fix from
-if command -v git-getcommit >/dev/null 2>&1 || git getcommit -h >/dev/null 2>&1; then
-	sha=$(git getcommit $force $sha)
-elif [ -z "$sha" ] && [ -z "$force" ]; then
-	# If no sha provided and no force flag, list fixable commits
-	zz_log i "Listing commits that haven't been pushed yet:"
-	git log --oneline @{u}..HEAD 2>/dev/null || git log --oneline HEAD~5..HEAD
-	read -p 'Which commit SHA to start from? (leave empty for all commits) ' sha
+sha=$(git getcommit $force $sha)
+
+# Validate time formats
+if ! echo "$start" | grep -qE '^[0-9]{2}:[0-9]{2}$'; then
+	zz_log e "Invalid start time format. Use HH:MM (e.g., 08:00)"
+	exit 1
+fi
+if ! echo "$end" | grep -qE '^[0-9]{2}:[0-9]{2}$'; then
+	zz_log e "Invalid end time format. Use HH:MM (e.g., 17:00)"
+	exit 1
+fi
+if ! echo "$before" | grep -qE '^[0-9]{2}:[0-9]{2}$'; then
+	zz_log e "Invalid before time format. Use HH:MM (e.g., 06:00)"
+	exit 1
+fi
+if ! echo "$after" | grep -qE '^[0-9]{2}:[0-9]{2}$'; then
+	zz_log e "Invalid after time format. Use HH:MM (e.g., 20:00)"
+	exit 1
 fi
 
-# Validate rescheduling parameters
-if [ -n "$days" ] || [ -n "$start" ] || [ -n "$end" ]; then
-	if [ -z "$days" ] || [ -z "$start" ] || [ -z "$end" ] || [ -z "$before" ] || [ -z "$after" ]; then
-		zz_log e "For rescheduling, you must provide all parameters: -d days, -s start, -e end, -b before, -a after"
-		exit 1
-	fi
-	
-	# Validate time formats
-	if ! echo "$start" | grep -qE '^[0-9]{2}:[0-9]{2}$'; then
-		zz_log e "Invalid start time format. Use HH:MM (e.g., 08:00)"
-		exit 1
-	fi
-	if ! echo "$end" | grep -qE '^[0-9]{2}:[0-9]{2}$'; then
-		zz_log e "Invalid end time format. Use HH:MM (e.g., 20:00)"
-		exit 1
-	fi
-	if ! echo "$before" | grep -qE '^[0-9]{2}:[0-9]{2}$'; then
-		zz_log e "Invalid before time format. Use HH:MM (e.g., 07:30)"
-		exit 1
-	fi
-	if ! echo "$after" | grep -qE '^[0-9]{2}:[0-9]{2}$'; then
-		zz_log e "Invalid after time format. Use HH:MM (e.g., 20:30)"
-		exit 1
-	fi
-	
-	# Convert days to array for bash processing
-	days_array=$(echo "$days" | tr ',' ' ')
-	
-	zz_log i "Rescheduling commits on days: $days (0=Sunday, 6=Saturday)"
-	zz_log i "Time range: $start - $end"
-	zz_log i "First half ($start - midpoint) will move to before $before"
-	zz_log i "Second half (midpoint - $end) will move to after $after"
-fi
+# Convert days to array for bash processing
+days_array=$(echo "$days" | tr ',' ' ')
+
+zz_log i "Rescheduling commits on days: $days (0=Sunday, 6=Saturday)"
+zz_log i "Time range: $start - $end"
+zz_log i "First half ($start - midpoint) will move to before $before"
+zz_log i "Second half (midpoint - $end) will move to after $after"
 
 #### Rewrite history to fix dates
-zz_log i "Rewriting commit dates from commit $sha"
+if [ -n "$dryrun" ]; then
+	zz_log i "DRY RUN MODE: No changes will be applied"
+else
+	zz_log i "Rewriting commit dates from commit $sha"
+fi
 
-# Create the date filter script
-if [ -n "$days" ]; then
-	# Rescheduling mode - need to process commits in two passes
-	# First pass: collect commits that need rescheduling
-	# Second pass: redistribute them while maintaining sequential order
-	
-	zz_log i "Analyzing commits for rescheduling..."
-	
-	# Get list of commits to process
-	if [ -n "$sha" ]; then
-		commit_range="${sha}..HEAD"
-	else
-		commit_range="--all"
-	fi
-	
-	# Create a temporary mapping file for new times
-	temp_map=$(mktemp)
-	trap "rm -f $temp_map" EXIT
-	
-	# Collect commits that need rescheduling
-	git log --format="%H|%ai|%ci" --reverse $commit_range | while IFS='|' read commit_sha author_date committer_date; do
+# Rescheduling mode - need to process commits in two passes
+# First pass: collect commits that need rescheduling
+# Second pass: redistribute them while maintaining sequential order
+
+zz_log i "Analyzing commits for rescheduling..."
+
+# Get list of commits to process
+if [ -n "$sha" ]; then
+	commit_range="${sha}..HEAD"
+else
+	commit_range="--all"
+fi
+
+# Create a temporary mapping file for new times
+temp_map=$(mktemp)
+trap "rm -f $temp_map" EXIT
+
+# In dry-run mode, also create a summary for stderr output
+if [ -n "$dryrun" ]; then
+	echo "" >&2
+	echo "=== DRY RUN: Change Plan ===" >&2
+	echo "" >&2
+fi
+
+# Collect commits that need rescheduling
+git log --format="%H|%ai|%ci|%s" --reverse $commit_range | while IFS='|' read commit_sha author_date committer_date subject; do
 		# Extract date and time components
 		a_date=$(echo "$author_date" | cut -d' ' -f1)
 		a_time=$(echo "$author_date" | cut -d' ' -f2)
@@ -143,44 +145,49 @@ if [ -n "$days" ]; then
 			new_author_date="$a_date $new_time $a_tz"
 			new_committer_date="$c_date $new_time $c_tz"
 			
+			# Output change plan in dry-run mode
+			if [ -n "$dryrun" ]; then
+				echo "$(echo $commit_sha | cut -c1-7) | $a_date $a_time → $a_date $new_time | $subject" >&2
+			fi
+			
 			echo "$commit_sha|$new_author_date|$new_committer_date" >> "$temp_map"
 		else
 			# Not in range, keep as-is
 			echo "$commit_sha|$author_date|$committer_date" >> "$temp_map"
 		fi
 	done
+
+if [ -n "$dryrun" ]; then
+	echo "" >&2
+	echo "=== End of Change Plan ===" >&2
+	echo "" >&2
+	zz_log i "Dry run complete. No changes were made."
+	exit 0
+fi
 	
-	# Export the mapping file path for the filter
-	export DATE_MAP_FILE="$temp_map"
+# Export the mapping file path for the filter
+export DATE_MAP_FILE="$temp_map"
+
+date_filter='
+	# Look up the new date for this commit
+	commit_sha="$GIT_COMMIT"
+	map_file="$DATE_MAP_FILE"
 	
-	date_filter='
-		# Look up the new date for this commit
-		commit_sha="$GIT_COMMIT"
-		map_file="$DATE_MAP_FILE"
-		
-		if [ -f "$map_file" ]; then
-			line=$(grep "^$commit_sha|" "$map_file" || echo "")
-			if [ -n "$line" ]; then
-				new_author=$(echo "$line" | cut -d"|" -f2)
-				new_committer=$(echo "$line" | cut -d"|" -f3)
-				
-				if [ -n "$new_author" ]; then
-					export GIT_AUTHOR_DATE="$new_author"
-				fi
-				if [ -n "$new_committer" ]; then
-					export GIT_COMMITTER_DATE="$new_committer"
-				fi
+	if [ -f "$map_file" ]; then
+		line=$(grep "^$commit_sha|" "$map_file" || echo "")
+		if [ -n "$line" ]; then
+			new_author=$(echo "$line" | cut -d"|" -f2)
+			new_committer=$(echo "$line" | cut -d"|" -f3)
+			
+			if [ -n "$new_author" ]; then
+				export GIT_AUTHOR_DATE="$new_author"
+			fi
+			if [ -n "$new_committer" ]; then
+				export GIT_COMMITTER_DATE="$new_committer"
 			fi
 		fi
-	'
-else
-	# No rescheduling, just preserve dates as-is
-	date_filter='
-		# Keep dates unchanged - this mode is for future extensions
-		export GIT_AUTHOR_DATE="$GIT_AUTHOR_DATE"
-		export GIT_COMMITTER_DATE="$GIT_COMMITTER_DATE"
-	'
-fi
+	fi
+'
 
 # Execute filter-branch with the date filter
 git filter-branch --env-filter "$date_filter" --tag-name-filter cat -- --branches --tags ${sha:---all}${sha:+..HEAD}

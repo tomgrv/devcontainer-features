@@ -18,9 +18,9 @@ The following aliases are included: [./alias.json](./src/gitutils/alias.json)
 
 ## Options
 
-| Options Id | Description | Type | Default Value |
-|-----|-----|-----|-----|
-| version | The version of GitUtils to install. | string | latest |
+| Options Id | Description                         | Type   | Default Value |
+| ---------- | ----------------------------------- | ------ | ------------- |
+| version    | The version of GitUtils to install. | string | latest        |
 
 ## Functional Coverage
 
@@ -34,9 +34,9 @@ Additionally, the feature installs the [git-flow](https://github.com/nvie/gitflo
 
 Shortcuts are also added to the `git` command to make it easier to use the `git-flow` commands:
 
--   `git beta` is a shortcut for `git flow release start`
--   `git hfix` is a shortcut for `git flow hotfix start`
--   `git prod` is a shortcut for `git flow release finish` and `git flow hotfix finish`
+- `git beta` is a shortcut for `git flow release start`
+- `git hfix` is a shortcut for `git flow hotfix start`
+- `git prod` is a shortcut for `git flow release finish` and `git flow hotfix finish`
 
 These shortcuts work in conjunction with the `gitversion` utility to automatically update the version number of the application.
 
@@ -44,73 +44,72 @@ These shortcuts work in conjunction with the `gitversion` utility to automatical
 
 The feature includes the following interactive utilities:
 
--   `git fixup` - Amend the specified commit with current changes and rebase
--   `git align` - Align the current branch with its remote counterpart.
--   `git degit <repository> [directory]` - Download and extract a repository from GitHub, GitLab, or Bitbucket.
--   `git fix date [options] [<commit>]` - Fix commit dates and times in git history. Options include rescheduling commits on specific days of week outside certain time ranges.
--   `git fixup [--force|<commit>]` - Amend the specified commit with current changes and rebase.
--   `git forall <command>` - Execute a command for all files in the repository.
--   `git getcommit [--force|<commit>]` - Get the commit to fixup.
--   `git integrate` - Integrate modifications from the remote repository.
--   `git movetags` - Move tags to the nearest commit with the same message in the current branch.
--   `git release-beta` - Start a new release branch using Git Flow.
--   `git release-hotfix` - Start a new hotfix branch using Git Flow.
--   `git release-prod` - Finish a release or hotfix branch using Git Flow.
--   `git setrights` - Set permissions for files and directories according to best practices.
--   `git unset <prefix> [--local|--global|--system]` - Unset all Git config keys starting with the given prefix.
+- `git fixup` - Amend the specified commit with current changes and rebase
+- `git align` - Align the current branch with its remote counterpart.
+- `git degit <repository> [directory]` - Download and extract a repository from GitHub, GitLab, or Bitbucket.
+- `git fix date [options] [<commit>]` - Fix commit dates and times in git history. Options include rescheduling commits on specific days of week outside certain time ranges.
+- `git fixup [--force|<commit>]` - Amend the specified commit with current changes and rebase.
+- `git forall <command>` - Execute a command for all files in the repository.
+- `git getcommit [--force|<commit>]` - Get the commit to fixup.
+- `git integrate` - Integrate modifications from the remote repository.
+- `git movetags` - Move tags to the nearest commit with the same message in the current branch.
+- `git release-beta` - Start a new release branch using Git Flow.
+- `git release-hotfix` - Start a new hotfix branch using Git Flow.
+- `git release-prod` - Finish a release or hotfix branch using Git Flow.
+- `git setrights` - Set permissions for files and directories according to best practices.
+- `git unset <prefix> [--local|--global|--system]` - Unset all Git config keys starting with the given prefix.
 
 ## Aliases
 
 The following aliases are provided to enhance your Git workflow:
 
--   `git amend` - Amend the last commit with the current changes.
--   `git beta` - Start a new release branch using Git Flow.
--   `git cleanup` - Stash all changes, clean the working directory, and apply the stash.
--   `git co <message>` - Commit with the provided message.
--   `git conflict` - List files with merge conflicts.
--   `git continue` - Continue the rebase process after resolving conflicts.
--   `git crush` - Stash all changes, reset to the upstream branch, and apply the stash.
--   `git edit` - Amend the last commit and edit the commit message.
--   `git fixMode` - Apply the reverse diff of the current changes.
--   `git fixable` - List commits that can be fixed up.
--   `git forceable` - List commits that can be force-pushed.
--   `git go <message>` - Commit all changes with the provided message.
--   `git hfix` - Start a new hotfix branch using Git Flow.
--   `git histo` - Show the commit history from the last merge.
--   `git ignore <file>` - Add the specified file to `.gitignore` and remove it from the index.
--   `git initFrom <repo> <dir>` - Clone a repository and set up branches.
--   `git isChanged <file>` - Check if the specified file has changed.
--   `git isDirty <file>` - Check if the specified file has uncommitted changes.
--   `git isFixup` - Check if the last commit is a fixup commit.
--   `git isRebase` - Check if a rebase is in progress.
--   `git pn` - Push without running pre-push hooks.
--   `git prod` - Finish a release or hotfix branch using Git Flow.
--   `git recallId <key>` - Set the Git user name and email to the author of the last commit.
--   `git renameTag <old> <new>` - Rename a tag.
--   `git stack` - Amend the last commit without changing the commit message.
--   `git sync` - Fetch and merge changes from the upstream branch.
--   `git undo` - Undo the last commit, keeping the changes in the working directory.
+- `git amend` - Amend the last commit with the current changes.
+- `git beta` - Start a new release branch using Git Flow.
+- `git cleanup` - Stash all changes, clean the working directory, and apply the stash.
+- `git co <message>` - Commit with the provided message.
+- `git conflict` - List files with merge conflicts.
+- `git continue` - Continue the rebase process after resolving conflicts.
+- `git crush` - Stash all changes, reset to the upstream branch, and apply the stash.
+- `git edit` - Amend the last commit and edit the commit message.
+- `git fixMode` - Apply the reverse diff of the current changes.
+- `git fixable` - List commits that can be fixed up.
+- `git forceable` - List commits that can be force-pushed.
+- `git go <message>` - Commit all changes with the provided message.
+- `git hfix` - Start a new hotfix branch using Git Flow.
+- `git histo` - Show the commit history from the last merge.
+- `git ignore <file>` - Add the specified file to `.gitignore` and remove it from the index.
+- `git initFrom <repo> <dir>` - Clone a repository and set up branches.
+- `git isChanged <file>` - Check if the specified file has changed.
+- `git isDirty <file>` - Check if the specified file has uncommitted changes.
+- `git isFixup` - Check if the last commit is a fixup commit.
+- `git isRebase` - Check if a rebase is in progress.
+- `git pn` - Push without running pre-push hooks.
+- `git prod` - Finish a release or hotfix branch using Git Flow.
+- `git recallId <key>` - Set the Git user name and email to the author of the last commit.
+- `git renameTag <old> <new>` - Rename a tag.
+- `git stack` - Amend the last commit without changing the commit message.
+- `git sync` - Fetch and merge changes from the upstream branch.
+- `git undo` - Undo the last commit, keeping the changes in the working directory.
 
 ## Customizations
 
 The feature also includes the following VS Code customizations:
 
--   Extensions:
+- Extensions:
+    - `donjayamanne.githistory`
+    - `tomblind.scm-buttons-vscode`
+    - `mhutchie.git-graph`
+    - `arturock.gitstash`
+    - `github.copilot`
+    - `github.copilot-chat`
+    - `github.vscode-github-actions`
+    - `gitHub.vscode-pull-request-github`
+    - `github.codespaces`
+    - `waderyan.gitblame`
 
-    -   `donjayamanne.githistory`
-    -   `tomblind.scm-buttons-vscode`
-    -   `mhutchie.git-graph`
-    -   `arturock.gitstash`
-    -   `github.copilot`
-    -   `github.copilot-chat`
-    -   `github.vscode-github-actions`
-    -   `gitHub.vscode-pull-request-github`
-    -   `github.codespaces`
-    -   `waderyan.gitblame`
-
--   Settings:
-    -   `explorer.excludeGitIgnore`: `true`
-    -   `git.autorefresh`: `true`
+- Settings:
+    - `explorer.excludeGitIgnore`: `true`
+    - `git.autorefresh`: `true`
 
 ## Git Fix Date
 
@@ -119,26 +118,65 @@ The `git fix date` command allows you to correct commit dates and times in your 
 ### Usage
 
 ```bash
-# Basic usage - fix dates from a specific commit onwards
-git fix date [<commit-sha>]
+# Basic usage with default values (reschedule Mon-Fri 08:00-17:00 to 06:00/20:00)
+git fix date -f [ < commit-sha > ]
 
-# Reschedule commits with options
-git fix date -d <days> -s <start> -e <end> -b <before> -a <after> [<commit-sha>]
+# Dry-run mode to preview changes without applying them
+git fix date -n [ < commit-sha > ]
+
+# Reschedule commits with custom options
+git fix date -d < days > -s < start > -e < end > -b < before > -a < after > [ < commit-sha > ]
 ```
 
 ### Options
 
--   `-f` - Force mode: allow overwriting pushed history
--   `-p` - Push changes after rewriting history
--   `-d <days>` - Days of week to reschedule (0=Sunday, 1=Monday, ..., 6=Saturday, comma-separated)
--   `-s <start>` - Start time for rescheduling (HH:MM format, e.g., 08:00)
--   `-e <end>` - End time for rescheduling (HH:MM format, e.g., 20:00)
--   `-b <before>` - Time to move first half commits to (HH:MM format)
--   `-a <after>` - Time to move second half commits to (HH:MM format)
+- `-f` - Force mode: allow overwriting pushed history
+- `-p` - Push changes after rewriting history
+- `-n` - Dry-run mode: output change plan to stderr without applying changes
+- `-d <days>` - Days of week to reschedule (default: `1,2,3,4,5` for Mon-Fri; 0=Sunday, 6=Saturday)
+- `-s <start>` - Start time for rescheduling (default: `08:00`, HH:MM format)
+- `-e <end>` - End time for rescheduling (default: `17:00`, HH:MM format)
+- `-b <before>` - Time to move first half commits to (default: `06:00`, HH:MM format)
+- `-a <after>` - Time to move second half commits to (default: `20:00`, HH:MM format)
 
-### Example
+### Default Behavior
+
+When run without options, the command will:
+
+- Reschedule commits on weekdays (Monday-Friday)
+- Target commits between 08:00 and 17:00
+- Move first half (08:00-12:30) to 06:00
+- Move second half (12:30-17:00) to 20:00
+
+### Examples
+
+#### Example 1: Preview changes with dry-run mode
+
+```bash
+git fix date -n
+```
+
+Output to stderr:
+
+```
+=== DRY RUN: Change Plan ===
+
+a1b2c3d | 2024-03-04 09:00:00 → 2024-03-04 06:00:00 | Monday morning work
+e4f5g6h | 2024-03-04 14:00:00 → 2024-03-04 20:00:00 | Monday afternoon work
+
+=== End of Change Plan ===
+```
+
+#### Example 2: Apply default weekday rescheduling
+
+```bash
+git fix date -f
+```
+
+#### Example 3: Reschedule Sunday commits
 
 Reschedule all Sunday commits between 8:00 and 20:00:
+
 - Commits in the first half (8:00-14:00) will be moved to 7:30 on the same day
 - Commits in the second half (14:00-20:00) will be moved to 20:30 on the same day
 
@@ -148,10 +186,10 @@ git fix date -f -d 0 -s 08:00 -e 20:00 -b 07:30 -a 20:30
 
 ### Important Notes
 
--   The sequential order of commits is always preserved
--   Only the time is modified, never the date
--   The command uses `git filter-branch` to rewrite history
--   Use `-f` flag carefully as it allows overwriting pushed history
+- The sequential order of commits is always preserved
+- Only the time is modified, never the date
+- The command uses `git filter-branch` to rewrite history
+- Use `-f` flag carefully as it allows overwriting pushed history
 
 ## Contributing
 
