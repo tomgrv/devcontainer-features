@@ -5,8 +5,8 @@ eval $(
 	zz_args "Fix commit dates and times in git history" $0 "$@" <<-help
 		f -         force       allow overwriting pushed history
 		p -         push        push changes after rewriting history
-		n -         dryrun      dry-run mode: output change plan without applying changes
-		d days      days        days of week to reschedule (default: 1,2,3,4,5 for Mon-Fri; 0=Sunday, 6=Saturday)
+		d -         dryrun      dry-run mode: output change plan without applying changes
+		r days      days        days of week to reschedule (default: 1,2,3,4,5 for Mon-Fri; 0=Sunday, 6=Saturday)
 		s start     start       start time for rescheduling (default: 08:00, HH:MM format)
 		e end       end         end time for rescheduling (default: 17:00, HH:MM format)
 		b before    before      time to move first half commits to (default: 06:00, HH:MM format)
@@ -87,12 +87,10 @@ fi
 temp_map=$(mktemp)
 trap "rm -f $temp_map" EXIT
 
-# In dry-run mode, also create a summary for stderr output
-if [ -n "$dryrun" ]; then
-	echo "" >&2
-	echo "=== DRY RUN: Change Plan ===" >&2
-	echo "" >&2
-fi
+# Always display the change plan header
+echo "" >&2
+echo "=== Change Plan ===" >&2
+echo "" >&2
 
 # Collect commits that need rescheduling
 git log --format="%H|%ai|%ci|%s" --reverse $commit_range | while IFS='|' read commit_sha author_date committer_date subject; do
@@ -145,10 +143,8 @@ git log --format="%H|%ai|%ci|%s" --reverse $commit_range | while IFS='|' read co
 			new_author_date="$a_date $new_time $a_tz"
 			new_committer_date="$c_date $new_time $c_tz"
 			
-			# Output change plan in dry-run mode
-			if [ -n "$dryrun" ]; then
-				echo "$(echo $commit_sha | cut -c1-7) | $a_date $a_time → $a_date $new_time | $subject" >&2
-			fi
+			# Always output change plan
+			echo "$(echo $commit_sha | cut -c1-7) | $a_date $a_time → $a_date $new_time | $subject" >&2
 			
 			echo "$commit_sha|$new_author_date|$new_committer_date" >> "$temp_map"
 		else
@@ -157,12 +153,24 @@ git log --format="%H|%ai|%ci|%s" --reverse $commit_range | while IFS='|' read co
 		fi
 	done
 
+# Always display the end of change plan
+echo "" >&2
+echo "=== End of Change Plan ===" >&2
+echo "" >&2
+
+# Exit if dry-run mode
 if [ -n "$dryrun" ]; then
-	echo "" >&2
-	echo "=== End of Change Plan ===" >&2
-	echo "" >&2
 	zz_log i "Dry run complete. No changes were made."
 	exit 0
+fi
+
+# Ask for confirmation before proceeding
+zz_log w "This will rewrite git history. Make sure you understand the consequences."
+read -p "Do you want to proceed? (y/N) " -n 1 -r >&2
+echo "" >&2
+if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+	zz_log i "Operation cancelled by user."
+	exit 1
 fi
 	
 # Export the mapping file path for the filter

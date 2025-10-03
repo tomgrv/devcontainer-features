@@ -119,21 +119,22 @@ The `git fix date` command allows you to correct commit dates and times in your 
 
 ```bash
 # Basic usage with default values (reschedule Mon-Fri 08:00-17:00 to 06:00/20:00)
+# The command will display a plan and ask for confirmation
 git fix date -f [ < commit-sha > ]
 
-# Dry-run mode to preview changes without applying them
-git fix date -n [ < commit-sha > ]
+# Dry-run mode to preview changes without applying them (no confirmation needed)
+git fix date -d [ < commit-sha > ]
 
 # Reschedule commits with custom options
-git fix date -d < days > -s < start > -e < end > -b < before > -a < after > [ < commit-sha > ]
+git fix date -r < days > -s < start > -e < end > -b < before > -a < after > [ < commit-sha > ]
 ```
 
 ### Options
 
 - `-f` - Force mode: allow overwriting pushed history
 - `-p` - Push changes after rewriting history
-- `-n` - Dry-run mode: output change plan to stderr without applying changes
-- `-d <days>` - Days of week to reschedule (default: `1,2,3,4,5` for Mon-Fri; 0=Sunday, 6=Saturday)
+- `-d` - Dry-run mode: display change plan without applying changes or asking for confirmation
+- `-r <days>` - Days of week to reschedule (default: `1,2,3,4,5` for Mon-Fri; 0=Sunday, 6=Saturday)
 - `-s <start>` - Start time for rescheduling (default: `08:00`, HH:MM format)
 - `-e <end>` - End time for rescheduling (default: `17:00`, HH:MM format)
 - `-b <before>` - Time to move first half commits to (default: `06:00`, HH:MM format)
@@ -143,6 +144,8 @@ git fix date -d < days > -s < start > -e < end > -b < before > -a < after > [ < 
 
 When run without options, the command will:
 
+- Display a change plan showing all commits that will be modified
+- Ask for confirmation before proceeding
 - Reschedule commits on weekdays (Monday-Friday)
 - Target commits between 08:00 and 17:00
 - Move first half (08:00-12:30) to 06:00
@@ -153,24 +156,33 @@ When run without options, the command will:
 #### Example 1: Preview changes with dry-run mode
 
 ```bash
-git fix date -n
+git fix date -d
 ```
 
-Output to stderr:
+Output:
 
 ```
-=== DRY RUN: Change Plan ===
+=== Change Plan ===
 
 a1b2c3d | 2024-03-04 09:00:00 → 2024-03-04 06:00:00 | Monday morning work
 e4f5g6h | 2024-03-04 14:00:00 → 2024-03-04 20:00:00 | Monday afternoon work
 
 === End of Change Plan ===
+
+Dry run complete. No changes were made.
 ```
 
-#### Example 2: Apply default weekday rescheduling
+#### Example 2: Apply default weekday rescheduling with confirmation
 
 ```bash
 git fix date -f
+```
+
+The command will display the change plan and prompt:
+
+```
+This will rewrite git history. Make sure you understand the consequences.
+Do you want to proceed? (y/N)
 ```
 
 #### Example 3: Reschedule Sunday commits
@@ -181,7 +193,7 @@ Reschedule all Sunday commits between 8:00 and 20:00:
 - Commits in the second half (14:00-20:00) will be moved to 20:30 on the same day
 
 ```bash
-git fix date -f -d 0 -s 08:00 -e 20:00 -b 07:30 -a 20:30
+git fix date -f -r 0 -s 08:00 -e 20:00 -b 07:30 -a 20:30
 ```
 
 ### Important Notes
