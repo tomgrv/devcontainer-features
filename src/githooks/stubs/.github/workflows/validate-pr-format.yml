@@ -1,6 +1,6 @@
 # @format
 
-name: Validate PR Title
+name: Validate PR Format
 
 on:
   pull_request:
@@ -11,7 +11,8 @@ permissions:
   pull-requests: write
 
 jobs:
-  alidate-pr-title:
+  validate-pr-title:
+    name: Validate PR Title
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -21,5 +22,5 @@ jobs:
       - name: Install dependencies
         run: npm ci && npm install -D $(jq -r '.commitlint.extends//""' 'package.json' | tr -d "'[]:,\"")
 
-      - name: Validate PR title
+      - name: Commitlint PR title
         run: echo "${{ github.event.pull_request.title }}" | npx commitlint
