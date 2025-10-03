@@ -47,6 +47,7 @@ The feature includes the following interactive utilities:
 -   `git fixup` - Amend the specified commit with current changes and rebase
 -   `git align` - Align the current branch with its remote counterpart.
 -   `git degit <repository> [directory]` - Download and extract a repository from GitHub, GitLab, or Bitbucket.
+-   `git fix date [options] [<commit>]` - Fix commit dates and times in git history. Options include rescheduling commits on specific days of week outside certain time ranges.
 -   `git fixup [--force|<commit>]` - Amend the specified commit with current changes and rebase.
 -   `git forall <command>` - Execute a command for all files in the repository.
 -   `git getcommit [--force|<commit>]` - Get the commit to fixup.
@@ -110,6 +111,47 @@ The feature also includes the following VS Code customizations:
 -   Settings:
     -   `explorer.excludeGitIgnore`: `true`
     -   `git.autorefresh`: `true`
+
+## Git Fix Date
+
+The `git fix date` command allows you to correct commit dates and times in your git history. It provides advanced options to reschedule commits that fall outside specific time ranges for certain days of the week, while maintaining the sequential order of commits.
+
+### Usage
+
+```bash
+# Basic usage - fix dates from a specific commit onwards
+git fix date [<commit-sha>]
+
+# Reschedule commits with options
+git fix date -d <days> -s <start> -e <end> -b <before> -a <after> [<commit-sha>]
+```
+
+### Options
+
+-   `-f` - Force mode: allow overwriting pushed history
+-   `-p` - Push changes after rewriting history
+-   `-d <days>` - Days of week to reschedule (0=Sunday, 1=Monday, ..., 6=Saturday, comma-separated)
+-   `-s <start>` - Start time for rescheduling (HH:MM format, e.g., 08:00)
+-   `-e <end>` - End time for rescheduling (HH:MM format, e.g., 20:00)
+-   `-b <before>` - Time to move first half commits to (HH:MM format)
+-   `-a <after>` - Time to move second half commits to (HH:MM format)
+
+### Example
+
+Reschedule all Sunday commits between 8:00 and 20:00:
+- Commits in the first half (8:00-14:00) will be moved to 7:30 on the same day
+- Commits in the second half (14:00-20:00) will be moved to 20:30 on the same day
+
+```bash
+git fix date -f -d 0 -s 08:00 -e 20:00 -b 07:30 -a 20:30
+```
+
+### Important Notes
+
+-   The sequential order of commits is always preserved
+-   Only the time is modified, never the date
+-   The command uses `git filter-branch` to rewrite history
+-   Use `-f` flag carefully as it allows overwriting pushed history
 
 ## Contributing
 
