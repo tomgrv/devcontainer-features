@@ -38,6 +38,12 @@ fi
 sha=$(git getcommit $force $sha)
 
 # Validate time formats
+
+# Prevent running while a rebase is in progress
+if git isRebase >/dev/null 2>&1; then
+	zz_log e "A rebase is in progress. Please finish or abort it before running this script."
+	exit 1
+fi
 if ! echo "$start" | grep -qE '^[0-9]{2}:[0-9]{2}$'; then
 	zz_log e "Invalid start time format. Use HH:MM (e.g., 08:00)"
 	exit 1
@@ -164,11 +170,10 @@ if [ -n "$dryrun" ]; then
 	exit 0
 fi
 
-# Ask for confirmation before proceeding
+
+# Ask for confirmation before proceeding (use helper prompt)
 zz_log w "This will rewrite git history. Make sure you understand the consequences."
-read -p "Do you want to proceed? (y/N) " -n 1 -r >&2
-echo "" >&2
-if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+if ! zz_ask "Yn" "Do you want to proceed?"; then
 	zz_log i "Operation cancelled by user."
 	exit 1
 fi
