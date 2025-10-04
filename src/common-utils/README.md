@@ -68,6 +68,67 @@ In addition to the specified utilities, some additional local utilities are also
 -   `zz_log`: A utility to log messages with color
 -   `zz_args`: A utility to parse command line arguments and display associated help messages in one go.
 
+### Distribute zz_\* Utilities
+
+The `zz_dist` utility allows you to copy all `zz_*` utilities from the devcontainer-installed location to a target directory. This is useful for maintaining a local copy of utilities in your project.
+
+#### Usage
+
+```bash
+zz_dist [options]
+```
+
+#### Options
+
+| Option     | Description                                                                         |
+| ---------- | ----------------------------------------------------------------------------------- |
+| `-t <dir>` | Target directory (required unless specified in config).                             |
+| `-s <dir>` | Source directory (default: `/usr/local/share/common-utils`).                        |
+| `-q`       | Quiet mode: exit silently (code 0) if no target found instead of generating error. |
+
+#### Configuration
+
+The target directory **must** be specified using one of these methods (checked in order):
+
+1. **Command-line option**: Use the `-t` parameter to explicitly specify the target directory.
+
+2. **`.zz_dist` file**: Create a `.zz_dist` file in your project root with the target directory path on the first line.
+
+```bash
+echo "./scripts" > .zz_dist
+```
+
+3. **`package.json`**: Add a `config.zz_dist` entry to your `package.json`:
+
+```json
+{
+	"config": {
+		"zz_dist": "./scripts"
+	}
+}
+```
+
+If no target is found and `-q` (quiet mode) is not specified, the script will exit with an error. The target directory must exist before running the script.
+
+#### Example
+
+```bash
+# Copy using config file
+echo "./scripts" > .zz_dist
+mkdir -p ./scripts
+zz_dist
+
+# Copy to specific directory (must exist)
+mkdir -p ./my-utils
+zz_dist -t ./my-utils
+
+# Copy from custom source to existing directory
+zz_dist -s /custom/path -t ./scripts
+
+# Quiet mode - no error if target not configured
+zz_dist -q
+```
+
 ### Validate JSON
 
 The `validate-json` utility allows you to validate JSON files against a JSON schema. It supports the following features:
