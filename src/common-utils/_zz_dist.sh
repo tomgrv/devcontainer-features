@@ -34,8 +34,9 @@ fi
 # Parse arguments and display help if needed
 eval $(
 	$zz_args "Distribute zz_* utilities to target directory" $0 "$@" <<-help
-		t target    target       Target directory (default: current directory or from config)
+		t target    target       Target directory (required unless specified in config)
 		s source    source       Source directory (default: /usr/local/share/common-utils)
+		q -         quiet        Quiet mode: exit 0 if no target found instead of error
 	help
 )
 
@@ -80,18 +81,30 @@ get_target_from_config() {
 
 # Determine the target directory
 if [ -z "$target" ]; then
-	# Try to get from config
+	# Try to get from config (first .zz_dist file, then package.json)
 	if config_target=$(get_target_from_config); then
 		target="$config_target"
 	else
-		# Default to current directory
-		target="."
-		$zz_log i "Using default target: {B $target}"
+		# No target found in config
+		if [ -n "$quiet" ]; then
+			# Quiet mode: exit silently
+			exit 0
+		else
+			# Error: no target specified
+			$zz_log e "No target directory specified. Use -t option, create .zz_dist file, or add config.zz_dist in package.json"
+			exit 1
+		fi
 	fi
 fi
 
 # Resolve target to absolute path
 target=$(readlink -f "$target")
+
+# Verify target directory exists (if it came from config)
+if [ ! -d "$target" ]; then
+	$zz_log e "Target directory {U $target} does not exist"
+	exit 1
+fi
 
 # Set default source directory
 if [ -z "$source" ]; then
@@ -116,11 +129,7 @@ $zz_log i "Distributing zz_* utilities"
 $zz_log - "From: {U $source}"
 $zz_log - "To: {U $target}"
 
-# Create target directory if it doesn't exist
-if [ ! -d "$target" ]; then
-	$zz_log i "Creating target directory {U $target}"
-	mkdir -p "$target"
-fi
+
 
 # Count utilities found and copied
 count=0

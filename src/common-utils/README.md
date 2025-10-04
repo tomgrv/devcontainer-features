@@ -80,22 +80,25 @@ zz_dist [options]
 
 #### Options
 
-| Option     | Description                                                   |
-| ---------- | ------------------------------------------------------------- |
-| `-t <dir>` | Target directory (default: current directory or from config). |
-| `-s <dir>` | Source directory (default: `/usr/local/share/common-utils`).  |
+| Option     | Description                                                                         |
+| ---------- | ----------------------------------------------------------------------------------- |
+| `-t <dir>` | Target directory (required unless specified in config).                             |
+| `-s <dir>` | Source directory (default: `/usr/local/share/common-utils`).                        |
+| `-q`       | Quiet mode: exit silently (code 0) if no target found instead of generating error. |
 
 #### Configuration
 
-The target directory can be configured in two ways:
+The target directory **must** be specified using one of these methods (checked in order):
 
-1. **`.zz_dist` file**: Create a `.zz_dist` file in your project root with the target directory path on the first line.
+1. **Command-line option**: Use the `-t` parameter to explicitly specify the target directory.
+
+2. **`.zz_dist` file**: Create a `.zz_dist` file in your project root with the target directory path on the first line.
 
 ```bash
 echo "./scripts" > .zz_dist
 ```
 
-2. **`package.json`**: Add a `config.zz_dist` entry to your `package.json`:
+3. **`package.json`**: Add a `config.zz_dist` entry to your `package.json`:
 
 ```json
 {
@@ -105,19 +108,25 @@ echo "./scripts" > .zz_dist
 }
 ```
 
-If both are present, the `.zz_dist` file takes precedence. If neither is present, utilities are copied to the current directory.
+If no target is found and `-q` (quiet mode) is not specified, the script will exit with an error. The target directory must exist before running the script.
 
 #### Example
 
 ```bash
-# Copy to current directory
+# Copy using config file
+echo "./scripts" > .zz_dist
+mkdir -p ./scripts
 zz_dist
 
-# Copy to specific directory
-zz_dist -t ./scripts
+# Copy to specific directory (must exist)
+mkdir -p ./my-utils
+zz_dist -t ./my-utils
 
-# Copy from custom source
+# Copy from custom source to existing directory
 zz_dist -s /custom/path -t ./scripts
+
+# Quiet mode - no error if target not configured
+zz_dist -q
 ```
 
 ### Validate JSON
