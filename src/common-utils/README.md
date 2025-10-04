@@ -68,6 +68,58 @@ In addition to the specified utilities, some additional local utilities are also
 -   `zz_log`: A utility to log messages with color
 -   `zz_args`: A utility to parse command line arguments and display associated help messages in one go.
 
+### Distribute zz_\* Utilities
+
+The `zz_dist` utility allows you to copy all `zz_*` utilities from the devcontainer-installed location to a target directory. This is useful for maintaining a local copy of utilities in your project.
+
+#### Usage
+
+```bash
+zz_dist [options]
+```
+
+#### Options
+
+| Option     | Description                                                   |
+| ---------- | ------------------------------------------------------------- |
+| `-t <dir>` | Target directory (default: current directory or from config). |
+| `-s <dir>` | Source directory (default: `/usr/local/share/common-utils`).  |
+
+#### Configuration
+
+The target directory can be configured in two ways:
+
+1. **`.zz_dist` file**: Create a `.zz_dist` file in your project root with the target directory path on the first line.
+
+```bash
+echo "./scripts" > .zz_dist
+```
+
+2. **`package.json`**: Add a `config.zz_dist` entry to your `package.json`:
+
+```json
+{
+	"config": {
+		"zz_dist": "./scripts"
+	}
+}
+```
+
+If both are present, the `.zz_dist` file takes precedence. If neither is present, utilities are copied to the current directory.
+
+#### Example
+
+```bash
+# Copy to current directory
+zz_dist
+
+# Copy to specific directory
+zz_dist -t ./scripts
+
+# Copy from custom source
+zz_dist -s /custom/path -t ./scripts
+```
+
 ### Validate JSON
 
 The `validate-json` utility allows you to validate JSON files against a JSON schema. It supports the following features:

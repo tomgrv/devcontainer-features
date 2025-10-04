@@ -20,6 +20,7 @@
     "zz-colors": "./_zz_colors.sh",
     "zz-context": "./_zz_context.sh",
     "zz-dispatch": "./_zz_dispatch.sh",
+    "zz-dist": "./_zz_dist.sh",
     "zz-edit": "./_zz_edit.sh",
     "zz-input": "./_zz_input.sh",
     "zz-json": "./_zz_json.sh",
