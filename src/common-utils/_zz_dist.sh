@@ -44,11 +44,11 @@ if [ -z "$target" ]; then
 	# Try to get from config (first .zz_dist file, then package.json)
 	target=$(get_target_from_config);
 	if [ -z "$target" ] && [ -n "$quiet" ]; then
-		# Error: no target specified
+		# Quiet mode: exit 0 if no target found
 		zz_log w "No target directory specified. Exiting quietly."
 		exit 0
 	elif [ -z "$target" ]; then
-		# Quiet mode: exit 0 if no target found
+		# No target found: error out
 		zz_log e "No target directory specified. Use -t option, create .zz_dist file, or add config.zz_dist in package.json"
 		exit 1
 	fi
@@ -108,4 +108,4 @@ for file in $(ls -1 $source/*zz_*); do
 	fi
 done
 
-zz_log s "Successfully distributed {B $copied} utilities to {U $target}"
+zz_log s "Successfully distributed utilities to {U $target}"
