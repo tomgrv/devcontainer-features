@@ -20,7 +20,7 @@ jobs:
           fetch-depth: 0
 
       - name: Install dependencies
-        run: npm ci && npm install -D $(jq -r '.commitlint.extends//""' 'package.json' | tr -d "'[]:,\"")
+        run: npm ci && npm install -D $(jq -r '.commitlint.extends[]' 'package.json' | sed 's/^gitmoji$/commitlint-config-gitmoji/' | tr '\n' ' ')
 
       - name: Commitlint PR title
         run: echo "${{ github.event.pull_request.title }}" | npx commitlint
