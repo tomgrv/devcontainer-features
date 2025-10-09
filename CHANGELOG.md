@@ -2,6 +2,17 @@
 
 # Changelog
 
+## 5.31.2 (2025-10-09)
+
+_Commits from: v5.31.1..HEAD_
+
+### 📂 Unscoped changes
+
+#### Bug Fixes
+
+- 🐛 file naming ([6e8fbc4](https://github.com/tomgrv/devcontainer-features/commit/6e8fbc4629a5fd577f3ac5455ab2ee3cdef7bdde))
+- 🐛 reorder flow branch checks for clarity ([277938b](https://github.com/tomgrv/devcontainer-features/commit/277938bb0e9d785f5ad132d955b1671f8f79c137))
+
 ## 5.31.1 (2025-10-09)
 
 _Commits from: v5.30.2..HEAD_
