@@ -29,17 +29,6 @@ if ! git rev-parse --verify "$sha^" >/dev/null 2>&1; then
     exit 1
 fi
 
-# Confirm operation unless in auto mode
-if [ -z "$auto" ]; then
-    echo "About to delete commit:"
-    git show --oneline --no-patch $sha >&2
-    echo
-    if ! zz_ask "Yn" "Continue with deletion?"; then
-        zz_log i "Operation cancelled."
-        exit 0
-    fi
-fi
-
 zz_log i "Deleting commit: $sha"
 
 # Attempt deletion with fallback to autorebase

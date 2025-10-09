@@ -61,13 +61,13 @@ zz_log i "Bump version: {Blue $GBV}"
 GIT_EDITOR=:
 
 # Update version, changelog, and finish release
-if bump-changelog -f $GBV -b; then
+if bump-changelog -f $GBV -b -m; then
     zz_log s "Version & CHANGELOG updated to: {B $GBV}" 
     if ! git commit -am "chore(release): $GBV"; then
         zz_log e "Cannot commit version & CHANGELOG"
         exit 1
     else
-        git push origin $flow/$name
+        git push --set-upstream $(git remote) $flow/$name
         zz_log s "Version & CHANGELOG committed and pushed"
     fi
 

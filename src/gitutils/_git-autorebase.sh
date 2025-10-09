@@ -16,6 +16,7 @@ help
 
 # Set defaults
 strategy="${strategy:-theirs}"
+branch="${branch:-$(git branch --show-current)}"
 sha=$(git getcommit $force $sha)
 lockfile_patterns="${no_lock:+}${no_lock:-package-lock.json yarn.lock composer.lock pnpm-lock.yaml go.sum}"
 

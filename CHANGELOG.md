@@ -2,6 +2,70 @@
 
 # Changelog
 
+## 5.31.1 (2025-10-09)
+
+_Commits from: v5.30.2..HEAD_
+
+### 📂 Unscoped changes
+
+#### Bug Fixes
+
+- 🐛 correct typo in validate-pr-title job name and use standard PR validation action (#32) ([3a15569](https://github.com/tomgrv/devcontainer-features/commit/3a15569b5be5d48c9d990270203bbfa0e6809768))
+- 🐛 ensure upstream tracking when pushing CHANGELOG ([d6b68ca](https://github.com/tomgrv/devcontainer-features/commit/d6b68ca981b0dc5df85cfca74e0aea92aa5140db))
+- 🐛 update GitVersion command to use default config path if not specified ([6d424be](https://github.com/tomgrv/devcontainer-features/commit/6d424becfc8ce8dee9bb544f41df65b04f80ad42))
+
+#### Features
+
+- ✨ 🆕 add automatic rebase workflow ([f1601b5](https://github.com/tomgrv/devcontainer-features/commit/f1601b59349301824f4d5457ab2b0e74f2dca058))
+
+#### Other changes
+
+- ✨ Add validate-pr-secret workflow with gitleaks-action (#34) ([0d621cb](https://github.com/tomgrv/devcontainer-features/commit/0d621cbc97763bb04173f72ff5a5f7f913e6fffd))
+- Merge tag 'v5.30.0' into develop ([4792b33](https://github.com/tomgrv/devcontainer-features/commit/4792b330b10e25cbe81ff4b27c3fda1b889fe88a))
+- Merge tag 'v5.30.1' into develop ([05fcd5d](https://github.com/tomgrv/devcontainer-features/commit/05fcd5dd8486bbe27f70b206951160f9484b8d89))
+- Merge tag 'v5.30.2' into develop ([f30c1f4](https://github.com/tomgrv/devcontainer-features/commit/f30c1f4f3c105f26b68d09007699c895ecca185d))
+- ♻️ 🛠️ rename job and update workflow name for clarity ([1dec739](https://github.com/tomgrv/devcontainer-features/commit/1dec7390e9c5a1ac6ed45926457ade345fdcbc04))
+- ⚡️ update extensions ([2f1ef08](https://github.com/tomgrv/devcontainer-features/commit/2f1ef0859a492de9e429257b8eba252e16f4f678))
+
+### 📦 common-utils changes
+
+#### Features
+
+- ✨ add zz*dist script to manage zz*\* utilities distribution (#30) ([c09d9da](https://github.com/tomgrv/devcontainer-features/commit/c09d9da4938c551ad9e712f2531a691819768c98))
+
+### 📦 githooks changes
+
+#### Other changes
+
+- ♻️ remove checkout-version script ([921e944](https://github.com/tomgrv/devcontainer-features/commit/921e9444b4860fbb51582c15a8b913db5949d07c))
+
+### 📦 gitutils changes
+
+#### Bug Fixes
+
+- 🐛 add missing flag to bump-changelog ([e796429](https://github.com/tomgrv/devcontainer-features/commit/e796429b1e1e354857f3d3b8068e2e1e42cf3cc0))
+- 🐛 set default branch ([a79d632](https://github.com/tomgrv/devcontainer-features/commit/a79d63283c86a2f9de51a90ee62099bfa5cf02c8))
+
+#### Features
+
+- ✨ add git fix date (#28) ([7de727c](https://github.com/tomgrv/devcontainer-features/commit/7de727cfb39bc8dc1f12a04f9dbcdf12d8fdfdaa))
+- ✨ add script to rebase commits from one branch to another ([9d22977](https://github.com/tomgrv/devcontainer-features/commit/9d22977e0be4ef2133e39db113fcfffc5d8b8cbe))
+
+#### Other changes
+
+- 📦️ 🆕 add automatic rebase action for pr via comments ([448bea2](https://github.com/tomgrv/devcontainer-features/commit/448bea2cd5ca8b78fb92449a44d6d2c8a00c29a3))
+- ♻️ 🧹 remove confirmation prompt ([720494a](https://github.com/tomgrv/devcontainer-features/commit/720494ace59083d714ffed2e53d6ac3a1fe20659))
+
+### 📦 gitversion changes
+
+#### Bug Fixes
+
+- 🐛 correct minimal flag argument in bump version utility ([5b766b1](https://github.com/tomgrv/devcontainer-features/commit/5b766b1bd95cc84adbd152aa855ad1131d211e11))
+
+#### Features
+
+- ✨ 🆕 add initial .gitignore for Gitversion ([6881ee8](https://github.com/tomgrv/devcontainer-features/commit/6881ee8623a5384a8447a8dc9ba61000297aa799))
+
 ## 5.30.2 (2025-10-02)
 
 _Commits from: v5.30.1..HEAD_
@@ -241,4 +305,4 @@ _Commits from: v5.25.0..HEAD_
 
 ---
 
-_Generated on 2025-10-02 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
+_Generated on 2025-10-09 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
