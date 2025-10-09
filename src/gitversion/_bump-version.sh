@@ -12,7 +12,7 @@ set -e
 # Parse command line arguments using zz_args helper
 eval $(
     zz_args "Bump version files utility" $0 "$@" <<- help
-        m   minimal   minimal     Only bump workspace files if commit scope relates to workspace name
+        m   -         minimal     Only bump workspace files if commit scope relates to workspace name
         r   range     range       Git range to check for affected workspaces (required for minimal mode)
         d   -         dry_run     Show what would be updated without making changes
         -   version   version     Version to set in files (optional - will use GitVersion if not provided)
