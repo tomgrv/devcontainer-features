@@ -14,19 +14,17 @@ if [ -n "$(git branch --list hotfix/*)" ]; then
     flow=hotfix
     name=$(git branch --list hotfix/* | sed 's/.*hotfix\///'| head -n1 )
     zz_log i "Hotfix branch found: {Yellow $name}"
-fi
 
-# Check if on a release branch and extract branch name
-if [ -n "$(git branch --list release/*)" ]; then
-    flow=release
-    name=$(git branch --list release/* | sed 's/.*release\///' | head -n1 )
-    zz_log i "Release branch found: {Blue $name}"
-fi
-
-# Check if a flow branch is found from .git/RELEASE file
-if [ -z "$flow" ] && [ -f .git/RELEASE ]; then
+# Check for .git/RELEASE file if no flow branch found
+elif [ -z "$flow" ] && [ -f .git/RELEASE ]; then
     flow=release
     name=$(cat .git/RELEASE)
+    zz_log i "Release branch found: {Blue $name}"
+
+# Check if on a release branch and extract branch name
+elif [ -n "$(git branch --list release/*)" ]; then
+    flow=release
+    name=$(git branch --list release/* | sed 's/.*release\///' | head -n1 )
     zz_log i "Release branch found: {Blue $name}"
 fi
 
