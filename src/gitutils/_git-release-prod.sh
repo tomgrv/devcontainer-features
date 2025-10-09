@@ -67,7 +67,7 @@ if bump-changelog -f $GBV -b -m; then
         zz_log e "Cannot commit version & CHANGELOG"
         exit 1
     else
-        git push origin $flow/$name
+        git push --set-upstream $(git remote) $flow/$name
         zz_log s "Version & CHANGELOG committed and pushed"
     fi
 

@@ -1,6 +1,6 @@
 {
   "name": "@tomgrv/gitutils",
-  "version": "5.30.2",
+  "version": "5.31.1",
   "description": "Git utilities and aliases for development workflow",
   "files": [
     "_*.sh",
