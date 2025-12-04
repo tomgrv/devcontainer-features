@@ -81,8 +81,9 @@ zz_log i "Merge all package folder json files into top level xxx.json"
 
 for type in package composer; do
 
-    # find all package folder json files in the current directory
-    for package in $(git ls-files "$type.json"); do
+    # find all package folder json files in the current directory.
+    # Ensure top-level package.json is included
+    for package in $(git ls-files -o "$type.json"); do
 
         # Merge all package folder json files into the top-level package.json
         for tmpl in $(find $source -maxdepth 1 -name _*.$type.json | sort); do
@@ -90,7 +91,7 @@ for type in package composer; do
             # Create package.json if it does not exist or is empty
             if [ ! -f $package -o ! -s $package ]; then
                 # Create an empty package.json
-                echo "{}" >$package
+                echo '{"private": true}' >$package
             fi
 
             # Merge the tmpl & add keys if not already there. make sure source json does not contain any comments
