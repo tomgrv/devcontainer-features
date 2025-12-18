@@ -1,6 +1,6 @@
 {
   "name": "@tomgrv/devcontainer-features",
-  "version": "5.31.2",
+  "version": "5.32.0",
   "description": "Configure dev environment with devcontainer, gitflow, gitversion, git aliases & hooks. Can be used a devcontainer features",
   "keywords": [
     "dev",

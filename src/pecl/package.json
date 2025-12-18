@@ -1,6 +1,6 @@
 {
     "name": "@tomgrv/pecl",
-    "version": "5.30.2",
+    "version": "5.32.0",
     "description": "PECL extension installer for PHP development",
     "files": [
         "install.sh"
