@@ -17,8 +17,8 @@ eval $(
 # Get the repository host
 host=$(echo "${repo}" | sed -E 's/https?:\/\/([^/]+)\/.*/\1/')
 
-# Keep only the repository name
-repo=$(echo "${repo}" | sed -E 's/.*github.com\/([^/]+)\/([^/]+).*/\1\/\2/')
+# Keep only the repository name. Eventually remove .git suffix
+repo=$(echo "${repo}" | sed -E -e 's/.*github.com\/([^/]+)\/([^/]+).*/\1\/\2/' -e 's/\.git$//')
 
 # Check if the directory is provided
 if [ -z "${directory}" ]; then

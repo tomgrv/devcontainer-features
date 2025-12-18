@@ -14,16 +14,15 @@ cd "$(git rev-parse --show-toplevel)"
 # Fetch updates from the remote repository
 git fetch --progress --prune --recurse-submodules=no origin >/dev/null
 
-if [ -n "$force" ]; then
-    zz_log w "Force mode enabled, overwriting pushed history"
-    git forceable >&2
-    read -p 'Which commit? ' sha
-elif [ -z "$sha" ]; then
-    git fixable >&2
-    read -p 'Which commit? ' sha
-else
-    #### Use given commit
-    sha=$1
+if [ -z "$sha" ]; then
+    if [ -n "$force" ]; then
+        zz_log w "Force mode enabled, overwriting pushed history"
+        git forceable >&2
+        read -p 'Which commit? ' sha
+    else
+        git fixable >&2
+        read -p 'Which commit? ' sha
+    fi
 fi
 
 #### Display commit to fixup, keep only the sha, remove new line

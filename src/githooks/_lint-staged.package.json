@@ -3,15 +3,13 @@
         "lint": "npx --yes lint-staged -p false"
     },
     "lint-staged": {
+        "!(templates/**/*)*.{js,jsx,ts,tsx,md,html,css,vue,yaml,yml}": [
+            "npx --yes prettier --write"
+        ],
         "*.json": [
             "normalize-json -c -w -a -i -f local -l true",
             "npx --yes prettier --write"
         ],
-        "*.php": [
-            "composer lint"
-        ],
-        "*.{js,jsx,ts,tsx,md,html,css,vue,yaml,yml}": [
-            "npx --yes prettier --write"
-        ]
+        "*.php": ["composer lint"]
     }
 }

@@ -1,6 +1,6 @@
 {
     "name": "@tomgrv/githooks",
-    "version": "5.31.1",
+    "version": "5.32.0",
     "description": "Git hooks and linting configuration for development workflow",
     "files": [
         "_*.sh",
