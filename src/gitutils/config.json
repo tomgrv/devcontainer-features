@@ -4,6 +4,9 @@
         "editor": "code --wait",
         "filemode": false
     },
+    "credential": {
+        "useHttpPath": true
+    },
     "gitflow": {
         "branch": {
             "develop": "develop",
