@@ -2,6 +2,28 @@
 
 # Changelog
 
+## 5.32.0 (2025-12-18)
+
+_Commits from: v5.31.2..HEAD_
+
+### 📂 Unscoped changes
+
+#### Bug Fixes
+
+- 🐛 improve repository name extraction and refactor commit selection logic ([23878f6](https://github.com/tomgrv/devcontainer-features/commit/23878f609db5b6698de983b66f3c04345aacd105))
+- 🐛 update lint-staged configuration to exclude templates directory from formatting ([09cc5f6](https://github.com/tomgrv/devcontainer-features/commit/09cc5f66566eaef5fc593a43cb7246e48439104d))
+
+#### Features
+
+- ✨ add credential configuration to gitutils ([bf15932](https://github.com/tomgrv/devcontainer-features/commit/bf159329e4bbb00e4764406dce66f2826ab19b6e))
+- ✨ add stubs for package.json and composer.json files ([f9a0ded](https://github.com/tomgrv/devcontainer-features/commit/f9a0ded61831c7758aa71fa7981c6111835eb46f))
+
+#### Other changes
+
+- 👷 add GitHub Actions workflows ([5ddaa96](https://github.com/tomgrv/devcontainer-features/commit/5ddaa96bc8988e4a0aeff189437d7114296e69e0))
+- Merge branch 'main' into develop ([64567b0](https://github.com/tomgrv/devcontainer-features/commit/64567b0fa68c20e45c670aa00e61bf2429a555c4))
+- Merge tag 'v5.31.1' into develop ([4f0aabf](https://github.com/tomgrv/devcontainer-features/commit/4f0aabf21847feb605e45e0a3b8db52315086821))
+
 ## 5.31.2 (2025-10-09)
 
 _Commits from: v5.31.1..HEAD_
@@ -316,4 +338,4 @@ _Commits from: v5.25.0..HEAD_
 
 ---
 
-_Generated on 2025-10-09 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
+_Generated on 2025-12-18 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
