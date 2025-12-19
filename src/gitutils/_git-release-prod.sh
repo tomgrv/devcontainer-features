@@ -47,6 +47,19 @@ if [ -n "$(git status --porcelain)" ]; then
     exit 1
 fi
 
+
+# Ensure main branch has an up to-date remote
+if ! git fetch $(git remote) >/dev/null 2>&1; then
+    zz_log e "Cannot fetch from remote"
+    exit 1
+fi
+
+# Ensure main branch is up-to-date
+if ! git merge-base --is-ancestor $(git rev-parse $flow/$name) $(git rev-parse $(git symbolic-ref refs/remotes/$(git remote)/$flow/$name)) ; then
+    zz_log e "$flow/$name branch is not up-to-date with remote. Please pull the latest changes."
+    exit 1
+fi
+
 # Get the new version from gitversion
 GBV=$(gv -showvariable MajorMinorPatch)
 if [ -z "$GBV" ]; then
