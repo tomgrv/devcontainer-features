@@ -2,9 +2,8 @@
   "id": "gitversion",
   "name": "GitVersion feature",
   "description": "Add gitversion to your devcontainer",
-  "version": "5.32.0",
+  "version": "5.34.0",
   "dependsOn": {
-    "ghcr.io/devcontainers/features/dotnet": "",
     "ghcr.io/tomgrv/devcontainer-features/common-utils:5": ""
   },
   "installsAfter": [
@@ -14,8 +13,8 @@
   "options": {
     "version": {
       "type": "string",
-      "default": "5.*",
-      "description": "The version of GitVersion to install"
+      "default": "6.5.1",
+      "description": "The version of GitVersion to use"
     }
   },
   "postCreateCommand": {

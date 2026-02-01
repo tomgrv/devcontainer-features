@@ -2,6 +2,20 @@
 
 # Changelog
 
+## 5.34.0 (2026-02-01)
+
+_Commits from: v5.33.0..HEAD_
+
+### 📂 Unscoped changes
+
+#### Features
+
+- ✨ update GitVersion installation to use Docker and adjust versioning ([82ac41e](https://github.com/tomgrv/devcontainer-features/commit/82ac41ea78a53d1a8637e6cf64d05e1a37362459))
+
+#### Other changes
+
+- Merge tag 'v5.33.0' into develop ([8ea4045](https://github.com/tomgrv/devcontainer-features/commit/8ea40459016fd47cf2793eb3bc0b4edd0ea1975b))
+
 ## 5.33.0 (2026-02-01)
 
 _Commits from: v5.32.0..HEAD_
