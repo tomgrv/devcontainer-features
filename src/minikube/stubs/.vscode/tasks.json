@@ -1,0 +1,11 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "🐳 Start Minikube",
+            "type": "shell",
+            "command": "minikube start & minikube addons enable ingress",
+            "problemMatcher": []
+        }
+    ]
+}

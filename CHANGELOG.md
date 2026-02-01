@@ -2,6 +2,25 @@
 
 # Changelog
 
+## 5.33.0 (2026-02-01)
+
+_Commits from: v5.32.0..HEAD_
+
+### 📂 Unscoped changes
+
+#### Bug Fixes
+
+- 🐛 add checks to ensure main branch is up-to-date with remote before release ([0492500](https://github.com/tomgrv/devcontainer-features/commit/049250015e4b4128c8e507833831baea02150de6))
+
+#### Features
+
+- ✨ add Minikube feature ([3b82ffc](https://github.com/tomgrv/devcontainer-features/commit/3b82ffc020978eb12a4cd997ecac83ab37f3a2dd))
+
+#### Other changes
+
+- 🔧 gitversion feature not included by default ([0cb4598](https://github.com/tomgrv/devcontainer-features/commit/0cb45989df306d21b5aef526ba9d06eae411e59d))
+- Merge tag 'v5.32.0' into develop ([0e21584](https://github.com/tomgrv/devcontainer-features/commit/0e215841590e4891806c31e5343ed4a7428c9e88))
+
 ## 5.32.0 (2025-12-18)
 
 _Commits from: v5.31.2..HEAD_
@@ -338,4 +357,4 @@ _Commits from: v5.25.0..HEAD_
 
 ---
 
-_Generated on 2025-12-18 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
+_Generated on 2026-02-01 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
