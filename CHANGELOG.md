@@ -2,6 +2,16 @@
 
 # Changelog
 
+## 5.34.2 (2026-02-02)
+
+_Commits from: v5.34.1..HEAD_
+
+### 📂 Unscoped changes
+
+#### Bug Fixes
+
+- 🐛 update GitVersion installation script and add configuration script ([5b12b59](https://github.com/tomgrv/devcontainer-features/commit/5b12b59464a53ecbd7027ebc4ec694fe2b056121))
+
 ## 5.34.1 (2026-02-02)
 
 _Commits from: v5.34.0..HEAD_
