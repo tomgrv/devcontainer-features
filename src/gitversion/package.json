@@ -1,6 +1,6 @@
 {
     "name": "@tomgrv/gitversion",
-    "version": "5.34.0",
+    "version": "5.34.1",
     "description": "GitVersion integration and version management scripts",
     "files": [
         "_*.sh",
