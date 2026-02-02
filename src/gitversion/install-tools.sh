@@ -4,10 +4,17 @@ set -e
 ### Install GitVersion
 zz_log i "Install Gitversion..."
 #dotnet tool install GitVersion.Tool --version ${VERSION:-5.*} --tool-path /usr/local/bin
+
+### Get Docker GitVersion image
+zz_log i "Pull Gitversion Docker image..."
+docker pull gittools/gitversion:${VERSION:-6.5.1} 
+
+### Create Docker GitVersion wrapper
+zz_log i "Create Docker Gitversion wrapper..."
 (
-echo "#!/bin/sh"
-echo "repo=\${1:-\$(pwd)}; shift;"
-echo "docker run --rm -v \"\$repo:/repo\" gittools/gitversion:${VERSION:-6.5.1} /repo \"$@\""
+    echo "#!/bin/sh"
+    echo "repo=\${1:-\$(pwd)}; shift;"
+    echo "docker run --rm -v \"\$repo:/repo\" gittools/gitversion:${VERSION:-6.5.1} /repo \"$@\""
 ) > /usr/local/bin/docker-gitversion && chmod ugo+x /usr/local/bin/docker-gitversion
 
 
