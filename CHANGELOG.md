@@ -2,6 +2,16 @@
 
 # Changelog
 
+## 5.34.1 (2026-02-02)
+
+_Commits from: v5.34.0..HEAD_
+
+### 📂 Unscoped changes
+
+#### Bug Fixes
+
+- 🐛 enhance Docker wrapper setup ([f3b7c4d](https://github.com/tomgrv/devcontainer-features/commit/f3b7c4d1158fe8ab3aae678c79cdce94f50f25bd))
+
 ## 5.34.0 (2026-02-01)
 
 _Commits from: v5.33.0..HEAD_
@@ -371,4 +381,4 @@ _Commits from: v5.25.0..HEAD_
 
 ---
 
-_Generated on 2026-02-01 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
+_Generated on 2026-02-02 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
