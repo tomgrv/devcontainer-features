@@ -3,9 +3,11 @@
     "devDependencies": [
         "laravel/pint",
         "pestphp/pest",
+        "laravel/boost",
         "pestphp/pest-plugin-laravel",
         "nunomaduro/collision",
         "nunomaduro/phpinsights",
         "pestphp/pest-plugin-arch"
+        
     ]
 }
