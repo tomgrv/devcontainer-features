@@ -79,7 +79,7 @@ while [ $? -eq 0 ]; do
 	fi
 
 	# Continue the rebase process
-	git rebase --continue 
+	git rebase --continue || true
 done
 
 # if rebase successful and push option is set, push force the changes
