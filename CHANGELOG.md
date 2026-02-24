@@ -2,6 +2,29 @@
 
 # Changelog
 
+## 5.35.0 (2026-02-24)
+
+_Commits from: v5.34.2..HEAD_
+
+### 📂 Unscoped changes
+
+#### Bug Fixes
+
+- 🐛 ensure rebase continues even on conflicts ([b2752a9](https://github.com/tomgrv/devcontainer-features/commit/b2752a9c159ae6b697f666e1a0c9a72bf8ca295e))
+- 🐛 remove redundant XDEBUG_MODE settings for clarity ([e5b9e6d](https://github.com/tomgrv/devcontainer-features/commit/e5b9e6d52f09ccf3ec31df875217855f8614b6c1))
+
+#### Features
+
+- ✨ add laravel/boost ([85a4eef](https://github.com/tomgrv/devcontainer-features/commit/85a4eef9e1c0f5c6c851dd4ed3c8a49229d786a7))
+- ✨ add minikube utility scripts ([4407721](https://github.com/tomgrv/devcontainer-features/commit/44077218293b0fae47401ca5f1a12c1d7614065e))
+- ✨ improve server script usage instructions and variable consistency ([bedacbd](https://github.com/tomgrv/devcontainer-features/commit/bedacbd58a8115598908f11dacb47778711f7396))
+
+#### Other changes
+
+- Merge tag 'v5.34.0' into develop ([c56339f](https://github.com/tomgrv/devcontainer-features/commit/c56339f56076f83e1a25e5751554eb98ef69f2cd))
+- Merge tag 'v5.34.1' into develop ([84122d4](https://github.com/tomgrv/devcontainer-features/commit/84122d45bf769a04478d34059c85add3d2262fda))
+- Merge tag 'v5.34.2' into develop ([d51c7e3](https://github.com/tomgrv/devcontainer-features/commit/d51c7e303a0315d06511567c734bfbc5396b5276))
+
 ## 5.34.2 (2026-02-02)
 
 _Commits from: v5.34.1..HEAD_
@@ -391,4 +414,4 @@ _Commits from: v5.25.0..HEAD_
 
 ---
 
-_Generated on 2026-02-02 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
+_Generated on 2026-02-24 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
