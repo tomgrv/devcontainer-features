@@ -2,6 +2,20 @@
 
 # Changelog
 
+## 5.36.0 (2026-02-27)
+
+_Commits from: v5.35.0..HEAD_
+
+### 📂 Unscoped changes
+
+#### Features
+
+- ✨ add SKILL.md files for features including ([0387692](https://github.com/tomgrv/devcontainer-features/commit/0387692080b92f4bb27262810b5eb442c93d1573))
+
+#### Other changes
+
+- Merge tag 'v5.35.0' into develop ([f47469e](https://github.com/tomgrv/devcontainer-features/commit/f47469ed32bbfc77d7841b0f033c224de838992b))
+
 ## 5.35.0 (2026-02-24)
 
 _Commits from: v5.34.2..HEAD_
@@ -414,4 +428,4 @@ _Commits from: v5.25.0..HEAD_
 
 ---
 
-_Generated on 2026-02-24 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
+_Generated on 2026-02-27 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
