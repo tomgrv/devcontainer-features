@@ -1,16 +1,16 @@
 {
-    "name": "@tomgrv/minikube",
-    "version": "5.35.0",
-    "description": "Minikube scripts",
-    "files": [
-        "_*.sh",
-        "install.sh",
-        "install-tools.sh",
-        "_scripts.package.json",
-        "stubs/**/*"
-    ],
-    "bin": {},
-    "scripts": {},
-    "dependencies": {},
-    "peerDependencies": {}
+  "name": "@tomgrv/minikube",
+  "version": "5.36.0",
+  "description": "Minikube scripts",
+  "files": [
+    "_*.sh",
+    "install.sh",
+    "install-tools.sh",
+    "_scripts.package.json",
+    "stubs/**/*"
+  ],
+  "bin": {},
+  "scripts": {},
+  "dependencies": {},
+  "peerDependencies": {}
 }
