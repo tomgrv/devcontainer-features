@@ -20,3 +20,9 @@ VERSION
 bin
 obj
 ./.gitattributes
+
+## Features
+.github/skills/feature-common-utils
+.github/skills/feature-githooks
+.github/skills/feature-gitutils
+.github/skills/feature-gitversion
