@@ -5,6 +5,7 @@
 eval $(
     zz_args "Install npm plugins from package.json configuration" $0 "$@" <<-help
         f file      json_file   Package.json file path (default: ./package.json)
+        g -         global      Install plugins globally (npm -g)
         - key       json_key    JSON key path to extract plugins from
 help
 )
@@ -18,7 +19,7 @@ if [ -z "$json_key" ]; then
 fi
 
 zz_log i "Using file {B $json_file}..."
-plugins=$(jq -r "$json_key" "$json_file" | tr -d "'[]:,\"")
+plugins=$(jq -r "$json_key" "$json_file" | tr -d "'[]:,\"" | sort -u | tr '\n' ' ' | sed 's/  */ /g;s/^ *//;s/ *$//')
 
 if [ -z "$plugins" ]; then
     zz_log w "No plugins found at key {B $json_key} in {U $json_file}"
@@ -26,7 +27,7 @@ if [ -z "$plugins" ]; then
 fi
 
 # Load the config file
-config=$(dirname $0)/.ci-plugins
+config=$(dirname $0)/PLUGINS
 
 # if config file only contains comments and empty lines, make it empty
 if [ -f "$config" ] && [ -z "$(grep -v -e '^#' -e '^$' $config)" ]; then
@@ -48,9 +49,12 @@ done
 # Reload the plugins list
 plugins=$(cat $config | grep -v '^$' | tr '\n' ' ')
 
+# List of plugins to install
+zz_log i "Plugins to install: {B $plugins}"
+
 # For each plugin, check if it is already installed
 for plugin in $plugins; do
-    if npm list --depth=0 | grep -q "$plugin@"; then
+    if npm list $global --depth=0 | grep -q "$plugin@"; then
         plugins=$(echo $plugins | sed "s#$plugin##g" | tr -s ' ')
     fi
 done
@@ -58,9 +62,11 @@ done
 # Install the plugins if there are any to install
 if [ -n "$plugins" ]; then
     zz_log i "Installing plugins {B $plugins} ..."
-    if ! npm install --no-save $plugins 2>/dev/null 1>&2; then
+    if ! npm install $global --no-save $plugins 2>/dev/null 1>&2; then
         zz_log e "Failed to install one of plugins {B $plugins}!"
         exit 1
     fi
     zz_log s "Plugins {B $plugins} installed successfully!"
+else
+    zz_log s "All plugins are already installed."
 fi
