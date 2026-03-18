@@ -129,7 +129,7 @@ if [ -n "$features" ]; then
 
     else
         # If inside a container, suggest using devutils as devcontainer features
-        echo "${Purple}You are in a container: use devutils as devcontainer features:${End}"
+        echo "${Purple}You are in a container: use $feature as devcontainer features:${End}"
         for feature in $features; do
             echo "${Purple}ghcr.io/tomgrv/devcontainer-features/$feature${End}"
         done
