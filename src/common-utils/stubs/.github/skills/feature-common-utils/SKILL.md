@@ -1,3 +1,8 @@
+---
+name: feature-common-utils
+description: Shared shell utilities for JSON validation, normalization, and reusable zz_* helper scripts.
+---
+
 <!-- @format -->
 
 # common-utils

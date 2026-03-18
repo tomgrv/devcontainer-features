@@ -1,3 +1,8 @@
+---
+name: feature-gitutils
+description: Advanced git aliases and workflows for branch integration, history maintenance, and release flows.
+---
+
 <!-- @format -->
 
 # gitutils

@@ -1,3 +1,8 @@
+---
+name: feature-githooks
+description: Git hook automation for commit quality gates, commit message validation, and staged-file linting.
+---
+
 <!-- @format -->
 
 # githooks

@@ -1,3 +1,8 @@
+---
+name: feature-act
+description: Run GitHub Actions workflows locally in dev containers using Nektos act.
+---
+
 <!-- @format -->
 
 # act
