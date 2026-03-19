@@ -26,4 +26,4 @@ if [ -z "$sha" ]; then
 fi
 
 #### Display commit to fixup, keep only the sha, remove new line
-echo $sha | cut -d' ' -f1 | tr -d '\n'
+git rev-parse --verify "$sha^{commit}" | cut -d' ' -f1 | tr -d '\n'
