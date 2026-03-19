@@ -19,7 +19,7 @@ The following aliases are included: [./alias.json](./src/gitutils/alias.json)
 ## Options
 
 | Options Id | Description                         | Type   | Default Value |
-| ---------- | ------------------------------------ | ------ | -------------- |
+| ---------- | ----------------------------------- | ------ | ------------- |
 | version    | The version of GitUtils to install. | string | latest        |
 
 ## Functional Coverage
@@ -48,6 +48,7 @@ The feature includes the following interactive utilities:
 - `git align` - Align the current branch with its remote counterpart.
 - `git degit <repository> [directory]` - Download and extract a repository from GitHub, GitLab, or Bitbucket.
 - `git fix date [options] [<commit>]` - Fix commit dates and times in git history. Options include rescheduling commits on specific days of week outside certain time ranges.
+- `git fix message -m <message> [--force|<commit>]` - Rewrite the commit message of a specific commit.
 - `git fixup [--force|<commit>]` - Amend the specified commit with current changes and rebase.
 - `git forall <command>` - Execute a command for all files in the repository.
 - `git getcommit [--force|<commit>]` - Get the commit to fixup.
