@@ -5,8 +5,7 @@ set -eu
 #### Goto repository root
 cd "$(git rev-parse --show-toplevel)" >/dev/null
 
-GATEWAY_SOURCE=".devcontainer/.gateway/gateway-curl.sh"
-CURLRC_SOURCE=".devcontainer/.gateway/root/.curlrc"
+GATEWAY_SOURCE="$source/_gateway-curl.sh"
 GATEWAY_TARGET="/usr/local/bin/gateway-curl"
 CURL_BIN="/usr/bin/curl"
 CURL_REAL_BIN="/usr/bin/curl.real"
@@ -23,11 +22,6 @@ run_as_root() {
 
 if [ ! -f "$GATEWAY_SOURCE" ]; then
 	zz_log e "Missing gateway curl wrapper: {U $GATEWAY_SOURCE}"
-	exit 1
-fi
-
-if [ ! -f "$CURLRC_SOURCE" ]; then
-	zz_log e "Missing curl configuration: {U $CURLRC_SOURCE}"
 	exit 1
 fi
 
@@ -50,10 +44,6 @@ else
 	zz_log i "Linking {U $CURL_BIN} to {U $GATEWAY_TARGET}"
 	run_as_root ln -sfn "$GATEWAY_TARGET" "$CURL_BIN"
 fi
-
-zz_log i "Installing curl configuration to {U $CURRENT_HOME/.curlrc}"
-run_as_root install -m 644 "$CURLRC_SOURCE" "$CURRENT_HOME/.curlrc"
-run_as_root chown "$CURRENT_USER":"$(id -gn "$CURRENT_USER")" "$CURRENT_HOME/.curlrc"
 
 zz_log s "Gateway curl wrapper configured for {U $CURRENT_USER}"
 
