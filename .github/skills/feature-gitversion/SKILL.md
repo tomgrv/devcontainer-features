@@ -1,8 +1,3 @@
----
-name: feature-gitversion
-description: Semantic versioning utilities that derive versions from git history and update tags/changelog.
----
-
 <!-- @format -->
 
 # gitversion

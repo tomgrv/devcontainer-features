@@ -83,30 +83,23 @@ if [ -n "$dryrun" ]; then
 fi
 
 # Confirm the operation
-echo "About to move $commit_count commit(s) from '$source' to '$target':"
+zz_log i "About to move $commit_count commit(s) from '$source' to '$target':"
 echo "$commits_to_move" | while read commit; do
 	if [ -n "$commit" ]; then
-		echo "  $(git log --oneline -1 "$commit")"
+		zz_log - "  $(git log --oneline -1 "$commit")" >&2
 	fi
 done
+zz_log i "This will:"
+zz_log -  "1. Checkout '$target' branch"
+zz_log -  "2. Create a temporary branch for the rebase"
+zz_log -  "3. Cherry-pick commits from '$source'"
+zz_log -  "4. Reset '$source' to the merge base"
+zz_log -  "5. Fast-forward '$target' to include the rebased commits"
 echo ""
-echo "This will:"
-echo "1. Checkout '$target' branch"
-echo "2. Create a temporary branch for the rebase"
-echo "3. Cherry-pick commits from '$source'"
-echo "4. Reset '$source' to the merge base"
-echo "5. Fast-forward '$target' to include the rebased commits"
-echo ""
-printf "Continue? [y/N]: "
-read -r response
-case "$response" in
-	[yY]|[yY][eE][sS])
-		;;
-	*)
-		zz_log i "Operation cancelled"
-		exit 0
-		;;
-esac
+if ! zz_ask "Yn" "Continue?"; then
+	zz_log e "Operation cancelled"
+	exit 1
+fi
 
 # Store current branch
 current_branch=$(git rev-parse --abbrev-ref HEAD)
@@ -136,8 +129,6 @@ echo "$commits_to_move" | while read commit; do
 	if [ -n "$commit" ]; then
 		if ! git cherry-pick "$commit"; then
 			zz_log e "Cherry-pick failed on commit $commit"
-			zz_log e "Please resolve conflicts and run 'git cherry-pick --continue'"
-			zz_log e "Or run 'git cherry-pick --abort' to cancel"
 			failed=1
 			break
 		fi
@@ -146,6 +137,8 @@ done
 
 # Check if cherry-pick succeeded
 if [ $failed -eq 1 ]; then
+	zz_log e "Please resolve conflicts and run 'git cherry-pick --continue'"
+	zz_log e "Or run 'git cherry-pick --abort' to cancel"
 	exit 1
 fi
 

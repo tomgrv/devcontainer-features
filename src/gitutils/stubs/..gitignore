@@ -20,6 +20,9 @@ _ide_helper.php
 *.log
 *.cache
 
+## Feature Skills
+.github/skills/feature-*/*.md
+
 ## Homestead
 Homestead.json
 Homestead.yaml

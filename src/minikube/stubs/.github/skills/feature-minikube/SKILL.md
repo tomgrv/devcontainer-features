@@ -1,3 +1,8 @@
+---
+name: feature-minikube
+description: Local Kubernetes tooling in dev containers using Minikube helper workflows.
+---
+
 <!-- @format -->
 
 # minikube

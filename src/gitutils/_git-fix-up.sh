@@ -54,7 +54,7 @@ fi
 # Start an interactive rebase with autosquash
 git rebase -i --autosquash $sha~ --autostash --no-verify --reschedule-failed-exec --exec 'git hook run --ignore-missing pre-commit -- HEAD HEAD~1 && git commit --amend --no-edit --no-verify' --no-verify
 
-while [ $? -eq 0 ]; do
+while [ $? -ne 0 ]; do
 
 	# Check if there are any composer conflicts during the rebase
 	if [ -f composer.lock ]; then
@@ -79,7 +79,7 @@ while [ $? -eq 0 ]; do
 	fi
 
 	# Continue the rebase process
-	git rebase --continue || true
+	git rebase --continue
 done
 
 # if rebase successful and push option is set, push force the changes

@@ -87,7 +87,7 @@ jobs:
 
   test-suite:
     runs-on: ubuntu-latest
-    needs: validate-code
+    needs: validate-php-code
 
     services:
       mysql:

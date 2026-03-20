@@ -2,7 +2,7 @@
   "id": "gitversion",
   "name": "GitVersion feature",
   "description": "Add gitversion to your devcontainer",
-  "version": "5.36.0",
+  "version": "5.37.0",
   "dependsOn": {
     "ghcr.io/tomgrv/devcontainer-features/common-utils:5": ""
   },

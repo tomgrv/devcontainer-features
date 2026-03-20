@@ -1,3 +1,8 @@
+---
+name: feature-larasets
+description: Laravel developer experience helpers for artisan, sail, cache tasks, and PHP tooling presets.
+---
+
 <!-- @format -->
 
 # larasets

@@ -11,6 +11,9 @@
 *.log
 *.cache
 
+## Feature Skills
+.github/skills/feature-*/*.md
+
 ## Misc
 VERSION
 .history

@@ -8,7 +8,7 @@ default=$(echo "$1" | grep -oP '[A-Z]' | tr '[:upper:]' '[:lower:]')
 options=$1
 shift
 
-echo "${BBlue}#${End} $* ${BBlue}[${options}]${End}"
+echo "${BBlue}#${None} $* ${BBlue}[${options}]${End}"
 
 # Loop while the input is not in the options
 while true; do

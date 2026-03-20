@@ -1,3 +1,8 @@
+---
+name: feature-pecl
+description: Install and manage PHP extensions from PECL within dev containers.
+---
+
 <!-- @format -->
 
 # pecl
