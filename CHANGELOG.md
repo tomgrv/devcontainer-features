@@ -2,6 +2,38 @@
 
 # Changelog
 
+## 5.37.0 (2026-03-20)
+
+_Commits from: v5.36.0..HEAD_
+
+### 📂 Unscoped changes
+
+#### Bug Fixes
+
+- 🐛 add mounts configuration for certs ([2836888](https://github.com/tomgrv/devcontainer-features/commit/283688826afe6d71e7f9b23d4578c8eebd2c4b5c))
+- 🐛 correct color formatting in prompt message ([69de0ca](https://github.com/tomgrv/devcontainer-features/commit/69de0ca7189c502c06e50d95995d36577c366c6c))
+- 🐛 correct container message to remove unnecessary feature variable ([a7abd81](https://github.com/tomgrv/devcontainer-features/commit/a7abd813e9a9af3398af11d3a4319ab5b2023a3d))
+- 🐛 correct job dependency name in validate-pr-php.yml ([06558b3](https://github.com/tomgrv/devcontainer-features/commit/06558b36007b9b4d60956dafab3e42fb82b3d1be))
+- 🐛 correct rebase loop condition to handle errors properly ([a6724e3](https://github.com/tomgrv/devcontainer-features/commit/a6724e34a9bc1b4e893ae514ba3d69b37056bf12))
+- 🐛 correct remote branch reference in merge-base check ([f958c6f](https://github.com/tomgrv/devcontainer-features/commit/f958c6f9bbacde3444a9c03ca9e0188e502e40be))
+- 🐛 fix docker-gitversion wrapper generation ([caf9319](https://github.com/tomgrv/devcontainer-features/commit/caf9319e1b632f69f1dd571e38f642ef43e3334c))
+- 🐛 update commit retrieval method to ensure valid sha ([e497be6](https://github.com/tomgrv/devcontainer-features/commit/e497be6b41d376c649afb1be9594b8747c3a7428))
+- 🐛 update container message to use feature variable ([0fa1848](https://github.com/tomgrv/devcontainer-features/commit/0fa18482b12be42fbe97d2ef231072d0df4430c3))
+
+#### Features
+
+- ✨ add global installation option for npm plugins ([95e35b9](https://github.com/tomgrv/devcontainer-features/commit/95e35b92f0d19858a878e5a52606157b0770f364))
+- ✨ add script to rewrite commit messages ([ccd1bd1](https://github.com/tomgrv/devcontainer-features/commit/ccd1bd173bd28d03ea0328f7c392d1bb28129834))
+- ✨ add ssh inspection gateway support ([40b4faf](https://github.com/tomgrv/devcontainer-features/commit/40b4fafdbf99be2ba520552f6ee3fee124840300))
+
+#### Other changes
+
+- ♻️ 🛠️ improve logging and user prompts in \_git-fix-base.sh ([655ab3c](https://github.com/tomgrv/devcontainer-features/commit/655ab3c2ed65b688118e8fdbb4079bdc24797ca6))
+- Merge tag 'v5.36.0' into develop ([ef8556b](https://github.com/tomgrv/devcontainer-features/commit/ef8556be258b5374417af479266bd69626508c8a))
+- 🔧 rebuild container ([86527ea](https://github.com/tomgrv/devcontainer-features/commit/86527ead36e86f07a57dc6f8a43baa749b780f71))
+- 🔧 remove automatic rebase workflow file ([9de80ca](https://github.com/tomgrv/devcontainer-features/commit/9de80ca8fbf2f9ae9741902b75a35163dfa9bcba))
+- 🔧 update .gitignore files to include feature skill paths ([039813e](https://github.com/tomgrv/devcontainer-features/commit/039813eae989ad79a845873e3be7184051fb8da8))
+
 ## 5.36.0 (2026-02-27)
 
 _Commits from: v5.35.0..HEAD_
@@ -428,4 +460,4 @@ _Commits from: v5.25.0..HEAD_
 
 ---
 
-_Generated on 2026-02-27 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
+_Generated on 2026-03-20 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
