@@ -2,6 +2,52 @@
 
 # Changelog
 
+## 5.38.0 (2026-03-21)
+
+_Commits from: v5.37.0..HEAD_
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v5.37.0' into develop ([e0f35a8](https://github.com/tomgrv/devcontainer-features/commit/e0f35a82181149a89f20175197f61c7ae4a5ae58))
+- 🔧 remove docker-in-docker feature ([8db1317](https://github.com/tomgrv/devcontainer-features/commit/8db13178cc912c81f5109055c5ce71050e34a966))
+- 📚️ update commit message guidelines and allowed types ([19d5151](https://github.com/tomgrv/devcontainer-features/commit/19d51510f6811bc6cf350c9b429a0e26e5fc586c))
+- 🔧 update commit message guidelines and general instructions ([237a438](https://github.com/tomgrv/devcontainer-features/commit/237a4383988b9b31e30c36b6077cee30a5e42ab0))
+
+### 📦 common-utils changes
+
+#### Bug Fixes
+
+- 🐛 update update-all script in package.json ([634765c](https://github.com/tomgrv/devcontainer-features/commit/634765c7c2e537e8e9a4eb6c1021a6ed5bbc8fc5))
+
+#### Other changes
+
+- ♻️ move instructions ([45976c9](https://github.com/tomgrv/devcontainer-features/commit/45976c9b52ee6b2dbff54e77ce704d7f1d6693e9))
+
+### 📦 gateway changes
+
+#### Features
+
+- ✨ add SSL Inspection gateway package ([a2790bc](https://github.com/tomgrv/devcontainer-features/commit/a2790bcb9d5ea52153eea3ac79cdbc32d64ca9e8))
+
+#### Other changes
+
+- 🔧 add .gitignore for certs directory ([8279670](https://github.com/tomgrv/devcontainer-features/commit/827967075b949d99f96acb01a9aba745487ae43d))
+- ♻️ 🛠️ update README and JSON structure for SSL Inspection Gateway ([9b18fc6](https://github.com/tomgrv/devcontainer-features/commit/9b18fc6cd1059a99f4b40393b140e639a2b71ecd))
+
+### 📦 githooks changes
+
+#### Other changes
+
+- 🔧 update install-plugins command to include global flag ([4e50ced](https://github.com/tomgrv/devcontainer-features/commit/4e50cedd1b442e679d67a9454c27fb76eca6522c))
+
+### 📦 gitutils changes
+
+#### Features
+
+- ✨ add git release tasks ([00bdaaf](https://github.com/tomgrv/devcontainer-features/commit/00bdaaf3e43a6d707885b283804b2dabce9cfba7))
+
 ## 5.37.0 (2026-03-20)
 
 _Commits from: v5.36.0..HEAD_
@@ -460,4 +506,4 @@ _Commits from: v5.25.0..HEAD_
 
 ---
 
-_Generated on 2026-03-20 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
+_Generated on 2026-03-21 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_

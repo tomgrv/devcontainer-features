@@ -1,20 +1,20 @@
 {
-    "id": "gateway",
-    "name": "SSL Inspection Gateway handling",
-    "description": "Handling SSL Inspection Gateway while building & using devcontainers",
-    "version": "5.37.0",
-    "dependsOn": {},
-    "installsAfter": [],
-    "mounts": [
-        {
-            "source": ".devcontainer/.gateway/certs",
-            "target": "/usr/local/share/ca-certificates",
-            "type": "bind"
-        }
-    ],
-    "options": {},
-    "postCreateCommand": {
-        "ca-certs": "update-ca-certificates",
-        "config": "configure-feature gateway"
+  "id": "gateway",
+  "name": "SSL Inspection Gateway handling",
+  "description": "Handling SSL Inspection Gateway while building & using devcontainers",
+  "version": "5.38.0",
+  "dependsOn": {},
+  "installsAfter": [],
+  "mounts": [
+    {
+      "source": ".devcontainer/.gateway/certs",
+      "target": "/usr/local/share/ca-certificates",
+      "type": "bind"
     }
+  ],
+  "options": {},
+  "postCreateCommand": {
+    "ca-certs": "update-ca-certificates",
+    "config": "configure-feature gateway"
+  }
 }
