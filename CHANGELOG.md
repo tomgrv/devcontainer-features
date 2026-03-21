@@ -2,6 +2,16 @@
 
 # Changelog
 
+## 5.38.1 (2026-03-21)
+
+_Commits from: v5.38.0..HEAD_
+
+### 📂 Unscoped changes
+
+#### Bug Fixes
+
+- 🐛 add general coding agent instructions ([5df7393](https://github.com/tomgrv/devcontainer-features/commit/5df73934d2af4631337a0e8f00872ec25295ad1b))
+
 ## 5.38.0 (2026-03-21)
 
 _Commits from: v5.37.0..HEAD_
