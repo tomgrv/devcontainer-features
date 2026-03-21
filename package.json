@@ -44,7 +44,7 @@
         "release": "npx --yes commit-and-tag-version --no-verify --",
         "test": "echo \"Warning: no test specified\"",
         "update": "npm-check-updates -i -u",
-        "update-all": "npm run update -ws --root"
+        "update-all": "npm run update -w --root"
     },
     "config": {
         "commitizen": {
