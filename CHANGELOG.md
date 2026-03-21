@@ -2,6 +2,10 @@
 
 # Changelog
 
+## 5.38.2 (2026-03-21)
+
+_Commits from: v5.38.1..HEAD_
+
 ## 5.38.1 (2026-03-21)
 
 _Commits from: v5.38.0..HEAD_
