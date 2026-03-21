@@ -15,7 +15,12 @@
     "customizations": {
         "vscode": {
             "settings": {
-                "conventionalCommits.gitmoji": false
+                "conventionalCommits.gitmoji": false,
+                "github.copilot.chat.commitMessageGeneration.instructions": [
+                    {
+                        "file": ".github/instructions/commit.instructions.md"
+                    }
+                ]
             },
             "extensions": [
                 "vivaxy.vscode-conventional-commits",
