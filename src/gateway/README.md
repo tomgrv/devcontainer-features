@@ -22,19 +22,15 @@ SSL inspection tools acts as a man-in-the-middle TLS proxy and replaces server c
 ├── create.sh                # postCreateCommand
 ├── start.sh                 # postStartCommand
 └── .gateway/
-    ├── Dockerfile           # Builds the container image
-    ├── gateway-curl.sh      # curl wrapper that handles gateway forms
-    ├── certs/
-    │   └── gateway.pem      # Gateway root CA certificate  ← YOU MUST SUPPLY THIS
-    └── root/
-        └── .curlrc          # Default curl options
+    └── certs/
+       └── gateway.pem      # Gateway root CA certificate  ← YOU MUST SUPPLY THIS
 ```
 
 ## Prerequisites
 
 - [VS Code](https://code.visualstudio.com/) with the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers), **or** [GitHub Codespaces](https://github.com/features/codespaces).
 - Docker (local) or a Codespaces-compatible environment.
-- Your organisation's **gateway root CA certificate** in PEM format.
+- Your organisation's **root CA certificate** in PEM format.
 
 ## Setup
 
@@ -48,9 +44,9 @@ To work around this, run the installer script manually in your terminal:
 npx tomgrv/devcontainer-features gateway
 ```
 
-2. **Add your gateway certificate**
+2. **Add your root CA certificate**
 
-    Export the gateway root CA from your browser or system trust store and save it as:
+    Export the root CA from your browser or system trust store and save it as:
 
     ```
     .devcontainer/.gateway/certs/gateway.pem
