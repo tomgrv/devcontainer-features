@@ -1,0 +1,13 @@
+*.pem
+*.crt
+*.key
+*.csr
+*.pfx
+*.p12
+*.jks
+*.keystore
+*.truststore
+*.der
+*.csr
+*.srl
+*.csr

@@ -6,6 +6,24 @@
             "type": "shell",
             "command": "npm exec --yes -- tomgrv/devcontainer-features -s",
             "problemMatcher": []
+        },
+        {
+            "label": "🎈 Beta",
+            "type": "shell",
+            "command": "git release beta",
+            "problemMatcher": []
+        },
+        {
+            "label": "🚀 Prod",
+            "type": "shell",
+            "command": "git release prod",
+            "problemMatcher": []
+        },
+        {
+            "label": "🚑 Hotfix",
+            "type": "shell",
+            "command": "git release hotfix",
+            "problemMatcher": []
         }
     ]
 }

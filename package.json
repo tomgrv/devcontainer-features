@@ -1,6 +1,6 @@
 {
   "name": "@tomgrv/devcontainer-features",
-  "version": "5.37.0",
+  "version": "5.38.0",
   "description": "Configure dev environment with devcontainer, gitflow, gitversion, git aliases & hooks. Can be used a devcontainer features",
   "keywords": [
     "dev",
@@ -44,7 +44,7 @@
     "release": "npx --yes commit-and-tag-version --no-verify --",
     "test": "echo \"Warning: no test specified\"",
     "update": "npm-check-updates -i -u",
-    "update-all": "npm run update -ws --root"
+    "update-all": "npm run update -w --root"
   },
   "config": {
     "commitizen": {
@@ -169,18 +169,6 @@
           "start-case",
           "pascal-case",
           "upper-case"
-        ]
-      ],
-      "scope-enum": [
-        2,
-        "always",
-        [
-          "gitutils",
-          "githooks",
-          "gitversion",
-          "larasets",
-          "pecl",
-          "common-utils"
         ]
       ]
     }

@@ -59,7 +59,7 @@ if git diff --name-only ${@:---cached} | grep -q "composer.json"; then
 fi
 
 # Install Prettier plugins if they are not already installed
-git hook run install-plugins -- '.prettier.plugins//""'
+git hook run install-plugins -- -g '.prettier.plugins//""'
 
 # Run pre-commit checks
 npx --yes git-precommit-checks

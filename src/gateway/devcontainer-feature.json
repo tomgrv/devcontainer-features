@@ -2,7 +2,7 @@
   "id": "gateway",
   "name": "SSL Inspection Gateway handling",
   "description": "Handling SSL Inspection Gateway while building & using devcontainers",
-  "version": "5.37.0",
+  "version": "5.38.0",
   "dependsOn": {},
   "installsAfter": [],
   "mounts": [

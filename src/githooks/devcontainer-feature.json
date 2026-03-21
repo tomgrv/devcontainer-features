@@ -2,7 +2,7 @@
     "id": "githooks",
     "name": "Git Hooks",
     "description": "A feature to add useful Git hooks to your project",
-    "version": "5.37.0",
+    "version": "5.38.0",
     "dependsOn": {
         "ghcr.io/devcontainers/features/node:1": "lts",
         "ghcr.io/tomgrv/devcontainer-features/gitutils:5": {}
@@ -15,7 +15,12 @@
     "customizations": {
         "vscode": {
             "settings": {
-                "conventionalCommits.gitmoji": false
+                "conventionalCommits.gitmoji": false,
+                "github.copilot.chat.commitMessageGeneration.instructions": [
+                    {
+                        "file": ".github/instructions/commit.instructions.md"
+                    }
+                ]
             },
             "extensions": [
                 "vivaxy.vscode-conventional-commits",

@@ -8,7 +8,7 @@ if [ -t 1 ]; then
 fi
 
 # Install commitizen plugins
-git hook run install-plugins -- '[.config.commitizen.path // "", .commitlint.extends // ""]'
+git hook run install-plugins -- -g '[.config.commitizen.path // "", .commitlint.extends // ""]'
 
 
 
