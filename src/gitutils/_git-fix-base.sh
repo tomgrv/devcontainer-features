@@ -3,7 +3,7 @@
 # Function to print help and manage arguments
 eval $(
 	zz_args "Fix git base - rebase commits from one branch to another" $0 "$@" <<-help
-		    f -      force     force push changes to remote
+		    p -      push     force push changes to remote
 		    n -      dry-run   show what would be done without making changes
 		    - source source    source branch to take commits from (default: current branch)
 		    - target target    target branch to rebase commits onto
@@ -182,8 +182,8 @@ else
 	zz_log i "Staying on '$target' branch"
 fi
 
-# Push changes if force flag is set
-if [ -n "$force" ]; then
+# Push changes if push flag is set
+if [ -n "$push" ]; then
 	zz_log i "Pushing changes to remote..."
 	
 	# Push source branch (reset)
