@@ -25,17 +25,17 @@ fi
 # or if rebase is forced via command line option
 if [ -n "$rebase" ]; then
     zz_log i "Rebase forced via command line option, will rebase commits onto hotfix branch"
-elif git log "$main"..HEAD --pretty=%B | grep -E '^[a-zA-Z]' | grep -vE "$main|^fix(\(.+\))?:" >/dev/null; then
+elif git log  --all --ancestry-path --pretty=format:%s "$main"..HEAD | grep -vE "^(fix(\(.+\))?:|Merge)" >/dev/null; then
     zz_log w "There are commits since $main that are not of type 'fix:', creating hotfix branch only"
     unset rebase
 elif [ -z "$stash" ]; then
-    zz_log i "All commits since $main are of type 'fix:', creating hotfix branch and rebasing current history + stash on top of it"
+    zz_log i "All commits since $main are of type 'fix:', creating hotfix branch and rebasing current history onto it"
     rebase=true
 fi
 
 # If rebase needed, check that develop branch has not been pushed since last tag
 if [ -n "$rebase" ]; then
-    if [ "$(git rev-parse develop)" != "$(git rev-parse origin/develop)" ]; then
+    if [ "$(git rev-parse develop)" = "$(git rev-parse origin/develop)" ]; then
         zz_log e "Develop branch has been pushed since last tag, cannot rebase safely, aborting"
         exit 1
     fi
@@ -77,11 +77,15 @@ if [ -n "$rebase" ]; then
 
     zz_log i "Rebasing: inverting develop and hotfix branches..."
 
+<<<<<<< HEAD
     git fix base -p develop hotfix/"$current"
     
     # Return to hotfix branch
     git checkout "hotfix/$current"
     
     zz_log s "Successfully inverted develop and hotfix branches"
+=======
+    git fix base hotfix/$current develop
+>>>>>>> v5.38.3
 fi
     
