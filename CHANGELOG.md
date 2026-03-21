@@ -2,6 +2,17 @@
 
 # Changelog
 
+## 5.38.3 (2026-03-21)
+
+_Commits from: v5.38.2..HEAD_
+
+### 📦 gitutils changes
+
+#### Bug Fixes
+
+- 🐛 update help message to clarify source branch argument ([c18529b](https://github.com/tomgrv/devcontainer-features/commit/c18529b3df6f7ef4d2b7470acd711441d67fdd98))
+- 🐛 update hotfix branch creation logic to use ancestry path ([7195876](https://github.com/tomgrv/devcontainer-features/commit/71958763a31b5f116184d9dbdd5e69fbf87b8c1b))
+
 ## 5.38.2 (2026-03-21)
 
 _Commits from: v5.38.1..HEAD_
