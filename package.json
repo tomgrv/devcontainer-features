@@ -170,19 +170,6 @@
                     "pascal-case",
                     "upper-case"
                 ]
-            ],
-            "scope-enum": [
-                2,
-                "always",
-                [
-                    "common-utils",
-                    "gateway",
-                    "githooks",
-                    "gitutils",
-                    "gitversion",
-                    "larasets",
-                    "pecl"
-                ]
             ]
         }
     },
