@@ -1,14 +1,14 @@
 {
-    "name": "@tomgrv/gateway",
-    "version": "5.37.0",
-    "description": "SSL Inspection gateway scripts for development environment",
-    "files": [
-        "_*.sh",
-        "install.sh",
-        "stubs/**/*"
-    ],
-    "bin": {
-        "gateway-curl": "./_gateway-curl.sh"
-    },
-    "scripts": {}
+  "name": "@tomgrv/gateway",
+  "version": "5.38.0",
+  "description": "SSL Inspection gateway scripts for development environment",
+  "files": [
+    "_*.sh",
+    "install.sh",
+    "stubs/**/*"
+  ],
+  "bin": {
+    "gateway-curl": "./_gateway-curl.sh"
+  },
+  "scripts": {}
 }
