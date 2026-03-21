@@ -3,10 +3,10 @@
 # Function to print help and manage arguments
 eval $(
 	zz_args "Fix git base - rebase commits from one branch to another" $0 "$@" <<-help
-		    f -      force     force push changes to remote
-		    n -      dry-run   show what would be done without making changes
-		    - source source    source branch to take commits from (default: current branch)
+		    p -      push     force push changes to remote
+		    d -      dryrun   show what would be done without making changes
 		    - target target    target branch to rebase commits onto
+			- source source    source branch to take commits from (default: current branch)
 	help
 )
 
@@ -59,7 +59,7 @@ if [ -z "$merge_base" ]; then
 fi
 
 # Get commits that are in source but not in target
-commits_to_move=$(git rev-list --reverse "$target".."$source")
+commits_to_move=$(git log --reverse --pretty=oneline  --all --ancestry-path "$target".."$source" | grep -vE "^[a-f0-9]+ Merge" | awk '{print $1}')
 
 if [ -z "$commits_to_move" ]; then
 	zz_log i "No commits to move from '$source' to '$target'"
@@ -127,7 +127,7 @@ zz_log i "Cherry-picking commits..."
 failed=0
 echo "$commits_to_move" | while read commit; do
 	if [ -n "$commit" ]; then
-		if ! git cherry-pick "$commit"; then
+		if ! git cherry-pick "$commit" --strategy=recursive -X theirs --allow-empty; then
 			zz_log e "Cherry-pick failed on commit $commit"
 			failed=1
 			break
