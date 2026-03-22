@@ -2,6 +2,17 @@
 
 # Changelog
 
+## 5.38.4 (2026-03-22)
+
+_Commits from: v5.38.3..HEAD_
+
+### 📦 gitutils changes
+
+#### Bug Fixes
+
+- 🐛 ensure develop branch is up-to-date before finishing release ([14a10d8](https://github.com/tomgrv/devcontainer-features/commit/14a10d826dd90dafec83e6351f1027e7dfc3331d))
+- 🐛 fix rebase ([a71f997](https://github.com/tomgrv/devcontainer-features/commit/a71f997a7297f1700df3be854e8ba9658416f1a3))
+
 ## 5.38.3 (2026-03-21)
 
 _Commits from: v5.38.2..HEAD_
@@ -531,4 +542,4 @@ _Commits from: v5.25.0..HEAD_
 
 ---
 
-_Generated on 2026-03-21 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
+_Generated on 2026-03-22 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
