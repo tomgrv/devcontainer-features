@@ -6,7 +6,7 @@ eval $(
 		    p -      push     force push changes to remote
 		    d -      dryrun   show what would be done without making changes
 		    - target target    target branch to rebase commits onto
-			- source source    source branch to take commits from (default: current branch)
+		    - source source    source branch to take commits from (default: current branch)
 	help
 )
 
