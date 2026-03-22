@@ -49,16 +49,15 @@ fi
 #### PREVENT GIT EDITOR PROMPT
 GIT_EDITOR=:
 
-current=$(echo "$main" | sed -E 's/([0-9]+)\.([0-9]+)\.([0-9]+)/\1.\2.X/')
+hotfix=$(echo "$main" | sed -E 's/([0-9]+)\.([0-9]+)\.([0-9]+)/\1.\2.X/')
 
 #### START HOTFIX
-git flow hotfix start $current
+git flow hotfix start $hotfix
 
 #### RESTORE STATUS AND HANDLE REBASE
 if [ -n "$rebase" ]; then
 
-    zz_log i "Rebasing: inverting develop and hotfix branches..."
-
-    git fix base hotfix/$current develop
+    zz_log i "Rebasing develop commits onto hotfix branch..."
+    git fix base -p hotfix/$hotfix
 fi
     
