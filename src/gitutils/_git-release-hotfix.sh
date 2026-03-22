@@ -59,10 +59,10 @@ fi
 # Set GIT_EDITOR to no-op to avoid opening editor during rebase or cherry-pick
 GIT_EDITOR=:
 
-current=$(echo "$main" | sed -E 's/([0-9]+)\.([0-9]+)\.([0-9]+)/\1.\2.X/')
+hotfix=$(echo "$main" | sed -E 's/([0-9]+)\.([0-9]+)\.([0-9]+)/\1.\2.X/')
 
-# Create hotfix branch
-git flow hotfix start $current
+#### START HOTFIX
+git flow hotfix start $hotfix
 
 # If stash was used, pop it back
 if [ -n "$stash" ]; then
@@ -75,17 +75,8 @@ fi
 # then reset develop branch to the main tag
 if [ -n "$rebase" ]; then
 
-    zz_log i "Rebasing: inverting develop and hotfix branches..."
+    zz_log i "Rebasing develop commits onto hotfix branch..."
+    git fix base -p hotfix/$hotfix
 
-<<<<<<< HEAD
-    git fix base -p develop hotfix/"$current"
-    
-    # Return to hotfix branch
-    git checkout "hotfix/$current"
-    
-    zz_log s "Successfully inverted develop and hotfix branches"
-=======
-    git fix base hotfix/$current develop
->>>>>>> v5.38.3
 fi
     

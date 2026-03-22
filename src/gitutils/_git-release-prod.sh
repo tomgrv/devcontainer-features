@@ -82,6 +82,17 @@ if bump-changelog -f $GBV -b -m; then
         zz_log s "Version & CHANGELOG committed and pushed"
     fi
 
+    # Ensure develop  branch is up-to-date before finishing release
+    if ! git fetch origin develop:develop; then
+        zz_log e "Cannot fetch develop branch from remote"
+        exit 1
+    fi
+
+    if ! git merge-base --is-ancestor $(git rev-parse develop) $(git rev-parse origin/develop) ; then
+        zz_log e "Develop branch is not up-to-date with remote. Please pull the latest changes."
+        exit 1
+    fi
+
     if git flow $flow finish $name --push --tagname $GBV --message $GBV ; then
         zz_log s "Release finished: {B $GBV}"
         rm -f .git/RELEASE
