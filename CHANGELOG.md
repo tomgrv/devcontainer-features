@@ -2,6 +2,31 @@
 
 # Changelog
 
+## 5.38.5 (2026-03-23)
+
+_Commits from: v5.38.4..HEAD_
+
+### 📦 common-utils changes
+
+#### Bug Fixes
+
+- 🐛 correct argument value formatting in \_zz_args.sh ([5d93125](https://github.com/tomgrv/devcontainer-features/commit/5d93125c0dc3e3362cce678cdb54460e14af1094))
+
+### 📦 gitutils changes
+
+#### Bug Fixes
+
+- 🐛 add stash option to handle uncommitted changes before hotfix ([166fcde](https://github.com/tomgrv/devcontainer-features/commit/166fcde0b3eeb11b9a57b1187b98cb87a92217a0))
+- 🐛 improve branch validation and error logging in \_git-fix-base.sh ([e112b91](https://github.com/tomgrv/devcontainer-features/commit/e112b9124f2cee2d7c4d83cd3f9840b6ded8e958))
+- 🐛 improve release finish error handling and instructions ([21a1f1b](https://github.com/tomgrv/devcontainer-features/commit/21a1f1b530f7b4ba37215ee97008ae8ea5f51174))
+
+### 📦 larasets changes
+
+#### Bug Fixes
+
+- 🐛 improve logging for pm2 execution context ([8ff790d](https://github.com/tomgrv/devcontainer-features/commit/8ff790de6c3615f63fdb457b46e2dcf17ce64550))
+- 🐛 update composer command to use 'composer update' for dependency management ([e9b4c15](https://github.com/tomgrv/devcontainer-features/commit/e9b4c15eb6bf9ceb37d1e70a9b1cac90ec7807b7))
+
 ## 5.38.4 (2026-03-22)
 
 _Commits from: v5.38.3..HEAD_
@@ -542,4 +567,4 @@ _Commits from: v5.25.0..HEAD_
 
 ---
 
-_Generated on 2026-03-22 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
+_Generated on 2026-03-23 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_

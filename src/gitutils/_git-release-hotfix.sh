@@ -25,11 +25,11 @@ fi
 # or if rebase is forced via command line option
 if [ -n "$rebase" ]; then
     zz_log i "Rebase forced via command line option, will rebase commits onto hotfix branch"
-elif git log  --all --ancestry-path --pretty=format:%s "$main"..HEAD | grep -vE "^(fix(\(.+\))?:|Merge)" >/dev/null; then
+elif git log "$main"..HEAD --pretty=%B | grep -E '^[a-zA-Z]' | grep -vE "$main|^fix(\(.+\))?:" >/dev/null; then
     zz_log w "There are commits since $main that are not of type 'fix:', creating hotfix branch only"
     unset rebase
 elif [ -z "$stash" ]; then
-    zz_log i "All commits since $main are of type 'fix:', creating hotfix branch and rebasing current history onto it"
+    zz_log i "All commits since $main are of type 'fix:', creating hotfix branch and rebasing current history + stash on top of it"
     rebase=true
 fi
 
@@ -61,8 +61,8 @@ GIT_EDITOR=:
 
 hotfix=$(echo "$main" | sed -E 's/([0-9]+)\.([0-9]+)\.([0-9]+)/\1.\2.X/')
 
-#### START HOTFIX
-git flow hotfix start $hotfix
+# Create hotfix branch
+git flow hotfix start $current
 
 # If stash was used, pop it back
 if [ -n "$stash" ]; then
@@ -76,7 +76,8 @@ fi
 if [ -n "$rebase" ]; then
 
     zz_log i "Rebasing develop commits onto hotfix branch..."
-    git fix base -p hotfix/$hotfix
+    git fix base -p hotfix/$hotfix develop
 
 fi
     
+        

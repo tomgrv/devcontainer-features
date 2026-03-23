@@ -118,7 +118,7 @@ else
     # Process remaining '+' parameters
     for arg in $(echo $varnames | grep -E "^\+" | cut -f2); do
         if [ "$#" -gt "0" ]; then
-            echo "$arg='$(echo $@ | sed "s/ /\\\\ /g")'" && shift $#
+            echo "$arg='$(echo $@ | sed "s/ /\t/g")'" && shift $#
         fi
     done
 
