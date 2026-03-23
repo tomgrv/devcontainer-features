@@ -95,14 +95,15 @@ if bump-changelog -f $GBV -b -m; then
 
     if git flow $flow finish $name --push --tagname $GBV --message $GBV ; then
         zz_log s "Release finished: {B $GBV}"
-        rm -f .git/RELEASE
-
-        # Create git tag for the new version
         bump-tag $GBV
     else
-        git undo && git pf
         zz_log e "Cannot finish release. CHANGELOG & VERSION are not updated."
+        zz_log - "Please fix the issues, commit the changes, and finish the release manually with:"
+        zz_log - "   git flow $flow finish $name --push --tagname $GBV --message $GBV"
+        zz_log - "   bump-tag $GBV"
     fi
+
+    rm -f .git/RELEASE  
 else
     zz_log e "Cannot update version & finish release"
 fi

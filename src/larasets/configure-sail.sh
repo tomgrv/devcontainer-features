@@ -7,7 +7,7 @@ cd "$(git rev-parse --show-toplevel)" >/dev/null
 ### Install composer dependencies if composer.json exists
 if [ -f "./composer.json" ]; then
     zz_log i "Install composer dependencies"
-    composer install --ansi --ignore-platform-reqs --no-interaction --no-progress
+    composer update --lock --ansi --ignore-platform-reqs --no-interaction --no-progress
 fi
 
 ### Install npm dependencies if package.json exists
