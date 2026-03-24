@@ -2,6 +2,17 @@
 
 # Changelog
 
+## 5.38.7 (2026-03-24)
+
+_Commits from: v5.38.6..HEAD_
+
+### 📦 gitutils changes
+
+#### Bug Fixes
+
+- 🐛 add dependency for gitversion feature ([1d5aae7](https://github.com/tomgrv/devcontainer-features/commit/1d5aae7e3e6b8a4dc6b66cda40958c8937565a3b))
+- 🐛 update reset logic to use checkout before hard reset ([9261c63](https://github.com/tomgrv/devcontainer-features/commit/9261c638d4f96f408189b258c75ae609a670a409))
+
 ## 5.38.6 (2026-03-24)
 
 _Commits from: v5.38.5..HEAD_
