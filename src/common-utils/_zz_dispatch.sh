@@ -8,10 +8,11 @@ set -e
 
 # Parse arguments and display help if needed
 eval $(
-    zz_args "Dispatch Utility" $0 "$@" <<- help
+    ./src/common-utils/_zz_args.sh "Dispatch Utility" $0 "$@" <<- help
 		-   caller caller     Caller script path
         -   subcmd subcmd     Target script to execute
-        +   params params     Remaining arguments passed to the target script
+        d   debug  debug      Enable debug mode
+        &   params params     Remaining arguments passed to the target script
 	help
 )
 
@@ -22,6 +23,12 @@ usage() {
         zz_log - "Available utilities in ${caller_dir}:" >&2
         ls -1 "${caller_dir}" | grep -E "${name}(-.*)(\.sh)?$" | sed -e 's/^/_/' -e 's/^_\?//' | sed 's/^/    /' >&2 || true
     fi
+}
+
+preserve() {
+    echo $@ | while read -r line; do
+        echo \"$line\" 
+    done
 }
 
 # Determine caller directory and base name
@@ -38,8 +45,6 @@ if [ -z "${subcmd}" ]; then
     exit 1
 fi
 
-
-
 # If caller_dir is just the basename (no slash) and file exists in PATH, try to locate
 if [ "${caller_dir}" = "${caller_basename}" ] || [ -z "${caller_dir}" ]; then
     caller_dir="."
@@ -52,12 +57,14 @@ else
     target="${caller_dir}/${name}"
 fi
 
+echo $(preserve $params)
+
 if [ -x "${target}" ]; then
     zz_log i "Dispatching to executable target: ${target}" >&2
-    exec "${target}" $params
+    exec "${target}" $(preserve $params)
 elif [ -f "${target}" ]; then
     zz_log i "Dispatching to subshell target: ${target}" >&2
-    exec sh "${target}" $params
+    exec sh "${target}" $(preserve $params)
 else
     # Nothing found: show help and available utilities in the same directory
     zz_log w "No dispatch target found" && usage

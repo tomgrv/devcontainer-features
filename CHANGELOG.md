@@ -2,6 +2,40 @@
 
 # Changelog
 
+## 5.39.0 (2026-03-24)
+
+_Commits from: v5.38.7..HEAD_
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v5.38.0' into develop ([89bf33f](https://github.com/tomgrv/devcontainer-features/commit/89bf33ffb8577dfa4dcdde139c8d52ff3c2c24fb))
+- Merge tag 'v5.38.1' into develop ([76413d0](https://github.com/tomgrv/devcontainer-features/commit/76413d0b740863169e76ad9af283571c706b0716))
+- Merge tag 'v5.38.2' into develop ([7b1f14b](https://github.com/tomgrv/devcontainer-features/commit/7b1f14b3f4feb41517cf0f84d6e094538723db4c))
+- Merge tag 'v5.38.3' into develop ([1a61e91](https://github.com/tomgrv/devcontainer-features/commit/1a61e917ece3ccd6a8e066e93d2371e9a338a382))
+- Merge tag 'v5.38.4' into develop ([c7b55fe](https://github.com/tomgrv/devcontainer-features/commit/c7b55fe12e808ad1009f06764b4a4a8ba980926a))
+- Merge tag 'v5.38.5' into develop ([7ea28a2](https://github.com/tomgrv/devcontainer-features/commit/7ea28a2fd45eb0b6dd2ddb5fff0315bd2ee2a2cd))
+- Merge tag 'v5.38.6' into develop ([3f64400](https://github.com/tomgrv/devcontainer-features/commit/3f64400d096d1eb32ea052a7dd6baae94194d7e1))
+- Merge tag 'v5.38.7' into develop ([61267b0](https://github.com/tomgrv/devcontainer-features/commit/61267b03c238249ece036ad3bc71832b57a9c3b4))
+
+### 📦 common-utils changes
+
+#### Bug Fixes
+
+- 🐛 update argument prefix for params in dispatch utility ([b652d6e](https://github.com/tomgrv/devcontainer-features/commit/b652d6ed7bedb6ffe5691f658365b9ff62de684a))
+- 🐛 update argument processing for '=' and '+' parameters ([7820242](https://github.com/tomgrv/devcontainer-features/commit/7820242a71aab64bf5ab92b31fa6844bade179aa))
+
+### 📦 gitutils changes
+
+#### Bug Fixes
+
+- 🐛 add stash option to handle uncommitted changes before hotfix ([c48fe65](https://github.com/tomgrv/devcontainer-features/commit/c48fe65e7894ddf3cd9e06c5ee7680306950b51a))
+
+#### Features
+
+- ✨ add interactive branch deletion alias ([751a660](https://github.com/tomgrv/devcontainer-features/commit/751a66014166ff621b2f83aed1914e5a8be74e32))
+
 ## 5.38.7 (2026-03-24)
 
 _Commits from: v5.38.6..HEAD_

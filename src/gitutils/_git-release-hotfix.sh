@@ -75,13 +75,9 @@ fi
 # then reset develop branch to the main tag
 if [ -n "$rebase" ]; then
 
-    zz_log i "Rebasing: inverting develop and hotfix branches..."
+    zz_log i "Rebasing develop commits onto hotfix branch..."
+    git fix base -p hotfix/$hotfix develop
 
-    git fix base -p develop hotfix/"$current"
-    
-    # Return to hotfix branch
-    git checkout "hotfix/$current"
-    
-    zz_log s "Successfully inverted develop and hotfix branches"
 fi
     
+        

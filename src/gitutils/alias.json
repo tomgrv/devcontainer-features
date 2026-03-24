@@ -119,6 +119,10 @@
         "cmd": "git fetch --progress --prune --recurse-submodules=no origin && git stash save --keep-index --include-untracked && git merge --ff-only @{u} && git stash pop --index || git stash drop",
         "help": "Fetch, stash, fast-forward merge, and restore stash."
     },
+    "tidy": {
+        "cmd": "git branch --format=\"%(refname:short)\" | grep -v \"main\" |  grep -v \"dev\" | awk '{ printf(\"Delete %s? [y/n] \", $1); getline ans<\"/  dev/tty\"; if (ans == \"y\") { system(\"git branch -D \"$1 \">> ~/.gitdeletedbranches\"); } }'",
+        "help": "Interactively delete local branches except main and dev."
+    },
     "undo": {
         "cmd": "git reset --soft HEAD^ --",
         "help": "Undo last commit, keep changes staged."
