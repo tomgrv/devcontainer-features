@@ -136,24 +136,14 @@ if [ $failed -eq 1 ]; then
 	exit 1
 fi
 
-# Reset source branch to source base
-zz_log i "Resetting '$source' to source base"
-if ! git reset --hard $source; then
-	zz_log e "Failed to reset '$source' branch"
-	exit 1
-fi
-
 # Fast-forward target branch
 zz_log i "Fast-forwarding '$target' branch"
 if ! git checkout "$target"; then
 	zz_log e "Failed to checkout '$target' branch"
 	exit 1
-elif [ -n "$push" ]; then
-	zz_log i "Pushing changes to remote"
-	if ! git push origin "$target"; then
-		zz_log e "Failed to push '$target' branch to remote"
-		exit 1
-	fi
+elif [ -n "$push" ] &&! git push origin "$target"; then
+	zz_log e "Failed to push '$target' branch to remote"
+	exit 1
 fi
 
 if ! git merge --ff-only "$temp"; then
@@ -165,6 +155,23 @@ else
 	# Cleanup temporary branch
 	zz_log i "Cleaning up temporary branch"
 	git branch -D "$temp"
+fi
+
+# Reset source branch to source base
+zz_log i "Resetting '$source' to source base"
+if ! git checkout "$source"; then
+	zz_log e "Failed to checkout '$source' branch"
+	exit 1
+elif ! git reset --hard "$base"; then
+	zz_log e "Failed to reset '$source' branch"
+	exit 1
+fi
+
+# Go back to original branch
+zz_log i "Switching back to original branch '$current'"
+if ! git checkout "$current"; then
+	zz_log e "Failed to checkout original branch '$current'"	
+	exit 1
 fi
 
 # Log success message
