@@ -3,9 +3,8 @@
 # Function to print help and manage arguments
 eval $(
 	zz_args "Fix git base - rebase commits from one branch to another" $0 "$@" <<-help
-		    p -      push     force push changes to remote
+		    p -      push      push changes to remote
 		    n -      dry-run   show what would be done without making changes
-		    - source source    source branch to take commits from (default: current branch)
 		    - target target    target branch to rebase commits onto
 		    - source source    source branch to take commits from (default: current branch)
 	help
@@ -53,8 +52,8 @@ else
 	zz_log i "Found merge base: $base"
 fi
 
-# Get commits that are in source but not in target
-commits=$(git log --reverse --pretty=oneline ${base}..${source} | grep -vE "^[a-f0-9]+ Merge" | awk '{print $1}')
+# Get commits that are not pushed on the source branch 
+commits=$(git log --reverse --format=%H "$source" --not origin/"$source" --not "$target" --no-merges)	
 
 if [ -z "$commits" ]; then
 	zz_log i "No commits to move from '$source' to '$target'"
@@ -137,16 +136,9 @@ if [ $failed -eq 1 ]; then
 	exit 1
 fi
 
-# Reset source branch to merge base
-zz_log i "Resetting '$source' to merge base"
-if ! git checkout "$source"; then
-	zz_log e "Failed to checkout '$source' branch"
-	# Cleanup temp branch
-	git branch -D "$temp" 2>/dev/null
-	exit 1
-fi
-
-if ! git reset --hard "$base"; then
+# Reset source branch to source base
+zz_log i "Resetting '$source' to source base"
+if ! git reset --hard $source; then
 	zz_log e "Failed to reset '$source' branch"
 	exit 1
 fi
@@ -156,6 +148,12 @@ zz_log i "Fast-forwarding '$target' branch"
 if ! git checkout "$target"; then
 	zz_log e "Failed to checkout '$target' branch"
 	exit 1
+elif [ -n "$push" ]; then
+	zz_log i "Pushing changes to remote"
+	if ! git push origin "$target"; then
+		zz_log e "Failed to push '$target' branch to remote"
+		exit 1
+	fi
 fi
 
 if ! git merge --ff-only "$temp"; then
@@ -163,35 +161,11 @@ if ! git merge --ff-only "$temp"; then
 	# Cleanup temp branch
 	git branch -D "$temp" 2>/dev/null
 	exit 1
-fi
-
-# Cleanup temporary branch
-zz_log i "Cleaning up temporary branch"
-git branch -D "$temp"
-
-# Return to original branch if it still exists and is different from source
-if [ "$current" != "$source" ] && git rev-parse --verify "$current" >/dev/null 2>&1; then
-	git checkout "$current"
 else
-	# If original branch was source, stay on target
-	zz_log i "Staying on '$target' branch"
+	# Cleanup temporary branch
+	zz_log i "Cleaning up temporary branch"
+	git branch -D "$temp"
 fi
 
-# Push changes if push flag is set
-if [ -n "$push" ]; then
-	zz_log i "Pushing changes to remote..."
-	
-	# Push source branch (reset)
-	if git rev-parse --verify "origin/$source" >/dev/null 2>&1; then
-		zz_log i "Force pushing '$source' branch"
-		git push --force-with-lease origin "$source"
-	fi
-	
-	# Push target branch (with new commits)
-	if git rev-parse --verify "origin/$target" >/dev/null 2>&1; then
-		zz_log i "Pushing '$target' branch"
-		git push origin "$target"
-	fi
-fi
-
+# Log success message
 zz_log i "Successfully moved commits from '$source' to '$target'"
