@@ -47,6 +47,9 @@ while read argname datatype varname help; do
     elif [ "$argname" = "+" ]; then
         line="<$datatype...>"
         helpinfo="$helpinfo\n\t$(printf '%-12s : %s' "$name" "$help")"
+    elif [ "$argname" = "&" ]; then
+        line="<$datatype...>"
+        helpinfo="$helpinfo\n\t$(printf '%-12s : %s' "$name" "$help")"
     else
         if [ "$datatype" = "-" ]; then
             line="[-$argname]"
@@ -108,17 +111,17 @@ else
         fi
     done
 
-    # Process remaining '=' parameters
-    for arg in $(echo $varnames | grep -E "^=" | cut -f2); do
+    # Process remaining '&' parameters
+    for arg in $(echo $varnames | grep -E "^&" | cut -f2); do
         if [ "$#" -gt "0" ]; then
-            echo "$arg='$1'" && shift 1
+            echo "$arg='$(echo $@ | sed "s/ /\n/g")'" && shift $#
         fi
     done
 
     # Process remaining '+' parameters
     for arg in $(echo $varnames | grep -E "^\+" | cut -f2); do
         if [ "$#" -gt "0" ]; then
-            echo "$arg='$(echo $@ | sed "s/ /\t/g")'" && shift $#
+            echo "$arg='$(echo $@ | sed "s/ /\\\\ /g")'" && shift $#
         fi
     done
 
