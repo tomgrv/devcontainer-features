@@ -2,6 +2,23 @@
 
 # Changelog
 
+## 5.38.6 (2026-03-24)
+
+_Commits from: v5.38.5..HEAD_
+
+### 📦 gitutils changes
+
+#### Bug Fixes
+
+- 🐛 correct hotfix branch creation variable ([171cda6](https://github.com/tomgrv/devcontainer-features/commit/171cda67a8d984ec6eaffd65cf7a205defa6e615))
+- 🐛 update commit retrieval logic to exclude merge commits ([3dce7e0](https://github.com/tomgrv/devcontainer-features/commit/3dce7e00c9984cc9f8861fe4a3735c8b00cdce29))
+
+### 📦 gitversion changes
+
+#### Bug Fixes
+
+- 🐛 update dependencies to include docker-in-docker ([d2cfa7d](https://github.com/tomgrv/devcontainer-features/commit/d2cfa7d98a5604e9d0a5b6053cc252181f8a1c20))
+
 ## 5.38.5 (2026-03-23)
 
 _Commits from: v5.38.4..HEAD_
@@ -567,4 +584,4 @@ _Commits from: v5.25.0..HEAD_
 
 ---
 
-_Generated on 2026-03-23 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
+_Generated on 2026-03-24 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
