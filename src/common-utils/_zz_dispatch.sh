@@ -25,12 +25,6 @@ usage() {
     fi
 }
 
-preserve() {
-    echo $@ | while read -r line; do
-        echo $line
-    done
-}
-
 # Determine caller directory and base name
 caller_basename=$(basename "${caller}")
 caller_dir=$(dirname "${caller}")
@@ -61,10 +55,10 @@ echo $(preserve $params)
 
 if [ -x "${target}" ]; then
     zz_log i "Dispatching to executable target: ${target}" >&2
-    exec "${target}" $(preserve $params)
+    exec "${target}" $(echo $@)
 elif [ -f "${target}" ]; then
     zz_log i "Dispatching to subshell target: ${target}" >&2
-    exec sh "${target}" $(preserve $params)
+    exec sh "${target}" $(echo $@)
 else
     # Nothing found: show help and available utilities in the same directory
     zz_log w "No dispatch target found" && usage

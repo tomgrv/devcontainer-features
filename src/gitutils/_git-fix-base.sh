@@ -141,18 +141,15 @@ zz_log i "Fast-forwarding '$target' branch"
 if ! git checkout "$target"; then
 	zz_log e "Failed to checkout '$target' branch"
 	exit 1
-elif [ -n "$push" ] &&! git push origin "$target"; then
-	zz_log e "Failed to push '$target' branch to remote"
-	exit 1
 fi
 
 if ! git merge --ff-only "$temp"; then
 	zz_log e "Failed to fast-forward '$target' branch"
-	# Cleanup temp branch
-	git branch -D "$temp" 2>/dev/null
+	exit 1
+elif [ -n "$push" ] && ! git push origin "$target"; then
+	zz_log e "Failed to push '$target' branch to remote"
 	exit 1
 else
-	# Cleanup temporary branch
 	zz_log i "Cleaning up temporary branch"
 	git branch -D "$temp"
 fi
