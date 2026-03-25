@@ -51,8 +51,7 @@ else
     target="${caller_dir}/${name}"
 fi
 
-echo $(preserve $params)
-
+# Check if target exists and is executable, then dispatch
 if [ -x "${target}" ]; then
     zz_log i "Dispatching to executable target: ${target}" >&2
     exec "${target}" $(echo $@)
