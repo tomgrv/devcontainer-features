@@ -2,6 +2,28 @@
 
 # Changelog
 
+## 5.39.2 (2026-03-25)
+
+_Commits from: v5.39.1..HEAD_
+
+### 📦 common-utils changes
+
+#### Bug Fixes
+
+- 🐛 remove unused preserve function and simplify parameter handling ([a04b680](https://github.com/tomgrv/devcontainer-features/commit/a04b680f7612f4ae4f4661d59643d0815008f312))
+
+### 📦 gitutils changes
+
+#### Bug Fixes
+
+- 🐛 correct push logic and cleanup temporary branch handling ([4b8eaaa](https://github.com/tomgrv/devcontainer-features/commit/4b8eaaa1053f40a028fb4f4c2d6ffec098c4e66e))
+
+### 📦 gitversion changes
+
+#### Bug Fixes
+
+- 🐛 add docker-in-docker to installsAfter list ([fdceec5](https://github.com/tomgrv/devcontainer-features/commit/fdceec5be65f5d5d624be4b06741bc74a3836a38))
+
 ## 5.39.1 (2026-03-24)
 
 _Commits from: v5.39.0..HEAD_
@@ -639,4 +661,4 @@ _Commits from: v5.25.0..HEAD_
 
 ---
 
-_Generated on 2026-03-24 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
+_Generated on 2026-03-25 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
