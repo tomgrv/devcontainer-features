@@ -54,10 +54,10 @@ fi
 # Check if target exists and is executable, then dispatch
 if [ -x "${target}" ]; then
     zz_log i "Dispatching to executable target: ${target}" >&2
-    exec "${target}" $(echo $@)
+    eval exec "${target}" $(echo $params | sed 's/ /\\ /g')
 elif [ -f "${target}" ]; then
     zz_log i "Dispatching to subshell target: ${target}" >&2
-    exec sh "${target}" $(echo $@)
+    eval exec sh "${target}" $(echo $params | sed 's/ /\\ /g')
 else
     # Nothing found: show help and available utilities in the same directory
     zz_log w "No dispatch target found" && usage
