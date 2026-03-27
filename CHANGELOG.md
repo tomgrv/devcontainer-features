@@ -2,6 +2,29 @@
 
 # Changelog
 
+## 5.40.0 (2026-03-27)
+
+_Commits from: v5.39.2..HEAD_
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v5.39.0' into develop ([d3c7956](https://github.com/tomgrv/devcontainer-features/commit/d3c79568c025f8a75000b5d058c1375c34d6b8c6))
+- Merge tag 'v5.39.1' into develop ([5cc9646](https://github.com/tomgrv/devcontainer-features/commit/5cc96466899a2829f6d13fc6df4f2e3c7ce21ea3))
+- Merge tag 'v5.39.2' into develop ([083e77e](https://github.com/tomgrv/devcontainer-features/commit/083e77e6a128778b7e79ea592d9ecc6e48900032))
+- ♻️ simplify doppler settings structure ([53e7a8e](https://github.com/tomgrv/devcontainer-features/commit/53e7a8e1eb07024c4f1828feff5f7087fd7bd45c))
+
+### 📦 common-utils changes
+
+#### Bug Fixes
+
+- 🐛 enhance argument parsing for dispatch and args scripts ([fcda5a3](https://github.com/tomgrv/devcontainer-features/commit/fcda5a322eb85f9aafd020b9ea770f64598a4b51))
+- 🐛 improve error handling for missing source in json loader ([da4adde](https://github.com/tomgrv/devcontainer-features/commit/da4adde8478ea014d3c38844c9fd8fa8ccf34481))
+- 🐛 improve parameter handling in dispatch script ([8ae8fa5](https://github.com/tomgrv/devcontainer-features/commit/8ae8fa5ddfa89730ee28987be289ffaad5203794))
+- 🐛 improve schema loading and error handling in JSON validation ([5259f49](https://github.com/tomgrv/devcontainer-features/commit/5259f49a7b65fb89c17534892655629c79ed410c))
+- 🐛 remove unused preserve function call in dispatch script ([e91d5c3](https://github.com/tomgrv/devcontainer-features/commit/e91d5c3a5a42623968b6f8411ca54fcd7eb5ce90))
+
 ## 5.39.2 (2026-03-25)
 
 _Commits from: v5.39.1..HEAD_
@@ -661,4 +684,4 @@ _Commits from: v5.25.0..HEAD_
 
 ---
 
-_Generated on 2026-03-25 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
+_Generated on 2026-03-27 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
