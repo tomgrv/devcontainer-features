@@ -455,6 +455,16 @@ validate() {
     zz_log "${lvl}" "{Blue End Parsing, all valid!}" >&2
 }
 
+# if no schema loaded, open file and check if it contains a $schema property with a valid url, and load it if found
+if [ -z "$schema" ]; then   
+
+    schema=$(zz_json $json | jq -r '."$schema" // empty')
+
+    if test -n "$schema"; then
+        zz_log i "Found schema reference in JSON file: {U $schema}"
+    fi
+fi
+
 # if local flag is set, get schema from json file name
 if [ -n "$local" ] && [ -z "$schema" ]; then
 
@@ -501,12 +511,17 @@ if [ -n "$fallback" ] && [ -z "$schema" ]; then
     zz_log w "Using fallback schema {UYellow $schema}"
 fi
 
+# Check if schema is readable
+if test -z "$schema"; then
+    zz_log e "Schema is missing" && exit 1
+fi
+
 # Download schema file and add id to it if not present
 schema=$(zz_json -s "$schema")
 
 # Check if schema is readable
 if test -z "$schema"; then
-    zz_log e "Schema is missing" && exit 1
+    zz_log e "Schema is empty" && exit 1
 fi
 
 # if schema is not a valid JSON, return error

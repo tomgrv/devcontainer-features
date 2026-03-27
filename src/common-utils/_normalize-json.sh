@@ -31,7 +31,7 @@ for file in $files; do
 
     # Validate JSON
     zz_log i "Normalizing {U $file}..."
-    list=$(validate-json ${allow:+-a} ${cache:+-c} ${debug:+-d} ${fallback:+-f "$fallback"} ${local:+-l "$local"} ${import:+-i} ${schema:+-s"$schema"} $file)
+    list=$(./src/common-utils/_validate-json.sh ${allow:+-a} ${cache:+-c} ${debug:+-d} ${fallback:+-f "$fallback"} ${local:+-l "$local"} ${import:+-i} ${schema:+-s"$schema"} $file)
 
     if test -z "$list"; then
         zz_log e "JSON {U $file} not valid, cannot normalize" && exit 1
@@ -54,7 +54,7 @@ for file in $files; do
             $lst | split("\n") 
                 | map(select(length > 0))
                 | map(
-                   split(".") | map(fromjson? // .)
+                   split("\".\"") | map(ltrimstr("\"") | rtrimstr("\""))
                 );
         def xpath($ary):
             . as $in
