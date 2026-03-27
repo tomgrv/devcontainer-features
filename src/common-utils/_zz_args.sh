@@ -26,7 +26,8 @@ if test $# -lt 1; then
     x   for flags x with value (e.g., -f value, -h being reserved for help)
     -   for sequential arguments in the order defined, without flags
     +   to capture all remaining arguments as a single variable with spaces as separators
-    &   to capture all remaining arguments as a single variable with newlines as separators" >&2
+    &   to capture all remaining arguments as a multiple-line variable
+    #   to capture all remaining arguments with escaped spaces" >&2
     return 1
 fi
 
@@ -54,6 +55,9 @@ while read argname datatype varname help; do
         line="<$datatype...>"
         helpinfo="$helpinfo\n\t$(printf '%-12s : %s' "$name" "$help")"
     elif [ "$argname" = "&" ]; then
+        line="<$datatype...>>"
+        helpinfo="$helpinfo\n\t$(printf '%-12s : %s' "$name" "$help")"
+    elif [ "$argname" = "#" ]; then
         line="<$datatype...>>"
         helpinfo="$helpinfo\n\t$(printf '%-12s : %s' "$name" "$help")"
     else
@@ -126,6 +130,21 @@ else
                 lines="$1"
             else
                 lines="$lines\\\\n$1"
+            fi
+            shift 1
+        done
+        echo "$arg='$lines'"  
+    done
+
+    # Process remaining '#' parameters
+    for arg in $(echo $varnames | grep -E "^#" | cut -f2); do
+        lines=""
+        while [ "$#" -gt "0" ]; do
+            # spaces that are not escaped should be preserved as part of the argument
+            if [ -z "$lines" ]; then
+                lines="$(printf '%s' "$1" | sed 's/ /\\ /g')"
+            else
+                lines="$lines $(printf '%s' "$1" | sed 's/ /\\ /g')"
             fi
             shift 1
         done
