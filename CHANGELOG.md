@@ -2,6 +2,16 @@
 
 # Changelog
 
+## 5.40.1 (2026-03-27)
+
+_Commits from: v5.40.0..HEAD_
+
+### 📦 common-utils changes
+
+#### Bug Fixes
+
+- 🐛 correct argument parsing in dispatch utility ([c3bd260](https://github.com/tomgrv/devcontainer-features/commit/c3bd26021d562f1f365bed9b1f139e2eaac5f9cc))
+
 ## 5.40.0 (2026-03-27)
 
 _Commits from: v5.39.2..HEAD_

@@ -8,7 +8,7 @@ set -e
 
 # Parse arguments and display help if needed
 eval $(
-     ./src/common-utils/_zz_args.sh "Dispatch Utility" $0 "$@" <<- help
+     zz_args "Dispatch Utility" $0 "$@" <<- help
 		-   caller caller     Caller script path
         -   subcmd subcmd     Target script to execute
         d   debug  debug      Enable debug mode
