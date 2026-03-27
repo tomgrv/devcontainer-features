@@ -1,20 +1,15 @@
 {
-    "doppler": {
-        "autocomplete": {
-            "enable": null
-        },
-        "hover": {
-            "enable": null
-        }
-    },
+    "$schema": "https://raw.githubusercontent.com/wraith13/vscode-schemas/refs/heads/master/en/latest/schemas/settings/user.json",
+    "doppler.autocomplete.enable": true,
+    "doppler.hover.enable": true,
     "workbench.colorCustomizations": {
-        "titleBar.activeBackground": "#9DC08B",
-        "titleBar.border": "#9DC08B",
-        "titleBar.activeForeground": "#374633",
-        "titleBar.inactiveBackground": "#acc99c",
-        "titleBar.inactiveForeground": "#556252",
         "activityBar.background": "#9DC08B",
         "activityBar.foreground": "#374633",
-        "activityBar.inactiveForeground": "#2c3829"
+        "activityBar.inactiveForeground": "#2c3829",
+        "titleBar.activeBackground": "#9DC08B",
+        "titleBar.activeForeground": "#374633",
+        "titleBar.border": "#9DC08B",
+        "titleBar.inactiveBackground": "#acc99c",
+        "titleBar.inactiveForeground": "#556252"
     }
 }

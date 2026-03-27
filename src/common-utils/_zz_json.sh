@@ -22,6 +22,8 @@ if test -n "$(echo $source | grep -E '^http')"; then
 elif test -f "$source"; then
     zz_log i "Loading file {U $source}"
     cat $source
-else
+elif test -n "$source"; then
     zz_log e "File {U $source} not found" && exit 1
+else
+    zz_log e "No source provided" && exit 1
 fi | sed -e 's:^[[:blank:]]*//.*$::g' 2>/dev/null | jq --arg source "$source" --arg schema "${schema:+true}" 'if . == null then {} else . end | if ($source != "" and has("$id")) or $schema == "" then . else . + {"$id": $source} end'
