@@ -2,6 +2,16 @@
 
 # Changelog
 
+## 5.40.2 (2026-03-28)
+
+_Commits from: v5.40.1..HEAD_
+
+### 📦 common-utils changes
+
+#### Bug Fixes
+
+- 🐛 correct invocation of validate-json function in normalization script ([db4d7c2](https://github.com/tomgrv/devcontainer-features/commit/db4d7c2bf18589bcb8638f7bc1cdeefb66d1d8ed))
+
 ## 5.40.1 (2026-03-27)
 
 _Commits from: v5.40.0..HEAD_
@@ -694,4 +704,4 @@ _Commits from: v5.25.0..HEAD_
 
 ---
 
-_Generated on 2026-03-27 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
+_Generated on 2026-03-28 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
