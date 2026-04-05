@@ -1,5 +1,5 @@
 {
-    "name": "@tomgrv/gitversion",
+    "name": "@tomgrv-devcontainer-features/gitversion",
     "version": "5.39.2",
     "description": "GitVersion integration and version management scripts",
     "files": [
@@ -19,6 +19,6 @@
     "scripts": {},
     "dependencies": {},
     "peerDependencies": {
-        "@tomgrv/common-utils": "^5.0.0"
+        "@tomgrv-devcontainer-features/common-utils": "^5.0.0"
     }
 }

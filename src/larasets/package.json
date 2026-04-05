@@ -1,5 +1,5 @@
 {
-    "name": "@tomgrv/larasets",
+    "name": "@tomgrv-devcontainer-features/larasets",
     "version": "5.38.5",
     "description": "Laravel development settings and utilities",
     "files": [
@@ -32,6 +32,6 @@
         "npm-check-updates": "*"
     },
     "peerDependencies": {
-        "@tomgrv/common-utils": "^5.0.0"
+        "@tomgrv-devcontainer-features/common-utils": "^5.0.0"
     }
 }
