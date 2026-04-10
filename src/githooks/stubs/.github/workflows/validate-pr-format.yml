@@ -4,7 +4,7 @@ name: Validate PR Title
 
 on:
   pull_request:
-    types: [opened, edited, reopened, synchronize]
+    types: [review_requested]
 
 permissions:
   contents: read
@@ -25,6 +25,9 @@ jobs:
         run: echo "${{ github.event.pull_request.title }}" | npx commitlint
 
       - name: Validate and update PR title if needed
+        # Only attempt to edit the PR title for same-repo PRs; fork PRs have a
+        # read-only GITHUB_TOKEN that cannot update pull request metadata.
+        if: github.event.pull_request.head.repo.full_name == github.repository
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -39,11 +42,7 @@ jobs:
             echo "Original: $PR_TITLE"
             echo "Expected: $FORMATTED_TITLE"
             echo "Updating PR title..."
-            # Install GitHub CLI
-            sudo apt-get update && sudo apt-get install -y gh
-            # Authenticate gh CLI
-            echo "$GH_TOKEN" | gh auth login --with-token
-            # Update the PR title
+            # Update the PR title (GH_TOKEN is already in the environment, no need to gh auth login)
             gh pr edit "$PR_NUMBER" --repo "$REPO" --title "$FORMATTED_TITLE"
             echo "✅ PR title updated to: $FORMATTED_TITLE"
           else
