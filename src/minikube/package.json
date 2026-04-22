@@ -1,6 +1,6 @@
 {
     "name": "@tomgrv-devcontainer-features/minikube",
-    "version": "5.37.0",
+    "version": "5.41.0",
     "description": "Minikube scripts",
     "files": [
         "_*.sh",
