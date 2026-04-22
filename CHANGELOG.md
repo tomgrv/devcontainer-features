@@ -2,6 +2,22 @@
 
 # Changelog
 
+## 5.41.1 (2026-04-22)
+
+_Commits from: v5.41.0..HEAD_
+
+### 📂 Unscoped changes
+
+#### Bug Fixes
+
+- 🐛 remove docker-in-docker feature from devcontainer configuration ([7fdcc41](https://github.com/tomgrv/devcontainer-features/commit/7fdcc41fa2cc6d45616e96c532a5b7a7af7acc5a))
+
+### 📦 gateway changes
+
+#### Bug Fixes
+
+- 🐛 ensure common-utils is listed in installsAfter ([7d11547](https://github.com/tomgrv/devcontainer-features/commit/7d11547cbb77183f8350105855adc042164b2812))
+
 ## 5.41.0 (2026-04-22)
 
 _Commits from: v5.40.2..HEAD_
