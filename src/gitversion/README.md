@@ -1,3 +1,4 @@
+<!-- @format -->
 
 # Gitversion Feature
 
@@ -7,26 +8,22 @@ Originally, GitVersion was designed to be used in a CI/CD pipeline. However, it 
 
 More information about GitVersion can be found on the [GitVersion GitHub page](https://github.com/GitTools/GitVersion).
 
-## Example Usage
+## Quick Start — devcontainer.json
 
 ```json
 "features": {
-    "ghcr.io/tomgrv/devcontainer-features/gitversion:1": {
-        "version": "latest"
-    }
+    "ghcr.io/tomgrv/devcontainer-features/gitversion:5": {}
 }
+```
+
+## Quick Install — console
+
+```sh
+npx tomgrv/devcontainer-features -- gitversion
 ```
 
 ## Options
 
-| Options Id | Description | Type | Default Value |
-|-----|-----|-----|-----|
-| version | The version of GitVersion to install. | string | latest |
-
-## Functional Coverage
-
-- Installs GitVersion to calculate the version number of the application based on Git history.
-
-## Contributing
-
-If you have a feature that you would like to add to this repository, please open an issue or submit a pull request.
+| Options Id | Description                        | Type   | Default Value |
+| ---------- | ---------------------------------- | ------ | ------------- |
+| version    | The version of GitVersion to use.  | string | 6.5.1         |

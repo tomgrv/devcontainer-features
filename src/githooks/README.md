@@ -4,12 +4,18 @@
 
 This feature provides a set of hooks for working with Git repositories.
 
-## Example Usage
+## Quick Start — devcontainer.json
 
 ```json
 "features": {
-    "ghcr.io/tomgrv/devcontainer-features/githooks:1": {}
+    "ghcr.io/tomgrv/devcontainer-features/githooks:5": {}
 }
+```
+
+## Quick Install — console
+
+```sh
+npx tomgrv/devcontainer-features -- githooks
 ```
 
 ## Functional Coverage
