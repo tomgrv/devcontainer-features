@@ -2,7 +2,21 @@
 
 # Man In The Middle SSL Gateway Handling Feature
 
-A [Dev Container](https://containers.dev/) helpêr for developing inside a corporate network protected by SSL inspection.
+A [Dev Container](https://containers.dev/) helper for developing inside a corporate network protected by SSL inspection.
+
+## Quick Start — devcontainer.json
+
+```json
+"features": {
+    "ghcr.io/tomgrv/devcontainer-features/gateway:5": {}
+}
+```
+
+## Quick Install — console
+
+```sh
+npx tomgrv/devcontainer-features -- gateway
+```
 
 ## Problem
 
@@ -41,7 +55,7 @@ Declaring the feature in your `devcontainer.json` may not be sufficient as you w
 To work around this, run the installer script manually in your terminal:
 
 ```sh
-npx tomgrv/devcontainer-features gateway
+npx tomgrv/devcontainer-features -- gateway
 ```
 
 2. **Add your root CA certificate**

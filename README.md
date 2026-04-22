@@ -4,16 +4,16 @@
 
 This repository contains a collection of features that can be used to enhance the development experience in a [Visual Studio Code Dev Container](https://code.visualstudio.com/docs/remote/containers).
 
-The features are organized in separate folders and can be used individually in a `devcontainer.json` file
-
+The features are organized in separate folders and can be used individually in a `devcontainer.json` file.
 
 ## Installation
 
-Installation script can be run locally and/or in devcontainer environnement
+The installation script can be run locally and/or in a devcontainer environment.
 
 When run locally:
-- features are installed in local environment.
-- a `devcontainer.json` file is eventually created for remote development experience.
+
+-   Features are installed in the local environment.
+-   A `devcontainer.json` file is optionally created for the remote development experience.
 
 ```sh
 npx tomgrv/devcontainer-features -h
@@ -25,16 +25,13 @@ npx tomgrv/devcontainer-features -h
 npx tomgrv/devcontainer-features -s
 ```
 
-#### To install a specific devcontainer feature(s) 
+#### To install a specific devcontainer feature
 
 ```sh
 npx tomgrv/devcontainer-features -- gitutils
 ```
 
-#### To setup a full dev environnement with 
-
-- [GitUtils](./src/gitutils/)
-- [GitHooks](./src/githooks/)
+#### To set up a full dev environment
 
 ```sh
 npx tomgrv/devcontainer-features -a
@@ -42,41 +39,221 @@ npx tomgrv/devcontainer-features -a
 
 ## Features Overview
 
+| Feature                             | Description                                             |
+| ----------------------------------- | ------------------------------------------------------- |
+| [GitUtils](#gitutils)               | Git aliases and workflow automation                     |
+| [GitHooks](#githooks)               | Commit hooks: commitlint, prettier, lint-staged         |
+| [GitVersion](#gitversion)           | Semantic versioning via GitVersion                      |
+| [Act](#act)                         | Run GitHub Actions locally via nektos/act               |
+| [PECL](#pecl)                       | PHP extension installer via PECL                        |
+| [Larasets](#larasets)               | Laravel-specific development utilities                  |
+| [Common Utils](#common-utils)       | Shared utilities used by other features                 |
+| [Gateway](#gateway)                 | SSL certificate management for corporate networks       |
+| [Minikube](#minikube)               | Local Kubernetes cluster via Minikube                   |
+
+---
+
 ### GitUtils
 
-The [GitUtils](./src/gitutils/) feature installs a collection of Git utilities in the dev container. The utilities are useful for automating Git workflows.
+A collection of Git aliases, git-flow shortcuts, and interactive utilities for automating Git workflows.
+
+📖 [Full documentation](./src/gitutils/README.md)
+
+#### Quick Start — devcontainer.json
+
+```json
+"features": {
+    "ghcr.io/tomgrv/devcontainer-features/gitutils:5": {}
+}
+```
+
+#### Quick Install — console
+
+```sh
+npx tomgrv/devcontainer-features -- gitutils
+```
+
+---
 
 ### GitHooks
 
-Configure developpement environnement in one step in conjunction with following packages:
+Configures Git hooks in one step using commitlint, commitizen, lint-staged, prettier, and devmoji.
 
--   @commitlint/cli
--   @commitlint/config-conventional
--   @commitlint/core
--   @commitlint/cz-commitlint
--   commitizen
--   conventional-changelog-cli
--   devmoji
--   git-precommit-checks
--   lint-staged
--   prettier
--   sort-package-json
+📖 [Full documentation](./src/githooks/README.md)
+
+#### Quick Start — devcontainer.json
+
+```json
+"features": {
+    "ghcr.io/tomgrv/devcontainer-features/githooks:5": {}
+}
+```
+
+#### Quick Install — console
+
+```sh
+npx tomgrv/devcontainer-features -- githooks
+```
+
+---
 
 ### GitVersion
 
-The [GitVersion](./src/gitversion/) feature installs GitVersion in the dev container. GitVersion is a tool that calculates a version number based on the Git history. The version number is written to a file that can be used in the build process.
+Installs [GitVersion](https://gitversion.net/) to calculate semantic version numbers from your Git history.
+
+📖 [Full documentation](./src/gitversion/README.md)
+
+#### Quick Start — devcontainer.json
+
+```json
+"features": {
+    "ghcr.io/tomgrv/devcontainer-features/gitversion:5": {}
+}
+```
+
+#### Quick Install — console
+
+```sh
+npx tomgrv/devcontainer-features -- gitversion
+```
+
+---
 
 ### Act
 
-The [Act](./src/act/) feature installs the [nektos/act] tool in the dev container. Act is a tool that allows you to run GitHub Actions locally.
+Installs [nektos/act](https://github.com/nektos/act) to run GitHub Actions locally inside the dev container.
 
-More information about Act can be found on the [Act GitHub page](https://github.com/nektos/act).
+📖 [Full documentation](./src/act/README.md)
+
+#### Quick Start — devcontainer.json
+
+```json
+"features": {
+    "ghcr.io/tomgrv/devcontainer-features/act:5": {}
+}
+```
+
+#### Quick Install — console
+
+```sh
+npx tomgrv/devcontainer-features -- act
+```
+
+---
 
 ### PECL
 
-The [PECL](./src/pecl/) feature installs the PHP Extension Community Library (PECL) in the dev container. PECL is a repository for PHP extensions.
+Installs PHP extensions from the [PHP Extension Community Library (PECL)](https://pecl.php.net/).
 
-More information about PECL can be found on the [PECL website](https://pecl.php.net/).
+📖 [Full documentation](./src/pecl/README.md)
+
+#### Quick Start — devcontainer.json
+
+```json
+"features": {
+    "ghcr.io/tomgrv/devcontainer-features/pecl:5": {
+        "extension": "zip"
+    }
+}
+```
+
+#### Quick Install — console
+
+```sh
+npx tomgrv/devcontainer-features -- pecl
+```
+
+---
+
+### Larasets
+
+Laravel-specific settings, shell utilities, Composer scripts, and VS Code extensions for Laravel development.
+
+📖 [Full documentation](./src/larasets/README.md)
+
+#### Quick Start — devcontainer.json
+
+```json
+"features": {
+    "ghcr.io/tomgrv/devcontainer-features/larasets:5": {}
+}
+```
+
+#### Quick Install — console
+
+```sh
+npx tomgrv/devcontainer-features -- larasets
+```
+
+---
+
+### Common Utils
+
+Shared utilities (`jq`, `dos2unix`, JSON helpers, logging) used by other features in this collection.
+
+📖 [Full documentation](./src/common-utils/README.md)
+
+#### Quick Start — devcontainer.json
+
+```json
+"features": {
+    "ghcr.io/tomgrv/devcontainer-features/common-utils:5": {
+        "utils": "jq dos2unix"
+    }
+}
+```
+
+#### Quick Install — console
+
+```sh
+npx tomgrv/devcontainer-features -- common-utils
+```
+
+---
+
+### Gateway
+
+Handles SSL inspection certificates for corporate network environments (e.g. Zscaler). Installs the root CA and wraps `curl` for transparent gateway authentication.
+
+📖 [Full documentation](./src/gateway/README.md)
+
+#### Quick Start — devcontainer.json
+
+```json
+"features": {
+    "ghcr.io/tomgrv/devcontainer-features/gateway:5": {}
+}
+```
+
+#### Quick Install — console
+
+```sh
+npx tomgrv/devcontainer-features -- gateway
+```
+
+---
+
+### Minikube
+
+Installs [Minikube](https://minikube.sigs.k8s.io/) to run a single-node Kubernetes cluster locally inside the dev container.
+
+📖 [Full documentation](./src/minikube/README.md)
+
+#### Quick Start — devcontainer.json
+
+```json
+"features": {
+    "ghcr.io/tomgrv/devcontainer-features/minikube:5": {}
+}
+```
+
+#### Quick Install — console
+
+```sh
+npx tomgrv/devcontainer-features -- minikube
+```
+
+---
 
 ## Contributing
 

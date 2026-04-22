@@ -4,12 +4,18 @@
 
 This feature provides a set of settings and utilities for working with Laravel projects.
 
-## Example Usage
+## Quick Start — devcontainer.json
 
 ```json
 "features": {
-    "ghcr.io/tomgrv/devcontainer-features/larasets:1": {}
+    "ghcr.io/tomgrv/devcontainer-features/larasets:5": {}
 }
+```
+
+## Quick Install — console
+
+```sh
+npx tomgrv/devcontainer-features -- larasets
 ```
 
 ## Functional Coverage

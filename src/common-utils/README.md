@@ -4,16 +4,20 @@
 
 This feature provides common utilities for the devcontainer features.
 
-## Installation
-
-To install this feature, add it to your `devcontainer.json`:
+## Quick Start — devcontainer.json
 
 ```json
 "features": {
-    "ghcr.io/tomgrv/devcontainer-features/common-utils:1": {
+    "ghcr.io/tomgrv/devcontainer-features/common-utils:5": {
         "utils": "jq dos2unix"
     }
 }
+```
+
+## Quick Install — console
+
+```sh
+npx tomgrv/devcontainer-features -- common-utils
 ```
 
 ## Options
