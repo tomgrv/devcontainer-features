@@ -26,7 +26,7 @@ sha=$(git getcommit $force $sha)
 
 #### Rewrite history to fix author
 # Rewrite commit messages to add the appropriate emoji from the specified commit
-git filter-branch --msg-filter 'npx --yes devmoji -t "$(cat)"' --tag-name-filter cat -- --branches --tags ${sha:---all}${sha:+..HEAD}
+git filter-branch --msg-filter 'npx --yes devmoji' --tag-name-filter cat -- --branches --tags ${sha:---all}${sha:+..HEAD}
 
 # Clean up the original refs
 rm -rf .git/refs/original/

@@ -1,24 +1,24 @@
 {
-  "id": "minikube",
-  "name": "Minikube feature",
-  "description": "Add minikube to your devcontainer",
-  "version": "5.37.0",
-  "dependsOn": {
-    "ghcr.io/devcontainers/features/docker-in-docker: 2": {},
-    "ghcr.io/devcontainers/features/kubectl-helm-minikube:1": {}
-  },
-  "installsAfter": [
-    "ghcr.io/tomgrv/devcontainer-features/common-utils"
-  ],
-  "options": {},
-  "postCreateCommand": {
-    "config": "configure-feature minikube"
-  },
-  "customizations": {
-    "vscode": {
-      "extensions": [
-        "Tim-Koehler.helm-intellisense"
-      ]
+    "id": "minikube",
+    "name": "Minikube feature",
+    "description": "Add minikube to your devcontainer",
+    "version": "5.41.0",
+    "dependsOn": {
+        "ghcr.io/devcontainers/features/docker-in-docker:2": {},
+        "ghcr.io/devcontainers/features/kubectl-helm-minikube:1": {}
+    },
+    "installsAfter": [
+        "ghcr.io/tomgrv/devcontainer-features/common-utils"
+    ],
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "Tim-Koehler.helm-intellisense"
+            ]
+        }
+    },
+    "options": {},
+    "postCreateCommand": {
+        "config": "configure-feature minikube"
     }
-  }
 }

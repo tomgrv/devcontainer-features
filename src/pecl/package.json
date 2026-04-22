@@ -1,9 +1,12 @@
 {
-    "name": "@tomgrv/pecl",
-    "version": "5.37.0",
+    "name": "@tomgrv-devcontainer-features/pecl",
+    "version": "5.41.0",
     "description": "PECL extension installer for PHP development",
     "files": [
         "install.sh"
     ],
-    "scripts": {}
+    "scripts": {},
+    "peerDependencies": {
+        "@tomgrv-devcontainer-features/common-utils": "^5.0.0"
+    }
 }

@@ -4,23 +4,19 @@
 
 This feature provides a set of utilities for working with Git repositories.
 
-The following aliases are included: [./alias.json](./src/gitutils/alias.json)
-
-## Example Usage
+## Quick Start — devcontainer.json
 
 ```json
 "features": {
-    "ghcr.io/tomgrv/devcontainer-features/gitutils:1": {
-        "version": "latest"
-    }
+    "ghcr.io/tomgrv/devcontainer-features/gitutils:5": {}
 }
 ```
 
-## Options
+## Quick Install — console
 
-| Options Id | Description                         | Type   | Default Value |
-| ---------- | ----------------------------------- | ------ | ------------- |
-| version    | The version of GitUtils to install. | string | latest        |
+```sh
+npx tomgrv/devcontainer-features -- gitutils
+```
 
 ## Functional Coverage
 

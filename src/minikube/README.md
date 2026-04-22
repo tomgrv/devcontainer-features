@@ -2,32 +2,22 @@
 
 # Minikube Feature
 
-This feature installs Minikube, a tool that makes it easy to run Kubernetes locally.
+This feature installs [Minikube](https://minikube.sigs.k8s.io/), a tool that makes it easy to run Kubernetes locally.
 
 Minikube runs a single-node Kubernetes cluster inside a virtual machine on your laptop for users looking to try out Kubernetes or develop with it day-to-day.
 
-More information about Minikube can be found on the [official Minikube GitHub repository]()
+More information about Minikube can be found on the [official Minikube GitHub repository](https://github.com/kubernetes/minikube).
 
-## Example Usage
+## Quick Start — devcontainer.json
 
 ```json
 "features": {
-    "ghcr.io/tomgrv/devcontainer-features/minikube:latest": {
-    }
+    "ghcr.io/tomgrv/devcontainer-features/minikube:5": {}
 }
 ```
 
-## Options
+## Quick Install — console
 
-| Options Id | Description                           | Type   | Default Value |
-| ---------- | ------------------------------------- | ------ | ------------- |
-| version    | The version of GitVersion to install. | string | latest        |
-
-## Functional Coverage
-
-- Installs Minikube
-- Configures Minikube to start on container creation
-
-## Contributing
-
-If you have a feature that you would like to add to this repository, please open an issue or submit a pull request.
+```sh
+npx tomgrv/devcontainer-features -- minikube
+```

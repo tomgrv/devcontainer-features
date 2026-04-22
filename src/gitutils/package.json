@@ -1,6 +1,6 @@
 {
-    "name": "@tomgrv/gitutils",
-    "version": "5.39.2",
+    "name": "@tomgrv-devcontainer-features/gitutils",
+    "version": "5.41.0",
     "description": "Git utilities and aliases for development workflow",
     "files": [
         "_*.sh",
@@ -38,7 +38,7 @@
     "scripts": {},
     "dependencies": {},
     "peerDependencies": {
-        "@tomgrv/common-utils": "^5.0.0",
-        "@tomgrv/gitversion": "^5.0.0"
+        "@tomgrv-devcontainer-features/common-utils": "^5.0.0",
+        "@tomgrv-devcontainer-features/gitversion": "^5.0.0"
     }
 }

@@ -2,6 +2,26 @@
 
 # Changelog
 
+## 5.41.0 (2026-04-22)
+
+_Commits from: v5.40.2..HEAD_
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v5.40.0' into develop ([c03d6f4](https://github.com/tomgrv/devcontainer-features/commit/c03d6f480da6649fdece049970428cd3e1a894f5))
+- Merge tag 'v5.40.1' into develop ([bf8c1e4](https://github.com/tomgrv/devcontainer-features/commit/bf8c1e468622440263022343cd4d1d04115119c1))
+- Merge tag 'v5.40.2' into develop ([90ec59d](https://github.com/tomgrv/devcontainer-features/commit/90ec59db3465ca0bafaf14b148f0be37f168633f))
+- 🔧 update package.json files to include peerDependencies for common-utils ([9a5011e](https://github.com/tomgrv/devcontainer-features/commit/9a5011e55eac9bc0de0a849bad760385773d9ea1))
+- 📚️ update root readme and all feature READMEs with quick start sections ([22a91ac](https://github.com/tomgrv/devcontainer-features/commit/22a91ac5e53c8aa0267857cfe138bfa63dec128c))
+
+### 📦 gitutils changes
+
+#### Bug Fixes
+
+- 🐛 remove unnecessary argument from devmoji command in history rewrite ([fbaf3ac](https://github.com/tomgrv/devcontainer-features/commit/fbaf3ac885fbd4d590060a28a8fe3dc382ccf266))
+
 ## 5.40.2 (2026-03-28)
 
 _Commits from: v5.40.1..HEAD_
@@ -704,4 +724,4 @@ _Commits from: v5.25.0..HEAD_
 
 ---
 
-_Generated on 2026-03-28 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
+_Generated on 2026-04-22 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
