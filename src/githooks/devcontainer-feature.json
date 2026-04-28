@@ -4,7 +4,9 @@
     "description": "A feature to add useful Git hooks to your project",
     "version": "5.41.0",
     "dependsOn": {
-        "ghcr.io/devcontainers/features/node:1": "lts",
+        "ghcr.io/devcontainers/features/node:1": {
+            "version": "lts"
+        },
         "ghcr.io/tomgrv/devcontainer-features/gitutils:5": {}
     },
     "installsAfter": [

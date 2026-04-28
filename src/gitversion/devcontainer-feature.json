@@ -4,8 +4,8 @@
     "description": "Add gitversion to your devcontainer",
     "version": "5.41.0",
     "dependsOn": {
-        "ghcr.io/devcontainers/features/docker-in-docker:2": "",
-        "ghcr.io/tomgrv/devcontainer-features/common-utils:5": ""
+        "ghcr.io/devcontainers/features/docker-in-docker:2": {},
+        "ghcr.io/tomgrv/devcontainer-features/common-utils:5": {}
     },
     "installsAfter": [
         "ghcr.io/tomgrv/devcontainer-features/common-utils",
