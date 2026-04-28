@@ -2,6 +2,42 @@
 
 # Changelog
 
+## 5.42.0 (2026-04-28)
+
+_Commits from: v5.41.1..HEAD_
+
+### 📂 Unscoped changes
+
+#### Bug Fixes
+
+- 🐛 update PR trigger types to only 'review_requested' ([6073606](https://github.com/tomgrv/devcontainer-features/commit/6073606711f44833991effe430fe986cabe44117))
+
+#### Other changes
+
+- 👷 ensure fail-fast strategy is consistently applied ([699fbc5](https://github.com/tomgrv/devcontainer-features/commit/699fbc5158074757cce756150ee7d39e5f86e085))
+- 🔧 improve permission setting command & features ([6d542a8](https://github.com/tomgrv/devcontainer-features/commit/6d542a84bac4920e648678f16f79711e558f68c1))
+- Merge tag 'v5.41.0' into develop ([9c9ded5](https://github.com/tomgrv/devcontainer-features/commit/9c9ded5cb9bcf8b8de1c83cca8885fd67677d720))
+- Merge tag 'v5.41.1' into develop ([91ec71c](https://github.com/tomgrv/devcontainer-features/commit/91ec71c332a29cb5a827397b109234f2324aaf85))
+
+### 📦 githooks changes
+
+#### Bug Fixes
+
+- 🐛 correct install-plugins command argument ([605e733](https://github.com/tomgrv/devcontainer-features/commit/605e733b96b55962292b90686f6e05ac223089af))
+- 🐛 update PR title validation workflow for clarity and functionality ([f51e703](https://github.com/tomgrv/devcontainer-features/commit/f51e7034cc82054f0f076b29d81dbbc2a48971e3))
+
+### 📦 gitutils changes
+
+#### Bug Fixes
+
+- 🐛 correct gitattributes syntax for command file extensions ([ef7fd58](https://github.com/tomgrv/devcontainer-features/commit/ef7fd58e013f3284df5d23e57d66bcd09dbbe043))
+
+### 📦 larasets changes
+
+#### Bug Fixes
+
+- 🐛 add /public/fonts to ignored files ([7988d86](https://github.com/tomgrv/devcontainer-features/commit/7988d86a2dff17df4b9a38f3075f7d60c7b8f649))
+
 ## 5.41.1 (2026-04-22)
 
 _Commits from: v5.41.0..HEAD_
@@ -740,4 +776,4 @@ _Commits from: v5.25.0..HEAD_
 
 ---
 
-_Generated on 2026-04-22 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
+_Generated on 2026-04-28 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_

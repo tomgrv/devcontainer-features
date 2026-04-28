@@ -2,8 +2,6 @@
     "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
     "name": "",
     "features": {
-        "ghcr.io/devcontainers/features/node": "lts",
-        "ghcr.io/devcontainers/features/php": "8.2",
         "ghcr.io/tomgrv/devcontainer-features/githooks": {},
         "ghcr.io/tomgrv/devcontainer-features/gitutils": {},
         "ghcr.io/tomgrv/devcontainer-features/gitversion": {}
