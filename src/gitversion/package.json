@@ -1,6 +1,6 @@
 {
     "name": "@tomgrv-devcontainer-features/gitversion",
-    "version": "5.41.0",
+    "version": "5.42.0",
     "description": "GitVersion integration and version management scripts",
     "files": [
         "_*.sh",
