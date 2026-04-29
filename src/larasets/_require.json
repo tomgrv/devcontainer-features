@@ -1,6 +1,7 @@
 {
     "dependencies": [],
     "devDependencies": [
+        "laravel/sail",
         "laravel/pint",
         "pestphp/pest",
         "laravel/boost",
@@ -8,6 +9,5 @@
         "nunomaduro/collision",
         "nunomaduro/phpinsights",
         "pestphp/pest-plugin-arch"
-        
     ]
 }

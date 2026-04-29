@@ -1,13 +1,13 @@
 {
-    "\"doppler": {
+    "doppler": {
         "autocomplete": {
-            "enable\"": null
+            "enable": null
         },
         "hover": {
-            "enable\"": null
+            "enable": null
         }
     },
-    "\"triggerTaskOnSave": {
-        "tasks\"": null
+    "triggerTaskOnSave": {
+        "tasks": null
     }
 }
