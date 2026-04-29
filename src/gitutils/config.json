@@ -20,5 +20,8 @@
             "support": "support/",
             "versiontag": "v"
         }
+    },
+    "pull": {
+        "rebase": true
     }
 }

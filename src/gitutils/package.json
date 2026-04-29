@@ -1,6 +1,6 @@
 {
     "name": "@tomgrv-devcontainer-features/gitutils",
-    "version": "5.42.0",
+    "version": "5.43.0",
     "description": "Git utilities and aliases for development workflow",
     "files": [
         "_*.sh",
@@ -17,6 +17,7 @@
         "git-degit": "./_git-degit.sh",
         "git-fix": "./_git-fix.sh",
         "git-fix-author": "./_git-fix-author.sh",
+        "git-fix-blanks": "./_git-fix-blanks.sh",
         "git-fix-emoji": "./_git-fix-emoji.sh",
         "git-fix-last": "./_git-fix-last.sh",
         "git-fix-lock": "./_git-fix-lock.sh",

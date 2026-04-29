@@ -2,6 +2,34 @@
 
 # Changelog
 
+## 5.43.0 (2026-04-29)
+
+_Commits from: v5.42.0..HEAD_
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v5.42.0' into develop ([0a420bb](https://github.com/tomgrv/devcontainer-features/commit/0a420bbfd6f76fda11726ea22f59a1a3782f5d00))
+- 🔧 update .gitignore to include IDE and PHPUnit entries ([ca274d8](https://github.com/tomgrv/devcontainer-features/commit/ca274d81eb53843f40a8aa7b4c2a0d3a960391a2))
+- 🔧 update lint and release scripts for improved execution ([2205468](https://github.com/tomgrv/devcontainer-features/commit/2205468b596fe66b2c6bf23de4ee99a4d80d6edb))
+
+### 📦 gitutils changes
+
+#### Features
+
+- ✨ add git fix blanks command to discard blank changes ([7ff2744](https://github.com/tomgrv/devcontainer-features/commit/7ff2744d7856dbc67e20de6acfeaabd65b1868e8))
+
+#### Other changes
+
+- 🔧 add pull rebase configuration ([6e9bbd0](https://github.com/tomgrv/devcontainer-features/commit/6e9bbd0f0238f7ceb09a4d55c79f102b256c7f9a))
+
+### 📦 larasets changes
+
+#### Other changes
+
+- 🔧 update dependencies and fix JSON formatting issues ([7b974b8](https://github.com/tomgrv/devcontainer-features/commit/7b974b8b9f1d6d0e50a661cb411b195e6e67b3fd))
+
 ## 5.42.0 (2026-04-28)
 
 _Commits from: v5.41.1..HEAD_
@@ -776,4 +804,4 @@ _Commits from: v5.25.0..HEAD_
 
 ---
 
-_Generated on 2026-04-28 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
+_Generated on 2026-04-29 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
