@@ -6,6 +6,8 @@
 /vendor
 modules/**/vendor
 packages/**/vendor
+
+## IDE
 _ide_helper.php
 .phpstorm.meta.php
 
@@ -19,3 +21,6 @@ Homestead.yaml
 /public/css
 /public/js
 /public/fonts
+
+## PHPUnit
+.phpunit.cache/*
