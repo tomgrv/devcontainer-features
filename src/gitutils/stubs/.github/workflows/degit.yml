@@ -78,11 +78,10 @@ jobs:
 
       - name: Create or update pull request
         if: ${{ steps.degit.outputs.has-changes == 'true' }}
-        uses: tomgrv/actions/create-pr@v0
+        uses: tomgrv/actions/create-pr@v1
         with:
           github-token: ${{ steps.app-token.outputs.token }}
-          repository-organization: ${{ matrix.package.org }}
-          repository-name: ${{ matrix.package.name }}
+          repository: ${{ matrix.package.org }}/{{ matrix.package.name }}
           head-branch: ${{ steps.degit.outputs.degit-branch }}
           workdir: ${{ steps.degit.outputs.degit-workdir }}
           commit-message: 'sync: degit from ${{ matrix.package.org }}/${{ matrix.package.name }}@${{ steps.degit.outputs.source-branch }}'
