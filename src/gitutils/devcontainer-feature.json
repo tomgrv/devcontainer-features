@@ -2,7 +2,7 @@
     "id": "gitutils",
     "name": "Git Aliases",
     "description": "A feature to add useful Git aliases to your shell.",
-    "version": "5.44.0",
+    "version": "5.45.0",
     "dependsOn": {
         "ghcr.io/devcontainers/features/node:1": {
             "version": "lts"
