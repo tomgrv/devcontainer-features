@@ -2,6 +2,25 @@
 
 # Changelog
 
+## 5.44.0 (2026-04-30)
+
+_Commits from: v5.43.0..HEAD_
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- ♻️ improve workflows ([6e28e4b](https://github.com/tomgrv/devcontainer-features/commit/6e28e4b6ddd96575cc5810668dfd1a2d8f480391))
+- Merge tag 'v5.43.0' into develop ([dba5b52](https://github.com/tomgrv/devcontainer-features/commit/dba5b52063b208ddc6e5a584125de962e3c3c1d1))
+- ♻️ rename workflow for releasing dev container features ([8331506](https://github.com/tomgrv/devcontainer-features/commit/8331506039aff6e2109338566297ea43361f7a6c))
+
+### 📦 larasets changes
+
+#### Other changes
+
+- 🔧 add phpmd to devDependencies ([0586bb9](https://github.com/tomgrv/devcontainer-features/commit/0586bb9c1ea0d9e4e5ff1d1fd5b07f5abbb7c3cc))
+- 🔧 update Node.js setup to version 24 in CI configuration ([93cc5ee](https://github.com/tomgrv/devcontainer-features/commit/93cc5ee0cff963f3b92cca7c348259a5e41104ad))
+
 ## 5.43.0 (2026-04-29)
 
 _Commits from: v5.42.0..HEAD_
@@ -804,4 +823,4 @@ _Commits from: v5.25.0..HEAD_
 
 ---
 
-_Generated on 2026-04-29 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
+_Generated on 2026-04-30 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
