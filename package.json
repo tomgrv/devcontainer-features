@@ -1,6 +1,6 @@
 {
     "name": "@tomgrv/devcontainer-features",
-    "version": "5.44.0",
+    "version": "5.45.0",
     "description": "Configure dev environment with devcontainer, gitflow, gitversion, git aliases & hooks. Can be used a devcontainer features",
     "keywords": [
         "dev",
@@ -82,8 +82,15 @@
             {
                 "files": "*.yml",
                 "options": {
-                    "useTabs": true,
+                    "useTabs": false,
                     "tabWidth": 2
+                }
+            },
+            {
+                "files": "*.json",
+                "options": {
+                    "useTabs": false,
+                    "tabWidth": 4
                 }
             }
         ],

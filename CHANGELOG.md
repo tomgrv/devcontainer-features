@@ -2,6 +2,32 @@
 
 # Changelog
 
+## 5.45.0 (2026-04-30)
+
+_Commits from: v5.44.0..HEAD_
+
+### 📂 Unscoped changes
+
+#### Bug Fixes
+
+- 🐛 update create-pr action to v1 and simplify repository parameters ([f48f076](https://github.com/tomgrv/devcontainer-features/commit/f48f076e3c983e9604800fd58d3cfebd821d2301))
+
+#### Features
+
+- ✨ add release and update features workflows ([b18f88a](https://github.com/tomgrv/devcontainer-features/commit/b18f88a9e3c91cfcd5184717658b997f37b58262))
+- ✨ add validation workflows for PHP and security audits ([92704d7](https://github.com/tomgrv/devcontainer-features/commit/92704d7cd84fb02beb9957db6ad00652edeedb4a))
+
+#### Other changes
+
+- Merge tag 'v5.44.0' into develop ([92808e9](https://github.com/tomgrv/devcontainer-features/commit/92808e9ee526bd1042f0d09de3c27484f0b510df))
+- 🎨 update formatting options for YAML and JSON files ([166c9be](https://github.com/tomgrv/devcontainer-features/commit/166c9be2da46108fb97a2a4a973c27ce4aa17f98))
+
+### 📦 gitversion changes
+
+#### Bug Fixes
+
+- 🐛 add config option to docker-gitversion command ([b9c39ac](https://github.com/tomgrv/devcontainer-features/commit/b9c39ac2c18861476f26db38a2db9a3802f2ce24))
+
 ## 5.44.0 (2026-04-30)
 
 _Commits from: v5.43.0..HEAD_
