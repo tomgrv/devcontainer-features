@@ -45,11 +45,10 @@ jobs:
       - name: Create or update PR
         id: create-pr
         if: ${{ steps.fix.outputs.has-changes == 'true' }}
-        uses: tomgrv/actions/create-pr@v0
+        uses: tomgrv/actions/create-pr@v1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          repository-organization: ${{ github.repository_owner }}
-          repository-name: ${{ github.event.repository.name }}
+          repository: ${{ github.repository }}
           head-branch: 'chore/phpinsights-fix-${{ github.run_id }}'
           workdir: ${{ github.workspace }}
           commit-message: 'chore: apply PHP Insights auto-fixes'
