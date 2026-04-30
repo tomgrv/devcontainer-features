@@ -1,6 +1,6 @@
 {
     "name": "@tomgrv-devcontainer-features/gitutils",
-    "version": "5.44.0",
+    "version": "5.45.0",
     "description": "Git utilities and aliases for development workflow",
     "files": [
         "_*.sh",
