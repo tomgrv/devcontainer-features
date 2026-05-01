@@ -2,6 +2,18 @@
 
 # Changelog
 
+## 5.47.3 (2026-05-01)
+
+_Commits from: v5.47.2..HEAD_
+
+### 📦 common-utils changes
+
+#### Bug Fixes
+
+- 🐛 add missing items schema definition ([8b6e044](https://github.com/tomgrv/devcontainer-features/commit/8b6e0440d56a1052f71ad4ec0f9e9c275926a488))
+- 🐛 correct jq script for JSON normalization ([6fcb5bc](https://github.com/tomgrv/devcontainer-features/commit/6fcb5bc94584abf0b9d1978c578e7ccd0017f5cf))
+- 🐛 improve JSON item processing ([3aeffaf](https://github.com/tomgrv/devcontainer-features/commit/3aeffaf259078af654bee6a6f26187290608e5e0))
+
 ## 5.47.2 (2026-05-01)
 
 _Commits from: v5.47.1..HEAD_
