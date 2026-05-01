@@ -31,9 +31,9 @@ for file in $files; do
 
     # Validate JSON
     zz_log i "Normalizing {U $file}..."
-    list=$(validate-json ${allow:+-a} ${cache:+-c} ${debug:+-d} ${fallback:+-f "$fallback"} ${local:+-l "$local"} ${import:+-i} ${schema:+-s"$schema"} $file)
+    list=$(validate-json ${allow:+-a} ${cache:+-c} ${debug:+-d} ${fallback:+-f "$fallback"} ${local:+-l "$local"} ${import:+-i} ${schema:+-s"$schema"} $file || echo false)
 
-    if test -z "$list"; then
+    if test "$list" = "false"; then
         zz_log e "JSON {U $file} not valid, cannot normalize" && exit 1
     fi
 
