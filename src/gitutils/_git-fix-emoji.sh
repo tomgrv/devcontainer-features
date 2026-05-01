@@ -22,7 +22,7 @@ if ! git diff-index --quiet HEAD --; then
 fi
 
 # Retrieve the commit SHA to fixup
-sha=$(git getcommit $force $sha)
+sha=$(git getcommit -p $force $sha)
 
 #### Rewrite history to fix author
 # Rewrite commit messages to add the appropriate emoji from the specified commit

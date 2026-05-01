@@ -2,6 +2,39 @@
 
 # Changelog
 
+## 5.46.0 (2026-05-01)
+
+_Commits from: v5.45.0..HEAD_
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- 📚️ format environment variables and extensions list for clarity ([ae78189](https://github.com/tomgrv/devcontainer-features/commit/ae78189147c863dcca6927bd6d16965e02563d9b))
+- Merge tag 'v5.45.0' into develop ([cff6006](https://github.com/tomgrv/devcontainer-features/commit/cff6006e50ef9c2fad317782b07a86e9c4b7040c))
+
+### 📦 githooks changes
+
+#### Features
+
+- ✨ add branch name validation configuration ([8721881](https://github.com/tomgrv/devcontainer-features/commit/8721881f6551ffb5bc62e81ed1b08236193218f3))
+
+#### Other changes
+
+- 🔧 remove unused commit-and-tag-version configuration ([c99e7b9](https://github.com/tomgrv/devcontainer-features/commit/c99e7b9f5526107ec02879d68ed6f066d2b3b69e))
+- 🔧 remove unused PHP linting configuration from lint-staged ([d9df00a](https://github.com/tomgrv/devcontainer-features/commit/d9df00aff076b0bae9b7b1bf4294726cb2edc71d))
+- 🔧 update peer dependencies in package.json files ([4ec6232](https://github.com/tomgrv/devcontainer-features/commit/4ec6232c7b2d2188c5faf93822cc2c1a80578bb4))
+
+### 📦 gitutils changes
+
+#### Bug Fixes
+
+- 🐛 correct argument for commit retrieval in emoji fix script ([8eef9cc](https://github.com/tomgrv/devcontainer-features/commit/8eef9cc808a8163444c5ae85904f24e7d5b047c8))
+
+#### Features
+
+- ✨ add VSCode tasks for git operations ([69da80e](https://github.com/tomgrv/devcontainer-features/commit/69da80ef7d1d414d78de15765ace2dc21f1b28a7))
+
 ## 5.45.0 (2026-04-30)
 
 _Commits from: v5.44.0..HEAD_
@@ -849,4 +882,4 @@ _Commits from: v5.25.0..HEAD_
 
 ---
 
-_Generated on 2026-04-30 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
+_Generated on 2026-05-01 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_

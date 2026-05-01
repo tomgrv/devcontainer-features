@@ -2,6 +2,10 @@
     "scripts": {
         "lint": "npx --yes lint-staged -p false"
     },
+    "peerDependencies": {
+        "@tomgrv-devcontainer-features/common-utils": "^5",
+        "prettier": "*"
+    },
     "lint-staged": {
         "!(templates/**/*)*.{js,jsx,ts,tsx,md,html,css,vue,yaml,yml}": [
             "npx --yes prettier --write"
@@ -9,7 +13,6 @@
         "*.json": [
             "normalize-json -c -w -a -i -f local -l true",
             "npx --yes prettier --write"
-        ],
-        "*.php": ["composer lint"]
+        ]
     }
 }

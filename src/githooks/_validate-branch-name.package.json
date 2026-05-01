@@ -1,0 +1,6 @@
+{
+    "validate-branch-name": {
+        "errorMsg": "Please use a branch name that follows the pattern: (master|main|develop) or (copilot|feature|fix|hotfix|release)/<description>.\nUse git push --no-verify to bypass this check if necessary.",
+        "pattern": "^(master|main|develop){1}$|^(copilot|feature|fix|hotfix|release)/.+$"
+    }
+}
