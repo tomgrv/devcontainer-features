@@ -13,9 +13,6 @@
         "*.json": [
             "normalize-json -c -w -a -i -f local -l true",
             "npx --yes prettier --write"
-        ],
-        "*.php": [
-            "composer lint"
         ]
     }
 }
