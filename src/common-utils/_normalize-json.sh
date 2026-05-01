@@ -48,12 +48,8 @@ for file in $files; do
 
     zz_log i "Tab size: $tabSize"
 
-    # use list of paths as jq expression to sort objects at those paths by their keys, if list is not empty
-    list=$(echo "$list" | sed 's/^\(.*\)$/path(\1)/' | paste -sd, -  | jq "[ $(cat) ]" $file)
-
-    # Normalize JSON
-    zz_json $file | jq -r --arg list "$list" '
-        def xpath($ary):
+    # jq script to sort objects at paths in list by their keys, if list is not empty
+    script='def xpath($ary):
             . as $in
             | if ($ary|length) == 0 then null
                 else $ary[0] as $k
@@ -73,8 +69,10 @@ for file in $files; do
                             | sort_by(.key)
                             | from_entries else . end
                         )
-                );
-        traverse($list)' >/tmp/$$.json
+                );'
+
+    # jq script to sort objects at paths in list by their keys, if list is not empty
+    echo "$list" | sed 's/^\(.*\)$/path(\1)/' | paste -sd, -  | jq "$script traverse([$(cat)])" $file >/tmp/$$.json
 
     # Handle output
     if test -s /tmp/$$.json; then
