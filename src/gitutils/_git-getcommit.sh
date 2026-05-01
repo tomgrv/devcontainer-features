@@ -4,7 +4,8 @@
 eval $(
     zz_args "List git history and asks for commit" $0 "$@" <<-help
 		    f -        force     allow overwritting pushed history
-			- sha      sha       sha commit to fixup
+            p -        previous  show commit previous to the one specified
+			- sha      sha       sha commit to fix from after
 	help
 )
 
@@ -25,5 +26,12 @@ if [ -z "$sha" ]; then
     fi
 fi
 
+
 #### Display commit to fixup, keep only the sha, remove new line
-git rev-parse --verify "$sha^{commit}" | cut -d' ' -f1 | tr -d '\n'
+sha=$(git rev-parse --verify "$sha^{commit}" | cut -d' ' -f1 | tr -d '\n')
+
+if [ -n "$previous" ]; then
+    git log --pretty=%P -1 "$sha"
+else
+    echo "$sha"
+fi
