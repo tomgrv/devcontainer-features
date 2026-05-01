@@ -1,34 +1,17 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "type": "object",
+    "items": {
+        "additionalProperties": true,
+        "type": [
+            "object",
+            "array",
+            "string"
+        ]
+    },
     "additionalProperties": true,
     "properties": {
-        "id": {
-            "type": "string"
-        },
-        "name": {
-            "type": "string"
-        },
-        "description": {
-            "type": "string"
-        },
-        "version": {
-            "type": "string"
-        },
-        "message": {
-            "type": "string"
-        },
-        "label": {
-            "type": "string"
-        },
-        "type": {
-            "type": "string"
-        },
-        "tags": {
-            "type": "array",
-            "items": {
-                "type": "string"
-            }
+        "config": {
+            "type": "object"
         },
         "dependsOn": {
             "type": [
@@ -39,6 +22,12 @@
                 "type": "string"
             }
         },
+        "description": {
+            "type": "string"
+        },
+        "id": {
+            "type": "string"
+        },
         "installsAfter": {
             "type": [
                 "array",
@@ -48,8 +37,30 @@
                 "type": "string"
             }
         },
-        "config": {
-            "type": "object"
+        "label": {
+            "type": "string"
+        },
+        "message": {
+            "type": "string"
+        },
+        "name": {
+            "type": "string"
+        },
+        "tags": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "type": {
+            "type": "string"
+        },
+        "version": {
+            "type": "string"
         }
-    }
+    },
+    "type": [
+        "object",
+        "array"
+    ]
 }

@@ -31,10 +31,10 @@ for file in $files; do
 
     # Validate JSON
     zz_log i "Normalizing {U $file}..."
-    list=$(validate-json ${allow:+-a} ${cache:+-c} ${debug:+-d} ${fallback:+-f "$fallback"} ${local:+-l "$local"} ${import:+-i} ${schema:+-s"$schema"} $file || echo false)
+    list=$(validate-json ${allow:+-a} ${cache:+-c} ${debug:+-d} ${fallback:+-f "$fallback"} ${local:+-l "$local"} ${import:+-i} ${schema:+-s"$schema"} $file)
 
-    if test "$list" = "false"; then
-        zz_log e "JSON {U $file} not valid, cannot normalize" && exit 1
+    if [ -z "$list" ]; then
+        zz_log e "{U $file} not valid, cannot normalize" && exit 1
     fi
 
     # Detect tab size if not set
@@ -48,15 +48,8 @@ for file in $files; do
 
     zz_log i "Tab size: $tabSize"
 
-    # Normalize JSON
-    zz_json $file | jq -r --arg list "$list" '
-        def transform($lst):
-            $lst | split("\n") 
-                | map(select(length > 0))
-                | map(
-                   split("\".\"") | map(ltrimstr("\"") | rtrimstr("\""))
-                );
-        def xpath($ary):
+    # jq script to sort objects at paths in list by their keys, if list is not empty
+    script='def xpath($ary):
             . as $in
             | if ($ary|length) == 0 then null
                 else $ary[0] as $k
@@ -76,8 +69,10 @@ for file in $files; do
                             | sort_by(.key)
                             | from_entries else . end
                         )
-                );
-        traverse(transform($list))' >/tmp/$$.json
+                );'
+
+    # jq script to sort objects at paths in list by their keys, if list is not empty
+    echo "$list" | sed 's/^\(.*\)$/path(\1)/' | paste -sd, -  | jq "$script traverse([$(cat)])" $file >/tmp/$$.json
 
     # Handle output
     if test -s /tmp/$$.json; then
