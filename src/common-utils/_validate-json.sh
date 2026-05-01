@@ -374,17 +374,14 @@ validate() {
             # Log
             zz_log "${lvl} -" "Processing ${BWhite}Items"
 
-            # get items schema
-            items=$(get_path "$path.$entry" <<<"$schema")
+            for item_index in $(seq 0 $(expr $(get_array_size "${real:-.}" <<<"$json") - 1)); do
 
-            # Loop through items
-            for item in $(get_keys "$real" <<<"$json" | sort); do
+                item=$(get_array_items "${real:-.}[$item_index]" <<<"$json" )
 
-                # Log
-                zz_log "${lvl} -" "Processing item ${Purple}$item"
+                zz_log "${lvl} -" "Processing item <${Purple}${real:-.}[$item_index]${None}>"
 
-                if ! validate "$json" "$schema" "$path.$entry" "$real.$item" "$path.$entry" "$not" "$level"; then
-                    zz_log "${lvl} -" "${Orange}Item $item is invalid"
+                if ! validate "$json" "$schema" "$path.$entry" "${real:-.}[$item_index]" "$path.$entry[$item_index]" "$not" "$level"; then
+                    zz_log "${lvl} -" "${Red}Item $item is invalid"
                     return 1
                 fi
             done
@@ -426,8 +423,6 @@ validate() {
                     zz_log "${lvl} -" "${Yellow}Skip property $real.$prop not present"
                 fi
             done
-
-            #echo "${real:-.}"
             ;;
 
         \"additionalProperties\")
@@ -555,5 +550,5 @@ else
         zz_log s "File {U $json} valid"
     else
         zz_log e "File {U $json} empty or invalid" && exit 1
-    fi | sed -n -e 's/^.//g' -e '/^$/d' -e 'G; s/\n/&&/; /^\([ -~]*\n\).*\n\1/d; s/\n//; h; P'
+    fi | sed -n -e 's/^.$//g' -e '/^$/d' -e 'G; s/\n/&&/; /^\([ -~]*\n\).*\n\1/d; s/\n//; h; P'
 fi
