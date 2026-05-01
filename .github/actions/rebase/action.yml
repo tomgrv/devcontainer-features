@@ -1,0 +1,32 @@
+# @format
+
+name: Rebase PR
+description: Rebase a pull request branch onto its base using pure shell + git CLI
+
+inputs:
+  autosquash:
+    description: Apply autosquash (squash!/fixup! commits)
+    required: false
+    default: 'false'
+  token:
+    description: GitHub token with repo write access
+    required: false
+    default: ${{ github.token }}
+
+runs:
+  using: composite
+  steps:
+    - name: Configure git identity
+      shell: sh
+      env:
+        GH_TOKEN: ${{ inputs.token }}
+      run: |
+        git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git config user.name "github-actions[bot]"
+
+    - name: Rebase branch onto base
+      shell: sh
+      env:
+        AUTOSQUASH: ${{ inputs.autosquash }}
+        GH_TOKEN: ${{ inputs.token }}
+      run: ${{ github.action_path }}/rebase.sh
