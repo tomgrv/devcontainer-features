@@ -2,6 +2,16 @@
 
 # Changelog
 
+## 5.47.1 (2026-05-01)
+
+_Commits from: v5.46.0..HEAD_
+
+### 📦 common-utils changes
+
+#### Bug Fixes
+
+- 🐛 correct jq condition for JSON loading ([cab3963](https://github.com/tomgrv/devcontainer-features/commit/cab3963881d01d0b29ce968aa8ace35bf6d20391))
+
 ## 5.46.0 (2026-05-01)
 
 _Commits from: v5.45.0..HEAD_
