@@ -1,4 +1,8 @@
 {
+    "peerDependencies": {
+        "prettier": "*",
+        "prettier-plugin-sh": "*"
+    },
     "prettier": {
         "insertPragma": true,
         "overrides": [

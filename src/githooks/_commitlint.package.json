@@ -4,6 +4,14 @@
             "path": "@commitlint/cz-commitlint"
         }
     },
+    "peerDependencies": {
+        "@commitlint/cli": "*",
+        "@commitlint/config-conventional": "*",
+        "@commitlint/core": "*",
+        "@commitlint/cz-commitlint": "*",
+        "commitizen": "*",
+        "conventional-changelog-cli": "*"
+    },
     "commitlint": {
         "extends": [
             "@commitlint/config-conventional",

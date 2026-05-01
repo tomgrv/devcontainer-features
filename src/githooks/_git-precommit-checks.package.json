@@ -1,4 +1,7 @@
 {
+    "peerDependencies": {
+        "git-precommit-checks": "*"
+    },
     "git-precommit-checks": {
         "rules": [
             {
