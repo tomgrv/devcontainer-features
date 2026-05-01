@@ -2,6 +2,16 @@
 
 # Changelog
 
+## 5.47.2 (2026-05-01)
+
+_Commits from: v5.47.1..HEAD_
+
+### 📦 common-utils changes
+
+#### Bug Fixes
+
+- 🐛 correct JSON validation check in normalization script ([4af78e1](https://github.com/tomgrv/devcontainer-features/commit/4af78e1586546de1389022593fc4de3c87c5d839))
+
 ## 5.47.1 (2026-05-01)
 
 _Commits from: v5.46.0..HEAD_
