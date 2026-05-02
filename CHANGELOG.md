@@ -2,6 +2,16 @@
 
 # Changelog
 
+## 5.48.1 (2026-05-02)
+
+_Commits from: v5.48.0..HEAD_
+
+### 📂 Unscoped changes
+
+#### Bug Fixes
+
+- 🐛 update color for enhancement and add missing labels ([904df58](https://github.com/tomgrv/devcontainer-features/commit/904df5839291206a3b997fda4a0b7552a81c06fa))
+
 ## 5.48.0 (2026-05-02)
 
 _Commits from: v5.47.3..HEAD_
