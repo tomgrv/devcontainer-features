@@ -2,6 +2,24 @@
 
 # Changelog
 
+## 5.48.0 (2026-05-02)
+
+_Commits from: v5.47.3..HEAD_
+
+### 📂 Unscoped changes
+
+#### Features
+
+- ✨ add gemini code assist stubs (#42) ([c0451f5](https://github.com/tomgrv/devcontainer-features/commit/c0451f5cb5fbb8b157b4fc111fb8369df5d3604c))
+- ✨ add GitHub labels configuration and update workflow ([4856fd8](https://github.com/tomgrv/devcontainer-features/commit/4856fd8ea0a99f6a78570d36444932c09f42cfc3))
+
+#### Other changes
+
+- Merge tag 'v5.46.0' into develop ([1ed5b6f](https://github.com/tomgrv/devcontainer-features/commit/1ed5b6f5c2eaa3cbc2d5ed70d61b4913db872a65))
+- Merge tag 'v5.47.1' into develop ([4644ba4](https://github.com/tomgrv/devcontainer-features/commit/4644ba448d58ddc4d36706e444f71090f45fa98f))
+- Merge tag 'v5.47.2' into develop ([224558b](https://github.com/tomgrv/devcontainer-features/commit/224558b0db22829c3a232e045acb078403730701))
+- Merge tag 'v5.47.3' into develop ([eb6839f](https://github.com/tomgrv/devcontainer-features/commit/eb6839f9959a9af7b46107bc14290f56959f6782))
+
 ## 5.47.3 (2026-05-01)
 
 _Commits from: v5.47.2..HEAD_
@@ -914,4 +932,4 @@ _Commits from: v5.25.0..HEAD_
 
 ---
 
-_Generated on 2026-05-01 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
+_Generated on 2026-05-02 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
