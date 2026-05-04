@@ -24,8 +24,17 @@ if [ ! -s "$changed_list" ]; then
 fi
 
 normalize_file() {
-	# Ignore all blank characters and normalize quote/slash variants.
-	sed -e 's/[[:space:]]//g' -e "s/[\"']/\"/g" -e 's#[\\/]#/#g' "$1"
+	# Remove comments before stripping whitespace so line-oriented filters still work.
+	case "$1" in
+		*.sh) sed -e '/^[[:space:]]*#/d' "$1" ;; # Remove comment lines in shell scripts
+		*.yml|*.yaml) sed -e '/^[[:space:]]*#/d' "$1" ;; # Remove comment lines in YAML files
+		*.md|*.markdown) sed -e '/^[[:space:]]*<!--.*-->/d' "$1" ;; # Remove HTML comments in Markdown files
+		*.php) sed -e '/^[[:space:]]*\/\//d' -e '/^[[:space:]]*\/\*/d' -e '/^[[:space:]]*\*/d' "$1" ;; # Remove comment lines in PHP files
+		*.html|*.htm) sed -e '/^[[:space:]]*<!--.*-->/d' "$1" ;; # Remove HTML comments in HTML files
+		*.css) sed -e '/^[[:space:]]*\/\*/d' -e '/^[[:space:]]*\*/d' "$1" ;; # Remove comment lines in CSS files
+		*.js) sed -e '/^[[:space:]]*\/\//d' -e '/^[[:space:]]*\/\*/d' -e '/^[[:space:]]*\*/d' "$1" ;; # Remove comment lines in JavaScript files
+		*) cat "$1" ;;
+	esac | sed -e 's/[[:space:]]//g' -e "s/[\"']/\"/g" -e 's#[\\/]#/#g'
 }
 
 discarded=0

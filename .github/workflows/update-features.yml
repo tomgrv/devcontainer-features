@@ -22,7 +22,7 @@ jobs:
         uses: tomgrv/actions/setup-node@v0
 
       - name: Update features
-        run: npm exec --yes -- tomgrv/devcontainer-features -u -s
+        run: npm exec --yes -- tomgrv/devcontainer-features -u
 
       - name: Detect changes
         id: changes
