@@ -34,7 +34,7 @@ cd "$(git rev-parse --show-toplevel)" > /dev/null
 # This defines how commits are categorized in the changelog (feat -> Features, fix -> Bug Fixes, etc.)
 get_supported_types() {
     [ -f "package.json" ] && command -v jq > /dev/null 2>&1 \
-        && jq -r '."commit-and-tag-version".types[]? | select(.hidden != true) | "\(.type) \(.section)"' package.json 2> /dev/null \
+        && jq -r '."bump-changelog".types[]? | select(.hidden != true) | "\(.type) \(.section)"' package.json 2> /dev/null \
         || echo "feat Features
 fix Bug Fixes
 docs Documentation

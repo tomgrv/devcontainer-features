@@ -2,6 +2,22 @@
 
 # Changelog
 
+## 5.52.1 (2026-05-04)
+
+_Commits from: v5.52.0..HEAD_
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- 🔧 bump version to 5.52.1 ([dce804b](https://github.com/tomgrv/devcontainer-features/commit/dce804b85b387f07d89f61bd1ad837e5176d31d3))
+
+### 📦 gitversion changes
+
+#### Other changes
+
+- update bump version and changelog utilities ([ef7ae3e](https://github.com/tomgrv/devcontainer-features/commit/ef7ae3ed8c90bb43105fb944f1cf9691a65ed754))
+
 ## 5.52.0 (2026-05-04)
 
 _Commits from: v5.51.0..HEAD_
