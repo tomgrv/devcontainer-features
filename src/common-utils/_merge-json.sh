@@ -7,6 +7,7 @@ set -e
 # Manage arguments
 eval $(
     zz_args "Merge 2 json files" $0 "$@" <<-help
+        t tabSize     tabSize   tab size for indentation
         - target      target		Target JSON file to merge into
         - source      source		Source JSON file to merge from
 help
@@ -53,4 +54,4 @@ jq 'def merge($a; $b):
     $a
   end;
 
-merge(.; input)' $target $source |  normalize-json -c -a -i -f local -l true 2>/dev/null > /tmp/$$.merge && mv /tmp/$$.merge $target && zz_log s "JSON merged successfully"
+merge(.; input)' $target $source |  normalize-json -c -a -i -t ${tabSize:-4} -f local -l true 2>/dev/null > /tmp/$$.merge && mv /tmp/$$.merge $target && zz_log s "JSON merged successfully"

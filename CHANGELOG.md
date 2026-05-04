@@ -2,6 +2,16 @@
 
 # Changelog
 
+## 5.51.0 (2026-05-04)
+
+_Commits from: v5.50.0..HEAD_
+
+### 📦 common-utils changes
+
+#### Features
+
+- ✨ enhance JSON merging functionality with improved handling for indentation ([3c5b4c5](https://github.com/tomgrv/devcontainer-features/commit/3c5b4c5328fc138ca4a81a90672da47192476d99))
+
 ## 5.50.0 (2026-05-04)
 
 _Commits from: v5.49.0..HEAD_
