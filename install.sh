@@ -50,11 +50,6 @@ if [ -n "$upd" ]; then
     )
 fi
 
-# If 'stubs' argument is provided, indicate that stubs are selected
-if [ -n "$stubs" ]; then
-    echo "${Green}Stubs selected${End}"
-fi
-
 # If 'package' argument is provided, use the specified package.json file
 if [ -n "$package" ]; then
     file="$package"
@@ -71,22 +66,17 @@ if [ -n "$package" ]; then
     fi
 fi
 
-# If no features are selected, display an error message
-if [ -z "$features" ]; then
-    echo "${Red}No features selected${End}"
-else
-    echo "${Green}Selected features: $features${End}"
-fi
-
 # Merge all files from the stub folder to the root using git merge-file if stubs are selected
 if [ -n "$stubs" ]; then
-    echo "${Yellow}Installing stubs...${End}"
+    echo "${Yellow}Installing stubs from ${UYellow}$source/src/common-utils/${Yellow}...${End}"
     $source/src/common-utils/_configure-feature.sh -s $source .
     echo "${Green}Stubs installed${End}"
 fi
 
 # If features are selected, proceed with installation
 if [ -n "$features" ]; then
+
+    echo "${Green}Selected features: $features${End}"
 
     # Create an alias for the _install-feature.sh script
     alias install-feature=$(dirname $0)/src/common-utils/_install-feature.sh
