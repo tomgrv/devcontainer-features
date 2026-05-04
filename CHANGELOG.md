@@ -2,6 +2,30 @@
 
 # Changelog
 
+## 5.49.0 (2026-05-04)
+
+_Commits from: v5.48.1..HEAD_
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v5.48.0' into develop ([adb3fd2](https://github.com/tomgrv/devcontainer-features/commit/adb3fd20bfc564d1a2bc8d77ee2c2418f25304eb))
+- Merge tag 'v5.48.1' into develop ([f136918](https://github.com/tomgrv/devcontainer-features/commit/f1369185bf8822dad8f39175fbe5aec0d622912d))
+- 🔧 remove devcontainer-lock.json file ([1f1c047](https://github.com/tomgrv/devcontainer-features/commit/1f1c0473e24355ca407045784bf8aaaf29276ea4))
+- 👷 update dev environment ([4db16cc](https://github.com/tomgrv/devcontainer-features/commit/4db16cc50b8afcfada5de4fa66bfe4006e5198ce))
+- ♻️ update npm command to include stub flag ([9e20a85](https://github.com/tomgrv/devcontainer-features/commit/9e20a85ed80cdaea37d915a6b377fb81115581c1))
+
+### 📦 gitutils changes
+
+#### Features
+
+- ✨ add workflows for merging and splitting monorepo packages ([cfcaeab](https://github.com/tomgrv/devcontainer-features/commit/cfcaeab90cf499bcbf71bfcb4690722ab1b90279))
+
+#### Other changes
+
+- ♻️ enhance git-fix-blank to handle comments in multiple file types ([d5669d7](https://github.com/tomgrv/devcontainer-features/commit/d5669d74bb4f53d0f8edf6b7cbb749099c14a706))
+
 ## 5.48.1 (2026-05-02)
 
 _Commits from: v5.48.0..HEAD_
@@ -942,4 +966,4 @@ _Commits from: v5.25.0..HEAD_
 
 ---
 
-_Generated on 2026-05-02 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
+_Generated on 2026-05-04 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
