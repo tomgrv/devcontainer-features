@@ -96,6 +96,7 @@ for type in package composer; do
 
             # Merge the tmpl & add keys if not already there. make sure source json does not contain any comments
             zz_log i "Merge {U $tmpl} in {U $package}..."
+            
             zz_json $package | jq --indent ${tabSize:-4} -r -s '.[0] * .[1]' $tmpl - >/tmp/$$.json && mv -f /tmp/$$.json $package
 
         done
