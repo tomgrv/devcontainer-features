@@ -2,6 +2,16 @@
 
 # Changelog
 
+## 5.51.1 (2026-05-04)
+
+_Commits from: v5.51.0..HEAD_
+
+### 📦 common-utils changes
+
+#### Bug Fixes
+
+- 🐛 remove redundant stubs check and enhance logging for feature selection ([931b2e4](https://github.com/tomgrv/devcontainer-features/commit/931b2e493c8201e9960a318a7d92cda0e102b64e))
+
 ## 5.51.0 (2026-05-04)
 
 _Commits from: v5.50.0..HEAD_
