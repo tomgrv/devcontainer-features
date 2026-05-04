@@ -1,8 +1,4 @@
 {
-    "id": "gitutils",
-    "name": "Git Aliases",
-    "description": "A feature to add useful Git aliases to your shell.",
-    "version": "5.46.0",
     "dependsOn": {
         "ghcr.io/devcontainers/features/node:1": {
             "version": "lts"
@@ -12,10 +8,14 @@
         },
         "ghcr.io/tomgrv/devcontainer-features/gitversion:5": {}
     },
+    "description": "A feature to add useful Git aliases to your shell.",
+    "id": "gitutils",
     "installsAfter": [
         "ghcr.io/tomgrv/devcontainer-features/common-utils",
         "ghcr.io/tomgrv/devcontainer-features/gitversion"
     ],
+    "name": "Git Aliases",
+    "version": "5.49.0",
     "customizations": {
         "vscode": {
             "settings": {
