@@ -1,49 +1,27 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "items": {
-        "additionalProperties": true,
-        "type": [
-            "object",
-            "array",
-            "string"
-        ]
-    },
+    "type": "object",
     "additionalProperties": true,
     "properties": {
-        "config": {
-            "type": "object"
+        "id": {
+            "type": "string"
         },
-        "dependsOn": {
-            "type": [
-                "array",
-                "object"
-            ],
-            "items": {
-                "type": "string"
-            }
+        "name": {
+            "type": "string"
         },
         "description": {
             "type": "string"
         },
-        "id": {
-            "type": "string"
-        },
-        "installsAfter": {
-            "type": [
-                "array",
-                "object"
-            ],
-            "items": {
-                "type": "string"
-            }
-        },
-        "label": {
+        "version": {
             "type": "string"
         },
         "message": {
             "type": "string"
         },
-        "name": {
+        "label": {
+            "type": "string"
+        },
+        "type": {
             "type": "string"
         },
         "tags": {
@@ -52,15 +30,24 @@
                 "type": "string"
             }
         },
-        "type": {
-            "type": "string"
+        "dependsOn": {
+            "type": ["array", "object"],
+            "items": {
+                "type": "string"
+            }
         },
-        "version": {
-            "type": "string"
+        "installsAfter": {
+            "type": ["array", "object"],
+            "items": {
+                "type": "string"
+            }
+        },
+        "config": {
+            "type": ["object", "array"]
         }
     },
-    "type": [
-        "object",
-        "array"
-    ]
+    "items": {
+        "additionalProperties": true,
+        "type": ["object", "array", "string"]
+    }
 }

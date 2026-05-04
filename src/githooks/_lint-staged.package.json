@@ -7,11 +7,10 @@
         "prettier": "*"
     },
     "lint-staged": {
-        "!(templates/**/*)*.{js,jsx,ts,tsx,md,html,css,vue,yaml,yml}": [
-            "npx --yes prettier --write"
+        "!(*schema).json": [
+            "normalize-json -c -w -a -i -t 4 -f local -l true"
         ],
-        "*.json": [
-            "normalize-json -c -w -a -i -f local -l true",
+        "!(templates/**/*).{js,jsx,ts,tsx,md,html,css,vue,yaml,yml,json}": [
             "npx --yes prettier --write"
         ]
     }
