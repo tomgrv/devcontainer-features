@@ -63,8 +63,15 @@ if [ -d $source/stubs ]; then
 
         # Use git merge-file to merge the file
         if [ -f $dest ]; then
-            zz_log i "Using git merge-file to merge {U $file} into {U $dest}..."
-            git merge-file -q $dest $file $file
+
+            # if json file, use merge-json to merge the file
+            if [ $(basename $file | cut -d. -f2) = "json" ]; then
+                zz_log i "Merging {U $file} into {U $dest}..."
+                zz_json $file | merge-json -t ${tabSize:-4} $dest
+            else
+                zz_log i "Using git merge-file to merge {U $file} into {U $dest}..."
+                git merge-file -q $dest $file $file
+            fi
         else
             zz_log i "Destination file {U $dest} does not exist. Copying {U $file} to {U $dest}..."
             cp $file $dest
@@ -96,19 +103,9 @@ for type in package composer; do
 
             # Merge the tmpl & add keys if not already there. make sure source json does not contain any comments
             zz_log i "Merge {U $tmpl} in {U $package}..."
-            
-            zz_json $package | jq --indent ${tabSize:-4} -r -s '.[0] * .[1]' $tmpl - >/tmp/$$.json && mv -f /tmp/$$.json $package
 
+            zz_json $tmpl | merge-json -t ${tabSize:-4} $package
         done
-
-        # Normalize the file if needed
-        if [ -n "$tmpl" -a -s $package ]; then
-            # Post merge normalize package.json
-            zz_log i "Post-merge normalize {U $package}..."
-            normalize-json -c -w -a -i -t ${tabSize:-4} $package 2>/dev/null
-        else
-            zz_log - "No merged $package to normalize"
-        fi
 
         # Reset the tmpl variable
         unset tmpl
