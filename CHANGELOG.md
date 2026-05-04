@@ -2,6 +2,34 @@
 
 # Changelog
 
+## 5.52.0 (2026-05-04)
+
+_Commits from: v5.51.0..HEAD_
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge branch 'hotfix/5.51.X' ([58ca419](https://github.com/tomgrv/devcontainer-features/commit/58ca4197a48e21c4886db1b2ad0a1c95066a33df))
+- Merge tag 'v5.50.0' into develop ([97b658d](https://github.com/tomgrv/devcontainer-features/commit/97b658db1401def6449bf7cc516aa5b8b5d8d75e))
+- Merge tag 'v5.51.0' into develop ([1a70a56](https://github.com/tomgrv/devcontainer-features/commit/1a70a56a0bc902d624a289a60ca57fb27f6b72ad))
+- Merge tag 'v5.51.1' into develop ([655733b](https://github.com/tomgrv/devcontainer-features/commit/655733be745554ce3907125af6b533d5c9ac2a29))
+- 🐛 update lint-staged ([b6c862a](https://github.com/tomgrv/devcontainer-features/commit/b6c862a3c61e7c51cbd2592ba60144916eef636b))
+
+### 📦 common-utils changes
+
+#### Other changes
+
+- 🐛 remove redundant stubs check and enhance logging for feature selection ([931b2e4](https://github.com/tomgrv/devcontainer-features/commit/931b2e493c8201e9960a318a7d92cda0e102b64e))
+- ♻️ revert schema structure in \_default.schema.json ([b81b6c6](https://github.com/tomgrv/devcontainer-features/commit/b81b6c604897df879f2b57af0c1cbb946a24ee8f))
+- 🐛 update lint-staged ([2fd3501](https://github.com/tomgrv/devcontainer-features/commit/2fd3501ce4904da5ccaa421c30582eb49f408e52))
+
+### 📦 release changes
+
+#### Other changes
+
+- 🚀 5.51.1 ([d0b8504](https://github.com/tomgrv/devcontainer-features/commit/d0b850467e90f0a3690130b31e0e27a6365685f6))
+
 ## 5.51.1 (2026-05-04)
 
 _Commits from: v5.51.0..HEAD_
