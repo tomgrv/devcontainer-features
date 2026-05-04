@@ -49,7 +49,7 @@ if [ -d $source/stubs ]; then
         mkdir -p $folder
 
         # if filename starts with #, add it to .gitignore without the #
-        if [ $(basename $file | cut -c1) = "#" ]; then
+        if [ "$(basename $file | cut -c1)" = "#" ]; then
 
             # Remove # occurrences in the file path
             dest=$(echo $dest | sed 's/\/\#/\//g')
@@ -65,13 +65,14 @@ if [ -d $source/stubs ]; then
         if [ -f $dest ]; then
 
             # if json file, use merge-json to merge the file
-            if [ $(basename $file | cut -d. -f2) = "json" ]; then
+            if [ "$(basename $file | cut -d. -f2)" = "json" ]; then
                 zz_log i "Merging {U $file} into {U $dest}..."
-                zz_json $file | merge-json -t ${tabSize:-4} $dest
+                merge-json -t ${tabSize:-4} $dest $file
             else
                 zz_log i "Using git merge-file to merge {U $file} into {U $dest}..."
                 git merge-file -q $dest $file $file
             fi
+            
         else
             zz_log i "Destination file {U $dest} does not exist. Copying {U $file} to {U $dest}..."
             cp $file $dest
@@ -104,7 +105,8 @@ for type in package composer; do
             # Merge the tmpl & add keys if not already there. make sure source json does not contain any comments
             zz_log i "Merge {U $tmpl} in {U $package}..."
 
-            zz_json $tmpl | merge-json -t ${tabSize:-4} $package
+            # Remove comments from the source json and merge it with the target package.json
+            merge-json -t ${tabSize:-4} $package $tmpl
         done
 
         # Reset the tmpl variable
