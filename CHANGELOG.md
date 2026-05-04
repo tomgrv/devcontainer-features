@@ -2,6 +2,22 @@
 
 # Changelog
 
+## 5.50.0 (2026-05-04)
+
+_Commits from: v5.49.0..HEAD_
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v5.49.0' into develop ([21c3c46](https://github.com/tomgrv/devcontainer-features/commit/21c3c46f35c9bbc2a7da2a4616ac23d78d94d52a))
+
+### 📦 common-utils changes
+
+#### Features
+
+- ✨ add json merge script for combining JSON files ([aeee66d](https://github.com/tomgrv/devcontainer-features/commit/aeee66d5a6a375074d1b45e362cb4f21007ec458))
+
 ## 5.49.0 (2026-05-04)
 
 _Commits from: v5.48.1..HEAD_
