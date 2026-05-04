@@ -4,7 +4,7 @@
         {
             "label": "⏬ Upd. DevEnv",
             "type": "shell",
-            "command": "npm exec --yes -- tomgrv/devcontainer-features -u",
+            "command": "npm exec --yes -- tomgrv/devcontainer-features -u -s",
             "presentation": {
                 "panel": "shared",
                 "close": true,
