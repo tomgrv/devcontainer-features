@@ -22,6 +22,16 @@ eval $(
 help
 )
 
+if test -z "$files" || test "$files" = "-" || test "$files" = "/dev/stdin"; then
+
+    if [ -n "$write" ]; then
+        zz_log e "Cannot write to stdin. Please unset -w option" && exit 1
+    fi
+
+    cat /dev/stdin >/tmp/$$.json
+    files="/tmp/$$.json"
+fi
+
 for file in $files; do
 
     # Check if file exists
@@ -72,14 +82,14 @@ for file in $files; do
                 );'
 
     # jq script to sort objects at paths in list by their keys, if list is not empty
-    echo "$list" | sed 's/^\(.*\)$/path(\1)/' | paste -sd, -  | jq "$script traverse([$(cat)])" $file >/tmp/$$.json
+    echo "$list" | sed 's/^\(.*\)$/path(\1)/' | paste -sd, -  | jq "$script traverse([$(cat)])" $file >/tmp/$$.norm
 
     # Handle output
-    if test -s /tmp/$$.json; then
+    if test -s /tmp/$$.norm; then
         if test -z "$write"; then
-            jq -C --indent ${tabSize:-2} . /tmp/$$.json
+            jq -M --indent ${tabSize:-2} . /tmp/$$.norm
         else
-            jq -M --indent ${tabSize:-4} . /tmp/$$.json >$file
+            jq -M --indent ${tabSize:-4} . /tmp/$$.norm >$file
         fi
         zz_log s "File {U $file} normalized"
     else
