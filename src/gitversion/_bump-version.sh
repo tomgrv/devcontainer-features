@@ -189,7 +189,7 @@ bump_version_files() {
     fi
 
     # Get bumpFiles configuration
-    local bump_files=$(jq -r '."commit-and-tag-version".bumpFiles[]? | @json' package.json 2>/dev/null)
+    local bump_files=$(jq -r '."bump-version".files[]? | @json' package.json 2>/dev/null)
 
     if [ -z "$bump_files" ]; then
         zz_log w "No bumpFiles configuration found in package.json"

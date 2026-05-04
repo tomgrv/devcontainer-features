@@ -1,14 +1,14 @@
 {
+    "id": "common-utils",
+    "name": "Common Utils",
+    "description": "Common utils for tomgrv/devcontainer-features",
+    "version": "5.52.1",
     "dependsOn": {
         "ghcr.io/devcontainers/features/common-utils": {}
     },
-    "description": "Common utils for tomgrv/devcontainer-features",
-    "id": "common-utils",
     "installsAfter": [
         "ghcr.io/devcontainers/features/common-utils"
     ],
-    "name": "Common Utils",
-    "version": "5.51.1",
     "customizations": {
         "vscode": {
             "settings": {
