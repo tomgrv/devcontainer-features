@@ -102,67 +102,6 @@
         "tabWidth": 4,
         "trailingComma": "es5"
     },
-    "commit-and-tag-version": {
-        "bumpFiles": [
-            {
-                "filename": "composer.json",
-                "type": "json"
-            },
-            {
-                "filename": "package.json",
-                "type": "json"
-            },
-            {
-                "filename": "package.json",
-                "type": "json@ws"
-            },
-            {
-                "filename": "devcontainer-feature.json",
-                "type": "json@ws"
-            },
-            {
-                "filename": "VERSION",
-                "type": "plain-text"
-            }
-        ],
-        "scripts": {
-            "prebump": "bump-version -d | awk '{print $2}'"
-        },
-        "types": [
-            {
-                "type": "feat",
-                "section": "Features"
-            },
-            {
-                "type": "fix",
-                "section": "Bug Fixes"
-            },
-            {
-                "type": "chore",
-                "hidden": true
-            },
-            {
-                "type": "docs",
-                "hidden": true
-            },
-            {
-                "type": "style",
-                "hidden": true
-            },
-            {
-                "type": "refactor",
-                "hidden": true
-            },
-            {
-                "type": "perf",
-                "hidden": true
-            },
-            {
-                "type": "test",
-                "hidden": true
-            }
-        ]
-    },
     "commitlint": {
         "extends": [
             "@commitlint/config-conventional",
@@ -195,13 +134,13 @@
         ]
     },
     "lint-staged": {
-        "*.json": [
+        "!(*schema).json": [
             "normalize-json -c -w -a -i -t 4 -f local -l true"
         ],
         "*.php": [
             "composer lint"
         ],
-        "*.{js,jsx,ts,tsx,md,html,css,vue,yaml,yml}": [
+        "*.{js,jsx,ts,tsx,md,html,css,vue,yaml,yml,json}": [
             "npx --yes prettier --write"
         ],
         ".devcontainer/*": [
