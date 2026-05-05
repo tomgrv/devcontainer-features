@@ -2,6 +2,16 @@
 
 # Changelog
 
+## 5.53.1 (2026-05-05)
+
+_Commits from: v5.53.0..HEAD_
+
+### 📦 gitutils changes
+
+#### Bug Fixes
+
+- 🐛 update task commands and add new git aliases ([75e25f3](https://github.com/tomgrv/devcontainer-features/commit/75e25f325c3523d43a0260f41d187ed1f55b3dab))
+
 ## 5.53.0 (2026-05-05)
 
 _Commits from: v5.52.1..HEAD_

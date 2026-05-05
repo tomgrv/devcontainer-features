@@ -35,7 +35,7 @@ fi
 
 # If rebase needed, check that develop branch has not been pushed since last tag
 if [ -n "$rebase" ]; then
-    if [ "$(git rev-parse develop)" = "$(git rev-parse origin/develop)" ]; then
+    if [ "$(git rev-parse develop)" = "$(git rev-parse origin/develop)" ] && [ $(git rev-list --parents -1 HEAD | wc -w) -le 2 ]; then
         zz_log e "Develop branch has been pushed since last tag, cannot rebase safely, aborting"
         exit 1
     fi
@@ -43,14 +43,9 @@ fi
 
 # Ensure working directory is clean
 if [ -n "$(git status --porcelain)" ]; then
-
-    if [ -n "$stash" ]; then
-        zz_log w "Working directory is not clean. Stashing staged changes before creating hotfix branch..."
-        git stash save -k -m "Hotfix stash: $(date +%Y-%m-%d-%H-%M-%S)"
-    else
-        zz_log e "Working directory is not clean. Please commit or stash changes. Use -s option to automatically stash and reapply changes."
-        exit 1
-    fi
+    zz_log w "Working directory is not clean. Stashing staged changes before creating hotfix branch..."
+    git stash save -k -m "Hotfix stash: $(date +%Y-%m-%d-%H-%M-%S)"
+    stash=true
 else
     zz_log i "Working directory is clean, no need to stash changes"
     unset stash
