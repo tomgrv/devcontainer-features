@@ -83,6 +83,14 @@
         "cmd": "git log -1 --pretty=%s | grep -q fixup! && exit 0 || exit 1",
         "help": "Check if last commit is a fixup commit."
     },
+    "isMerge": {
+        "cmd": "test $(git rev-list --parents -1 HEAD | wc -w) -gt 2 && exit 0 || exit 1",
+        "help": "Check if the current branch is a merge commit."
+    },
+    "isMerging": {
+        "cmd": "git rev-parse -q --verify MERGE_HEAD >/dev/null && exit 0 || exit 1",
+        "help": "Check if a merge is in progress."
+    },
     "isRebase": {
         "cmd": "git rev-parse --git-dir | grep -q rebase-merge || git rev-parse --git-dir | grep -q rebase-apply",
         "help": "Check if a rebase is in progress."
