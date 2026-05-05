@@ -2,6 +2,29 @@
 
 # Changelog
 
+## 5.53.0 (2026-05-05)
+
+_Commits from: v5.52.1..HEAD_
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v5.52.0' into develop ([046bf01](https://github.com/tomgrv/devcontainer-features/commit/046bf0151a2524097c08b4701b05b3836ebfef5d))
+- Merge tag 'v5.52.1' into develop ([4f7b76f](https://github.com/tomgrv/devcontainer-features/commit/4f7b76f3ec6726d76195cb799de41ec205bb2eab))
+
+### 📦 gitutils changes
+
+#### Other changes
+
+- ✨ add branch name validation configuration ([e7eb57a](https://github.com/tomgrv/devcontainer-features/commit/e7eb57aa008313f5a632970100a29f5fe0313a10))
+
+### 📦 larasets changes
+
+#### Other changes
+
+- 🔧 use stan + pint ([5d50c4e](https://github.com/tomgrv/devcontainer-features/commit/5d50c4efa5f52f1b4350598ac9b71e1cf4fd9c95))
+
 ## 5.52.1 (2026-05-04)
 
 _Commits from: v5.52.0..HEAD_
@@ -1046,4 +1069,4 @@ _Commits from: v5.25.0..HEAD_
 
 ---
 
-_Generated on 2026-05-04 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
+_Generated on 2026-05-05 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
