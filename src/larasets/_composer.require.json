@@ -10,5 +10,6 @@
         "nunomaduro/phpinsights",
         "pestphp/pest-plugin-arch",
         "phpmd/phpmd"
-    ]
+    ],
+    "globalDependencies": []
 }

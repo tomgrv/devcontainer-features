@@ -66,9 +66,37 @@
                 "art-serve",
                 "vite",
                 "art-queue",
-                "art-schedule"
+                "art-schedule",
+                "logs",
+                "smee"
             ],
             "dependsOrder": "parallel"
+        },
+        {
+            "label": "logs",
+            "type": "shell",
+            "command": "tail -f storage/logs/laravel.log",
+            "hide": true,
+            "presentation": {
+                "panel": "dedicated",
+                "clear": true,
+                "reveal": "silent",
+                "close": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "smee",
+            "type": "shell",
+            "command": "npm run smee",
+            "hide": true,
+            "presentation": {
+                "panel": "dedicated",
+                "clear": true,
+                "reveal": "silent",
+                "close": true
+            },
+            "problemMatcher": []
         },
         {
             "label": "▶️ Sail",
