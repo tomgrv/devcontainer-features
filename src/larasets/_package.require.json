@@ -1,0 +1,8 @@
+{
+    "dependencies": [],
+    "devDependencies": [
+        "smee-client",
+        "dotenv-cli"
+    ],
+    "globalDependencies": []
+}
