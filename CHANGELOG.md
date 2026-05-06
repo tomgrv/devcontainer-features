@@ -2,6 +2,27 @@
 
 # Changelog
 
+## 5.54.0 (2026-05-06)
+
+_Commits from: v5.53.1..HEAD_
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v5.53.0' into develop ([5e7122b](https://github.com/tomgrv/devcontainer-features/commit/5e7122b15167b2cc8875b92dda820cc44a22f200))
+- Merge tag 'v5.53.1' into develop ([5c98079](https://github.com/tomgrv/devcontainer-features/commit/5c980796f7103255252fe3630849d1e7d7dcb897))
+
+### 📦 larasets changes
+
+#### Features
+
+- ✨ add new tasks for logs and smee, and update script formatting ([a89dc7f](https://github.com/tomgrv/devcontainer-features/commit/a89dc7f4a63b995e78f7d885f54288a4df689c19))
+
+#### Other changes
+
+- 🔧 add package management scripts and update dependency handling ([83ee740](https://github.com/tomgrv/devcontainer-features/commit/83ee74097626a8e5e37bbaeabcb1bd8e18dc8963))
+
 ## 5.53.1 (2026-05-05)
 
 _Commits from: v5.53.0..HEAD_
@@ -1079,4 +1100,4 @@ _Commits from: v5.25.0..HEAD_
 
 ---
 
-_Generated on 2026-05-05 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
+_Generated on 2026-05-06 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
