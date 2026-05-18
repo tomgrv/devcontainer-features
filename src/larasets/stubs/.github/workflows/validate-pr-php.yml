@@ -41,6 +41,7 @@ jobs:
           paths: app,config,database,resources,routes,tests,modules,packages
 
       - name: Run FilaCheck
+        if: ${{ hashFiles('app/Filament/**') != '' }}
         uses: tomgrv/actions/run-filacheck@v1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}

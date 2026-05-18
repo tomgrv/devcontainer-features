@@ -44,6 +44,7 @@ jobs:
 
       - name: Apply FilaCheck fixes
         id: fix-filacheck
+        if: ${{ hashFiles('app/Filament/**') != '' }}
         uses: tomgrv/actions/run-filacheck@v1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
