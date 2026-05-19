@@ -12,8 +12,8 @@ The installation script can be run locally and/or in a devcontainer environment.
 
 When run locally:
 
--   Features are installed in the local environment.
--   A `devcontainer.json` file is optionally created for the remote development experience.
+- Features are installed in the local environment.
+- A `devcontainer.json` file is optionally created for the remote development experience.
 
 ```sh
 npx tomgrv/devcontainer-features -h
@@ -39,17 +39,17 @@ npx tomgrv/devcontainer-features -a
 
 ## Features Overview
 
-| Feature                             | Description                                             |
-| ----------------------------------- | ------------------------------------------------------- |
-| [GitUtils](#gitutils)               | Git aliases and workflow automation                     |
-| [GitHooks](#githooks)               | Commit hooks: commitlint, prettier, lint-staged         |
-| [GitVersion](#gitversion)           | Semantic versioning via GitVersion                      |
-| [Act](#act)                         | Run GitHub Actions locally via nektos/act               |
-| [PECL](#pecl)                       | PHP extension installer via PECL                        |
-| [Larasets](#larasets)               | Laravel-specific development utilities                  |
-| [Common Utils](#common-utils)       | Shared utilities used by other features                 |
-| [Gateway](#gateway)                 | SSL certificate management for corporate networks       |
-| [Minikube](#minikube)               | Local Kubernetes cluster via Minikube                   |
+| Feature                       | Description                                       |
+| ----------------------------- | ------------------------------------------------- |
+| [GitUtils](#gitutils)         | Git aliases and workflow automation               |
+| [GitHooks](#githooks)         | Commit hooks: commitlint, prettier, lint-staged   |
+| [GitVersion](#gitversion)     | Semantic versioning via GitVersion                |
+| [Act](#act)                   | Run GitHub Actions locally via nektos/act         |
+| [PECL](#pecl)                 | PHP extension installer via PECL                  |
+| [Larasets](#larasets)         | Laravel-specific development utilities            |
+| [Common Utils](#common-utils) | Shared utilities used by other features           |
+| [Gateway](#gateway)           | SSL certificate management for corporate networks |
+| [Minikube](#minikube)         | Local Kubernetes cluster via Minikube             |
 
 ---
 
@@ -107,7 +107,7 @@ Installs [GitVersion](https://gitversion.net/) to calculate semantic version num
 
 ```json
 "features": {
-    "ghcr.io/tomgrv/devcontainer-features/gitversion:5": {}
+    "ghcr.io/tomgrv/devcontainer-features/gitversion:6": {}
 }
 ```
 

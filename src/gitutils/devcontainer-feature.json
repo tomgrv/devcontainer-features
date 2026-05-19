@@ -10,7 +10,7 @@
         "ghcr.io/tomgrv/devcontainer-features/common-utils:5": {
             "utils": "jq dos2unix git-flow"
         },
-        "ghcr.io/tomgrv/devcontainer-features/gitversion:5": {}
+        "ghcr.io/tomgrv/devcontainer-features/gitversion:6": {}
     },
     "installsAfter": [
         "ghcr.io/tomgrv/devcontainer-features/common-utils",
