@@ -1,7 +1,7 @@
 {
     "scripts": {
         "check": "npx --yes npm-check-updates -i -u",
-        "smee": "dotenv -e .env -- sh -c 'smee --url https://smee.io/${SMEE_CHANNEL} --target ${APP_URL}/${SMEE_TARGET}'",
+        "smee": "npx --yes dotenv -e .env -- sh -c 'npx --yes smee --url https://smee.io/${SMEE_CHANNEL} --target ${APP_URL}/${SMEE_TARGET}'",
         "test": "echo \"Warning: no test specified\"",
         "update-all": "npm run update -ws --root"
     }
