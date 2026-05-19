@@ -8,7 +8,7 @@ This feature provides a set of settings and utilities for working with Laravel p
 
 ```json
 "features": {
-    "ghcr.io/tomgrv/devcontainer-features/larasets:5": {}
+    "ghcr.io/tomgrv/devcontainer-features/larasets:6": {}
 }
 ```
 

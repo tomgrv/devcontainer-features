@@ -129,7 +129,7 @@ Installs [nektos/act](https://github.com/nektos/act) to run GitHub Actions local
 
 ```json
 "features": {
-    "ghcr.io/tomgrv/devcontainer-features/act:5": {}
+    "ghcr.io/tomgrv/devcontainer-features/act:6": {}
 }
 ```
 
@@ -175,7 +175,7 @@ Laravel-specific settings, shell utilities, Composer scripts, and VS Code extens
 
 ```json
 "features": {
-    "ghcr.io/tomgrv/devcontainer-features/larasets:5": {}
+    "ghcr.io/tomgrv/devcontainer-features/larasets:6": {}
 }
 ```
 
@@ -243,7 +243,7 @@ Installs [Minikube](https://minikube.sigs.k8s.io/) to run a single-node Kubernet
 
 ```json
 "features": {
-    "ghcr.io/tomgrv/devcontainer-features/minikube:5": {}
+    "ghcr.io/tomgrv/devcontainer-features/minikube:6": {}
 }
 ```
 
