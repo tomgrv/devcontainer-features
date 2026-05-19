@@ -42,6 +42,15 @@ jobs:
           paths: ${{ github.event.inputs.paths }}
           fix: 'true'
 
+      - name: Apply FilaCheck fixes
+        id: fix-filacheck
+        if: ${{ hashFiles('app/Filament/**') != '' }}
+        uses: tomgrv/actions/run-filacheck@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: app/Filament
+          fix: 'true'
+
       - name: Apply Pint fixes
         id: fix-pint
         uses: ./packages/tomgrv/actions/run-pint
@@ -52,7 +61,7 @@ jobs:
 
       - name: Create or update PR
         id: create-pr
-        if: ${{ steps.fix-phpstan.outputs.has-changes == 'true' || steps.fix-pint.outputs.has-changes == 'true' }}
+        if: ${{ steps.fix-phpstan.outputs.has-changes == 'true' || steps.fix-filacheck.outputs.has-changes == 'true' || steps.fix-pint.outputs.has-changes == 'true' }}
         uses: tomgrv/actions/create-pr@v1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -60,7 +69,6 @@ jobs:
           head-branch: 'chore/phpinsights-fix-${{ github.run_id }}'
           workdir: ${{ github.workspace }}
           commit-message: 'chore: apply PHP Insights auto-fixes'
-          commit-files: ${{ steps.fix-phpstan.outputs.changed-files }},${{ steps.fix-pint.outputs.changed-files }}
           head-owner: ${{ github.repository_owner }}
           base-branch: ${{ github.event.inputs.base_branch }}
           pr-title: 'chore: apply PHP Insights auto-fixes'

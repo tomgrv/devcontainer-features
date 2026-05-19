@@ -1,6 +1,6 @@
 {
     "name": "@tomgrv/devcontainer-features",
-    "version": "5.54.0",
+    "version": "6.0.0",
     "description": "Configure dev environment with devcontainer, gitflow, gitversion, git aliases & hooks. Can be used a devcontainer features",
     "keywords": [
         "dev",
@@ -40,7 +40,7 @@
         "url": "https://buymeacoffee.com/tomgrv"
     },
     "scripts": {
-        "lint": "lint-staged",
+        "lint": "npx --yes lint-staged",
         "release": "commit-and-tag-version --no-verify --",
         "test": "echo \"Warning: no test specified\"",
         "update": "npm-check-updates -i -u",

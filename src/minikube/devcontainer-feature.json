@@ -2,13 +2,14 @@
     "id": "minikube",
     "name": "Minikube feature",
     "description": "Add minikube to your devcontainer",
-    "version": "5.41.0",
+    "version": "6.0.0",
     "dependsOn": {
-        "ghcr.io/devcontainers/features/docker-in-docker:2": {},
+        "ghcr.io/devcontainers/features/docker-in-docker:3": {},
         "ghcr.io/devcontainers/features/kubectl-helm-minikube:1": {}
     },
     "installsAfter": [
-        "ghcr.io/tomgrv/devcontainer-features/common-utils"
+        "ghcr.io/tomgrv/devcontainer-features/common-utils",
+        "ghcr.io/devcontainers/features/docker-in-docker"
     ],
     "customizations": {
         "vscode": {
