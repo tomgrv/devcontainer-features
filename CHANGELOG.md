@@ -2,6 +2,30 @@
 
 # Changelog
 
+## 6.0.0 (2026-05-19)
+
+_Commits from: v5.54.0..HEAD_
+
+### 💥 BREAKING CHANGES
+
+- update docker-in-docker to v3 ([c3ac72a](https://github.com/tomgrv/devcontainer-features/commit/c3ac72a6f53f9334a178b718181c2ccec447ac4e))
+
+### 📂 Unscoped changes
+
+#### Features
+
+- Add FilaCheck to larasets PHP workflow stubs (#49) ([178df86](https://github.com/tomgrv/devcontainer-features/commit/178df86dbfadf15325aacbafbdf728d413c8f937))
+
+#### Other changes
+
+- Merge tag 'v5.54.0' into develop ([0eed00f](https://github.com/tomgrv/devcontainer-features/commit/0eed00f117690d9d40234ad32e4621f6d86e904e))
+
+### 📦 larasets changes
+
+#### Bug Fixes
+
+- 🐛 correct smee command to ensure proper execution ([33be52a](https://github.com/tomgrv/devcontainer-features/commit/33be52aadd347d679c2f8387606ec68b7bda594d))
+
 ## 5.54.0 (2026-05-06)
 
 _Commits from: v5.53.1..HEAD_
@@ -1100,4 +1124,4 @@ _Commits from: v5.25.0..HEAD_
 
 ---
 
-_Generated on 2026-05-06 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
+_Generated on 2026-05-19 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
