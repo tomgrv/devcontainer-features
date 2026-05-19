@@ -12,7 +12,7 @@ More information about GitVersion can be found on the [GitVersion GitHub page](h
 
 ```json
 "features": {
-    "ghcr.io/tomgrv/devcontainer-features/gitversion:5": {}
+    "ghcr.io/tomgrv/devcontainer-features/gitversion:6": {}
 }
 ```
 
@@ -24,6 +24,6 @@ npx tomgrv/devcontainer-features -- gitversion
 
 ## Options
 
-| Options Id | Description                        | Type   | Default Value |
-| ---------- | ---------------------------------- | ------ | ------------- |
-| version    | The version of GitVersion to use.  | string | 6.5.1         |
+| Options Id | Description                       | Type   | Default Value |
+| ---------- | --------------------------------- | ------ | ------------- |
+| version    | The version of GitVersion to use. | string | 6.5.1         |

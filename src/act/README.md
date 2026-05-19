@@ -10,7 +10,7 @@ More information about Act can be found on the [Act GitHub page](https://github.
 
 ```json
 "features": {
-    "ghcr.io/tomgrv/devcontainer-features/act:5": {}
+    "ghcr.io/tomgrv/devcontainer-features/act:6": {}
 }
 ```
 

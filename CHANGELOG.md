@@ -2,6 +2,23 @@
 
 # Changelog
 
+## 6.1.0 (2026-05-19)
+
+_Commits from: v6.0.0..HEAD_
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v6.0.0' into develop ([0548445](https://github.com/tomgrv/devcontainer-features/commit/0548445d6403d27014ccf92e9afd6db5b58b236d))
+- 📚️ 🐛 update feature versions to 6 ([d7efb90](https://github.com/tomgrv/devcontainer-features/commit/d7efb90d7865ef8d52f6ad3d473b38a19976660c))
+
+### 📦 gitversion changes
+
+#### Bug Fixes
+
+- 🐛 update GitVersion to v6 ([5677298](https://github.com/tomgrv/devcontainer-features/commit/5677298cdfc3b3cb8cb612446f18d9699e3742a9))
+
 ## 6.0.0 (2026-05-19)
 
 _Commits from: v5.54.0..HEAD_

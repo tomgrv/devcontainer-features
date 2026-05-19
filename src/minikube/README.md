@@ -12,7 +12,7 @@ More information about Minikube can be found on the [official Minikube GitHub re
 
 ```json
 "features": {
-    "ghcr.io/tomgrv/devcontainer-features/minikube:5": {}
+    "ghcr.io/tomgrv/devcontainer-features/minikube:6": {}
 }
 ```
 
