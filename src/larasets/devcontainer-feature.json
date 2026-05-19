@@ -4,7 +4,7 @@
     "description": "A feature to add useful laravel settings to your shell.",
     "version": "5.54.0",
     "dependsOn": {
-        "ghcr.io/devcontainers/features/docker-in-docker:2": {},
+        "ghcr.io/devcontainers/features/docker-in-docker:3": {},
         "ghcr.io/devcontainers/features/node:1": {
             "version": "lts"
         },
@@ -15,7 +15,8 @@
         "ghcr.io/tomgrv/devcontainer-features/common-utils:5": {}
     },
     "installsAfter": [
-        "ghcr.io/tomgrv/devcontainer-features/common-utils"
+        "ghcr.io/tomgrv/devcontainer-features/common-utils",
+        "ghcr.io/devcontainers/features/docker-in-docker"
     ],
     "containerEnv": {
         "APP_DEBUG": "true",

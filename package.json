@@ -40,7 +40,7 @@
         "url": "https://buymeacoffee.com/tomgrv"
     },
     "scripts": {
-        "lint": "lint-staged",
+        "lint": "npx --yes lint-staged",
         "release": "commit-and-tag-version --no-verify --",
         "test": "echo \"Warning: no test specified\"",
         "update": "npm-check-updates -i -u",
