@@ -12,6 +12,9 @@
         "sudo chown -Rf vscode:vscode ${containerWorkspaceFolder:-.}/* ${containerWorkspaceFolder:-.}/.*",
         "sudo find ${containerWorkspaceFolder:-.} -mindepth 1 -type d -exec chmod 755 {} +"
     ],
-    "postStartCommand": ".devcontainer/start.sh",
+    "postStartCommand": [
+        "git config --global --add safe.directory ${containerWorkspaceFolder:-.}",
+        "test -z "$CODESPACES" && git config --global gpg.program gpg2"
+    ],
     "customizations": {}
 }
