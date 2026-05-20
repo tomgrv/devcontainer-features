@@ -14,7 +14,7 @@
     ],
     "postStartCommand": [
         "git config --global --add safe.directory ${containerWorkspaceFolder:-.}",
-        "test -z "$CODESPACES" && git config --global gpg.program gpg2"
+        "test -z \"$CODESPACES\" && git config --global gpg.program gpg2"
     ],
     "customizations": {}
 }
