@@ -22,7 +22,7 @@ jobs:
         uses: tomgrv/actions/setup-node@v0
 
       - name: Install GitUtils
-        run: npx tomgrv/devcontainer-features -- gitutils || { echo 'GitUtils installation failed. Check step logs for details or verify repository access at https://github.com/tomgrv/devcontainer-features'; false; }
+        run: npm exec --yes --package . -- devcontainer-features -- gitutils || { echo 'GitUtils installation failed. Check step logs for details or verify repository access at https://github.com/tomgrv/devcontainer-features'; false; }
 
       - name: Verify GitUtils aliases
         run: |
