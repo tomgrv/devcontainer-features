@@ -82,7 +82,7 @@ if [ -n "$features" ]; then
     alias install-feature=$(dirname $0)/src/common-utils/_install-feature.sh
 
     # Check if the script is running inside a container
-    if [ "$CODESPACES" != "true" ] && [ "$REMOTE_CONTAINERS" != "true" ] && [ -z "$DEV_CONTAINER_FILE_PATH"]; then
+    if [ "$CODESPACES" != "true" ] && [ "$REMOTE_CONTAINERS" != "true" ] && [ -z "$DEV_CONTAINER_FILE_PATH" ]; then
 
         echo "${Red}You are not in a container${End}"
 
