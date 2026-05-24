@@ -19,6 +19,6 @@
     "scripts": {},
     "dependencies": {},
     "peerDependencies": {
-        "@tomgrv-devcontainer-features/common-utils": "^5.0.0"
+        "@tomgrv-devcontainer-features/common-utils": ">=5.0.0"
     }
 }
