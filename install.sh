@@ -90,21 +90,34 @@ if [ -n "$features" ]; then
         for feature in $features; do
             if [ -f "$source/src/$feature/install.sh" ]; then
                 echo "${Yellow}Running src/$feature/install.sh...${End}"
-                sh $source/src/$feature/install.sh
-                echo "${Green}$feature installed${End}"
+                if sh $source/src/$feature/install.sh; then
+                    echo "${Green}$feature installed${End}"
+                else
+                    echo "${Red}$feature installation failed${End}"
+                    exit 1
+                fi
             else
                 echo "${Red}$feature not found${End}"
+                exit 1
             fi
         done
 
         # Run the configure.sh script for each selected feature
         for feature in $features; do
+            featureSource=""
             if [ -d "/tmp/$feature" ]; then
-                echo "${Yellow}Configuring /tmp/$feature...${End}"
-                sh $source/src/common-utils/_configure-feature.sh -s /tmp/$feature $feature
+                featureSource="/tmp/$feature"
+            elif [ -d "/usr/local/share/$feature" ]; then
+                featureSource="/usr/local/share/$feature"
+            fi
+
+            if [ -n "$featureSource" ]; then
+                echo "${Yellow}Configuring $featureSource...${End}"
+                sh $source/src/common-utils/_configure-feature.sh -s $featureSource $feature
                 echo "${Green}$feature configured${End}"
             else
                 echo "${Red}$feature not found${End}"
+                exit 1
             fi
         done
 
