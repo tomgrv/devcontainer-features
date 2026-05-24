@@ -1,9 +1,7 @@
 #!/bin/sh
 
-script_dir=$(dirname "$(readlink -f "$0")")
-
 # Source colors script
-. "$script_dir/_zz_colors.sh"
+. zz_colors
 
 lvl="$1" && shift
 

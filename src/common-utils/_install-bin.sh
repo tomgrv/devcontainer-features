@@ -1,10 +1,8 @@
 #!/bin/sh
 
-script_dir=$(dirname "$(readlink -f "$0")")
-
 # Source the context script to initialize variables and settings
 eval $(
-    "$script_dir/_zz_context.sh" "$@"
+    zz_context "$@"
 )
 
 if [ -z "$feature" ]; then
@@ -12,54 +10,64 @@ if [ -z "$feature" ]; then
     exit 1
 fi
 
-"$script_dir/_zz_log.sh" i "Installing bin scripts for {Purple $feature}..."
+zz_log i "Installing bin scripts for {Purple $feature}..."
 
-# Resolve a writable bin directory. Defaults to /usr/local/bin, then falls back to
-# ~/.local/bin, then to the first writable directory already in PATH, then to $target/bin.
-link_dir=${INSTALL_BIN_DIR:-/usr/local/bin}
+# Build candidate bin directories and pick the first writable one.
+candidates=""
 
-if [ ! -d "$link_dir" ]; then
-    mkdir -p "$link_dir" 2>/dev/null || true
-fi
+add_candidate() {
+    candidate="$1"
+    [ -n "$candidate" ] || return 0
 
-if [ ! -d "$link_dir" ] || [ ! -w "$link_dir" ]; then
-    if [ -n "$HOME" ]; then
-        mkdir -p "$HOME/.local/bin" 2>/dev/null || true
-        if [ -d "$HOME/.local/bin" ] && [ -w "$HOME/.local/bin" ]; then
-            link_dir="$HOME/.local/bin"
+    case ":$candidates:" in
+    *:"$candidate":*) ;;
+    *)
+        if [ -n "$candidates" ]; then
+            candidates="$candidates:$candidate"
+        else
+            candidates="$candidate"
         fi
+        ;;
+    esac
+}
+
+add_candidate "${INSTALL_BIN_DIR:-/usr/local/bin}"
+
+if [ -n "$HOME" ]; then
+    add_candidate "$HOME/.local/bin"
+fi
+
+for dir in $(echo "$PATH" | tr ':' '\n'); do
+    case "$dir" in
+    "" | "." | "$PWD" | */node_modules/.bin) continue ;;
+    esac
+    add_candidate "$dir"
+done
+
+add_candidate "$target/bin"
+
+link_dir=""
+old_ifs=$IFS
+IFS=':'
+for candidate in $candidates; do
+    [ -d "$candidate" ] || mkdir -p "$candidate" 2>/dev/null || true
+    if [ -d "$candidate" ] && [ -w "$candidate" ]; then
+        link_dir="$candidate"
+        break
     fi
-fi
+done
+IFS=$old_ifs
 
-if [ ! -d "$link_dir" ] || [ ! -w "$link_dir" ]; then
-    for dir in $(echo "$PATH" | tr ':' '\n'); do
-        if [ -d "$dir" ] && [ -w "$dir" ] && [ "$dir" != "." ] && [ "$dir" != "$PWD" ]; then
-            case "$dir" in
-            */node_modules/.bin) continue ;;
-            esac
-            link_dir="$dir"
-            break
-        fi
-    done
-fi
-
-if [ ! -d "$link_dir" ] || [ ! -w "$link_dir" ]; then
-    mkdir -p "$target/bin" 2>/dev/null || true
-    if [ -d "$target/bin" ] && [ -w "$target/bin" ]; then
-        link_dir="$target/bin"
-    fi
-fi
-
-if [ ! -d "$link_dir" ] || [ ! -w "$link_dir" ]; then
-    "$script_dir/_zz_log.sh" e "No writable bin directory found"
+[ -n "$link_dir" ] || {
+    zz_log e "No writable bin directory found"
     exit 1
-fi
+}
 
 case ":$PATH:" in
 *":$link_dir:"*) ;;
 *)
     export PATH="$link_dir:$PATH"
-    "$script_dir/_zz_log.sh" w "Added {U $link_dir} to PATH for current install session"
+    zz_log w "Added {U $link_dir} to PATH for current install session"
     ;;
 esac
 
@@ -67,5 +75,5 @@ esac
 find $target -type f -name "_*.sh" -exec echo {} \; -exec chmod +x {} \; | while read file; do
     # Create a symbolic link in /usr/local/bin with the script name (without the leading underscore and .sh extension)
     link=$link_dir/$(basename $file | sed 's/^_//;s/.sh$//')
-    ln -sf $file $link && "$script_dir/_zz_log.sh" s "Linked {U $file} to {U $link}"
+    ln -sf $file $link && zz_log s "Linked {U $file} to {U $link}"
 done

@@ -1,14 +1,12 @@
 #!/bin/sh
 set -e
 
-script_dir=$(dirname "$(readlink -f "$0")")
-
 # Source colors script
-. "$script_dir/_zz_colors.sh"
+. zz_colors
 
 # Manage arguments
 eval $(
-    "$script_dir/_zz_args.sh" "Merge 2 json files" $0 "$@" <<-help
+    zz_args "Merge 2 json files" $0 "$@" <<-help
         t tabSize     tabSize   tab size for indentation
         - target      target		Target JSON file to merge into
         - source      source		Source JSON file to merge from
@@ -17,16 +15,16 @@ help
 
 # Validate arguments
 if [ -z "$target" ] || [ -z "$source" ]; then
-    "$script_dir/_zz_log.sh" e "Usage: json-merge <target> <source>"
+    zz_log e "Usage: json-merge <target> <source>"
     exit 1
 fi
 
 # Validate target file
 if [ ! -f "$target" ]; then
-    "$script_dir/_zz_log.sh" e "Target file {U $target} not found"
+    zz_log e "Target file {U $target} not found"
     exit 1
 elif ! jq empty "$target" >/dev/null 2>&1; then 
-    "$script_dir/_zz_log.sh" e "Target file {U $target} is not a valid JSON"
+    zz_log e "Target file {U $target} is not a valid JSON"
     exit 1
 fi
 
@@ -35,7 +33,7 @@ if [ $source = "-" ]; then
     source=/dev/stdin
 fi
 
-"$script_dir/_zz_log.sh" i "Merging JSON from {U $source} into {U $target}..."
+zz_log i "Merging JSON from {U $source} into {U $target}..."
 
 # Merge the source JSON into the target JSON
 jq 'def merge($a; $b):
@@ -56,4 +54,4 @@ jq 'def merge($a; $b):
     $a
   end;
 
-merge(.; input)' $target $source | "$script_dir/_normalize-json.sh" -c -a -i -t ${tabSize:-4} -f local -l true 2>/dev/null > /tmp/$$.merge && mv /tmp/$$.merge $target && "$script_dir/_zz_log.sh" s "JSON merged successfully"
+merge(.; input)' $target $source |  normalize-json -c -a -i -t ${tabSize:-4} -f local -l true 2>/dev/null > /tmp/$$.merge && mv /tmp/$$.merge $target && zz_log s "JSON merged successfully"
