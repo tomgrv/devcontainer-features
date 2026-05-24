@@ -1,11 +1,13 @@
 #!/bin/sh
 
+script_dir=$(dirname "$(readlink -f "$0")")
+
 # Source colors script
-. zz_colors
+. "$script_dir/_zz_colors.sh"
 
 # Source the context script to initialize variables and settings
 eval $(
-    zz_context "$@"
+    "$script_dir/_zz_context.sh" "$@"
 )
 
 if [ -z "$feature" ]; then
@@ -13,14 +15,14 @@ if [ -z "$feature" ]; then
     exit 1
 fi
 
-zz_log i "Installing feature {Purple $feature}..."
+"$script_dir/_zz_log.sh" i "Installing feature {Purple $feature}..."
 
 # Copy stubs to the target directory
 if [ -d $source/stubs ]; then
-    zz_log i "Copying stubs to {U $target}..."
+    "$script_dir/_zz_log.sh" i "Copying stubs to {U $target}..."
     cp -a $source/stubs $target
 else
-    zz_log w "No stubs found in {U $source}"
+    "$script_dir/_zz_log.sh" w "No stubs found in {U $source}"
 fi
 
 # Install specific utils by copying them to the target directory and making them executable
@@ -29,6 +31,6 @@ find $target -type f -name "*.sh" -exec chmod +x {} \;
 
 # Call all the install-xxx scripts in the feature directory
 find $source -type f -name "install-*.sh" | while read script; do
-    zz_log i "Calling {U $script}..."
-    sh -c "$script $@" && zz_log s "Done!" || zz_log e "Failed!"
+"$script_dir/_zz_log.sh" i "Calling {U $script}..."
+sh -c "$script $@" && "$script_dir/_zz_log.sh" s "Done!" || "$script_dir/_zz_log.sh" e "Failed!"
 done

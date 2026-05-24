@@ -1,7 +1,9 @@
 #!/bin/sh
 
+script_dir=$(dirname "$(readlink -f "$0")")
+
 # Source colors script
-. zz_colors
+. "$script_dir/_zz_colors.sh"
 
 # Initialize variables
 count="0"

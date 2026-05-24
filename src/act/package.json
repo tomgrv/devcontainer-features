@@ -13,6 +13,8 @@
         "act-run": "./_act-run.sh"
     },
     "scripts": {
+        "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then sh ./install.sh; fi",
+        "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then configure-feature -s . act; fi",
         "install-act": "./install-act.sh"
     },
     "peerDependencies": {

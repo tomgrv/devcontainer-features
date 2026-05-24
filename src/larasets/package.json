@@ -21,6 +21,8 @@
         "srv": "./_srv.sh"
     },
     "scripts": {
+        "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then sh ./install.sh; fi",
+        "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then configure-feature -s . larasets; fi",
         "configure-composer": "./configure-composer.sh",
         "configure-deployer": "./configure-deployer.sh",
         "configure-sail": "./configure-sail.sh",

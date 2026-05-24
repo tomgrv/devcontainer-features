@@ -21,6 +21,8 @@
         "update-version": "./_update-version.sh"
     },
     "scripts": {
+        "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then sh ./install.sh; fi",
+        "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then configure-feature -s . githooks; fi",
         "configure-cz": "./configure-cz.sh",
         "configure-hooks": "./configure-hooks.sh"
     },

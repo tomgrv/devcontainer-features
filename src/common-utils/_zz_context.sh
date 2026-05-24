@@ -1,11 +1,13 @@
 #!/bin/sh
 
+script_dir=$(dirname "$(readlink -f "$0")")
+
 # Source colors script
-. zz_colors
+. "$script_dir/_zz_colors.sh"
 
 # Manage arguments
 eval $(
-    zz_args "Export Source/Targets folders depending on feature context" $0 "$@" <<-help
+    "$script_dir/_zz_args.sh" "Export Source/Targets folders depending on feature context" $0 "$@" <<-help
         s source 	source		Force source directory
         t target	target		Force target directory
         - caller	caller		Force caller script
