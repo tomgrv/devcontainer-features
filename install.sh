@@ -27,27 +27,50 @@ help
 
 zz_log i "Installing devcontainer/features"
 
+# Extract tomgrv devcontainer features listed in a devcontainer.json file
+devcontainer_features() {
+    _file="$1"
+    [ -f "$_file" ] || return 0
+    sed '/^\s*\/\//d' "$_file" | \
+        jq -r '.features // {} | to_entries[] |
+            select(.key | contains("tomgrv/devcontainer-features")) |
+            .key | split("/")[-1] | split(":")[0]' 2>/dev/null
+}
+
+# Find devcontainer.json files in standard locations and extract features
+find_devcontainer_features() {
+    _search_dir="${1:-.}"
+
+    # Check standard devcontainer file locations in priority order
+    for _f in \
+        "$_search_dir/.devcontainer/devcontainer.json" \
+        "$_search_dir/devcontainer.json" \
+        "$_search_dir/.devcontainer.json"; do
+        if [ -f "$_f" ]; then
+            devcontainer_features "$_f"
+            return 0
+        fi
+    done
+
+    # Check .devcontainer/<folder>/devcontainer.json for multiple configurations
+    _found=$(find "$_search_dir/.devcontainer" -maxdepth 2 -mindepth 2 -name "devcontainer.json" 2>/dev/null | head -1)
+    if [ -n "$_found" ]; then
+        devcontainer_features "$_found"
+    fi
+}
+
 # If 'all' argument is provided, set stubs and features to install all default features
 if [ -n "$all" ]; then
     echo "${Yellow}Add default features${End}"
     stubs=1
-    features=$(sed '/^\s*\/\//d' $source/stubs/.devcontainer/devcontainer.json | jq -r '.features | to_entries[] | select(.key | contains("tomgrv/devcontainer-features"))| .key| 
-    split("/")[-1] | split(":")[0]')
+    features=$(find_devcontainer_features "$source/stubs")
 fi
 
 # If 'upd' argument is provided, set stubs and features to update all features
 if [ -n "$upd" ]; then
     echo "${Green}Update features${End}"
     stubs=1
-    features=$(
-        sed '/^\s*\/\//d' .devcontainer/devcontainer.json |
-            jq -r '.features | to_entries[] |
-                    select(.key | contains("tomgrv/devcontainer-features")) |
-                    .key | 
-                    split("/")[-1] |
-                    split(":")[0]' |
-            tr '\n' ' '
-    )
+    features=$(find_devcontainer_features "." | tr '\n' ' ')
 fi
 
 # If 'package' argument is provided, use the specified package.json file
@@ -62,7 +85,16 @@ if [ -n "$package" ]; then
 
     # Extract features from the package.json file if not already set
     if [ -z "$features" ]; then
-        features=$(cat $file | jq -r '.devcontainer.features | to_entries[] | select(.key | contains("tomgrv/devcontainer-features"))| .key| split("/")[-1] | split(":")[0]')
+        features=$(jq -r '.devcontainer.features // {} | to_entries[] | select(.key | contains("tomgrv/devcontainer-features"))| .key| split("/")[-1] | split(":")[0]' "$file")
+    fi
+fi
+
+# If no features specified so far, auto-detect from devcontainer files in current directory
+if [ -z "$features" ] && [ -z "$stubs" ] && [ -z "$all" ]; then
+    detected=$(find_devcontainer_features "." | tr '\n' ' ')
+    if [ -n "$detected" ]; then
+        features="$detected"
+        echo "${Green}Detected features from devcontainer files: $features${End}"
     fi
 fi
 
