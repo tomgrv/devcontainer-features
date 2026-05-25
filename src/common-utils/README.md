@@ -64,6 +64,15 @@ The feature also includes the following VS Code customizations:
 -   Installs specified common utilities such as jq and dos2unix.
 -   Supports specifying additional utilities to install.
 
+## Install internals
+
+-   `_install-bin.sh` installs links for common-utils scripts in a writable bin directory.
+-   `_select-bin.sh` resolves the writable bin directory with this fallback order:
+    1. `INSTALL_BIN_DIR` (or `/usr/local/bin` by default)
+    2. `~/.local/bin`
+    3. First writable directory found in `$PATH` (excluding `node_modules/.bin`)
+    4. `<feature-target>/bin`
+
 ## Additional utilities
 
 In addition to the specified utilities, some additional local utilities are also provided:
