@@ -59,6 +59,71 @@ find_devcontainer_features() {
     fi
 }
 
+# Extract tomgrv/devcontainer-features dependencies from a feature's devcontainer-feature.json
+feature_deps() {
+    _manifest="$source/src/$1/devcontainer-feature.json"
+    [ -f "$_manifest" ] || return 0
+    jq -r '.dependsOn // {} | to_entries[] |
+        select(.key | contains("tomgrv/devcontainer-features")) |
+        .key | split("/")[-1] | split(":")[0]' "$_manifest" 2>/dev/null
+}
+
+# Expand a whitespace-separated feature list to include all transitive tomgrv/devcontainer-features
+# dependencies, ordered so dependencies appear before the features that need them.
+resolve_feature_deps() {
+    # Step 1: collect the full set of reachable features (original + all transitive deps)
+    _all=""
+    _queue="$1"
+    while [ -n "$_queue" ]; do
+        _next=""
+        for _f in $_queue; do
+            case " $_all " in
+            *" $_f "*) continue ;;
+            esac
+            _all="$_all $_f"
+            for _dep in $(feature_deps "$_f"); do
+                case " $_all $_next " in
+                *" $_dep "*) ;;
+                *) _next="$_next $_dep" ;;
+                esac
+            done
+        done
+        _queue="$_next"
+    done
+
+    # Step 2: topological sort — repeatedly emit features whose tomgrv deps are all emitted
+    _emitted=""
+    _pending="$_all"
+    _changed=1
+    while [ "$_changed" = "1" ] && [ -n "$_pending" ]; do
+        _changed=0
+        _still_pending=""
+        for _f in $_pending; do
+            _deps_ok=1
+            for _dep in $(feature_deps "$_f"); do
+                case " $_emitted " in
+                *" $_dep "*) ;;
+                *)
+                    _deps_ok=0
+                    break
+                    ;;
+                esac
+            done
+            if [ "$_deps_ok" = "1" ]; then
+                _emitted="$_emitted $_f"
+                _changed=1
+            else
+                _still_pending="$_still_pending $_f"
+            fi
+        done
+        _pending="$_still_pending"
+    done
+    # Append any remaining features (handles cycles or missing manifests)
+    _emitted="$_emitted $_pending"
+
+    echo "$_emitted" | tr ' ' '\n' | grep -v '^$'
+}
+
 # If 'all' argument is provided, set stubs and features to install all default features
 if [ -n "$all" ]; then
     echo "${Yellow}Add default features${End}"
@@ -96,6 +161,12 @@ if [ -z "$features" ] && [ -z "$stubs" ] && [ -z "$all" ]; then
         features="$detected"
         echo "${Green}Detected features from devcontainer files: $features${End}"
     fi
+fi
+
+# Expand feature list with transitive tomgrv/devcontainer-features dependencies
+# from each feature's devcontainer-feature.json, ordered deps-first
+if [ -n "$features" ]; then
+    features=$(resolve_feature_deps "$features" | tr '\n' ' ')
 fi
 
 # Merge all files from the stub folder to the root using git merge-file if stubs are selected
