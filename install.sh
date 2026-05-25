@@ -8,11 +8,17 @@ source=$(dirname $(readlink -f $0))
 
 alias zz_log=$source/src/common-utils/_zz_log.sh
 
+# Track whether this is the root-level invocation to control symlink lifecycle
+_install_root="${INSTALL_ROOT_CALL:-1}"
+export INSTALL_ROOT_CALL=0
+
 # Prepare for local installation by creating a temporary directory and linking common utils
-find $source/src/common-utils/ -type f -name "_*.sh" -exec echo {} \; -exec chmod +x {} \; | while read file; do
-    ln -sf $file $source/src/common-utils/$(basename $file | sed 's/^_//;s/.sh$//')
-done
-export PATH=$PATH:$source/src/common-utils
+if [ "$_install_root" = "1" ]; then
+    find $source/src/common-utils/ -type f -name "_*.sh" -exec echo {} \; -exec chmod +x {} \; | while read file; do
+        ln -sf $file $source/src/common-utils/$(basename $file | sed 's/^_//;s/.sh$//')
+    done
+    export PATH=$PATH:$source/src/common-utils
+fi
 
 # Load arguments for the script
 eval $(
@@ -59,71 +65,6 @@ find_devcontainer_features() {
     fi
 }
 
-# Extract tomgrv/devcontainer-features dependencies from a feature's devcontainer-feature.json
-feature_deps() {
-    _manifest="$source/src/$1/devcontainer-feature.json"
-    [ -f "$_manifest" ] || return 0
-    jq -r '.dependsOn // {} | to_entries[] |
-        select(.key | contains("tomgrv/devcontainer-features")) |
-        .key | split("/")[-1] | split(":")[0]' "$_manifest" 2>/dev/null
-}
-
-# Expand a whitespace-separated feature list to include all transitive tomgrv/devcontainer-features
-# dependencies, ordered so dependencies appear before the features that need them.
-resolve_feature_deps() {
-    # Step 1: collect the full set of reachable features (original + all transitive deps)
-    _all=""
-    _queue="$1"
-    while [ -n "$_queue" ]; do
-        _next=""
-        for _f in $_queue; do
-            case " $_all " in
-            *" $_f "*) continue ;;
-            esac
-            _all="$_all $_f"
-            for _dep in $(feature_deps "$_f"); do
-                case " $_all $_next " in
-                *" $_dep "*) ;;
-                *) _next="$_next $_dep" ;;
-                esac
-            done
-        done
-        _queue="$_next"
-    done
-
-    # Step 2: topological sort — repeatedly emit features whose tomgrv deps are all emitted
-    _emitted=""
-    _pending="$_all"
-    _changed=1
-    while [ "$_changed" = "1" ] && [ -n "$_pending" ]; do
-        _changed=0
-        _still_pending=""
-        for _f in $_pending; do
-            _deps_ok=1
-            for _dep in $(feature_deps "$_f"); do
-                case " $_emitted " in
-                *" $_dep "*) ;;
-                *)
-                    _deps_ok=0
-                    break
-                    ;;
-                esac
-            done
-            if [ "$_deps_ok" = "1" ]; then
-                _emitted="$_emitted $_f"
-                _changed=1
-            else
-                _still_pending="$_still_pending $_f"
-            fi
-        done
-        _pending="$_still_pending"
-    done
-    # Append any remaining features (handles cycles or missing manifests)
-    _emitted="$_emitted $_pending"
-
-    echo "$_emitted" | tr ' ' '\n' | grep -v '^$'
-}
-
 # If 'all' argument is provided, set stubs and features to install all default features
 if [ -n "$all" ]; then
     echo "${Yellow}Add default features${End}"
@@ -163,10 +104,10 @@ if [ -z "$features" ] && [ -z "$stubs" ] && [ -z "$all" ]; then
     fi
 fi
 
-# Expand feature list with transitive tomgrv/devcontainer-features dependencies
-# from each feature's devcontainer-feature.json, ordered deps-first
+# Resolve transitive dependencies and expand the feature list in topological order
+# using install-deps as the dedicated resolver
 if [ -n "$features" ]; then
-    features=$(resolve_feature_deps "$features" | tr '\n' ' ')
+    features=$(install-deps "$source" $features | tr '\n' ' ')
 fi
 
 # Merge all files from the stub folder to the root using git merge-file if stubs are selected
@@ -176,75 +117,25 @@ if [ -n "$stubs" ]; then
     echo "${Green}Stubs installed${End}"
 fi
 
-# If features are selected, proceed with installation
+# If features are selected, delegate installation of each to install-feat
 if [ -n "$features" ]; then
 
     echo "${Green}Selected features: $features${End}"
 
-    # Create an alias for the _install-feature.sh script
-    alias install-feature=$(dirname $0)/src/common-utils/_install-feature.sh
+    for feature in $features; do
+        if [ -n "$stubs" ]; then
+            install-feat "$source" "$feature" --stubs
+        else
+            install-feat "$source" "$feature"
+        fi
+    done
 
-    # Check if the script is running inside a container
-    if [ "$CODESPACES" != "true" ] && [ "$REMOTE_CONTAINERS" != "true" ] && [ -z "$DEV_CONTAINER_FILE_PATH" ]; then
-
-        echo "${Red}You are not in a container${End}"
-
-        # Run the install.sh script for each selected feature
-        for feature in $features; do
-            if [ -f "$source/src/$feature/install.sh" ]; then
-                echo "${Yellow}Running src/$feature/install.sh...${End}"
-                if sh $source/src/$feature/install.sh; then
-                    echo "${Green}$feature installed${End}"
-                else
-                    echo "${Red}$feature installation failed${End}"
-                    exit 1
-                fi
-            else
-                echo "${Red}$feature not found${End}"
-                exit 1
-            fi
-        done
-
-        # Run the configure.sh script for each selected feature
-        for feature in $features; do
-            featureSource=""
-            if [ -d "/tmp/$feature" ]; then
-                featureSource="/tmp/$feature"
-            elif [ -d "/usr/local/share/$feature" ]; then
-                featureSource="/usr/local/share/$feature"
-            fi
-
-            if [ -n "$featureSource" ]; then
-                echo "${Yellow}Configuring $featureSource...${End}"
-                sh $source/src/common-utils/_configure-feature.sh -s $featureSource $feature
-                echo "${Green}$feature configured${End}"
-            else
-                echo "${Red}$feature not found${End}"
-                exit 1
-            fi
-        done
-
-    elif [ -n "$stubs" ]; then
-
-        # stubs are selected, configure stubs of the selected features
-        for feature in $features; do
-            echo "${Yellow}Deploying stubs for $feature...${End}"
-            $source/src/common-utils/_configure-feature.sh -s $source/src/$feature $feature
-            echo "${Green}Stubs for $feature deployed${End}"
-        done
-
-    else
-        # If inside a container, suggest using devutils as devcontainer features
-        echo "${Purple}You are in a container: use as devcontainer features:${End}"
-        for feature in $features; do
-            echo "${Purple}ghcr.io/tomgrv/devcontainer-features/$feature${End}"
-        done
-
-    fi
 fi
 
-# Remoce all links to common utils
-echo "Remove temp files..."
-find $source/src/common-utils/ -type f -name "_*.sh" -exec echo {} \; -exec chmod +x {} \; | while read file; do
-    rm $source/src/common-utils/$(basename $file | sed 's/^_//;s/.sh$//')
-done
+# Remove all links to common utils (only at root-level invocation)
+if [ "$_install_root" = "1" ]; then
+    echo "Remove temp files..."
+    find $source/src/common-utils/ -type f -name "_*.sh" -exec echo {} \; -exec chmod +x {} \; | while read file; do
+        rm $source/src/common-utils/$(basename $file | sed 's/^_//;s/.sh$//')
+    done
+fi
