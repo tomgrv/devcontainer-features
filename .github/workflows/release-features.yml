@@ -17,10 +17,18 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+
+      - name: 'Build dist'
+        run: node src/build.js
+
       - name: 'Publish Features'
         uses: devcontainers/action@v1
         with:
           publish-features: 'true'
-          base-path-to-features: './src'
+          base-path-to-features: './dist'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

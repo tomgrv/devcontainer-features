@@ -14,6 +14,9 @@
 ## Feature Skills
 .github/skills/feature-*/*.md
 
+## Build output
+/dist
+
 ## Misc
 VERSION
 .history
