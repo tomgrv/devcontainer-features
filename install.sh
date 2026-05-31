@@ -104,16 +104,10 @@ if [ -z "$features" ] && [ -z "$stubs" ] && [ -z "$all" ]; then
     fi
 fi
 
-# Resolve transitive dependencies and expand the feature list in topological order
-# using install-deps as the dedicated resolver
-if [ -n "$features" ]; then
-    features=$(install-deps "$source" $features | tr '\n' ' ')
-fi
-
 # Merge all files from the stub folder to the root using git merge-file if stubs are selected
 if [ -n "$stubs" ]; then
     echo "${Yellow}Installing stubs from ${UYellow}$source/src/common-utils/${Yellow}...${End}"
-    $source/src/common-utils/_configure-feature.sh -s $source .
+    sh "$source/src/common-utils/_configure-feature.sh" -s "$source" .
     echo "${Green}Stubs installed${End}"
 fi
 
@@ -124,9 +118,9 @@ if [ -n "$features" ]; then
 
     for feature in $features; do
         if [ -n "$stubs" ]; then
-            install-feat "$source" "$feature" --stubs
+            sh "$source/install-feat.sh" "$source" "$feature" --stubs
         else
-            install-feat "$source" "$feature"
+            sh "$source/install-feat.sh" "$source" "$feature"
         fi
     done
 

@@ -26,6 +26,7 @@
     },
     "author": "tomgrv",
     "files": [
+        "./install*.sh",
         "./src/*",
         "./stubs/*"
     ],

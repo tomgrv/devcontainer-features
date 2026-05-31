@@ -25,7 +25,7 @@ fi
 echo "$_feature" >>"$_tracker"
 
 # Install each dependency first, using install.sh as orchestrator (recursive)
-for _dep in $(install-deps "$_source" "$_feature"); do
+for _dep in $(sh "$_source/install-deps.sh" "$_source" "$_feature"); do
     [ "$_dep" = "$_feature" ] && continue
     if [ -n "$_stubs" ]; then
         sh "$_source/install.sh" -s "$_dep"
