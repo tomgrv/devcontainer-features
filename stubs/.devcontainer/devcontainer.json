@@ -1,10 +1,10 @@
 {
-    "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+    "image": "mcr.microsoft.com/devcontainers/base:noble",
     "name": "",
     "features": {
-        "ghcr.io/tomgrv/devcontainer-features/githooks": {},
-        "ghcr.io/tomgrv/devcontainer-features/gitutils": {},
-        "ghcr.io/tomgrv/devcontainer-features/gitversion": {}
+        "ghcr.io/tomgrv/devcontainer-features/githooks:5": {},
+        "ghcr.io/tomgrv/devcontainer-features/gitutils:5": {},
+        "ghcr.io/tomgrv/devcontainer-features/gitversion:6": {}
     },
     "remoteEnv": {},
     "postCreateCommand": [
