@@ -29,7 +29,10 @@
         "./src/*",
         "./stubs/*"
     ],
-    "bin": "./install.sh",
+    "bin": {
+        "devcontainer-features": "./install.sh",
+        "tomgrv-devcontainer-features": "./install.sh"
+    },
     "type": "module",
     "repository": {
         "type": "git",

@@ -6,12 +6,24 @@ source=$(dirname $(readlink -f $0))
 # Source the common utils
 . $source/src/common-utils/_zz_colors.sh
 
-alias zz_log=$source/src/common-utils/_zz_log.sh
+links_up()
+{
+    echo "${Yellow}Link common utils${End}"
+    find $source/src/common-utils/ -type f -name "_*.sh" -exec echo {} \; -exec chmod +x {} \; | while read file; do
+        ln -sf $file $source/src/common-utils/$(basename $file | sed 's/^_//;s/.sh$//')
+    done
+}
+
+links_down()
+{
+    echo "${Yellow}Unlink common utils${End}"
+    find $source/src/common-utils/ -type f -name "_*.sh" -exec echo {} \; -exec chmod +x {} \; | while read file; do
+        rm $source/src/common-utils/$(basename $file | sed 's/^_//;s/.sh$//')
+    done
+}
 
 # Prepare for local installation by creating a temporary directory and linking common utils
-find $source/src/common-utils/ -type f -name "_*.sh" -exec echo {} \; -exec chmod +x {} \; | while read file; do
-    ln -sf $file $source/src/common-utils/$(basename $file | sed 's/^_//;s/.sh$//')
-done
+links_up && trap links_down EXIT
 export PATH=$PATH:$source/src/common-utils
 
 # Load arguments for the script
@@ -24,6 +36,8 @@ eval $(
     + features  features    List of features to install
 help
 )
+
+
 
 zz_log i "Installing devcontainer/features"
 
@@ -140,8 +154,3 @@ if [ -n "$features" ]; then
     fi
 fi
 
-# Remoce all links to common utils
-echo "Remove temp files..."
-find $source/src/common-utils/ -type f -name "_*.sh" -exec echo {} \; -exec chmod +x {} \; | while read file; do
-    rm $source/src/common-utils/$(basename $file | sed 's/^_//;s/.sh$//')
-done
