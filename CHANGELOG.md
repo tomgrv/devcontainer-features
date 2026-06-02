@@ -2,6 +2,51 @@
 
 # Changelog
 
+## 6.2.0 (2026-06-02)
+
+_Commits from: v6.1.2..HEAD_
+
+### 📂 Unscoped changes
+
+#### Bug Fixes
+
+- correct missing space in DEV_CONTAINER_FILE_PATH shell test (#52) ([10ee755](https://github.com/tomgrv/devcontainer-features/commit/10ee7553a71251880ccb87597952702d58cfdc70))
+- Fix escaping in postStartCommand for gpg configuration ([dbf27f2](https://github.com/tomgrv/devcontainer-features/commit/dbf27f2204e0563a41d821b1a801ba0b8a8ff455))
+- fix `install.sh` NPX execution outside containers and tighten feature install flow (#61) ([3d1b8e8](https://github.com/tomgrv/devcontainer-features/commit/3d1b8e8d50163f393744ffa826c3908fb17dcce7))
+- resolve npm workspace peer dependency version mismatch breaking CI setup (#60) ([6ddbc20](https://github.com/tomgrv/devcontainer-features/commit/6ddbc20e085fbbc0f61315962f88e4903eae5305))
+- Restrict release-main to manual dispatch (#53) ([8537cbd](https://github.com/tomgrv/devcontainer-features/commit/8537cbd161d71f61f484a215604c35ec38304de5))
+
+#### Other changes
+
+- improve commands ([e4b3e52](https://github.com/tomgrv/devcontainer-features/commit/e4b3e521eb5c1a9e8cd6d401e553c9a3eed7825e))
+- Merge tag 'v6.1.0' into develop ([66c5dbf](https://github.com/tomgrv/devcontainer-features/commit/66c5dbfde0f8656e775293969404965135c5428f))
+- Modify postStartCommand to set git configurations ([57d25fc](https://github.com/tomgrv/devcontainer-features/commit/57d25fcff00d6a81742bacbfd7883dcfd5be5cbb))
+- remove obsolete automatic rebase workflow (#55) ([1c03773](https://github.com/tomgrv/devcontainer-features/commit/1c037734a7d2110b9054571acabbf788aed0737d))
+- ♻️ rename workflow for publishing dev container features ([8dd7722](https://github.com/tomgrv/devcontainer-features/commit/8dd772278f92302bf3d578da0f7dc6d8ab08bb77))
+- ♻️ restructure bin field to support multiple commands ([d5b1088](https://github.com/tomgrv/devcontainer-features/commit/d5b10882bf3370f4cc2ead751f18a1ca20568b33))
+
+### 📦 gateway changes
+
+#### Other changes
+
+- revise curl wrapper script details in README (#50) ([2e99ebe](https://github.com/tomgrv/devcontainer-features/commit/2e99ebe7bdbf1bf5a19942fcc2f7131655856856))
+
+### 📦 gitutils changes
+
+#### Bug Fixes
+
+- Use the GitHub-based package in release-main GitHub Actions (#57) ([8c46985](https://github.com/tomgrv/devcontainer-features/commit/8c4698559f3e1a471ec6546c4d3aaddb75025b35))
+
+#### Other changes
+
+- add release-main workflow to stubs and repository workflows (#51) ([a2f1d9b](https://github.com/tomgrv/devcontainer-features/commit/a2f1d9bf1fb699968e863cb046248cdb7d26e3c4))
+
+### 📦 larasets changes
+
+#### Other changes
+
+- ♻️ remove PHP Insights step ([dc9fb97](https://github.com/tomgrv/devcontainer-features/commit/dc9fb970a7408a93399e1f08cf8dc4e6a902766f))
+
 ## 6.1.0 (2026-05-19)
 
 _Commits from: v6.0.0..HEAD_
@@ -1141,4 +1186,4 @@ _Commits from: v5.25.0..HEAD_
 
 ---
 
-_Generated on 2026-05-19 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
+_Generated on 2026-06-02 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_

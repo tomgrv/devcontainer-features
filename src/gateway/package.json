@@ -1,6 +1,6 @@
 {
     "name": "@tomgrv-devcontainer-features/gateway",
-    "version": "5.41.1",
+    "version": "6.2.0",
     "description": "SSL Inspection Gateway handling",
     "files": [
         "_*.sh",

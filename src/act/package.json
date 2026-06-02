@@ -1,6 +1,6 @@
 {
     "name": "@tomgrv-devcontainer-features/act",
-    "version": "6.1.0",
+    "version": "6.2.0",
     "description": "Nektos Act - GitHub Actions local runner integration",
     "files": [
         "_*.sh",
