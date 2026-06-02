@@ -55,7 +55,7 @@ Declaring the feature in your `devcontainer.json` may not be sufficient as you w
 To work around this, run the installer script manually in your terminal:
 
 ```sh
-npx tomgrv/devcontainer-features -- gateway
+npx tomgrv/devcontainer-features -- -s gateway
 ```
 
 2. **Add your root CA certificate**
@@ -89,22 +89,13 @@ npx tomgrv/devcontainer-features -- gateway
 | `GIT_SSL_CAINFO`      | git TLS trust                     |
 | `COMPOSER_CA_FILE`    | PHP Composer TLS trust            |
 
-## Included Dev Container Features
-
-| Feature                                                                                                   | Purpose                            |
-| --------------------------------------------------------------------------------------------------------- | ---------------------------------- |
-| [`ghcr.io/devcontainers/features/node:lts`](https://github.com/devcontainers/features/tree/main/src/node) | Node.js LTS                        |
-| [`ghcr.io/tomgrv/devcontainer-features/githooks`](https://github.com/tomgrv/devcontainer-features)        | Git hooks manager                  |
-| [`ghcr.io/tomgrv/devcontainer-features/gitutils`](https://github.com/tomgrv/devcontainer-features)        | Git utilities                      |
-| [`ghcr.io/tomgrv/devcontainer-features/gitversion`](https://github.com/tomgrv/devcontainer-features)      | Semantic versioning via GitVersion |
-
 ## How the curl wrapper works
 
-The `zscaler-curl` script replaces `/usr/bin/curl` (the real binary is kept at `/usr/bin/curl.real`). When a request is intercepted by a Zscaler gateway and redirected to an authentication/acceptance form, the wrapper:
+The `gateway-curl` script replaces `/usr/bin/curl` (the real binary is kept at `/usr/bin/curl.real`). When a request is intercepted by a gateway and redirected to an authentication/acceptance form, the wrapper:
 
 1. Detects the HTML form response from the gateway.
 2. Parses and auto-submits the form fields.
-3. Saves the resulting session cookies to `~/.zscaler_cookies.txt`.
+3. Saves the resulting session cookies to `~/.gateway_cookies.txt`.
 4. Re-issues the original request transparently.
 
 All other requests are passed through to `curl.real` unchanged.

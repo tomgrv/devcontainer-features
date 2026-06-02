@@ -6,12 +6,24 @@ source=$(dirname $(readlink -f $0))
 # Source the common utils
 . $source/src/common-utils/_zz_colors.sh
 
-alias zz_log=$source/src/common-utils/_zz_log.sh
+links_up()
+{
+    echo "${Yellow}Link common utils${End}"
+    find $source/src/common-utils/ -type f -name "_*.sh" -exec echo {} \; -exec chmod +x {} \; | while read file; do
+        ln -sf $file $source/src/common-utils/$(basename $file | sed 's/^_//;s/.sh$//')
+    done
+}
+
+links_down()
+{
+    echo "${Yellow}Unlink common utils${End}"
+    find $source/src/common-utils/ -type f -name "_*.sh" -exec echo {} \; -exec chmod +x {} \; | while read file; do
+        rm $source/src/common-utils/$(basename $file | sed 's/^_//;s/.sh$//')
+    done
+}
 
 # Prepare for local installation by creating a temporary directory and linking common utils
-find $source/src/common-utils/ -type f -name "_*.sh" -exec echo {} \; -exec chmod +x {} \; | while read file; do
-    ln -sf $file $source/src/common-utils/$(basename $file | sed 's/^_//;s/.sh$//')
-done
+links_up && trap links_down EXIT
 export PATH=$PATH:$source/src/common-utils
 
 # Load arguments for the script
@@ -24,6 +36,8 @@ eval $(
     + features  features    List of features to install
 help
 )
+
+
 
 zz_log i "Installing devcontainer/features"
 
@@ -82,7 +96,7 @@ if [ -n "$features" ]; then
     alias install-feature=$(dirname $0)/src/common-utils/_install-feature.sh
 
     # Check if the script is running inside a container
-    if [ "$CODESPACES" != "true" ] && [ "$REMOTE_CONTAINERS" != "true" ] && [ -z "$DEV_CONTAINER_FILE_PATH"]; then
+    if [ "$CODESPACES" != "true" ] && [ "$REMOTE_CONTAINERS" != "true" ] && [ -z "$DEV_CONTAINER_FILE_PATH" ]; then
 
         echo "${Red}You are not in a container${End}"
 
@@ -90,21 +104,34 @@ if [ -n "$features" ]; then
         for feature in $features; do
             if [ -f "$source/src/$feature/install.sh" ]; then
                 echo "${Yellow}Running src/$feature/install.sh...${End}"
-                sh $source/src/$feature/install.sh
-                echo "${Green}$feature installed${End}"
+                if sh $source/src/$feature/install.sh; then
+                    echo "${Green}$feature installed${End}"
+                else
+                    echo "${Red}$feature installation failed${End}"
+                    exit 1
+                fi
             else
                 echo "${Red}$feature not found${End}"
+                exit 1
             fi
         done
 
         # Run the configure.sh script for each selected feature
         for feature in $features; do
+            featureSource=""
             if [ -d "/tmp/$feature" ]; then
-                echo "${Yellow}Configuring /tmp/$feature...${End}"
-                sh $source/src/common-utils/_configure-feature.sh -s /tmp/$feature $feature
+                featureSource="/tmp/$feature"
+            elif [ -d "/usr/local/share/$feature" ]; then
+                featureSource="/usr/local/share/$feature"
+            fi
+
+            if [ -n "$featureSource" ]; then
+                echo "${Yellow}Configuring $featureSource...${End}"
+                sh $source/src/common-utils/_configure-feature.sh -s $featureSource $feature
                 echo "${Green}$feature configured${End}"
             else
                 echo "${Red}$feature not found${End}"
+                exit 1
             fi
         done
 
@@ -127,8 +154,3 @@ if [ -n "$features" ]; then
     fi
 fi
 
-# Remoce all links to common utils
-echo "Remove temp files..."
-find $source/src/common-utils/ -type f -name "_*.sh" -exec echo {} \; -exec chmod +x {} \; | while read file; do
-    rm $source/src/common-utils/$(basename $file | sed 's/^_//;s/.sh$//')
-done

@@ -1,6 +1,6 @@
 {
     "name": "@tomgrv/devcontainer-features",
-    "version": "6.1.0",
+    "version": "6.2.0",
     "description": "Configure dev environment with devcontainer, gitflow, gitversion, git aliases & hooks. Can be used a devcontainer features",
     "keywords": [
         "dev",
@@ -29,7 +29,10 @@
         "./src/*",
         "./stubs/*"
     ],
-    "bin": "./install.sh",
+    "bin": {
+        "devcontainer-features": "./install.sh",
+        "tomgrv-devcontainer-features": "./install.sh"
+    },
     "type": "module",
     "repository": {
         "type": "git",

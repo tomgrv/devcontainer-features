@@ -34,12 +34,6 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Run PHP Insights
-        uses: tomgrv/actions/run-phpinsights@v0
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          paths: app,config,database,resources,routes,tests,modules,packages
-
       - name: Run FilaCheck
         if: ${{ hashFiles('app/Filament/**') != '' }}
         uses: tomgrv/actions/run-filacheck@v1
