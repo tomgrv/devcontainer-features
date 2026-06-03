@@ -12,6 +12,16 @@
             }
         },
         {
+            "label": "⏬ Upd. DevEnv",
+            "type": "shell",
+            "command": "npm exec --yes -- tomgrv/devcontainer-features -u -s",
+            "presentation": {
+                "panel": "shared",
+                "close": true,
+                "reveal": "always"
+            }
+        },
+        {
             "label": "⏬ Align",
             "type": "shell",
             "command": "git align",

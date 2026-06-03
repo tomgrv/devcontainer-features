@@ -19,5 +19,5 @@ More information about Minikube can be found on the [official Minikube GitHub re
 ## Quick Install — console
 
 ```sh
-npx tomgrv/devcontainer-features -- minikube
+npx tomgrv/devcontainer-features -- add minikube
 ```

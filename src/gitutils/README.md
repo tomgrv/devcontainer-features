@@ -15,7 +15,7 @@ This feature provides a set of utilities for working with Git repositories.
 ## Quick Install — console
 
 ```sh
-npx tomgrv/devcontainer-features -- gitutils
+npx tomgrv/devcontainer-features -- add gitutils
 ```
 
 ## Functional Coverage

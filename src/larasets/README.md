@@ -15,7 +15,7 @@ This feature provides a set of settings and utilities for working with Laravel p
 ## Quick Install — console
 
 ```sh
-npx tomgrv/devcontainer-features -- larasets
+npx tomgrv/devcontainer-features -- add larasets
 ```
 
 ## Functional Coverage

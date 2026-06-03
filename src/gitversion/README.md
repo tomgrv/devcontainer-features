@@ -19,7 +19,7 @@ More information about GitVersion can be found on the [GitVersion GitHub page](h
 ## Quick Install — console
 
 ```sh
-npx tomgrv/devcontainer-features -- gitversion
+npx tomgrv/devcontainer-features -- add gitversion
 ```
 
 ## Options

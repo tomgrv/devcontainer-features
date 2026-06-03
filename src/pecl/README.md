@@ -17,11 +17,11 @@ This feature installs PHP extensions from the [PHP Extension Community Library (
 ## Quick Install — console
 
 ```sh
-npx tomgrv/devcontainer-features -- pecl
+npx tomgrv/devcontainer-features -- add pecl
 ```
 
 ## Options
 
-| Options Id | Description                     | Type   | Default Value |
-| ---------- | ------------------------------- | ------ | ------------- |
-| extension  | The PECL extension to install.  | string | zip           |
+| Options Id | Description                    | Type   | Default Value |
+| ---------- | ------------------------------ | ------ | ------------- |
+| extension  | The PECL extension to install. | string | zip           |

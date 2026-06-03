@@ -15,7 +15,7 @@ A [Dev Container](https://containers.dev/) helper for developing inside a corpor
 ## Quick Install — console
 
 ```sh
-npx tomgrv/devcontainer-features -- gateway
+npx tomgrv/devcontainer-features -- add gateway
 ```
 
 ## Problem
@@ -55,7 +55,7 @@ Declaring the feature in your `devcontainer.json` may not be sufficient as you w
 To work around this, run the installer script manually in your terminal:
 
 ```sh
-npx tomgrv/devcontainer-features -- -s gateway
+npx tomgrv/devcontainer-features -- add gateway
 ```
 
 2. **Add your root CA certificate**
@@ -88,7 +88,6 @@ npx tomgrv/devcontainer-features -- -s gateway
 | `CURL_CA_BUNDLE`      | curl TLS trust                    |
 | `GIT_SSL_CAINFO`      | git TLS trust                     |
 | `COMPOSER_CA_FILE`    | PHP Composer TLS trust            |
-
 
 ## How the curl wrapper works
 

@@ -17,7 +17,7 @@ This feature provides common utilities for the devcontainer features.
 ## Quick Install — console
 
 ```sh
-npx tomgrv/devcontainer-features -- common-utils
+npx tomgrv/devcontainer-features -- add common-utils
 ```
 
 ## Options
@@ -30,8 +30,8 @@ npx tomgrv/devcontainer-features -- common-utils
 
 The following utilities are included by default:
 
--   `jq`
--   `dos2unix`
+- `jq`
+- `dos2unix`
 
 You can specify additional utilities to install by modifying the `utils` option in the `devcontainer.json` file.
 
@@ -39,40 +39,48 @@ You can specify additional utilities to install by modifying the `utils` option 
 
 The feature also includes the following VS Code customizations:
 
--   Extensions:
+- Extensions:
+    - `actboy168.tasks`
+    - `spmeesseman.vscode-taskexplorer`
+    - `gruntfuggly.triggertaskonsave`
+    - `natizyskunk.sftp`
+    - `formulahendry.auto-rename-tag`
+    - `formulahendry.auto-close-tag`
+    - `gruntfuggly.todo-tree`
+    - `foxundermoon.shell-format`
+    - `richie5um2.vscode-sort-json`
 
-    -   `actboy168.tasks`
-    -   `spmeesseman.vscode-taskexplorer`
-    -   `gruntfuggly.triggertaskonsave`
-    -   `natizyskunk.sftp`
-    -   `formulahendry.auto-rename-tag`
-    -   `formulahendry.auto-close-tag`
-    -   `gruntfuggly.todo-tree`
-    -   `foxundermoon.shell-format`
-    -   `richie5um2.vscode-sort-json`
-
--   Settings:
-    -   `editor.formatOnSave`: `true`
-    -   `editor.formatOnPaste`: `true`
-    -   `todo-tree.general.tags`: `["BUG", "HACK", "FIXME", "TODO", "XXX", "[ ]", "[x]", "NOTE"]`
-    -   `editor.indentSize`: `"tabSize"`
-    -   `editor.detectIndentation`: `true`
-    -   `editor.tabSize`: `4`
+- Settings:
+    - `editor.formatOnSave`: `true`
+    - `editor.formatOnPaste`: `true`
+    - `todo-tree.general.tags`: `["BUG", "HACK", "FIXME", "TODO", "XXX", "[ ]", "[x]", "NOTE"]`
+    - `editor.indentSize`: `"tabSize"`
+    - `editor.detectIndentation`: `true`
+    - `editor.tabSize`: `4`
 
 ## Functional Coverage
 
--   Installs specified common utilities such as jq and dos2unix.
--   Supports specifying additional utilities to install.
+- Installs specified common utilities such as jq and dos2unix.
+- Supports specifying additional utilities to install.
+
+## Install internals
+
+- `_install-bin.sh` installs links for common-utils scripts in a writable bin directory.
+- `_select-bin.sh` resolves the writable bin directory with this fallback order:
+    1. `INSTALL_BIN_DIR` (or `/usr/local/bin` by default)
+    2. `~/.local/bin`
+    3. First writable directory found in `$PATH` (excluding `node_modules/.bin`)
+    4. `<feature-target>/bin`
 
 ## Additional utilities
 
 In addition to the specified utilities, some additional local utilities are also provided:
 
--   `zz_colors`: A set of color codes to source in your scripts for colored output.
--   `zz_log`: A utility to log messages with color
--   `zz_args`: A utility to parse command line arguments and display associated help messages in one go.
+- `zz_colors`: A set of color codes to source in your scripts for colored output.
+- `zz_log`: A utility to log messages with color
+- `zz_args`: A utility to parse command line arguments and display associated help messages in one go.
 
-### Distribute zz_\* Utilities
+### Distribute zz\_\* Utilities
 
 The `zz_dist` utility allows you to copy all `zz_*` utilities from the devcontainer-installed location to a target directory. This is useful for maintaining a local copy of utilities in your project.
 
@@ -84,10 +92,10 @@ zz_dist [options]
 
 #### Options
 
-| Option     | Description                                                                         |
-| ---------- | ----------------------------------------------------------------------------------- |
-| `-t <dir>` | Target directory (required unless specified in config).                             |
-| `-s <dir>` | Source directory (default: `/usr/local/share/common-utils`).                        |
+| Option     | Description                                                                        |
+| ---------- | ---------------------------------------------------------------------------------- |
+| `-t <dir>` | Target directory (required unless specified in config).                            |
+| `-s <dir>` | Source directory (default: `/usr/local/share/common-utils`).                       |
 | `-q`       | Quiet mode: exit silently (code 0) if no target found instead of generating error. |
 
 #### Configuration
@@ -106,9 +114,9 @@ echo "./scripts" > .zz_dist
 
 ```json
 {
-	"config": {
-		"zz_dist": "./scripts"
-	}
+    "config": {
+        "zz_dist": "./scripts"
+    }
 }
 ```
 
@@ -137,11 +145,11 @@ zz_dist -q
 
 The `validate-json` utility allows you to validate JSON files against a JSON schema. It supports the following features:
 
--   Validate against a schema from a local file or a URL.
--   Infer schema from the JSON Schema Store based on the file name.
--   Use a fallback schema if no schema is found locally or inferred.
--   Allow additional properties at the root level with the `-a` flag.
--   Cache schema validation maps for faster subsequent validations.
+- Validate against a schema from a local file or a URL.
+- Infer schema from the JSON Schema Store based on the file name.
+- Use a fallback schema if no schema is found locally or inferred.
+- Allow additional properties at the root level with the `-a` flag.
+- Cache schema validation maps for faster subsequent validations.
 
 #### Usage
 
@@ -171,10 +179,10 @@ validate-json -a -f fallback.schema.json -l ./schemas -i -s custom.schema.json e
 
 The `normalize-json` utility allows you to normalize JSON files based on a JSON schema. It supports the following features:
 
--   Validate the JSON file before normalization with the `validate-json` utility.
--   Normalize JSON keys according to the
-    1 schema definition
-    2 alphabetically
+- Validate the JSON file before normalization with the `validate-json` utility.
+- Normalize JSON keys according to the
+  1 schema definition
+  2 alphabetically
 
 #### Usage
 
