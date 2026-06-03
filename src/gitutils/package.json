@@ -1,6 +1,6 @@
 {
     "name": "@tomgrv-devcontainer-features/gitutils",
-    "version": "6.2.0",
+    "version": "7.0.0",
     "description": "Git utilities and aliases for development workflow",
     "files": [
         "_*.sh",
@@ -36,7 +36,10 @@
         "setrights": "./_setrights.sh",
         "unset": "./_unset.sh"
     },
-    "scripts": {},
+    "scripts": {
+        "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then sh ./install.sh; fi",
+        "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then configure-feature -s . gitutils; fi"
+    },
     "dependencies": {},
     "peerDependencies": {
         "@tomgrv-devcontainer-features/common-utils": ">=5.0.0",

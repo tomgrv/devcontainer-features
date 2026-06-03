@@ -7,20 +7,9 @@
     "credential": {
         "useHttpPath": true
     },
-    "gitflow": {
-        "branch": {
-            "develop": "develop",
-            "master": "main"
-        },
-        "prefix": {
-            "bugfix": "bugfix/",
-            "feature": "feature/",
-            "hotfix": "hotfix/",
-            "release": "release/",
-            "support": "support/",
-            "versiontag": "v"
-        }
-    },
+    "gitflow),path(.\"branch\"": null,
+    "gitflow),path(.\"path\"": null,
+    "gitflow),path(.\"prefix\"": null,
     "pull": {
         "rebase": true
     }

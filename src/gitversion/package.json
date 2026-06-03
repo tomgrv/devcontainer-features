@@ -1,6 +1,6 @@
 {
     "name": "@tomgrv-devcontainer-features/gitversion",
-    "version": "6.2.0",
+    "version": "7.0.0",
     "description": "GitVersion integration and version management scripts",
     "files": [
         "_*.sh",
@@ -16,7 +16,10 @@
         "checkout-version": "./_checkout-version.sh",
         "gv": "./_gv.sh"
     },
-    "scripts": {},
+    "scripts": {
+        "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then sh ./install.sh; fi",
+        "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then configure-feature -s . gitversion; fi"
+    },
     "dependencies": {},
     "peerDependencies": {
         "@tomgrv-devcontainer-features/common-utils": ">=5.0.0"

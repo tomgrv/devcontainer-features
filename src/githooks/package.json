@@ -1,6 +1,6 @@
 {
     "name": "@tomgrv-devcontainer-features/githooks",
-    "version": "6.2.0",
+    "version": "7.0.0",
     "description": "Git hooks and linting configuration for development workflow",
     "files": [
         "_*.sh",
@@ -22,7 +22,9 @@
     },
     "scripts": {
         "configure-cz": "./configure-cz.sh",
-        "configure-hooks": "./configure-hooks.sh"
+        "configure-hooks": "./configure-hooks.sh",
+        "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then sh ./install.sh; fi",
+        "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then configure-feature -s . githooks; fi"
     },
     "dependencies": {
         "@commitlint/cli": "*",

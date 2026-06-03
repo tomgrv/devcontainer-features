@@ -1,6 +1,6 @@
 {
     "name": "@tomgrv-devcontainer-features/common-utils",
-    "version": "6.2.0",
+    "version": "7.0.0",
     "description": "Common utilities and helper scripts for devcontainer features",
     "files": [
         "_*.sh",
@@ -26,6 +26,9 @@
         "zz-json": "./_zz_json.sh",
         "zz-log": "./_zz_log.sh"
     },
-    "scripts": {},
+    "scripts": {
+        "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then sh ./install.sh; fi",
+        "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then configure-feature -s . common-utils; fi"
+    },
     "dependencies": {}
 }

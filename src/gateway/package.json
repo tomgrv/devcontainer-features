@@ -1,6 +1,6 @@
 {
     "name": "@tomgrv-devcontainer-features/gateway",
-    "version": "6.2.0",
+    "version": "7.0.0",
     "description": "SSL Inspection Gateway handling",
     "files": [
         "_*.sh",
@@ -10,7 +10,10 @@
     "bin": {
         "gateway-curl": "./_gateway-curl.sh"
     },
-    "scripts": {},
+    "scripts": {
+        "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then sh ./install.sh; fi",
+        "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then configure-feature -s . gateway; fi"
+    },
     "dependencies": {},
     "peerDependencies": {
         "@tomgrv-devcontainer-features/common-utils": ">=5.0.0"
