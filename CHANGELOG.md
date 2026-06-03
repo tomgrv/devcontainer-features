@@ -2,6 +2,28 @@
 
 # Changelog
 
+## 7.0.0 (2026-06-03)
+
+_Commits from: v6.2.0..HEAD_
+
+### 💥 BREAKING CHANGES
+
+- ✨ improve installation scripts for feature dependencies and simpler usage ([cc5aed2](https://github.com/tomgrv/devcontainer-features/commit/cc5aed2d380acba0061140ec68455b44c71e4422))
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- 🔧 add chat plugins to VSCode settings ([27eb8ba](https://github.com/tomgrv/devcontainer-features/commit/27eb8ba90b2bf90002210446fb9eb378fe1361a8))
+- 🔧 add memory compression orchestrator caveman ([2c7cd98](https://github.com/tomgrv/devcontainer-features/commit/2c7cd98a2e38cc3f99d120b8119fc8aaf73fcce3))
+- 🔧 remove unused create.sh and start.sh scripts ([954d7da](https://github.com/tomgrv/devcontainer-features/commit/954d7daf661cac68921d7b7b395bc4885ceb094d))
+
+### 📦 common-utils changes
+
+#### Bug Fixes
+
+- 🐛 update version type to support both string and number ([1253beb](https://github.com/tomgrv/devcontainer-features/commit/1253bebd8e2493c0f9772762c2612e5e45d9f700))
+
 ## 6.1.0 (2026-05-19)
 
 _Commits from: v6.0.0..HEAD_
@@ -1141,4 +1163,4 @@ _Commits from: v5.25.0..HEAD_
 
 ---
 
-_Generated on 2026-05-19 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
+_Generated on 2026-06-03 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_

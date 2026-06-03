@@ -2,9 +2,11 @@
     "id": "gitversion",
     "name": "GitVersion feature",
     "description": "Add gitversion to your devcontainer",
-    "version": "6.1.0",
+    "version": "7.0.0",
     "dependsOn": {
-        "ghcr.io/devcontainers/features/docker-in-docker:3": {},
+        "ghcr.io/devcontainers/features/docker-in-docker:3": {
+            "moby": false
+        },
         "ghcr.io/tomgrv/devcontainer-features/common-utils:5": {}
     },
     "installsAfter": [
