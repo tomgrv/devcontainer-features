@@ -17,7 +17,7 @@ More information about Act can be found on the [Act GitHub page](https://github.
 ## Quick Install — console
 
 ```sh
-npx tomgrv/devcontainer-features -- act
+npx tomgrv/devcontainer-features -- add act
 ```
 
 ## Options

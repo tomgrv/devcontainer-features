@@ -19,22 +19,22 @@ When run locally:
 npx tomgrv/devcontainer-features -h
 ```
 
-#### To install only stubs
+#### To install only root stubs
 
 ```sh
-npx tomgrv/devcontainer-features -s
+npx tomgrv/devcontainer-features -- init
 ```
 
 #### To install a specific devcontainer feature
 
 ```sh
-npx tomgrv/devcontainer-features -- gitutils
+npx tomgrv/devcontainer-features -- add gitutils
 ```
 
 #### To set up a full dev environment
 
 ```sh
-npx tomgrv/devcontainer-features -a
+npx tomgrv/devcontainer-features -- add -a
 ```
 
 ## Features Overview
@@ -70,7 +70,7 @@ A collection of Git aliases, git-flow shortcuts, and interactive utilities for a
 #### Quick Install — console
 
 ```sh
-npx tomgrv/devcontainer-features -- gitutils
+npx tomgrv/devcontainer-features -- add gitutils
 ```
 
 ---
@@ -92,7 +92,7 @@ Configures Git hooks in one step using commitlint, commitizen, lint-staged, pret
 #### Quick Install — console
 
 ```sh
-npx tomgrv/devcontainer-features -- githooks
+npx tomgrv/devcontainer-features -- add githooks
 ```
 
 ---
@@ -114,7 +114,7 @@ Installs [GitVersion](https://gitversion.net/) to calculate semantic version num
 #### Quick Install — console
 
 ```sh
-npx tomgrv/devcontainer-features -- gitversion
+npx tomgrv/devcontainer-features -- add gitversion
 ```
 
 ---
@@ -136,7 +136,7 @@ Installs [nektos/act](https://github.com/nektos/act) to run GitHub Actions local
 #### Quick Install — console
 
 ```sh
-npx tomgrv/devcontainer-features -- act
+npx tomgrv/devcontainer-features -- add act
 ```
 
 ---
@@ -160,7 +160,7 @@ Installs PHP extensions from the [PHP Extension Community Library (PECL)](https:
 #### Quick Install — console
 
 ```sh
-npx tomgrv/devcontainer-features -- pecl
+npx tomgrv/devcontainer-features -- add pecl
 ```
 
 ---
@@ -182,7 +182,7 @@ Laravel-specific settings, shell utilities, Composer scripts, and VS Code extens
 #### Quick Install — console
 
 ```sh
-npx tomgrv/devcontainer-features -- larasets
+npx tomgrv/devcontainer-features -- add larasets
 ```
 
 ---
@@ -206,7 +206,7 @@ Shared utilities (`jq`, `dos2unix`, JSON helpers, logging) used by other feature
 #### Quick Install — console
 
 ```sh
-npx tomgrv/devcontainer-features -- common-utils
+npx tomgrv/devcontainer-features -- add common-utils
 ```
 
 ---
@@ -228,7 +228,7 @@ Handles SSL inspection certificates for corporate network environments (e.g. Zsc
 #### Quick Install — console
 
 ```sh
-npx tomgrv/devcontainer-features -- gateway
+npx tomgrv/devcontainer-features -- add gateway
 ```
 
 ---
@@ -250,7 +250,7 @@ Installs [Minikube](https://minikube.sigs.k8s.io/) to run a single-node Kubernet
 #### Quick Install — console
 
 ```sh
-npx tomgrv/devcontainer-features -- minikube
+npx tomgrv/devcontainer-features -- add minikube
 ```
 
 ---

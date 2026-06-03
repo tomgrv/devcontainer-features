@@ -13,7 +13,9 @@
         "act-run": "./_act-run.sh"
     },
     "scripts": {
-        "install-act": "./install-act.sh"
+        "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then sh ./install.sh; fi",
+        "install-act": "./install-act.sh",
+        "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then configure-feature -s . act; fi"
     },
     "peerDependencies": {
         "@tomgrv-devcontainer-features/common-utils": ">=5.0.0"

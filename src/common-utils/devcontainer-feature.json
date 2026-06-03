@@ -48,7 +48,7 @@
     "options": {
         "utils": {
             "type": "string",
-            "default": "jq dos2unix",
+            "default": "jq dos2unix shellcheck",
             "description": "utilities to install"
         }
     },

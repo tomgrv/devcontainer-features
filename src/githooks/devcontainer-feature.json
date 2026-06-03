@@ -22,7 +22,13 @@
                     {
                         "file": ".github/instructions/commit.instructions.md"
                     }
-                ]
+                ],
+                "[javascript]": {
+                    "editor.defaultFormatter": "esbenp.prettier-vscode"
+                },
+                "[json]": {
+                    "editor.defaultFormatter": "esbenp.prettier-vscode"
+                }
             },
             "extensions": [
                 "vivaxy.vscode-conventional-commits",

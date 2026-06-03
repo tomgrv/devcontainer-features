@@ -26,6 +26,9 @@
         "zz-json": "./_zz_json.sh",
         "zz-log": "./_zz_log.sh"
     },
-    "scripts": {},
+    "scripts": {
+        "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then sh ./install.sh; fi",
+        "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then configure-feature -s . common-utils; fi"
+    },
     "dependencies": {}
 }

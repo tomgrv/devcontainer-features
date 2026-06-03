@@ -2,6 +2,9 @@
     "$schema": "https://raw.githubusercontent.com/wraith13/vscode-schemas/refs/heads/master/en/latest/schemas/settings/user.json",
     "doppler.autocomplete.enable": true,
     "doppler.hover.enable": true,
+    "triggerTaskOnSave": {
+        "tasks": null
+    },
     "workbench.colorCustomizations": {
         "activityBar.background": "#9DC08B",
         "activityBar.foreground": "#374633",
