@@ -1,13 +1,20 @@
 {
-    "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+    "image": "mcr.microsoft.com/devcontainers/base:noble",
     "name": "",
     "features": {
-        "ghcr.io/tomgrv/devcontainer-features/githooks:5": {},
-        "ghcr.io/tomgrv/devcontainer-features/gitutils:5": {},
-        "ghcr.io/tomgrv/devcontainer-features/gitversion:6": {}
+        "ghcr.io/tomgrv/devcontainer-features/githooks:7": {},
+        "ghcr.io/tomgrv/devcontainer-features/gitutils:7": {},
+        "ghcr.io/tomgrv/devcontainer-features/gitversion:7": {}
     },
     "remoteEnv": {},
-    "postCreateCommand": ".devcontainer/create.sh",
-    "postStartCommand": ".devcontainer/start.sh",
+    "postCreateCommand": [
+        "mkdir -p /home/vscode/.ssh && chmod 700 /home/vscode/.ssh && ssh-keyscan github.com >>/home/vscode/.ssh/known_hosts",
+        "sudo chown -Rf vscode:vscode ${containerWorkspaceFolder:-.}/* ${containerWorkspaceFolder:-.}/.*",
+        "sudo find ${containerWorkspaceFolder:-.} -mindepth 1 -type d -exec chmod 755 {} +"
+    ],
+    "postStartCommand": [
+        "git config --global --add safe.directory ${containerWorkspaceFolder:-.}",
+        "test -z \"$CODESPACES\" && git config --global gpg.program gpg2"
+    ],
     "customizations": {}
 }
