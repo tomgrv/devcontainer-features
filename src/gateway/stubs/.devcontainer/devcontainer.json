@@ -1,0 +1,14 @@
+{
+    "build": {
+        "dockerfile": ".gateway/Dockerfile"
+    },
+    "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+    "remoteUser": "vscode",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ukoloff.win-ca"
+            ]
+        }
+    }
+}

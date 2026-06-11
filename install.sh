@@ -6,6 +6,8 @@ source=$(dirname $(readlink -f $0))
 # Source the common utils
 . $source/src/common-utils/_zz_colors.sh
 
+# Link common utils into src/ for easier sourcing during installation, and ensure they are cleaned up on exit
+
 links_up()
 {
     echo "${Yellow}Link common utils${End}"
@@ -27,7 +29,7 @@ _install_root="${INSTALL_ROOT_CALL:-1}"
 export INSTALL_ROOT_CALL=0
 
 # Prepare for local installation by creating a temporary directory and linking common utils
-links_up && trap links_down EXIT
+test "${_install_root}" -eq 1 && links_up && trap links_down EXIT
 export PATH=$PATH:$source/src/common-utils
 
 eval $(
