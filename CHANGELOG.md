@@ -2,6 +2,34 @@
 
 # Changelog
 
+## 7.1.0 (2026-06-19)
+
+_Commits from: v7.0.0..HEAD_
+
+### 📂 Unscoped changes
+
+#### Bug Fixes
+
+- 🐛 reintegrate scripts ([17cf7e1](https://github.com/tomgrv/devcontainer-features/commit/17cf7e1bc90b32d9fdd5465fde1f57565e6ee365))
+- 🐛 update base image and dependencies for consistency ([2d6efca](https://github.com/tomgrv/devcontainer-features/commit/2d6efca362988e422dd9490d7ca736abc84806e0))
+- 🐛 update devcontainer configuration for consistency and improved commands ([661a6d0](https://github.com/tomgrv/devcontainer-features/commit/661a6d09eb2953397c60d97a49c4fadac0a34b1a))
+
+#### Other changes
+
+- Merge tag 'v7.0.0' into develop ([50222f3](https://github.com/tomgrv/devcontainer-features/commit/50222f300711827e011bc13a19a940f71a1642ec))
+
+### 📦 gateway changes
+
+#### Features
+
+- ✨ add gateway curl wrapper and Dockerfile for SSL inspection ([56f0549](https://github.com/tomgrv/devcontainer-features/commit/56f0549320842830b1a3dca02a02719f539d5090))
+
+### 📦 minikube changes
+
+#### Bug Fixes
+
+- 🐛 update docker-in-docker dependency configuration for clarity ([44df001](https://github.com/tomgrv/devcontainer-features/commit/44df0014904dea8f4130e80c56238301d7dd28f4))
+
 ## 7.0.0 (2026-06-03)
 
 _Commits from: v6.2.0..HEAD_
@@ -1163,4 +1191,4 @@ _Commits from: v5.25.0..HEAD_
 
 ---
 
-_Generated on 2026-06-03 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
+_Generated on 2026-06-19 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
