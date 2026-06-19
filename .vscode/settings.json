@@ -1,5 +1,10 @@
 {
     "$schema": "https://raw.githubusercontent.com/wraith13/vscode-schemas/refs/heads/master/en/latest/schemas/settings/user.json",
+    "chat.plugins.marketplaces": [
+        "JuliusBrussee/caveman",
+        "github/awesome-copilot",
+        "github/copilot-plugins"
+    ],
     "doppler.autocomplete.enable": true,
     "doppler.hover.enable": true,
     "triggerTaskOnSave": {
