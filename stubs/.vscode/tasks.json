@@ -4,7 +4,7 @@
         {
             "label": "⏬ Upd. DevEnv",
             "type": "shell",
-            "command": "npx --yes -- github:tomgrv/devcontainer-features update",
+            "command": "npx --yes -- github:tomgrv/devcontainer-features update -a",
             "presentation": {
                 "panel": "shared",
                 "close": true,
