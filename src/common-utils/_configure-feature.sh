@@ -91,7 +91,7 @@ for type in package composer; do
 
     # find all package folder json files in the current directory.
     # Ensure top-level package.json is included
-    for package in $(git ls-files -o "$type.json"); do
+    for package in $(git ls-files --no-deleted --no-ignored "$type.json"); do
 
         # Merge all package folder json files into the top-level package.json
         for tmpl in $(find $source -maxdepth 1 -name _*.$type.json | sort); do
