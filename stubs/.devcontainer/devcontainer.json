@@ -7,14 +7,7 @@
         "ghcr.io/tomgrv/devcontainer-features/gitversion:7": {}
     },
     "remoteEnv": {},
-    "postCreateCommand": {
-        "chmod": "sudo find ${containerWorkspaceFolder:-.} -mindepth 1 -type d -exec chmod 755 {} +",
-        "chown": "sudo chown -Rf vscode:vscode ${containerWorkspaceFolder:-.}/* ${containerWorkspaceFolder:-.}/.*",
-        "ssh": "mkdir -p ~/.ssh && chmod 700 ~/.ssh && ssh-keyscan github.com >>~/.ssh/known_hosts"
-    },
-    "postStartCommand": {
-        "gpg": "test -z \"$CODESPACES\" && git config --global gpg.program gpg2",
-        "safe": "git config --global --add safe.directory ${containerWorkspaceFolder:-.}"
-    },
+    "postCreateCommand": ".devcontainer/create.sh",
+    "postStartCommand": ".devcontainer/start.sh",
     "customizations": {}
 }
