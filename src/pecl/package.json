@@ -1,6 +1,6 @@
 {
     "name": "@tomgrv-devcontainer-features/pecl",
-    "version": "7.0.0",
+    "version": "7.1.0",
     "description": "PECL extension installer for PHP development",
     "files": [
         "install.sh"
