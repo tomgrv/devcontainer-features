@@ -4,7 +4,8 @@
     "features": {
         "ghcr.io/tomgrv/devcontainer-features/githooks:5": {},
         "ghcr.io/tomgrv/devcontainer-features/gitutils:5": {},
-        "ghcr.io/tomgrv/devcontainer-features/gitversion:7": {}
+        "ghcr.io/tomgrv/devcontainer-features/gitversion:7": {},
+        "ghcr.io/tomgrv/devcontainer-features/ai-coding:1": {}
     },
     "remoteEnv": {},
     "postCreateCommand": ".devcontainer/create.sh",
