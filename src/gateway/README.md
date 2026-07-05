@@ -2,83 +2,115 @@
 
 # Man In The Middle SSL Gateway Handling Feature
 
-A [Dev Container](https://containers.dev/) helper for developing inside a corporate network protected by SSL inspection.
+A [Dev Container](https://containers.dev/) helper for developing inside a corporate network protected by SSL inspection (Zscaler & similar).
+
+## Problem
+
+SSL inspection tools act as a man-in-the-middle TLS proxy and replace server certificates with their own. This breaks tools like `curl`, `git`, `npm`, `pip`, and others that perform certificate validation, because the root CA is not trusted by default inside a container — and often not even on the host, which prevents Docker from pulling the base image and the devcontainer CLI from downloading features in the first place.
+
+## What this feature does
+
+- Installs the SSL inspection root CA certificate(s) found in `.devcontainer/.gateway/certs/*.pem` into the container system trust store (at build time via the provided Dockerfile stub, and at create time via a bind mount + `postCreateCommand`).
+- Exposes the system CA bundle path via environment variables consumed by common runtimes and tools (Node.js, Python, Git, curl, Composer).
+- Installs a `gateway-curl` wrapper that transparently handles gateway redirect forms and cookie management, and (by default, inside the container only) diverts the system `curl` to it.
+- Optionally prepares the **host** as well, so the devcontainer can actually be created behind the gateway (see [Host installation](#host-installation--get-ready-for-devcontainer-creation)).
 
 ## Quick Start — devcontainer.json
 
 ```json
 "features": {
-    "ghcr.io/tomgrv/devcontainer-features/gateway:5": {}
+    "ghcr.io/tomgrv/devcontainer-features/gateway:7": {}
 }
 ```
 
-## Quick Install — console
+Then create the certificate folder and drop your root CA into it:
+
+```sh
+mkdir -p .devcontainer/.gateway/certs
+cp /path/to/your-root-ca.pem .devcontainer/.gateway/certs/gateway.pem
+```
+
+> The `certs` folder must exist before the container is created: it is bind-mounted into the container so the certificate can be installed without being baked into the image. The certificate itself is optional — everything degrades gracefully until you supply it.
+
+## Quick Install — console (recommended)
+
+Run the installer on your **host**, from the root of your project:
 
 ```sh
 npx tomgrv/devcontainer-features -- add gateway
 ```
 
-## Problem
+This deploys the `.devcontainer` stubs (including a Dockerfile that bakes the certificate into the image at build time), installs `gateway-curl` on the host, and installs the certificate into the host trust store when present.
 
-SSL inspection tools acts as a man-in-the-middle TLS proxy and replaces server certificates with its own. This breaks tools like `curl`, `git`, `npm`, `pip`, and others that perform certificate validation, because the root CA is not trusted by default inside a container.
+## Options
 
-## What this feature does
+| Option        | Type    | Default | Description                                                              |
+| ------------- | ------- | ------- | ------------------------------------------------------------------------ |
+| `replaceCurl` | boolean | `true`  | Divert the system `curl` to the `gateway-curl` wrapper inside the container (the real binary is kept as `curl.real`) |
 
-- Installs the SSL inspection root CA certificate provided in `.devcontainer/.gateway/certs/gateway.pem` into the system trust store at build time.
-- Exposes the certificate path via environment variables consumed by common runtimes and tools (Node.js, Python, Git, curl, Composer).
-- Replaces the system `curl` binary (**locally** and in devcontainer) with a **wrapper script** (`gateway-curl`) that transparently handles gateway redirect forms and cookie management.
+## Host installation — get ready for devcontainer creation
+
+Declaring the feature in `devcontainer.json` is not always sufficient: the **host** needs to trust the gateway root CA too, otherwise `docker pull`, the devcontainer feature downloads, and any build-time HTTPS traffic fail before your container even exists.
+
+### Automated (Linux / WSL, Debian-based)
+
+From the root of your project, on the host:
+
+```sh
+# 1. Deploy the stubs and install gateway-curl on the host
+npx tomgrv/devcontainer-features -- add gateway
+
+# 2. Drop your root CA in place (PEM format)
+cp /path/to/your-root-ca.pem .devcontainer/.gateway/certs/gateway.pem
+
+# 3. Re-run the configuration to install the certificate into the host trust store
+npx tomgrv/devcontainer-features -- add gateway
+```
+
+The host system `curl` is **never replaced automatically**. To also divert the host `curl` to the wrapper:
+
+```sh
+GATEWAY_REPLACE_CURL=1 npx tomgrv/devcontainer-features -- add gateway
+```
+
+Restart Docker after installing the certificate so the daemon picks up the new trust store:
+
+```sh
+sudo systemctl restart docker
+```
+
+### Manual (other hosts)
+
+- **macOS**: `sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain your-root-ca.pem`, then restart Docker Desktop.
+- **Windows**: `certutil -addstore -f ROOT your-root-ca.pem` (elevated prompt), then restart Docker Desktop. The `ukoloff.win-ca` VS Code extension (pre-configured in the stub) propagates Windows certificates to VS Code.
+- **Docker registries behind the gateway**: if pulls still fail, also place the certificate in `/etc/docker/certs.d/<registry>/ca.crt`.
+
+Once the host trusts the CA and the certificate sits in `.devcontainer/.gateway/certs/`, the repository is ready: **Reopen in Container** just works.
+
+## How it works
+
+| Stage                     | Mechanism                                                                                                     |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| Host (optional)           | `npx tomgrv/devcontainer-features -- add gateway` installs the CA into the host trust store and `gateway-curl` |
+| Image build (stub)        | `.devcontainer/.gateway/Dockerfile` bakes `certs/*.pem` into the image so HTTPS works during the build itself  |
+| Feature install (build)   | Installs `gateway-curl` and diverts the system `curl` (option `replaceCurl`)                                   |
+| Container create          | The feature bind-mounts `.devcontainer/.gateway/certs` and `configure-feature gateway` installs any `*.pem` into the trust store with `sudo update-ca-certificates` |
 
 ## Modified repository structure
 
 ```
 .devcontainer/
-├── devcontainer.json        # Dev Container configuration
-├── create.sh                # postCreateCommand
-├── start.sh                 # postStartCommand
+├── devcontainer.json        # Dev Container configuration (references the feature + Dockerfile)
 └── .gateway/
+    ├── Dockerfile           # Bakes the certificate at image build time
     └── certs/
-       └── gateway.pem      # Gateway root CA certificate  ← YOU MUST SUPPLY THIS
+        ├── .gitignore       # Keeps your corporate CA out of the repository
+        └── gateway.pem      # Gateway root CA certificate  ← YOU MUST SUPPLY THIS
 ```
-
-## Prerequisites
-
-- [VS Code](https://code.visualstudio.com/) with the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers), **or** [GitHub Codespaces](https://github.com/features/codespaces).
-- Docker (local) or a Codespaces-compatible environment.
-- Your organisation's **root CA certificate** in PEM format.
-
-## Setup
-
-1. **Run the feature installer**
-
-Declaring the feature in your `devcontainer.json` may not be sufficient as you would need to have the Zscaler certificate in place at build time.
-
-To work around this, run the installer script manually in your terminal:
-
-```sh
-npx tomgrv/devcontainer-features -- add gateway
-```
-
-2. **Add your root CA certificate**
-
-    Export the root CA from your browser or system trust store and save it as:
-
-    ```
-    .devcontainer/.gateway/certs/gateway.pem
-    ```
-
-    > The certificate must be in **PEM format** (base64-encoded, begins with `-----BEGIN CERTIFICATE-----`).
-
-3. **Customise `devcontainer.json`** (optional)
-
-    Add or remove [Dev Container Features](https://containers.dev/features), VS Code extensions, forwarded ports, etc. to suit your project.
-
-    Comes pre-configured with tomgrv's devcontainer features for Git utilities, Git hooks management, and semantic versioning with GitVersion.
-
-4. **Open in Dev Container**
-    - VS Code: open the repository folder and choose **Reopen in Container** when prompted.
-    - GitHub Codespaces: click **Code → Create codespace on main**.
 
 ## Environment variables set automatically
+
+All variables point to the system CA bundle (`/etc/ssl/certs/ca-certificates.crt`), which includes the gateway root CA once installed:
 
 | Variable              | Purpose                           |
 | --------------------- | --------------------------------- |
@@ -91,14 +123,22 @@ npx tomgrv/devcontainer-features -- add gateway
 
 ## How the curl wrapper works
 
-The `gateway-curl` script replaces `/usr/bin/curl` (the real binary is kept at `/usr/bin/curl.real`). When a request is intercepted by a gateway and redirected to an authentication/acceptance form, the wrapper:
+When a request is intercepted by the gateway and answered with an authentication/acceptance form, the wrapper:
 
 1. Detects the HTML form response from the gateway.
 2. Parses and auto-submits the form fields.
 3. Saves the resulting session cookies to `~/.gateway_cookies.txt`.
 4. Re-issues the original request transparently.
 
-All other requests are passed through to `curl.real` unchanged.
+All other requests — including anything the wrapper cannot intercept safely (`-I`, `-O`, `-T`, `-w`, multiple URLs, …) — are passed through to the real curl unchanged, preserving arguments, output destinations and exit codes.
+
+Wrapper environment variables:
+
+| Variable              | Purpose                                                         |
+| --------------------- | --------------------------------------------------------------- |
+| `GATEWAY_COOKIE_FILE` | Path to the cookie jar (default: `~/.gateway_cookies.txt`)      |
+| `GATEWAY_VERBOSE`     | Set to `1` to trace what the wrapper does (silent by default)   |
+| `GATEWAY_MARKER`      | Pattern identifying the gateway form (default: `gateway.zscaler`) |
 
 ## Troubleshooting
 
@@ -109,11 +149,14 @@ Verify that `gateway.pem` contains the correct root CA (not an intermediate or l
 openssl x509 -in .devcontainer/.gateway/certs/gateway.pem -noout -subject -issuer
 ```
 
-**`update-ca-certificates` has no effect**
-Make sure the file extension is `.crt` inside the container (`/usr/local/share/ca-certificates/gateway.crt`). The Dockerfile handles the rename automatically.
+**Certificate added after the container was created**
+Run `configure-feature gateway` inside the container (or rebuild it) to install the newly mounted certificate.
+
+**Container creation fails on the certs mount**
+The bind-mounted folder `.devcontainer/.gateway/certs` must exist on the host — create it (the installer and stubs do this for you).
 
 **curl wrapper causes issues**
-Set `VERBOSE=0` to suppress wrapper log output, or call `/usr/bin/curl.real` directly to bypass the wrapper entirely.
+Call `curl.real` directly to bypass the wrapper, set `replaceCurl` to `false` to keep the system curl untouched, or set `GATEWAY_VERBOSE=1` to see what the wrapper is doing.
 
 ## License
 

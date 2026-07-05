@@ -213,7 +213,7 @@ npx tomgrv/devcontainer-features -- add common-utils
 
 ### Gateway
 
-Handles SSL inspection certificates for corporate network environments (e.g. Zscaler). Installs the root CA and wraps `curl` for transparent gateway authentication.
+Handles SSL inspection certificates for corporate network environments (e.g. Zscaler). Installs the root CA and wraps `curl` for transparent gateway authentication. Can also be installed on the **host** to make it ready for devcontainer creation behind the gateway.
 
 📖 [Full documentation](./src/gateway/README.md)
 
@@ -221,11 +221,11 @@ Handles SSL inspection certificates for corporate network environments (e.g. Zsc
 
 ```json
 "features": {
-    "ghcr.io/tomgrv/devcontainer-features/gateway:5": {}
+    "ghcr.io/tomgrv/devcontainer-features/gateway:7": {}
 }
 ```
 
-#### Quick Install — console
+#### Quick Install — console (host)
 
 ```sh
 npx tomgrv/devcontainer-features -- add gateway
