@@ -55,7 +55,12 @@ for pem in "$certs_dir"/*.pem; do
     fi
 
     zz_log i "Installing {U $pem} as {U $crt}"
-    $asroot cp "$pem" "$crt" && installed=1
+    if ! $asroot cp "$pem" "$crt" 2>/dev/null; then
+        zz_log w "Cannot install {U $pem} (insufficient privileges)"
+        zz_log - "Re-run as root or ensure sudo is available"
+        exit 0
+    fi
+    installed=1
 done
 
 if [ "$installed" = "1" ]; then
