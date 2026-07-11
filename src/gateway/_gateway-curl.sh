@@ -260,8 +260,11 @@ main() {
     fi
 
     if [ -n "$output_file" ] && [ "$output_file" != "-" ]; then
-        mv "$temp_file" "$output_file"
-        trap - EXIT
+        if mv "$temp_file" "$output_file"; then
+            trap - EXIT
+        else
+            exit $?
+        fi
     else
         cat "$temp_file"
     fi
