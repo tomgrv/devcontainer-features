@@ -238,7 +238,7 @@ main() {
     [ "$has_ua" = "0" ] && probe_extra+=(-H "User-Agent: Mozilla/5.0 (X11; Linux x86_64) Chrome/120.0")
 
     log "Fetching: $url"
-    http_code=$("$CURL_CMD" --location -c "$COOKIE_FILE" -b "$COOKIE_FILE" \
+    http_code=$("$CURL_CMD" -c "$COOKIE_FILE" -b "$COOKIE_FILE" \
         -o "$temp_file" -w '%{http_code}' \
         "${probe_extra[@]}" "${probe_args[@]}" "$url")
     rc=$?
