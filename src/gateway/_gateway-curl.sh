@@ -169,7 +169,7 @@ main() {
                 had_fail=1
                 ;;
             -I | --head | -O | --remote-name | --remote-name-all | -J | \
-                --remote-header-name | -T | --upload-file | -w | --write-out | \
+                --remote-header-name | -D | --dump-header | -T | --upload-file | -w | --write-out | \
                 -K | --config | --output-dir | -Z | --parallel)
                 passthrough=1
                 probe_args+=("$a")
