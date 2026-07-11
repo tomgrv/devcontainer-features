@@ -1,14 +1,4 @@
 {
-    "id": "common-utils",
-    "name": "Common Utils",
-    "description": "Common utils for tomgrv/devcontainer-features",
-    "version": "7.0.0",
-    "dependsOn": {
-        "ghcr.io/devcontainers/features/common-utils": {}
-    },
-    "installsAfter": [
-        "ghcr.io/devcontainers/features/common-utils"
-    ],
     "customizations": {
         "vscode": {
             "settings": {
@@ -37,7 +27,6 @@
                 "gruntfuggly.triggertaskonsave",
                 "ms-azuretools.vscode-containers",
                 "natizyskunk.sftp",
-                "spmeesseman.vscode-taskexplorer",
                 "Tyriar.sort-lines",
                 "luggage66.AWK",
                 "AngelLuisAlmaraz.project-colorize",
@@ -45,6 +34,15 @@
             ]
         }
     },
+    "description": "Common utils for tomgrv/devcontainer-features",
+    "id": "common-utils",
+    "installsAfter": [
+        "ghcr.io/devcontainers/features/common-utils"
+    ],
+    "dependsOn": {
+        "ghcr.io/devcontainers/features/common-utils": {}
+    },
+    "name": "Common Utils",
     "options": {
         "utils": {
             "type": "string",
@@ -52,6 +50,7 @@
             "description": "utilities to install"
         }
     },
+    "version": "7.0.0",
     "postCreateCommand": {
         "config": "configure-feature common-utils"
     }
