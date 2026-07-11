@@ -40,7 +40,7 @@ Run the installer on your **host**, from the root of your project:
 npx tomgrv/devcontainer-features -- add gateway
 ```
 
-This deploys the `.devcontainer` stubs (including a Dockerfile that bakes the certificate into the image at build time), installs `gateway-curl` on the host, and installs the certificate into the host trust store when present.
+This deploys the `.devcontainer` stubs (including a Dockerfile that bakes the certificate into the image at build time), installs `gateway-curl` on the host, and on Debian-based Linux/WSL installs the certificate into the host trust store when present. For other hosts, use the manual steps below.
 
 ## Options
 
