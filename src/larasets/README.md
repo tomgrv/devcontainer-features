@@ -43,7 +43,6 @@ The feature also includes the following VS Code customizations:
 
 - Extensions:
     - `actboy168.tasks`
-    - `spmeesseman.vscode-taskexplorer`
     - `gruntfuggly.triggertaskonsave`
     - `entexa.tall-stack`
     - `formulahendry.auto-rename-tag`

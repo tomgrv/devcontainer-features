@@ -1,23 +1,4 @@
 {
-    "id": "larasets",
-    "name": "Laravel settings",
-    "description": "A feature to add useful laravel settings to your shell.",
-    "version": "7.0.0",
-    "dependsOn": {
-        "ghcr.io/devcontainers/features/docker-in-docker:3": {},
-        "ghcr.io/devcontainers/features/node:1": {
-            "version": "lts"
-        },
-        "ghcr.io/devcontainers/features/php:1": {
-            "version": "8.3"
-        },
-        "ghcr.io/metcalfc/devcontainer-features/doppler:0": {},
-        "ghcr.io/tomgrv/devcontainer-features/common-utils:5": {}
-    },
-    "installsAfter": [
-        "ghcr.io/tomgrv/devcontainer-features/common-utils",
-        "ghcr.io/devcontainers/features/docker-in-docker"
-    ],
     "containerEnv": {
         "APP_DEBUG": "true",
         "APP_ENV": "local",
@@ -43,11 +24,29 @@
                 "marabesi.php-import-checker",
                 "onecentlin.laravel-blade",
                 "pcbowers.alpine-intellisense",
-                "spmeesseman.vscode-taskexplorer",
                 "xdebug.php-debug"
             ]
         }
     },
+    "description": "A feature to add useful laravel settings to your shell.",
+    "id": "larasets",
+    "installsAfter": [
+        "ghcr.io/tomgrv/devcontainer-features/common-utils",
+        "ghcr.io/devcontainers/features/docker-in-docker"
+    ],
+    "dependsOn": {
+        "ghcr.io/devcontainers/features/docker-in-docker:3": {},
+        "ghcr.io/devcontainers/features/node:1": {
+            "version": "lts"
+        },
+        "ghcr.io/devcontainers/features/php:1": {
+            "version": "8.3"
+        },
+        "ghcr.io/metcalfc/devcontainer-features/doppler:0": {},
+        "ghcr.io/tomgrv/devcontainer-features/common-utils:5": {}
+    },
+    "name": "Laravel settings",
+    "version": "7.0.0",
     "legacyIds": [
         "larasets"
     ],
