@@ -13,7 +13,6 @@
         "install-bin": "./_install-bin.sh",
         "install-feature": "./_install-feature.sh",
         "normalize-json": "./_normalize-json.sh",
-        "update-tasks": "./_update.tasks.json",
         "validate-json": "./_validate-json.sh",
         "zz-args": "./_zz_args.sh",
         "zz-ask": "./_zz_ask.sh",
