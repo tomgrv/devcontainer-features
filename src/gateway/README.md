@@ -89,12 +89,7 @@ Once the host trusts the CA and the certificate sits in `.devcontainer/.gateway/
 
 ## How it works
 
-| Stage                     | Mechanism                                                                                                     |
-| ------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| Host (optional)           | `npx tomgrv/devcontainer-features -- add gateway` installs the CA into the host trust store and `gateway-curl` |
-| Image build (stub)        | `.devcontainer/.gateway/Dockerfile` bakes `certs/*.pem` into the image so HTTPS works during the build itself  |
-| Feature install (build)   | Installs `gateway-curl` and diverts the system `curl` (option `replaceCurl`)                                   |
-| Container create          | The feature bind-mounts `.devcontainer/.gateway/certs` and `configure-feature gateway` installs any `*.pem` into the trust store with `sudo update-ca-certificates` |
+| Host (optional, Debian-based) | `npx tomgrv/devcontainer-features -- add gateway` installs `gateway-curl` and (on Debian-based Linux/WSL) installs the CA into the host trust store |
 
 ## Modified repository structure
 
