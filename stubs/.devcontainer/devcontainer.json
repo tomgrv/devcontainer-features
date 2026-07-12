@@ -9,8 +9,8 @@
     "remoteEnv": {},
     "postCreateCommand": {
         "chmod": "sudo find ${containerWorkspaceFolder:-.} -mindepth 1 -type d -exec chmod 755 {} +",
-        "chown": "sudo chown -Rf vscode:vscode ${containerWorkspaceFolder:-.}/* ${containerWorkspaceFolder:-.}/.*",
-        "ssh": "mkdir -p ~/.ssh && chmod 700 ~/.ssh && ssh-keyscan github.com >>~/.ssh/known_hosts"
+        "chown": "sudo find ${containerWorkspaceFolder:-.} -mindepth 1 -exec chown vscode:vscode {} +",
+        "ssh": "mkdir -p ~/.ssh && chmod 700 ~/.ssh && timeout 10 ssh-keyscan -T 5 github.com >>~/.ssh/known_hosts 2>/dev/null || true"
     },
     "postStartCommand": {
         "gpg": "test -z \"$CODESPACES\" && git config --global gpg.program gpg2",
