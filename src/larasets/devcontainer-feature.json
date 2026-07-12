@@ -43,7 +43,7 @@
             "version": "8.3"
         },
         "ghcr.io/metcalfc/devcontainer-features/doppler:0": {},
-        "ghcr.io/tomgrv/devcontainer-features/common-utils:5": {}
+        "ghcr.io/tomgrv/devcontainer-features/common-utils:7": {}
     },
     "name": "Laravel settings",
     "version": "7.0.0",
