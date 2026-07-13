@@ -2,13 +2,21 @@
     "image": "mcr.microsoft.com/devcontainers/base:noble",
     "name": "",
     "features": {
-        "ghcr.io/tomgrv/devcontainer-features/githooks:5": {},
-        "ghcr.io/tomgrv/devcontainer-features/gitutils:5": {},
-        "ghcr.io/tomgrv/devcontainer-features/gitversion:7": {},
-        "ghcr.io/tomgrv/devcontainer-features/ai-coding:1": {}
+        "ghcr.io/tomgrv/devcontainer-features/ai-coding:7": {},
+        "ghcr.io/tomgrv/devcontainer-features/githooks:7": {},
+        "ghcr.io/tomgrv/devcontainer-features/gitutils:7": {},
+        "ghcr.io/tomgrv/devcontainer-features/gitversion:7": {}
     },
     "remoteEnv": {},
-    "postCreateCommand": ".devcontainer/create.sh",
-    "postStartCommand": ".devcontainer/start.sh",
+    "postCreateCommand": {
+        "chmod": "sudo find \"${containerWorkspaceFolder:-.}\" -mindepth 1 -type d -exec chmod 755 {} +",
+        "chown": "sudo find \"${containerWorkspaceFolder:-.}\" -mindepth 1 -exec chown vscode:vscode {} +",
+        "ssh_id_rsa": "if [ -z \"$CODESPACES\" ]; then if [ ! -f ~/.ssh/id_rsa ]; then ssh-keygen -t rsa -b 4096 -N \"\" -f ~/.ssh/id_rsa; fi; echo \"\\n\\nYour public key is:\\n\"; cat ~/.ssh/id_rsa.pub; fi",
+        "ssh_known_hosts": "mkdir -p ~/.ssh && chmod 700 ~/.ssh && timeout 10 ssh-keyscan -T 5 github.com >>~/.ssh/known_hosts 2>/dev/null || true"
+    },
+    "postStartCommand": {
+        "gpg": "if [ -z \"$CODESPACES\" ]; then git config --global gpg.program gpg2 || true; fi",
+        "safe": "git config --global --add safe.directory \"${containerWorkspaceFolder:-.}\""
+    },
     "customizations": {}
 }

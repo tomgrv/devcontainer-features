@@ -7,7 +7,7 @@
         "ghcr.io/devcontainers/features/docker-in-docker:3": {
             "moby": false
         },
-        "ghcr.io/tomgrv/devcontainer-features/common-utils:5": {}
+        "ghcr.io/tomgrv/devcontainer-features/common-utils:7": {}
     },
     "installsAfter": [
         "ghcr.io/tomgrv/devcontainer-features/common-utils",
