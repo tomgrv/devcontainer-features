@@ -82,6 +82,19 @@ if [ -d $source/stubs ]; then
         chmod $(stat -c "%a" $file) $dest
 
     done
+
+    # Deploy stubs symlinks if existing
+    find $source/stubs -type l | while read link; do
+        rel=${link#$source/stubs/}
+        folder=$(dirname $rel)
+        dest=$folder/$(basename $rel)
+        mkdir -p $folder
+        if [ ! -e $dest ] && [ ! -L $dest ]; then
+            target=$(readlink $link)
+            zz_log i "Creating symlink {U $dest} -> {U $target}..."
+            ln -s $target $dest
+        fi
+    done
 fi
 
 # Log the merging process
