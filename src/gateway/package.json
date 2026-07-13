@@ -1,9 +1,11 @@
 {
     "name": "@tomgrv-devcontainer-features/gateway",
-    "version": "7.1.0",
+    "version": "7.2.0",
     "description": "SSL Inspection Gateway handling",
     "files": [
         "_*.sh",
+        "configure-*.sh",
+        "install-*.sh",
         "install.sh",
         "stubs/**/*"
     ],

@@ -5,22 +5,35 @@
         "ghcr.io/tomgrv/devcontainer-features/common-utils"
     ],
     "dependsOn": {
-        "ghcr.io/tomgrv/devcontainer-features/common-utils:5": {
-            "utils": "ca-certificates curl"
+        "ghcr.io/tomgrv/devcontainer-features/common-utils:7": {
+            "utils": "bash ca-certificates curl"
         }
+    },
+    "containerEnv": {
+        "NODE_EXTRA_CA_CERTS": "/etc/ssl/certs/ca-certificates.crt",
+        "REQUESTS_CA_BUNDLE": "/etc/ssl/certs/ca-certificates.crt",
+        "SSL_CERT_FILE": "/etc/ssl/certs/ca-certificates.crt",
+        "CURL_CA_BUNDLE": "/etc/ssl/certs/ca-certificates.crt",
+        "GIT_SSL_CAINFO": "/etc/ssl/certs/ca-certificates.crt",
+        "COMPOSER_CA_FILE": "/etc/ssl/certs/ca-certificates.crt"
     },
     "mounts": [
         {
-            "source": ".devcontainer/.gateway/certs",
-            "target": "/usr/local/share/ca-certificates",
+            "source": "${localWorkspaceFolder}/.devcontainer/.gateway/certs",
+            "target": "/usr/local/share/gateway/certs",
             "type": "bind"
         }
     ],
     "name": "SSL Inspection Gateway handling",
-    "options": {},
-    "version": "7.1.0",
+    "options": {
+        "replaceCurl": {
+            "type": "boolean",
+            "default": true,
+            "description": "Divert the system curl to the gateway-curl wrapper inside the container"
+        }
+    },
+    "version": "7.2.0",
     "postCreateCommand": {
-        "ca-certs": "update-ca-certificates",
         "config": "configure-feature gateway"
     }
 }
