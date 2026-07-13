@@ -84,15 +84,14 @@ if [ -d $source/stubs ]; then
     done
 
     # Deploy stubs symlinks if existing
-    find $source/stubs -type l | while read link; do
-        rel=${link#$source/stubs/}
-        folder=$(dirname $rel)
-        dest=$folder/$(basename $rel)
-        mkdir -p $folder
-        if [ ! -e $dest ] && [ ! -L $dest ]; then
-            target=$(readlink $link)
+    find "$source/stubs" -type l | while IFS= read -r link; do
+        rel=${link#"$source/stubs/"}
+        dest=$rel
+        mkdir -p "$(dirname "$dest")"
+        if [ ! -e "$dest" ] && [ ! -L "$dest" ]; then
+            target=$(readlink "$link")
             zz_log i "Creating symlink {U $dest} -> {U $target}..."
-            ln -s $target $dest
+            ln -s "$target" "$dest"
         fi
     done
 fi
