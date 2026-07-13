@@ -28,8 +28,8 @@ Modes:
 Skills:
   /caveman-commit       terse Conventional Commits
   /caveman-review       one-line PR comments
-  /caveman-stats        session token savings
-
+  /caveman-compress     compress markdown memory files
+  /caveman-help         this reference card
 Deactivate:
   "stop caveman" or "normal mode"
 ```
