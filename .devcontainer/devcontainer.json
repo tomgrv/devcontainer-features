@@ -9,8 +9,8 @@
     },
     "remoteEnv": {},
     "postCreateCommand": {
-        "chmod": "sudo find ${containerWorkspaceFolder:-.} -mindepth 1 -type d -exec chmod 755 {} +",
-        "chown": "sudo find ${containerWorkspaceFolder:-.} -mindepth 1 -exec chown vscode:vscode {} +",
+        "chmod": "sudo find \"${containerWorkspaceFolder:-.}\" -mindepth 1 -type d -exec chmod 755 {} +",
+        "chown": "sudo find \"${containerWorkspaceFolder:-.}\" -mindepth 1 -exec chown vscode:vscode {} +",
         "ssh_id_rsa": "if [ -z \"$CODESPACES\" ]; then if [ ! -f ~/.ssh/id_rsa ]; then ssh-keygen -t rsa -b 4096 -N \"\" -f ~/.ssh/id_rsa; fi; echo \"\\n\\nYour public key is:\\n\"; cat ~/.ssh/id_rsa.pub; fi",
         "ssh_known_hosts": "mkdir -p ~/.ssh && chmod 700 ~/.ssh && timeout 10 ssh-keyscan -T 5 github.com >>~/.ssh/known_hosts 2>/dev/null || true"
     },
