@@ -8,7 +8,7 @@ This feature adds agent-agnostic AI coding skills and the [Claude Code GitHub Ac
 
 ```json
 "features": {
-    "ghcr.io/tomgrv/devcontainer-features/ai-coding:1": {}
+    "ghcr.io/tomgrv/devcontainer-features/ai-coding:7": {}
 }
 ```
 

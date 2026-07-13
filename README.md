@@ -266,7 +266,7 @@ Agent-agnostic AI coding skills (`.github/skills/`) plus the [Claude Code GitHub
 
 ```json
 "features": {
-    "ghcr.io/tomgrv/devcontainer-features/ai-coding:1": {}
+    "ghcr.io/tomgrv/devcontainer-features/ai-coding:7": {}
 }
 ```
 
