@@ -16,7 +16,7 @@
     },
     "postStartCommand": {
         "gpg": "if [ -z \"$CODESPACES\" ]; then git config --global gpg.program gpg2 || true; fi",
-        "safe": "git config --global --add safe.directory ${containerWorkspaceFolder:-.}"
+        "safe": "git config --global --add safe.directory \"${containerWorkspaceFolder:-.}\""
     },
     "customizations": {}
 }
