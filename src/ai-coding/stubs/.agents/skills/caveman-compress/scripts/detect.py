@@ -68,6 +68,9 @@ def detect_file_type(filepath: Path) -> str:
     ext = filepath.suffix.lower()
 
     # Extension-based classification
+    name_lower = filepath.name.lower()
+    if name_lower in {"dockerfile", "makefile"}:
+        return "code"
     if ext in COMPRESSIBLE_EXTENSIONS:
         return "natural_language"
     if ext in SKIP_EXTENSIONS:
