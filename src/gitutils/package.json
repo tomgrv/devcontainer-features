@@ -24,6 +24,7 @@
         "git-fix-mode": "./_git-fix-mode.sh",
         "git-fix-privacy": "./_git-fix-privacy.sh",
         "git-fix-up": "./_git-fix-up.sh",
+        "git-flow-init": "./_git-flow-init.sh",
         "git-forall": "./_git-forall.sh",
         "git-getcommit": "./_git-getcommit.sh",
         "git-integrate": "./_git-integrate.sh",

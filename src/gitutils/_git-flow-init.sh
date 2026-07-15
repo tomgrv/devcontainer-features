@@ -1,9 +1,12 @@
 #!/bin/sh
 
-# Ensure git-flow is available before dispatching any release subcommand.
+# Ensure this runs inside a git repository; nothing to do otherwise.
+repo_root=$(git rev-parse --show-toplevel 2>/dev/null) || exit 0
+cd "$repo_root" || exit 0
 
+# Ensure git-flow is available before initializing.
 if ! git flow version >/dev/null 2>&1; then
-	
+
     zz_log w "git-flow is not installed. Attempting installation..."
     if command -v apt-get >/dev/null 2>&1; then
         if [ "$(id -u)" -eq 0 ]; then
@@ -57,7 +60,7 @@ if ! git flow version >/dev/null 2>&1; then
         fi
     else
         zz_log e "Unable to install git-flow automatically on this system."
-        zz_log - "Please install it manually and run release again."
+        zz_log - "Please install it manually and run again."
         exit 1
     fi
 
@@ -66,17 +69,25 @@ if ! git flow version >/dev/null 2>&1; then
         exit 1
     fi
     zz_log s "git-flow installed successfully."
-fi 
+fi
 
-# Initialize git-flow in the repository if not already initialized. Use config values if available, otherwise use defaults.
-_feature_branch=$(jq -r '.gitflow.featureBranch' $source/config.json 2>/dev/null || echo "feature")
-_release_branch=$(jq -r '.gitflow.releaseBranch' $source/config.json 2>/dev/null || echo "release")
-_hotfix_branch=$(jq -r '.gitflow.hotfixBranch' $source/config.json 2>/dev/null || echo "hotfix")
-_support_branch=$(jq -r '.gitflow.supportBranch' $source/config.json 2>/dev/null || echo "support")
-_develop_branch=$(jq -r '.gitflow.developBranch' $source/config.json 2>/dev/null || echo "develop")
-_master_branch=$(jq -r '.gitflow.masterBranch' $source/config.json 2>/dev/null || echo "master")
+master_branch="${GITFLOW_MASTER_BRANCH:-main}"
+develop_branch="${GITFLOW_DEVELOP_BRANCH:-develop}"
+feature_prefix="${GITFLOW_FEATURE_PREFIX:-feature/}"
+bugfix_prefix="${GITFLOW_BUGFIX_PREFIX:-bugfix/}"
+release_prefix="${GITFLOW_RELEASE_PREFIX:-release/}"
+hotfix_prefix="${GITFLOW_HOTFIX_PREFIX:-hotfix/}"
+support_prefix="${GITFLOW_SUPPORT_PREFIX:-support/}"
+versiontag_prefix="${GITFLOW_VERSIONTAG_PREFIX:-v}"
 
-# Configure git-flow with the specified branch names. Use -d to skip prompts and -f to force reinitialization if already initialized.
-git flow init -d -f $_feature_branch -r $_release_branch -h $_hotfix_branch -s $_support_branch -d $_develop_branch -m $_master_branch >/dev/null 2>&1 && zz_log s "git-flow initialized successfully." || zz_log e "Failed to initialize git-flow."
+# 'git flow init -f' recomputes the master/develop suggestion from gitflow.branch.*
+# (falling back to an existing same-named branch, or these values on a fresh repo).
+git config gitflow.branch.master "$master_branch"
+git config gitflow.branch.develop "$develop_branch"
 
-git config --global gitflow.branch.feature
+# Prefixes are only read from --system/--global config by 'init', so pass them
+# explicitly to avoid the (empty) built-in defaults, in particular for the tag prefix.
+git flow init -d -f \
+    -p "$feature_prefix" -b "$bugfix_prefix" -r "$release_prefix" \
+    -x "$hotfix_prefix" -s "$support_prefix" -t "$versiontag_prefix" \
+    >/dev/null 2>&1 && zz_log s "git-flow initialized successfully." || zz_log e "Failed to initialize git-flow."

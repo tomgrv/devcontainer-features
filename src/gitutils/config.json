@@ -7,9 +7,6 @@
     "credential": {
         "useHttpPath": true
     },
-    "gitflow),path(.\"branch\"": null,
-    "gitflow),path(.\"path\"": null,
-    "gitflow),path(.\"prefix\"": null,
     "pull": {
         "rebase": true
     }
