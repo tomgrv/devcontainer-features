@@ -2,6 +2,9 @@
     "build": {
         "dockerfile": ".gateway/Dockerfile"
     },
+    "features": {
+        "ghcr.io/tomgrv/devcontainer-features/gateway:7": {}
+    },
     "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
     "remoteUser": "vscode",
     "customizations": {

@@ -1,19 +1,18 @@
 {
-    "id": "gitversion",
-    "name": "GitVersion feature",
     "description": "Add gitversion to your devcontainer",
-    "version": "7.0.0",
-    "dependsOn": {
-        "ghcr.io/devcontainers/features/docker-in-docker:3": {
-            "moby": false
-        },
-        "ghcr.io/tomgrv/devcontainer-features/common-utils:5": {}
-    },
+    "id": "gitversion",
     "installsAfter": [
         "ghcr.io/tomgrv/devcontainer-features/common-utils",
         "ghcr.io/devcontainers/features/docker-in-docker",
         "ghcr.io/devcontainers/features/dotnet"
     ],
+    "dependsOn": {
+        "ghcr.io/devcontainers/features/docker-in-docker:3": {
+            "moby": false
+        },
+        "ghcr.io/tomgrv/devcontainer-features/common-utils:7": {}
+    },
+    "name": "GitVersion feature",
     "options": {
         "version": {
             "type": "string",
@@ -21,6 +20,7 @@
             "description": "The version of GitVersion to use"
         }
     },
+    "version": "7.2.0",
     "postCreateCommand": {
         "config": "configure-feature gitversion"
     }

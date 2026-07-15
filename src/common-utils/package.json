@@ -1,6 +1,6 @@
 {
     "name": "@tomgrv-devcontainer-features/common-utils",
-    "version": "7.0.0",
+    "version": "7.2.0",
     "description": "Common utilities and helper scripts for devcontainer features",
     "files": [
         "_*.sh",
@@ -13,7 +13,6 @@
         "install-bin": "./_install-bin.sh",
         "install-feature": "./_install-feature.sh",
         "normalize-json": "./_normalize-json.sh",
-        "update-tasks": "./_update.tasks.json",
         "validate-json": "./_validate-json.sh",
         "zz-args": "./_zz_args.sh",
         "zz-ask": "./_zz_ask.sh",

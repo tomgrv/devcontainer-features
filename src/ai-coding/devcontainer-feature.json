@@ -1,0 +1,15 @@
+{
+    "description": "Agent-agnostic AI coding skills (.github/skills) plus the Claude Code GitHub Action for @claude mentions.",
+    "id": "ai-coding",
+    "installsAfter": [
+        "ghcr.io/tomgrv/devcontainer-features/common-utils"
+    ],
+    "dependsOn": {
+        "ghcr.io/tomgrv/devcontainer-features/common-utils:7": {}
+    },
+    "name": "AI Coding",
+    "version": "7.2.0",
+    "postCreateCommand": {
+        "config": "configure-feature ai-coding"
+    }
+}

@@ -39,17 +39,18 @@ npx tomgrv/devcontainer-features -- add -a
 
 ## Features Overview
 
-| Feature                       | Description                                       |
-| ----------------------------- | ------------------------------------------------- |
-| [GitUtils](#gitutils)         | Git aliases and workflow automation               |
-| [GitHooks](#githooks)         | Commit hooks: commitlint, prettier, lint-staged   |
-| [GitVersion](#gitversion)     | Semantic versioning via GitVersion                |
-| [Act](#act)                   | Run GitHub Actions locally via nektos/act         |
-| [PECL](#pecl)                 | PHP extension installer via PECL                  |
-| [Larasets](#larasets)         | Laravel-specific development utilities            |
-| [Common Utils](#common-utils) | Shared utilities used by other features           |
-| [Gateway](#gateway)           | SSL certificate management for corporate networks |
-| [Minikube](#minikube)         | Local Kubernetes cluster via Minikube             |
+| Feature                       | Description                                                 |
+| ----------------------------- | ----------------------------------------------------------- |
+| [GitUtils](#gitutils)         | Git aliases and workflow automation                         |
+| [GitHooks](#githooks)         | Commit hooks: commitlint, prettier, lint-staged             |
+| [GitVersion](#gitversion)     | Semantic versioning via GitVersion                          |
+| [Act](#act)                   | Run GitHub Actions locally via nektos/act                   |
+| [PECL](#pecl)                 | PHP extension installer via PECL                            |
+| [Larasets](#larasets)         | Laravel-specific development utilities                      |
+| [Common Utils](#common-utils) | Shared utilities used by other features                     |
+| [Gateway](#gateway)           | SSL certificate management for corporate networks           |
+| [Minikube](#minikube)         | Local Kubernetes cluster via Minikube                       |
+| [AI Coding](#ai-coding)       | Agent-agnostic AI coding skills + Claude Code GitHub Action |
 
 ---
 
@@ -213,7 +214,7 @@ npx tomgrv/devcontainer-features -- add common-utils
 
 ### Gateway
 
-Handles SSL inspection certificates for corporate network environments (e.g. Zscaler). Installs the root CA and wraps `curl` for transparent gateway authentication.
+Handles SSL inspection certificates for corporate network environments (e.g. Zscaler). Installs the root CA and wraps `curl` for transparent gateway authentication. Can also be installed on the **host** to make it ready for devcontainer creation behind the gateway.
 
 📖 [Full documentation](./src/gateway/README.md)
 
@@ -221,11 +222,11 @@ Handles SSL inspection certificates for corporate network environments (e.g. Zsc
 
 ```json
 "features": {
-    "ghcr.io/tomgrv/devcontainer-features/gateway:5": {}
+    "ghcr.io/tomgrv/devcontainer-features/gateway:7": {}
 }
 ```
 
-#### Quick Install — console
+#### Quick Install — console (host)
 
 ```sh
 npx tomgrv/devcontainer-features -- add gateway
@@ -251,6 +252,28 @@ Installs [Minikube](https://minikube.sigs.k8s.io/) to run a single-node Kubernet
 
 ```sh
 npx tomgrv/devcontainer-features -- add minikube
+```
+
+---
+
+### AI Coding
+
+Agent-agnostic AI coding skills (`.github/skills/`) plus the [Claude Code GitHub Action](https://code.claude.com/docs/en/github-actions) for `@claude` mentions on issues and pull requests.
+
+📖 [Full documentation](./src/ai-coding/README.md)
+
+#### Quick Start — devcontainer.json
+
+```json
+"features": {
+    "ghcr.io/tomgrv/devcontainer-features/ai-coding:7": {}
+}
+```
+
+#### Quick Install — console
+
+```sh
+npx tomgrv/devcontainer-features -- add ai-coding
 ```
 
 ---
