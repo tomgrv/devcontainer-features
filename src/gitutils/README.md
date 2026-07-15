@@ -28,6 +28,28 @@ Adds shortcuts to the git command for easier use of git-flow commands.
 
 Additionally, the feature installs the [git-flow](https://github.com/nvie/gitflow) extension and sets up the Git configuration to use it.
 
+### Install step
+
+`git-flow` (the `gitflow-avh` package) is installed as an OS package via the `common-utils` feature dependency, and the `git-flow-init` command is exposed on the `PATH`.
+
+### Configure step
+
+`configure-feature gitutils` (run automatically from `postCreateCommand`, and re-runnable at any time from the repository root) calls `git-flow-init`, which non-interactively runs `git flow init -d -f` with the following branch/prefix scheme:
+
+| Prompt                                | Value                  |
+| ------------------------------------- | ---------------------- |
+| Branch for production releases        | `main`                 |
+| Branch for "next release" integration | `develop`              |
+| Feature branches prefix               | `feature/`             |
+| Bugfix branches prefix                | `bugfix/`              |
+| Release branches prefix               | `release/`             |
+| Hotfix branches prefix                | `hotfix/`              |
+| Support branches prefix               | `support/`             |
+| Version tag prefix                    | `v`                    |
+| Hooks and filters directory           | `.git/hooks` (default) |
+
+Each value can be overridden by exporting the matching environment variable before `git-flow-init` runs: `GITFLOW_MASTER_BRANCH`, `GITFLOW_DEVELOP_BRANCH`, `GITFLOW_FEATURE_PREFIX`, `GITFLOW_BUGFIX_PREFIX`, `GITFLOW_RELEASE_PREFIX`, `GITFLOW_HOTFIX_PREFIX`, `GITFLOW_SUPPORT_PREFIX`, `GITFLOW_VERSIONTAG_PREFIX`.
+
 Shortcuts are also added to the `git` command to make it easier to use the `git-flow` commands:
 
 - `git beta` is a shortcut for `git flow release start`
@@ -46,6 +68,7 @@ The feature includes the following interactive utilities:
 - `git fix date [options] [<commit>]` - Fix commit dates and times in git history. Options include rescheduling commits on specific days of week outside certain time ranges.
 - `git fix blanks [-d]` - Discard tracked text-file changes when differences are only blanks and quote/slash swaps.
 - `git fix message -m <message> [--force|<commit>]` - Rewrite the commit message of a specific commit.
+- `git-flow-init` - (Re-)initialize git-flow non-interactively with the standard branch/prefix scheme. Runs automatically as part of the configure step.
 - `git fixup [--force|<commit>]` - Amend the specified commit with current changes and rebase.
 - `git forall <command>` - Execute a command for all files in the repository.
 - `git getcommit [--force|<commit>]` - Get the commit to fixup.

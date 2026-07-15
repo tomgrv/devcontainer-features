@@ -41,7 +41,6 @@
         "config": "configure-feature gitutils"
     },
     "postStartCommand": {
-        "gitflow": "git-flow-init",
         "blanks": "git fix blanks",
         "files": "git fix mode"
     }
