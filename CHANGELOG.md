@@ -2,6 +2,52 @@
 
 # Changelog
 
+## 7.2.0 (2026-07-15)
+
+_Commits from: v7.1.0..HEAD_
+
+### 📂 Unscoped changes
+
+#### Bug Fixes
+
+- 🐛 make devcontainer scripts non-blocking and fix stale v5 feature pins (#81) ([2f08483](https://github.com/tomgrv/devcontainer-features/commit/2f08483cd4fe362a6b82c8d99150f4d0ceb05224))
+- 🐛 update githooks and gitutils versions to 7 ([71b550d](https://github.com/tomgrv/devcontainer-features/commit/71b550daf74b00760fa64632ed80484bd8c62c9f))
+- 🐛 update githooks and gitutils versions to 7 ([9976a9f](https://github.com/tomgrv/devcontainer-features/commit/9976a9fbceee5fb73a888b6f72529688cfceffbc))
+
+#### Other changes
+
+- Merge tag 'v7.1.0' into develop ([7ca9c82](https://github.com/tomgrv/devcontainer-features/commit/7ca9c8246aa764ab717385a88d1fbb17151ef055))
+- 🐛 update githooks and gitutils versions to 7" ([ffc67c8](https://github.com/tomgrv/devcontainer-features/commit/ffc67c8852f05c56447dcb5de1d2bca271eaa55c))
+
+### 📦 ai-coding changes
+
+#### Features
+
+- add Claude Code Action and agent-agnostic AI skills feature (#74) ([14067b5](https://github.com/tomgrv/devcontainer-features/commit/14067b5312db5e042ef8d24edd2e329f6c1bc877))
+
+### 📦 common-utils changes
+
+#### Bug Fixes
+
+- 🐛 update package file handling for accuracy ([9783e74](https://github.com/tomgrv/devcontainer-features/commit/9783e74d36611cb8720d82a381200359d80da393))
+- 🐛 update type definition to support multiple types ([2c84fd8](https://github.com/tomgrv/devcontainer-features/commit/2c84fd852b5e368a45a2360190b48454e35ad7c0))
+
+#### Other changes
+
+- 🔧 remove deprecated vscode-taskexplorer extension from customizations ([bf14d9b](https://github.com/tomgrv/devcontainer-features/commit/bf14d9bc79f17b69f99b964948c255d490d8d1ab))
+
+### 📦 gateway changes
+
+#### Bug Fixes
+
+- 🐛 make the feature work out of the box and support host installation (#75) ([78292fe](https://github.com/tomgrv/devcontainer-features/commit/78292fed60c23fa792545fd9195276c4d39450f6))
+
+### 📦 githooks changes
+
+#### Bug Fixes
+
+- 🐛 use sudo for chmod to ensure proper permissions ([5818e42](https://github.com/tomgrv/devcontainer-features/commit/5818e42771db0414df8871eb530ba67da900860f))
+
 ## 7.1.0 (2026-06-19)
 
 _Commits from: v7.0.0..HEAD_
@@ -1191,4 +1237,4 @@ _Commits from: v5.25.0..HEAD_
 
 ---
 
-_Generated on 2026-06-19 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
+_Generated on 2026-07-15 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_

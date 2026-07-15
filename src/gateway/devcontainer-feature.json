@@ -1,4 +1,12 @@
 {
+    "containerEnv": {
+        "COMPOSER_CA_FILE": "/etc/ssl/certs/ca-certificates.crt",
+        "CURL_CA_BUNDLE": "/etc/ssl/certs/ca-certificates.crt",
+        "GIT_SSL_CAINFO": "/etc/ssl/certs/ca-certificates.crt",
+        "NODE_EXTRA_CA_CERTS": "/etc/ssl/certs/ca-certificates.crt",
+        "REQUESTS_CA_BUNDLE": "/etc/ssl/certs/ca-certificates.crt",
+        "SSL_CERT_FILE": "/etc/ssl/certs/ca-certificates.crt"
+    },
     "description": "Handling SSL Inspection Gateway while building & using devcontainers",
     "id": "gateway",
     "installsAfter": [
@@ -8,14 +16,6 @@
         "ghcr.io/tomgrv/devcontainer-features/common-utils:7": {
             "utils": "bash ca-certificates curl"
         }
-    },
-    "containerEnv": {
-        "NODE_EXTRA_CA_CERTS": "/etc/ssl/certs/ca-certificates.crt",
-        "REQUESTS_CA_BUNDLE": "/etc/ssl/certs/ca-certificates.crt",
-        "SSL_CERT_FILE": "/etc/ssl/certs/ca-certificates.crt",
-        "CURL_CA_BUNDLE": "/etc/ssl/certs/ca-certificates.crt",
-        "GIT_SSL_CAINFO": "/etc/ssl/certs/ca-certificates.crt",
-        "COMPOSER_CA_FILE": "/etc/ssl/certs/ca-certificates.crt"
     },
     "mounts": [
         {
