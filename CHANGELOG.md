@@ -2,6 +2,16 @@
 
 # Changelog
 
+## 7.3.3 (2026-07-16)
+
+_Commits from: v7.3.2..HEAD_
+
+### 📦 common-utils changes
+
+#### Bug Fixes
+
+- 🐛 improve logging messages in \_configure-feature.sh ([0f33ffd](https://github.com/tomgrv/devcontainer-features/commit/0f33ffd8c8e1ba37588f210d7b4754afa66aa9d8))
+
 ## 7.3.2 (2026-07-16)
 
 _Commits from: v7.3.1..HEAD_

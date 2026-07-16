@@ -1,6 +1,6 @@
 {
     "name": "@tomgrv-devcontainer-features/common-utils",
-    "version": "7.3.1",
+    "version": "7.3.3",
     "description": "Common utilities and helper scripts for devcontainer features",
     "files": [
         "_*.sh",

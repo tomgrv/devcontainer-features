@@ -35,7 +35,7 @@ fi
 # Deploy stubs if existing
 if [ -d $source/stubs ]; then
 
-    zz_log i "Deploy stubs"
+    zz_log i "Deploying stubs..."
 
     find $source/stubs -type f -name ".*" -o -type f | while read file; do
 
@@ -55,7 +55,7 @@ if [ -d $source/stubs ]; then
             dest=$(echo $dest | sed 's/\/\#/\//g')
 
             # Add to .gitignore if not already there
-            zz_log i "Add {U $dest} to .gitignore"
+            zz_log - "Add {U $dest} to .gitignore"
 
             # Add to .gitignore if not already there
             grep -qxF $dest .gitignore || echo "$dest" >>.gitignore
@@ -66,15 +66,15 @@ if [ -d $source/stubs ]; then
 
             # if json file, use merge-json to merge the file
             if [ "$(basename $file | cut -d. -f2)" = "json" ]; then
-                zz_log i "Merging {U $file} into {U $dest}..."
+                zz_log - "Merging {U $file} into {U $dest}..."
                 merge-json -t ${tabSize:-4} $dest $file
             else
-                zz_log i "Using git merge-file to merge {U $file} into {U $dest}..."
+                zz_log - "Using git merge-file to merge {U $file} into {U $dest}..."
                 git merge-file -q $dest $file $file
             fi
             
         else
-            zz_log i "Destination file {U $dest} does not exist. Copying {U $file} to {U $dest}..."
+            zz_log w "Destination file {U $dest} does not exist. Copying {U $file} to {U $dest}..."
             cp $file $dest
         fi
 
@@ -83,6 +83,8 @@ if [ -d $source/stubs ]; then
 
     done
 
+    zz_log i "Deploying stubs symlinks if existing..."
+
     # Deploy stubs symlinks if existing
     find "$source/stubs" -type l | while IFS= read -r link; do
         rel=${link#"$source/stubs/"}
@@ -90,10 +92,12 @@ if [ -d $source/stubs ]; then
         mkdir -p "$(dirname "$dest")"
         if [ ! -e "$dest" ] && [ ! -L "$dest" ]; then
             target=$(readlink "$link")
-            zz_log i "Creating symlink {U $dest} -> {U $target}..."
+            zz_log - "Creating symlink {U $dest} -> {U $target}..."
             ln -s "$target" "$dest"
         fi
     done
+
+    zz_log s "Done deploying stubs."
 fi
 
 # Log the merging process
@@ -115,7 +119,7 @@ for type in package composer; do
             fi
 
             # Merge the tmpl & add keys if not already there. make sure source json does not contain any comments
-            zz_log i "Merge {U $tmpl} in {U $package}..."
+            zz_log - "Merge {U $tmpl} in {U $package}..."
 
             # Remove comments from the source json and merge it with the target package.json
             merge-json -t ${tabSize:-4} $package $tmpl
@@ -130,11 +134,11 @@ done
 # if in top level directory, call configure scripts
 if [ "$(pwd)" = "$(git rev-parse --show-toplevel)" ]; then
 
-    zz_log s "Running on top level directory!"
+    zz_log i "Checking for configure scripts in the source directory..."
 
     # Call all configure-xxx.sh scripts
     find $source -maxdepth 1 -name configure-*.sh | sort | while read file; do
-        zz_log i "Calling {U $file}..."
+        zz_log - "Calling {U $file}..."
         sh -c "$file" && zz_log s "Done!" || zz_log e "Failed!"
     done
 else
