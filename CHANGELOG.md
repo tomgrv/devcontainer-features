@@ -12,6 +12,22 @@ _Commits from: v7.3.1..HEAD_
 
 - 🐛 update version of githooks, gitutils, and gitversion to 7 ([a725a9d](https://github.com/tomgrv/devcontainer-features/commit/a725a9d29de33d7e9d5f524de34fb8e2b9f7769b))
 
+### 📦 release changes
+
+#### Other changes
+
+- 🚀 7.3.2 ([3ca912c](https://github.com/tomgrv/devcontainer-features/commit/3ca912ce1898631f13a83dde628898a061d1f0cd))
+
+## 7.3.2 (2026-07-16)
+
+_Commits from: v7.3.1..HEAD_
+
+### 📂 Unscoped changes
+
+#### Bug Fixes
+
+- 🐛 update version of githooks, gitutils, and gitversion to 7 ([a725a9d](https://github.com/tomgrv/devcontainer-features/commit/a725a9d29de33d7e9d5f524de34fb8e2b9f7769b))
+
 ## 7.3.0 (2026-07-16)
 
 _Commits from: v7.2.0..HEAD_
