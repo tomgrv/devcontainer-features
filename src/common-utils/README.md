@@ -140,6 +140,37 @@ zz_dist -s /custom/path -t ./scripts
 zz_dist -q
 ```
 
+### Persist a key=value pair
+
+The `zz_persist` utility upserts a `KEY=VALUE` pair into an env-style file
+and/or a `/etc/profile.d/<profile>.sh` snippet, so the value survives a new
+shell or a script re-run. It only knows about these two generic targets — it
+has no notion of secret stores; layer that on top in your own script if
+needed.
+
+#### Usage
+
+```bash
+zz_persist [-f file] [-p profile] <key> <value>
+```
+
+#### Options
+
+| Option      | Description                                                       |
+| ----------- | ----------------------------------------------------------------- |
+| `-f <file>` | Upsert `KEY=VALUE` into this env-style file (created if missing). |
+| `-p <name>` | Upsert `export KEY=VALUE` into `/etc/profile.d/<name>.sh`.        |
+
+At least one of `-f`/`-p` is required. Both are idempotent — running twice
+replaces the existing entry instead of duplicating it.
+
+#### Example
+
+```bash
+zz_persist -f .env APP_PORT 8000
+zz_persist -p myfeature MY_VAR value
+```
+
 ### Validate JSON
 
 The `validate-json` utility allows you to validate JSON files against a JSON schema. It supports the following features:

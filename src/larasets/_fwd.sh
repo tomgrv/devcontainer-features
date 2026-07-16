@@ -26,17 +26,8 @@ setexport() {
     local key="$1"
     local value="$2"
 
-    touch ./.env
-
     ### In .env (source of truth read by the Laravel app itself)
-    local env_file=".env"
-    if grep -q "^$key=" "$env_file"; then
-        # Replace the existing entry
-        sed -i "s|^$key=.*|$key=$value|" "$env_file"
-    else
-        # Add the new entry
-        echo "$key=$value" >>"$env_file"
-    fi
+    zz_persist -f ./.env "$key" "$value"
 
     ### In Doppler, so the value survives a container rebuild
     if command -v doppler >/dev/null 2>&1; then
@@ -46,8 +37,6 @@ setexport() {
             zz_log w "$key: Doppler secrets set failed (not logged in / no config linked), kept in .env only"
         fi
     fi
-
-    zz_log i "$key: $value"
 }
 
 #### Environment variables
