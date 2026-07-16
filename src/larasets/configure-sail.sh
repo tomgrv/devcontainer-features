@@ -20,17 +20,17 @@ fi
 zz_log i "Init {B dotenv}"
 touch ./.env
 
-### Add APP_KEY to .env if it does not exist, in one line
+### Ensure APP_KEY entry exists
 zz_log i "Ensure APP_KEY is set in .env"
-grep -q "APP_KEY" ./.env || echo APP_KEY= >>./.env
+grep -q "^APP_KEY=" ./.env || echo APP_KEY= >>./.env
 
-### Generate app key
+### Generate app key BEFORE caching config, so the key is never cached empty
 zz_log i "Generate app key"
 art config:clear
-art config:cache
 art key:generate --force
+art config:cache
 
-### Daytona support (codeanywhere)
+### Forward ports according to the environment
 zz_log i "Use {B fwd} to forward ports according to the environment"
 if [ -n "$DAYTONA_WS_ID" ]; then
     zz_log i "Daytona/Codeanywhere support"
@@ -43,8 +43,9 @@ else
     fwd local
 fi
 
-### Build sail if needed
-if [ -z "$LARAVEL_SAIL" ] || [ "$LARAVEL_SAIL" -eq 1 ]; then
+### Build sail if enabled (LARAVEL_SAIL unset defaults to enabled)
+if [ "${LARAVEL_SAIL:-1}" = "1" ]; then
+    zz_log i "Build Laravel Sail"
     sail build
 fi
 

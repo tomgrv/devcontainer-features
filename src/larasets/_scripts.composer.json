@@ -7,15 +7,11 @@
             "@php artisan ide-helper:generate --ansi",
             "@php artisan ide-helper:meta --ansi"
         ],
-        "inst": [
-            "composer install --ignore-platform-reqs"
-        ],
+        "inst": ["composer install --ignore-platform-reqs"],
         "link": [
             "composer config repositories.local '{\"type\": \"path\", \"url\": \"@additional_args\"}' --file composer.json"
         ],
-        "lint": [
-            "vendor/bin/pint --ansi --dirty"
-        ],
+        "lint": ["vendor/bin/pint --ansi --dirty"],
         "lock": [
             "composer validate --no-check-all --strict 2>&1 | grep -Eoi 'Required \\(in require-dev\\) package \\\"[^\\\"]+' | cut -d\"\\\"\" -f2 | xargs -r -I{} composer reqdev {}",
             "composer validate --no-check-all --strict 2>&1 | grep -Eoi 'Required package \\\"[^\\\"]+' | cut -d\"\\\"\" -f2 | xargs -r -I{} composer req {}",
@@ -24,7 +20,7 @@
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi",
-            "@php artisan filament:upgrade --ansi",
+            "@php artisan filament:upgrade --ansi || true",
             "@php artisan optimize --ansi"
         ],
         "post-create-project-cmd": [
@@ -39,27 +35,14 @@
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force",
             "@php artisan boost:update --ansi"
         ],
-        "req": [
-            "@base require",
-            "@helpers @no_additional_args"
-        ],
-        "reqdev": [
-            "@base require --dev",
-            "@helpers @no_additional_args"
-        ],
+        "req": ["@base require", "@helpers @no_additional_args"],
+        "reqdev": ["@base require --dev", "@helpers @no_additional_args"],
         "rmv": [
-            "@base remove",
+            "composer remove @additional_args --ignore-platform-reqs --update-with-all-dependencies --minimal-changes --ansi",
             "@helpers @no_additional_args"
         ],
-        "test": [
-            "vendor/bin/pest"
-        ],
-        "test-coverage": [
-            "vendor/bin/pest --coverage"
-        ],
-        "upg": [
-            "@base update",
-            "@helpers @no_additional_args"
-        ]
+        "test": ["vendor/bin/pest"],
+        "test-coverage": ["vendor/bin/pest --coverage"],
+        "upg": ["@base update", "@helpers @no_additional_args"]
     }
 }

@@ -1,4 +1,5 @@
 #!/bin/sh
+set -e
 
 #### Goto repository root
 cd "$(git rev-parse --show-toplevel)" >/dev/null
@@ -6,7 +7,7 @@ cd "$(git rev-parse --show-toplevel)" >/dev/null
 ### Install composer dependencies if composer.json exists
 if [ -f "./composer.json" ]; then
 
-    opts="--prefer-stable --prefer-lowest --minimal-changes --with-all-dependencies --ignore-platform-reqs --no-update"
+    opts="--prefer-stable --minimal-changes --with-all-dependencies --ignore-platform-reqs --no-update"
 
     zz_log i "Make sure common dependencies are declared"
     

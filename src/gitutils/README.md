@@ -28,6 +28,28 @@ Adds shortcuts to the git command for easier use of git-flow commands.
 
 Additionally, the feature installs the [git-flow](https://github.com/nvie/gitflow) extension and sets up the Git configuration to use it.
 
+### Install step
+
+`git-flow` (the `gitflow-avh` package) is installed as an OS package by `install-gitflow.sh`, which runs once when the feature is installed — primarily satisfied by the `common-utils` feature dependency already, with a package-manager-detecting fallback if it's still missing.
+
+### Configure step
+
+`configure-feature gitutils` (run automatically from `postCreateCommand`, and re-runnable at any time from the repository root) runs `configure-gitflow.sh`, which non-interactively runs `git flow init -d -f` with the following branch/prefix scheme:
+
+| Prompt                                | Value                  |
+| ------------------------------------- | ---------------------- |
+| Branch for production releases        | `main`                 |
+| Branch for "next release" integration | `develop`              |
+| Feature branches prefix               | `feature/`             |
+| Bugfix branches prefix                | `bugfix/`              |
+| Release branches prefix               | `release/`             |
+| Hotfix branches prefix                | `hotfix/`              |
+| Support branches prefix               | `support/`             |
+| Version tag prefix                    | `v`                    |
+| Hooks and filters directory           | `.git/hooks` (default) |
+
+Each value can be overridden by exporting the matching environment variable before `configure-gitflow.sh` runs: `GITFLOW_MASTER_BRANCH`, `GITFLOW_DEVELOP_BRANCH`, `GITFLOW_FEATURE_PREFIX`, `GITFLOW_BUGFIX_PREFIX`, `GITFLOW_RELEASE_PREFIX`, `GITFLOW_HOTFIX_PREFIX`, `GITFLOW_SUPPORT_PREFIX`, `GITFLOW_VERSIONTAG_PREFIX`.
+
 Shortcuts are also added to the `git` command to make it easier to use the `git-flow` commands:
 
 - `git beta` is a shortcut for `git flow release start`

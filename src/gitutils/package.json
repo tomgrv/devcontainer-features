@@ -1,11 +1,13 @@
 {
     "name": "@tomgrv-devcontainer-features/gitutils",
-    "version": "7.2.0",
+    "version": "7.3.0",
     "description": "Git utilities and aliases for development workflow",
     "files": [
         "_*.sh",
         "install.sh",
         "install-config.sh",
+        "install-gitflow.sh",
+        "configure-gitflow.sh",
         "alias.json",
         "config.json",
         "stubs/**/*"

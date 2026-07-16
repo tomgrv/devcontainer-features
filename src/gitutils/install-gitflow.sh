@@ -1,9 +1,8 @@
 #!/bin/sh
 
-# Ensure git-flow is available before dispatching any release subcommand.
-
+# Ensure the git-flow extension is installed on the system.
 if ! git flow version >/dev/null 2>&1; then
-	
+
     zz_log w "git-flow is not installed. Attempting installation..."
     if command -v apt-get >/dev/null 2>&1; then
         if [ "$(id -u)" -eq 0 ]; then
@@ -57,7 +56,7 @@ if ! git flow version >/dev/null 2>&1; then
         fi
     else
         zz_log e "Unable to install git-flow automatically on this system."
-        zz_log - "Please install it manually and run release again."
+        zz_log - "Please install it manually."
         exit 1
     fi
 
@@ -66,17 +65,4 @@ if ! git flow version >/dev/null 2>&1; then
         exit 1
     fi
     zz_log s "git-flow installed successfully."
-fi 
-
-# Initialize git-flow in the repository if not already initialized. Use config values if available, otherwise use defaults.
-_feature_branch=$(jq -r '.gitflow.featureBranch' $source/config.json 2>/dev/null || echo "feature")
-_release_branch=$(jq -r '.gitflow.releaseBranch' $source/config.json 2>/dev/null || echo "release")
-_hotfix_branch=$(jq -r '.gitflow.hotfixBranch' $source/config.json 2>/dev/null || echo "hotfix")
-_support_branch=$(jq -r '.gitflow.supportBranch' $source/config.json 2>/dev/null || echo "support")
-_develop_branch=$(jq -r '.gitflow.developBranch' $source/config.json 2>/dev/null || echo "develop")
-_master_branch=$(jq -r '.gitflow.masterBranch' $source/config.json 2>/dev/null || echo "master")
-
-# Configure git-flow with the specified branch names. Use -d to skip prompts and -f to force reinitialization if already initialized.
-git flow init -d -f $_feature_branch -r $_release_branch -h $_hotfix_branch -s $_support_branch -d $_develop_branch -m $_master_branch >/dev/null 2>&1 && zz_log s "git-flow initialized successfully." || zz_log e "Failed to initialize git-flow."
-
-git config --global gitflow.branch.feature
+fi

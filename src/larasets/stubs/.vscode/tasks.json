@@ -2,6 +2,25 @@
     "version": "2.0.0",
     "tasks": [
         {
+            "label": "🚀 Start",
+            "detail": "Start the full dev environment (auto-detects Sail vs local, Codespaces/dev container/web/local)",
+            "dependsOn": [
+                "❇️ Optimize",
+                "serve",
+                "vite",
+                "art-queue",
+                "art-schedule",
+                "logs",
+                "smee"
+            ],
+            "dependsOrder": "parallel",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": []
+        },
+        {
             "label": "❇️ Optimize",
             "type": "shell",
             "command": "art optimize",
@@ -24,22 +43,18 @@
             }
         },
         {
-            "label": "art-serve",
+            "label": "serve",
             "type": "shell",
-            "command": "art serve",
+            "command": "serve",
             "hide": true,
             "presentation": {
                 "panel": "dedicated",
                 "clear": true,
-                "reveal": "silent",
-                "close": true
+                "reveal": "always"
             },
             "problemMatcher": {
                 "owner": "artisan",
-                "fileLocation": [
-                    "relative",
-                    "${workspaceFolder}"
-                ],
+                "fileLocation": ["relative", "${workspaceFolder}"],
                 "source": "artisan",
                 "pattern": [
                     {
@@ -58,19 +73,6 @@
                     "endsPattern": "."
                 }
             }
-        },
-        {
-            "label": "▶️ Serve",
-            "dependsOn": [
-                "❇️ Optimize",
-                "art-serve",
-                "vite",
-                "art-queue",
-                "art-schedule",
-                "logs",
-                "smee"
-            ],
-            "dependsOrder": "parallel"
         },
         {
             "label": "logs",
@@ -99,34 +101,9 @@
             "problemMatcher": []
         },
         {
-            "label": "▶️ Sail",
-            "dependsOn": [
-                "sail-up",
-                "❇️ Optimize",
-                "vite",
-                "art-queue",
-                "art-schedule"
-            ],
-            "dependsOrder": "sequence"
-        },
-        {
             "label": "⤵️ Install",
-            "dependsOn": [
-                "composer inst",
-                "npm install"
-            ],
+            "dependsOn": ["composer inst", "npm install"],
             "dependsOrder": "parallel"
-        },
-        {
-            "label": "sail-up",
-            "type": "shell",
-            "command": "sail up",
-            "presentation": {
-                "panel": "dedicated",
-                "clear": true,
-                "close": true
-            },
-            "hide": true
         },
         {
             "label": "sail-restart",
@@ -163,10 +140,7 @@
             "isBackground": true,
             "problemMatcher": {
                 "owner": "artisan",
-                "fileLocation": [
-                    "relative",
-                    "${workspaceFolder}"
-                ],
+                "fileLocation": ["relative", "${workspaceFolder}"],
                 "source": "artisan",
                 "pattern": [
                     {
@@ -199,10 +173,7 @@
             "isBackground": true,
             "problemMatcher": {
                 "owner": "artisan",
-                "fileLocation": [
-                    "relative",
-                    "${workspaceFolder}"
-                ],
+                "fileLocation": ["relative", "${workspaceFolder}"],
                 "source": "artisan",
                 "pattern": [
                     {
@@ -235,10 +206,7 @@
             "isBackground": true,
             "problemMatcher": {
                 "owner": "vite",
-                "fileLocation": [
-                    "relative",
-                    "${workspaceFolder}"
-                ],
+                "fileLocation": ["relative", "${workspaceFolder}"],
                 "source": "vite",
                 "pattern": {
                     "regexp": "^\\s*(Error)\\s*(.*)$",
@@ -254,6 +222,42 @@
                     "endsPattern": "."
                 }
             }
+        },
+        {
+            "label": "art-cache-config",
+            "type": "shell",
+            "command": "art config:cache",
+            "hide": true,
+            "presentation": {
+                "panel": "shared",
+                "reveal": "silent",
+                "close": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "art-cache-views",
+            "type": "shell",
+            "command": "art view:cache",
+            "hide": true,
+            "presentation": {
+                "panel": "shared",
+                "reveal": "silent",
+                "close": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "art-cache-routes",
+            "type": "shell",
+            "command": "art route:cache",
+            "hide": true,
+            "presentation": {
+                "panel": "shared",
+                "reveal": "silent",
+                "close": true
+            },
+            "problemMatcher": []
         },
         {
             "label": "📝 Ide Helper",
