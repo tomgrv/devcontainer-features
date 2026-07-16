@@ -2,6 +2,28 @@
 
 # Changelog
 
+## 7.3.0 (2026-07-16)
+
+_Commits from: v7.2.0..HEAD_
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v7.2.0' into develop ([4707c2e](https://github.com/tomgrv/devcontainer-features/commit/4707c2e6d0944802c1828f6323b649ea663ff452))
+
+### 📦 gitutils changes
+
+#### Bug Fixes
+
+- 🐛 wire git-flow init into devcontainer start ([60d4a9d](https://github.com/tomgrv/devcontainer-features/commit/60d4a9dbe698c363ba7506916577355798bea657))
+
+### 📦 larasets changes
+
+#### Bug Fixes
+
+- 🐛 correct Sail detection, add init, de-leak doppler config (#83) ([00977a3](https://github.com/tomgrv/devcontainer-features/commit/00977a3839161db6c4d8254bf866086b3a5d319f))
+
 ## 7.2.0 (2026-07-15)
 
 _Commits from: v7.1.0..HEAD_
@@ -1237,4 +1259,4 @@ _Commits from: v5.25.0..HEAD_
 
 ---
 
-_Generated on 2026-07-15 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
+_Generated on 2026-07-16 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_

@@ -6,13 +6,6 @@
         "SAIL_XDEBUG_CONFIG": "client_host=host.docker.internal idekey=vscode",
         "XDEBUG_CONFIG": "client_host=localhost idekey=vscode"
     },
-    "options": {
-        "doppler": {
-            "type": "string",
-            "default": "",
-            "description": "Doppler config name to export as DOPPLER_CONFIG for the `dep`/`secret` helpers. Leave empty to let Doppler resolve the config itself."
-        }
-    },
     "customizations": {
         "vscode": {
             "extensions": [
@@ -52,8 +45,17 @@
         "ghcr.io/tomgrv/devcontainer-features/common-utils:7": {}
     },
     "name": "Laravel settings",
-    "version": "7.7.0",
-    "legacyIds": ["larasets"],
+    "options": {
+        "doppler": {
+            "type": "string",
+            "default": "",
+            "description": "Doppler config name to export as DOPPLER_CONFIG for the `dep`/`secret` helpers. Leave empty to let Doppler resolve the config itself."
+        }
+    },
+    "version": "7.3.0",
+    "legacyIds": [
+        "larasets"
+    ],
     "postCreateCommand": {
         "config": "configure-feature larasets"
     }
