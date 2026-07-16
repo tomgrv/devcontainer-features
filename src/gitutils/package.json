@@ -6,6 +6,8 @@
         "_*.sh",
         "install.sh",
         "install-config.sh",
+        "install-gitflow.sh",
+        "configure-gitflow.sh",
         "alias.json",
         "config.json",
         "stubs/**/*"
