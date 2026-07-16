@@ -1,6 +1,6 @@
 {
     "name": "@tomgrv-devcontainer-features/larasets",
-    "version": "7.5.0",
+    "version": "7.6.0",
     "description": "Laravel development settings and utilities",
     "files": [
         "_*.sh",
@@ -8,13 +8,13 @@
         "_*.composer.json",
         "configure-*.sh",
         "install.sh",
+        "install-*.sh",
         "stubs/**/*"
     ],
     "bin": {
         "art": "./_art.sh",
         "dep": "./_dep.sh",
         "fwd": "./_fwd.sh",
-        "init": "./_init.sh",
         "run": "./_run.sh",
         "sail": "./_sail.sh",
         "sail-running": "./_sail-running.sh",

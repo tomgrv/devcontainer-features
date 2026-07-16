@@ -19,25 +19,16 @@ help
 #### Goto repository root
 cd "$(git rev-parse --show-toplevel)" >/dev/null
 
-#### Function to update or replace export entry in .bashrc
+#### Function to persist an env var in .env and, when available, in Doppler
+#### (Doppler is the durable store: unlike $HOME/.bashrc, it survives a
+#### container rebuild — see the `doppler` feature option / DOPPLER_CONFIG).
 setexport() {
     local key="$1"
     local value="$2"
 
-    # Check if the key is provided
     touch ./.env
 
-    ### In .bashrc
-    local bashrc="$HOME/.bashrc"
-    if grep -q "^export $key=" "$bashrc"; then
-        # Replace the existing entry
-        sed -i "s|^export $key=.*|export $key=$value|" "$bashrc"
-    else
-        # Add the new entry
-        echo "export $key=$value" >>"$bashrc"
-    fi
-
-    ### In .env
+    ### In .env (source of truth read by the Laravel app itself)
     local env_file=".env"
     if grep -q "^$key=" "$env_file"; then
         # Replace the existing entry
@@ -45,6 +36,15 @@ setexport() {
     else
         # Add the new entry
         echo "$key=$value" >>"$env_file"
+    fi
+
+    ### In Doppler, so the value survives a container rebuild
+    if command -v doppler >/dev/null 2>&1; then
+        if doppler secrets set "$key=$value" --silent >/dev/null 2>&1; then
+            zz_log i "$key persisted to Doppler"
+        else
+            zz_log w "$key: Doppler secrets set failed (not logged in / no config linked), kept in .env only"
+        fi
     fi
 
     zz_log i "$key: $value"

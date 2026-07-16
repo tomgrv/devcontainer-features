@@ -13,7 +13,6 @@ Use this feature for Laravel-focused developer experience in dev containers, inc
 
 ## Commands
 
-- `init` - Initialize Laravel project dependencies and environment defaults.
 - `sail <...>` - Run Laravel Sail commands.
 - `art <...>` - Run Artisan commands via local/Sail-aware wrapper.
 - `run <...>` - Run npm scripts via local/Sail-aware wrapper.
@@ -30,7 +29,7 @@ Use this feature for Laravel-focused developer experience in dev containers, inc
 ## Use For
 
 - Running Laravel commands through `art`, `sail`, `run`, `srv` wrappers.
-- Bootstrapping Laravel local environment defaults via `init`.
+- Bootstrapping Laravel local environment defaults automatically on container create (`configure-sail`).
 - Starting the dev environment via the `🚀 Start` task / `serve` (Sail or local, any environment).
 - Composer helper workflows tailored for Laravel monorepos.
 

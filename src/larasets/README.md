@@ -77,7 +77,6 @@ The feature also includes the following VS Code customizations:
 
 The following utilities are included by default:
 
-- `init` - Initialize the Laravel project by installing dependencies and setting up the environment.
 - `serve` - Start the app server, auto-selecting Laravel Sail or local PHP and binding `0.0.0.0:$APP_PORT` so forwarded ports work in Codespaces, dev containers, web, or local. Prompts for Sail only when the choice is ambiguous.
 - `sail` - Run Laravel Sail commands.
 - `seed` - Run database migrations and seed the database.
