@@ -2,6 +2,16 @@
 
 # Changelog
 
+## 7.3.6 (2026-07-16)
+
+_Commits from: v7.3.5..HEAD_
+
+### 📦 gitutils changes
+
+#### Bug Fixes
+
+- 🐛 change default git config scope from global to system ([8d99880](https://github.com/tomgrv/devcontainer-features/commit/8d9988025d383683ef6ff7396454543915ecf562))
+
 ## 7.3.5 (2026-07-16)
 
 _Commits from: v7.3.4..HEAD_
