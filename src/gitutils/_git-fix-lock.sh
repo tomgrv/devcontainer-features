@@ -1,7 +1,13 @@
 #!/bin/sh
 
-# Go to root directory
-cd "$(git rev-parse --show-toplevel)"
+# Function to print help and manage arguments
+eval $(
+	zz_args "Fix git lock files - resolve conflicts and regenerate lock files" $0 "$@" <<-help
+help
+)
+
+# Navigate to the repository root
+cd "$(git rev-parse --show-toplevel)" >/dev/null
 
 # List files with conflicts and filter only lock files
 conflicted_files=$(git diff --name-only --diff-filter=U | grep -E 'composer.lock|package-lock.json|yarn.lock')

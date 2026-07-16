@@ -6,6 +6,7 @@ set -e
 eval $(
     zz_args "Delete all descendant tags and branches of a commit" $0 "$@" <<-help
 		p -      push       push to remote
+        f -      force      allow overwriting pushed history
 		- sha    sha        sha commit to start from
 	help
 )
@@ -14,7 +15,7 @@ eval $(
 cd "$(git rev-parse --show-toplevel)" >/dev/null
 
 # Retrieve the commit SHA to fixup
-sha=$(git getcommit $sha)
+sha=$(git getcommit $force $sha)
 
 zz_log i "Deleting all tags that are descendants of $sha"
 
