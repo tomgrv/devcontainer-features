@@ -7,7 +7,7 @@ eval $(
 		    n -      dry-run   show what would be done without making changes
 		    - target target    target branch to rebase commits onto
 		    - source source    source branch to take commits from (default: current branch)
-	help
+help
 )
 
 # Navigate to the repository root
@@ -118,14 +118,14 @@ fi
 
 # Cherry-pick commits from source
 zz_log i "Cherry-picking commits..."
+# NB: iterate in the current shell (not a `... | while` subshell) so a failure
+# propagates and we bail out before the destructive reset of the source branch.
 failed=0
-echo "$commits" | while read commit; do
-	if [ -n "$commit" ]; then
-		if ! git cherry-pick "$commit" --strategy=recursive -X theirs --allow-empty; then
-			zz_log e "Cherry-pick failed on commit $commit"
-			failed=1
-			break
-		fi
+for commit in $commits; do
+	if ! git cherry-pick "$commit" --strategy=recursive -X theirs --allow-empty; then
+		zz_log e "Cherry-pick failed on commit $commit"
+		failed=1
+		break
 	fi
 done
 

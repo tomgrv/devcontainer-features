@@ -6,6 +6,7 @@ set -e
 eval $(
     zz_args "Delete all descendant tags and branches of a commit" $0 "$@" <<-help
 		p -      push       push to remote
+        f -      force      allow overwriting pushed history
 		- sha    sha        sha commit to start from
 	help
 )

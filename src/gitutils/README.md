@@ -8,7 +8,7 @@ This feature provides a set of utilities for working with Git repositories.
 
 ```json
 "features": {
-    "ghcr.io/tomgrv/devcontainer-features/gitutils:5": {}
+    "ghcr.io/tomgrv/devcontainer-features/gitutils:7": {}
 }
 ```
 
@@ -62,21 +62,19 @@ These shortcuts work in conjunction with the `gitversion` utility to automatical
 
 The feature includes the following interactive utilities:
 
-- `git fixup` - Amend the specified commit with current changes and rebase
 - `git align` - Align the current branch with its remote counterpart.
 - `git degit <repository> [directory]` - Download and extract a repository from GitHub, GitLab, or Bitbucket.
 - `git fix date [options] [<commit>]` - Fix commit dates and times in git history. Options include rescheduling commits on specific days of week outside certain time ranges.
 - `git fix blanks [-d]` - Discard tracked text-file changes when differences are only blanks and quote/slash swaps.
 - `git fix message -m <message> [--force|<commit>]` - Rewrite the commit message of a specific commit.
-- `git fixup [--force|<commit>]` - Amend the specified commit with current changes and rebase.
+- `git fix up [--force|<commit>]` - Amend the specified commit with current changes and rebase (alias: `git fu`).
 - `git forall <command>` - Execute a command for all files in the repository.
 - `git getcommit [--force|<commit>]` - Get the commit to fixup.
 - `git integrate` - Integrate modifications from the remote repository.
-- `git movetags` - Move tags to the nearest commit with the same message in the current branch.
 - `git release-beta` - Start a new release branch using Git Flow.
 - `git release-hotfix` - Start a new hotfix branch using Git Flow.
 - `git release-prod` - Finish a release or hotfix branch using Git Flow.
-- `git setrights` - Set permissions for files and directories according to best practices.
+- `git fix rights` - Set permissions for files and directories according to best practices.
 - `git unset <prefix> [--local|--global|--system]` - Unset all Git config keys starting with the given prefix.
 
 ## Aliases
@@ -89,9 +87,6 @@ The following aliases are provided to enhance your Git workflow:
 - `git co <message>` - Commit with the provided message.
 - `git conflict` - List files with merge conflicts.
 - `git continue` - Continue the rebase process after resolving conflicts.
-- `git crush` - Stash all changes, reset to the upstream branch, and apply the stash.
-- `git edit` - Amend the last commit and edit the commit message.
-- `git fixMode` - Apply the reverse diff of the current changes.
 - `git fixable` - List commits that can be fixed up.
 - `git forceable` - List commits that can be force-pushed.
 - `git go <message>` - Commit all changes with the provided message.
@@ -105,7 +100,6 @@ The following aliases are provided to enhance your Git workflow:
 - `git isRebase` - Check if a rebase is in progress.
 - `git pn` - Push without running pre-push hooks.
 - `git prod` - Finish a release or hotfix branch using Git Flow.
-- `git recallId <key>` - Set the Git user name and email to the author of the last commit.
 - `git renameTag <old> <new>` - Rename a tag.
 - `git stack` - Amend the last commit without changing the commit message.
 - `git sync` - Fetch and merge changes from the upstream branch.

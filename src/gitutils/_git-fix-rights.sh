@@ -1,31 +1,35 @@
 #!/bin/sh
 
-#### GOTO DIRECTORY
-cd "$(git rev-parse --show-toplevel)"
+# Function to print help and manage arguments
+eval $(
+	zz_args "Fix git access rights - set appropriate permissions for files and directories" $0 "$@" <<-help
 
+	help
+)
+
+# Navigate to the repository root
+cd "$(git rev-parse --show-toplevel)" >/dev/null
+
+# Apply the given permission to the tracked files matching the given pathspecs.
+# Operates on files tracked by git (not ignored/untracked ones), matching the
+# stated intent of normalising the repository's own file permissions.
 set_permissions() {
-    local type="$1"
-    local name="$2"
-    local perm="$3"
-    echo "Setting permissions $perm for type <$type> with name pattern '$name'"
-    git ls-files -o -i --exclude-standard | grep -v '/$' | xargs -I {} find "{}" -type "$type" -name "$name" -exec chmod "$perm" {} \;
+    perm="$1"
+    shift
+    zz_log i "Setting permissions $perm for: ${*:-<all tracked files>}"
+    git ls-files -z "$@" | xargs -0 -r chmod "$perm"
 }
 
-# Set default permissions for directories
-set_permissions d "*" 755
+# Regular files default to 644, scripts to 755, sensitive files to 600
+set_permissions 644
+set_permissions 755 '*.sh'
+set_permissions 600 '*.conf' '*.env'
 
-# Set default permissions for regular files
-set_permissions f "*" 644
+# Directories default to 755 (git does not track directories, so derive them
+# from the working tree, excluding the .git internals)
+find "." -type d -not -path '*/.git' -not -path '*/.git/*' -exec chmod 755 {} +
 
-# Set permissions for executable files (e.g., scripts)
-set_permissions f "*.sh" 755
+# Tighten well-known sensitive directories (e.g. logs, cache) to 700
+find "." -type d \( -name logs -o -name cache \) -not -path '*/.git/*' -exec chmod 700 {} +
 
-# Set permissions for sensitive files (e.g., configuration files)
-set_permissions f "*.conf" 600
-set_permissions f "*.env" 600
-
-# Set permissions for specific directories (e.g., logs, cache)
-set_permissions d "logs" 700
-set_permissions d "cache" 700
-
-echo "Access rights have been set according to best practices."
+zz_log s "Access rights have been set according to best practices."
