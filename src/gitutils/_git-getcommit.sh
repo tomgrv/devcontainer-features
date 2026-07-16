@@ -19,11 +19,10 @@ if [ -z "$sha" ]; then
     if [ -n "$force" ]; then
         zz_log w "Force mode enabled, overwriting pushed history"
         git forceable >&2
-        read -p 'Which commit? ' sha
     else
         git fixable >&2
-        read -p 'Which commit? ' sha
     fi
+    sha=$(zz_prompt "Which commit?")
 fi
 
 

@@ -9,7 +9,7 @@ conflicted_files=$(git diff --name-only --diff-filter=U | grep -E 'composer.lock
 # Process each lock file with conflicts
 for file in $conflicted_files; do
 
-    # Keep incoming changes by checking out the "ours" version of the file
+    # Keep our version of the lock file, then regenerate it below
     zz_log i "Fixing merge conflict in $file"
     git checkout --ours "$file"
 

@@ -13,7 +13,6 @@
         "stubs/**/*"
     ],
     "bin": {
-        "deleteChildren": "./_deleteChildren.sh",
         "git-align": "./_git-align.sh",
         "git-co": "./_git-co.sh",
         "git-degit": "./_git-degit.sh",
@@ -35,8 +34,7 @@
         "git-release-beta": "./_git-release-beta.sh",
         "git-release-hotfix": "./_git-release-hotfix.sh",
         "git-release-prod": "./_git-release-prod.sh",
-        "setrights": "./_setrights.sh",
-        "unset": "./_unset.sh"
+        "git-unset": "./_git-unset.sh"
     },
     "scripts": {
         "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then sh ./install.sh; fi",

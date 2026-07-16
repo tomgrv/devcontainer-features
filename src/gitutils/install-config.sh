@@ -23,6 +23,12 @@ if [ -f "$source/config.json" ]; then
     done
 fi
 
+### Set the VS Code editor only when its CLI is available, so plain shells keep
+### their default git editor instead of a broken `code --wait` invocation.
+if command -v code >/dev/null 2>&1; then
+    git config $scope core.editor "code --wait" && zz_log - "Created config core.editor => code --wait"
+fi
+
 ### For each entry in alias.json file next to this file, create corresponding git alias from key and value
 if [ -f "$source/alias.json" ]; then
     zz_log i "Configuring aliases with {U $source/alias.json}..."

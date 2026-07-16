@@ -24,7 +24,8 @@
         "zz-input": "./_zz_input.sh",
         "zz-json": "./_zz_json.sh",
         "zz-log": "./_zz_log.sh",
-        "zz-persist": "./_zz_persist.sh"
+        "zz-persist": "./_zz_persist.sh",
+        "zz-prompt": "./_zz_prompt.sh"
     },
     "scripts": {
         "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then sh ./install.sh; fi",

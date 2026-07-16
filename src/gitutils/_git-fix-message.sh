@@ -45,7 +45,7 @@ fi
 
 # Ask for the new message if not provided as argument
 if [ -z "$msg" ]; then
-	read -p "New commit message: " msg
+	msg=$(zz_prompt "New commit message:")
 fi
 
 # Ensure message is not empty

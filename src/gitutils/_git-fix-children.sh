@@ -14,7 +14,7 @@ eval $(
 cd "$(git rev-parse --show-toplevel)" >/dev/null
 
 # Retrieve the commit SHA to fixup
-sha=$(git getcommit $force $sha)
+sha=$(git getcommit $sha)
 
 zz_log i "Deleting all tags that are descendants of $sha"
 
