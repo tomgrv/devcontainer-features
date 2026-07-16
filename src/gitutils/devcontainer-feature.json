@@ -36,7 +36,7 @@
         "ghcr.io/tomgrv/devcontainer-features/gitversion:7": {}
     },
     "name": "Git Aliases",
-    "version": "7.3.4",
+    "version": "7.3.5",
     "postCreateCommand": {
         "config": "configure-feature gitutils"
     },
