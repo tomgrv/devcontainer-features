@@ -19,26 +19,6 @@ help
 #### Goto repository root
 cd "$(git rev-parse --show-toplevel)" >/dev/null
 
-#### Function to persist an env var in .env and, when available, in Doppler
-#### (Doppler is the durable store: unlike $HOME/.bashrc, it survives a
-#### container rebuild — see the `doppler` feature option / DOPPLER_CONFIG).
-setexport() {
-    local key="$1"
-    local value="$2"
-
-    ### In .env (source of truth read by the Laravel app itself)
-    zz_persist -f ./.env "$key" "$value"
-
-    ### In Doppler, so the value survives a container rebuild
-    if command -v doppler >/dev/null 2>&1; then
-        if doppler secrets set "$key=$value" --silent >/dev/null 2>&1; then
-            zz_log i "$key persisted to Doppler"
-        else
-            zz_log w "$key: Doppler secrets set failed (not logged in / no config linked), kept in .env only"
-        fi
-    fi
-}
-
 #### Environment variables
 if [ -z "$APP_PORT" ]; then
     zz_log w "APP_PORT is not set. Loading from .env file."
@@ -89,15 +69,15 @@ esac
 case "$mode" in
 remote)
     # Set the APP_URL and VITE_HOST for remote mode
-    setexport APP_URL "https://${prefix:+${APP_PORT:-80}-}$codespace${suffix:+-${APP_PORT:-80}}${domain:+.$domain}"
-    setexport ASSET_URL "https://${prefix:+${APP_PORT:-80}-}$codespace${suffix:+-${APP_PORT:-80}}${domain:+.$domain}"
-    setexport VITE_HOST "${prefix:+${VITE_PORT:-5173}-}$codespace${suffix:+-${VITE_PORT:-5173}}${domain:+.$domain}"
+    zz_persist -f ./.env APP_URL "https://${prefix:+${APP_PORT:-80}-}$codespace${suffix:+-${APP_PORT:-80}}${domain:+.$domain}"
+    zz_persist -f ./.env ASSET_URL "https://${prefix:+${APP_PORT:-80}-}$codespace${suffix:+-${APP_PORT:-80}}${domain:+.$domain}"
+    zz_persist -f ./.env VITE_HOST "${prefix:+${VITE_PORT:-5173}-}$codespace${suffix:+-${VITE_PORT:-5173}}${domain:+.$domain}"
     ;;
 local)
     # Set the APP_URL and VITE_HOST for local mode
-    setexport APP_URL "http://$codespace${domain:+.$domain}:${APP_PORT:-80}"
-    setexport ASSET_URL "http://$codespace${domain:+.$domain}:${APP_PORT:-80}"
-    setexport VITE_HOST ""
+    zz_persist -f ./.env APP_URL "http://$codespace${domain:+.$domain}:${APP_PORT:-80}"
+    zz_persist -f ./.env ASSET_URL "http://$codespace${domain:+.$domain}:${APP_PORT:-80}"
+    zz_persist -f ./.env VITE_HOST ""
     ;;
 *)
     zz_log e "Invalid mode. Use 'remote' or 'local'."
