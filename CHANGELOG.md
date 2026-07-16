@@ -2,6 +2,16 @@
 
 # Changelog
 
+## 7.3.5 (2026-07-16)
+
+_Commits from: v7.3.4..HEAD_
+
+### 📦 gitutils changes
+
+#### Bug Fixes
+
+- 🐛 ensure git-flow initialization handles stash correctly ([ce761a6](https://github.com/tomgrv/devcontainer-features/commit/ce761a604625342badd2a5ebfc69b1b28610b633))
+
 ## 7.3.4 (2026-07-16)
 
 _Commits from: v7.3.3..HEAD_
