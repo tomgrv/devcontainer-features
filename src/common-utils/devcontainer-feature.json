@@ -50,7 +50,7 @@
             "description": "utilities to install"
         }
     },
-    "version": "7.3.0",
+    "version": "7.3.1",
     "postCreateCommand": {
         "config": "configure-feature common-utils"
     }
