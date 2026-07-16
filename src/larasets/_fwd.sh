@@ -19,37 +19,6 @@ help
 #### Goto repository root
 cd "$(git rev-parse --show-toplevel)" >/dev/null
 
-#### Function to update or replace export entry in .bashrc
-setexport() {
-    local key="$1"
-    local value="$2"
-
-    # Check if the key is provided
-    touch ./.env
-
-    ### In .bashrc
-    local bashrc="$HOME/.bashrc"
-    if grep -q "^export $key=" "$bashrc"; then
-        # Replace the existing entry
-        sed -i "s|^export $key=.*|export $key=$value|" "$bashrc"
-    else
-        # Add the new entry
-        echo "export $key=$value" >>"$bashrc"
-    fi
-
-    ### In .env
-    local env_file=".env"
-    if grep -q "^$key=" "$env_file"; then
-        # Replace the existing entry
-        sed -i "s|^$key=.*|$key=$value|" "$env_file"
-    else
-        # Add the new entry
-        echo "$key=$value" >>"$env_file"
-    fi
-
-    zz_log i "$key: $value"
-}
-
 #### Environment variables
 if [ -z "$APP_PORT" ]; then
     zz_log w "APP_PORT is not set. Loading from .env file."
@@ -100,15 +69,15 @@ esac
 case "$mode" in
 remote)
     # Set the APP_URL and VITE_HOST for remote mode
-    setexport APP_URL "https://${prefix:+${APP_PORT:-80}-}$codespace${suffix:+-${APP_PORT:-80}}${domain:+.$domain}"
-    setexport ASSET_URL "https://${prefix:+${APP_PORT:-80}-}$codespace${suffix:+-${APP_PORT:-80}}${domain:+.$domain}"
-    setexport VITE_HOST "${prefix:+${VITE_PORT:-5173}-}$codespace${suffix:+-${VITE_PORT:-5173}}${domain:+.$domain}"
+    zz_persist -f ./.env APP_URL "https://${prefix:+${APP_PORT:-80}-}$codespace${suffix:+-${APP_PORT:-80}}${domain:+.$domain}"
+    zz_persist -f ./.env ASSET_URL "https://${prefix:+${APP_PORT:-80}-}$codespace${suffix:+-${APP_PORT:-80}}${domain:+.$domain}"
+    zz_persist -f ./.env VITE_HOST "${prefix:+${VITE_PORT:-5173}-}$codespace${suffix:+-${VITE_PORT:-5173}}${domain:+.$domain}"
     ;;
 local)
     # Set the APP_URL and VITE_HOST for local mode
-    setexport APP_URL "http://$codespace${domain:+.$domain}:${APP_PORT:-80}"
-    setexport ASSET_URL "http://$codespace${domain:+.$domain}:${APP_PORT:-80}"
-    setexport VITE_HOST ""
+    zz_persist -f ./.env APP_URL "http://$codespace${domain:+.$domain}:${APP_PORT:-80}"
+    zz_persist -f ./.env ASSET_URL "http://$codespace${domain:+.$domain}:${APP_PORT:-80}"
+    zz_persist -f ./.env VITE_HOST ""
     ;;
 *)
     zz_log e "Invalid mode. Use 'remote' or 'local'."

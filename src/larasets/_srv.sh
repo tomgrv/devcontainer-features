@@ -10,8 +10,8 @@ eval $(zz_args "Start or restart the server" $0 "$@" <<-help
 help
 )
 
-#### Execute command
-if [ -n "$LARAVEL_SAIL" ] && [ "$LARAVEL_SAIL" -eq 1 ] && sail ps --status running | grep --after-context=1 -q -; then
+#### Choose runner: Sail when running, else local
+if sail-running; then
     zz_log i "Running pm2 inside Sail"
     server='sail npx --yes pm2'
 else
@@ -19,5 +19,10 @@ else
     server='npx --yes pm2'
 fi
 
-$server restart --update-env server_$name || $server --name server_$name start "FORCE_COLOR=1 npm -- run \"$@\""
-$server log --raw --out server_$name
+app="server_$name"
+
+#### Restart if already managed, otherwise start a fresh npm process
+$server restart "$app" --update-env ||
+    FORCE_COLOR=1 $server start npm --name "$app" -- run "$@"
+
+$server logs "$app" --raw --out
