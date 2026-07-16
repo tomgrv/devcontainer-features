@@ -8,7 +8,7 @@ This feature provides a set of settings and utilities for working with Laravel p
 
 ```json
 "features": {
-    "ghcr.io/tomgrv/devcontainer-features/larasets:6": {}
+    "ghcr.io/tomgrv/devcontainer-features/larasets:7": {}
 }
 ```
 
@@ -21,49 +21,52 @@ npx tomgrv/devcontainer-features -- add larasets
 ## Functional Coverage
 
 - Configures Laravel environment variables.
-- Provides tasks for caching configuration, views, and routes.
-- Supports Laravel Sail for containerized development.
+- Ships VS Code tasks for optimize, migrate refresh, serve, Sail, install, and IDE helper generation.
+- Supports Laravel Sail for containerized development (wrappers auto-target the Sail container when it is running).
 - Installs necessary extensions and tools for Laravel development.
 
 ## Configuration
 
-The following environment variables are set by default:
+The following environment variables are set by default (`containerEnv`):
 
 - `APP_DEBUG`: `true`
 - `APP_ENV`: `local`
-- `LARAVEL_SAIL`: `1`
 - `DB_CONNECTION`: `sqlite`
-- `SAIL_XDEBUG_MODE`: `develop,debug`
 - `SAIL_XDEBUG_CONFIG`: `client_host=host.docker.internal idekey=vscode`
-- `XDEBUG_MODE`: `off`
+- `XDEBUG_CONFIG`: `client_host=localhost idekey=vscode`
+
+### Options
+
+- `doppler` (string, default empty): Doppler config name exported as
+  `DOPPLER_CONFIG` for the `dep`/`secret` helpers. Leave empty to let Doppler
+  resolve the config on its own — no personal config is shipped by default.
 
 ## Customizations
 
 The feature also includes the following VS Code customizations:
 
 - Extensions:
-    - `actboy168.tasks`
-    - `gruntfuggly.triggertaskonsave`
-    - `entexa.tall-stack`
-    - `formulahendry.auto-rename-tag`
-    - `formulahendry.auto-close-tag`
-    - `marabesi.php-import-checker`
+    - `aaron-bond.better-comments`
     - `alexcvzz.vscode-sqlite`
     - `bmewburn.vscode-intelephense-client`
-    - `onecentlin.laravel-blade`
-    - `xdebug.php-debug`
-    - `devsense.composer-php-vscode`
     - `christian-kohler.npm-intellisense`
     - `davidanson.vscode-markdownlint`
-    - `pcbowers.alpine-intellisense`
+    - `doppler.doppler-vscode`
+    - `entexa.tall-stack`
+    - `formulahendry.auto-close-tag`
+    - `formulahendry.auto-rename-tag`
+    - `gruntfuggly.triggertaskonsave`
     - `laravel.vscode-laravel`
-    - `aaron-bond.better-comments`
+    - `marabesi.php-import-checker`
+    - `onecentlin.laravel-blade`
+    - `pcbowers.alpine-intellisense`
+    - `xdebug.php-debug`
 
-- Settings:
-    - `triggerTaskOnSave.tasks`:
-        - `art-cache-config`: `**/config.php`, `config/*.php`, `.env`
-        - `art-cache-views`: `packages/**/*.blade.php`
-        - `art-cache-routes`: `**/[Rr]outes/*.php`
+- Deployed `.vscode/` stubs:
+    - `tasks.json`: Optimize, Refresh, Serve, Sail, Install, and IDE Helper tasks.
+    - `launch.json`: `Listen for XDebug` launch configuration (port 9003).
+    - `mcp.json`: `laravel-boost` MCP server.
+    - `settings.json`: Doppler autocomplete/hover defaults.
 
 ## Shell Utilities
 
@@ -76,9 +79,11 @@ The following utilities are included by default:
     - Use `art <...>` as you would do with `[php|sail] artisan <...>`
 - `srv` - Start and manage PM2 processes, locally or within the Laravel Sail environment if it is running.
     - Use `srv <...>` as you would do with `<sail> npm run <...>`
-- `fwd` - Manage port forwarding form `local` to `remote`
+- `fwd` - Manage port forwarding from `local` to `remote`.
 - `run` - Run npm scripts, locally or within the Laravel Sail environment if it is running.
     - Use `run <...>` as you would do with `<sail> npm run <...>`
+- `dep` - Run Deployer (`dep`) with SSH key and Doppler secrets injected.
+- `secret` - Run any command with the SSH agent loaded and Doppler secrets injected.
 
 ## Composer Utilities
 

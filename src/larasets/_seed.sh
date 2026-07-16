@@ -1,6 +1,9 @@
 #!/bin/sh
 set -e
 
+#### Goto repository root
+cd "$(git rev-parse --show-toplevel)" >/dev/null
+
 ### Default DB_CONNECTION
 if [ -z "$DB_CONNECTION" ]; then
     export DB_CONNECTION=sqlite
@@ -19,8 +22,7 @@ sqlite)
     touch ./$DB_DATABASE
     ;;
 *)
-    zz_log w "DB_CONNECTION {Purple $DB_CONNECTION} is not supported yet"
-    exit 1
+    zz_log i "DB_CONNECTION is {Purple $DB_CONNECTION}, using existing database server"
     ;;
 esac
 
