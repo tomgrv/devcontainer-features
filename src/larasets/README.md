@@ -21,7 +21,7 @@ npx tomgrv/devcontainer-features -- add larasets
 ## Functional Coverage
 
 - Configures Laravel environment variables.
-- Ships VS Code tasks for optimize, migrate refresh, serve, Sail, install, and IDE helper generation.
+- Ships a single environment-aware `🚀 Start` VS Code task plus optimize, migrate refresh, install, and IDE helper tasks.
 - Supports Laravel Sail for containerized development (wrappers auto-target the Sail container when it is running).
 - Installs necessary extensions and tools for Laravel development.
 
@@ -63,7 +63,7 @@ The feature also includes the following VS Code customizations:
     - `xdebug.php-debug`
 
 - Deployed `.vscode/` stubs:
-    - `tasks.json`: Optimize, Refresh, Serve, Sail, Install, and IDE Helper tasks.
+    - `tasks.json`: `🚀 Start` (env-aware full dev environment), Optimize, Refresh, Install, and IDE Helper tasks.
     - `launch.json`: `Listen for XDebug` launch configuration (port 9003).
     - `mcp.json`: `laravel-boost` MCP server.
     - `settings.json`: Doppler autocomplete/hover defaults.
@@ -73,6 +73,7 @@ The feature also includes the following VS Code customizations:
 The following utilities are included by default:
 
 - `init` - Initialize the Laravel project by installing dependencies and setting up the environment.
+- `serve` - Start the app server, auto-selecting Laravel Sail or local PHP and binding `0.0.0.0:$APP_PORT` so forwarded ports work in Codespaces, dev containers, web, or local. Prompts for Sail only when the choice is ambiguous.
 - `sail` - Run Laravel Sail commands.
 - `seed` - Run database migrations and seed the database.
 - `art` - Run Laravel Artisan commands, locally or within the Laravel Sail environment if it is running.

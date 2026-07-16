@@ -20,6 +20,7 @@ Use this feature for Laravel-focused developer experience in dev containers, inc
 - `srv <...>` - Run service process helpers (PM2-aware workflows).
 - `seed` - Run migrations and seed database data.
 - `fwd <...>` - Manage local-to-remote forwarding helper operations.
+- `serve` - Start the app server (env-aware: Sail vs local, binds 0.0.0.0:$APP_PORT).
 - `dep <...>` - Run Deployer with SSH key and Doppler secrets injected.
 - `secret <...>` - Run any command with SSH agent and Doppler secrets injected.
 - `composer lint` - Run Pint linting flow for project code.
@@ -30,7 +31,7 @@ Use this feature for Laravel-focused developer experience in dev containers, inc
 
 - Running Laravel commands through `art`, `sail`, `run`, `srv` wrappers.
 - Bootstrapping Laravel local environment defaults via `init`.
-- Optimize/serve/refresh workflows via the deployed VS Code tasks.
+- Starting the dev environment via the `🚀 Start` task / `serve` (Sail or local, any environment).
 - Composer helper workflows tailored for Laravel monorepos.
 
 ## Do Not Use For
