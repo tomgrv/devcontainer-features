@@ -63,10 +63,15 @@ The feature also includes the following VS Code customizations:
     - `xdebug.php-debug`
 
 - Deployed `.vscode/` stubs:
-    - `tasks.json`: `🚀 Start` (env-aware full dev environment), Optimize, Refresh, Install, and IDE Helper tasks.
+    - `tasks.json`: `🚀 Start` (env-aware full dev environment), Optimize, Refresh, Install, IDE Helper, and the save-triggered `art-cache-*` tasks.
     - `launch.json`: `Listen for XDebug` launch configuration (port 9003).
     - `mcp.json`: `laravel-boost` MCP server.
-    - `settings.json`: Doppler autocomplete/hover defaults.
+    - `settings.json`: Doppler autocomplete/hover defaults and `triggerTaskOnSave` cache refresh.
+
+- Save-triggered cache refresh (`triggerTaskOnSave.tasks`, via `gruntfuggly.triggertaskonsave`):
+    - `art-cache-config` (`art config:cache`): `**/config.php`, `config/*.php`, `.env`
+    - `art-cache-views` (`art view:cache`): `packages/**/*.blade.php`
+    - `art-cache-routes` (`art route:cache`): `**/[Rr]outes/*.php`
 
 ## Shell Utilities
 

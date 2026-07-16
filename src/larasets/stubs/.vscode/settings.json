@@ -6,5 +6,12 @@
         "hover": {
             "enable": null
         }
+    },
+    "triggerTaskOnSave": {
+        "tasks": {
+            "art-cache-config": ["**/config.php", "config/*.php", ".env"],
+            "art-cache-views": ["packages/**/*.blade.php"],
+            "art-cache-routes": ["**/[Rr]outes/*.php"]
+        }
     }
 }

@@ -7,7 +7,7 @@
         "laravel/boost",
         "pestphp/pest-plugin-laravel",
         "nunomaduro/collision",
-        "nunomaduro/phpinsights",
+        "barryvdh/laravel-ide-helper",
         "pestphp/pest-plugin-arch",
         "phpmd/phpmd"
     ],

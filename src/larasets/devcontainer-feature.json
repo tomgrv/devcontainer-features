@@ -52,7 +52,7 @@
         "ghcr.io/tomgrv/devcontainer-features/common-utils:7": {}
     },
     "name": "Laravel settings",
-    "version": "7.4.0",
+    "version": "7.5.0",
     "legacyIds": ["larasets"],
     "postCreateCommand": {
         "config": "configure-feature larasets"
