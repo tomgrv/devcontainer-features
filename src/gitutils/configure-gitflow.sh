@@ -26,7 +26,9 @@ git config gitflow.branch.develop "$develop_branch"
 
 # Prefixes are only read from --system/--global config by 'init', so pass them
 # explicitly to avoid the (empty) built-in defaults, in particular for the tag prefix.
+git stash >/dev/null 2>&1
 git flow init -d -f \
     -p "$feature_prefix" -b "$bugfix_prefix" -r "$release_prefix" \
     -x "$hotfix_prefix" -s "$support_prefix" -t "$versiontag_prefix" \
     >/dev/null 2>&1 && zz_log s "git-flow initialized successfully." || zz_log e "Failed to initialize git-flow."
+git stash pop >/dev/null 2>&1
