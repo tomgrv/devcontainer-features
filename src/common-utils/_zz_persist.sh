@@ -19,16 +19,27 @@ if [ -z "$key" ]; then
     exit 1
 fi
 
+case "$key" in
+[A-Za-z_][A-Za-z0-9_]*) ;;
+*)
+    zz_log e "Invalid key name: {Purple $key}"
+    exit 1
+    ;;
+esac
+
 if [ -z "$file" ] && [ -z "$profile" ]; then
     zz_log e "At least one of -f or -p is required"
     exit 1
 fi
 
+# Escape for sed replacement (avoid &, \\ and delimiter issues)
+escaped_value=$(printf '%s' "${value:-}" | sed -e 's/[\\&|]/\\&/g')
+
 ### Upsert KEY=VALUE into a plain env-style file (e.g. .env)
 if [ -n "$file" ]; then
     touch "$file"
     if grep -q "^$key=" "$file"; then
-        sed -i "s|^$key=.*|$key=$value|" "$file"
+        sed -i "s|^$key=.*|$key=$escaped_value|" "$file"
     else
         echo "$key=$value" >>"$file"
     fi
