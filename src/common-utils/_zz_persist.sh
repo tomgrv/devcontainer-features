@@ -51,7 +51,7 @@ if [ -n "$profile" ]; then
     profile_file="/etc/profile.d/$profile.sh"
     if mkdir -p /etc/profile.d 2>/dev/null && touch "$profile_file" 2>/dev/null; then
         if grep -q "^export $key=" "$profile_file" 2>/dev/null; then
-            sed -i "s|^export $key=.*|export $key=$value|" "$profile_file"
+            sed -i "s|^export $key=.*|export $key=$escaped_value|" "$profile_file"
         else
             echo "export $key=$value" >>"$profile_file"
         fi
