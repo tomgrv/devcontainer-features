@@ -2,6 +2,16 @@
 
 # Changelog
 
+## 7.3.4 (2026-07-16)
+
+_Commits from: v7.3.3..HEAD_
+
+### 📦 gitutils changes
+
+#### Bug Fixes
+
+- 🐛 escape single quotes in git alias configuration ([cbec7a1](https://github.com/tomgrv/devcontainer-features/commit/cbec7a1732de80ab3023c8b737fd73d65e2729bd))
+
 ## 7.3.3 (2026-07-16)
 
 _Commits from: v7.3.2..HEAD_

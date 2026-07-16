@@ -28,6 +28,7 @@ if [ -f "$source/alias.json" ]; then
     zz_log i "Configuring aliases with {U $source/alias.json}..."
     jq -r 'keys[]' $source/alias.json | while read key; do
         value=$(jq -r ".$key.cmd" $source/alias.json)
-        git config $scope alias.$key "!sh -c '$value' -- \"\$@\"" && zz_log - "Created alias {B $key} => {B $value}"
+        escaped_value=$(printf '%s' "$value" | sed "s/'/'\\''/g")
+        git config "$scope" "alias.$key" "!sh -c '$escaped_value' -- \"\$@\"" && zz_log - "Created alias {B $key}"
     done
 fi
