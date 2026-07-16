@@ -9,8 +9,7 @@
         "@commitlint/config-conventional": "*",
         "@commitlint/core": "*",
         "@commitlint/cz-commitlint": "*",
-        "commitizen": "*",
-        "conventional-changelog-cli": "*"
+        "commitizen": "*"
     },
     "commitlint": {
         "extends": [

@@ -63,6 +63,9 @@
     "dependencies": {
         "prettier-plugin-sh": "^0.19.0"
     },
+    "overrides": {
+        "uuid": "^11.0.0"
+    },
     "devDependencies": {
         "npm-check-updates": "*"
     },
@@ -73,7 +76,6 @@
         "@commitlint/cz-commitlint": "^19.2.0",
         "commit-and-tag-version": "^12.4.1",
         "commitizen": "^4.3.0",
-        "conventional-changelog-cli": "^2.1.1",
         "devmoji": "^2.3.0",
         "git-precommit-checks": "3.1.0",
         "husky": "^9.0.11",
