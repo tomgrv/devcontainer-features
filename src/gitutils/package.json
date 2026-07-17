@@ -24,6 +24,7 @@
         "git-fix-lock": "./_git-fix-lock.sh",
         "git-fix-mode": "./_git-fix-mode.sh",
         "git-fix-privacy": "./_git-fix-privacy.sh",
+        "git-fix-secrets": "./_git-fix-secrets.sh",
         "git-fix-up": "./_git-fix-up.sh",
         "git-forall": "./_git-forall.sh",
         "git-getcommit": "./_git-getcommit.sh",
