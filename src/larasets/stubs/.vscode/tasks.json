@@ -3,12 +3,10 @@
     "tasks": [
         {
             "label": "🚀 Start",
-            "detail": "Start the full dev environment (auto-detects Sail vs local, Codespaces/dev container/web/local)",
+            "detail": "Start the full dev environment with Sail/PHP + queue + jobs + vite (auto-detects Sail vs local)",
             "dependsOn": [
                 "❇️ Optimize",
                 "serve",
-                "vite",
-                "art-queue",
                 "art-schedule",
                 "logs",
                 "smee"
@@ -46,6 +44,7 @@
             "label": "serve",
             "type": "shell",
             "command": "serve",
+            "detail": "Orchestrate Sail/PHP + queue + jobs + vite (pm2-managed)",
             "hide": true,
             "presentation": {
                 "panel": "dedicated",
@@ -54,7 +53,10 @@
             },
             "problemMatcher": {
                 "owner": "artisan",
-                "fileLocation": ["relative", "${workspaceFolder}"],
+                "fileLocation": [
+                    "relative",
+                    "${workspaceFolder}"
+                ],
                 "source": "artisan",
                 "pattern": [
                     {
@@ -102,7 +104,10 @@
         },
         {
             "label": "⤵️ Install",
-            "dependsOn": ["composer inst", "npm install"],
+            "dependsOn": [
+                "composer inst",
+                "npm install"
+            ],
             "dependsOrder": "parallel"
         },
         {
@@ -128,39 +133,6 @@
             "hide": true
         },
         {
-            "label": "art-queue",
-            "type": "shell",
-            "command": "art queue:listen --sleep=3 --tries=3",
-            "presentation": {
-                "panel": "dedicated",
-                "clear": true,
-                "reveal": "silent"
-            },
-            "hide": true,
-            "isBackground": true,
-            "problemMatcher": {
-                "owner": "artisan",
-                "fileLocation": ["relative", "${workspaceFolder}"],
-                "source": "artisan",
-                "pattern": [
-                    {
-                        "regexp": "Exception",
-                        "message": 1
-                    },
-                    {
-                        "regexp": "^\\s*at\\s*([/\\w]+):(\\d+)$",
-                        "file": 1,
-                        "line": 2
-                    }
-                ],
-                "background": {
-                    "activeOnStart": true,
-                    "beginsPattern": "^\\s*(INFO)",
-                    "endsPattern": "."
-                }
-            }
-        },
-        {
             "label": "art-schedule",
             "type": "shell",
             "command": "art schedule:work",
@@ -173,7 +145,10 @@
             "isBackground": true,
             "problemMatcher": {
                 "owner": "artisan",
-                "fileLocation": ["relative", "${workspaceFolder}"],
+                "fileLocation": [
+                    "relative",
+                    "${workspaceFolder}"
+                ],
                 "source": "artisan",
                 "pattern": [
                     {
@@ -189,36 +164,6 @@
                 "background": {
                     "activeOnStart": true,
                     "beginsPattern": "^\\s*(INFO)",
-                    "endsPattern": "."
-                }
-            }
-        },
-        {
-            "label": "vite",
-            "type": "shell",
-            "command": "srv dev",
-            "presentation": {
-                "panel": "dedicated",
-                "clear": true,
-                "reveal": "always"
-            },
-            "hide": true,
-            "isBackground": true,
-            "problemMatcher": {
-                "owner": "vite",
-                "fileLocation": ["relative", "${workspaceFolder}"],
-                "source": "vite",
-                "pattern": {
-                    "regexp": "^\\s*(Error)\\s*(.*)$",
-                    "file": 1,
-                    "line": 2,
-                    "column": 3,
-                    "severity": 4,
-                    "message": 5
-                },
-                "background": {
-                    "activeOnStart": true,
-                    "beginsPattern": "^VITE v\\d+\\.\\d+\\.\\d+\\s+ready in \\d+ ms$",
                     "endsPattern": "."
                 }
             }
