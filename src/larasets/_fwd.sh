@@ -25,7 +25,7 @@ if [ -z "$APP_PORT" ]; then
     APP_PORT=$(awk -F'=' '/^APP_PORT=/ {print $2}' .env)
 else
     zz_log i "APP_PORT is set to $APP_PORT."
-    setexport APP_PORT "$APP_PORT"
+    zz_persist -f ./.env APP_PORT "$APP_PORT"
 fi
 
 #### Load preset values
@@ -50,6 +50,7 @@ local)
     mode="local"
     ;;
 *)
+    zz_log w "No preset specified. Using provided values."
     if [ -z "$domain" ]; then
         zz_log e "Domain is required."
         exit 1
