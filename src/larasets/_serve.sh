@@ -4,7 +4,7 @@ set -e
 #### Goto repository root
 cd "$(git rev-parse --show-toplevel)" >/dev/null
 
-#### Environment-aware app server.
+#### Environment-aware orchestration: sail + queue + jobs + vite
 #### Works the same in Codespaces, dev containers, web and local:
 ####   - binds 0.0.0.0 + $APP_PORT so a forwarded port is reachable
 ####   - runs Laravel Sail when Docker is available and wanted, else local PHP
@@ -34,14 +34,27 @@ fi
 
 case "$mode" in
 sail)
-    zz_log i "Starting {B Laravel Sail}"
-    #### Detached so dependent watchers can start against the container
+    zz_log i "Starting {B Laravel Sail + queue + jobs + vite}"
+    #### Detached so dependent processes can start against the container
     sail up -d
-    #### Follow the container logs in this terminal
-    exec sail logs -f
+    #### Use pm2 to manage multiple services in sail
+    server='sail npx --yes pm2'
+    $server start "php -S 0.0.0.0:$port" --name "sail-serve" || $server restart "sail-serve" --update-env
+    $server start "art queue:work" --name "sail-queue" || $server restart "sail-queue" --update-env
+    $server start "art queue:work --queue=jobs" --name "sail-jobs" || $server restart "sail-jobs" --update-env
+    $server start "npm run dev" --name "sail-vite" || $server restart "sail-vite" --update-env
+    #### Follow all logs in this terminal
+    exec $server logs -f
     ;;
 local)
-    zz_log i "Serving on {Purple 0.0.0.0:$port} (local PHP)"
-    exec art serve --host=0.0.0.0 --port="$port"
+    zz_log i "Serving on {Purple 0.0.0.0:$port} (local PHP + queue + jobs + vite)"
+    #### Use pm2 to manage multiple services locally
+    server='npx --yes pm2'
+    $server start "art serve --host=0.0.0.0 --port=$port" --name "local-serve" || $server restart "local-serve" --update-env
+    $server start "art queue:work" --name "local-queue" || $server restart "local-queue" --update-env
+    $server start "art queue:work --queue=jobs" --name "local-jobs" || $server restart "local-jobs" --update-env
+    $server start "npm run dev" --name "local-vite" || $server restart "local-vite" --update-env
+    #### Follow all logs in this terminal
+    exec $server logs -f
     ;;
 esac
