@@ -11,7 +11,7 @@ eval $(
 help
 )
 
-#### GET last vX.Y.Z tag on the main branch, removing the leading 'v' and replacing last number with 'X'
+#### GET last vX.Y.Z tag on the main branch and replace the last number with 'X' (leading 'v' is kept)
 main=$(git describe --tags --abbrev=0 --match "v[0-9]*.[0-9]*.[0-9]*" main)
 
 if [ -z "$main" ]; then
@@ -28,7 +28,7 @@ if [ -n "$rebase" ]; then
 elif git log --reverse --pretty=oneline --format=%B develop --not origin/develop --no-merges | grep -vE "^$|^fix(\(.+\))?:" >/dev/null; then
     zz_log w "There are commits since $main that are not of type 'fix:', creating hotfix branch only"
     unset rebase
-elif [ -z "$stash" ]; then
+else
     zz_log i "All commits since $main are of type 'fix:', creating hotfix branch and rebasing current history + stash on top of it"
     rebase=true
 fi
@@ -52,12 +52,17 @@ else
 fi
 
 # Set GIT_EDITOR to no-op to avoid opening editor during rebase or cherry-pick
-GIT_EDITOR=:
+export GIT_EDITOR=:
 
 hotfix=$(echo "$main" | sed -E 's/([0-9]+)\.([0-9]+)\.([0-9]+)/\1.\2.X/')
 
-# Create hotfix branch
-git flow hotfix start $hotfix
+# Create hotfix branch (bail out if it fails, so we don't pop the stash or
+# rebase onto the wrong branch)
+if ! git flow hotfix start "$hotfix"; then
+    zz_log e "Failed to start hotfix branch $hotfix"
+    [ -n "$stash" ] && git stash pop --index
+    exit 1
+fi
 
 # If stash was used, pop it back
 if [ -n "$stash" ]; then
@@ -74,5 +79,3 @@ if [ -n "$rebase" ]; then
     git fix base -p hotfix/$hotfix develop
 
 fi
-    
-        

@@ -10,9 +10,9 @@ help
 cd "$(git rev-parse --show-toplevel)" >/dev/null
 
 # Check if on a hotfix branch and extract branch name
-if [ -n "$(git branch --list hotfix/*)" ]; then
+if [ -n "$(git branch --list 'hotfix/*')" ]; then
     flow=hotfix
-    name=$(git branch --list hotfix/* | sed 's/.*hotfix\///'| head -n1 )
+    name=$(git branch --list 'hotfix/*' | sed 's/.*hotfix\///'| head -n1 )
     zz_log i "Hotfix branch found: {Yellow $name}"
 
 # Check for .git/RELEASE file if no flow branch found
@@ -22,9 +22,9 @@ elif [ -z "$flow" ] && [ -f .git/RELEASE ]; then
     zz_log i "Release branch found: {Blue $name}"
 
 # Check if on a release branch and extract branch name
-elif [ -n "$(git branch --list release/*)" ]; then
+elif [ -n "$(git branch --list 'release/*')" ]; then
     flow=release
-    name=$(git branch --list release/* | sed 's/.*release\///' | head -n1 )
+    name=$(git branch --list 'release/*' | sed 's/.*release\///' | head -n1 )
     zz_log i "Release branch found: {Blue $name}"
 fi
 
@@ -49,13 +49,13 @@ fi
 
 
 # Ensure main branch has an up to-date remote
-if ! git fetch $(git remote) >/dev/null 2>&1; then
+if ! git fetch origin >/dev/null 2>&1; then
     zz_log e "Cannot fetch from remote"
     exit 1
 fi
 
 # Ensure main branch is up-to-date
-if ! git merge-base --is-ancestor $(git rev-parse $flow/$name) $(git rev-parse refs/remotes/$(git remote)/$flow/$name) ; then
+if ! git merge-base --is-ancestor $(git rev-parse $flow/$name) $(git rev-parse refs/remotes/origin/$flow/$name) ; then
     zz_log e "$flow/$name branch is not up-to-date with remote. Please pull the latest changes."
     exit 1
 fi
@@ -69,7 +69,7 @@ fi
 zz_log i "Bump version: {Blue $GBV}"
 
 # Prevent git editor prompt during finish
-GIT_EDITOR=:
+export GIT_EDITOR=:
 
 # Update version, changelog, and finish release
 if bump-changelog -f $GBV -b -m; then
@@ -78,7 +78,7 @@ if bump-changelog -f $GBV -b -m; then
         zz_log e "Cannot commit version & CHANGELOG"
         exit 1
     else
-        git push --set-upstream $(git remote) $flow/$name
+        git push --set-upstream origin $flow/$name
         zz_log s "Version & CHANGELOG committed and pushed"
     fi
 
@@ -93,17 +93,19 @@ if bump-changelog -f $GBV -b -m; then
         exit 1
     fi
 
-    if git flow $flow finish $name --push --tagname $GBV --message $GBV ; then
+    # Tag with the configured 'v' prefix so git-flow's tag matches the one
+    # bump-tag maintains (avoids a stray numeric tag alongside v$GBV).
+    if git flow $flow finish $name --push --tagname "v$GBV" --message $GBV ; then
         zz_log s "Release finished: {B $GBV}"
         bump-tag $GBV
+        # Clear release state only once the release has actually finished.
+        rm -f .git/RELEASE
     else
         zz_log e "Cannot finish release. CHANGELOG & VERSION are not updated."
         zz_log - "Please fix the issues, commit the changes, and finish the release manually with:"
-        zz_log - "   git flow $flow finish $name --push --tagname $GBV --message $GBV"
+        zz_log - "   git flow $flow finish $name --push --tagname v$GBV --message $GBV"
         zz_log - "   bump-tag $GBV"
     fi
-
-    rm -f .git/RELEASE  
 else
     zz_log e "Cannot update version & finish release"
 fi

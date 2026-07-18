@@ -2,6 +2,50 @@
 
 # Changelog
 
+## 7.4.0 (2026-07-18)
+
+_Commits from: v7.3.6..HEAD_
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v7.3.0' into develop ([96f131b](https://github.com/tomgrv/devcontainer-features/commit/96f131b80bec7ddaa07d871b77c7ca06d9aaa6f3))
+- Merge tag 'v7.3.1' into develop ([92c0449](https://github.com/tomgrv/devcontainer-features/commit/92c0449dff11193401b11cd29c9b652be3048c90))
+- Merge tag 'v7.3.2' into develop ([ad1b63c](https://github.com/tomgrv/devcontainer-features/commit/ad1b63ccba68f5c89a50d757fcfef90cdbd6f7a9))
+- Merge tag 'v7.3.3' into develop ([5ea5e1f](https://github.com/tomgrv/devcontainer-features/commit/5ea5e1fa01162d2e7a674599fffb8a35e4d42496))
+- Merge tag 'v7.3.4' into develop ([96bd85c](https://github.com/tomgrv/devcontainer-features/commit/96bd85ce9da2996e7c7509dad05dbc5dbb8fc569))
+- Merge tag 'v7.3.5' into develop ([104d6f2](https://github.com/tomgrv/devcontainer-features/commit/104d6f22ac3c71ca37b08a3906dfa1983c9a3fd7))
+- Merge tag 'v7.3.6' into develop ([55f11dd](https://github.com/tomgrv/devcontainer-features/commit/55f11dd56ee88bfa1456979f51fa70a4e375a116))
+
+### 📦 common-utils changes
+
+#### Bug Fixes
+
+- 🔧 improve npx help/stubs/logs and drop deprecated deps (#85) ([560a57c](https://github.com/tomgrv/devcontainer-features/commit/560a57c4ab8fccb9919abbee7623ff7fcf3744e8))
+
+### 📦 gitutils changes
+
+#### Bug Fixes
+
+- fix broken commands, harden release flow, dash portability (#84) ([d934ca9](https://github.com/tomgrv/devcontainer-features/commit/d934ca94886251fc6839928a04999822df06a2e5))
+
+#### Features
+
+- add git fix secrets to redact secrets from history (#86) ([ad9ef67](https://github.com/tomgrv/devcontainer-features/commit/ad9ef67e438398118d5d90065698880b6552a85a))
+
+### 📦 larasets changes
+
+#### Bug Fixes
+
+- 🐛 🔧 update APP_PORT handling and log preset usage ([26929ce](https://github.com/tomgrv/devcontainer-features/commit/26929ce9e444db2007436a0c9a275e9200aa7b90))
+- 🐛 update APP_PORT handling and log preset usage ([3ee8188](https://github.com/tomgrv/devcontainer-features/commit/3ee81882bdeb3002bee6dece87f0a277f06ac5b3))
+
+#### Features
+
+- inject Doppler secrets in more wrappers, add smee, sequence Start (#88) ([57a8b07](https://github.com/tomgrv/devcontainer-features/commit/57a8b07291f9c4af87480b21b0d1f3f319d9b285))
+- ✨ orchestrate sail/queue/jobs/vite in serve script ([0017d1d](https://github.com/tomgrv/devcontainer-features/commit/0017d1d1801e9ece4dd90be5d4b2ce02e666c0f3))
+
 ## 7.3.6 (2026-07-16)
 
 _Commits from: v7.3.5..HEAD_
@@ -1325,4 +1369,4 @@ _Commits from: v5.25.0..HEAD_
 
 ---
 
-_Generated on 2026-07-16 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
+_Generated on 2026-07-18 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_

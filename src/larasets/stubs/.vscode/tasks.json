@@ -3,17 +3,15 @@
     "tasks": [
         {
             "label": "🚀 Start",
-            "detail": "Start the full dev environment (auto-detects Sail vs local, Codespaces/dev container/web/local)",
+            "detail": "Start the full dev environment with Sail/PHP + queue + vite (auto-detects Sail vs local), then logs, schedule, and smee, in order",
             "dependsOn": [
                 "❇️ Optimize",
                 "serve",
-                "vite",
-                "art-queue",
-                "art-schedule",
                 "logs",
+                "art-schedule",
                 "smee"
             ],
-            "dependsOrder": "parallel",
+            "dependsOrder": "sequence",
             "group": {
                 "kind": "build",
                 "isDefault": true
@@ -45,8 +43,10 @@
         {
             "label": "serve",
             "type": "shell",
-            "command": "serve",
+            "command": "sh -c 'echo READY; exec serve'",
+            "detail": "Orchestrate Sail/PHP + queue + vite (pm2-managed)",
             "hide": true,
+            "isBackground": true,
             "presentation": {
                 "panel": "dedicated",
                 "clear": true,
@@ -69,7 +69,7 @@
                 ],
                 "background": {
                     "activeOnStart": true,
-                    "beginsPattern": "^\\s*(INFO)",
+                    "beginsPattern": "^READY$",
                     "endsPattern": "."
                 }
             }
@@ -77,20 +77,31 @@
         {
             "label": "logs",
             "type": "shell",
-            "command": "tail -f storage/logs/laravel.log",
+            "command": "sh -c 'echo READY; exec tail -f storage/logs/laravel.log'",
             "hide": true,
+            "isBackground": true,
             "presentation": {
                 "panel": "dedicated",
                 "clear": true,
                 "reveal": "silent",
                 "close": true
             },
-            "problemMatcher": []
+            "problemMatcher": {
+                "pattern": {
+                    "regexp": "^(.)$",
+                    "file": 1
+                },
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": "^READY$",
+                    "endsPattern": "."
+                }
+            }
         },
         {
             "label": "smee",
             "type": "shell",
-            "command": "npm run smee",
+            "command": "smee",
             "hide": true,
             "presentation": {
                 "panel": "dedicated",
@@ -128,42 +139,9 @@
             "hide": true
         },
         {
-            "label": "art-queue",
-            "type": "shell",
-            "command": "art queue:listen --sleep=3 --tries=3",
-            "presentation": {
-                "panel": "dedicated",
-                "clear": true,
-                "reveal": "silent"
-            },
-            "hide": true,
-            "isBackground": true,
-            "problemMatcher": {
-                "owner": "artisan",
-                "fileLocation": ["relative", "${workspaceFolder}"],
-                "source": "artisan",
-                "pattern": [
-                    {
-                        "regexp": "Exception",
-                        "message": 1
-                    },
-                    {
-                        "regexp": "^\\s*at\\s*([/\\w]+):(\\d+)$",
-                        "file": 1,
-                        "line": 2
-                    }
-                ],
-                "background": {
-                    "activeOnStart": true,
-                    "beginsPattern": "^\\s*(INFO)",
-                    "endsPattern": "."
-                }
-            }
-        },
-        {
             "label": "art-schedule",
             "type": "shell",
-            "command": "art schedule:work",
+            "command": "sh -c 'echo READY; exec art schedule:work'",
             "presentation": {
                 "panel": "dedicated",
                 "clear": true,
@@ -188,37 +166,7 @@
                 ],
                 "background": {
                     "activeOnStart": true,
-                    "beginsPattern": "^\\s*(INFO)",
-                    "endsPattern": "."
-                }
-            }
-        },
-        {
-            "label": "vite",
-            "type": "shell",
-            "command": "srv dev",
-            "presentation": {
-                "panel": "dedicated",
-                "clear": true,
-                "reveal": "always"
-            },
-            "hide": true,
-            "isBackground": true,
-            "problemMatcher": {
-                "owner": "vite",
-                "fileLocation": ["relative", "${workspaceFolder}"],
-                "source": "vite",
-                "pattern": {
-                    "regexp": "^\\s*(Error)\\s*(.*)$",
-                    "file": 1,
-                    "line": 2,
-                    "column": 3,
-                    "severity": 4,
-                    "message": 5
-                },
-                "background": {
-                    "activeOnStart": true,
-                    "beginsPattern": "^VITE v\\d+\\.\\d+\\.\\d+\\s+ready in \\d+ ms$",
+                    "beginsPattern": "^READY$",
                     "endsPattern": "."
                 }
             }

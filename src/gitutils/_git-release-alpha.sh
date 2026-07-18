@@ -66,6 +66,7 @@ elif [ -n "$occ" ]; then
     msg=$(echo "$msg" | sed -E "s/^( *[a-z]+)/$first_word/")
     zz_log i "Most occurring first word is '$first_word', updating commit message to start with it..."
 elif echo "$all_types" | grep -q '^ *feat'; then
+    first_word=feat
     msg=$(echo "$msg" | sed -E "s/^( *[a-z]+)/$first_word/")
     zz_log i "At least one commit message starts with 'feat', updating commit message to start with it..."
 else
