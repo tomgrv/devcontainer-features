@@ -9,19 +9,18 @@ if [ "$#" -eq 0 ]; then
     exit 1
 fi
 
-if [ ! -x "$HOME/.composer/vendor/bin/dep" ]; then
-    zz_log e "Deployer not installed. Please install it first."
-    exit 1
-fi
+#### Load the SSH key into an agent, best-effort (does not block the command), then run "$@" as-is.
+#### Kept as an argv chain (no string rebuilding) so arguments with quotes, $, or backticks
+#### survive untouched all the way through to the command.
 
-#### Initialize command
-command="ssh-agent sh -c \"echo '\$SSH_PRIVATE_KEY' | ssh-add - && "$(printf "'%s' " "$@")"\""
-
-#### Test if doppler is installed
-if ! command -v doppler >/dev/null 2>&1; then
-    zz_log w "Doppler not installed. Running without it."
-    $command
-else
+#### Load environment: Doppler when available, else fall back to .env, else run as-is
+if command -v doppler >/dev/null 2>&1; then
     zz_log i "Doppler installed. Injecting secrets."
-    doppler run --command "$command"
+    exec doppler run -- ssh-agent sh -c 'echo "$SSH_PRIVATE_KEY" | ssh-add - 2>/dev/null; exec "$@"' sh "$@"
+elif [ -f ./.env ]; then
+    zz_log w "Doppler not installed. Loading .env instead."
+    exec npx --yes dotenv -e .env -- ssh-agent sh -c 'echo "$SSH_PRIVATE_KEY" | ssh-add - 2>/dev/null; exec "$@"' sh "$@"
+else
+    zz_log w "Doppler not installed and no .env file found. Running without injected secrets."
+    exec ssh-agent sh -c 'echo "$SSH_PRIVATE_KEY" | ssh-add - 2>/dev/null; exec "$@"' sh "$@"
 fi

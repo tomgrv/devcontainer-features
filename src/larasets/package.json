@@ -21,6 +21,7 @@
         "secret": "./_secret.sh",
         "seed": "./_seed.sh",
         "serve": "./_serve.sh",
+        "smee": "./_smee.sh",
         "srv": "./_srv.sh"
     },
     "scripts": {
