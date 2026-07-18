@@ -4,10 +4,10 @@ set -e
 #### Goto repository root
 cd "$(git rev-parse --show-toplevel)" >/dev/null
 
-#### Re-exec under Doppler when available, so secrets are in the environment
-if [ -z "${_LARASETS_ENV:-}" ] && command -v doppler >/dev/null 2>&1; then
+#### Load environment (Doppler, else .env) once, then re-exec
+if [ -z "${_LARASETS_ENV:-}" ]; then
     export _LARASETS_ENV=1
-    exec doppler run -- "$0" "$@"
+    exec secret "$0" "$@"
 fi
 
 #### If no arguments are provided, show usage

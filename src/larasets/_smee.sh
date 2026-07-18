@@ -4,16 +4,10 @@ set -e
 #### Goto repository root
 cd "$(git rev-parse --show-toplevel)" >/dev/null
 
-#### Load environment: Doppler when available, else fall back to .env
+#### Load environment (Doppler, else .env) once, then re-exec
 if [ -z "${_LARASETS_ENV:-}" ]; then
     export _LARASETS_ENV=1
-    if command -v doppler >/dev/null 2>&1; then
-        zz_log i "Doppler installed. Injecting secrets."
-        exec doppler run -- "$0" "$@"
-    elif [ -f ./.env ]; then
-        zz_log w "Doppler not installed. Loading .env instead."
-        exec npx --yes dotenv -e .env -- "$0" "$@"
-    fi
+    exec secret "$0" "$@"
 fi
 
 #### Forward smee.io webhook deliveries to the local app

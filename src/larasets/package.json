@@ -15,6 +15,7 @@
         "art": "./_art.sh",
         "dep": "./_dep.sh",
         "fwd": "./_fwd.sh",
+        "queues": "./_queues.sh",
         "run": "./_run.sh",
         "sail": "./_sail.sh",
         "sail-running": "./_sail-running.sh",
