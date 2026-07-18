@@ -1,6 +1,6 @@
 {
     "name": "@tomgrv-devcontainer-features/larasets",
-    "version": "7.3.0",
+    "version": "7.4.0",
     "description": "Laravel development settings and utilities",
     "files": [
         "_*.sh",
@@ -21,6 +21,7 @@
         "secret": "./_secret.sh",
         "seed": "./_seed.sh",
         "serve": "./_serve.sh",
+        "smee": "./_smee.sh",
         "srv": "./_srv.sh"
     },
     "scripts": {
