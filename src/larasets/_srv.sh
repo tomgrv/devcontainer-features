@@ -4,12 +4,6 @@ set -e
 #### Goto repository root
 cd "$(git rev-parse --show-toplevel)" >/dev/null
 
-#### Load environment (Doppler, else .env) once, then re-exec
-if [ -z "${_LARASETS_ENV:-}" ]; then
-    export _LARASETS_ENV=1
-    exec secret "$0" "$@"
-fi
-
 #### If no arguments are provided, show usage
 eval $(zz_args "Start or restart the server" $0 "$@" <<-help
     - name    name        Server name
@@ -28,7 +22,8 @@ fi
 app="server_$name"
 
 #### Restart if already managed, otherwise start a fresh npm process
-$server restart "$app" --update-env ||
-    FORCE_COLOR=1 $server start npm --name "$app" -- run "$@"
+#### (`secret` loads Doppler/`.env` secrets and the SSH agent into the environment pm2 captures)
+secret $server restart "$app" --update-env ||
+    secret env FORCE_COLOR=1 $server start npm --name "$app" -- run "$@"
 
 $server logs "$app" --raw --out

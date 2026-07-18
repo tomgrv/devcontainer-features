@@ -4,12 +4,6 @@ set -e
 #### Goto repository root
 cd "$(git rev-parse --show-toplevel)" >/dev/null
 
-#### Load environment (Doppler, else .env) once, then re-exec
-if [ -z "${_LARASETS_ENV:-}" ]; then
-    export _LARASETS_ENV=1
-    exec secret "$0" "$@"
-fi
-
 #### Environment-aware orchestration: sail + queue + jobs + vite
 #### Works the same in Codespaces, dev containers, web and local:
 ####   - binds 0.0.0.0 + $APP_PORT so a forwarded port is reachable
@@ -44,22 +38,24 @@ sail)
     #### Detached so dependent processes can start against the container
     sail up -d
     #### Use pm2 to manage multiple services in sail
+    #### (`secret` loads Doppler/`.env` secrets and the SSH agent into the environment pm2 captures)
     server='sail npx --yes pm2'
-    $server start "php -S 0.0.0.0:$port" --name "sail-serve" || $server restart "sail-serve" --update-env
-    $server start "art queue:work" --name "sail-queue" || $server restart "sail-queue" --update-env
-    $server start "art queue:work --queue=jobs" --name "sail-jobs" || $server restart "sail-jobs" --update-env
-    $server start "npm run dev" --name "sail-vite" || $server restart "sail-vite" --update-env
+    secret $server start "php -S 0.0.0.0:$port" --name "sail-serve" || secret $server restart "sail-serve" --update-env
+    secret $server start "art queue:work" --name "sail-queue" || secret $server restart "sail-queue" --update-env
+    secret $server start "art queue:work --queue=jobs" --name "sail-jobs" || secret $server restart "sail-jobs" --update-env
+    secret $server start "npm run dev" --name "sail-vite" || secret $server restart "sail-vite" --update-env
     #### Follow all logs in this terminal
     exec $server logs -f
     ;;
 local)
     zz_log i "Serving on {Purple 0.0.0.0:$port} (local PHP + queue + jobs + vite)"
     #### Use pm2 to manage multiple services locally
+    #### (`secret` loads Doppler/`.env` secrets and the SSH agent into the environment pm2 captures)
     server='npx --yes pm2'
-    $server start "art serve --host=0.0.0.0 --port=$port" --name "local-serve" || $server restart "local-serve" --update-env
-    $server start "art queue:work" --name "local-queue" || $server restart "local-queue" --update-env
-    $server start "art queue:work --queue=jobs" --name "local-jobs" || $server restart "local-jobs" --update-env
-    $server start "npm run dev" --name "local-vite" || $server restart "local-vite" --update-env
+    secret $server start "art serve --host=0.0.0.0 --port=$port" --name "local-serve" || secret $server restart "local-serve" --update-env
+    secret $server start "art queue:work" --name "local-queue" || secret $server restart "local-queue" --update-env
+    secret $server start "art queue:work --queue=jobs" --name "local-jobs" || secret $server restart "local-jobs" --update-env
+    secret $server start "npm run dev" --name "local-vite" || secret $server restart "local-vite" --update-env
     #### Follow all logs in this terminal
     exec $server logs -f
     ;;

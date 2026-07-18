@@ -24,7 +24,7 @@ npx tomgrv/devcontainer-features -- add larasets
 - Ships a single environment-aware `🚀 Start` VS Code task plus optimize, migrate refresh, install, and IDE helper tasks.
 - Starts the dev environment in order: optimize, serve, logs, queues, schedule, then smee.
 - Supports Laravel Sail for containerized development (wrappers auto-target the Sail container when it is running).
-- Loads secrets into `art`/`run`/`srv`/`serve`/`seed`/`smee`/`dep` via `secret`: Doppler when available, else `.env`.
+- Loads secrets into `art`/`run`/`srv`/`serve`/`smee`/`dep` via `secret`: Doppler when available, else `.env` (`seed` inherits this through `art`).
 - Installs necessary extensions and tools for Laravel development.
 
 ## Configuration
@@ -94,7 +94,7 @@ The following utilities are included by default:
 - `dep` - Run Deployer (`dep`) with the SSH key loaded and secrets injected via `secret`.
 - `secret` - Run any command with the SSH agent loaded and secrets injected: Doppler when available, else `.env`, else run as-is.
 
-`art`, `run`, `srv`, `serve`, `seed`, `smee`, and `dep` all re-exec themselves through `secret` so the environment is loaded before they run, without changing how you call them.
+`art`, `run`, `srv`, `serve`, `smee`, and `dep` all run their underlying command through `secret`, so the environment is loaded before it starts, without changing how you call them (`seed` gets this for free by calling `art`).
 
 ## Composer Utilities
 

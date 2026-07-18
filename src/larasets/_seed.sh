@@ -4,12 +4,6 @@ set -e
 #### Goto repository root
 cd "$(git rev-parse --show-toplevel)" >/dev/null
 
-#### Load environment (Doppler, else .env) once, then re-exec
-if [ -z "${_LARASETS_ENV:-}" ]; then
-    export _LARASETS_ENV=1
-    exec secret "$0" "$@"
-fi
-
 ### Default DB_CONNECTION
 if [ -z "$DB_CONNECTION" ]; then
     export DB_CONNECTION=sqlite

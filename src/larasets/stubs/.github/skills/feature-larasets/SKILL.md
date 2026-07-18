@@ -34,7 +34,7 @@ Use this feature for Laravel-focused developer experience in dev containers, inc
 - Bootstrapping Laravel local environment defaults automatically on container create (`configure-sail`).
 - Starting the dev environment via the `🚀 Start` task: optimize, serve, logs, queues, schedule, smee, in sequence (Sail or local, any environment).
 - Composer helper workflows tailored for Laravel monorepos.
-- `art`, `run`, `srv`, `serve`, `seed`, `smee`, and `dep` all load environment via `secret` (Doppler, else `.env`) automatically.
+- `art`, `run`, `srv`, `serve`, `smee`, and `dep` all load environment via `secret` (Doppler, else `.env`) automatically; `seed` inherits this through `art`.
 
 ## Do Not Use For
 
