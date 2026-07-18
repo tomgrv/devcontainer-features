@@ -3,12 +3,11 @@
     "tasks": [
         {
             "label": "🚀 Start",
-            "detail": "Start the full dev environment with Sail/PHP + vite (auto-detects Sail vs local), then logs, queues, schedule, and smee, in order",
+            "detail": "Start the full dev environment with Sail/PHP + queue + vite (auto-detects Sail vs local), then logs, schedule, and smee, in order",
             "dependsOn": [
                 "❇️ Optimize",
                 "serve",
                 "logs",
-                "queues",
                 "art-schedule",
                 "smee"
             ],
@@ -79,31 +78,6 @@
             "label": "logs",
             "type": "shell",
             "command": "sh -c 'echo READY; exec tail -f storage/logs/laravel.log'",
-            "hide": true,
-            "isBackground": true,
-            "presentation": {
-                "panel": "dedicated",
-                "clear": true,
-                "reveal": "silent",
-                "close": true
-            },
-            "problemMatcher": {
-                "pattern": {
-                    "regexp": "^(.)$",
-                    "file": 1
-                },
-                "background": {
-                    "activeOnStart": true,
-                    "beginsPattern": "^READY$",
-                    "endsPattern": "."
-                }
-            }
-        },
-        {
-            "label": "queues",
-            "type": "shell",
-            "command": "sh -c 'echo READY; exec queues'",
-            "detail": "Stream the queue worker log (pm2-managed)",
             "hide": true,
             "isBackground": true,
             "presentation": {

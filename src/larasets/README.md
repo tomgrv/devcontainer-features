@@ -22,7 +22,7 @@ npx tomgrv/devcontainer-features -- add larasets
 
 - Configures Laravel environment variables.
 - Ships a single environment-aware `🚀 Start` VS Code task plus optimize, migrate refresh, install, and IDE helper tasks.
-- Starts the dev environment in order: optimize, serve, logs, queues, schedule, then smee.
+- Starts the dev environment in order: optimize, serve, logs, schedule, then smee.
 - Supports Laravel Sail for containerized development (wrappers auto-target the Sail container when it is running).
 - Loads secrets into `art`/`run`/`srv`/`serve`/`smee`/`dep` via `secret`: Doppler when available, else `.env` (`seed` inherits this through `art`).
 - Installs necessary extensions and tools for Laravel development.
@@ -65,7 +65,7 @@ The feature also includes the following VS Code customizations:
     - `xdebug.php-debug`
 
 - Deployed `.vscode/` stubs:
-    - `tasks.json`: `🚀 Start` (env-aware full dev environment, started sequentially: optimize, serve, logs, queues, schedule, smee), Optimize, Refresh, Install, IDE Helper, and the save-triggered `art-cache-*` tasks.
+    - `tasks.json`: `🚀 Start` (env-aware full dev environment, started sequentially: optimize, serve, logs, schedule, smee), Optimize, Refresh, Install, IDE Helper, and the save-triggered `art-cache-*` tasks.
     - `launch.json`: `Listen for XDebug` launch configuration (port 9003).
     - `mcp.json`: `laravel-boost` MCP server.
     - `settings.json`: Doppler autocomplete/hover defaults and `triggerTaskOnSave` cache refresh.
@@ -89,7 +89,6 @@ The following utilities are included by default:
 - `fwd` - Manage port forwarding from `local` to `remote`.
 - `run` - Run npm scripts, locally or within the Laravel Sail environment if it is running.
     - Use `run <...>` as you would do with `<sail> npm run <...>`
-- `queues` - Stream the queue worker log, in Sail when running, else locally.
 - `smee` - Forward smee.io webhook deliveries to the local app (`APP_URL`/`SMEE_TARGET`, channel `SMEE_CHANNEL`).
 - `dep` - Run Deployer (`dep`) with the SSH key loaded and secrets injected via `secret`.
 - `secret` - Run any command with the SSH agent loaded and secrets injected: Doppler when available, else `.env`, else run as-is.
