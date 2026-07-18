@@ -20,6 +20,7 @@ Use this feature for Laravel-focused developer experience in dev containers, inc
 - `seed` - Run migrations and seed database data.
 - `fwd <...>` - Manage local-to-remote forwarding helper operations.
 - `serve` - Start the app server (env-aware: Sail vs local, binds 0.0.0.0:$APP_PORT).
+- `smee` - Forward smee.io webhook deliveries to the local app.
 - `dep <...>` - Run Deployer with SSH key and Doppler secrets injected.
 - `secret <...>` - Run any command with SSH agent and Doppler secrets injected.
 - `composer lint` - Run Pint linting flow for project code.
@@ -30,8 +31,9 @@ Use this feature for Laravel-focused developer experience in dev containers, inc
 
 - Running Laravel commands through `art`, `sail`, `run`, `srv` wrappers.
 - Bootstrapping Laravel local environment defaults automatically on container create (`configure-sail`).
-- Starting the dev environment via the `🚀 Start` task / `serve` (Sail or local, any environment).
+- Starting the dev environment via the `🚀 Start` task: optimize, serve, logs, schedule, smee, in sequence (Sail or local, any environment).
 - Composer helper workflows tailored for Laravel monorepos.
+- `art`, `run`, `srv`, `serve`, `seed`, and `smee` inject Doppler secrets automatically when the Doppler CLI is available.
 
 ## Do Not Use For
 

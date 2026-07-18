@@ -3,15 +3,15 @@
     "tasks": [
         {
             "label": "🚀 Start",
-            "detail": "Start the full dev environment with Sail/PHP + queue + jobs + vite (auto-detects Sail vs local)",
+            "detail": "Start the full dev environment with Sail/PHP + queue + jobs + vite (auto-detects Sail vs local), then logs, schedule, and smee, in order",
             "dependsOn": [
                 "❇️ Optimize",
                 "serve",
-                "art-schedule",
                 "logs",
+                "art-schedule",
                 "smee"
             ],
-            "dependsOrder": "parallel",
+            "dependsOrder": "sequence",
             "group": {
                 "kind": "build",
                 "isDefault": true
@@ -43,9 +43,10 @@
         {
             "label": "serve",
             "type": "shell",
-            "command": "serve",
+            "command": "sh -c 'echo READY; exec serve'",
             "detail": "Orchestrate Sail/PHP + queue + jobs + vite (pm2-managed)",
             "hide": true,
+            "isBackground": true,
             "presentation": {
                 "panel": "dedicated",
                 "clear": true,
@@ -53,10 +54,7 @@
             },
             "problemMatcher": {
                 "owner": "artisan",
-                "fileLocation": [
-                    "relative",
-                    "${workspaceFolder}"
-                ],
+                "fileLocation": ["relative", "${workspaceFolder}"],
                 "source": "artisan",
                 "pattern": [
                     {
@@ -71,7 +69,7 @@
                 ],
                 "background": {
                     "activeOnStart": true,
-                    "beginsPattern": "^\\s*(INFO)",
+                    "beginsPattern": "^READY$",
                     "endsPattern": "."
                 }
             }
@@ -79,20 +77,31 @@
         {
             "label": "logs",
             "type": "shell",
-            "command": "tail -f storage/logs/laravel.log",
+            "command": "sh -c 'echo READY; exec tail -f storage/logs/laravel.log'",
             "hide": true,
+            "isBackground": true,
             "presentation": {
                 "panel": "dedicated",
                 "clear": true,
                 "reveal": "silent",
                 "close": true
             },
-            "problemMatcher": []
+            "problemMatcher": {
+                "pattern": {
+                    "regexp": "^(.)$",
+                    "file": 1
+                },
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": "^READY$",
+                    "endsPattern": "."
+                }
+            }
         },
         {
             "label": "smee",
             "type": "shell",
-            "command": "npm run smee",
+            "command": "smee",
             "hide": true,
             "presentation": {
                 "panel": "dedicated",
@@ -104,10 +113,7 @@
         },
         {
             "label": "⤵️ Install",
-            "dependsOn": [
-                "composer inst",
-                "npm install"
-            ],
+            "dependsOn": ["composer inst", "npm install"],
             "dependsOrder": "parallel"
         },
         {
@@ -135,7 +141,7 @@
         {
             "label": "art-schedule",
             "type": "shell",
-            "command": "art schedule:work",
+            "command": "sh -c 'echo READY; exec art schedule:work'",
             "presentation": {
                 "panel": "dedicated",
                 "clear": true,
@@ -145,10 +151,7 @@
             "isBackground": true,
             "problemMatcher": {
                 "owner": "artisan",
-                "fileLocation": [
-                    "relative",
-                    "${workspaceFolder}"
-                ],
+                "fileLocation": ["relative", "${workspaceFolder}"],
                 "source": "artisan",
                 "pattern": [
                     {
@@ -163,7 +166,7 @@
                 ],
                 "background": {
                     "activeOnStart": true,
-                    "beginsPattern": "^\\s*(INFO)",
+                    "beginsPattern": "^READY$",
                     "endsPattern": "."
                 }
             }

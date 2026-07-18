@@ -22,7 +22,9 @@ npx tomgrv/devcontainer-features -- add larasets
 
 - Configures Laravel environment variables.
 - Ships a single environment-aware `🚀 Start` VS Code task plus optimize, migrate refresh, install, and IDE helper tasks.
+- Starts the dev environment in order: optimize, serve, logs, schedule, then smee.
 - Supports Laravel Sail for containerized development (wrappers auto-target the Sail container when it is running).
+- Injects Doppler secrets into `art`/`run`/`srv`/`serve`/`seed`/`smee` automatically when the Doppler CLI is available.
 - Installs necessary extensions and tools for Laravel development.
 
 ## Configuration
@@ -63,7 +65,7 @@ The feature also includes the following VS Code customizations:
     - `xdebug.php-debug`
 
 - Deployed `.vscode/` stubs:
-    - `tasks.json`: `🚀 Start` (env-aware full dev environment), Optimize, Refresh, Install, IDE Helper, and the save-triggered `art-cache-*` tasks.
+    - `tasks.json`: `🚀 Start` (env-aware full dev environment, started sequentially: optimize, serve, logs, schedule, smee), Optimize, Refresh, Install, IDE Helper, and the save-triggered `art-cache-*` tasks.
     - `launch.json`: `Listen for XDebug` launch configuration (port 9003).
     - `mcp.json`: `laravel-boost` MCP server.
     - `settings.json`: Doppler autocomplete/hover defaults and `triggerTaskOnSave` cache refresh.
@@ -87,8 +89,11 @@ The following utilities are included by default:
 - `fwd` - Manage port forwarding from `local` to `remote`.
 - `run` - Run npm scripts, locally or within the Laravel Sail environment if it is running.
     - Use `run <...>` as you would do with `<sail> npm run <...>`
+- `smee` - Forward smee.io webhook deliveries to the local app (`APP_URL`/`SMEE_TARGET`, channel `SMEE_CHANNEL`). Loads secrets via Doppler when available, else falls back to `.env`.
 - `dep` - Run Deployer (`dep`) with SSH key and Doppler secrets injected.
 - `secret` - Run any command with the SSH agent loaded and Doppler secrets injected.
+
+`art`, `run`, `srv`, `serve`, `seed`, and `smee` all re-exec themselves through `doppler run` automatically when the Doppler CLI is available, so Doppler-managed secrets are in the environment without changing how you call them.
 
 ## Composer Utilities
 
