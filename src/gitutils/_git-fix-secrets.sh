@@ -8,6 +8,7 @@ eval $(
 		d -      dryrun     list matching commits/files without rewriting history
 		g glob   glob       glob pattern of files to search (e.g. "**/*.env")
 		s secret secret     secret value to redact
+		r repl   replace    replacement string (default: ****)
 		m -      fixmsg     also redact the secret from commit messages
 		t -      fixtags    also redact the secret from tag annotation messages
 		- sha    sha        sha commit to fix from (use 0 for the very first commit)
@@ -39,6 +40,9 @@ if [ -z "$secret" ]; then
 	zz_log e "A secret value is required."
 	exit 1
 fi
+
+# Default replacement string
+replace="${replace:-****}"
 
 # Make sure we don't have uncommitted changes
 if ! git diff-index --quiet HEAD --; then
@@ -95,8 +99,8 @@ if ! zz_ask "Yn" "Do you want to proceed?"; then
 	exit 1
 fi
 
-# Escape the secret so it is matched/replaced literally by sed, not as a regex
-sed_escape() {
+# Escape the secret so it is matched literally by sed, not as a regex
+sed_escape_pattern() {
 	printf '%s' "$1" \
 		| sed -e 's/\\/\\\\/g' \
 		      -e 's/\//\\\//g' \
@@ -107,8 +111,17 @@ sed_escape() {
 		      -e 's/\$/\\$/g'
 }
 
-esc_secret=$(sed_escape "$secret")
-export SED_EXPR="s/${esc_secret}/****/g"
+# Escape the replacement so it is inserted literally by sed
+sed_escape_replacement() {
+	printf '%s' "$1" \
+		| sed -e 's/\\/\\\\/g' \
+		      -e 's/\//\\\//g' \
+		      -e 's/&/\\&/g'
+}
+
+esc_secret=$(sed_escape_pattern "$secret")
+esc_replace=$(sed_escape_replacement "$replace")
+export SED_EXPR="s/${esc_secret}/${esc_replace}/g"
 export GLOB_PATTERN="$glob"
 
 tree_filter='
@@ -160,4 +173,4 @@ else
 	zz_log w "Changes are not pushed to remote, use -p option to push"
 fi
 
-zz_log s "Secret redacted from history."
+zz_log s "Secret replaced with '$replace' in history."
