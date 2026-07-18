@@ -67,9 +67,10 @@ The feature includes the following interactive utilities:
 - `git fix date [options] [<commit>]` - Fix commit dates and times in git history. Options include rescheduling commits on specific days of week outside certain time ranges.
 - `git fix blanks [-d]` - Discard tracked text-file changes when differences are only blanks and quote/slash swaps.
 - `git fix message -m <message> [--force|<commit>]` - Rewrite the commit message of a specific commit.
+- `git fix secrets -g <glob> -s <secret> [-r <replace>] [-f] [-p] [-d] [-m] [-t] [<commit>]` - Redact a secret from files matching a glob pattern (and optionally commit messages and tag annotations) across all git history, replacing it with `****` (or `-r <replace>`).
 - `git fix up [--force|<commit>]` - Amend the specified commit with current changes and rebase (alias: `git fu`).
 - `git forall <command>` - Execute a command for all files in the repository.
-- `git getcommit [--force|<commit>]` - Get the commit to fixup.
+- `git getcommit [--force|<commit>]` - Get the commit to fixup. Pass `0` as `<commit>` to resolve to the very first commit in history.
 - `git integrate` - Integrate modifications from the remote repository.
 - `git release-beta` - Start a new release branch using Git Flow.
 - `git release-hotfix` - Start a new hotfix branch using Git Flow.
@@ -216,6 +217,52 @@ git fix date -f -r 0 -s 08:00 -e 20:00 -b 07:30 -a 20:30
 - Only the time is modified, never the date
 - The command uses `git filter-branch` to rewrite history
 - Use `-f` flag carefully as it allows overwriting pushed history
+
+## Git Fix Secrets
+
+The `git fix secrets` command searches all git history (all branches and tags, or from a given commit) for files matching a glob pattern, and replaces every occurrence of a specified secret value with `****` (or a custom string via `-r`). It can optionally also redact the secret from commit messages (`-m`) and annotated tag messages (`-t`). If no commit is specified, `git getcommit` is used to resolve it (prompting interactively unless `-f`/forceable/fixable listing resolves it); pass `0` as the commit to start from the very first commit in history.
+
+### Usage
+
+```bash
+# Search and preview matching commits/files without rewriting history
+git fix secrets -d -g "**/*.env" -s "my-secret-value"
+
+# Also preview matches in commit messages and tag annotations
+git fix secrets -d -m -t -g "**/*.env" -s "my-secret-value"
+
+# Redact the secret from history (asks for confirmation)
+git fix secrets -g "**/*.env" -s "my-secret-value"
+
+# Redact from files, commit messages and tag annotations, starting from the very first commit
+git fix secrets -m -t -g "**/*.env" -s "my-secret-value" 0
+
+# Redact and push the rewritten history
+git fix secrets -p -g "**/*.env" -s "my-secret-value"
+
+# Use a custom replacement string instead of the default ****
+git fix secrets -g "**/*.env" -s "my-secret-value" -r "[REDACTED]"
+```
+
+### Options
+
+- `-f` - Force mode: allow overwriting pushed history
+- `-p` - Push changes after rewriting history
+- `-d` - Dry-run mode: list matching commits/files without applying changes or asking for confirmation
+- `-g <glob>` - Glob pattern of files to search (e.g. `**/*.env`, `config/*.json`)
+- `-s <secret>` - Literal secret value to redact
+- `-r <replace>` - Replacement string (default: `****`)
+- `-m` - Also redact the secret from commit messages
+- `-t` - Also redact the secret from annotated tag messages
+- `<commit>` - Optional commit to start rewriting from; use `0` for the very first commit, or omit to be prompted via `git getcommit` (defaults to the entire history there)
+
+### Important Notes
+
+- The secret is matched and replaced literally (not as a regular expression).
+- Binary files are skipped.
+- The command uses `git filter-branch` to rewrite history; only shell tools (`sed`, `grep`) are used, no external interpreter is required.
+- Use `-f` flag carefully as it allows overwriting pushed history.
+- Rewriting history changes commit hashes; anyone with a clone of the repository will need to re-clone or hard-reset after a `-p` push. Rotate the leaked secret as well — redacting history does not undo any exposure that already happened.
 
 ## Contributing
 

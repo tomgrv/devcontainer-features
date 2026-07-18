@@ -26,6 +26,11 @@ if [ -z "$sha" ]; then
 fi
 
 
+#### A sha of '0' means the very first commit in the current history
+if [ "$sha" = "0" ]; then
+    sha=$(git rev-list --max-parents=0 HEAD | tail -1)
+fi
+
 #### Display commit to fixup, keep only the sha, remove new line
 sha=$(git rev-parse --verify "$sha^{commit}" | cut -d' ' -f1 | tr -d '\n')
 
