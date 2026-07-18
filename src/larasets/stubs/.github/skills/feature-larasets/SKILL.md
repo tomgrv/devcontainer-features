@@ -20,7 +20,7 @@ Use this feature for Laravel-focused developer experience in dev containers, inc
 - `seed` - Run migrations and seed database data.
 - `fwd <...>` - Manage local-to-remote forwarding helper operations.
 - `serve` - Start the app server (env-aware: Sail vs local, binds 0.0.0.0:$APP_PORT).
-- `queues` - Stream queue/job worker logs (Sail-aware).
+- `queues` - Stream the queue worker log (Sail-aware).
 - `smee` - Forward smee.io webhook deliveries to the local app.
 - `dep <...>` - Run Deployer with the SSH key loaded and secrets injected via `secret`.
 - `secret <...>` - Run any command with the SSH agent loaded and secrets injected: Doppler when available, else `.env`.

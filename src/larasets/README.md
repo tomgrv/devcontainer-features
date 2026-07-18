@@ -89,7 +89,7 @@ The following utilities are included by default:
 - `fwd` - Manage port forwarding from `local` to `remote`.
 - `run` - Run npm scripts, locally or within the Laravel Sail environment if it is running.
     - Use `run <...>` as you would do with `<sail> npm run <...>`
-- `queues` - Stream queue/job worker logs, in Sail when running, else locally.
+- `queues` - Stream the queue worker log, in Sail when running, else locally.
 - `smee` - Forward smee.io webhook deliveries to the local app (`APP_URL`/`SMEE_TARGET`, channel `SMEE_CHANNEL`).
 - `dep` - Run Deployer (`dep`) with the SSH key loaded and secrets injected via `secret`.
 - `secret` - Run any command with the SSH agent loaded and secrets injected: Doppler when available, else `.env`, else run as-is.

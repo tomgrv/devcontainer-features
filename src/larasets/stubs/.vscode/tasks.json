@@ -45,7 +45,7 @@
             "label": "serve",
             "type": "shell",
             "command": "sh -c 'echo READY; exec serve'",
-            "detail": "Orchestrate Sail/PHP + queue + jobs + vite (pm2-managed)",
+            "detail": "Orchestrate Sail/PHP + queue + vite (pm2-managed)",
             "hide": true,
             "isBackground": true,
             "presentation": {
@@ -103,7 +103,7 @@
             "label": "queues",
             "type": "shell",
             "command": "sh -c 'echo READY; exec queues'",
-            "detail": "Stream queue/job worker logs (pm2-managed)",
+            "detail": "Stream the queue worker log (pm2-managed)",
             "hide": true,
             "isBackground": true,
             "presentation": {
