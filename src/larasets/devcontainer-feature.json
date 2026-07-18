@@ -52,7 +52,7 @@
             "description": "Doppler config name to export as DOPPLER_CONFIG for the `dep`/`secret` helpers. Leave empty to let Doppler resolve the config itself."
         }
     },
-    "version": "7.3.0",
+    "version": "7.4.0",
     "legacyIds": [
         "larasets"
     ],
