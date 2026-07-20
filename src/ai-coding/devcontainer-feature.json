@@ -1,4 +1,12 @@
 {
+    "customizations": {
+        "vscode": {
+            "settings": {},
+            "extensions": [
+                "Anthropic.claude-code"
+            ]
+        }
+    },
     "description": "Agent-agnostic AI coding skills (.github/skills) plus the Claude Code GitHub Action for @claude mentions.",
     "id": "ai-coding",
     "installsAfter": [
