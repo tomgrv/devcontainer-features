@@ -2,6 +2,35 @@
 
 # Changelog
 
+## 7.5.0 (2026-07-20)
+
+_Commits from: v7.4.0..HEAD_
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v7.4.0' into develop ([1800e79](https://github.com/tomgrv/devcontainer-features/commit/1800e79b5c15d4af375b53dba5fb01ab67a54ea0))
+
+### 📦 ai-coding changes
+
+#### Other changes
+
+- ♻️ streamline installsAfter formatting and enhance customizations structure ([2639050](https://github.com/tomgrv/devcontainer-features/commit/26390503e9b18bb2a562c4e17b4c0b0b7fb5c87f))
+
+### 📦 gitutils changes
+
+#### Other changes
+
+- 📚️ improve clarity on git fix blanks command ([3d0b79e](https://github.com/tomgrv/devcontainer-features/commit/3d0b79eb60a8b14701b1db3d02203747dcd0e3cc))
+
+### 📦 larasets changes
+
+#### Other changes
+
+- ♻️ improve environment loading logic ([23fd747](https://github.com/tomgrv/devcontainer-features/commit/23fd7477a7be049ebcc59cae39bfc8f7a6525a24))
+- ♻️ update service management ([3dcda83](https://github.com/tomgrv/devcontainer-features/commit/3dcda83fce55724f44b2de5c36d4f2dfef4b9fa3))
+
 ## 7.4.0 (2026-07-18)
 
 _Commits from: v7.3.6..HEAD_
@@ -1369,4 +1398,4 @@ _Commits from: v5.25.0..HEAD_
 
 ---
 
-_Generated on 2026-07-18 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
+_Generated on 2026-07-20 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
