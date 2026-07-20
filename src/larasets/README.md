@@ -85,7 +85,9 @@ The following utilities are included by default:
 - `art` - Run Laravel Artisan commands, locally or within the Laravel Sail environment if it is running.
     - Use `art <...>` as you would do with `[php|sail] artisan <...>`
 - `srv` - Start and manage PM2 processes, locally or within the Laravel Sail environment if it is running.
-    - Use `srv <...>` as you would do with `<sail> npm run <...>`
+    - Use `srv <name>` as you would do with `<sail> npm run <name>`
+    - Use `srv <name> <command...>` to manage an arbitrary command under that pm2 process name (e.g. `srv queue art queue:work`)
+    - Add `-q` to skip following logs after start/restart (used by `serve` to orchestrate several processes)
 - `fwd` - Manage port forwarding from `local` to `remote`.
 - `run` - Run npm scripts, locally or within the Laravel Sail environment if it is running.
     - Use `run <...>` as you would do with `<sail> npm run <...>`
