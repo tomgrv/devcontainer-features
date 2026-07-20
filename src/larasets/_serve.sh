@@ -49,6 +49,7 @@ sail)
     srv -q sail-queue art queue:work
     srv -q sail-schedule art schedule:work
     srv -q sail-vite npm run dev
+    srv -q sail-smee smee
     #### Follow all logs in this terminal
     exec sail npx --yes pm2 logs -f
     ;;
@@ -59,6 +60,7 @@ local)
     srv -q local-queue art queue:work
     srv -q local-schedule art schedule:work
     srv -q local-vite npm run dev
+    srv -q local-smee smee
     #### Follow all logs in this terminal
     exec npx --yes pm2 logs -f
     ;;
