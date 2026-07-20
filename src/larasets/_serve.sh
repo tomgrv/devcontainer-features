@@ -40,8 +40,8 @@ sail)
     #### Use pm2 to manage multiple services in sail
     #### (`secret` loads Doppler/`.env` secrets and the SSH agent into the environment pm2 captures)
     server='sail npx --yes pm2'
-    secret $server start "php -S 0.0.0.0:$port" --name "sail-serve" || secret $server restart "sail-serve" --update-env
     secret $server start "art queue:work" --name "sail-queue" || secret $server restart "sail-queue" --update-env
+    secret $server start "art schedule:run" --name "sail-schedule" || secret $server restart "sail-schedule" --update-env
     secret $server start "npm run dev" --name "sail-vite" || secret $server restart "sail-vite" --update-env
     #### Follow all logs in this terminal
     exec $server logs -f
@@ -53,6 +53,7 @@ local)
     server='npx --yes pm2'
     secret $server start "art serve --host=0.0.0.0 --port=$port" --name "local-serve" || secret $server restart "local-serve" --update-env
     secret $server start "art queue:work" --name "local-queue" || secret $server restart "local-queue" --update-env
+    secret $server start "art schedule:run" --name "local-schedule" || secret $server restart "local-schedule" --update-env
     secret $server start "npm run dev" --name "local-vite" || secret $server restart "local-vite" --update-env
     #### Follow all logs in this terminal
     exec $server logs -f
