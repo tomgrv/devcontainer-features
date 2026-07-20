@@ -65,7 +65,7 @@ The feature includes the following interactive utilities:
 - `git align` - Align the current branch with its remote counterpart.
 - `git degit <repository> [directory]` - Download and extract a repository from GitHub, GitLab, or Bitbucket.
 - `git fix date [options] [<commit>]` - Fix commit dates and times in git history. Options include rescheduling commits on specific days of week outside certain time ranges.
-- `git fix blanks [-d]` - Discard tracked text-file changes when differences are only blanks and quote/slash swaps.
+- `git fix blanks [-d]` - Discard tracked text-file changes when differences are only whitespace, blanks, and quote/slash swaps.
 - `git fix message -m <message> [--force|<commit>]` - Rewrite the commit message of a specific commit.
 - `git fix secrets -g <glob> -s <secret> [-r <replace>] [-f] [-p] [-d] [-m] [-t] [<commit>]` - Redact a secret from files matching a glob pattern (and optionally commit messages and tag annotations) across all git history, replacing it with `****` (or `-r <replace>`).
 - `git fix up [--force|<commit>]` - Amend the specified commit with current changes and rebase (alias: `git fu`).
