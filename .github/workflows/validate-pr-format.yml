@@ -4,7 +4,8 @@ name: Validate PR Format
 
 on:
   pull_request:
-    types: [review_requested]
+    types:
+      - ready_for_review
 
 permissions:
   contents: read
