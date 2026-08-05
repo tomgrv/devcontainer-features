@@ -2,6 +2,36 @@
 
 # Changelog
 
+## 7.6.0 (2026-08-05)
+
+_Commits from: v7.5.0..HEAD_
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v7.5.0' into develop ([9c893f7](https://github.com/tomgrv/devcontainer-features/commit/9c893f7b1db0536b56a84ddef703d6ffdb1389ae))
+- ♻️ update PR trigger types ([d362976](https://github.com/tomgrv/devcontainer-features/commit/d36297636d0c56f4a5c95153663dd8aad6e8997d))
+
+### 📦 gitutils changes
+
+#### Bug Fixes
+
+- 🐛 stop double v-prefix in release tags (#93) ([e0731f4](https://github.com/tomgrv/devcontainer-features/commit/e0731f4063fb6f07cc6c7528c579cdca160d06f6))
+
+#### Features
+
+- add git fix prune to remove stale remote-tracking refs (#94) ([2a5eb0e](https://github.com/tomgrv/devcontainer-features/commit/2a5eb0ed110d545e5c5987fc6270fbbe364ed9ba))
+
+### 📦 larasets changes
+
+#### Other changes
+
+- ♻️ add local and sail smee process management ([cc4fcc0](https://github.com/tomgrv/devcontainer-features/commit/cc4fcc00f296aea6fd21109f5cf5f2252ac0d449))
+- ♻️ add PHP toolchain setup step in CI workflow ([10c2017](https://github.com/tomgrv/devcontainer-features/commit/10c201748bd87944e84eb5bf66cd88d91102ea4c))
+- ♻️ improve composer script configurations and update validation commands ([58c15ed](https://github.com/tomgrv/devcontainer-features/commit/58c15ed815b991e2f9aa9e2319d56c58425f9262))
+- ♻️ improve process management and logging in scripts ([4bc68d2](https://github.com/tomgrv/devcontainer-features/commit/4bc68d2385a30765a588423b422b2e44526660aa))
+
 ## 7.5.0 (2026-07-20)
 
 _Commits from: v7.4.0..HEAD_
@@ -1398,4 +1428,4 @@ _Commits from: v5.25.0..HEAD_
 
 ---
 
-_Generated on 2026-07-20 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
+_Generated on 2026-08-05 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
