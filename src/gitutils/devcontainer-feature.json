@@ -42,6 +42,7 @@
     },
     "postStartCommand": {
         "blanks": "git fix blanks",
-        "files": "git fix mode"
+        "files": "git fix mode",
+        "prune": "git fix prune"
     }
 }
