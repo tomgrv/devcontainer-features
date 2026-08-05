@@ -36,12 +36,13 @@
         "ghcr.io/tomgrv/devcontainer-features/gitversion:7": {}
     },
     "name": "Git Aliases",
-    "version": "7.5.0",
+    "version": "7.6.0",
     "postCreateCommand": {
         "config": "configure-feature gitutils"
     },
     "postStartCommand": {
         "blanks": "git fix blanks",
-        "files": "git fix mode"
+        "files": "git fix mode",
+        "prune": "git fix prune"
     }
 }

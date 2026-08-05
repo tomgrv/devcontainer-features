@@ -93,9 +93,9 @@ if bump-changelog -f $GBV -b -m; then
         exit 1
     fi
 
-    # Tag with the configured 'v' prefix so git-flow's tag matches the one
-    # bump-tag maintains (avoids a stray numeric tag alongside v$GBV).
-    if git flow $flow finish $name --push --tagname "v$GBV" --message $GBV ; then
+    # git flow finish prepends gitflow.prefix.versiontag to --tagname itself,
+    # so pass the bare version here -- prefixing it ourselves would tag "vv$GBV".
+    if git flow $flow finish $name --push --tagname "$GBV" --message $GBV ; then
         zz_log s "Release finished: {B $GBV}"
         bump-tag $GBV
         # Clear release state only once the release has actually finished.
@@ -103,7 +103,7 @@ if bump-changelog -f $GBV -b -m; then
     else
         zz_log e "Cannot finish release. CHANGELOG & VERSION are not updated."
         zz_log - "Please fix the issues, commit the changes, and finish the release manually with:"
-        zz_log - "   git flow $flow finish $name --push --tagname v$GBV --message $GBV"
+        zz_log - "   git flow $flow finish $name --push --tagname $GBV --message $GBV"
         zz_log - "   bump-tag $GBV"
     fi
 else
