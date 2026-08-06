@@ -2,6 +2,42 @@
 
 # Changelog
 
+## 7.7.0 (2026-08-06)
+
+_Commits from: v7.6.0..HEAD_
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v7.6.0' into develop ([63529d6](https://github.com/tomgrv/devcontainer-features/commit/63529d665d9d60681616c9b63024a9615b92adb0))
+- 🔧 remove deprecated configuration files and clean up settings ([c8dca03](https://github.com/tomgrv/devcontainer-features/commit/c8dca038ad4c00a1194a50c2a4099e7969a48973))
+- 🔧 update actions to v2 for improved functionality ([a3762dd](https://github.com/tomgrv/devcontainer-features/commit/a3762ddff2b36eea6641046dedf918ae970addbc))
+
+### 📦 ai-coding changes
+
+#### Features
+
+- ✨ add Gemini Code Assist configuration and VSCode settings ([8e680b4](https://github.com/tomgrv/devcontainer-features/commit/8e680b4b9fd5e5301b4f58fef6db654900a8995f))
+
+### 📦 common-utils changes
+
+#### Features
+
+- ✨ add scripts for configuring permissions and SSH keys ([47fb383](https://github.com/tomgrv/devcontainer-features/commit/47fb383f9e74c3383c724f5755a1048e08d2b376))
+
+### 📦 githooks changes
+
+#### Other changes
+
+- ♻️ add new labels configuration and update workflow for label management ([a530d9c](https://github.com/tomgrv/devcontainer-features/commit/a530d9c92fc20d466eb446d1e30a09688f433f82))
+
+### 📦 gitutils changes
+
+#### Features
+
+- ✨ add scripts for configuring GPG and known hosts ([a4b58b2](https://github.com/tomgrv/devcontainer-features/commit/a4b58b226481ea9e7678ec939ea30dbc54f387e8))
+
 ## 7.6.0 (2026-08-05)
 
 _Commits from: v7.5.0..HEAD_
@@ -1428,4 +1464,4 @@ _Commits from: v5.25.0..HEAD_
 
 ---
 
-_Generated on 2026-08-05 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
+_Generated on 2026-08-06 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_

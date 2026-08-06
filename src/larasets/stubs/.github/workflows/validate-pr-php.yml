@@ -27,10 +27,10 @@ jobs:
 
       - name: Set up PHP toolchain
         id: setup-php
-        uses: tomgrv/actions/setup-php@v0
+        uses: tomgrv/actions/setup-php@v2
 
       - name: Validate composer
-        uses: tomgrv/actions/check-composer@v0
+        uses: tomgrv/actions/check-composer@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -42,7 +42,7 @@ jobs:
           path: app/Filament
 
       - name: Run PHPMD
-        uses: tomgrv/actions/run-phpmd@v0
+        uses: tomgrv/actions/run-phpmd@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           paths: app,config,database,resources,routes,tests,modules,packages
@@ -77,8 +77,8 @@ jobs:
 
       - name: Set up PHP toolchain
         id: setup-php
-        uses: tomgrv/actions/setup-php@v0
+        uses: tomgrv/actions/setup-php@v2
 
       - name: Run Pest/PHPUnit tests
         id: tests
-        uses: tomgrv/actions/run-phptests@v0
+        uses: tomgrv/actions/run-phptests@v2
