@@ -1,6 +1,6 @@
 # @format
 
-name: Validate PR Title
+name: Validate PR Format
 
 on:
   pull_request:
