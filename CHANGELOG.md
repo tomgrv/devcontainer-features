@@ -2,6 +2,29 @@
 
 # Changelog
 
+## 7.8.0 (2026-08-08)
+
+_Commits from: v7.7.0..HEAD_
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v7.7.0' into develop ([27dd65d](https://github.com/tomgrv/devcontainer-features/commit/27dd65d18ecc419a1c949f4f2c6d743e01584a90))
+- ♻️ rename validation workflow titles for clarity ([70da82a](https://github.com/tomgrv/devcontainer-features/commit/70da82a41d5d655cec95d0c753549068bba597d9))
+
+### 📦 ai-coding changes
+
+#### Other changes
+
+- forbid scheduled wakeups, github events only (#95) ([c1c9e28](https://github.com/tomgrv/devcontainer-features/commit/c1c9e284c378ccddac1cd44e91be4f13e0738b7e))
+
+### 📦 larasets changes
+
+#### Features
+
+- ✨ add PHP Mess Detector ruleset for Laravel ([8039be8](https://github.com/tomgrv/devcontainer-features/commit/8039be88092a5bd7644a96cff8c030194dd823f3))
+
 ## 7.7.0 (2026-08-06)
 
 _Commits from: v7.6.0..HEAD_
@@ -1464,4 +1487,4 @@ _Commits from: v5.25.0..HEAD_
 
 ---
 
-_Generated on 2026-08-06 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
+_Generated on 2026-08-08 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
