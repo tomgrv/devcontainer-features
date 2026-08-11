@@ -32,7 +32,7 @@
             "description": "Divert the system curl to the gateway-curl wrapper inside the container"
         }
     },
-    "version": "7.2.0",
+    "version": "7.9.0",
     "postCreateCommand": {
         "config": "configure-feature gateway"
     }

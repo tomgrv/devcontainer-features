@@ -1,6 +1,6 @@
 {
     "name": "@tomgrv/devcontainer-features",
-    "version": "7.8.0",
+    "version": "7.9.0",
     "description": "Configure dev environment with devcontainer, gitflow, gitversion, git aliases & hooks. Can be used a devcontainer features",
     "keywords": [
         "dev",
@@ -75,7 +75,6 @@
         "commitizen": "^4.3.0",
         "devmoji": "^2.3.0",
         "git-precommit-checks": "3.1.0",
-        "husky": "^9.0.11",
         "lint-staged": "^15.2.2",
         "prettier": "^3.2.5"
     },
@@ -183,11 +182,11 @@
         "!(*schema).json": [
             "normalize-json -c -w -a -i -t 4 -f local -l true"
         ],
+        "!(templates/**/*).{js,jsx,ts,tsx,md,html,css,vue,yaml,yml,json}": [
+            "npx --yes prettier --write"
+        ],
         "*.php": [
             "composer lint"
-        ],
-        "*.{js,jsx,ts,tsx,md,html,css,vue,yaml,yml,json}": [
-            "npx --yes prettier --write"
         ],
         ".devcontainer/*": [
             "cp -u -t ./stubs/.devcontainer "

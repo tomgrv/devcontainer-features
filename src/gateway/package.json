@@ -1,6 +1,6 @@
 {
     "name": "@tomgrv-devcontainer-features/gateway",
-    "version": "7.2.0",
+    "version": "7.9.0",
     "description": "SSL Inspection Gateway handling",
     "files": [
         "_*.sh",
@@ -18,6 +18,6 @@
     },
     "dependencies": {},
     "peerDependencies": {
-        "@tomgrv-devcontainer-features/common-utils": ">=5.0.0"
+        "@tomgrv-devcontainer-features/common-utils": "file://../common-utils"
     }
 }
