@@ -1,7 +1,7 @@
 {
     "agents": [
         "claude-code",
-        "github"
+        "github-copilot"
     ],
     "plugins": [
         {
