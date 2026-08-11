@@ -33,6 +33,10 @@ All hooks utilities are installed globally and can be configured in the `package
 
 A default configuration is provided for each utility, but you can override it by modifying the `package.json` file.
 
+### validate-branch-name
+
+Unlike the other utilities, `validate-branch-name`'s `package.json` config is not static: `configure-validate-branch-name.sh` (run automatically by `configure-feature githooks`) generates it from the git-flow branch/prefix scheme set up by the `gitutils` feature (`gitflow.branch.master`, `gitflow.branch.develop`, `gitflow.prefix.feature`, `.bugfix`, `.release`, `.hotfix`, `.support`), plus a `main`/`develop`/`feature`/`bugfix`/`release`/`hotfix`/`support` fallback when git-flow isn't configured. AI coding agent branch prefixes (`copilot/`, `claude/`) are always allowed too, overridable via the `GITHOOKS_EXTRA_BRANCH_PREFIXES` environment variable (comma-separated). Re-run `configure-feature githooks` after changing the git-flow config to regenerate the pattern.
+
 ## Hooks
 
 The following hooks are provided:
