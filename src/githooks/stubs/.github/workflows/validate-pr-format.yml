@@ -1,10 +1,11 @@
 # @format
 
-name: Validate PR Title
+name: Validate PR Format
 
 on:
   pull_request:
-    types: [review_requested]
+    types:
+      - ready_for_review
 
 permissions:
   contents: read
@@ -19,6 +20,7 @@ jobs:
           fetch-depth: 0
 
       - name: Validate PR title
-        uses: tomgrv/actions/check-pr-format@v0
+        uses: tomgrv/actions/check-pr-format@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          fix: true

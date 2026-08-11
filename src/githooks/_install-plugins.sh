@@ -52,9 +52,10 @@ plugins=$(cat $config | grep -v '^$' | tr '\n' ' ')
 # List of plugins to install
 zz_log i "Plugins to install: {B $plugins}"
 
-# For each plugin, check if it is already installed
+# Check which plugins are already installed with a single npm list call
+installed=$(npm list $global --depth=0)
 for plugin in $plugins; do
-    if npm list $global --depth=0 | grep -q "$plugin@"; then
+    if echo "$installed" | grep -qF "$plugin@"; then
         plugins=$(echo $plugins | sed "s#$plugin##g" | tr -s ' ')
     fi
 done

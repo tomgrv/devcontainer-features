@@ -36,13 +36,17 @@ fi
 zz_log i "Merging JSON from {U $source} into {U $target}..."
 
 # Merge the source JSON into the target JSON
-jq 'def merge($a; $b):
+jq 'def dedupe_ordered:
+  reduce .[] as $x ([]; if any(.[]; . == $x) then . else . + [$x] end);
+
+def merge($a; $b):
   if ($a | type) == "object" and ($b | type) == "object" then
-    reduce (($a + $b) | keys_unsorted[]) as $k ({};
+    (($a | keys_unsorted) + (($b | keys_unsorted) - ($a | keys_unsorted))) as $k_all
+    | reduce $k_all[] as $k ({};
       .[$k] =
         if ($a | has($k)) then
           if ($a[$k] | type) == "array" and ($b[$k] | type) == "array" then
-            $a[$k] + $b[$k] | unique
+            ($a[$k] + $b[$k]) | dedupe_ordered
           else
             merge($a[$k]; $b[$k])
           end

@@ -1,6 +1,6 @@
 {
     "name": "@tomgrv-devcontainer-features/gitversion",
-    "version": "7.2.0",
+    "version": "7.9.0",
     "description": "GitVersion integration and version management scripts",
     "files": [
         "_*.sh",
@@ -22,6 +22,6 @@
     },
     "dependencies": {},
     "peerDependencies": {
-        "@tomgrv-devcontainer-features/common-utils": ">=5.0.0"
+        "@tomgrv-devcontainer-features/common-utils": "file://../common-utils"
     }
 }

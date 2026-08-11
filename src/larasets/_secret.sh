@@ -9,19 +9,26 @@ if [ "$#" -eq 0 ]; then
     exit 1
 fi
 
-if [ ! -x "$HOME/.composer/vendor/bin/dep" ]; then
-    zz_log e "Deployer not installed. Please install it first."
-    exit 1
+if [ -z "$ZZ_SECRET" ]; then
+    
+    #### Load the SSH key into an agent, best-effort (does not block the command), then run "$@" as-is.
+    #### Kept as an argv chain (no string rebuilding) so arguments with quotes, $, or backticks
+    #### survive untouched all the way through to the command.
+    set -- ssh-agent sh -c 'echo "$SSH_PRIVATE_KEY" | ssh-add - 2>/dev/null; exec "$@"' sh "$@"
+
+    if [ -f ./.env ]; then
+        zz_log i "Loading root .env."
+        set -- npx --yes dotenv-cli -e ./.env -- "$@"
+    else
+        zz_log w "No root .env found. Skipping dotenv injection."
+    fi
+
+    if command -v doppler >/dev/null 2>&1; then
+        zz_log i "Doppler installed. Injecting secrets."
+        set -- doppler run -- "$@"
+    else
+        zz_log w "Doppler not installed. Skipping secret injection."
+    fi
 fi
 
-#### Initialize command
-command="ssh-agent sh -c \"echo '\$SSH_PRIVATE_KEY' | ssh-add - && "$(printf "'%s' " "$@")"\""
-
-#### Test if doppler is installed
-if ! command -v doppler >/dev/null 2>&1; then
-    zz_log w "Doppler not installed. Running without it."
-    $command
-else
-    zz_log i "Doppler installed. Injecting secrets."
-    doppler run --command "$command"
-fi
+exec env ZZ_SECRET=true "$@"
