@@ -3,6 +3,14 @@
 # Source colors script
 . zz_colors
 
+# Escape a raw value so it can be safely re-embedded inside single quotes
+# in the `var='...'` assignments this script emits for the caller's `eval`.
+# Without this, a value containing a single quote (e.g. `'; rm -rf / #`)
+# would break out of the quoting and be executed by the caller's eval.
+zz_esc() {
+    printf '%s' "$1" | sed "s/'/'\\\\''/g"
+}
+
 # Initialize variables
 count="0"
 value=""
@@ -88,7 +96,7 @@ while getopts :$argnames value "$@"; do
     naming=$(echo -e "$varnames" | grep -E "^$value" | cut -f2)
 
     if [ -n "$OPTARG" ]; then
-        echo "$naming='$OPTARG'"
+        echo "$naming='$(zz_esc "$OPTARG")'"
     else
         echo "$naming=-$value"
     fi
@@ -117,7 +125,7 @@ else
     # Process remaining '-' parameters
     for arg in $(echo $varnames | grep -E "^-" | cut -f2); do
         if [ "$#" -gt "0" ]; then
-            echo "$arg='$1'" && shift 1
+            echo "$arg='$(zz_esc "$1")'" && shift 1
         fi
     done
 
@@ -126,14 +134,15 @@ else
         lines=""
         while [ "$#" -gt "0" ]; do
             # spaces that are not escaped should be preserved as part of the argument
+            piece=$(zz_esc "$1")
             if [ -z "$lines" ]; then
-                lines="$1"
+                lines="$piece"
             else
-                lines="$lines\\\\n$1"
+                lines="$lines\\\\n$piece"
             fi
             shift 1
         done
-        echo "$arg='$lines'"  
+        echo "$arg='$lines'"
     done
 
     # Process remaining '#' parameters
@@ -141,20 +150,31 @@ else
         lines=""
         while [ "$#" -gt "0" ]; do
             # spaces that are not escaped should be preserved as part of the argument
+            piece=$(zz_esc "$1" | sed 's/ /\\ /g')
             if [ -z "$lines" ]; then
-                lines="$(printf '%s' "$1" | sed 's/ /\\ /g')"
+                lines="$piece"
             else
-                lines="$lines $(printf '%s' "$1" | sed 's/ /\\ /g')"
+                lines="$lines $piece"
             fi
             shift 1
         done
-        echo "$arg='$lines'"  
+        echo "$arg='$lines'"
     done
 
     # Process remaining '+' parameters
     for arg in $(echo $varnames | grep -E "^\+" | cut -f2); do
         if [ "$#" -gt "0" ]; then
-            echo "$arg='$@'" && shift $#
+            value=""
+            for a in "$@"; do
+                piece=$(zz_esc "$a")
+                if [ -z "$value" ]; then
+                    value="$piece"
+                else
+                    value="$value $piece"
+                fi
+            done
+            echo "$arg='$value'"
+            shift $#
         fi
     done
 
