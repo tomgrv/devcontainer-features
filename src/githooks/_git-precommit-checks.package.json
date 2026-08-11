@@ -1,6 +1,6 @@
 {
     "peerDependencies": {
-        "git-precommit-checks": "*"
+        "git-precommit-checks": "^3"
     },
     "git-precommit-checks": {
         "rules": [
