@@ -46,10 +46,10 @@ sync_plugins() {
         return 0
     fi
 
-    # Read the agents from the command line or from ai-coding.json
+    # Read the agents from the command line or from ai-coding.json, 
     agents="$@"
     if [ -z "$agents" ]; then
-        agents=$(jq -r '.agents // [] | .[] ' "$REGISTRY")
+        agents="--agents "$(jq -r '.agents // [] | .[] ' "$REGISTRY")
     fi
 
     # Merge the plugins into .claude/settings.json's enabledPlugins and extraKnownMarketplaces
@@ -69,7 +69,7 @@ sync_plugins() {
     # Install plugins via npx skills using url without .git, so they are available for Claude Code sessions
     for url in $(jq -r '.plugins // [] | .[] | .url' "$REGISTRY"); do
         echo "configure-skills.sh: installing plugin from $url" >&2
-        npx --yes skills add -y "$url" --skills '*' ${agents:+--agents $agents} || {
+        npx --yes skills add -y "$url" --skills '*' ${agents:+$agents} || {
             echo "configure-skills.sh: failed to install plugin from $url" >&2
             return 1
         }

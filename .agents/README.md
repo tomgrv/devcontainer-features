@@ -17,8 +17,8 @@ Skills not distributed to consumer repos (Claude Code-specific mechanisms) — `
 Consumer repos get skills two different ways:
 
 - **Copilot/agent-agnostic** (`.github/skills/`): file stubs, copied by `configure-feature ai-coding` from `src/ai-coding/stubs/.github/skills/`.
-- **Claude Code and GitHub Copilot** (live install): fetched at runtime by `npx skills` (see `src/ai-coding/stubs/.claude/hooks/_skills.sh`), straight from this repo's `.agents/skills/<name>` — no `.claude/skills/`/`~/.copilot/skills/` stub copy is shipped. Runs on devcontainer `postCreate` and on every Claude Code `SessionStart` (`_skills.sh sync`), so it also covers claude.ai/code web/cloud sessions. Which skills get installed for which agents is driven by the root `ai-coding.json` manifest — the dedicated manifest for skills, plugins, and target agents. Any other feature that `dependsOn` `ai-coding` and ships its own `stubs/ai-coding.json` fragment gets merged into the same root file (see `.agents/README.md`'s "Adding a new plugin" and the ai-coding feature README).
-- **Claude Code plugins** (`caveman`, `ponytail`): declared in `ai-coding.json`'s `plugins` array and kept live in `.claude/settings.json`'s `enabledPlugins`/`extraKnownMarketplaces` by `_skills.sh sync` — Claude Code installs and enables these itself once declared there, no manual mirroring needed.
+- **Claude Code and GitHub Copilot** (live install): fetched at runtime by `npx skills` (see `src/ai-coding/stubs/.claude/hooks/configure-skills.sh`), straight from this repo's `.agents/skills/<name>` — no `.claude/skills/`/`~/.copilot/skills/` stub copy is shipped. Runs on devcontainer `postCreate` and on every Claude Code `SessionStart` (`configure-skills.sh sync`), so it also covers claude.ai/code web/cloud sessions. Which skills get installed for which agents is driven by the root `ai-coding.json` manifest — the dedicated manifest for skills, plugins, and target agents. Any other feature that `dependsOn` `ai-coding` and ships its own `stubs/ai-coding.json` fragment gets merged into the same root file (see `.agents/README.md`'s "Adding a new plugin" and the ai-coding feature README).
+- **Claude Code plugins** (`caveman`, `ponytail`): declared in `ai-coding.json`'s `plugins` array and kept live in `.claude/settings.json`'s `enabledPlugins`/`extraKnownMarketplaces` by `configure-skills.sh sync` — Claude Code installs and enables these itself once declared there, no manual mirroring needed.
 
 ## Adding a new distributable skill
 
@@ -28,7 +28,7 @@ Consumer repos get skills two different ways:
     ```sh
     ln -s ../../.agents/skills/<name> src/ai-coding/stubs/.github/skills/<name>
     ```
-4. Add `<name>` to the `skills` array in `src/ai-coding/stubs/ai-coding.json` so `_skills.sh sync` installs it for Claude Code and GitHub Copilot too.
+4. Add `<name>` to the `skills` array in `src/ai-coding/stubs/ai-coding.json` so `configure-skills.sh sync` installs it for Claude Code and GitHub Copilot too.
 5. Symlink from root (dogfooding):
     ```sh
     ln -s ../../.agents/skills/<name> .github/skills/<name>
@@ -38,4 +38,4 @@ Consumer repos get skills two different ways:
 
 ## Adding a new plugin
 
-Add an entry to `src/ai-coding/stubs/ai-coding.json`'s `plugins` array (`name`, `marketplace`, `url`). `_skills.sh sync` merges it into `.claude/settings.json`'s `enabledPlugins`/`extraKnownMarketplaces` on the next devcontainer `postCreate` or Claude Code `SessionStart` — no manual settings edit needed.
+Add an entry to `src/ai-coding/stubs/ai-coding.json`'s `plugins` array (`name`, `marketplace`, `url`). `configure-skills.sh sync` merges it into `.claude/settings.json`'s `enabledPlugins`/`extraKnownMarketplaces` on the next devcontainer `postCreate` or Claude Code `SessionStart` — no manual settings edit needed.
