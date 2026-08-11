@@ -2,6 +2,36 @@
 
 # Changelog
 
+## 7.14.0 (2026-08-11)
+
+_Commits from: v7.13.0..HEAD_
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v7.13.0' into develop ([641dbc5](https://github.com/tomgrv/devcontainer-features/commit/641dbc59ba93d905fddf714fc2f43f0de8087483))
+- 🔧 update lint-staged to exclude .agents/ from prettier (#105) ([3727e9b](https://github.com/tomgrv/devcontainer-features/commit/3727e9b023fcd934c9dfacceffa92af07f6fd7f1))
+
+### 📦 common-utils changes
+
+#### Bug Fixes
+
+- 🐛 dedupe array-of-array elements correctly in merge-json (#106) ([57507d7](https://github.com/tomgrv/devcontainer-features/commit/57507d7e42b92bc11bd65bcf8ad1fa7fb8f104a5))
+- 🐛 escape single quotes in zz_args eval output (#87) ([fd5196d](https://github.com/tomgrv/devcontainer-features/commit/fd5196d694c7beb97af5c3ac817d620d4ed2e19b))
+
+### 📦 githooks changes
+
+#### Other changes
+
+- ⚡️ cut subprocess overhead in git hook scripts (#107) ([0382f94](https://github.com/tomgrv/devcontainer-features/commit/0382f94459a52ab2ba7db029599125def5c14989))
+
+### 📦 gitutils changes
+
+#### Bug Fixes
+
+- 🐛 update GitUtils installation command in release workflow ([86fd372](https://github.com/tomgrv/devcontainer-features/commit/86fd3723c8b2f77650216ce153539b56d36c6657))
+
 ## 7.13.0 (2026-08-11)
 
 _Commits from: v7.12.0..HEAD_
