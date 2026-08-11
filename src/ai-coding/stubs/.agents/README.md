@@ -12,7 +12,15 @@ Single source of truth for every AI coding tool's configuration and guidance in 
 | ---------------- | ----------------------- | ----------------------------- |
 | `skills/<name>/` | `.github/skills/<name>` | Copilot/agent-agnostic agents |
 
-Claude Code does not read a symlinked copy here. `.claude/hooks/install-skills.sh` fetches these same skills at runtime, straight from `tomgrv/devcontainer-features:.agents/skills/`, via [`npx skills`](https://github.com/vercel-labs/skills) — run on devcontainer `postCreate` and on every Claude Code `SessionStart` (see `.claude/settings.json`).
+Claude Code and GitHub Copilot do not read a symlinked copy here. `.claude/hooks/install-skills.sh` fetches these same skills at runtime, straight from `tomgrv/devcontainer-features:.agents/skills/`, via [`npx skills`](https://github.com/vercel-labs/skills) — run on devcontainer `postCreate` and on every Claude Code `SessionStart` (see `.claude/settings.json`).
+
+## `registry.json`
+
+`.agents/registry.json` is the dedicated manifest driving `install-skills.sh` — it lists:
+
+- `skills` — names under `.agents/skills/` to fetch (e.g. `caveman`, `pm/prd-draft`).
+- `agents` — `npx skills` target ids to install each skill for (`claude-code`, `github-copilot`).
+- `plugins` — Claude Code plugin-marketplace entries (`caveman`, `ponytail`) already enabled via `.claude/settings.json`'s `enabledPlugins`/`extraKnownMarketplaces`. Listed here for reference only — `install-skills.sh` does not install plugins, Claude Code does that itself from `settings.json`.
 
 ## Adding a new skill
 
