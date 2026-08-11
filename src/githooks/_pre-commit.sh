@@ -17,18 +17,6 @@ fi
 
 zz_log i "Git command: {Cyan $GIT_COMMAND}"
 
-# Run a tool from node_modules/.bin if present, falling back to npx
-run_local() {
-    tool=$1
-    shift
-    bin="${INIT_CWD:-$PWD}/node_modules/.bin/$tool"
-    if [ -x "$bin" ]; then
-        "$bin" "$@"
-    else
-        npx --yes "$tool" "$@"
-    fi
-}
-
 # Staged files, computed once and reused below
 changed_files=$(git diff --name-only ${@:---cached})
 
@@ -83,5 +71,5 @@ fi
 git hook run install-plugins -- '.prettier.plugins//""'
 
 # Run pre-commit checks
-run_local git-precommit-checks
-run_local lint-staged --cwd ${INIT_CWD:-$PWD} --allow-empty
+zz-npx git-precommit-checks
+zz-npx lint-staged --cwd ${INIT_CWD:-$PWD} --allow-empty
