@@ -2,6 +2,29 @@
 
 # Changelog
 
+## 7.12.0 (2026-08-11)
+
+_Commits from: v7.11.0..HEAD_
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v7.11.0' into develop ([0165442](https://github.com/tomgrv/devcontainer-features/commit/0165442a35ce002681c7ac95ecc86828827cb721))
+- 👷 update checkout action version and simplify validation steps ([597a7b6](https://github.com/tomgrv/devcontainer-features/commit/597a7b66763af9d40342c5fcf164bdc6670130f0))
+
+### 📦 common-utils changes
+
+#### Bug Fixes
+
+- 🐛 preserve source order when merging JSON (#100) ([c8cbf40](https://github.com/tomgrv/devcontainer-features/commit/c8cbf403916d82b48b6e9b22a05cc4bb7c9ab78d))
+
+### 📦 githooks changes
+
+#### Bug Fixes
+
+- 🐛 generate validate-branch-name from git-flow config (#99) ([47adb9f](https://github.com/tomgrv/devcontainer-features/commit/47adb9f1f88b00079cf1a53f07735f5928af7ea8))
+
 ## 7.11.0 (2026-08-11)
 
 _Commits from: v7.10.0..HEAD_
