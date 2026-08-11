@@ -124,6 +124,7 @@ cmd_help() {
     zz_log - "  npx tomgrv/devcontainer-features -- add githooks gitversion"
     zz_log - "  npx tomgrv/devcontainer-features -- list -a"
     zz_log - "  npx tomgrv/devcontainer-features -- deps gitversion"
+    zz_log - "  npx tomgrv/devcontainer-features -- gitutils  (shorthand for {U add gitutils})"
     zz_log - ""
     zz_log - "Set {U ZZ_LOG_DEBUG=1} for verbose internal logs."
 }
@@ -241,7 +242,13 @@ case "${cmd:-}" in
         cmd_add
         ;;
     *)
-        zz_log e "Unknown command: $cmd"
-        exit 1
+        # Shorthand: a bare feature name (no "add") is treated as "add <name>"
+        if [ -d "$source/src/$cmd" ] && [ "$cmd" != "common-utils" ]; then
+            target="$cmd${target:+ $target}"
+            cmd_add
+        else
+            zz_log e "Unknown command: $cmd"
+            exit 1
+        fi
         ;;
 esac

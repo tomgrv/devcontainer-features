@@ -31,6 +31,12 @@ npx tomgrv/devcontainer-features -- init
 npx tomgrv/devcontainer-features -- add gitutils
 ```
 
+A bare feature name is also accepted as shorthand for `add <name>`:
+
+```sh
+npx tomgrv/devcontainer-features -- gitutils
+```
+
 #### To set up a full dev environment
 
 ```sh
