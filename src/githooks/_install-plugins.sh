@@ -55,7 +55,7 @@ zz_log i "Plugins to install: {B $plugins}"
 # Check which plugins are already installed with a single npm list call
 installed=$(npm list $global --depth=0)
 for plugin in $plugins; do
-    if echo "$installed" | grep -q "$plugin@"; then
+    if echo "$installed" | grep -qF "$plugin@"; then
         plugins=$(echo $plugins | sed "s#$plugin##g" | tr -s ' ')
     fi
 done

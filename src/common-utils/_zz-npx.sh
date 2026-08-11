@@ -5,13 +5,13 @@
 # binary isn't present locally, and only if npx itself is available.
 # Usage: zz-npx <tool> [args...]
 
-tool="$1"
-shift
-
-if [ -z "$tool" ]; then
+if [ -z "$1" ]; then
     zz_log e "Usage: zz-npx <tool> [args...]"
     exit 1
 fi
+
+tool="$1"
+shift
 
 bin="${INIT_CWD:-$PWD}/node_modules/.bin/$tool"
 

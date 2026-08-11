@@ -18,7 +18,11 @@ fi
 zz_log i "Git command: {Cyan $GIT_COMMAND}"
 
 # Staged files, computed once and reused below
-changed_files=$(git diff --name-only ${@:---cached})
+if [ "$#" -eq 0 ]; then
+    changed_files=$(git diff --name-only --cached)
+else
+    changed_files=$(git diff --name-only "$@")
+fi
 
 # Check if the current commit contains package.json changes
 if echo "$changed_files" | grep -q "package.json"; then
