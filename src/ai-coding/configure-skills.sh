@@ -1,4 +1,4 @@
 #!/bin/sh
 
-### Install Claude Code skills via npx skills (see .claude/hooks/install-skills.sh)
-sh .claude/hooks/install-skills.sh
+### Sync ai-coding.json content (skills + plugin settings) into the repo (see .claude/hooks/_skills.sh)
+sh .claude/hooks/_skills.sh sync

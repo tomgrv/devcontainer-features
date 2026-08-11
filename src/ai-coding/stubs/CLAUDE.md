@@ -6,7 +6,7 @@ This repo has the `ai-coding` devcontainer feature installed. Read `.agents/READ
 
 ## Skills — use them
 
-Canonical skill content lives at `tomgrv/devcontainer-features:.agents/skills/` and is symlinked into `.github/skills/` for agent-agnostic agents. Claude Code and GitHub Copilot do **not** get a stub copy: `.claude/hooks/install-skills.sh` fetches the same skills straight from that repo via `npx skills`, run on devcontainer `postCreate` and on every Claude Code `SessionStart` (covers claude.ai/code web/cloud sessions too). Which skills get installed, for which agents, plus this feature's Claude Code plugins (`caveman`, `ponytail`, enabled via `.claude/settings.json`), are all listed in `.agents/registry.json` — the single manifest for skills/plugins/agents. Skills are auto-discoverable once installed — invoke them proactively per their descriptions.
+Canonical skill content lives at `tomgrv/devcontainer-features:.agents/skills/` and is symlinked into `.github/skills/` for agent-agnostic agents. Claude Code and GitHub Copilot do **not** get a stub copy: `.claude/hooks/_skills.sh sync` fetches the same skills straight from that repo via `npx skills`, run on devcontainer `postCreate` and on every Claude Code `SessionStart` (covers claude.ai/code web/cloud sessions too). Which skills get installed, for which agents, plus this feature's Claude Code plugins (`caveman`, `ponytail`, kept live in `.claude/settings.json` by the same sync), are all listed in root `ai-coding.json` — the single manifest for skills/plugins/agents, mergeable with fragments from other features that depend on `ai-coding`. Skills are auto-discoverable once installed — invoke them proactively per their descriptions.
 
 Key skills:
 
