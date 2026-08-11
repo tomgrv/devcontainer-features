@@ -1,4 +1,4 @@
 #!/bin/sh
 
-### Sync ai-coding.json content (skills + plugin settings) into the repo (see .claude/hooks/_skills.sh)
-sh .claude/hooks/_skills.sh sync
+### Sync ai-coding.json content (skills + plugin settings) into the repo (see .claude/hooks/sh .claude/hooks/configure-skills.sh sync)
+sh .claude/hooks/configure-skills.sh sync
