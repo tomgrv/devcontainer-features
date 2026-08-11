@@ -1,0 +1,23 @@
+# @format
+
+name: Check common-utils scripts
+
+on:
+  push:
+    paths:
+      - 'src/common-utils/**'
+  pull_request:
+    paths:
+      - 'src/common-utils/**'
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run common-utils tests
+        run: sh src/common-utils/tests/run.sh
