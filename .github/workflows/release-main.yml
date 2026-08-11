@@ -19,10 +19,10 @@ jobs:
           ref: develop
 
       - name: Set up Node.js
-        uses: tomgrv/actions/setup-node@v0
+        uses: tomgrv/actions/setup-node@v2
 
       - name: Install GitUtils
-        run: npm exec --yes --legacy-peer-deps --package github:tomgrv/devcontainer-features -- devcontainer-features -- gitutils || { echo 'GitUtils installation failed. Check step logs for details or verify repository access at https://github.com/tomgrv/devcontainer-features'; false; }
+        run: npm exec --yes --legacy-peer-deps --package github:tomgrv/devcontainer-features -- devcontainer-features -- add gitutils
 
       - name: Verify GitUtils aliases
         run: |

@@ -1,11 +1,11 @@
 # @format
 
-name: Validate Pull Request
+name: Validate PR on security side
 
 on:
   pull_request:
     types:
-      - review_requested
+      - ready_for_review
 
 env:
   COMPOSER_CACHE_DIR: ~/.composer/cache
@@ -24,19 +24,19 @@ jobs:
           reviewdog_version: v0.20.3
 
       - name: Set up PHP toolchain
-        uses: tomgrv/actions/setup-php@v0
+        uses: tomgrv/actions/setup-php@v2
 
       - name: Set up Node.js
-        uses: tomgrv/actions/setup-node@v0
+        uses: tomgrv/actions/setup-node@v2
         with:
           node-version: '24'
 
       - name: Run npm security audit
-        uses: tomgrv/actions/check-security-npm@v0
+        uses: tomgrv/actions/check-security-npm@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run composer security audit
-        uses: tomgrv/actions/check-security-composer@v0
+        uses: tomgrv/actions/check-security-composer@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}

@@ -17,8 +17,15 @@ fi
 
 zz_log i "Git command: {Cyan $GIT_COMMAND}"
 
+# Staged files, computed once and reused below
+if [ "$#" -eq 0 ]; then
+    changed_files=$(git diff --name-only --cached)
+else
+    changed_files=$(git diff --name-only "$@")
+fi
+
 # Check if the current commit contains package.json changes
-if git diff --name-only ${@:---cached } | grep -q "package.json"; then
+if echo "$changed_files" | grep -q "package.json"; then
 
     # ensure that the package.json is valid and package-lock.json is up-to-date
     zz_log i "Ensure that the package.json is valid and package-lock.json is up-to-date..."
@@ -39,16 +46,22 @@ if git diff --name-only ${@:---cached } | grep -q "package.json"; then
 fi
 
 # Check if the current commit contains composer.json changes
-if git diff --name-only ${@:---cached} | grep -q "composer.json"; then
+if echo "$changed_files" | grep -q "composer.json"; then
 
     # ensure that the composer.json is valid and composer.lock is up-to-date
     zz_log i "Ensure that the composer.json is valid and composer.lock is up-to-date..."
-    composer validate --no-check-all --strict 2>&1 | grep -oP 'Required package "\K[^"]+' | while read -r package; do
-        composer require --ignore-platform-reqs --with-all-dependencies --no-scripts --no-interaction --no-progress --no-install "$package"
-    done
-
-    # Update composer.lock
-    composer validate --no-check-all --strict || composer update --lock --minimal-changes --ignore-platform-reqs --with-all-dependencies --no-scripts --no-interaction --no-progress --no-install
+    composer_validate=$(composer validate --no-check-all --strict 2>&1)
+    composer_valid=$?
+    missing_packages=$(echo "$composer_validate" | grep -oP 'Required package "\K[^"]+')
+    if [ -n "$missing_packages" ]; then
+        echo "$missing_packages" | while read -r package; do
+            composer require --ignore-platform-reqs --with-all-dependencies --no-scripts --no-interaction --no-progress --no-install "$package"
+        done
+        # requiring packages changed composer.json's state, so re-check before deciding on a full update
+        composer validate --no-check-all --strict || composer update --lock --minimal-changes --ignore-platform-reqs --with-all-dependencies --no-scripts --no-interaction --no-progress --no-install
+    elif [ "$composer_valid" -ne 0 ]; then
+        composer update --lock --minimal-changes --ignore-platform-reqs --with-all-dependencies --no-scripts --no-interaction --no-progress --no-install
+    fi
 
     # commit the updated composer.lock if file changed
     if git diff --quiet composer.lock; then
@@ -62,5 +75,5 @@ fi
 git hook run install-plugins -- '.prettier.plugins//""'
 
 # Run pre-commit checks
-npx --yes git-precommit-checks
-npx --yes lint-staged --cwd ${INIT_CWD:-$PWD} --allow-empty
+zz-npx git-precommit-checks
+zz-npx lint-staged --cwd ${INIT_CWD:-$PWD} --allow-empty

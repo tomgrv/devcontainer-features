@@ -2,7 +2,7 @@
 
 # Handle parameters
 eval $(
-	zz_args "Discard changes made only of blanks and quote/slash swaps" $0 "$@" <<-help
+	zz_args "Discard changes made only of whitespace, blanks, quote/slash swaps" $0 "$@" <<-help
 		d -         dryrun      show files that would be discarded without changing them
 	help
 )
@@ -24,7 +24,11 @@ if [ ! -s "$changed_list" ]; then
 fi
 
 normalize_file() {
-	# Remove comments before stripping whitespace so line-oriented filters still work.
+	# Strip full-line comments first so line-oriented filters still work, then
+	# collapse everything the tool is meant to ignore: all whitespace, quote
+	# style ("/'), slash direction (\ vs /), and blank lines. The trailing awk
+	# guarantees every emitted line ends in a newline, so a change that only
+	# adds or removes the final newline normalizes away too.
 	case "$1" in
 		*.sh) sed -e '/^[[:space:]]*#/d' "$1" ;; # Remove comment lines in shell scripts
 		*.yml|*.yaml) sed -e '/^[[:space:]]*#/d' "$1" ;; # Remove comment lines in YAML files
@@ -33,8 +37,9 @@ normalize_file() {
 		*.html|*.htm) sed -e '/^[[:space:]]*<!--.*-->/d' "$1" ;; # Remove HTML comments in HTML files
 		*.css) sed -e '/^[[:space:]]*\/\*/d' -e '/^[[:space:]]*\*/d' "$1" ;; # Remove comment lines in CSS files
 		*.js) sed -e '/^[[:space:]]*\/\//d' -e '/^[[:space:]]*\/\*/d' -e '/^[[:space:]]*\*/d' "$1" ;; # Remove comment lines in JavaScript files
+		*.json) normalize-json -c -a -i -t 4 -f local -l true "$1" 2>/dev/null || cat "$1" ;; # Normalize JSON to stdout; fall back to raw content if normalization fails (never emit empty, which would be a false match)
 		*) cat "$1" ;;
-	esac | sed -e 's/[[:space:]]//g' -e "s/[\"']/\"/g" -e 's#[\\/]#/#g'
+	esac | sed -e 's/[[:space:]]//g' -e "s/[\"']/\"/g" -e 's#[\\/]#/#g' -e '/^$/d' | awk '{ print }' # strip whitespace, unify quotes/slashes, drop blank lines, force trailing newline
 }
 
 discarded=0
@@ -48,10 +53,11 @@ while IFS= read -r file; do
 		continue
 	fi
 
-	old_file="$temp_dir/old-$discarded-$kept-$skipped"
-	new_file="$temp_dir/new-$discarded-$kept-$skipped"
-	norm_old="$temp_dir/norm-old-$discarded-$kept-$skipped"
-	norm_new="$temp_dir/norm-new-$discarded-$kept-$skipped"
+	extension="${file##*.}"
+	old_file="$temp_dir/old-$discarded-$kept-$skipped.$extension"
+	new_file="$temp_dir/new-$discarded-$kept-$skipped.$extension"
+	norm_old="$temp_dir/norm-old-$discarded-$kept-$skipped.$extension"
+	norm_new="$temp_dir/norm-new-$discarded-$kept-$skipped.$extension"
 
 	if ! git show "HEAD:$file" >"$old_file" 2>/dev/null; then
 		skipped=$((skipped + 1))

@@ -2,9 +2,11 @@
     "scripts": {
         "lint": "npx --yes lint-staged -p false"
     },
+    "optionalDependencies": {
+        "@tomgrv-devcontainer-features/common-utils": ">=5"
+    },
     "peerDependencies": {
-        "@tomgrv-devcontainer-features/common-utils": "^5",
-        "prettier": "*"
+        "prettier": "^3"
     },
     "lint-staged": {
         "!(*schema).json": [

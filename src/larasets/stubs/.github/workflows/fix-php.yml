@@ -27,12 +27,12 @@ jobs:
 
       - name: Configure Bot
         id: config-bot
-        uses: tomgrv/actions/config-bot@v0
+        uses: tomgrv/actions/config-bot@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up PHP toolchain
-        uses: tomgrv/actions/setup-php@v0
+        uses: tomgrv/actions/setup-php@v2
 
       - name: Apply PHPStan fixes
         id: fix-phpstan

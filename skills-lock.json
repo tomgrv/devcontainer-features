@@ -5,31 +5,31 @@
             "source": "JuliusBrussee/caveman",
             "sourceType": "github",
             "skillPath": "skills/cavecrew/SKILL.md",
-            "computedHash": "505d836228d1c5e14834ff5d62aad72390c7d27f79c6aa7f9a7a55ed6606d6a2"
+            "computedHash": "c5527c994fbd4c22b36714e3b124a0f167a533d114ab164fb1d35e2123533917"
         },
         "caveman": {
             "source": "JuliusBrussee/caveman",
             "sourceType": "github",
             "skillPath": "skills/caveman/SKILL.md",
-            "computedHash": "dfbf85749fd474feeb0bbe60c779795ecd5dbec0083299b56e68916bc3ddd8c9"
+            "computedHash": "59e1fe0d3eeb4189ee5c467efde567672e5cacb41f157c477a6152ca907d44ea"
         },
         "caveman-commit": {
             "source": "JuliusBrussee/caveman",
             "sourceType": "github",
             "skillPath": "skills/caveman-commit/SKILL.md",
-            "computedHash": "f456ea0564875e46858890ac39ee701ecb9c601c72a2da1e6ce6bd5f9fc5d817"
+            "computedHash": "790a4eeace0be35c6691faf923518ba5bd50f1f1305d1101d09dd4971be94e00"
         },
         "caveman-compress": {
             "source": "JuliusBrussee/caveman",
             "sourceType": "github",
             "skillPath": "skills/caveman-compress/SKILL.md",
-            "computedHash": "b8cbfec00b620f0944960a9bb4072f262cf816c1d3c82e6dbded35c30b4c5d0b"
+            "computedHash": "52f2301832b376a765b0ed02445c8bf05874b624052bf9a9c3861d9c3dfcee4b"
         },
         "caveman-help": {
             "source": "JuliusBrussee/caveman",
             "sourceType": "github",
             "skillPath": "skills/caveman-help/SKILL.md",
-            "computedHash": "2c21437427e98df1eacabaa0b055b5256a308b2191feea3ca2df6a9418e76cb1"
+            "computedHash": "c76fd4aa86ad557eee62aacbd4b9dd46499fe3913910e7d596d20d094296b984"
         },
         "caveman-review": {
             "source": "JuliusBrussee/caveman",
@@ -41,7 +41,43 @@
             "source": "JuliusBrussee/caveman",
             "sourceType": "github",
             "skillPath": "skills/caveman-stats/SKILL.md",
-            "computedHash": "47ce2de3d6cb39a75047b5c962e4eb3da15594e7397c94103e9a104d42626553"
+            "computedHash": "57c7db449641379e2afd1389fdb17cec8f33d9c8e25b1d28093937b4431895e8"
+        },
+        "ponytail": {
+            "source": "DietrichGebert/ponytail",
+            "sourceType": "github",
+            "skillPath": "skills/ponytail/SKILL.md",
+            "computedHash": "210fa0831f649ce9f8a305f7b7c8cf2a0dd09ac4dd53067109941b96e7811d4e"
+        },
+        "ponytail-audit": {
+            "source": "DietrichGebert/ponytail",
+            "sourceType": "github",
+            "skillPath": "skills/ponytail-audit/SKILL.md",
+            "computedHash": "8b8d72e6ff70b65b6c9518d470fcf29dc696eea93d28f3efa10fdcc60cbd696d"
+        },
+        "ponytail-debt": {
+            "source": "DietrichGebert/ponytail",
+            "sourceType": "github",
+            "skillPath": "skills/ponytail-debt/SKILL.md",
+            "computedHash": "0099b82174e3a4261828b4ec04d2c068b1b294fdab14f76701c2acd1f7c99539"
+        },
+        "ponytail-gain": {
+            "source": "DietrichGebert/ponytail",
+            "sourceType": "github",
+            "skillPath": "skills/ponytail-gain/SKILL.md",
+            "computedHash": "c45ecba7906960eea904218b623abf097ebff84ecbacca6d68da1d0687435f75"
+        },
+        "ponytail-help": {
+            "source": "DietrichGebert/ponytail",
+            "sourceType": "github",
+            "skillPath": "skills/ponytail-help/SKILL.md",
+            "computedHash": "10e8382b1033c9a0fec0073de6d3de3846b4f5dca7d78b6df2d476a1f4cd43c6"
+        },
+        "ponytail-review": {
+            "source": "DietrichGebert/ponytail",
+            "sourceType": "github",
+            "skillPath": "skills/ponytail-review/SKILL.md",
+            "computedHash": "4646594fcd75455533f7ff1425f4f1c5ba0fa65f88241bf262b1c4fc275f049a"
         }
     }
 }

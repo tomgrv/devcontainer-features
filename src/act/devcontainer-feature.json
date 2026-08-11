@@ -17,7 +17,7 @@
             "default": "master"
         }
     },
-    "version": "7.2.0",
+    "version": "7.9.0",
     "postCreateCommand": {
         "config": "configure-feature act"
     }

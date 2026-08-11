@@ -545,9 +545,13 @@ if test -n "$cache" && test -s $map; then
     cat $map
 else
     # Validate JSON according to schema and display valid json paths
-    if validate "$json" "$schema"; then
+    validate "$json" "$schema" | sed -n -e 's/^.$//g' -e '/^$/d' -e 'G; s/\n/&&/; /^\([ -~]*\n\).*\n\1/d; s/\n//; h; P'
+    status=${PIPESTATUS[0]}
+
+    if [ "$status" -eq 0 ]; then
         zz_log s "JSON {U $json} valid"
     else
-        zz_log e "JSON {U $json} empty or invalid" && exit 1
-    fi | sed -n -e 's/^.$//g' -e '/^$/d' -e 'G; s/\n/&&/; /^\([ -~]*\n\).*\n\1/d; s/\n//; h; P'
+        zz_log e "JSON {U $json} empty or invalid"
+        exit 1
+    fi
 fi

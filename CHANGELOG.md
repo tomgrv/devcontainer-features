@@ -2,6 +2,215 @@
 
 # Changelog
 
+## 7.13.0 (2026-08-11)
+
+_Commits from: v7.12.0..HEAD_
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v7.12.0' into develop ([aff4a71](https://github.com/tomgrv/devcontainer-features/commit/aff4a71dd8985fefde773820ba718c81e7a0c498))
+
+### 📦 ai-coding changes
+
+#### Features
+
+- ✨ require subscribe_pr_activity, forbid send_later self check-ins (#103) ([19ff3a4](https://github.com/tomgrv/devcontainer-features/commit/19ff3a4b4938bc3856a84042d9450184575249d6))
+
+### 📦 gitutils changes
+
+#### Bug Fixes
+
+- 🐛 harden git prod/hotfix branch resolution and quoting (#102) ([ac65d22](https://github.com/tomgrv/devcontainer-features/commit/ac65d22fd96c4204fd81b896a751d68d288e6e86))
+
+## 7.12.0 (2026-08-11)
+
+_Commits from: v7.11.0..HEAD_
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v7.11.0' into develop ([0165442](https://github.com/tomgrv/devcontainer-features/commit/0165442a35ce002681c7ac95ecc86828827cb721))
+- 👷 update checkout action version and simplify validation steps ([597a7b6](https://github.com/tomgrv/devcontainer-features/commit/597a7b66763af9d40342c5fcf164bdc6670130f0))
+
+### 📦 common-utils changes
+
+#### Bug Fixes
+
+- 🐛 preserve source order when merging JSON (#100) ([c8cbf40](https://github.com/tomgrv/devcontainer-features/commit/c8cbf403916d82b48b6e9b22a05cc4bb7c9ab78d))
+
+### 📦 githooks changes
+
+#### Bug Fixes
+
+- 🐛 generate validate-branch-name from git-flow config (#99) ([47adb9f](https://github.com/tomgrv/devcontainer-features/commit/47adb9f1f88b00079cf1a53f07735f5928af7ea8))
+
+## 7.11.0 (2026-08-11)
+
+_Commits from: v7.10.0..HEAD_
+
+### 📦 ai-coding changes
+
+#### Other changes
+
+- move skill registry to root ai-coding.json, unify sync logic in configure-skills.sh (#98) ([4619cf6](https://github.com/tomgrv/devcontainer-features/commit/4619cf65f9ea2178ab30e856c9b40a70cf685838))
+
+## 7.9.0 (2026-08-11)
+
+_Commits from: v7.8.0..HEAD_
+
+### 📂 Unscoped changes
+
+#### Features
+
+- ✨ add Claude settings configuration ([14be659](https://github.com/tomgrv/devcontainer-features/commit/14be65913f3867fd3272abf8fc80ac2b6bddb44b))
+- ✨ enhance ai plugin management ([efbe28f](https://github.com/tomgrv/devcontainer-features/commit/efbe28f598fccb2abcb713cf89ee894b58f11fad))
+
+#### Other changes
+
+- 👷 add configuration for GitHub Actions updates ([9771999](https://github.com/tomgrv/devcontainer-features/commit/9771999700bcb4f18e1253bf3302b27da9b4db83))
+- Merge tag 'v7.8.0' into develop ([cef98d2](https://github.com/tomgrv/devcontainer-features/commit/cef98d244c831ed2baa6f43e67ba95035f09d1b9))
+- 🔧 update lint-staged configuration for prettier ([73a9725](https://github.com/tomgrv/devcontainer-features/commit/73a9725202f312caea1e66ed0b7d0fd0543b9476))
+- 🔧 update peer dependencies to use local paths for common-utils ([f5ef951](https://github.com/tomgrv/devcontainer-features/commit/f5ef95151b429af711217f067c2fcddad286cd22))
+
+### 📦 ai-coding changes
+
+#### Features
+
+- ✨ install Claude Code skills via npx skills instead of stub copies (#97) ([aaa6905](https://github.com/tomgrv/devcontainer-features/commit/aaa6905089407120590af7b77a6f6845b5866a4d))
+
+### 📦 githooks changes
+
+#### Other changes
+
+- 🔧 update branch name validation pattern to include 'claude' ([4c3f10a](https://github.com/tomgrv/devcontainer-features/commit/4c3f10a72e157a08205b68da1e2e234861cb99a6))
+
+### 📦 larasets changes
+
+#### Bug Fixes
+
+- 🐛 resolve composer global bin dir dynamically (#96) ([2e36dbb](https://github.com/tomgrv/devcontainer-features/commit/2e36dbb4b53722dd3093bf432ae83648e9ea8dba))
+
+## 7.8.0 (2026-08-08)
+
+_Commits from: v7.7.0..HEAD_
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v7.7.0' into develop ([27dd65d](https://github.com/tomgrv/devcontainer-features/commit/27dd65d18ecc419a1c949f4f2c6d743e01584a90))
+- ♻️ rename validation workflow titles for clarity ([70da82a](https://github.com/tomgrv/devcontainer-features/commit/70da82a41d5d655cec95d0c753549068bba597d9))
+
+### 📦 ai-coding changes
+
+#### Other changes
+
+- forbid scheduled wakeups, github events only (#95) ([c1c9e28](https://github.com/tomgrv/devcontainer-features/commit/c1c9e284c378ccddac1cd44e91be4f13e0738b7e))
+
+### 📦 larasets changes
+
+#### Features
+
+- ✨ add PHP Mess Detector ruleset for Laravel ([8039be8](https://github.com/tomgrv/devcontainer-features/commit/8039be88092a5bd7644a96cff8c030194dd823f3))
+
+## 7.7.0 (2026-08-06)
+
+_Commits from: v7.6.0..HEAD_
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v7.6.0' into develop ([63529d6](https://github.com/tomgrv/devcontainer-features/commit/63529d665d9d60681616c9b63024a9615b92adb0))
+- 🔧 remove deprecated configuration files and clean up settings ([c8dca03](https://github.com/tomgrv/devcontainer-features/commit/c8dca038ad4c00a1194a50c2a4099e7969a48973))
+- 🔧 update actions to v2 for improved functionality ([a3762dd](https://github.com/tomgrv/devcontainer-features/commit/a3762ddff2b36eea6641046dedf918ae970addbc))
+
+### 📦 ai-coding changes
+
+#### Features
+
+- ✨ add Gemini Code Assist configuration and VSCode settings ([8e680b4](https://github.com/tomgrv/devcontainer-features/commit/8e680b4b9fd5e5301b4f58fef6db654900a8995f))
+
+### 📦 common-utils changes
+
+#### Features
+
+- ✨ add scripts for configuring permissions and SSH keys ([47fb383](https://github.com/tomgrv/devcontainer-features/commit/47fb383f9e74c3383c724f5755a1048e08d2b376))
+
+### 📦 githooks changes
+
+#### Other changes
+
+- ♻️ add new labels configuration and update workflow for label management ([a530d9c](https://github.com/tomgrv/devcontainer-features/commit/a530d9c92fc20d466eb446d1e30a09688f433f82))
+
+### 📦 gitutils changes
+
+#### Features
+
+- ✨ add scripts for configuring GPG and known hosts ([a4b58b2](https://github.com/tomgrv/devcontainer-features/commit/a4b58b226481ea9e7678ec939ea30dbc54f387e8))
+
+## 7.6.0 (2026-08-05)
+
+_Commits from: v7.5.0..HEAD_
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v7.5.0' into develop ([9c893f7](https://github.com/tomgrv/devcontainer-features/commit/9c893f7b1db0536b56a84ddef703d6ffdb1389ae))
+- ♻️ update PR trigger types ([d362976](https://github.com/tomgrv/devcontainer-features/commit/d36297636d0c56f4a5c95153663dd8aad6e8997d))
+
+### 📦 gitutils changes
+
+#### Bug Fixes
+
+- 🐛 stop double v-prefix in release tags (#93) ([e0731f4](https://github.com/tomgrv/devcontainer-features/commit/e0731f4063fb6f07cc6c7528c579cdca160d06f6))
+
+#### Features
+
+- add git fix prune to remove stale remote-tracking refs (#94) ([2a5eb0e](https://github.com/tomgrv/devcontainer-features/commit/2a5eb0ed110d545e5c5987fc6270fbbe364ed9ba))
+
+### 📦 larasets changes
+
+#### Other changes
+
+- ♻️ add local and sail smee process management ([cc4fcc0](https://github.com/tomgrv/devcontainer-features/commit/cc4fcc00f296aea6fd21109f5cf5f2252ac0d449))
+- ♻️ add PHP toolchain setup step in CI workflow ([10c2017](https://github.com/tomgrv/devcontainer-features/commit/10c201748bd87944e84eb5bf66cd88d91102ea4c))
+- ♻️ improve composer script configurations and update validation commands ([58c15ed](https://github.com/tomgrv/devcontainer-features/commit/58c15ed815b991e2f9aa9e2319d56c58425f9262))
+- ♻️ improve process management and logging in scripts ([4bc68d2](https://github.com/tomgrv/devcontainer-features/commit/4bc68d2385a30765a588423b422b2e44526660aa))
+
+## 7.5.0 (2026-07-20)
+
+_Commits from: v7.4.0..HEAD_
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v7.4.0' into develop ([1800e79](https://github.com/tomgrv/devcontainer-features/commit/1800e79b5c15d4af375b53dba5fb01ab67a54ea0))
+
+### 📦 ai-coding changes
+
+#### Other changes
+
+- ♻️ streamline installsAfter formatting and enhance customizations structure ([2639050](https://github.com/tomgrv/devcontainer-features/commit/26390503e9b18bb2a562c4e17b4c0b0b7fb5c87f))
+
+### 📦 gitutils changes
+
+#### Other changes
+
+- 📚️ improve clarity on git fix blanks command ([3d0b79e](https://github.com/tomgrv/devcontainer-features/commit/3d0b79eb60a8b14701b1db3d02203747dcd0e3cc))
+
+### 📦 larasets changes
+
+#### Other changes
+
+- ♻️ improve environment loading logic ([23fd747](https://github.com/tomgrv/devcontainer-features/commit/23fd7477a7be049ebcc59cae39bfc8f7a6525a24))
+- ♻️ update service management ([3dcda83](https://github.com/tomgrv/devcontainer-features/commit/3dcda83fce55724f44b2de5c36d4f2dfef4b9fa3))
+
 ## 7.4.0 (2026-07-18)
 
 _Commits from: v7.3.6..HEAD_
@@ -1369,4 +1578,4 @@ _Commits from: v5.25.0..HEAD_
 
 ---
 
-_Generated on 2026-07-18 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
+_Generated on 2026-08-11 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_

@@ -1,6 +1,6 @@
 {
     "name": "@tomgrv-devcontainer-features/gitutils",
-    "version": "7.4.0",
+    "version": "7.13.0",
     "description": "Git utilities and aliases for development workflow",
     "files": [
         "_*.sh",
@@ -24,6 +24,7 @@
         "git-fix-lock": "./_git-fix-lock.sh",
         "git-fix-mode": "./_git-fix-mode.sh",
         "git-fix-privacy": "./_git-fix-privacy.sh",
+        "git-fix-prune": "./_git-fix-prune.sh",
         "git-fix-secrets": "./_git-fix-secrets.sh",
         "git-fix-up": "./_git-fix-up.sh",
         "git-forall": "./_git-forall.sh",
@@ -43,7 +44,7 @@
     },
     "dependencies": {},
     "peerDependencies": {
-        "@tomgrv-devcontainer-features/common-utils": ">=5.0.0",
-        "@tomgrv-devcontainer-features/gitversion": ">=5.0.0"
+        "@tomgrv-devcontainer-features/common-utils": "file://../common-utils",
+        "@tomgrv-devcontainer-features/gitversion": "file://../gitversion"
     }
 }
