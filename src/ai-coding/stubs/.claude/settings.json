@@ -26,5 +26,17 @@
     },
     "outputStyle": "Caveman",
     "enableWorkflows": true,
-    "includeCoAuthoredBy": false
+    "includeCoAuthoredBy": false,
+    "hooks": {
+        "SessionStart": [
+            {
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/install-skills.sh"
+                    }
+                ]
+            }
+        ]
+    }
 }

@@ -8,24 +8,22 @@ Single source of truth for every AI coding tool's configuration and guidance in 
 
 ## Layout
 
-| Path here        | Symlinked from                                      | Consumed by                                                               |
-| ---------------- | --------------------------------------------------- | ------------------------------------------------------------------------- |
-| `skills/<name>/` | `.github/skills/<name>` and `.claude/skills/<name>` | Copilot/agent-agnostic (`.github/`) · Claude Code Skill tool (`.claude/`) |
+| Path here        | Symlinked from          | Consumed by                   |
+| ---------------- | ----------------------- | ----------------------------- |
+| `skills/<name>/` | `.github/skills/<name>` | Copilot/agent-agnostic agents |
+
+Claude Code and GitHub Copilot do not read a symlinked copy here. `.claude/hooks/install-skills.sh` fetches these same skills at runtime, straight from `tomgrv/devcontainer-features:.agents/skills/`, via [`npx skills`](https://github.com/vercel-labs/skills) — run on devcontainer `postCreate` and on every Claude Code `SessionStart` (see `.claude/settings.json`).
+
+## `registry.json`
+
+`.agents/registry.json` is the dedicated manifest driving `install-skills.sh` — it lists:
+
+- `skills` — names under `.agents/skills/` to fetch (e.g. `caveman`, `pm/prd-draft`).
+- `agents` — `npx skills` target ids to install each skill for (`claude-code`, `github-copilot`).
+- `plugins` — Claude Code plugin-marketplace entries (`caveman`, `ponytail`) already enabled via `.claude/settings.json`'s `enabledPlugins`/`extraKnownMarketplaces`. Listed here for reference only — `install-skills.sh` does not install plugins, Claude Code does that itself from `settings.json`.
 
 Skills not distributed to consumer repos (Claude Code-specific mechanisms) — `caveman-stats`, `cavecrew` — are in `.agents/skills/` only and symlinked into `.claude/skills/` but **not** into `.github/skills/` or `src/ai-coding/stubs/`.
 
 ## Adding a new distributable skill
 
-1. Write the real `SKILL.md` (and any sibling files) under `.agents/skills/<name>/`.
-2. Add to `src/ai-coding/stubs/.agents/skills/<name>/` (same content — the stubs are the distribution source).
-3. Symlink from both conventional paths in stubs:
-    ```sh
-    ln -s ../../.agents/skills/<name> src/ai-coding/stubs/.github/skills/<name>
-    ln -s ../../.agents/skills/<name> src/ai-coding/stubs/.claude/skills/<name>
-    ```
-4. Symlink from root (dogfooding):
-    ```sh
-    ln -s ../../.agents/skills/<name> .github/skills/<name>
-    ln -s ../../.agents/skills/<name> .claude/skills/<name>
-    ```
-5. `git add` all — git tracks symlinks as mode `120000`.
+Edit `.agents/skills/<name>/` upstream in `tomgrv/devcontainer-features` (this directory is deployed read-only into consumer repos) — see that repo's `.agents/README.md`.
