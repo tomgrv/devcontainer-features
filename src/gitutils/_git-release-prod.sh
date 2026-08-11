@@ -124,7 +124,10 @@ if [ -z "$finished" ]; then
         exit 1
     fi
 
-    if ! git merge-base --is-ancestor "$(git rev-parse "$flow/$name")" "$(git rev-parse "refs/remotes/origin/$flow/$name")" ; then
+    # is-ancestor(remote, local) succeeds only when the remote tip is already
+    # contained in local -- i.e. local is not behind. Passed the other way
+    # round it would succeed while local is behind (needs a pull).
+    if ! git merge-base --is-ancestor "$(git rev-parse "refs/remotes/origin/$flow/$name")" "$(git rev-parse "$flow/$name")" ; then
         zz_log e "$flow/$name branch is not up-to-date with remote. Please pull the latest changes."
         exit 1
     fi
@@ -158,7 +161,7 @@ if [ -z "$finished" ]; then
         exit 1
     fi
 
-    if ! git merge-base --is-ancestor "$(git rev-parse develop)" "$(git rev-parse origin/develop)" ; then
+    if ! git merge-base --is-ancestor "$(git rev-parse origin/develop)" "$(git rev-parse develop)" ; then
         zz_log e "Develop branch is not up-to-date with remote. Please pull the latest changes."
         exit 1
     fi

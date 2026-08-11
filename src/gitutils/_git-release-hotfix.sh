@@ -23,6 +23,11 @@ fi
 
 hotfix=$(echo "$main_tag" | sed -E 's/([0-9]+)\.([0-9]+)\.([0-9]+)/\1.\2.X/')
 
+# Capture develop's tip before we potentially checkout the hotfix branch
+# below, so the rebase-safety check further down always evaluates develop
+# itself rather than whatever branch happens to be checked out at the time.
+develop_rev=$(git rev-parse develop)
+
 #### STEP: resolve the hotfix branch (idempotent -- reuse it if a previous
 #### run already created it, instead of failing on `git flow hotfix start`)
 resumed=""
@@ -47,16 +52,19 @@ else
     rebase=true
 fi
 
-# If rebase needed, check that develop branch has not been pushed since last tag.
-# Refresh the remote-tracking ref first so a stale local origin/develop can't
-# make this check pass while the actual remote has already moved on.
+# If rebase needed, check that develop branch has not been pushed since last
+# tag and that its tip isn't a merge commit -- either makes it unsafe to reset
+# develop back to the main tag afterwards. Refresh the remote-tracking ref
+# first so a stale local origin/develop can't mask the first case, and check
+# develop's captured tip explicitly (not HEAD, which may now be the hotfix
+# branch if this run resumed an already-created one).
 if [ -n "$rebase" ]; then
     if ! git fetch origin develop >/dev/null 2>&1; then
         zz_log e "Cannot fetch develop branch from remote"
         exit 1
     fi
-    if [ "$(git rev-parse develop)" = "$(git rev-parse origin/develop)" ] && [ "$(git rev-list --parents -1 HEAD | wc -w)" -le 2 ]; then
-        zz_log e "Develop branch has been pushed since last tag, cannot rebase safely, aborting"
+    if [ "$develop_rev" = "$(git rev-parse origin/develop)" ] || [ "$(git rev-list --parents -1 "$develop_rev" | wc -w)" -gt 2 ]; then
+        zz_log e "Develop branch has already been pushed or its tip is a merge commit, cannot rebase safely, aborting"
         exit 1
     fi
 fi
