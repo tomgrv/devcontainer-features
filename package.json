@@ -182,7 +182,7 @@
         "!(*schema).json": [
             "normalize-json -c -w -a -i -t 4 -f local -l true"
         ],
-        "!(templates/**/*).{js,jsx,ts,tsx,md,html,css,vue,yaml,yml,json}": [
+        "!(templates/**/*|.agents/**).{js,jsx,ts,tsx,md,html,css,vue,yaml,yml,json}": [
             "npx --yes prettier --write"
         ],
         "*.php": [
