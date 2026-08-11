@@ -33,9 +33,15 @@ else
     rebase=true
 fi
 
-# If rebase needed, check that develop branch has not been pushed since last tag
+# If rebase needed, check that develop branch has not been pushed since last tag.
+# Refresh the remote-tracking ref first so a stale local origin/develop can't
+# make this check pass while the actual remote has already moved on.
 if [ -n "$rebase" ]; then
-    if [ "$(git rev-parse develop)" = "$(git rev-parse origin/develop)" ] && [ $(git rev-list --parents -1 HEAD | wc -w) -le 2 ]; then
+    if ! git fetch origin develop >/dev/null 2>&1; then
+        zz_log e "Cannot fetch develop branch from remote"
+        exit 1
+    fi
+    if [ "$(git rev-parse develop)" = "$(git rev-parse origin/develop)" ] && [ "$(git rev-list --parents -1 HEAD | wc -w)" -le 2 ]; then
         zz_log e "Develop branch has been pushed since last tag, cannot rebase safely, aborting"
         exit 1
     fi
@@ -76,6 +82,6 @@ fi
 if [ -n "$rebase" ]; then
 
     zz_log i "Rebasing develop commits onto hotfix branch..."
-    git fix base -p hotfix/$hotfix develop
+    git fix base -p "hotfix/$hotfix" develop
 
 fi
