@@ -2,6 +2,28 @@
 
 # Changelog
 
+## 7.13.0 (2026-08-11)
+
+_Commits from: v7.12.0..HEAD_
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v7.12.0' into develop ([aff4a71](https://github.com/tomgrv/devcontainer-features/commit/aff4a71dd8985fefde773820ba718c81e7a0c498))
+
+### 📦 ai-coding changes
+
+#### Features
+
+- ✨ require subscribe_pr_activity, forbid send_later self check-ins (#103) ([19ff3a4](https://github.com/tomgrv/devcontainer-features/commit/19ff3a4b4938bc3856a84042d9450184575249d6))
+
+### 📦 gitutils changes
+
+#### Bug Fixes
+
+- 🐛 harden git prod/hotfix branch resolution and quoting (#102) ([ac65d22](https://github.com/tomgrv/devcontainer-features/commit/ac65d22fd96c4204fd81b896a751d68d288e6e86))
+
 ## 7.12.0 (2026-08-11)
 
 _Commits from: v7.11.0..HEAD_
