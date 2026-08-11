@@ -22,6 +22,8 @@ Claude Code and GitHub Copilot do not read a symlinked copy here. `.claude/hooks
 - `agents` — `npx skills` target ids to install each skill for (`claude-code`, `github-copilot`).
 - `plugins` — Claude Code plugin-marketplace entries (`caveman`, `ponytail`) already enabled via `.claude/settings.json`'s `enabledPlugins`/`extraKnownMarketplaces`. Listed here for reference only — `install-skills.sh` does not install plugins, Claude Code does that itself from `settings.json`.
 
-## Adding a new skill
+Skills not distributed to consumer repos (Claude Code-specific mechanisms) — `caveman-stats`, `cavecrew` — are in `.agents/skills/` only and symlinked into `.claude/skills/` but **not** into `.github/skills/` or `src/ai-coding/stubs/`.
+
+## Adding a new distributable skill
 
 Edit `.agents/skills/<name>/` upstream in `tomgrv/devcontainer-features` (this directory is deployed read-only into consumer repos) — see that repo's `.agents/README.md`.

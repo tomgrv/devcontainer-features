@@ -38,6 +38,10 @@ Mode stick until changed or session end.
 
 Say "stop caveman" or "normal mode". Resume anytime with `/caveman`.
 
+## Language
+
+Keep user's language by default. User write Portuguese → reply Portuguese caveman. Compress the style, not the language. Technical terms, code, commands, commit types, and exact error strings stay verbatim unless user ask for translation.
+
 ## Configure Default Mode
 
 Default mode = `full`. Change it:
@@ -48,7 +52,7 @@ Default mode = `full`. Change it:
 export CAVEMAN_DEFAULT_MODE=ultra
 ```
 
-**Config file** (`~/.config/caveman/config.json`):
+**Config file** (`~/.config/caveman/config.json` macOS/Linux, `%APPDATA%\caveman\config.json` Windows):
 
 ```json
 { "defaultMode": "lite" }
