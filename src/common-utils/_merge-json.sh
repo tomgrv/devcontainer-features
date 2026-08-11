@@ -37,7 +37,7 @@ zz_log i "Merging JSON from {U $source} into {U $target}..."
 
 # Merge the source JSON into the target JSON
 jq 'def dedupe_ordered:
-  reduce .[] as $x ([]; if (index($x) != null) then . else . + [$x] end);
+  reduce .[] as $x ([]; if any(.[]; . == $x) then . else . + [$x] end);
 
 def merge($a; $b):
   if ($a | type) == "object" and ($b | type) == "object" then
