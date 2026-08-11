@@ -2,6 +2,42 @@
 
 # Changelog
 
+## 7.9.0 (2026-08-11)
+
+_Commits from: v7.8.0..HEAD_
+
+### 📂 Unscoped changes
+
+#### Features
+
+- ✨ add Claude settings configuration ([14be659](https://github.com/tomgrv/devcontainer-features/commit/14be65913f3867fd3272abf8fc80ac2b6bddb44b))
+- ✨ enhance ai plugin management ([efbe28f](https://github.com/tomgrv/devcontainer-features/commit/efbe28f598fccb2abcb713cf89ee894b58f11fad))
+
+#### Other changes
+
+- 👷 add configuration for GitHub Actions updates ([9771999](https://github.com/tomgrv/devcontainer-features/commit/9771999700bcb4f18e1253bf3302b27da9b4db83))
+- Merge tag 'v7.8.0' into develop ([cef98d2](https://github.com/tomgrv/devcontainer-features/commit/cef98d244c831ed2baa6f43e67ba95035f09d1b9))
+- 🔧 update lint-staged configuration for prettier ([73a9725](https://github.com/tomgrv/devcontainer-features/commit/73a9725202f312caea1e66ed0b7d0fd0543b9476))
+- 🔧 update peer dependencies to use local paths for common-utils ([f5ef951](https://github.com/tomgrv/devcontainer-features/commit/f5ef95151b429af711217f067c2fcddad286cd22))
+
+### 📦 ai-coding changes
+
+#### Features
+
+- ✨ install Claude Code skills via npx skills instead of stub copies (#97) ([aaa6905](https://github.com/tomgrv/devcontainer-features/commit/aaa6905089407120590af7b77a6f6845b5866a4d))
+
+### 📦 githooks changes
+
+#### Other changes
+
+- 🔧 update branch name validation pattern to include 'claude' ([4c3f10a](https://github.com/tomgrv/devcontainer-features/commit/4c3f10a72e157a08205b68da1e2e234861cb99a6))
+
+### 📦 larasets changes
+
+#### Bug Fixes
+
+- 🐛 resolve composer global bin dir dynamically (#96) ([2e36dbb](https://github.com/tomgrv/devcontainer-features/commit/2e36dbb4b53722dd3093bf432ae83648e9ea8dba))
+
 ## 7.8.0 (2026-08-08)
 
 _Commits from: v7.7.0..HEAD_
@@ -1487,4 +1523,4 @@ _Commits from: v5.25.0..HEAD_
 
 ---
 
-_Generated on 2026-08-08 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
+_Generated on 2026-08-11 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
