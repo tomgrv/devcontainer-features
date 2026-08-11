@@ -6,7 +6,7 @@ This repo has the `ai-coding` devcontainer feature installed. Read `.agents/READ
 
 ## Skills — use them
 
-All skills live under `.agents/skills/` (symlinked into `.github/skills/` for agent-agnostic agents and `.claude/skills/` for Claude Code's Skill tool). They are auto-discoverable — invoke them proactively per their descriptions.
+Canonical skill content lives at `tomgrv/devcontainer-features:.agents/skills/` and is symlinked into `.github/skills/` for agent-agnostic agents (Copilot). Claude Code does **not** get a stub copy: `.claude/hooks/install-skills.sh` fetches the same skills straight from that repo via `npx skills` into `.claude/skills/`, run on devcontainer `postCreate` and on every Claude Code `SessionStart` (covers claude.ai/code web/cloud sessions too). Skills are auto-discoverable once installed — invoke them proactively per their descriptions.
 
 Key skills:
 

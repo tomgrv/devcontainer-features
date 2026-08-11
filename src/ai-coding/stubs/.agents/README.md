@@ -8,16 +8,12 @@ Single source of truth for every AI coding tool's configuration and guidance in 
 
 ## Layout
 
-| Path here        | Symlinked from                                      | Consumed by                                                               |
-| ---------------- | --------------------------------------------------- | ------------------------------------------------------------------------- |
-| `skills/<name>/` | `.github/skills/<name>` and `.claude/skills/<name>` | Copilot/agent-agnostic (`.github/`) · Claude Code Skill tool (`.claude/`) |
+| Path here        | Symlinked from          | Consumed by                   |
+| ---------------- | ----------------------- | ----------------------------- |
+| `skills/<name>/` | `.github/skills/<name>` | Copilot/agent-agnostic agents |
+
+Claude Code does not read a symlinked copy here. `.claude/hooks/install-skills.sh` fetches these same skills at runtime, straight from `tomgrv/devcontainer-features:.agents/skills/`, via [`npx skills`](https://github.com/vercel-labs/skills) — run on devcontainer `postCreate` and on every Claude Code `SessionStart` (see `.claude/settings.json`).
 
 ## Adding a new skill
 
-1. Write the real `SKILL.md` (and any sibling files) under `.agents/skills/<name>/`.
-2. Symlink from both conventional paths:
-    ```sh
-    ln -s ../../.agents/skills/<name> .github/skills/<name>
-    ln -s ../../.agents/skills/<name> .claude/skills/<name>
-    ```
-3. `git add` all three — git tracks the symlink as mode `120000`, not a content copy.
+Edit `.agents/skills/<name>/` upstream in `tomgrv/devcontainer-features` (this directory is deployed read-only into consumer repos) — see that repo's `.agents/README.md`.
