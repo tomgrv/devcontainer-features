@@ -13,37 +13,14 @@ permissions:
 
 jobs:
   validate-pr-title:
-    name: Validate PR Title
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
-      - name: Install dependencies
-        run: npm ci && npm install -D $(jq -r '.commitlint.extends[]' 'package.json' | sed 's/^gitmoji$/commitlint-config-gitmoji/' | tr '\n' ' ')
-
-      - name: Commitlint PR title
-        run: echo "${{ github.event.pull_request.title }}" | npx commitlint
-
-      - name: Validate PR title has emoji
-        run: |
-          PR_TITLE="${{ github.event.pull_request.title }}"
-          # Use devmoji to check if the PR title has an emoji
-          FORMATTED_TITLE=$(npx --yes devmoji --text "$PR_TITLE")
-
-          # If devmoji added an emoji, it means the original didn't have one
-          if [ "$PR_TITLE" != "$FORMATTED_TITLE" ]; then
-            echo "❌ PR title is missing an emoji!"
-            echo "Original: $PR_TITLE"
-            echo "Expected: $FORMATTED_TITLE"
-            echo ""
-            echo "Please add an emoji to your PR title. Use conventional commit format with emoji."
-            echo "Example: 'feat: ✨ add new feature' or 'fix: 🐛 fix bug'"
-            echo ""
-            echo "Available emojis:"
-            npx --yes devmoji --list
-            exit 1
-          else
-            echo "✅ PR title contains an emoji!"
-          fi
+      - name: Validate PR title
+        uses: tomgrv/actions/check-pr-format@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          fix: true
