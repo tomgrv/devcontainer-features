@@ -2,6 +2,16 @@
 
 # Changelog
 
+## 7.11.0 (2026-08-11)
+
+_Commits from: v7.10.0..HEAD_
+
+### 📦 ai-coding changes
+
+#### Other changes
+
+- move skill registry to root ai-coding.json, unify sync logic in configure-skills.sh (#98) ([4619cf6](https://github.com/tomgrv/devcontainer-features/commit/4619cf65f9ea2178ab30e856c9b40a70cf685838))
+
 ## 7.9.0 (2026-08-11)
 
 _Commits from: v7.8.0..HEAD_
