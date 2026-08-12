@@ -62,9 +62,11 @@ sync_plugins() {
         return 1
     }
 
-    # Write the merged settings back to .claude/settings.json
-    echo "configure-skills.sh: synced plugins into .claude/settings.json" >&2
-    printf '%s\n' "$merged" >".claude/settings.json"
+    # Write the merged settings back to .claude/settings.json if not in global mode (no --global/-g flag in $@)
+    if ! [[ " $@ " =~ " -g " ]] && ! [[ " $@ " =~ " --global " ]]; then
+        echo "configure-skills.sh: synced plugins into .claude/settings.json" >&2
+        printf '%s\n' "$merged" >".claude/settings.json"
+    fi
 
     # Install plugins via npx skills using url without .git, so they are available for Claude Code sessions
     for url in $(jq -r '.plugins // [] | .[] | .url' "$REGISTRY"); do
