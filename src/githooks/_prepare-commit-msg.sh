@@ -12,7 +12,7 @@ git hook run install-plugins -- -g '[.config.commitizen.path // "", .commitlint.
 
 # Edit commit message
 if [ $(grep -cv -e '^#' -e '^$' .git/COMMIT_EDITMSG) -eq 0 ]; then
-  (exec </dev/tty && zz-npx git-cz --hook || zz_log e "Unable to start commitizen.") || zz_log e "Commitizen failed."
+  (exec </dev/tty && zz_npx git-cz --hook || zz_log e "Unable to start commitizen.") || zz_log e "Commitizen failed."
 else
   zz_log i "Commitizen not relevant. Skipping..."
 fi

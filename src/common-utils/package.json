@@ -24,7 +24,7 @@
         "zz_input": "./_zz_input.sh",
         "zz_json": "./_zz_json.sh",
         "zz_log": "./_zz_log.sh",
-        "zz-npx": "./_zz-npx.sh",
+        "zz_npx": "./_zz_npx.sh",
         "zz_persist": "./_zz_persist.sh",
         "zz_prompt": "./_zz_prompt.sh"
     },

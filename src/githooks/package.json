@@ -39,7 +39,15 @@
         "prettier-plugin-sh": "*"
     },
     "peerDependencies": {
-        "@tomgrv-devcontainer-features/common-utils": "file://../common-utils",
-        "@tomgrv-devcontainer-features/gitutils": "file://../gitutils"
+        "@tomgrv-devcontainer-features/common-utils": "*",
+        "@tomgrv-devcontainer-features/gitutils": "*"
+    },
+    "peerDependenciesMeta": {
+        "@tomgrv-devcontainer-features/common-utils": {
+            "optional": true
+        },
+        "@tomgrv-devcontainer-features/gitutils": {
+            "optional": true
+        }
     }
 }
