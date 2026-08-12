@@ -2,67 +2,62 @@
 
 # Test Structure
 
-Tests are organized per feature in the `test/` directory. Each feature has its own subfolder with test files and a `lib.sh` that sources common test utilities.
+Tests are organized per feature in the `test/` directory, using [bats-core](https://github.com/bats-core/bats-core). Each feature has its own subfolder with a shared `helpers.bash` and one `.bats` file per unit of behavior being tested.
 
 ## Adding Tests for a New Feature
 
 1. Create a feature test folder: `test/<feature-name>/`
 
-2. Create a `lib.sh` in the folder:
+2. Create a `helpers.bash` in the folder that links the feature's `_*.sh` scripts onto `PATH` under their public command names, the same way `install-bin` does:
 
 ```bash
-#!/bin/sh
-# Test setup for <feature-name> feature.
+#!/usr/bin/env bash
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 
-set -e
+setup_<feature-name>_path() {
+    local feature_dir="$REPO_ROOT/src/<feature-name>"
+    local file
+    TEST_BIN=$(mktemp -d)
+    for file in "$feature_dir"/_*.sh; do
+        [ -f "$file" ] || continue
+        chmod +x "$file"
+        ln -sf "$file" "$TEST_BIN/$(basename "$file" | sed 's/^_//; s/\.sh$//')"
+    done
+    export PATH="$TEST_BIN:$PATH"
+}
 
-SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
-export REPO_ROOT=$(cd "$SCRIPT_DIR/../.." && pwd)
-. "$REPO_ROOT/test/lib.sh"
-
-setup_feature_utils <feature-name>
+teardown_<feature-name>_path() {
+    rm -rf "$TEST_BIN"
+}
 ```
 
-3. Create test files with `test-*.sh` naming and source `lib.sh`:
+3. Create test files with `test-*.bats` naming, `load helpers`, and use bats' `setup()`/`teardown()` hooks plus `$BATS_TEST_TMPDIR` for scratch files:
 
 ```bash
-#!/bin/sh
-set -e
+#!/usr/bin/env bats
 
-. "$(dirname "$0")/lib.sh"
+load helpers
 
-# Use assert_eq, assert_status, and report functions
-assert_eq "test label" "expected" "actual"
-report
+setup() {
+    setup_<feature-name>_path
+}
+
+teardown() {
+    teardown_<feature-name>_path
+}
+
+@test "test label" {
+    result="$(some-command)"
+    [ "$result" = "expected" ]
+}
 ```
 
-4. Create a `run.sh` to execute all tests:
-
-```bash
-#!/bin/sh
-set -e
-
-dir=$(cd "$(dirname "$0")" && pwd)
-status=0
-
-for test in "$dir"/test-*.sh; do
-    echo "=== $(basename "$test") ==="
-    sh "$test" || status=1
-    echo ""
-done
-
-exit $status
-```
+4. No runner script is needed — bats globs `test-*.bats` files in a directory natively: `bats test/<feature-name>/`.
 
 ## Common Test Utilities
 
-Available in `test/lib.sh`:
-
-- `assert_eq <label> <expected> <actual>` — Assert values are equal
-- `assert_status <label> <expected-exit-code> <actual-exit-code>` — Assert exit codes match
-- `report` — Print test summary and exit with proper status
-- `setup_feature_utils <feature-name>` — Link feature utility scripts to PATH
+`bats` provides `run` (captures `$status`/`$output` from a command or function without needing manual subshell/exit-status juggling) and a fresh `$BATS_TEST_TMPDIR` per test (auto-cleaned) in place of hand-rolled `mktemp -d`/`trap EXIT` scratch dirs.
 
 ## Example
 
-See `test/common-utils/` for a working example.
+See `test/common-utils/` for a working example, including `test-args.bats` for the `run`-based pattern used to test usage/exit-code behavior.

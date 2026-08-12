@@ -134,5 +134,9 @@
     "undo": {
         "cmd": "git reset --soft HEAD^ --",
         "help": "Undo last commit, keep changes staged."
+    },
+    "ws": {
+        "cmd": "git workspaces",
+        "help": "List workspace directories and affected workspaces"
     }
 }

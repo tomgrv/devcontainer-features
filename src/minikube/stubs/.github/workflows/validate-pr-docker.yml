@@ -1,0 +1,20 @@
+# @format
+
+name: Validate PR on Docker side
+
+on:
+  pull_request:
+    types:
+      - ready_for_review
+
+jobs:
+  docker-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Check Dockerfiles
+        uses: tomgrv/actions/check-dockerfile@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}

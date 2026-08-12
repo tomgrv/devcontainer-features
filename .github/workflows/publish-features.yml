@@ -16,7 +16,7 @@ jobs:
       pull-requests: write
       packages: write
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v7
 
       - name: 'Publish Features'
         uses: devcontainers/action@v1
@@ -34,10 +34,10 @@ jobs:
     outputs:
       matrix: ${{ steps.detect.outputs.matrix }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v7
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: 'lts/*'
 
@@ -79,7 +79,7 @@ jobs:
       matrix:
         package: ${{ fromJson(needs.detect-npm-packages.outputs.matrix) }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v7
 
       - name: Publish ${{ matrix.package.name }}@${{ matrix.package.version }}
         uses: tomgrv/actions/publish-npm@v2
