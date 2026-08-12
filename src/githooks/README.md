@@ -18,6 +18,12 @@ This feature provides a set of hooks for working with Git repositories.
 npx tomgrv/devcontainer-features -- add githooks
 ```
 
+## Quick Install — npm
+
+```sh
+npm install --save-dev @tomgrv-devcontainer-features/githooks
+```
+
 ## Functional Coverage
 
 - pre-commit - Runs git-pre-commit to validate the code before committing and lint-staged to lint and format staged files.

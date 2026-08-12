@@ -9,8 +9,8 @@
         "stubs/**/*"
     ],
     "bin": {
-        "act-reset": "./_act-reset.sh",
-        "act-run": "./_act-run.sh"
+        "act-reset": "_act-reset.sh",
+        "act-run": "_act-run.sh"
     },
     "scripts": {
         "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then sh ./install.sh; fi",

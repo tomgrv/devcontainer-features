@@ -12,17 +12,17 @@
         "stubs/**/*"
     ],
     "bin": {
-        "art": "./_art.sh",
-        "dep": "./_dep.sh",
-        "fwd": "./_fwd.sh",
-        "run": "./_run.sh",
-        "sail": "./_sail.sh",
-        "sail-running": "./_sail-running.sh",
-        "secret": "./_secret.sh",
-        "seed": "./_seed.sh",
-        "serve": "./_serve.sh",
-        "smee": "./_smee.sh",
-        "srv": "./_srv.sh"
+        "art": "_art.sh",
+        "dep": "_dep.sh",
+        "fwd": "_fwd.sh",
+        "run": "_run.sh",
+        "sail": "_sail.sh",
+        "sail-running": "_sail-running.sh",
+        "secret": "_secret.sh",
+        "seed": "_seed.sh",
+        "serve": "_serve.sh",
+        "smee": "_smee.sh",
+        "srv": "_srv.sh"
     },
     "scripts": {
         "configure-composer": "./configure-composer.sh",

@@ -20,6 +20,12 @@ More information about Act can be found on the [Act GitHub page](https://github.
 npx tomgrv/devcontainer-features -- add act
 ```
 
+## Quick Install — npm
+
+```sh
+npm install --save-dev @tomgrv-devcontainer-features/act
+```
+
 ## Options
 
 | Options Id | Description                    | Type   | Default Value |

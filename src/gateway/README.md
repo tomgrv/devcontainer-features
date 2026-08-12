@@ -42,10 +42,16 @@ npx tomgrv/devcontainer-features -- add gateway
 
 This deploys the `.devcontainer` stubs (including a Dockerfile that bakes the certificate into the image at build time), installs `gateway-curl` on the host, and on Debian-based Linux/WSL installs the certificate into the host trust store when present. For other hosts, use the manual steps below.
 
+## Quick Install — npm
+
+```sh
+npm install --save-dev @tomgrv-devcontainer-features/gateway
+```
+
 ## Options
 
-| Option        | Type    | Default | Description                                                              |
-| ------------- | ------- | ------- | ------------------------------------------------------------------------ |
+| Option        | Type    | Default | Description                                                                                                          |
+| ------------- | ------- | ------- | -------------------------------------------------------------------------------------------------------------------- |
 | `replaceCurl` | boolean | `true`  | Divert the system `curl` to the `gateway-curl` wrapper inside the container (the real binary is kept as `curl.real`) |
 
 ## Host installation — get ready for devcontainer creation
@@ -129,10 +135,10 @@ All other requests — including anything the wrapper cannot intercept safely (`
 
 Wrapper environment variables:
 
-| Variable              | Purpose                                                         |
-| --------------------- | --------------------------------------------------------------- |
-| `GATEWAY_COOKIE_FILE` | Path to the cookie jar (default: `~/.gateway_cookies.txt`)      |
-| `GATEWAY_VERBOSE`     | Set to `1` to trace what the wrapper does (silent by default)   |
+| Variable              | Purpose                                                           |
+| --------------------- | ----------------------------------------------------------------- |
+| `GATEWAY_COOKIE_FILE` | Path to the cookie jar (default: `~/.gateway_cookies.txt`)        |
+| `GATEWAY_VERBOSE`     | Set to `1` to trace what the wrapper does (silent by default)     |
 | `GATEWAY_MARKER`      | Pattern identifying the gateway form (default: `gateway.zscaler`) |
 
 ## Troubleshooting

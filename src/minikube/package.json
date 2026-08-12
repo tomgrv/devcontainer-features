@@ -9,7 +9,6 @@
         "_scripts.package.json",
         "stubs/**/*"
     ],
-    "bin": {},
     "scripts": {
         "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then sh ./install.sh; fi",
         "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then configure-feature -s . minikube; fi"

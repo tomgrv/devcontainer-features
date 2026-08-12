@@ -10,7 +10,7 @@
         "stubs/**/*"
     ],
     "bin": {
-        "gateway-curl": "./_gateway-curl.sh"
+        "gateway-curl": "_gateway-curl.sh"
     },
     "scripts": {
         "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then sh ./install.sh; fi",

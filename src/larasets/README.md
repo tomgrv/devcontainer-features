@@ -18,6 +18,12 @@ This feature provides a set of settings and utilities for working with Laravel p
 npx tomgrv/devcontainer-features -- add larasets
 ```
 
+## Quick Install — npm
+
+```sh
+npm install --save-dev @tomgrv-devcontainer-features/larasets
+```
+
 ## Functional Coverage
 
 - Configures Laravel environment variables.

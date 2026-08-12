@@ -10,11 +10,10 @@
         "stubs/**/*"
     ],
     "bin": {
-        "bump-changelog": "./_bump-changelog.sh",
-        "bump-tag": "./_bump-tag.sh",
-        "bump-version": "./_bump-version.sh",
-        "checkout-version": "./_checkout-version.sh",
-        "gv": "./_gv.sh"
+        "bump-changelog": "_bump-changelog.sh",
+        "bump-tag": "_bump-tag.sh",
+        "bump-version": "_bump-version.sh",
+        "gv": "_gv.sh"
     },
     "scripts": {
         "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then sh ./install.sh; fi",
