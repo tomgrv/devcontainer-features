@@ -5,7 +5,9 @@
 
 set -e
 
-UTILS_DIR=$(cd "$(dirname "$0")/.." && pwd)
+SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
+REPO_ROOT=$(cd "$SCRIPT_DIR/../.." && pwd)
+UTILS_DIR="$REPO_ROOT/src/common-utils"
 TEST_BIN=$(mktemp -d)
 trap 'rm -rf "$TEST_BIN"' EXIT
 
