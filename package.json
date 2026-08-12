@@ -45,6 +45,8 @@
     },
     "scripts": {
         "install": "sh ./install.sh -s",
+        "postinstall": "node ./scripts/sync-skills.js",
+        "postupdate": "node ./scripts/sync-skills.js",
         "lint": "npx --yes lint-staged",
         "release": "commit-and-tag-version --no-verify --",
         "test": "echo \"Warning: no test specified\"",

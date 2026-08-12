@@ -3,17 +3,38 @@
         "claude-code",
         "github-copilot"
     ],
-    "plugins": [
-        {
-            "name": "caveman",
-            "marketplace": "caveman",
-            "url": "https://github.com/JuliusBrussee/caveman.git"
-        },
-        {
-            "name": "ponytail",
-            "marketplace": "ponytail",
-            "url": "https://github.com/DietrichGebert/ponytail.git"
-        }
-    ],
-    "skills": []
+    "skills": [
+        "caveman",
+        "caveman-commit",
+        "caveman-compress",
+        "caveman-discover",
+        "caveman-evidence-review",
+        "caveman-explore",
+        "caveman-help",
+        "caveman-learn",
+        "caveman-manage",
+        "caveman-optimize",
+        "caveman-review",
+        "caveman-setup",
+        "caveman-stats",
+        "cavecrew",
+        "feature-ai-coding",
+        "pm",
+        "ponytail",
+        "ponytail-audit",
+        "ponytail-debt",
+        "ponytail-gain",
+        "ponytail-help",
+        "ponytail-review",
+        "investigate-first",
+        "lean-build",
+        "migration",
+        "safe-refactor",
+        "verify-and-stop",
+        "commit-naming",
+        "feature-common-utils",
+        "feature-githooks",
+        "feature-gitutils",
+        "feature-gitversion"
+    ]
 }
