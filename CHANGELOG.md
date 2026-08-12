@@ -2,6 +2,31 @@
 
 # Changelog
 
+## 7.16.0 (2026-08-12)
+
+_Commits from: v7.15.0..HEAD_
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Improve and uniformise repo (#113) ([300ab90](https://github.com/tomgrv/devcontainer-features/commit/300ab90c01c5307a98210e1b59d6f966a7cafa48))
+- Merge tag 'v7.15.0' into develop ([d2dbe4d](https://github.com/tomgrv/devcontainer-features/commit/d2dbe4d4396e4cf66ed82844ed2158b1c3a6b4a8))
+- bump the github-actions group across 1 directory with 3 updates (#111) ([35e64fb](https://github.com/tomgrv/devcontainer-features/commit/35e64fb2fb413b8d8a1376ae112411abe82ba0e3))
+- ♻️ add .prettierignore files for various directories ([b506042](https://github.com/tomgrv/devcontainer-features/commit/b506042e43171511c13f8559d812548293ebb827))
+
+### 📦 gitutils changes
+
+#### Features
+
+- ✨ add new git alias for listing workspaces ([d87f558](https://github.com/tomgrv/devcontainer-features/commit/d87f5581d3842d7be7b1e6ca9e7702cd53e01a96))
+
+### 📦 minikube changes
+
+#### Features
+
+- ✨ Add validate-pr-docker workflow (#112) ([5ae7a27](https://github.com/tomgrv/devcontainer-features/commit/5ae7a278a7967ac56a77f9707cd8a67a23e9add0))
+
 ## 7.15.0 (2026-08-12)
 
 _Commits from: v7.14.0..HEAD_
