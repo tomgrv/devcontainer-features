@@ -18,6 +18,12 @@ This feature provides a set of utilities for working with Git repositories.
 npx tomgrv/devcontainer-features -- add gitutils
 ```
 
+## Quick Install — npm
+
+```sh
+npm install --save-dev @tomgrv-devcontainer-features/gitutils
+```
+
 ## Functional Coverage
 
 Installs a collection of Git utilities.

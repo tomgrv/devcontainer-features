@@ -20,6 +20,12 @@ This feature provides common utilities for the devcontainer features.
 npx tomgrv/devcontainer-features -- add common-utils
 ```
 
+## Quick Install — npm
+
+```sh
+npm install --save-dev @tomgrv-devcontainer-features/common-utils
+```
+
 ## Options
 
 | Options Id | Description               | Type   | Default Value |

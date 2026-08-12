@@ -75,5 +75,5 @@ fi
 git hook run install-plugins -- '.prettier.plugins//""'
 
 # Run pre-commit checks
-zz-npx git-precommit-checks
-zz-npx lint-staged --cwd ${INIT_CWD:-$PWD} --allow-empty
+zz_npx git-precommit-checks
+zz_npx lint-staged --cwd ${INIT_CWD:-$PWD} --allow-empty

@@ -10,7 +10,7 @@
         "stubs/**/*"
     ],
     "bin": {
-        "gateway-curl": "./_gateway-curl.sh"
+        "gateway-curl": "_gateway-curl.sh"
     },
     "scripts": {
         "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then sh ./install.sh; fi",
@@ -18,6 +18,11 @@
     },
     "dependencies": {},
     "peerDependencies": {
-        "@tomgrv-devcontainer-features/common-utils": "file://../common-utils"
+        "@tomgrv-devcontainer-features/common-utils": "*"
+    },
+    "peerDependenciesMeta": {
+        "@tomgrv-devcontainer-features/common-utils": {
+            "optional": true
+        }
     }
 }
