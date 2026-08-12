@@ -3,7 +3,8 @@
     "version": "7.15.0",
     "description": "Agent-agnostic AI coding skills plus the Claude Code GitHub Action",
     "files": [
-        "install.sh"
+        "install.sh",
+        "stubs/**/*"
     ],
     "scripts": {},
     "peerDependencies": {
