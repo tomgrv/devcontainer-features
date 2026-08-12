@@ -2,6 +2,38 @@
 
 # Changelog
 
+## 7.15.0 (2026-08-12)
+
+_Commits from: v7.14.0..HEAD_
+
+### 📂 Unscoped changes
+
+#### Bug Fixes
+
+- 🐛 update ignore patterns for githooks and remove redundant entries ([314a520](https://github.com/tomgrv/devcontainer-features/commit/314a520881d45b77a988d2c4932192b0d6acb8bb))
+
+#### Features
+
+- ✨ make all features npm-installable, publish them to the npm registry (#108) ([d27a4f3](https://github.com/tomgrv/devcontainer-features/commit/d27a4f3fabca3ca2948c4bca7b2db8c1734a8c05))
+
+#### Other changes
+
+- Merge tag 'v7.14.0' into develop ([0715c34](https://github.com/tomgrv/devcontainer-features/commit/0715c34a77df20e51d48fc39a2cd0c27a57fc438))
+- 📁 reorganize tests to root test folder (#109) ([88e4a79](https://github.com/tomgrv/devcontainer-features/commit/88e4a79176eb01e4c7627145c4a6ee9335efc1c9))
+- 🔧 update devcontainer ([ed02ded](https://github.com/tomgrv/devcontainer-features/commit/ed02ded49264954460e069760272b967a61b7cfd))
+
+### 📦 githooks changes
+
+#### Bug Fixes
+
+- 🐛 add 'opened' type to PR validation workflows ([334db58](https://github.com/tomgrv/devcontainer-features/commit/334db58a2b0a0af06cb89b461fcc4a1eb3d0b44a))
+
+### 📦 larasets changes
+
+#### Other changes
+
+- 🔧 update file permissions for \_sail-running.sh and \_smee.sh ([754b5e1](https://github.com/tomgrv/devcontainer-features/commit/754b5e1311fc60c9b35f5875bf36e6e77860f2eb))
+
 ## 7.14.0 (2026-08-11)
 
 _Commits from: v7.13.0..HEAD_
@@ -1608,4 +1640,4 @@ _Commits from: v5.25.0..HEAD_
 
 ---
 
-_Generated on 2026-08-11 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
+_Generated on 2026-08-12 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_

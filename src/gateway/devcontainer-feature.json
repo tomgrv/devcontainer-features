@@ -27,12 +27,12 @@
     "name": "SSL Inspection Gateway handling",
     "options": {
         "replaceCurl": {
-            "type": "boolean",
             "default": true,
-            "description": "Divert the system curl to the gateway-curl wrapper inside the container"
+            "description": "Divert the system curl to the gateway-curl wrapper inside the container",
+            "type": "boolean"
         }
     },
-    "version": "7.9.0",
+    "version": "7.15.0",
     "postCreateCommand": {
         "config": "configure-feature gateway"
     }
