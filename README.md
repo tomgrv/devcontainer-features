@@ -74,6 +74,12 @@ A collection of Git aliases, git-flow shortcuts, and interactive utilities for a
 npx tomgrv/devcontainer-features -- add gitutils
 ```
 
+#### Quick Install — npm
+
+```sh
+npm install --save-dev @tomgrv-devcontainer-features/gitutils
+```
+
 ---
 
 ### GitHooks
@@ -94,6 +100,12 @@ Configures Git hooks in one step using commitlint, commitizen, lint-staged, pret
 
 ```sh
 npx tomgrv/devcontainer-features -- add githooks
+```
+
+#### Quick Install — npm
+
+```sh
+npm install --save-dev @tomgrv-devcontainer-features/githooks
 ```
 
 ---
@@ -118,6 +130,12 @@ Installs [GitVersion](https://gitversion.net/) to calculate semantic version num
 npx tomgrv/devcontainer-features -- add gitversion
 ```
 
+#### Quick Install — npm
+
+```sh
+npm install --save-dev @tomgrv-devcontainer-features/gitversion
+```
+
 ---
 
 ### Act
@@ -138,6 +156,12 @@ Installs [nektos/act](https://github.com/nektos/act) to run GitHub Actions local
 
 ```sh
 npx tomgrv/devcontainer-features -- add act
+```
+
+#### Quick Install — npm
+
+```sh
+npm install --save-dev @tomgrv-devcontainer-features/act
 ```
 
 ---
@@ -164,6 +188,12 @@ Installs PHP extensions from the [PHP Extension Community Library (PECL)](https:
 npx tomgrv/devcontainer-features -- add pecl
 ```
 
+#### Quick Install — npm
+
+```sh
+npm install --save-dev @tomgrv-devcontainer-features/pecl
+```
+
 ---
 
 ### Larasets
@@ -184,6 +214,12 @@ Laravel-specific settings, shell utilities, Composer scripts, and VS Code extens
 
 ```sh
 npx tomgrv/devcontainer-features -- add larasets
+```
+
+#### Quick Install — npm
+
+```sh
+npm install --save-dev @tomgrv-devcontainer-features/larasets
 ```
 
 ---
@@ -210,6 +246,12 @@ Shared utilities (`jq`, `dos2unix`, JSON helpers, logging) used by other feature
 npx tomgrv/devcontainer-features -- add common-utils
 ```
 
+#### Quick Install — npm
+
+```sh
+npm install --save-dev @tomgrv-devcontainer-features/common-utils
+```
+
 ---
 
 ### Gateway
@@ -230,6 +272,12 @@ Handles SSL inspection certificates for corporate network environments (e.g. Zsc
 
 ```sh
 npx tomgrv/devcontainer-features -- add gateway
+```
+
+#### Quick Install — npm
+
+```sh
+npm install --save-dev @tomgrv-devcontainer-features/gateway
 ```
 
 ---
@@ -254,6 +302,12 @@ Installs [Minikube](https://minikube.sigs.k8s.io/) to run a single-node Kubernet
 npx tomgrv/devcontainer-features -- add minikube
 ```
 
+#### Quick Install — npm
+
+```sh
+npm install --save-dev @tomgrv-devcontainer-features/minikube
+```
+
 ---
 
 ### AI Coding
@@ -274,6 +328,12 @@ Agent-agnostic AI coding skills (`.github/skills/`) plus the [Claude Code GitHub
 
 ```sh
 npx tomgrv/devcontainer-features -- add ai-coding
+```
+
+#### Quick Install — npm
+
+```sh
+npm install --save-dev @tomgrv-devcontainer-features/ai-coding
 ```
 
 ---

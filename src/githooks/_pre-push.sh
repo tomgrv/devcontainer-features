@@ -7,4 +7,4 @@ if [ -t 1 ]; then
 fi
 
 # Check if the current Git branch name is valid
-zz-npx validate-branch-name
+zz_npx validate-branch-name

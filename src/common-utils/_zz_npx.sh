@@ -3,10 +3,10 @@
 # Run a locally installed npm package binary directly, skipping npx's
 # per-invocation resolution overhead. Falls back to npx only when the
 # binary isn't present locally, and only if npx itself is available.
-# Usage: zz-npx <tool> [args...]
+# Usage: zz_npx <tool> [args...]
 
 if [ -z "$1" ]; then
-    zz_log e "Usage: zz-npx <tool> [args...]"
+    zz_log e "Usage: zz_npx <tool> [args...]"
     exit 1
 fi
 

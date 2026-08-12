@@ -2,6 +2,9 @@
 # This is the canonical source for AI tooling; symlinked copies format via their own rules
 .agents/
 
+# Test scripts
+test/
+
 # Standard ignores
 node_modules/
 dist/

@@ -1,6 +1,6 @@
 {
     "name": "@tomgrv-devcontainer-features/gitversion",
-    "version": "7.9.0",
+    "version": "7.15.0",
     "description": "GitVersion integration and version management scripts",
     "files": [
         "_*.sh",
@@ -10,11 +10,10 @@
         "stubs/**/*"
     ],
     "bin": {
-        "bump-changelog": "./_bump-changelog.sh",
-        "bump-tag": "./_bump-tag.sh",
-        "bump-version": "./_bump-version.sh",
-        "checkout-version": "./_checkout-version.sh",
-        "gv": "./_gv.sh"
+        "bump-changelog": "_bump-changelog.sh",
+        "bump-tag": "_bump-tag.sh",
+        "bump-version": "_bump-version.sh",
+        "gv": "_gv.sh"
     },
     "scripts": {
         "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then sh ./install.sh; fi",
@@ -22,6 +21,11 @@
     },
     "dependencies": {},
     "peerDependencies": {
-        "@tomgrv-devcontainer-features/common-utils": "file://../common-utils"
+        "@tomgrv-devcontainer-features/common-utils": "*"
+    },
+    "peerDependenciesMeta": {
+        "@tomgrv-devcontainer-features/common-utils": {
+            "optional": true
+        }
     }
 }

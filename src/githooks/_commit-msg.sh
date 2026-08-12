@@ -11,4 +11,4 @@ git hook run install-plugins -- -g '[.config.commitizen.path // "", .commitlint.
 
 # Apply commitlint rules to the latest commit message
 zz_log i "Applying commitlint rules to the latest commit..."
-zz-npx commitlint --edit "$1" && zz-npx devmoji -e
+zz_npx commitlint --edit "$1" && zz_npx devmoji -e

@@ -1,6 +1,6 @@
 {
     "name": "@tomgrv-devcontainer-features/minikube",
-    "version": "7.9.0",
+    "version": "7.15.0",
     "description": "Minikube scripts",
     "files": [
         "_*.sh",
@@ -9,13 +9,17 @@
         "_scripts.package.json",
         "stubs/**/*"
     ],
-    "bin": {},
     "scripts": {
         "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then sh ./install.sh; fi",
         "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then configure-feature -s . minikube; fi"
     },
     "dependencies": {},
     "peerDependencies": {
-        "@tomgrv-devcontainer-features/common-utils": "file://../common-utils"
+        "@tomgrv-devcontainer-features/common-utils": "*"
+    },
+    "peerDependenciesMeta": {
+        "@tomgrv-devcontainer-features/common-utils": {
+            "optional": true
+        }
     }
 }

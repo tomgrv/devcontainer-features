@@ -21,3 +21,9 @@ More information about Minikube can be found on the [official Minikube GitHub re
 ```sh
 npx tomgrv/devcontainer-features -- add minikube
 ```
+
+## Quick Install — npm
+
+```sh
+npm install --save-dev @tomgrv-devcontainer-features/minikube
+```

@@ -47,12 +47,12 @@
     "name": "Laravel settings",
     "options": {
         "doppler": {
-            "type": "string",
             "default": "",
-            "description": "Doppler config name to export as DOPPLER_CONFIG for the `dep`/`secret` helpers. Leave empty to let Doppler resolve the config itself."
+            "description": "Doppler config name to export as DOPPLER_CONFIG for the `dep`/`secret` helpers. Leave empty to let Doppler resolve the config itself.",
+            "type": "string"
         }
     },
-    "version": "7.9.0",
+    "version": "7.15.0",
     "legacyIds": [
         "larasets"
     ],

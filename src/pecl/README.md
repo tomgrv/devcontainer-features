@@ -20,6 +20,12 @@ This feature installs PHP extensions from the [PHP Extension Community Library (
 npx tomgrv/devcontainer-features -- add pecl
 ```
 
+## Quick Install — npm
+
+```sh
+npm install --save-dev @tomgrv-devcontainer-features/pecl
+```
+
 ## Options
 
 | Options Id | Description                    | Type   | Default Value |

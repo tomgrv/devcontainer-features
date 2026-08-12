@@ -20,6 +20,12 @@ Other features can opt into skills too: `dependsOn` this feature, ship a `stubs/
 npx tomgrv/devcontainer-features -- add ai-coding
 ```
 
+## Quick Install — npm
+
+```sh
+npm install --save-dev @tomgrv-devcontainer-features/ai-coding
+```
+
 ## What gets installed
 
 - `.github/workflows/claude.yml` — runs Claude on `@claude` mentions in issue comments, PR comments, PR reviews, PR review comments, and new issues.

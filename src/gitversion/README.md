@@ -22,6 +22,12 @@ More information about GitVersion can be found on the [GitVersion GitHub page](h
 npx tomgrv/devcontainer-features -- add gitversion
 ```
 
+## Quick Install — npm
+
+```sh
+npm install --save-dev @tomgrv-devcontainer-features/gitversion
+```
+
 ## Options
 
 | Options Id | Description                       | Type   | Default Value |

@@ -25,3 +25,63 @@ jobs:
           base-path-to-features: './src'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  detect-npm-packages:
+    if: ${{ github.ref == 'refs/heads/main' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      matrix: ${{ steps.detect.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
+
+      - name: Detect unpublished feature packages
+        id: detect
+        run: |
+          packages='[]'
+          for dir in src/*/; do
+            dir="${dir%/}"
+            [ -f "$dir/package.json" ] || continue
+
+            name=$(node -p "require('./$dir/package.json').name")
+            version=$(node -p "require('./$dir/package.json').version")
+            private=$(node -p "require('./$dir/package.json').private || false")
+
+            if [ "$private" = "true" ]; then
+              echo "Skipping $name (private)"
+              continue
+            fi
+
+            if npm view "$name@$version" version >/dev/null 2>&1; then
+              echo "Skipping $name@$version (already published)"
+              continue
+            fi
+
+            echo "Will publish $name@$version"
+            packages=$(echo "$packages" | jq --arg name "$name" --arg version "$version" --arg path "$dir" '. + [{name: $name, version: $version, path: $path}]')
+          done
+          echo "matrix=$(echo "$packages" | jq -c .)" >> "$GITHUB_OUTPUT"
+
+  publish-npm:
+    needs: detect-npm-packages
+    if: ${{ needs.detect-npm-packages.outputs.matrix != '[]' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    strategy:
+      matrix:
+        package: ${{ fromJson(needs.detect-npm-packages.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Publish ${{ matrix.package.name }}@${{ matrix.package.version }}
+        uses: tomgrv/actions/publish-npm@v2
+        with:
+          path: ${{ matrix.package.path }}
