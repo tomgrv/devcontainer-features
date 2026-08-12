@@ -1,6 +1,20 @@
 {
     "customizations": {
         "vscode": {
+            "extensions": [
+                "actboy168.tasks",
+                "formulahendry.auto-close-tag",
+                "formulahendry.auto-rename-tag",
+                "github.vscode-github-actions",
+                "gruntfuggly.todo-tree",
+                "gruntfuggly.triggertaskonsave",
+                "ms-azuretools.vscode-containers",
+                "natizyskunk.sftp",
+                "Tyriar.sort-lines",
+                "luggage66.AWK",
+                "AngelLuisAlmaraz.project-colorize",
+                "esbenp.prettier-vscode"
+            ],
             "settings": {
                 "editor.formatOnSave": true,
                 "editor.formatOnPaste": true,
@@ -17,21 +31,7 @@
                 "editor.indentSize": "tabSize",
                 "editor.detectIndentation": true,
                 "editor.tabSize": 4
-            },
-            "extensions": [
-                "actboy168.tasks",
-                "formulahendry.auto-close-tag",
-                "formulahendry.auto-rename-tag",
-                "github.vscode-github-actions",
-                "gruntfuggly.todo-tree",
-                "gruntfuggly.triggertaskonsave",
-                "ms-azuretools.vscode-containers",
-                "natizyskunk.sftp",
-                "Tyriar.sort-lines",
-                "luggage66.AWK",
-                "AngelLuisAlmaraz.project-colorize",
-                "esbenp.prettier-vscode"
-            ]
+            }
         }
     },
     "description": "Common utils for tomgrv/devcontainer-features",
@@ -45,12 +45,12 @@
     "name": "Common Utils",
     "options": {
         "utils": {
-            "type": "string",
             "default": "jq dos2unix shellcheck",
-            "description": "utilities to install"
+            "description": "utilities to install",
+            "type": "string"
         }
     },
-    "version": "7.14.0",
+    "version": "7.15.0",
     "postCreateCommand": {
         "config": "configure-feature common-utils"
     }

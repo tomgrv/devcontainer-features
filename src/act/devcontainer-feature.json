@@ -12,12 +12,12 @@
     "name": "Nektos Act",
     "options": {
         "version": {
-            "type": "string",
+            "default": "master",
             "description": "The version of act to install",
-            "default": "master"
+            "type": "string"
         }
     },
-    "version": "7.9.0",
+    "version": "7.15.0",
     "postCreateCommand": {
         "config": "configure-feature act"
     }

@@ -1,6 +1,11 @@
 {
     "customizations": {
         "vscode": {
+            "extensions": [
+                "vivaxy.vscode-conventional-commits",
+                "softwareape.rebaser",
+                "tomblind.scm-buttons-vscode"
+            ],
             "settings": {
                 "conventionalCommits.gitmoji": false,
                 "github.copilot.chat.commitMessageGeneration.instructions": [
@@ -14,12 +19,7 @@
                 "[json]": {
                     "editor.defaultFormatter": "esbenp.prettier-vscode"
                 }
-            },
-            "extensions": [
-                "vivaxy.vscode-conventional-commits",
-                "softwareape.rebaser",
-                "tomblind.scm-buttons-vscode"
-            ]
+            }
         }
     },
     "description": "A feature to add useful Git hooks to your project",
@@ -36,7 +36,7 @@
         "ghcr.io/tomgrv/devcontainer-features/gitutils:7": {}
     },
     "name": "Git Hooks",
-    "version": "7.14.0",
+    "version": "7.15.0",
     "postCreateCommand": {
         "config": "configure-feature githooks"
     }
