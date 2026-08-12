@@ -31,6 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+      id-token: write
     steps:
       - uses: actions/checkout@v3
 
@@ -40,12 +41,15 @@ jobs:
           node-version: 'lts/*'
           registry-url: 'https://registry.npmjs.org'
 
+      # Trusted publishing (OIDC) requires npm >= 11.5.1; the version bundled
+      # with actions/setup-node's Node.js LTS may be older.
+      - name: Update npm
+        run: npm install -g npm@latest
+
       - name: Install dependencies
         run: npm ci
 
       - name: Publish changed feature packages to npm
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           for dir in src/*/; do
             dir="${dir%/}"
@@ -66,5 +70,5 @@ jobs:
             fi
 
             echo "Publishing $name@$version"
-            npm publish --workspace "$dir" --access public
+            npm publish --workspace "$dir" --access public --provenance
           done
