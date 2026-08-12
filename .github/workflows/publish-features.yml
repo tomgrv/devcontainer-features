@@ -26,12 +26,13 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  publish-npm:
+  detect-npm-packages:
     if: ${{ github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      id-token: write
+    outputs:
+      matrix: ${{ steps.detect.outputs.matrix }}
     steps:
       - uses: actions/checkout@v3
 
@@ -39,18 +40,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 'lts/*'
-          registry-url: 'https://registry.npmjs.org'
 
-      # Trusted publishing (OIDC) requires npm >= 11.5.1; the version bundled
-      # with actions/setup-node's Node.js LTS may be older.
-      - name: Update npm
-        run: npm install -g npm@latest
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Publish changed feature packages to npm
+      - name: Detect unpublished feature packages
+        id: detect
         run: |
+          packages='[]'
           for dir in src/*/; do
             dir="${dir%/}"
             [ -f "$dir/package.json" ] || continue
@@ -69,6 +63,25 @@ jobs:
               continue
             fi
 
-            echo "Publishing $name@$version"
-            npm publish --workspace "$dir" --access public --provenance
+            echo "Will publish $name@$version"
+            packages=$(echo "$packages" | jq --arg name "$name" --arg version "$version" --arg path "$dir" '. + [{name: $name, version: $version, path: $path}]')
           done
+          echo "matrix=$(echo "$packages" | jq -c .)" >> "$GITHUB_OUTPUT"
+
+  publish-npm:
+    needs: detect-npm-packages
+    if: ${{ needs.detect-npm-packages.outputs.matrix != '[]' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    strategy:
+      matrix:
+        package: ${{ fromJson(needs.detect-npm-packages.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Publish ${{ matrix.package.name }}@${{ matrix.package.version }}
+        uses: tomgrv/actions/publish-npm@v2
+        with:
+          path: ${{ matrix.package.path }}
