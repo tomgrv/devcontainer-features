@@ -31,8 +31,8 @@
         "./stubs/*"
     ],
     "bin": {
-        "devcontainer-features": "./install.sh",
-        "tomgrv-devcontainer-features": "./install.sh"
+        "devcontainer-features": "install.sh",
+        "tomgrv-devcontainer-features": "install.sh"
     },
     "type": "module",
     "repository": {
@@ -45,7 +45,6 @@
     },
     "scripts": {
         "install": "sh ./install.sh -s",
-        "postinstall": "npx --yes knoxgraeme/skillfish@latest install",
         "lint": "npx --yes lint-staged",
         "release": "commit-and-tag-version --no-verify --",
         "test": "echo \"Warning: no test specified\"",

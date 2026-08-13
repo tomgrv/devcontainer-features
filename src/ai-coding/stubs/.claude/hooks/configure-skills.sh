@@ -1,10 +1,4 @@
 #!/bin/sh
 
-# Delegate to skillfish (knoxgraeme/skillfish)
-# Installs all skills declared in skillfish.json
-#
-# Runs from:
-#  - devcontainer postCreate via `npm install` postinstall hook
-#  - Claude Code SessionStart hook (registered in .claude/settings.json)
-
-npx --yes knoxgraeme/skillfish@latest install "$@"
+### Sync ai-coding.json content (skills + plugin settings) into the repo (see .claude/hooks/sh .claude/hooks/configure-skills.sh sync)
+npx --yes skills experimental_install
