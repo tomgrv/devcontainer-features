@@ -1,5 +1,5 @@
 {
-    "name": "@tomgrv-devcontainer-features/common-utils",
+    "name": "@tomgrv/devcontainer-features-common-utils",
     "version": "7.15.0",
     "description": "Common utilities and helper scripts for devcontainer features",
     "files": [

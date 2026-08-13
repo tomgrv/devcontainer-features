@@ -1,5 +1,5 @@
 {
-    "name": "@tomgrv-devcontainer-features/gitutils",
+    "name": "@tomgrv/devcontainer-features-gitutils",
     "version": "7.16.0",
     "description": "Git utilities and aliases for development workflow",
     "files": [
@@ -44,14 +44,14 @@
     },
     "dependencies": {},
     "peerDependencies": {
-        "@tomgrv-devcontainer-features/common-utils": "*",
-        "@tomgrv-devcontainer-features/gitversion": "*"
+        "@tomgrv/devcontainer-features-common-utils": "*",
+        "@tomgrv/devcontainer-features-gitversion": "*"
     },
     "peerDependenciesMeta": {
-        "@tomgrv-devcontainer-features/common-utils": {
+        "@tomgrv/devcontainer-features-common-utils": {
             "optional": true
         },
-        "@tomgrv-devcontainer-features/gitversion": {
+        "@tomgrv/devcontainer-features-gitversion": {
             "optional": true
         }
     }

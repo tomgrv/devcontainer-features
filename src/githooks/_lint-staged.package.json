@@ -3,7 +3,7 @@
         "lint": "npx --yes lint-staged -p false"
     },
     "optionalDependencies": {
-        "@tomgrv-devcontainer-features/common-utils": ">=5"
+        "@tomgrv/devcontainer-features-common-utils": ">=5"
     },
     "peerDependencies": {
         "prettier": "^3"

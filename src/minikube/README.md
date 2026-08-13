@@ -25,5 +25,5 @@ npx tomgrv/devcontainer-features -- add minikube
 ## Quick Install — npm
 
 ```sh
-npm install --save-dev @tomgrv-devcontainer-features/minikube
+npm install --save-dev @tomgrv/devcontainer-features-minikube
 ```

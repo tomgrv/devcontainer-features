@@ -21,7 +21,7 @@ npx tomgrv/devcontainer-features -- add githooks
 ## Quick Install — npm
 
 ```sh
-npm install --save-dev @tomgrv-devcontainer-features/githooks
+npm install --save-dev @tomgrv/devcontainer-features-githooks
 ```
 
 ## Functional Coverage

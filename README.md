@@ -77,7 +77,7 @@ npx tomgrv/devcontainer-features -- add gitutils
 #### Quick Install — npm
 
 ```sh
-npm install --save-dev @tomgrv-devcontainer-features/gitutils
+npm install --save-dev @tomgrv/devcontainer-features-gitutils
 ```
 
 ---
@@ -105,7 +105,7 @@ npx tomgrv/devcontainer-features -- add githooks
 #### Quick Install — npm
 
 ```sh
-npm install --save-dev @tomgrv-devcontainer-features/githooks
+npm install --save-dev @tomgrv/devcontainer-features-githooks
 ```
 
 ---
@@ -133,7 +133,7 @@ npx tomgrv/devcontainer-features -- add gitversion
 #### Quick Install — npm
 
 ```sh
-npm install --save-dev @tomgrv-devcontainer-features/gitversion
+npm install --save-dev @tomgrv/devcontainer-features-gitversion
 ```
 
 ---
@@ -161,7 +161,7 @@ npx tomgrv/devcontainer-features -- add act
 #### Quick Install — npm
 
 ```sh
-npm install --save-dev @tomgrv-devcontainer-features/act
+npm install --save-dev @tomgrv/devcontainer-features-act
 ```
 
 ---
@@ -191,7 +191,7 @@ npx tomgrv/devcontainer-features -- add pecl
 #### Quick Install — npm
 
 ```sh
-npm install --save-dev @tomgrv-devcontainer-features/pecl
+npm install --save-dev @tomgrv/devcontainer-features-pecl
 ```
 
 ---
@@ -219,7 +219,7 @@ npx tomgrv/devcontainer-features -- add larasets
 #### Quick Install — npm
 
 ```sh
-npm install --save-dev @tomgrv-devcontainer-features/larasets
+npm install --save-dev @tomgrv/devcontainer-features-larasets
 ```
 
 ---
@@ -249,7 +249,7 @@ npx tomgrv/devcontainer-features -- add common-utils
 #### Quick Install — npm
 
 ```sh
-npm install --save-dev @tomgrv-devcontainer-features/common-utils
+npm install --save-dev @tomgrv/devcontainer-features-common-utils
 ```
 
 ---
@@ -277,7 +277,7 @@ npx tomgrv/devcontainer-features -- add gateway
 #### Quick Install — npm
 
 ```sh
-npm install --save-dev @tomgrv-devcontainer-features/gateway
+npm install --save-dev @tomgrv/devcontainer-features-gateway
 ```
 
 ---
@@ -305,7 +305,7 @@ npx tomgrv/devcontainer-features -- add minikube
 #### Quick Install — npm
 
 ```sh
-npm install --save-dev @tomgrv-devcontainer-features/minikube
+npm install --save-dev @tomgrv/devcontainer-features-minikube
 ```
 
 ---
@@ -333,7 +333,7 @@ npx tomgrv/devcontainer-features -- add ai-coding
 #### Quick Install — npm
 
 ```sh
-npm install --save-dev @tomgrv-devcontainer-features/ai-coding
+npm install --save-dev @tomgrv/devcontainer-features-ai-coding
 ```
 
 ---

@@ -1,5 +1,5 @@
 {
-    "name": "@tomgrv-devcontainer-features/act",
+    "name": "@tomgrv/devcontainer-features-act",
     "version": "7.15.0",
     "description": "Nektos Act - GitHub Actions local runner integration",
     "files": [
@@ -18,10 +18,10 @@
         "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then configure-feature -s . act; fi"
     },
     "peerDependencies": {
-        "@tomgrv-devcontainer-features/common-utils": "*"
+        "@tomgrv/devcontainer-features-common-utils": "*"
     },
     "peerDependenciesMeta": {
-        "@tomgrv-devcontainer-features/common-utils": {
+        "@tomgrv/devcontainer-features-common-utils": {
             "optional": true
         }
     }

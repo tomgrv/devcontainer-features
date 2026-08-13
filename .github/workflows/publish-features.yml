@@ -76,6 +76,7 @@ jobs:
     strategy:
       matrix:
         package: ${{ fromJson(needs.detect-npm-packages.outputs.matrix) }}
+      fail-fast: false
     steps:
       - uses: actions/checkout@v7
 
