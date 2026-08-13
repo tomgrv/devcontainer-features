@@ -3,12 +3,18 @@
 ### Options
 UTILS="${UTILS:-"jq dos2unix"}"
 
+# Resolve this script's directory as an absolute path, regardless of whether
+# $0 was invoked relatively (cd src/common-utils && sh install.sh) or with an
+# already-absolute path (sh "$source/src/common-utils/install.sh", as used by
+# install-feat.sh / npx)
+dir=$(dirname $(readlink -f $0))
+
 ### Link to utils, retrieve name after _zz_ / before .sh and create a symlink
-find $PWD/$(dirname $0) -type f -name "_zz_*.sh" -exec basename {} \; | sed 's/_zz_\(.*\)\.sh/\1/' | while read util; do
-    chmod +x $PWD/$(dirname $0)/_zz_${util}.sh
-    ln -sf $PWD/$(dirname $0)/_zz_${util}.sh $PWD/$(dirname $0)/zz_${util}
+find $dir -type f -name "_zz_*.sh" -exec basename {} \; | sed 's/_zz_\(.*\)\.sh/\1/' | while read util; do
+    chmod +x $dir/_zz_${util}.sh
+    ln -sf $dir/_zz_${util}.sh $dir/zz_${util}
 done
-export PATH=$PWD/$(dirname $0):$PATH
+export PATH=$dir:$PATH
 
 ### Install utils
 for bin in $UTILS; do
@@ -32,5 +38,5 @@ for bin in $UTILS; do
 done >&2
 
 ### Run Installers
-$(dirname $0)/_install-feature.sh -s $PWD/$(dirname $0)
-$(dirname $0)/_install-bin.sh -s $PWD/$(dirname $0)
+$dir/_install-feature.sh -s $dir
+$dir/_install-bin.sh -s $dir

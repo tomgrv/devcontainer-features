@@ -7,6 +7,18 @@
         "sessionUrl": false
     },
     "hooks": {
+        "PreToolUse": [
+            {
+                "hooks": [
+                    {
+                        "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/lint-staged-precommit.sh",
+                        "if": "Bash(git commit*)",
+                        "type": "command"
+                    }
+                ],
+                "matcher": "Bash"
+            }
+        ],
         "SessionStart": [
             {
                 "hooks": [

@@ -199,6 +199,12 @@
         ],
         ".devcontainer/*": [
             "cp -u -t ./stubs/.devcontainer "
+        ],
+        "composer.json": [
+            "composer validate --no-check-all --no-check-lock --no-check-publish"
+        ],
+        "package.json": [
+            "npm pkg fix"
         ]
     },
     "validate-branch-name": {
