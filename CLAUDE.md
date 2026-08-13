@@ -43,3 +43,11 @@ Change only what the task requires. Don't touch `package-lock.json`, `src/githoo
 ## Claude Feedback Policy
 
 **Never implement Copilot feedback or PR comments automatically.** Claude acts only on explicit requests—if you want me to address Copilot/GitHub feedback, mention `@claude` in a comment or message. This prevents well-intentioned but incorrect automated suggestions from landing in the codebase.
+
+## PR Branch Rule
+
+**Default base branch is `develop`, never `main`.** Only open PRs against `main` if:
+- Explicitly asked ("create a PR against main")
+- Marked as a hotfix (in commit message or request: `hotfix/...`, `@hotfix`)
+
+If no branch is specified in a request, start from `develop`.
