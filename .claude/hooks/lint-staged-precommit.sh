@@ -17,7 +17,7 @@ cd "$repo_root" || exit 0
 [ -f package.json ] || exit 0
 
 if ! command -v normalize-json >/dev/null 2>&1; then
-    npm install -g @tomgrv-devcontainer-features/common-utils >&2 || {
+    npm install -g @tomgrv/devcontainer-features-common-utils >&2 || {
         echo "lint-staged-precommit.sh: npm install -g common-utils failed, skipping lint-staged" >&2
         exit 0
     }
