@@ -18,16 +18,6 @@
         ],
         "matcher": "Bash"
       }
-    ],
-    "SessionStart": [
-      {
-        "hooks": [
-          {
-            "command": "cd $CLAUDE_PROJECT_DIR && npx --yes knoxgraeme/skillfish@latest install",
-            "type": "command"
-          }
-        ]
-      }
     ]
   },
   "outputStyle": "Caveman",
