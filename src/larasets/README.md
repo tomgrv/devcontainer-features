@@ -21,7 +21,7 @@ npx tomgrv/devcontainer-features -- add larasets
 ## Quick Install — npm
 
 ```sh
-npm install --save-dev @tomgrv-devcontainer-features/larasets
+npm install --save-dev @tomgrv/devcontainer-features-larasets
 ```
 
 ## Functional Coverage

@@ -21,7 +21,7 @@ npx tomgrv/devcontainer-features -- add gitutils
 ## Quick Install — npm
 
 ```sh
-npm install --save-dev @tomgrv-devcontainer-features/gitutils
+npm install --save-dev @tomgrv/devcontainer-features-gitutils
 ```
 
 ## Functional Coverage

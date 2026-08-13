@@ -1,5 +1,5 @@
 {
-    "name": "@tomgrv-devcontainer-features/githooks",
+    "name": "@tomgrv/devcontainer-features-githooks",
     "version": "7.16.0",
     "description": "Git hooks and linting configuration for development workflow",
     "files": [
@@ -39,14 +39,14 @@
         "prettier-plugin-sh": "*"
     },
     "peerDependencies": {
-        "@tomgrv-devcontainer-features/common-utils": "*",
-        "@tomgrv-devcontainer-features/gitutils": "*"
+        "@tomgrv/devcontainer-features-common-utils": "*",
+        "@tomgrv/devcontainer-features-gitutils": "*"
     },
     "peerDependenciesMeta": {
-        "@tomgrv-devcontainer-features/common-utils": {
+        "@tomgrv/devcontainer-features-common-utils": {
             "optional": true
         },
-        "@tomgrv-devcontainer-features/gitutils": {
+        "@tomgrv/devcontainer-features-gitutils": {
             "optional": true
         }
     }

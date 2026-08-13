@@ -45,7 +45,7 @@ This deploys the `.devcontainer` stubs (including a Dockerfile that bakes the ce
 ## Quick Install — npm
 
 ```sh
-npm install --save-dev @tomgrv-devcontainer-features/gateway
+npm install --save-dev @tomgrv/devcontainer-features-gateway
 ```
 
 ## Options
