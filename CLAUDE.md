@@ -39,3 +39,7 @@ src/<feature>/
 ## Minimal Changes Discipline
 
 Change only what the task requires. Don't touch `package-lock.json`, `src/githooks/_pre-commit.sh` mode, or unrelated features unless the task explicitly calls for it.
+
+## Claude Feedback Policy
+
+**Never implement Copilot feedback or PR comments automatically.** Claude acts only on explicit requests—if you want me to address Copilot/GitHub feedback, mention `@claude` in a comment or message. This prevents well-intentioned but incorrect automated suggestions from landing in the codebase.
