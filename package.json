@@ -31,8 +31,8 @@
         "./stubs/*"
     ],
     "bin": {
-        "devcontainer-features": "./install.sh",
-        "tomgrv-devcontainer-features": "./install.sh"
+        "devcontainer-features": "install.sh",
+        "tomgrv-devcontainer-features": "install.sh"
     },
     "type": "module",
     "repository": {

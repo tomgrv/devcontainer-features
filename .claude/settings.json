@@ -1,54 +1,26 @@
 {
-    "$schema": "https://json.schemastore.org/claude-code-settings.json",
-    "cleanupPeriodDays": 30,
-    "attribution": {
-        "commit": "",
-        "pr": "",
-        "sessionUrl": false
-    },
-    "hooks": {
-        "PreToolUse": [
-            {
-                "hooks": [
-                    {
-                        "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/lint-staged-precommit.sh",
-                        "if": "Bash(git commit*)",
-                        "type": "command"
-                    }
-                ],
-                "matcher": "Bash"
-            }
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "cleanupPeriodDays": 30,
+  "attribution": {
+    "commit": "",
+    "pr": "",
+    "sessionUrl": false
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/lint-staged-precommit.sh",
+            "if": "Bash(git commit*)",
+            "type": "command"
+          }
         ],
-        "SessionStart": [
-            {
-                "hooks": [
-                    {
-                        "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/configure-skills.sh sync -g -a claude-code",
-                        "type": "command"
-                    }
-                ]
-            }
-        ]
-    },
-    "enabledPlugins": {
-        "caveman@caveman": true,
-        "ponytail@ponytail": true
-    },
-    "extraKnownMarketplaces": {
-        "caveman": {
-            "source": {
-                "source": "git",
-                "url": "https://github.com/JuliusBrussee/caveman.git"
-            }
-        },
-        "ponytail": {
-            "source": {
-                "source": "git",
-                "url": "https://github.com/DietrichGebert/ponytail.git"
-            }
-        }
-    },
-    "outputStyle": "Caveman",
-    "enableWorkflows": true,
-    "includeCoAuthoredBy": false
+        "matcher": "Bash"
+      }
+    ]
+  },
+  "outputStyle": "Caveman",
+  "enableWorkflows": true,
+  "includeCoAuthoredBy": false
 }
