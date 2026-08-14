@@ -9,9 +9,6 @@ source=$(dirname $(readlink -f $0))
 # Internal debug logging: quiet by default, enable with ZZ_LOG_DEBUG=1
 _debug() { [ -n "${ZZ_LOG_DEBUG:-}" ] && echo "${Yellow}$*${End}" >&2 || true; }
 
-_debug "source=$source"
-_debug "args=$*"
-
 # Link common utils into src/ for easier sourcing during installation, and ensure they are cleaned up on exit
 
 links_up()
@@ -52,8 +49,6 @@ eval $(
     + target    target  Feature name(s), -a (all), -x (defaults), or empty to auto-detect
 help
 )
-
-_debug "cmd=$cmd target=$target"
 
 # --- feature discovery helpers ---
 

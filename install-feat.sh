@@ -4,14 +4,13 @@
 # Uses install.sh as the orchestrator for recursive dependency installation.
 # A tracker file (INSTALL_FEAT_TRACKER) prevents re-installation within the same session.
 #
-# Usage: install-feat <source_dir> <feature> [--stubs]
+# Usage: install-feat <source_dir> <feature>
 
 _source="$1"
 _feature="$2"
-_stubs="${3:-}"
 
 if [ -z "$_source" ] || [ -z "$_feature" ]; then
-    echo "Usage: install-feat <source_dir> <feature> [--stubs]" >&2
+    echo "Usage: install-feat <source_dir> <feature>" >&2
     exit 1
 fi
 
@@ -20,7 +19,6 @@ _tracker="${INSTALL_FEAT_TRACKER:-/tmp/.install-feat-$$}"
 export INSTALL_FEAT_TRACKER="$_tracker"
 
 if grep -qxF "$_feature" "$_tracker" 2>/dev/null; then
-    [ -n "${ZZ_LOG_DEBUG:-}" ] && zz_log - "Already added {Purple $_feature}, skipping" >&2
     exit 0
 fi
 echo "$_feature" >>"$_tracker"
@@ -60,14 +58,11 @@ if [ "$CODESPACES" != "true" ] && [ "$REMOTE_CONTAINERS" != "true" ] && [ -z "$D
         exit 1
     fi
 
-elif [ -n "$_stubs" ]; then
-
-    # In container with stubs: deploy stubs for this feature
-    sh "$_source/src/common-utils/_configure-feature.sh" -s "$_source/src/$_feature" "$_feature"
-
 else
 
-    # Inside a container without stubs: suggest using as devcontainer feature
-    echo "You are in a container: use as devcontainer feature: ghcr.io/tomgrv/devcontainer-features/$_feature"
+    # In a container: skip the host-level install script (system tool
+    # installs belong in the devcontainer feature's own build, not here)
+    # and just deploy this feature's stub files.
+    sh "$_source/src/common-utils/_configure-feature.sh" -s "$_source/src/$_feature" "$_feature"
 
 fi
