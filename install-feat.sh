@@ -44,8 +44,10 @@ else
 fi
 
 # Configure the feature after installation, from wherever install-feature
-# copied it to (its target dir, resolved the same way for host and
-# container: writable candidates first, /tmp/<feature> as a fallback).
+# copied it to. Check /usr/local/share first, matching zz_context's own
+# target preference (writable /usr/local/share, else /tmp) — otherwise a
+# stale /tmp/<feature> left over from an earlier run (when /usr/local/share
+# wasn't writable) would win over the fresh copy this run just made.
 _featureSource=""
 if [ -d "/usr/local/share/$_feature" ]; then
     _featureSource="/usr/local/share/$_feature"

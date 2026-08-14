@@ -14,19 +14,25 @@ _debug() { [ -n "${ZZ_LOG_DEBUG:-}" ] && echo "${Yellow}$*${End}" >&2 || true; }
 links_up()
 {
     _debug "Link common utils"
-    _files=$(find $source/src/common-utils/ -type f -name "_*.sh")
-    for file in $_files; do
-        chmod +x $file
-        ln -sf $file $source/src/common-utils/$(basename $file | sed 's/^_//;s/.sh$//')
+    # Capture the full listing before acting on it (not `find | while read`):
+    # find keeps traversing this same directory as entries are added/removed
+    # under a live pipe, which races under busybox find. Quoted and
+    # newline-split (not word-split) so paths with spaces survive.
+    _files=$(find "$source/src/common-utils/" -type f -name "_*.sh")
+    printf '%s\n' "$_files" | while IFS= read -r file; do
+        [ -n "$file" ] || continue
+        chmod +x "$file"
+        ln -sf "$file" "$source/src/common-utils/$(basename "$file" | sed 's/^_//;s/.sh$//')"
     done
 }
 
 links_down()
 {
     _debug "Unlink common utils"
-    _files=$(find $source/src/common-utils/ -type f -name "_*.sh")
-    for file in $_files; do
-        rm -f $source/src/common-utils/$(basename $file | sed 's/^_//;s/.sh$//')
+    _files=$(find "$source/src/common-utils/" -type f -name "_*.sh")
+    printf '%s\n' "$_files" | while IFS= read -r file; do
+        [ -n "$file" ] || continue
+        rm -f "$source/src/common-utils/$(basename "$file" | sed 's/^_//;s/.sh$//')"
     done
 }
 

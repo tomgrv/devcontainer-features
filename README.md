@@ -21,10 +21,7 @@ Every feature in this repository can be installed three ways. Pick whichever fit
     ```
     Everything after `-s --` is forwarded to `install.sh` — same commands/targets as the `npx` form. Set `DEVCONTAINER_FEATURES_REF` to install from a different branch, tag, or commit.
 
-Methods 2 and 3 both run `install.sh`, which behaves the same either way:
-
-- **Outside a container** (a normal host, or `npx`/`curl` run from your machine): installs the tool itself (binaries, git config, etc.) and deploys the feature's stub files (`.devcontainer/`, `.github/`, editor config, ...) into the current project.
-- **Inside a container** (Codespaces, an already-running devcontainer): skips the host-level tool install — that belongs in the container image build, i.e. method 1 — and only deploys the feature's stub files.
+Methods 2 and 3 both run `install.sh`, which behaves the same on a host and inside a container (Codespaces, an already-running devcontainer): it installs the tool itself (binaries, git config, package-manager installs where a feature needs one, ...) and deploys the feature's stub files (`.devcontainer/`, `.github/`, editor config, ...) into the current project. A handful of steps genuinely only make sense in one context or the other (e.g. gateway's host CA trust-store setup, or diverting `curl` only by default inside a container) — those scripts detect where they're running and adjust themselves; you don't need to.
 
 #### To install only root stubs
 
