@@ -41,29 +41,16 @@ if ! command -v update-ca-certificates >/dev/null 2>&1; then
     exit 0
 fi
 
-installed=0
-for pem in "$certs_dir"/*.pem; do
-    if ! grep -q "BEGIN CERTIFICATE" "$pem" 2>/dev/null; then
-        zz_log w "Skipping {U $pem}: not a PEM certificate"
-        continue
-    fi
+core="$(dirname "$0")/_install-certs-core.sh"
+if [ ! -f "$core" ]; then
+    zz_log e "Core script not found at {U $core}"
+    exit 1
+fi
 
-    crt="/usr/local/share/ca-certificates/$(basename "$pem" .pem).crt"
-    if [ -f "$crt" ] && cmp -s "$pem" "$crt"; then
-        zz_log i "Certificate {U $crt} already installed"
-        continue
-    fi
-
-    zz_log i "Installing {U $pem} as {U $crt}"
-    if ! $asroot cp "$pem" "$crt" 2>/dev/null; then
-        zz_log w "Cannot install {U $pem} (insufficient privileges)"
-        zz_log - "Re-run as root or ensure sudo is available"
-        exit 0
-    fi
-    installed=1
-done
-
-if [ "$installed" = "1" ]; then
-    $asroot update-ca-certificates >/dev/null
-    zz_log s "Gateway root CA installed in the system trust store"
+zz_log i "Installing certificate(s) from {U $certs_dir}..."
+if $asroot sh "$core" "$certs_dir"; then
+    zz_log s "Gateway root CA trust store up to date from {U $certs_dir}"
+else
+    zz_log w "Cannot install certificate(s) from {U $certs_dir} (insufficient privileges)"
+    zz_log - "Re-run as root or ensure sudo is available"
 fi

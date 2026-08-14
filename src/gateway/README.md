@@ -102,6 +102,12 @@ Once the host trusts the CA and the certificate sits in `.devcontainer/.gateway/
 | Host (optional, Debian-based)                                                   | Installs `gateway-curl`, leaves the system `curl` untouched unless `GATEWAY_REPLACE_CURL=1`, and (on Debian-based Linux/WSL) installs the CA into the host trust store when present |
 | Inside a container (devcontainer feature build or an already-running container) | Installs `gateway-curl` and diverts the system `curl` to it, unless the `replaceCurl` option is set to `false`                                                                      |
 
+## Availability during the OCI image build
+
+Trusting the gateway root CA and diverting `curl` normally only happen at container-create time (`postCreateCommand`), which runs **after** the image is built — too late for any `RUN curl ...` in a custom Dockerfile, or for an earlier-ordered feature that fetches something over HTTPS during its own `install.sh`.
+
+The `.gateway/Dockerfile` stub closes that gap: it bakes both the root CA trust and the `gateway-curl` diversion into the very first layer of the image, before any feature runs. It shares the exact same mechanics (`_install-certs-core.sh`, `_install-curl-wrapper-core.sh`) as the runtime path — the copies under `stubs/.devcontainer/.gateway/` exist only because a Docker build context can't reach outside `.devcontainer/`; keep them in sync with `src/gateway/_install-*-core.sh` when changing either.
+
 ## Modified repository structure
 
 ```

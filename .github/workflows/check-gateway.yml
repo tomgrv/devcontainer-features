@@ -1,0 +1,30 @@
+# @format
+
+name: Check gateway scripts
+
+on:
+  push:
+    paths:
+      - 'src/gateway/**'
+      - 'test/gateway/**'
+  pull_request:
+    paths:
+      - 'src/gateway/**'
+      - 'test/gateway/**'
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Setup Bats
+        uses: bats-core/bats-action@4.0.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run gateway tests
+        run: bats test/gateway/

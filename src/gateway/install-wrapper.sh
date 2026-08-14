@@ -20,6 +20,12 @@ if [ ! -f "$wrapper" ]; then
 fi
 chmod +x "$wrapper"
 
+core="$target/_install-curl-wrapper-core.sh"
+if [ ! -f "$core" ]; then
+    zz_log e "Core script not found at {U $core}"
+    exit 1
+fi
+
 # Escalate only when needed and possible
 asroot=""
 if [ "$(id -u)" != "0" ] && command -v sudo >/dev/null 2>&1; then
@@ -29,13 +35,12 @@ fi
 # Expose the wrapper as 'gateway-curl'
 bindir="/usr/local/bin"
 if [ -w "$bindir" ]; then
-    cp "$wrapper" "$bindir/gateway-curl" && chmod 755 "$bindir/gateway-curl"
-elif [ -n "$asroot" ] && $asroot cp "$wrapper" "$bindir/gateway-curl" 2>/dev/null; then
-    $asroot chmod 755 "$bindir/gateway-curl"
+    sh "$core" install "$wrapper" "$bindir"
+elif [ -n "$asroot" ] && $asroot sh "$core" install "$wrapper" "$bindir" 2>/dev/null; then
+    :
 else
     bindir="${HOME:-/tmp}/.local/bin"
-    mkdir -p "$bindir"
-    cp "$wrapper" "$bindir/gateway-curl" && chmod 755 "$bindir/gateway-curl"
+    sh "$core" install "$wrapper" "$bindir"
 fi
 zz_log s "Wrapper installed as {U $bindir/gateway-curl}"
 
@@ -57,20 +62,22 @@ if [ "$replace" != "true" ]; then
     exit 0
 fi
 
-curl_bin=$(command -v curl 2>/dev/null || true)
-curl_bin="${curl_bin:-/usr/bin/curl}"
+curl_bin=$(command -v curl 2>/dev/null || echo /usr/bin/curl)
+was_diverted=0
+[ -x "${curl_bin}.real" ] && was_diverted=1
 
-if [ -x "${curl_bin}.real" ]; then
-    zz_log i "System curl already diverted to the wrapper"
-elif [ -e "$curl_bin" ]; then
-    if ! $asroot mv "$curl_bin" "${curl_bin}.real"; then
-        zz_log w "Cannot divert {U $curl_bin} (insufficient rights), use {B gateway-curl} explicitly"
-        exit 0
-    fi
-else
+if [ "$was_diverted" = "0" ] && [ ! -e "$curl_bin" ]; then
     zz_log w "No system curl found to divert, use {B gateway-curl} explicitly"
     exit 0
 fi
 
-$asroot ln -sf "$bindir/gateway-curl" "$curl_bin"
-zz_log s "System curl diverted to gateway-curl (real curl kept at ${curl_bin}.real)"
+if ! $asroot sh "$core" divert "$bindir"; then
+    zz_log w "Cannot divert {U $curl_bin} (insufficient rights), use {B gateway-curl} explicitly"
+    exit 0
+fi
+
+if [ "$was_diverted" = "1" ]; then
+    zz_log i "System curl already diverted to the wrapper"
+else
+    zz_log s "System curl diverted to gateway-curl (real curl kept at ${curl_bin}.real)"
+fi
