@@ -54,6 +54,8 @@ teardown() {
 
 4. No runner script is needed — bats globs `test-*.bats` files in a directory natively: `bats test/<feature-name>/`.
 
+5. Add a CI workflow at `.github/workflows/test-<feature-name>.yaml` that runs `bats test/<feature-name>/` — see `test-common-utils.yaml` for an example. All workflows that run code tests follow the `test-<scope>.yaml` naming convention.
+
 ## Common Test Utilities
 
 `bats` provides `run` (captures `$status`/`$output` from a command or function without needing manual subshell/exit-status juggling) and a fresh `$BATS_TEST_TMPDIR` per test (auto-cleaned) in place of hand-rolled `mktemp -d`/`trap EXIT` scratch dirs.
