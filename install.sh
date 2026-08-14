@@ -174,7 +174,12 @@ cmd_add() {
 
     _features=$(resolve_features $target)
     if [ -z "$_features" ]; then
-        zz_log w "No features to add"
+        if [ -z "${target:-}" ]; then
+            zz_log w "No .devcontainer found to auto-detect features from"
+            zz_log - "Specify feature names, {B -a} for all, or {B -x} for defaults (e.g. {B add -x})"
+        else
+            zz_log w "No features to add for target: $target"
+        fi
         return 0
     fi
 
