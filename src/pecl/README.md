@@ -23,7 +23,7 @@ npx tomgrv/devcontainer-features -- add pecl
 ## Quick Install — npm
 
 ```sh
-npm install --save-dev @tomgrv-devcontainer-features/pecl
+npm install --save-dev @tomgrv/devcontainer-features-pecl
 ```
 
 ## Options

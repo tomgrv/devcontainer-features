@@ -25,7 +25,7 @@ npx tomgrv/devcontainer-features -- add gitversion
 ## Quick Install — npm
 
 ```sh
-npm install --save-dev @tomgrv-devcontainer-features/gitversion
+npm install --save-dev @tomgrv/devcontainer-features-gitversion
 ```
 
 ## Options

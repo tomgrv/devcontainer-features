@@ -23,7 +23,7 @@ npx tomgrv/devcontainer-features -- add common-utils
 ## Quick Install — npm
 
 ```sh
-npm install --save-dev @tomgrv-devcontainer-features/common-utils
+npm install --save-dev @tomgrv/devcontainer-features-common-utils
 ```
 
 ## Options

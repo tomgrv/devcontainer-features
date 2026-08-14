@@ -23,7 +23,7 @@ npx tomgrv/devcontainer-features -- add act
 ## Quick Install — npm
 
 ```sh
-npm install --save-dev @tomgrv-devcontainer-features/act
+npm install --save-dev @tomgrv/devcontainer-features-act
 ```
 
 ## Options

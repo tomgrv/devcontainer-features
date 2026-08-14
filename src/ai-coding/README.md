@@ -23,7 +23,7 @@ npx tomgrv/devcontainer-features -- add ai-coding
 ## Quick Install — npm
 
 ```sh
-npm install --save-dev @tomgrv-devcontainer-features/ai-coding
+npm install --save-dev @tomgrv/devcontainer-features-ai-coding
 ```
 
 ## What gets installed
