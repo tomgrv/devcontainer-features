@@ -31,10 +31,12 @@
     "id": "larasets",
     "installsAfter": [
         "ghcr.io/tomgrv/devcontainer-features/common-utils",
-        "ghcr.io/devcontainers/features/docker-in-docker:3"
+        "ghcr.io/devcontainers/features/docker-in-docker"
     ],
     "dependsOn": {
-        "ghcr.io/devcontainers/features/docker-in-docker:3": {},
+        "ghcr.io/devcontainers/features/docker-in-docker:3": {
+            "moby": false
+        },
         "ghcr.io/devcontainers/features/node:1": {
             "version": "lts"
         },

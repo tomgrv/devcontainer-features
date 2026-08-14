@@ -10,7 +10,7 @@
     "id": "minikube",
     "installsAfter": [
         "ghcr.io/tomgrv/devcontainer-features/common-utils",
-        "ghcr.io/devcontainers/features/docker-in-docker:3"
+        "ghcr.io/devcontainers/features/docker-in-docker"
     ],
     "dependsOn": {
         "ghcr.io/devcontainers/features/docker-in-docker:3": {
