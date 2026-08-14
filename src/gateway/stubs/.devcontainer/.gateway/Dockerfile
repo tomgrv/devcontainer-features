@@ -7,9 +7,11 @@ FROM mcr.microsoft.com/devcontainers/base:noble
 # own postCreateCommand/install script, which runs too late to help this
 # build stage or any earlier-ordered feature.
 #
-# _install-certs-core.sh / _install-curl-wrapper-core.sh mirror the scripts
-# of the same name in the gateway feature itself (src/gateway/) — kept here
-# because a Docker build context cannot reach outside .devcontainer/.
+# _install-certs-core.sh / _install-curl-wrapper-core.sh / _gateway-curl.sh
+# are the single source of truth for this mechanics (also used at container
+# runtime by configure-certs.sh/install-wrapper.sh, and referenced from the
+# same relative path there) — they live here, under the stub tree, because a
+# Docker build context cannot reach outside .devcontainer/.
 #
 # Tolerates an empty certs folder and a missing curl: the build succeeds
 # even before the gateway root CA is dropped in .devcontainer/.gateway/certs/.
