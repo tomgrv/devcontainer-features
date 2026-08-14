@@ -1,6 +1,6 @@
 # @format
 
-name: Check gateway scripts
+name: Test gateway scripts
 
 on:
   push:
