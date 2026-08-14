@@ -25,13 +25,16 @@ done
 
 _tmp=$(mktemp -d)
 trap 'rm -rf "$_tmp"' EXIT INT TERM
+echo "setup.sh: using temp dir ${_tmp}" >&2
 
 _url="https://codeload.github.com/${_repo}/tar.gz/${_ref}"
 _tarball="$_tmp/repo.tar.gz"
 
 echo "setup.sh: fetching ${_repo}@${_ref}..." >&2
 curl -fsSL "$_url" -o "$_tarball"
+echo "setup.sh: extracting $(wc -c < "$_tarball" | tr -d ' ') bytes..." >&2
 tar -xzf "$_tarball" --strip-components=1 -C "$_tmp"
 rm -f "$_tarball"
 
+echo "setup.sh: running install.sh $*" >&2
 sh "$_tmp/install.sh" "$@"
