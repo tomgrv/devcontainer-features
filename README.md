@@ -19,6 +19,14 @@ When run locally:
 npx tomgrv/devcontainer-features -h
 ```
 
+If Node.js/npm isn't available, bootstrap directly from a single `curl` command instead — it downloads the repo to a temp directory, runs `install.sh`, and cleans up after itself:
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/tomgrv/devcontainer-features/develop/setup.sh | sh -s -- add -x
+```
+
+Everything after `-s --` is forwarded to `install.sh` (same commands/targets as the `npx` form above). Set `DEVCONTAINER_FEATURES_REF` to install from a different branch, tag, or commit.
+
 #### To install only root stubs
 
 ```sh
