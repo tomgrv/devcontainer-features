@@ -39,7 +39,12 @@ export INSTALL_ROOT_CALL=0
 
 # Prepare for local installation by creating a temporary directory and linking common utils
 test "${_install_root}" -eq 1 && links_up && trap links_down EXIT
-export PATH=$PATH:$source/src/common-utils
+
+# Prepend (not append): a previous run may have installed these same-named
+# scripts system-wide (e.g. via the common-utils feature). Without
+# prepending, a stale globally-installed copy would shadow the one this
+# checkout just fetched, silently running old/patched-elsewhere code.
+export PATH=$source/src/common-utils:$PATH
 
 eval $(
     zz_args "Manage devcontainer features" $0 "$@" <<-help
@@ -62,10 +67,12 @@ list_features() {
             .key | split("/")[-1] | split(":")[0]' 2>/dev/null
 }
 
-# Find devcontainer.json files in standard locations and extract features
+# Find devcontainer.json files in standard locations and extract features.
+# Supports both the flat layout (.devcontainer/devcontainer.json) and the
+# multi-config layout (.devcontainer/<name>/devcontainer.json).
 find_features() {
     _search_dir="${1:-.}"
-    _found=$(find "$_search_dir/.devcontainer" -maxdepth 2 -mindepth 2 -name "devcontainer.json" 2>/dev/null | head -1)
+    _found=$(find "$_search_dir/.devcontainer" -maxdepth 2 -mindepth 1 -name "devcontainer.json" 2>/dev/null | head -1)
     if [ -n "$_found" ]; then
         list_features "$_found"
     fi
