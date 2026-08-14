@@ -14,7 +14,9 @@ _debug() { [ -n "${ZZ_LOG_DEBUG:-}" ] && echo "${Yellow}$*${End}" >&2 || true; }
 links_up()
 {
     _debug "Link common utils"
-    find $source/src/common-utils/ -type f -name "_*.sh" -exec echo {} \; -exec chmod +x {} \; | while read file; do
+    _files=$(find $source/src/common-utils/ -type f -name "_*.sh")
+    for file in $_files; do
+        chmod +x $file
         ln -sf $file $source/src/common-utils/$(basename $file | sed 's/^_//;s/.sh$//')
     done
 }
@@ -22,8 +24,9 @@ links_up()
 links_down()
 {
     _debug "Unlink common utils"
-    find $source/src/common-utils/ -type f -name "_*.sh" -exec echo {} \; -exec chmod +x {} \; | while read file; do
-        rm $source/src/common-utils/$(basename $file | sed 's/^_//;s/.sh$//')
+    _files=$(find $source/src/common-utils/ -type f -name "_*.sh")
+    for file in $_files; do
+        rm -f $source/src/common-utils/$(basename $file | sed 's/^_//;s/.sh$//')
     done
 }
 
