@@ -96,7 +96,7 @@ while getopts :$argnames value "$@"; do
         break
     fi
 
-    naming=$(echo -e "$varnames" | grep -E "^$value" | cut -f2)
+    naming=$(printf '%b' "$varnames" | grep -E "^$value" | cut -f2)
 
     if [ -n "$OPTARG" ]; then
         echo "$naming='$(zz_esc "$OPTARG")'"
@@ -126,14 +126,14 @@ else
     shift $(expr "$OPTIND" - 1)
 
     # Process remaining '-' parameters
-    for arg in $(echo $varnames | grep -E "^-" | cut -f2); do
+    for arg in $(printf '%b' "$varnames" | grep -E "^-" | cut -f2); do
         if [ "$#" -gt "0" ]; then
             echo "$arg='$(zz_esc "$1")'" && shift 1
         fi
     done
 
     # Process remaining '&' parameters
-    for arg in $(echo $varnames | grep -E "^&" | cut -f2); do
+    for arg in $(printf '%b' "$varnames" | grep -E "^&" | cut -f2); do
         lines=""
         while [ "$#" -gt "0" ]; do
             # spaces that are not escaped should be preserved as part of the argument
@@ -149,7 +149,7 @@ else
     done
 
     # Process remaining '#' parameters
-    for arg in $(echo $varnames | grep -E "^#" | cut -f2); do
+    for arg in $(printf '%b' "$varnames" | grep -E "^#" | cut -f2); do
         lines=""
         while [ "$#" -gt "0" ]; do
             # spaces that are not escaped should be preserved as part of the argument
@@ -165,7 +165,7 @@ else
     done
 
     # Process remaining '+' parameters
-    for arg in $(echo $varnames | grep -E "^\+" | cut -f2); do
+    for arg in $(printf '%b' "$varnames" | grep -E "^\+" | cut -f2); do
         if [ "$#" -gt "0" ]; then
             value=""
             for a in "$@"; do
