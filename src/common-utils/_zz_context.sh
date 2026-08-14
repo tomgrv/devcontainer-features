@@ -1,8 +1,5 @@
 #!/bin/sh
 
-# Source colors script
-. zz_colors
-
 # Manage arguments
 eval $(
     zz_args "Export Source/Targets folders depending on feature context" $0 "$@" <<-help
@@ -23,12 +20,11 @@ else
 
         # Determine the caller script, remove /bin/xxx from the beginning of the command line and empty lines
         caller=$(readlink -f $PWD/$(tr '\0' '\n' </proc/$PPID/cmdline | sed 's/^\/bin\/.*$//' | grep -v '^$' | head -n 1))
-        echo "Caller script is <$caller>${End}" >&2
+        zz_log - "Caller script is {U $caller}"
 
         # If the caller script cannot be determined, exit with an error
         if [ -z "$caller" ]; then
-            echo "${Red}Not in script context${End}" >&2
-            exit 1
+            zz_log e "Not in script context" && exit 1
         fi
 
     fi
@@ -48,8 +44,7 @@ if [ -z "$target" ]; then
     elif [ -w /tmp ]; then
         target=/tmp/$feature
     else
-        echo "${Red}No writeable directory found${End}" >&2
-        exit 1
+        zz_log e "No writeable directory found" && exit 1
     fi
 fi
 
@@ -57,7 +52,7 @@ fi
 mkdir -p $target
 
 # Log the results
-echo "Selected context for <${Purple}$feature${None}> is '$source' => '$target'${End}" >&2
+zz_log s "Selected context for {Purple $feature} is {U $source} => {U $target}"
 
 # Results
 echo source=$source
