@@ -190,9 +190,9 @@ main() {
             --*)
                 probe_args+=("$a")
                 ;;
-            -[a-zA-Z0-9]*)
+            -?*)
                 cluster="${a#-}"
-                if [[ "$cluster" =~ ^[sSfLkvigqnN460O]*o?$ ]]; then
+                if [[ "$cluster" =~ ^[sSfLkvigqnN460O#]*o?$ ]]; then
                     # Cluster of known boolean flags, optionally ending with -o <file>:
                     # strip -f/-O (re-applied on delivery) and split a trailing -o.
                     if [[ "$cluster" == *f* ]]; then
