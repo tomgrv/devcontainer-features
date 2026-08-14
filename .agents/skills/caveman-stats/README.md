@@ -1,5 +1,3 @@
-<!-- @format -->
-
 # caveman-stats
 
 Real session token receipts. No AI estimation.
