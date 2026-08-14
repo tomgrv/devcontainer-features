@@ -31,18 +31,24 @@ Everything after `-s --` is forwarded to `install.sh` (same commands/targets as 
 
 ```sh
 npx tomgrv/devcontainer-features -- init
+# or, without node/npm:
+curl -fsSL https://raw.githubusercontent.com/tomgrv/devcontainer-features/develop/setup.sh | sh -s -- init
 ```
 
 #### To install a specific devcontainer feature
 
 ```sh
 npx tomgrv/devcontainer-features -- add gitutils
+# or, without node/npm:
+curl -fsSL https://raw.githubusercontent.com/tomgrv/devcontainer-features/develop/setup.sh | sh -s -- add gitutils
 ```
 
 #### To set up a full dev environment
 
 ```sh
 npx tomgrv/devcontainer-features -- add -a
+# or, without node/npm:
+curl -fsSL https://raw.githubusercontent.com/tomgrv/devcontainer-features/develop/setup.sh | sh -s -- add -a
 ```
 
 ## Features Overview
@@ -80,6 +86,8 @@ A collection of Git aliases, git-flow shortcuts, and interactive utilities for a
 
 ```sh
 npx tomgrv/devcontainer-features -- add gitutils
+# or, without node/npm:
+curl -fsSL https://raw.githubusercontent.com/tomgrv/devcontainer-features/develop/setup.sh | sh -s -- add gitutils
 ```
 
 #### Quick Install — npm
@@ -108,6 +116,8 @@ Configures Git hooks in one step using commitlint, commitizen, lint-staged, pret
 
 ```sh
 npx tomgrv/devcontainer-features -- add githooks
+# or, without node/npm:
+curl -fsSL https://raw.githubusercontent.com/tomgrv/devcontainer-features/develop/setup.sh | sh -s -- add githooks
 ```
 
 #### Quick Install — npm
@@ -136,6 +146,8 @@ Installs [GitVersion](https://gitversion.net/) to calculate semantic version num
 
 ```sh
 npx tomgrv/devcontainer-features -- add gitversion
+# or, without node/npm:
+curl -fsSL https://raw.githubusercontent.com/tomgrv/devcontainer-features/develop/setup.sh | sh -s -- add gitversion
 ```
 
 #### Quick Install — npm
@@ -164,6 +176,8 @@ Installs [nektos/act](https://github.com/nektos/act) to run GitHub Actions local
 
 ```sh
 npx tomgrv/devcontainer-features -- add act
+# or, without node/npm:
+curl -fsSL https://raw.githubusercontent.com/tomgrv/devcontainer-features/develop/setup.sh | sh -s -- add act
 ```
 
 #### Quick Install — npm
@@ -194,6 +208,8 @@ Installs PHP extensions from the [PHP Extension Community Library (PECL)](https:
 
 ```sh
 npx tomgrv/devcontainer-features -- add pecl
+# or, without node/npm:
+curl -fsSL https://raw.githubusercontent.com/tomgrv/devcontainer-features/develop/setup.sh | sh -s -- add pecl
 ```
 
 #### Quick Install — npm
@@ -222,6 +238,8 @@ Laravel-specific settings, shell utilities, Composer scripts, and VS Code extens
 
 ```sh
 npx tomgrv/devcontainer-features -- add larasets
+# or, without node/npm:
+curl -fsSL https://raw.githubusercontent.com/tomgrv/devcontainer-features/develop/setup.sh | sh -s -- add larasets
 ```
 
 #### Quick Install — npm
@@ -252,6 +270,8 @@ Shared utilities (`jq`, `dos2unix`, JSON helpers, logging) used by other feature
 
 ```sh
 npx tomgrv/devcontainer-features -- add common-utils
+# or, without node/npm:
+curl -fsSL https://raw.githubusercontent.com/tomgrv/devcontainer-features/develop/setup.sh | sh -s -- add common-utils
 ```
 
 #### Quick Install — npm
@@ -280,6 +300,8 @@ Handles SSL inspection certificates for corporate network environments (e.g. Zsc
 
 ```sh
 npx tomgrv/devcontainer-features -- add gateway
+# or, without node/npm:
+curl -fsSL https://raw.githubusercontent.com/tomgrv/devcontainer-features/develop/setup.sh | sh -s -- add gateway
 ```
 
 #### Quick Install — npm
@@ -308,6 +330,8 @@ Installs [Minikube](https://minikube.sigs.k8s.io/) to run a single-node Kubernet
 
 ```sh
 npx tomgrv/devcontainer-features -- add minikube
+# or, without node/npm:
+curl -fsSL https://raw.githubusercontent.com/tomgrv/devcontainer-features/develop/setup.sh | sh -s -- add minikube
 ```
 
 #### Quick Install — npm
@@ -336,6 +360,8 @@ Agent-agnostic AI coding skills (`.github/skills/`) plus the [Claude Code GitHub
 
 ```sh
 npx tomgrv/devcontainer-features -- add ai-coding
+# or, without node/npm:
+curl -fsSL https://raw.githubusercontent.com/tomgrv/devcontainer-features/develop/setup.sh | sh -s -- add ai-coding
 ```
 
 #### Quick Install — npm
