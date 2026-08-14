@@ -16,6 +16,8 @@ This feature provides a set of settings and utilities for working with Laravel p
 
 ```sh
 npx tomgrv/devcontainer-features -- add larasets
+# or, without node/npm:
+curl -fsSL https://raw.githubusercontent.com/tomgrv/devcontainer-features/develop/setup.sh | sh -s -- add larasets
 ```
 
 ## Quick Install — npm

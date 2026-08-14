@@ -12,7 +12,7 @@ SSL inspection tools act as a man-in-the-middle TLS proxy and replace server cer
 
 - Installs the SSL inspection root CA certificate(s) found in `.devcontainer/.gateway/certs/*.pem` into the container system trust store (at build time via the provided Dockerfile stub, and at create time via a bind mount + `postCreateCommand`).
 - Exposes the system CA bundle path via environment variables consumed by common runtimes and tools (Node.js, Python, Git, curl, Composer).
-- Installs a `gateway-curl` wrapper that transparently handles gateway redirect forms and cookie management, and (by default, inside the container only) diverts the system `curl` to it.
+- Installs a `gateway-curl` wrapper that transparently handles gateway redirect forms and cookie management, and diverts the system `curl` to it — on by default inside a container, opt-in on a host (see [Options](#options)).
 - Optionally prepares the **host** as well, so the devcontainer can actually be created behind the gateway (see [Host installation](#host-installation--get-ready-for-devcontainer-creation)).
 
 ## Quick Start — devcontainer.json
@@ -34,13 +34,15 @@ cp /path/to/your-root-ca.pem .devcontainer/.gateway/certs/gateway.pem
 
 ## Quick Install — console (recommended)
 
-Run the installer on your **host**, from the root of your project:
+`add gateway` self-detects whether it's running on the **host** or **inside an already-running container** and installs `gateway-curl` accordingly either way (diverting the system `curl` by default in a container, opt-in on a host — see [Options](#options)):
 
 ```sh
 npx tomgrv/devcontainer-features -- add gateway
+# or, without node/npm:
+curl -fsSL https://raw.githubusercontent.com/tomgrv/devcontainer-features/develop/setup.sh | sh -s -- add gateway
 ```
 
-This deploys the `.devcontainer` stubs (including a Dockerfile that bakes the certificate into the image at build time), installs `gateway-curl` on the host, and on Debian-based Linux/WSL installs the certificate into the host trust store when present. For other hosts, use the manual steps below.
+Run it **on the host**, from the root of your project, before creating the container: this deploys the `.devcontainer` stubs (including a Dockerfile that bakes the certificate into the image at build time), installs `gateway-curl` on the host, and on Debian-based Linux/WSL installs the certificate into the host trust store when present. For other hosts, use the manual steps below.
 
 ## Quick Install — npm
 
@@ -60,7 +62,7 @@ Declaring the feature in `devcontainer.json` is not always sufficient: the **hos
 
 ### Automated (Linux / WSL, Debian-based)
 
-From the root of your project, on the host:
+From the root of your project, on the host. Any `npx tomgrv/devcontainer-features --` call below can be replaced with the no-node/npm `curl` form shown in [Quick Install](#quick-install--console-recommended) — just swap `add gateway` in after `-s --`.
 
 ```sh
 # 1. Deploy the stubs and install gateway-curl on the host
@@ -95,7 +97,10 @@ Once the host trusts the CA and the certificate sits in `.devcontainer/.gateway/
 
 ## How it works
 
-| Host (optional, Debian-based) | `npx tomgrv/devcontainer-features -- add gateway` installs `gateway-curl` and (on Debian-based Linux/WSL) installs the CA into the host trust store |
+| Context                                                                         | What `add gateway` does                                                                                                                                                             |
+| ------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Host (optional, Debian-based)                                                   | Installs `gateway-curl`, leaves the system `curl` untouched unless `GATEWAY_REPLACE_CURL=1`, and (on Debian-based Linux/WSL) installs the CA into the host trust store when present |
+| Inside a container (devcontainer feature build or an already-running container) | Installs `gateway-curl` and diverts the system `curl` to it, unless the `replaceCurl` option is set to `false`                                                                      |
 
 ## Modified repository structure
 

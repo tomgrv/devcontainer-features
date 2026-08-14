@@ -4,14 +4,13 @@
 # Uses install.sh as the orchestrator for recursive dependency installation.
 # A tracker file (INSTALL_FEAT_TRACKER) prevents re-installation within the same session.
 #
-# Usage: install-feat <source_dir> <feature> [--stubs]
+# Usage: install-feat <source_dir> <feature>
 
 _source="$1"
 _feature="$2"
-_stubs="${3:-}"
 
 if [ -z "$_source" ] || [ -z "$_feature" ]; then
-    echo "Usage: install-feat <source_dir> <feature> [--stubs]" >&2
+    echo "Usage: install-feat <source_dir> <feature>" >&2
     exit 1
 fi
 
@@ -24,46 +23,41 @@ if grep -qxF "$_feature" "$_tracker" 2>/dev/null; then
 fi
 echo "$_feature" >>"$_tracker"
 
+_stub_count=$(find "$_source/src/$_feature/stubs" \( -type f -o -type l \) 2>/dev/null | wc -l | tr -d ' ')
+zz_log i "Deploying {Purple $_feature} (${_stub_count} stub(s))..."
+
 # Install each dependency first, using install.sh as orchestrator (recursive)
 for _dep in $(sh "$_source/install-deps.sh" "$_source" "$_feature"); do
     [ "$_dep" = "$_feature" ] && continue
     sh "$_source/install.sh" add "$_dep"
 done
 
-# Check if the script is running inside a container
-if [ "$CODESPACES" != "true" ] && [ "$REMOTE_CONTAINERS" != "true" ] && [ -z "$DEV_CONTAINER_FILE_PATH" ]; then
-
-    # Install the feature itself
-    if [ -f "$_source/src/$_feature/install.sh" ]; then
-        sh "$_source/src/$_feature/install.sh" || exit 1
-    else
-        echo "Feature $_feature not found in $_source/src/" >&2
-        exit 1
-    fi
-
-    # Configure the feature after installation
-    _featureSource=""
-    if [ -d "/tmp/$_feature" ]; then
-        _featureSource="/tmp/$_feature"
-    elif [ -d "/usr/local/share/$_feature" ]; then
-        _featureSource="/usr/local/share/$_feature"
-    fi
-
-    if [ -n "$_featureSource" ]; then
-        sh "$_source/src/common-utils/_configure-feature.sh" -s "$_featureSource" "$_feature"
-    else
-        echo "Feature $_feature installation target not found" >&2
-        exit 1
-    fi
-
-elif [ -n "$_stubs" ]; then
-
-    # In container with stubs: deploy stubs for this feature
-    sh "$_source/src/common-utils/_configure-feature.sh" -s "$_source/src/$_feature" "$_feature"
-
+# Install the feature itself (host or container: install-*.sh scripts that
+# genuinely need to tell the two apart already do so internally, e.g.
+# gateway/install-wrapper.sh checks REMOTE_CONTAINERS/CODESPACES itself to
+# decide whether to divert the system curl).
+if [ -f "$_source/src/$_feature/install.sh" ]; then
+    sh "$_source/src/$_feature/install.sh" || exit 1
 else
+    echo "Feature $_feature not found in $_source/src/" >&2
+    exit 1
+fi
 
-    # Inside a container without stubs: suggest using as devcontainer feature
-    echo "You are in a container: use as devcontainer feature: ghcr.io/tomgrv/devcontainer-features/$_feature"
+# Configure the feature after installation, from wherever install-feature
+# copied it to. Check /usr/local/share first, matching zz_context's own
+# target preference (writable /usr/local/share, else /tmp) — otherwise a
+# stale /tmp/<feature> left over from an earlier run (when /usr/local/share
+# wasn't writable) would win over the fresh copy this run just made.
+_featureSource=""
+if [ -d "/usr/local/share/$_feature" ]; then
+    _featureSource="/usr/local/share/$_feature"
+elif [ -d "/tmp/$_feature" ]; then
+    _featureSource="/tmp/$_feature"
+fi
 
+if [ -n "$_featureSource" ]; then
+    sh "$_source/src/common-utils/_configure-feature.sh" -s "$_featureSource" "$_feature"
+else
+    echo "Feature $_feature installation target not found" >&2
+    exit 1
 fi

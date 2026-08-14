@@ -18,6 +18,8 @@ More information about Act can be found on the [Act GitHub page](https://github.
 
 ```sh
 npx tomgrv/devcontainer-features -- add act
+# or, without node/npm:
+curl -fsSL https://raw.githubusercontent.com/tomgrv/devcontainer-features/develop/setup.sh | sh -s -- add act
 ```
 
 ## Quick Install — npm

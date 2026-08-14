@@ -14,16 +14,25 @@ _debug() { [ -n "${ZZ_LOG_DEBUG:-}" ] && echo "${Yellow}$*${End}" >&2 || true; }
 links_up()
 {
     _debug "Link common utils"
-    find $source/src/common-utils/ -type f -name "_*.sh" -exec echo {} \; -exec chmod +x {} \; | while read file; do
-        ln -sf $file $source/src/common-utils/$(basename $file | sed 's/^_//;s/.sh$//')
+    # Capture the full listing before acting on it (not `find | while read`):
+    # find keeps traversing this same directory as entries are added/removed
+    # under a live pipe, which races under busybox find. Quoted and
+    # newline-split (not word-split) so paths with spaces survive.
+    _files=$(find "$source/src/common-utils/" -type f -name "_*.sh")
+    printf '%s\n' "$_files" | while IFS= read -r file; do
+        [ -n "$file" ] || continue
+        chmod +x "$file"
+        ln -sf "$file" "$source/src/common-utils/$(basename "$file" | sed 's/^_//;s/.sh$//')"
     done
 }
 
 links_down()
 {
     _debug "Unlink common utils"
-    find $source/src/common-utils/ -type f -name "_*.sh" -exec echo {} \; -exec chmod +x {} \; | while read file; do
-        rm $source/src/common-utils/$(basename $file | sed 's/^_//;s/.sh$//')
+    _files=$(find "$source/src/common-utils/" -type f -name "_*.sh")
+    printf '%s\n' "$_files" | while IFS= read -r file; do
+        [ -n "$file" ] || continue
+        rm -f "$source/src/common-utils/$(basename "$file" | sed 's/^_//;s/.sh$//')"
     done
 }
 
@@ -33,7 +42,12 @@ export INSTALL_ROOT_CALL=0
 
 # Prepare for local installation by creating a temporary directory and linking common utils
 test "${_install_root}" -eq 1 && links_up && trap links_down EXIT
-export PATH=$PATH:$source/src/common-utils
+
+# Prepend (not append): a previous run may have installed these same-named
+# scripts system-wide (e.g. via the common-utils feature). Without
+# prepending, a stale globally-installed copy would shadow the one this
+# checkout just fetched, silently running old/patched-elsewhere code.
+export PATH=$source/src/common-utils:$PATH
 
 eval $(
     zz_args "Manage devcontainer features" $0 "$@" <<-help
@@ -54,10 +68,12 @@ list_features() {
             .key | split("/")[-1] | split(":")[0]' 2>/dev/null
 }
 
-# Find devcontainer.json files in standard locations and extract features
+# Find devcontainer.json files in standard locations and extract features.
+# Supports both the flat layout (.devcontainer/devcontainer.json) and the
+# multi-config layout (.devcontainer/<name>/devcontainer.json).
 find_features() {
     _search_dir="${1:-.}"
-    _found=$(find "$_search_dir/.devcontainer" -maxdepth 2 -mindepth 2 -name "devcontainer.json" 2>/dev/null | head -1)
+    _found=$(find "$_search_dir/.devcontainer" -maxdepth 2 -mindepth 1 -name "devcontainer.json" 2>/dev/null | head -1)
     if [ -n "$_found" ]; then
         list_features "$_found"
     fi
@@ -166,14 +182,23 @@ cmd_add() {
 
     _features=$(resolve_features $target)
     if [ -z "$_features" ]; then
-        zz_log w "No features to add"
+        if [ -z "${target:-}" ]; then
+            zz_log w "No .devcontainer found to auto-detect features from"
+            zz_log - "Specify feature names, {B -a} for all, or {B -x} for defaults (e.g. {B add -x})"
+        else
+            zz_log w "No features to add for target: $target"
+        fi
         return 0
     fi
 
     zz_log i "Adding: $(echo $_features | tr '\n' ' ')"
     for _feature in $(echo "$_features" | tr '\n' ' '); do
         [ -z "$_feature" ] && continue
-        zz_log i "Deploying {Purple $_feature} ($(count_stubs "$source/src/$_feature/stubs") stub(s))..."
+        # install-feat.sh logs "Deploying <feature>" itself, after checking
+        # whether this feature was already handled earlier in the same
+        # dependency tree (a shared/diamond dependency) — logging it here
+        # unconditionally would print a "Deploying" line for features that
+        # actually get skipped, making a normal install look like it loops.
         sh "$source/install-feat.sh" "$source" "$_feature"
     done
     zz_log s "Done adding features"
