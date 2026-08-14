@@ -18,6 +18,8 @@ This feature installs PHP extensions from the [PHP Extension Community Library (
 
 ```sh
 npx tomgrv/devcontainer-features -- add pecl
+# or, without node/npm:
+curl -fsSL https://raw.githubusercontent.com/tomgrv/devcontainer-features/develop/setup.sh | sh -s -- add pecl
 ```
 
 ## Quick Install — npm

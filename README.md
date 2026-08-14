@@ -8,24 +8,23 @@ The features are organized in separate folders and can be used individually in a
 
 ## Installation
 
-The installation script can be run locally and/or in a devcontainer environment.
+Every feature in this repository can be installed three ways. Pick whichever fits where you're running:
 
-When run locally:
+1. **As a devcontainer feature** — declare it in `.devcontainer/devcontainer.json`; the Dev Containers CLI / VS Code builds it into the container image. Nothing to run locally. See each feature's own `## Quick Start — devcontainer.json` below.
+2. **Console, via `npx`** — requires Node.js/npm on the machine you run it from (host or inside the container). Resolves this repo from GitHub and runs `install.sh`.
+    ```sh
+    npx tomgrv/devcontainer-features -h
+    ```
+3. **Console, via `curl`** — no Node.js/npm required. Downloads this repo to a temp directory, runs `install.sh`, and cleans up after itself:
+    ```sh
+    curl -fsSL https://raw.githubusercontent.com/tomgrv/devcontainer-features/develop/setup.sh | sh -s -- -h
+    ```
+    Everything after `-s --` is forwarded to `install.sh` — same commands/targets as the `npx` form. Set `DEVCONTAINER_FEATURES_REF` to install from a different branch, tag, or commit.
 
-- Features are installed in the local environment.
-- A `devcontainer.json` file is optionally created for the remote development experience.
+Methods 2 and 3 both run `install.sh`, which behaves the same either way:
 
-```sh
-npx tomgrv/devcontainer-features -h
-```
-
-If Node.js/npm isn't available, bootstrap directly from a single `curl` command instead — it downloads the repo to a temp directory, runs `install.sh`, and cleans up after itself:
-
-```sh
-curl -fsSL https://raw.githubusercontent.com/tomgrv/devcontainer-features/develop/setup.sh | sh -s -- add -x
-```
-
-Everything after `-s --` is forwarded to `install.sh` (same commands/targets as the `npx` form above). Set `DEVCONTAINER_FEATURES_REF` to install from a different branch, tag, or commit.
+- **Outside a container** (a normal host, or `npx`/`curl` run from your machine): installs the tool itself (binaries, git config, etc.) and deploys the feature's stub files (`.devcontainer/`, `.github/`, editor config, ...) into the current project.
+- **Inside a container** (Codespaces, an already-running devcontainer): skips the host-level tool install — that belongs in the container image build, i.e. method 1 — and only deploys the feature's stub files.
 
 #### To install only root stubs
 

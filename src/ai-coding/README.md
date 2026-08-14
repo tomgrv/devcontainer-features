@@ -18,6 +18,8 @@ Other features can opt into skills too: `dependsOn` this feature, ship a `stubs/
 
 ```sh
 npx tomgrv/devcontainer-features -- add ai-coding
+# or, without node/npm:
+curl -fsSL https://raw.githubusercontent.com/tomgrv/devcontainer-features/develop/setup.sh | sh -s -- add ai-coding
 ```
 
 ## Quick Install — npm

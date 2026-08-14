@@ -38,6 +38,8 @@ Run the installer on your **host**, from the root of your project:
 
 ```sh
 npx tomgrv/devcontainer-features -- add gateway
+# or, without node/npm:
+curl -fsSL https://raw.githubusercontent.com/tomgrv/devcontainer-features/develop/setup.sh | sh -s -- add gateway
 ```
 
 This deploys the `.devcontainer` stubs (including a Dockerfile that bakes the certificate into the image at build time), installs `gateway-curl` on the host, and on Debian-based Linux/WSL installs the certificate into the host trust store when present. For other hosts, use the manual steps below.
@@ -60,7 +62,7 @@ Declaring the feature in `devcontainer.json` is not always sufficient: the **hos
 
 ### Automated (Linux / WSL, Debian-based)
 
-From the root of your project, on the host:
+From the root of your project, on the host. Any `npx tomgrv/devcontainer-features --` call below can be replaced with the no-node/npm `curl` form shown in [Quick Install](#quick-install--console-recommended) — just swap `add gateway` in after `-s --`.
 
 ```sh
 # 1. Deploy the stubs and install gateway-curl on the host
