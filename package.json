@@ -45,7 +45,6 @@
         "url": "https://buymeacoffee.com/tomgrv"
     },
     "scripts": {
-        "install": "sh ./install.sh -s",
         "lint": "npx --yes lint-staged",
         "release": "commit-and-tag-version --no-verify --",
         "test": "echo \"Warning: no test specified\"",
