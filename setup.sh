@@ -16,7 +16,7 @@ set -e
 _repo="tomgrv/devcontainer-features"
 _ref="${DEVCONTAINER_FEATURES_REF:-develop}"
 
-for _cmd in curl tar; do
+for _cmd in curl tar mktemp; do
     command -v "$_cmd" > /dev/null 2>&1 || {
         echo "setup.sh: '$_cmd' is required" >&2
         exit 1
