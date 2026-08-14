@@ -47,10 +47,10 @@ fi
 # copied it to (its target dir, resolved the same way for host and
 # container: writable candidates first, /tmp/<feature> as a fallback).
 _featureSource=""
-if [ -d "/tmp/$_feature" ]; then
-    _featureSource="/tmp/$_feature"
-elif [ -d "/usr/local/share/$_feature" ]; then
+if [ -d "/usr/local/share/$_feature" ]; then
     _featureSource="/usr/local/share/$_feature"
+elif [ -d "/tmp/$_feature" ]; then
+    _featureSource="/tmp/$_feature"
 fi
 
 if [ -n "$_featureSource" ]; then
