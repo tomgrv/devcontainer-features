@@ -3,14 +3,13 @@
     "version": "7.17.0",
     "description": "SSL Inspection Gateway handling",
     "files": [
-        "_*.sh",
         "configure-*.sh",
         "install-*.sh",
         "install.sh",
         "stubs/**/*"
     ],
     "bin": {
-        "gateway-curl": "_gateway-curl.sh"
+        "gateway-curl": "stubs/.devcontainer/.gateway/_gateway-curl.sh"
     },
     "scripts": {
         "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then sh ./install.sh; fi",
