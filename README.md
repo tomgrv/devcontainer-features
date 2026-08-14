@@ -8,33 +8,43 @@ The features are organized in separate folders and can be used individually in a
 
 ## Installation
 
-The installation script can be run locally and/or in a devcontainer environment.
+Every feature in this repository can be installed three ways. Pick whichever fits where you're running:
 
-When run locally:
+1. **As a devcontainer feature** — declare it in `.devcontainer/devcontainer.json`; the Dev Containers CLI / VS Code builds it into the container image. Nothing to run locally. See each feature's own `## Quick Start — devcontainer.json` below.
+2. **Console, via `npx`** — requires Node.js/npm on the machine you run it from (host or inside the container). Resolves this repo from GitHub and runs `install.sh`.
+    ```sh
+    npx tomgrv/devcontainer-features -h
+    ```
+3. **Console, via `curl`** — no Node.js/npm required. Downloads this repo to a temp directory, runs `install.sh`, and cleans up after itself:
+    ```sh
+    curl -fsSL https://raw.githubusercontent.com/tomgrv/devcontainer-features/develop/setup.sh | sh -s -- -h
+    ```
+    Everything after `-s --` is forwarded to `install.sh` — same commands/targets as the `npx` form. Set `DEVCONTAINER_FEATURES_REF` to install from a different branch, tag, or commit.
 
-- Features are installed in the local environment.
-- A `devcontainer.json` file is optionally created for the remote development experience.
-
-```sh
-npx tomgrv/devcontainer-features -h
-```
+Methods 2 and 3 both run `install.sh`, which behaves the same on a host and inside a container (Codespaces, an already-running devcontainer): it installs the tool itself (binaries, git config, package-manager installs where a feature needs one, ...) and deploys the feature's stub files (`.devcontainer/`, `.github/`, editor config, ...) into the current project. A handful of steps genuinely only make sense in one context or the other (e.g. gateway's host CA trust-store setup, or diverting `curl` only by default inside a container) — those scripts detect where they're running and adjust themselves; you don't need to.
 
 #### To install only root stubs
 
 ```sh
 npx tomgrv/devcontainer-features -- init
+# or, without node/npm:
+curl -fsSL https://raw.githubusercontent.com/tomgrv/devcontainer-features/develop/setup.sh | sh -s -- init
 ```
 
 #### To install a specific devcontainer feature
 
 ```sh
 npx tomgrv/devcontainer-features -- add gitutils
+# or, without node/npm:
+curl -fsSL https://raw.githubusercontent.com/tomgrv/devcontainer-features/develop/setup.sh | sh -s -- add gitutils
 ```
 
 #### To set up a full dev environment
 
 ```sh
 npx tomgrv/devcontainer-features -- add -a
+# or, without node/npm:
+curl -fsSL https://raw.githubusercontent.com/tomgrv/devcontainer-features/develop/setup.sh | sh -s -- add -a
 ```
 
 ## Features Overview
@@ -72,6 +82,8 @@ A collection of Git aliases, git-flow shortcuts, and interactive utilities for a
 
 ```sh
 npx tomgrv/devcontainer-features -- add gitutils
+# or, without node/npm:
+curl -fsSL https://raw.githubusercontent.com/tomgrv/devcontainer-features/develop/setup.sh | sh -s -- add gitutils
 ```
 
 #### Quick Install — npm
@@ -100,6 +112,8 @@ Configures Git hooks in one step using commitlint, commitizen, lint-staged, pret
 
 ```sh
 npx tomgrv/devcontainer-features -- add githooks
+# or, without node/npm:
+curl -fsSL https://raw.githubusercontent.com/tomgrv/devcontainer-features/develop/setup.sh | sh -s -- add githooks
 ```
 
 #### Quick Install — npm
@@ -128,6 +142,8 @@ Installs [GitVersion](https://gitversion.net/) to calculate semantic version num
 
 ```sh
 npx tomgrv/devcontainer-features -- add gitversion
+# or, without node/npm:
+curl -fsSL https://raw.githubusercontent.com/tomgrv/devcontainer-features/develop/setup.sh | sh -s -- add gitversion
 ```
 
 #### Quick Install — npm
@@ -156,6 +172,8 @@ Installs [nektos/act](https://github.com/nektos/act) to run GitHub Actions local
 
 ```sh
 npx tomgrv/devcontainer-features -- add act
+# or, without node/npm:
+curl -fsSL https://raw.githubusercontent.com/tomgrv/devcontainer-features/develop/setup.sh | sh -s -- add act
 ```
 
 #### Quick Install — npm
@@ -186,6 +204,8 @@ Installs PHP extensions from the [PHP Extension Community Library (PECL)](https:
 
 ```sh
 npx tomgrv/devcontainer-features -- add pecl
+# or, without node/npm:
+curl -fsSL https://raw.githubusercontent.com/tomgrv/devcontainer-features/develop/setup.sh | sh -s -- add pecl
 ```
 
 #### Quick Install — npm
@@ -214,6 +234,8 @@ Laravel-specific settings, shell utilities, Composer scripts, and VS Code extens
 
 ```sh
 npx tomgrv/devcontainer-features -- add larasets
+# or, without node/npm:
+curl -fsSL https://raw.githubusercontent.com/tomgrv/devcontainer-features/develop/setup.sh | sh -s -- add larasets
 ```
 
 #### Quick Install — npm
@@ -244,6 +266,8 @@ Shared utilities (`jq`, `dos2unix`, JSON helpers, logging) used by other feature
 
 ```sh
 npx tomgrv/devcontainer-features -- add common-utils
+# or, without node/npm:
+curl -fsSL https://raw.githubusercontent.com/tomgrv/devcontainer-features/develop/setup.sh | sh -s -- add common-utils
 ```
 
 #### Quick Install — npm
@@ -272,6 +296,8 @@ Handles SSL inspection certificates for corporate network environments (e.g. Zsc
 
 ```sh
 npx tomgrv/devcontainer-features -- add gateway
+# or, without node/npm:
+curl -fsSL https://raw.githubusercontent.com/tomgrv/devcontainer-features/develop/setup.sh | sh -s -- add gateway
 ```
 
 #### Quick Install — npm
@@ -300,6 +326,8 @@ Installs [Minikube](https://minikube.sigs.k8s.io/) to run a single-node Kubernet
 
 ```sh
 npx tomgrv/devcontainer-features -- add minikube
+# or, without node/npm:
+curl -fsSL https://raw.githubusercontent.com/tomgrv/devcontainer-features/develop/setup.sh | sh -s -- add minikube
 ```
 
 #### Quick Install — npm
@@ -328,6 +356,8 @@ Agent-agnostic AI coding skills (`.github/skills/`) plus the [Claude Code GitHub
 
 ```sh
 npx tomgrv/devcontainer-features -- add ai-coding
+# or, without node/npm:
+curl -fsSL https://raw.githubusercontent.com/tomgrv/devcontainer-features/develop/setup.sh | sh -s -- add ai-coding
 ```
 
 #### Quick Install — npm

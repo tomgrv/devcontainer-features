@@ -16,6 +16,8 @@ This feature provides a set of hooks for working with Git repositories.
 
 ```sh
 npx tomgrv/devcontainer-features -- add githooks
+# or, without node/npm:
+curl -fsSL https://raw.githubusercontent.com/tomgrv/devcontainer-features/develop/setup.sh | sh -s -- add githooks
 ```
 
 ## Quick Install — npm

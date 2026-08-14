@@ -235,3 +235,36 @@ EOF
     run run_h
     [[ "$output" == *"Usage:"* ]]
 }
+
+# Regression guard: zz_args builds a "varnames" table by concatenating
+# literal \n/\t into a plain string (not real control characters), then
+# reads it back to bind "-"/"+"/"&"/"#" positional args. That readback used
+# to mix `echo -e` (one call site) with plain `echo` (four call sites) —
+# the plain ones only split correctly on shells whose `echo` builtin
+# auto-expands backslash escapes (true for dash's XSI echo, false for
+# bash's builtin and other POSIX-strict shells), so cmd/target silently
+# came out empty on those shells regardless of what was actually passed.
+# The test runner's /bin/sh is dash on CI, which would never trip this, so
+# force the parse through bash explicitly.
+@test "positional (-) binds under bash's non-XSI echo (regression)" {
+    run bash -c '
+        eval "$(bash "'"$REPO_ROOT"'/src/common-utils/_zz_args.sh" "test" caller "add" "gateway" <<-EOF
+	- cmd cmd       command
+	+ target target target value
+EOF
+)"
+        echo "cmd=[$cmd] target=[$target]"
+    '
+    [ "$output" = "cmd=[add] target=[gateway]" ]
+}
+
+@test "+ capture binds under bash's non-XSI echo (regression)" {
+    run bash -c '
+        eval "$(bash "'"$REPO_ROOT"'/src/common-utils/_zz_args.sh" "test" caller "hello" "world" <<-EOF
+	+ msg message    remaining args
+EOF
+)"
+        echo "message=[$message]"
+    '
+    [ "$output" = "message=[hello world]" ]
+}
