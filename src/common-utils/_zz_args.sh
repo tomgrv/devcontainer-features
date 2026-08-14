@@ -87,7 +87,10 @@ while read argname datatype varname help; do
     [ "$argname" = "+" ] && break
 done
 
-# Parse the command-line arguments
+# Parse the command-line arguments (OPTIND is a plain shell var, not
+# function-local: reset it so a value inherited from the environment can't
+# make getopts start mid-way through "$@")
+OPTIND=1
 while getopts :$argnames value "$@"; do
     if [ "$value" = "?" ]; then
         break
