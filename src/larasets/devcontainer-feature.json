@@ -52,7 +52,7 @@
             "type": "string"
         }
     },
-    "version": "7.15.0",
+    "version": "7.17.0",
     "legacyIds": [
         "larasets"
     ],

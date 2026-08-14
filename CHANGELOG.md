@@ -2,6 +2,35 @@
 
 # Changelog
 
+## 7.17.0 (2026-08-14)
+
+_Commits from: v7.16.0..HEAD_
+
+### 📂 Unscoped changes
+
+#### Bug Fixes
+
+- 🐛 simplify workflow conditions and update action version ([30454a1](https://github.com/tomgrv/devcontainer-features/commit/30454a1b244551cc0a8db288d3f7d7388c41b767))
+- 🐛 update package names to use correct scope format ([91dc771](https://github.com/tomgrv/devcontainer-features/commit/91dc77158e4e0ab0aa9bc5fc832aec8ca91d1756))
+
+#### Other changes
+
+- Merge tag 'v7.16.0' into develop ([9c9ac02](https://github.com/tomgrv/devcontainer-features/commit/9c9ac027226650feff8bdee81b2d6300584d7732))
+- ♻️ remove outdated commit and repository instruction files ([229ea3e](https://github.com/tomgrv/devcontainer-features/commit/229ea3e90d9f000c8c5a948828264959e6170c36))
+- ♻️ 🔄 revert to npx skills experimental_install, add governance rules (#115) ([63e9836](https://github.com/tomgrv/devcontainer-features/commit/63e9836a5e2132dbffecda38b696607e8ee3c9e1))
+
+### 📦 devcontainer-features-ai-coding changes
+
+#### Features
+
+- ✨ add agent behavior guidelines for Copilot and Claude (#117) ([9fd7d74](https://github.com/tomgrv/devcontainer-features/commit/9fd7d74330d6eb5c197f6690e068536bd0659d84))
+
+### 📦 devcontainer-features-githooks changes
+
+#### Features
+
+- ✨ validate composer.json/package.json via lint-staged (#116) ([e642ff0](https://github.com/tomgrv/devcontainer-features/commit/e642ff090bd35c8f851f6d9ef6b38e695f44f510))
+
 ## 7.16.0 (2026-08-12)
 
 _Commits from: v7.15.0..HEAD_
@@ -1665,4 +1694,4 @@ _Commits from: v5.25.0..HEAD_
 
 ---
 
-_Generated on 2026-08-12 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
+_Generated on 2026-08-14 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
