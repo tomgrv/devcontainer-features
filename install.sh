@@ -193,7 +193,11 @@ cmd_add() {
     zz_log i "Adding: $(echo $_features | tr '\n' ' ')"
     for _feature in $(echo "$_features" | tr '\n' ' '); do
         [ -z "$_feature" ] && continue
-        zz_log i "Deploying {Purple $_feature} ($(count_stubs "$source/src/$_feature/stubs") stub(s))..."
+        # install-feat.sh logs "Deploying <feature>" itself, after checking
+        # whether this feature was already handled earlier in the same
+        # dependency tree (a shared/diamond dependency) — logging it here
+        # unconditionally would print a "Deploying" line for features that
+        # actually get skipped, making a normal install look like it loops.
         sh "$source/install-feat.sh" "$source" "$_feature"
     done
     zz_log s "Done adding features"

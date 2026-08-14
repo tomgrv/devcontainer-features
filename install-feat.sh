@@ -20,9 +20,13 @@ _tracker="${INSTALL_FEAT_TRACKER:-/tmp/.install-feat-$$}"
 export INSTALL_FEAT_TRACKER="$_tracker"
 
 if grep -qxF "$_feature" "$_tracker" 2>/dev/null; then
+    [ -n "${ZZ_LOG_DEBUG:-}" ] && zz_log - "Already added {Purple $_feature}, skipping" >&2
     exit 0
 fi
 echo "$_feature" >>"$_tracker"
+
+_stub_count=$(find "$_source/src/$_feature/stubs" \( -type f -o -type l \) 2>/dev/null | wc -l | tr -d ' ')
+zz_log i "Deploying {Purple $_feature} (${_stub_count} stub(s))..."
 
 # Install each dependency first, using install.sh as orchestrator (recursive)
 for _dep in $(sh "$_source/install-deps.sh" "$_source" "$_feature"); do
