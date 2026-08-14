@@ -155,7 +155,7 @@ main() {
     # Scan arguments: find the URL, the requested output file, and any option
     # that makes body interception unsafe (in which case: pass through).
     local args=("$@") probe_args=()
-    local url="" output_file="" passthrough=0 had_fail=0 url_count=0 has_ua=0
+    local url="" output_file="" passthrough=0 had_fail=0 url_count=0 has_ua=0 remote_name=0
     local i=0 a cluster
 
     while [ $i -lt ${#args[@]} ]; do
@@ -168,7 +168,11 @@ main() {
             -f | --fail)
                 had_fail=1
                 ;;
-            -I | --head | -O | --remote-name | --remote-name-all | -J | \
+            -O | --remote-name)
+                # Save as the URL's own file name, same as real curl -O.
+                remote_name=1
+                ;;
+            -I | --head | --remote-name-all | -J | \
                 --remote-header-name | -D | --dump-header | -T | --upload-file | -w | --write-out | \
                 -K | --config | --output-dir | -Z | --parallel)
                 passthrough=1
@@ -186,14 +190,18 @@ main() {
             --*)
                 probe_args+=("$a")
                 ;;
-            -[a-zA-Z]*)
+            -[a-zA-Z0-9]*)
                 cluster="${a#-}"
-                if [[ "$cluster" =~ ^[sSfLkvigqnN46]*o?$ ]]; then
+                if [[ "$cluster" =~ ^[sSfLkvigqnN460O]*o?$ ]]; then
                     # Cluster of known boolean flags, optionally ending with -o <file>:
-                    # strip -f (re-applied on delivery) and split a trailing -o.
+                    # strip -f/-O (re-applied on delivery) and split a trailing -o.
                     if [[ "$cluster" == *f* ]]; then
                         had_fail=1
                         cluster="${cluster//f/}"
+                    fi
+                    if [[ "$cluster" == *O* ]]; then
+                        remote_name=1
+                        cluster="${cluster//O/}"
                     fi
                     if [[ "$cluster" == *o ]]; then
                         cluster="${cluster%o}"
@@ -204,7 +212,7 @@ main() {
                 else
                     # Unknown cluster or option with attached value (e.g. -XPOST,
                     # -ofile): keep as-is, pass through if interception looks unsafe
-                    [[ "$cluster" =~ [OIJTZw] ]] && passthrough=1
+                    [[ "$cluster" =~ [IJTZw] ]] && passthrough=1
                     probe_args+=("$a")
                 fi
                 ;;
@@ -227,6 +235,17 @@ main() {
     if [ "$passthrough" = "1" ] || [ -z "$url" ] || [ "$url_count" -gt 1 ]; then
         log "Passing request through to $CURL_CMD"
         exec "$CURL_CMD" "$@"
+    fi
+
+    # -O: derive the output file name from the URL itself, unless an
+    # explicit -o/--output already set one (explicit wins, like real curl).
+    if [ "$remote_name" = "1" ] && [ -z "$output_file" ]; then
+        output_file="${url%%[?#]*}"
+        output_file="${output_file##*/}"
+        if [ -z "$output_file" ]; then
+            error "Remote file name has no length"
+            exit 23
+        fi
     fi
 
     local temp_file rc http_code
