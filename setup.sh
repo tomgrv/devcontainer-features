@@ -31,7 +31,7 @@ _tarball="$_tmp/repo.tar.gz"
 
 echo "setup.sh: fetching ${_repo}@${_ref}..." >&2
 curl -fsSL "$_url" -o "$_tarball"
-tar --extract --gunzip --strip-components=1 --directory "$_tmp" -f "$_tarball"
+tar -xzf "$_tarball" --strip-components=1 -C "$_tmp"
 rm -f "$_tarball"
 
 sh "$_tmp/install.sh" "$@"
