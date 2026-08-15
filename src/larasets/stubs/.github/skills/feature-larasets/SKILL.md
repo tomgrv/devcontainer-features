@@ -23,7 +23,7 @@ Use this feature for Laravel-focused developer experience in dev containers, inc
 - `smee` - Forward smee.io webhook deliveries to the local app.
 - `dep <...>` - Run Deployer with the SSH key loaded and secrets injected via `secret`.
 - `secret <...>` - Run any command with the SSH agent loaded and secrets injected: Doppler when available, else `.env`.
-- `composer lint` - Run Pint linting flow for project code.
+- `composer lint` - Run Pint linting flow for project code, including Blade template formatting.
 - `composer test` - Run Pest test suite.
 - `composer upg` - Update Composer dependencies with project defaults.
 
