@@ -30,11 +30,19 @@ if echo "$changed_files" | grep -q "package.json"; then
     # ensure that the package.json is valid and package-lock.json is up-to-date
     zz_log i "Ensure that the package.json is valid and package-lock.json is up-to-date..."
 
+    # --package-lock-only --ignore-scripts: recompute the lockfile without
+    # installing anything or running install/postinstall lifecycle scripts.
+    # A full `npm install --ws` here runs every workspace's lifecycle
+    # scripts on every commit that touches any package.json, which can
+    # rewrite arbitrary tracked files mid-hook — lint-staged's git-stash
+    # based backup/restore of the original staged snapshot then has to
+    # reconcile that unrelated noise, and unrelated staged changes can be
+    # dropped instead of committed.
     ws=$(npm pkg get workspaces)
     if test "$ws" = "undefined" || test "$ws" = "{}"; then
-        npm install --package-lock || true
+        npm install --package-lock-only --ignore-scripts || true
     else
-        npm install --package-lock --ws --if-present --include-workspace-root || true
+        npm install --package-lock-only --ignore-scripts --ws --if-present --include-workspace-root || true
     fi
 
     # commit the updated package-lock.json if file changed
