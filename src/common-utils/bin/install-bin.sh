@@ -97,9 +97,9 @@ case ":$PATH:" in
     ;;
 esac
 
-# Find all shell scripts in the target directory, make them executable, and create symbolic links in the selected bin directory
-find "$target" -type f -name "_*.sh" -exec echo {} \; -exec chmod +x {} \; | while IFS= read -r file; do
-    # Create a symbolic link in the selected bin directory with the script name (without the leading underscore and .sh extension)
-    link="$link_dir/$(basename "$file" | sed 's/^_//;s/.sh$//')"
+# Find all shell scripts in the feature's bin/ directory, make them executable, and create symbolic links in the selected bin directory
+find "$target/bin" -type f -name "*.sh" -exec echo {} \; -exec chmod +x {} \; 2>/dev/null | while IFS= read -r file; do
+    # Create a symbolic link in the selected bin directory with the script name (without the .sh extension)
+    link="$link_dir/$(basename "$file" | sed 's/.sh$//')"
     ln -sf "$file" "$link" && zz_log s "Linked {U $file} to {U $link}"
 done

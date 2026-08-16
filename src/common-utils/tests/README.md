@@ -8,7 +8,7 @@ Tests are organized per feature in `src/<feature-name>/tests/`, using [bats-core
 
 1. Create a feature test folder: `src/<feature-name>/tests/`
 
-2. Create a `helpers.bash` in the folder that links the feature's `bins/_*.sh` scripts onto `PATH` under their public command names, the same way `install-bin` does:
+2. Create a `helpers.bash` in the folder that links the feature's `bin/*.sh` scripts onto `PATH` under their public command names, the same way `install-bin` does:
 
 ```bash
 #!/usr/bin/env bash
@@ -18,10 +18,10 @@ setup_<feature-name>_path() {
     local feature_dir="$REPO_ROOT/src/<feature-name>"
     local file
     TEST_BIN=$(mktemp -d)
-    for file in "$feature_dir"/bins/_*.sh; do
+    for file in "$feature_dir"/bin/*.sh; do
         [ -f "$file" ] || continue
         chmod +x "$file"
-        ln -sf "$file" "$TEST_BIN/$(basename "$file" | sed 's/^_//; s/\.sh$//')"
+        ln -sf "$file" "$TEST_BIN/$(basename "$file" | sed 's/\.sh$//')"
     done
     export PATH="$TEST_BIN:$PATH"
 }

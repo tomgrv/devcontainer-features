@@ -9,10 +9,10 @@ UTILS="${UTILS:-"jq dos2unix"}"
 # install-feat.sh / npx)
 dir=$(dirname $(readlink -f $0))
 
-### Link to utils, retrieve name after _zz_ / before .sh and create a symlink
-find $dir -type f -name "_zz_*.sh" -exec basename {} \; | sed 's/_zz_\(.*\)\.sh/\1/' | while read util; do
-    chmod +x $dir/bins/_zz_${util}.sh
-    ln -sf $dir/bins/_zz_${util}.sh $dir/zz_${util}
+### Link to utils, retrieve name before .sh and create a symlink
+find $dir/bin -type f -name "zz_*.sh" -exec basename {} \; | sed 's/\.sh$//' | while read util; do
+    chmod +x $dir/bin/${util}.sh
+    ln -sf $dir/bin/${util}.sh $dir/${util}
 done
 export PATH=$dir:$PATH
 
@@ -38,5 +38,5 @@ for bin in $UTILS; do
 done >&2
 
 ### Run Installers
-$dir/bins/_install-feature.sh -s $dir
-$dir/bins/_install-bin.sh -s $dir
+$dir/bin/install-feature.sh -s $dir
+$dir/bin/install-bin.sh -s $dir

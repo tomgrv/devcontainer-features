@@ -3,14 +3,14 @@
     "description": "GitVersion integration and version management scripts",
     "version": "7.18.0",
     "bin": {
-        "bump-changelog": "_bump-changelog.sh",
-        "bump-tag": "_bump-tag.sh",
-        "bump-version": "_bump-version.sh",
-        "gv": "_gv.sh"
+        "bump-changelog": "bin/bump-changelog.sh",
+        "bump-tag": "bin/bump-tag.sh",
+        "bump-version": "bin/bump-version.sh",
+        "gv": "bin/gv.sh"
     },
     "dependencies": {},
     "files": [
-        "bins/*.sh",
+        "bin/*.sh",
         "install.sh",
         "install-tools.sh",
         "stubs/**/*"

@@ -41,20 +41,20 @@ Key files: `package.json`, `install.sh`, `.github/workflows/validate.yml`, `.git
 ```bash
 npm install
 npm install prettier-plugin-sh
-find src/common-utils/bins/ -type f -name "_*.sh" -exec chmod +x {} \;
-find src/common-utils/bins/ -type f -name "_*.sh" | while read file; do
-    ln -sf "$file" src/common-utils/bins/$(basename "$file" | sed 's/^_//;s/.sh$//')
+find src/common-utils/bin/ -type f -name "*.sh" -exec chmod +x {} \;
+find src/common-utils/bin/ -type f -name "*.sh" | while read file; do
+    ln -sf "$file" src/common-utils/bin/$(basename "$file" | sed 's/.sh$//')
 done
-ln -sf src/common-utils/bins/_zz_log.sh src/common-utils/bins/_zz_logs.sh
+ln -sf src/common-utils/bin/zz_log.sh src/common-utils/bin/zz_logs.sh
 ```
 
 ## Critical Issues & Workarounds
 
 | Issue                          | Cause                                             | Fix                                                                 |
 | ------------------------------ | ------------------------------------------------- | ------------------------------------------------------------------- |
-| `_zz_logs.sh: No such file`    | `install.sh` line 9 typo: `_zz_logs` vs `_zz_log` | `ln -sf src/common-utils/bins/_zz_log.sh src/common-utils/bins/_zz_logs.sh` |
+| `zz_logs.sh: No such file`     | `install.sh` line 9 typo: `zz_logs` vs `zz_log`   | `ln -sf src/common-utils/bin/zz_log.sh src/common-utils/bin/zz_logs.sh` |
 | `prettier-plugin-sh not found` | Plugin not installed                              | `npm install prettier-plugin-sh`                                    |
-| `Permission denied` on scripts | Shell scripts not executable                      | `find src/common-utils/bins/ -type f -name "_*.sh" -exec chmod +x {} \;` |
+| `Permission denied` on scripts | Shell scripts not executable                      | `find src/common-utils/bin/ -type f -name "*.sh" -exec chmod +x {} \;` |
 | `No writeable directory found` | Local run outside container                       | Normal — features are designed for devcontainer environments        |
 
 ## Testing Changes

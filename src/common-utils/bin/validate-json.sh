@@ -467,7 +467,7 @@ if [ -n "$local" ] && [ -z "$schema" ]; then
     type=$(basename -s .json $json | sed -E 's/.*\.(.*)/\1/')
 
     if [ "$local" == "true" ]; then
-        local=$(dirname $(dirname $(readlink -f $0)))/configs
+        local=$(dirname $(dirname $(readlink -f $0)))/config
     fi
 
     # Check if schema file exists
@@ -495,7 +495,7 @@ fi
 if [ -n "$fallback" ] && [ -z "$schema" ]; then
 
     if [ "$fallback" == "local" ] && [ -n "$local" ]; then
-        schema=$(dirname $(dirname $(readlink -f $0)))/configs/_default.schema.json
+        schema=$(dirname $(dirname $(readlink -f $0)))/config/_default.schema.json
     elif [ -f "$fallback" ]; then
         schema=$fallback
     else

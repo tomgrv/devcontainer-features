@@ -3,15 +3,15 @@
     "description": "Git hooks and linting configuration for development workflow",
     "version": "7.18.0",
     "bin": {
-        "commit-msg": "bins/_commit-msg.sh",
-        "install-plugins": "bins/_install-plugins.sh",
-        "post-checkout": "bins/_post-checkout.sh",
-        "post-merge": "bins/_post-merge.sh",
-        "pre-commit": "bins/_pre-commit.sh",
-        "pre-push": "bins/_pre-push.sh",
-        "prepare-commit-msg": "bins/_prepare-commit-msg.sh",
-        "sync-versions": "bins/_sync-versions.sh",
-        "update-version": "bins/_update-version.sh"
+        "commit-msg": "bin/commit-msg.sh",
+        "install-plugins": "bin/install-plugins.sh",
+        "post-checkout": "bin/post-checkout.sh",
+        "post-merge": "bin/post-merge.sh",
+        "pre-commit": "bin/pre-commit.sh",
+        "pre-push": "bin/pre-push.sh",
+        "prepare-commit-msg": "bin/prepare-commit-msg.sh",
+        "sync-versions": "bin/sync-versions.sh",
+        "update-version": "bin/update-version.sh"
     },
     "dependencies": {
         "@commitlint/cli": "*",
@@ -26,7 +26,7 @@
         "prettier-plugin-sh": "*"
     },
     "files": [
-        "bins/*.sh",
+        "bin/*.sh",
         "configure-*.sh",
         "install.sh",
         "stubs/**/*"
