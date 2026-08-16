@@ -23,8 +23,14 @@ else
     zz_log w "No stubs found in {U $source}"
 fi
 
+# Copy configs to the target directory
+if [ -d $source/configs ]; then
+    zz_log i "Copying configs to {U $target}..."
+    cp -a $source/configs $target
+fi
+
 # Install specific utils by copying them to the target directory and making them executable
-find $source \( -name "_*" -o -name "configure-*.sh" -o -path "stubs" \) -type f -exec cp {} $target \;
+find $source \( -name "_*" -o -name "configure-*.sh" \) -not -path "$source/stubs/*" -not -path "$source/configs/*" -type f -exec cp {} $target \;
 find $target -type f -name "*.sh" -exec chmod +x {} \;
 
 # Call all the install-xxx scripts in the feature directory

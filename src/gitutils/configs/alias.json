@@ -35,13 +35,13 @@
         "cmd": "git flow feature start $1",
         "help": "Start a new git flow feature branch."
     },
-    "fixable": {
-        "cmd": "git log --oneline $(git rev-parse --abbrev-ref --symbolic-full-name @{u} || git merge-base HEAD develop)..HEAD",
-        "help": "Show commits ahead of upstream."
-    },
     "fixAliases": {
         "cmd": "git config remove-section --global alias; git config remove-section  --local alias",
         "help": "Remove all git aliases from global/local config."
+    },
+    "fixable": {
+        "cmd": "git log --oneline $(git rev-parse --abbrev-ref --symbolic-full-name @{u} || git merge-base HEAD develop)..HEAD",
+        "help": "Show commits ahead of upstream."
     },
     "forceable": {
         "cmd": "git log --oneline $(echo $(git rev-parse --abbrev-ref --symbolic-full-name @{u} || git merge-base HEAD develop;git log --merges --first-parent -1 --pretty=%h)| tail -1)..HEAD $*",

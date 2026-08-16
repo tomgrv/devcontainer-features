@@ -11,8 +11,8 @@ dir=$(dirname $(readlink -f $0))
 
 ### Link to utils, retrieve name after _zz_ / before .sh and create a symlink
 find $dir -type f -name "_zz_*.sh" -exec basename {} \; | sed 's/_zz_\(.*\)\.sh/\1/' | while read util; do
-    chmod +x $dir/_zz_${util}.sh
-    ln -sf $dir/_zz_${util}.sh $dir/zz_${util}
+    chmod +x $dir/bins/_zz_${util}.sh
+    ln -sf $dir/bins/_zz_${util}.sh $dir/zz_${util}
 done
 export PATH=$dir:$PATH
 
@@ -38,5 +38,5 @@ for bin in $UTILS; do
 done >&2
 
 ### Run Installers
-$dir/_install-feature.sh -s $dir
-$dir/_install-bin.sh -s $dir
+$dir/bins/_install-feature.sh -s $dir
+$dir/bins/_install-bin.sh -s $dir

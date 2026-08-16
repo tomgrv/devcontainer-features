@@ -3,11 +3,11 @@
     "description": "Nektos Act - GitHub Actions local runner integration",
     "version": "7.18.0",
     "bin": {
-        "act-reset": "_act-reset.sh",
-        "act-run": "_act-run.sh"
+        "act-reset": "bins/_act-reset.sh",
+        "act-run": "bins/_act-run.sh"
     },
     "files": [
-        "_*.sh",
+        "bins/*.sh",
         "install.sh",
         "install-act.sh",
         "stubs/**/*"

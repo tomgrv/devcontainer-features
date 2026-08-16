@@ -3,25 +3,24 @@
     "description": "Laravel development settings and utilities",
     "version": "7.18.0",
     "bin": {
-        "art": "_art.sh",
-        "dep": "_dep.sh",
-        "fwd": "_fwd.sh",
-        "run": "_run.sh",
-        "sail": "_sail.sh",
-        "sail-running": "_sail-running.sh",
-        "secret": "_secret.sh",
-        "seed": "_seed.sh",
-        "serve": "_serve.sh",
-        "smee": "_smee.sh",
-        "srv": "_srv.sh"
+        "art": "bins/_art.sh",
+        "dep": "bins/_dep.sh",
+        "fwd": "bins/_fwd.sh",
+        "run": "bins/_run.sh",
+        "sail": "bins/_sail.sh",
+        "sail-running": "bins/_sail-running.sh",
+        "secret": "bins/_secret.sh",
+        "seed": "bins/_seed.sh",
+        "serve": "bins/_serve.sh",
+        "smee": "bins/_smee.sh",
+        "srv": "bins/_srv.sh"
     },
     "dependencies": {
         "npm-check-updates": "*"
     },
     "files": [
-        "_*.sh",
-        "_*.json",
-        "_*.composer.json",
+        "bins/*.sh",
+        "configs/**/*",
         "configure-*.sh",
         "install.sh",
         "install-*.sh",

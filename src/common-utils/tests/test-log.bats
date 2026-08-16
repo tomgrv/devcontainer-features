@@ -91,7 +91,7 @@ teardown() {
 # instead of relying on the test runner's /bin/sh (dash on CI, which would
 # mask the bug this regression is meant to catch).
 @test "escape expansion holds under bash's non-XSI echo (regression)" {
-    run bash "$REPO_ROOT/src/common-utils/_zz_log.sh" i "hello"
+    run bash "$REPO_ROOT/src/common-utils/bins/_zz_log.sh" i "hello"
     [[ "$output" == *$'\x1b['* ]]
     [[ "$output" != *'\033'* ]]
 }

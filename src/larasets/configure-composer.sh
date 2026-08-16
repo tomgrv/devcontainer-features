@@ -11,10 +11,10 @@ if [ -f "./composer.json" ]; then
 
     zz_log i "Make sure common dependencies are declared"
     
-    jq '.dependencies | .[]' ${source:-.}/_composer.require.json | xargs -I {} composer require --no-dev $opts {}
+    jq '.dependencies | .[]' ${source:-.}/configs/_composer.require.json | xargs -I {} composer require --no-dev $opts {}
 
-    jq '.devDependencies| .[]' ${source:-.}/_composer.require.json | xargs -I {} composer require --dev $opts {}
+    jq '.devDependencies| .[]' ${source:-.}/configs/_composer.require.json | xargs -I {} composer require --dev $opts {}
 
-    jq '.globalDependencies| .[]' ${source:-.}/_composer.require.json | xargs -I {} composer global require $opts {}
+    jq '.globalDependencies| .[]' ${source:-.}/configs/_composer.require.json | xargs -I {} composer global require $opts {}
 
 fi

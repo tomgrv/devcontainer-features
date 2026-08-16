@@ -37,13 +37,25 @@ if [ -d $source/stubs ]; then
 
     zz_log i "Deploying stubs..."
 
-    find $source/stubs -type f -name ".*" -o -type f | while read file; do
+    find $source/stubs -type f -name ".*" -o -type f | sort | while read file; do
 
         # Get the relative of the path
         folder=$(dirname ${file#$source/stubs/})
 
+        # Get the destination file basename. A basename starting with "_" marks
+        # a qualifier segment (the part up to the first ".") to be stripped, so
+        # several distinctly-named fragments (_foo.package.json, _bar.package.json)
+        # can all resolve to and accumulate into the same target (package.json).
+        base=$(basename $file | sed 's/\.\./\./g')
+        case "$base" in
+        _*)
+            base=${base#_}
+            base=${base#*.}
+            ;;
+        esac
+
         # Get the destination file path
-        dest=$folder/$(basename $file | sed 's/\.\./\./g')
+        dest=$folder/$base
 
         # Create the folder if it does not exist
         mkdir -p $folder
@@ -65,14 +77,14 @@ if [ -d $source/stubs ]; then
         if [ -f $dest ]; then
 
             # if json file, use merge-json to merge the file
-            if [ "$(basename $file | cut -d. -f2)" = "json" ]; then
+            if [ "${dest##*.}" = "json" ]; then
                 zz_log - "Merging {U $file} into {U $dest}..."
                 merge-json -t ${tabSize:-4} $dest $file
             else
                 zz_log - "Using git merge-file to merge {U $file} into {U $dest}..."
                 git merge-file -q $dest $file $file
             fi
-            
+
         else
             zz_log w "Destination file {U $dest} does not exist. Copying {U $file} to {U $dest}..."
             cp $file $dest
@@ -99,37 +111,6 @@ if [ -d $source/stubs ]; then
 
     zz_log s "Done deploying stubs."
 fi
-
-# Log the merging process
-zz_log i "Merge all package folder json files into top level xxx.json"
-
-for type in package composer; do
-
-    # find all package folder json files in the current directory.
-    # Ensure top-level package.json is included
-    for package in $(git ls-files --no-deleted --no-ignored "$type.json"); do
-
-        # Merge all package folder json files into the top-level package.json
-        for tmpl in $(find $source -maxdepth 1 -name _*.$type.json | sort); do
-
-            # Create package.json if it does not exist or is empty
-            if [ ! -f $package -o ! -s $package ]; then
-                # Create an empty package.json
-                echo '{"private": true}' >$package
-            fi
-
-            # Merge the tmpl & add keys if not already there. make sure source json does not contain any comments
-            zz_log - "Merge {U $tmpl} in {U $package}..."
-
-            # Remove comments from the source json and merge it with the target package.json
-            merge-json -t ${tabSize:-4} $package $tmpl
-        done
-
-        # Reset the tmpl variable
-        unset tmpl
-
-    done
-done
 
 # if in top level directory, call configure scripts
 if [ "$(pwd)" = "$(git rev-parse --show-toplevel)" ]; then

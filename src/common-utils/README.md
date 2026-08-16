@@ -250,7 +250,7 @@ normalize-json -w -t 4 -f fallback.schema.json -l ./schemas -i -s custom.schema.
 
 #### Lint-staged
 
-You can use the `normalize-json` utility with `lint-staged` to normalize JSON files before committing them. To do this, add the following configuration to your `package.json`(see [githooks feature](../githooks/_lint-staged.package.json)).
+You can use the `normalize-json` utility with `lint-staged` to normalize JSON files before committing them. To do this, add the following configuration to your `package.json`(see [githooks feature](../githooks/stubs/_lint-staged.package.json)).
 
 ```json
 "lint-staged": {

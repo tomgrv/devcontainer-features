@@ -4,7 +4,7 @@
     "version": "7.18.0",
     "dependencies": {},
     "files": [
-        "_*.sh",
+        "bins/*.sh",
         "install.sh",
         "install-tools.sh",
         "_scripts.package.json",

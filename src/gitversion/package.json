@@ -10,10 +10,9 @@
     },
     "dependencies": {},
     "files": [
-        "_*.sh",
+        "bins/*.sh",
         "install.sh",
         "install-tools.sh",
-        "_scripts.package.json",
         "stubs/**/*"
     ],
     "peerDependencies": {

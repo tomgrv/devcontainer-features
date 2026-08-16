@@ -25,15 +25,15 @@ zz_log i "Installing skills in {Purple ${scope:-project}} scope..."
 
 ### For each entry in config.json file next to this file, create corresponding git config from key and value.
 ### if value is an object, parse it as json and create dotted keys
-if [ -f "$source/skills.json" ]; then
+if [ -f "$source/configs/skills.json" ]; then
     
-    zz_log i "Configuring skills with {U $source/skills.json}..."
+    zz_log i "Configuring skills with {U $source/configs/skills.json}..."
 
     # get master agent list from skills.json
-    master_agents=$(jq -r '.agents // [] | join(",")' "$source/skills.json")
+    master_agents=$(jq -r '.agents // [] | join(",")' "$source/configs/skills.json")
 
     # list all skills in skills.json as "skill global"
-    for entry in $(jq -r '.skills[] | "\(.package);\(.global);\(.agents // [] | join(","))"' "$source/skills.json"); do
+    for entry in $(jq -r '.skills[] | "\(.package);\(.global);\(.agents // [] | join(","))"' "$source/configs/skills.json"); do
         
         # Extract package, global, and sub_agents from the entry
         package=$(echo "$entry" | cut -d';' -f1)
