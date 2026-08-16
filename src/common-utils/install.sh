@@ -39,4 +39,3 @@ done >&2
 
 ### Run Installers
 $dir/bin/zz_feature.sh -i -s $dir
-$dir/bin/install-bin.sh -s $dir

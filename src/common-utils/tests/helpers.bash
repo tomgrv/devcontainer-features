@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Shared bats setup for common-utils tests: links src/common-utils/bin/*.sh
-# onto PATH under their public command names, the same way install-bin does.
+# onto PATH under their public command names, the same way zz_feature -i does.
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
 

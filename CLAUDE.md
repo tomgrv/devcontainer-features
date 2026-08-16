@@ -46,7 +46,7 @@ src/<feature>/
   config/                      # optional: data files a script reads at runtime
                                 # (JSON Schemas, alias/config maps, dependency manifests)
                                 # — never deployed to consumers, never merged
-  bin/                         # optional: scripts installed onto PATH by install-bin
+  bin/                         # optional: scripts installed onto PATH by zz_feature -i
                                 # (no leading underscore — directory location alone marks
                                 # a file as a PATH script, unlike stubs/'s qualifier convention)
   tests/                       # optional: *.bats + helpers.bash, run via `bats src/<feature>/tests/`

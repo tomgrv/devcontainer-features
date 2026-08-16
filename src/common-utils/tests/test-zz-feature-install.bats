@@ -28,6 +28,30 @@ teardown() {
     [ -x "$target_dir/bin/mycmd.sh" ]
 }
 
+@test "install mode symlinks bin/ scripts onto a writable PATH directory (formerly install-bin)" {
+    printf '#!/bin/sh\necho hi\n' >"$source_dir/bin/mycmd.sh"
+    chmod +x "$source_dir/bin/mycmd.sh"
+    link_dir="$work/systembin"
+    mkdir -p "$link_dir"
+
+    INSTALL_BIN_DIR="$link_dir" zz_feature -i -s "$source_dir" -t "$target_dir"
+
+    [ -L "$link_dir/mycmd" ]
+    [ "$(readlink "$link_dir/mycmd")" = "$target_dir/bin/mycmd.sh" ]
+    [ "$("$link_dir/mycmd")" = "hi" ]
+}
+
+@test "install mode with no bin/ directory installs cleanly without error" {
+    rmdir "$source_dir/bin"
+    link_dir="$work/systembin"
+    mkdir -p "$link_dir"
+
+    run env INSTALL_BIN_DIR="$link_dir" zz_feature -i -s "$source_dir" -t "$target_dir"
+
+    [ "$status" -eq 0 ]
+    [ ! -d "$target_dir/bin" ]
+}
+
 @test "install mode runs root install-*.sh scripts" {
     cat >"$source_dir/install-marker.sh" <<EOF
 #!/bin/sh

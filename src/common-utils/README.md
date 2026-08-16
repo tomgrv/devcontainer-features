@@ -72,8 +72,8 @@ The feature also includes the following VS Code customizations:
 
 ## Install internals
 
-- `install-bin.sh` installs links for common-utils scripts in a writable bin directory.
-- `install-bin.sh` resolves the writable bin directory with this fallback order:
+- `zz_feature -i` installs links for a feature's `bin/` scripts in a writable bin directory.
+- It resolves the writable bin directory with this fallback order:
     1. `INSTALL_BIN_DIR` (or `/usr/local/bin` by default)
     2. `~/.local/bin`
     3. First writable directory found in `$PATH` (excluding `node_modules/.bin`)

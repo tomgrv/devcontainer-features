@@ -3,7 +3,6 @@
     "description": "Common utilities and helper scripts for devcontainer features",
     "version": "7.18.0",
     "bin": {
-        "install-bin": "bin/install-bin.sh",
         "normalize-json": "bin/normalize-json.sh",
         "validate-json": "bin/validate-json.sh",
         "zz_args": "bin/zz_args.sh",
