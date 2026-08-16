@@ -3,9 +3,7 @@
     "description": "Common utilities and helper scripts for devcontainer features",
     "version": "7.18.0",
     "bin": {
-        "configure-feature": "bin/configure-feature.sh",
         "install-bin": "bin/install-bin.sh",
-        "install-feature": "bin/install-feature.sh",
         "normalize-json": "bin/normalize-json.sh",
         "validate-json": "bin/validate-json.sh",
         "zz_args": "bin/zz_args.sh",
@@ -15,6 +13,7 @@
         "zz_dispatch": "bin/zz_dispatch.sh",
         "zz_dist": "bin/zz_dist.sh",
         "zz_edit": "bin/zz_edit.sh",
+        "zz_feature": "bin/zz_feature.sh",
         "zz_input": "bin/zz_input.sh",
         "zz_json": "bin/zz_json.sh",
         "zz_log": "bin/zz_log.sh",
@@ -31,6 +30,6 @@
     ],
     "scripts": {
         "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then sh ./install.sh; fi",
-        "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then configure-feature -s . common-utils; fi"
+        "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then zz_feature -c -s . common-utils; fi"
     }
 }

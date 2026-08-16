@@ -38,5 +38,5 @@ for bin in $UTILS; do
 done >&2
 
 ### Run Installers
-$dir/bin/install-feature.sh -s $dir
+$dir/bin/zz_feature.sh -i -s $dir
 $dir/bin/install-bin.sh -s $dir

@@ -18,6 +18,6 @@
         }
     },
     "postCreateCommand": {
-        "config": "configure-feature ai-coding"
+        "config": "zz_feature -c ai-coding"
     }
 }

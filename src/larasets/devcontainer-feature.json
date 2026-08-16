@@ -59,6 +59,6 @@
         }
     },
     "postCreateCommand": {
-        "config": "configure-feature larasets"
+        "config": "zz_feature -c larasets"
     }
 }

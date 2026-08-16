@@ -38,6 +38,6 @@
         }
     },
     "postCreateCommand": {
-        "config": "configure-feature githooks"
+        "config": "zz_feature -c githooks"
     }
 }

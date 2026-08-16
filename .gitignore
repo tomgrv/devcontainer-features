@@ -20,6 +20,6 @@ VERSION
 .version.json
 .mono
 .toolkit
-bin
-obj
+/bin
+/obj
 ./.gitattributes

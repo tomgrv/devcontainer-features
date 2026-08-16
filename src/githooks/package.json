@@ -47,6 +47,6 @@
         "configure-cz": "./configure-cz.sh",
         "configure-hooks": "./configure-hooks.sh",
         "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then sh ./install.sh; fi",
-        "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then configure-feature -s . githooks; fi"
+        "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then zz_feature -c -s . githooks; fi"
     }
 }

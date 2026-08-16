@@ -52,6 +52,6 @@
     },
     "scripts": {
         "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then sh ./install.sh; fi",
-        "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then configure-feature -s . gitutils; fi"
+        "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then zz_feature -c -s . gitutils; fi"
     }
 }
