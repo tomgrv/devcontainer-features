@@ -1,7 +1,14 @@
 {
     "name": "@tomgrv/devcontainer-features-gitversion",
-    "version": "7.17.0",
     "description": "GitVersion integration and version management scripts",
+    "version": "7.18.0",
+    "bin": {
+        "bump-changelog": "_bump-changelog.sh",
+        "bump-tag": "_bump-tag.sh",
+        "bump-version": "_bump-version.sh",
+        "gv": "_gv.sh"
+    },
+    "dependencies": {},
     "files": [
         "_*.sh",
         "install.sh",
@@ -9,17 +16,6 @@
         "_scripts.package.json",
         "stubs/**/*"
     ],
-    "bin": {
-        "bump-changelog": "_bump-changelog.sh",
-        "bump-tag": "_bump-tag.sh",
-        "bump-version": "_bump-version.sh",
-        "gv": "_gv.sh"
-    },
-    "scripts": {
-        "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then sh ./install.sh; fi",
-        "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then configure-feature -s . gitversion; fi"
-    },
-    "dependencies": {},
     "peerDependencies": {
         "@tomgrv/devcontainer-features-common-utils": "*"
     },
@@ -27,5 +23,9 @@
         "@tomgrv/devcontainer-features-common-utils": {
             "optional": true
         }
+    },
+    "scripts": {
+        "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then sh ./install.sh; fi",
+        "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then configure-feature -s . gitversion; fi"
     }
 }

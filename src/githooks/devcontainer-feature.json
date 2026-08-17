@@ -1,4 +1,19 @@
 {
+    "id": "githooks",
+    "name": "Git Hooks",
+    "description": "A feature to add useful Git hooks to your project",
+    "version": "7.18.0",
+    "dependsOn": {
+        "ghcr.io/devcontainers/features/node:1": {
+            "version": "lts"
+        },
+        "ghcr.io/tomgrv/devcontainer-features/gitutils:7": {}
+    },
+    "installsAfter": [
+        "ghcr.io/tomgrv/devcontainer-features/common-utils",
+        "ghcr.io/tomgrv/devcontainer-features/gitversion",
+        "ghcr.io/tomgrv/devcontainer-features/gitutils"
+    ],
     "customizations": {
         "vscode": {
             "extensions": [
@@ -22,21 +37,6 @@
             }
         }
     },
-    "description": "A feature to add useful Git hooks to your project",
-    "id": "githooks",
-    "installsAfter": [
-        "ghcr.io/tomgrv/devcontainer-features/common-utils",
-        "ghcr.io/tomgrv/devcontainer-features/gitversion",
-        "ghcr.io/tomgrv/devcontainer-features/gitutils"
-    ],
-    "dependsOn": {
-        "ghcr.io/devcontainers/features/node:1": {
-            "version": "lts"
-        },
-        "ghcr.io/tomgrv/devcontainer-features/gitutils:7": {}
-    },
-    "name": "Git Hooks",
-    "version": "7.17.0",
     "postCreateCommand": {
         "config": "configure-feature githooks"
     }

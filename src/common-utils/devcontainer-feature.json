@@ -1,4 +1,14 @@
 {
+    "id": "common-utils",
+    "name": "Common Utils",
+    "description": "Common utils for tomgrv/devcontainer-features",
+    "version": "7.18.0",
+    "dependsOn": {
+        "ghcr.io/devcontainers/features/common-utils": {}
+    },
+    "installsAfter": [
+        "ghcr.io/devcontainers/features/common-utils"
+    ],
     "customizations": {
         "vscode": {
             "extensions": [
@@ -34,15 +44,6 @@
             }
         }
     },
-    "description": "Common utils for tomgrv/devcontainer-features",
-    "id": "common-utils",
-    "installsAfter": [
-        "ghcr.io/devcontainers/features/common-utils"
-    ],
-    "dependsOn": {
-        "ghcr.io/devcontainers/features/common-utils": {}
-    },
-    "name": "Common Utils",
     "options": {
         "utils": {
             "default": "jq dos2unix shellcheck",
@@ -50,7 +51,6 @@
             "type": "string"
         }
     },
-    "version": "7.17.0",
     "postCreateCommand": {
         "config": "configure-feature common-utils"
     }

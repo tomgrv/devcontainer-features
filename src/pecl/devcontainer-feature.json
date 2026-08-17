@@ -1,23 +1,23 @@
 {
-    "description": "Add pecl",
     "id": "pecl",
-    "installsAfter": [
-        "ghcr.io/devcontainers/features/common-utils",
-        "ghcr.io/devcontainers/features/php"
-    ],
+    "name": "PECL Install feature",
+    "description": "Add pecl",
+    "version": "7.18.0",
     "dependsOn": {
         "ghcr.io/devcontainers/features/common-utils": {},
         "ghcr.io/devcontainers/features/php:1": {
             "version": "8.2"
         }
     },
-    "name": "PECL Install feature",
+    "installsAfter": [
+        "ghcr.io/devcontainers/features/common-utils",
+        "ghcr.io/devcontainers/features/php"
+    ],
     "options": {
         "extension": {
             "default": "zip",
             "description": "The extension to install",
             "type": "string"
         }
-    },
-    "version": "7.17.0"
+    }
 }

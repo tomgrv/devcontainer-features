@@ -1,16 +1,7 @@
 {
     "name": "@tomgrv/devcontainer-features-larasets",
-    "version": "7.17.0",
     "description": "Laravel development settings and utilities",
-    "files": [
-        "_*.sh",
-        "_*.json",
-        "_*.composer.json",
-        "configure-*.sh",
-        "install.sh",
-        "install-*.sh",
-        "stubs/**/*"
-    ],
+    "version": "7.18.0",
     "bin": {
         "art": "_art.sh",
         "dep": "_dep.sh",
@@ -24,6 +15,26 @@
         "smee": "_smee.sh",
         "srv": "_srv.sh"
     },
+    "dependencies": {
+        "npm-check-updates": "*"
+    },
+    "files": [
+        "_*.sh",
+        "_*.json",
+        "_*.composer.json",
+        "configure-*.sh",
+        "install.sh",
+        "install-*.sh",
+        "stubs/**/*"
+    ],
+    "peerDependencies": {
+        "@tomgrv/devcontainer-features-common-utils": "*"
+    },
+    "peerDependenciesMeta": {
+        "@tomgrv/devcontainer-features-common-utils": {
+            "optional": true
+        }
+    },
     "scripts": {
         "configure-composer": "./configure-composer.sh",
         "configure-deployer": "./configure-deployer.sh",
@@ -33,16 +44,5 @@
         "test": "echo \"Warning: no test specified\"",
         "update": "npm-check-updates -i -u",
         "update-all": "npm run update -ws --root"
-    },
-    "dependencies": {
-        "npm-check-updates": "*"
-    },
-    "peerDependencies": {
-        "@tomgrv/devcontainer-features-common-utils": "*"
-    },
-    "peerDependenciesMeta": {
-        "@tomgrv/devcontainer-features-common-utils": {
-            "optional": true
-        }
     }
 }

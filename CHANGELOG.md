@@ -2,6 +2,57 @@
 
 # Changelog
 
+## 7.18.0 (2026-08-17)
+
+_Commits from: v7.17.0..HEAD_
+
+### 📂 Unscoped changes
+
+#### Bug Fixes
+
+- 🐛 pin docker-in-docker moby:false, revert installsAfter version pin (#125) ([bb79924](https://github.com/tomgrv/devcontainer-features/commit/bb799244838e44313ecb68766702f76c86d08ff0))
+- 🐛 remove redundant install script from package.json ([eb6fe95](https://github.com/tomgrv/devcontainer-features/commit/eb6fe9539ac074197aff506d6e5c00c211515c2d))
+- 🐛 update hooks configuration to use lint-staged precommit script ([ba70818](https://github.com/tomgrv/devcontainer-features/commit/ba70818bc04311e6c614eb58ab56abebc08bc840))
+
+#### Features
+
+- ✨ add setup.sh for single curl-command install (#120) ([3e58ac3](https://github.com/tomgrv/devcontainer-features/commit/3e58ac33b1abe1bda654f859bb03d1609d93cfaa))
+
+#### Other changes
+
+- Merge tag 'v7.17.0' into develop ([193b49d](https://github.com/tomgrv/devcontainer-features/commit/193b49dee0db7c6df6173f23a2dd2b7af1967180))
+- ♻️ 👷 merge check-pr-source-branch into validate-pr-format (#121) ([c5a9f86](https://github.com/tomgrv/devcontainer-features/commit/c5a9f86dd91db8f3268c48e6d2e9d884528fec6c))
+- 🔧 rename test workflows to test-&lt;scope&gt;.yaml convention (#124) ([1253b61](https://github.com/tomgrv/devcontainer-features/commit/1253b61a8f38dd7803c5f53d48fff513c4bc1fae))
+
+### 📦 devcontainer-features-common-utils changes
+
+#### Bug Fixes
+
+- 🐛 route zz_context messages through zz_log (#122) ([f7e3822](https://github.com/tomgrv/devcontainer-features/commit/f7e38226b8ba68847bba36e897947909fc827fc9))
+
+### 📦 devcontainer-features-gateway changes
+
+#### Bug Fixes
+
+- 🐛 handle -0/-O params in curl wrapper (#118) ([19b39ae](https://github.com/tomgrv/devcontainer-features/commit/19b39aee5ef51c93da7a0041f282ad6e9157dc4c))
+- 🐛 recognize non-alnum-led flag clusters like -#0O (#119) ([3e518b0](https://github.com/tomgrv/devcontainer-features/commit/3e518b0b0b70699bc84ca88285ef6bcfa0ab0151))
+
+#### Features
+
+- ✨ make gateway available during OCI image build (#123) ([2572800](https://github.com/tomgrv/devcontainer-features/commit/25728002f13e65f31da13da499f97619ea0375b0))
+
+### 📦 devcontainer-features-githooks changes
+
+#### Bug Fixes
+
+- 🐛 stop lockfile check from running lifecycle scripts (#126) ([22e9991](https://github.com/tomgrv/devcontainer-features/commit/22e99915c428175d4010c4d3149cfd37f6ca9647))
+
+### 📦 devcontainer-features-larasets changes
+
+#### Features
+
+- ✨ enable Blade formatting in Pint lint script (#127) ([bdffd91](https://github.com/tomgrv/devcontainer-features/commit/bdffd91efd27be6066fd1639b89ad700e456d9e6))
+
 ## 7.17.0 (2026-08-14)
 
 _Commits from: v7.16.0..HEAD_
@@ -1694,4 +1745,4 @@ _Commits from: v5.25.0..HEAD_
 
 ---
 
-_Generated on 2026-08-14 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
+_Generated on 2026-08-17 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
