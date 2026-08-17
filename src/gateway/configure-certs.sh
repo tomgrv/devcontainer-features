@@ -4,8 +4,18 @@
 #
 # Certificates (*.pem) are looked up in the first existing location among:
 #   1. $GATEWAY_CERTS_DIR                (explicit override)
-#   2. /usr/local/share/gateway/certs    (bind-mounted by the feature at container runtime)
-#   3. ./.devcontainer/.gateway/certs    (repository folder, when run on the host)
+#   2. /usr/local/share/gateway/certs    (optional dedicated bind mount, see below)
+#   3. ./.devcontainer/.gateway/certs    (repository folder — covers both host use and
+#                                         postCreateCommand, since it runs with cwd set
+#                                         to the workspace folder, already reachable
+#                                         through the workspace's own standard mount)
+#
+# The dedicated mount at #2 is declared in the stub devcontainer.json (not in this
+# feature's own devcontainer-feature.json), so it's opt-in and freely editable per
+# project — useful for non-standard workspace layouts, but not required, and it's the
+# one thing to remove if it fails to resolve in a nested/docker-outside-of-docker setup
+# (its ${localWorkspaceFolder} source needs to be a path the Docker daemon itself can
+# see, which isn't guaranteed when it's reached through a mounted docker.sock).
 #
 # Missing certificates are not an error: the feature stays dormant until the
 # user drops the gateway root CA in place and re-runs 'configure-feature gateway'.
@@ -41,29 +51,16 @@ if ! command -v update-ca-certificates >/dev/null 2>&1; then
     exit 0
 fi
 
-installed=0
-for pem in "$certs_dir"/*.pem; do
-    if ! grep -q "BEGIN CERTIFICATE" "$pem" 2>/dev/null; then
-        zz_log w "Skipping {U $pem}: not a PEM certificate"
-        continue
-    fi
+core="$(dirname "$0")/stubs/.devcontainer/.gateway/_install-certs-core.sh"
+if [ ! -f "$core" ]; then
+    zz_log e "Core script not found at {U $core}"
+    exit 1
+fi
 
-    crt="/usr/local/share/ca-certificates/$(basename "$pem" .pem).crt"
-    if [ -f "$crt" ] && cmp -s "$pem" "$crt"; then
-        zz_log i "Certificate {U $crt} already installed"
-        continue
-    fi
-
-    zz_log i "Installing {U $pem} as {U $crt}"
-    if ! $asroot cp "$pem" "$crt" 2>/dev/null; then
-        zz_log w "Cannot install {U $pem} (insufficient privileges)"
-        zz_log - "Re-run as root or ensure sudo is available"
-        exit 0
-    fi
-    installed=1
-done
-
-if [ "$installed" = "1" ]; then
-    $asroot update-ca-certificates >/dev/null
-    zz_log s "Gateway root CA installed in the system trust store"
+zz_log i "Installing certificate(s) from {U $certs_dir}..."
+if $asroot sh "$core" "$certs_dir"; then
+    zz_log s "Gateway root CA trust store up to date from {U $certs_dir}"
+else
+    zz_log w "Cannot install certificate(s) from {U $certs_dir} (insufficient privileges)"
+    zz_log - "Re-run as root or ensure sudo is available"
 fi

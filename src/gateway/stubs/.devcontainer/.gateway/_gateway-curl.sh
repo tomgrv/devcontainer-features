@@ -248,9 +248,10 @@ main() {
         fi
     fi
 
-    local temp_file rc http_code
+    local temp_file peek_file rc http_code
     temp_file=$(mktemp "${TMPDIR:-/tmp}/gateway-curl.XXXXXX") || exit 1
-    trap 'rm -f "$temp_file"' EXIT
+    peek_file=$(mktemp "${TMPDIR:-/tmp}/gateway-curl.peek.XXXXXX") || exit 1
+    trap 'rm -f "$temp_file" "$peek_file"' EXIT
 
     # Probe request: capture the body so a gateway form can be detected
     local probe_extra=()
@@ -261,6 +262,21 @@ main() {
         -o "$temp_file" -w '%{http_code}' \
         "${probe_extra[@]}" "${probe_args[@]}" "$url")
     rc=$?
+
+    # Some gateways intercept via an inline form in the body (caught above);
+    # others answer with a genuine redirect to the form instead. If the probe
+    # didn't already follow redirects (no -L/-L-implying flag from the
+    # caller) and came back as one, peek at where it leads before giving up —
+    # purely to detect a gateway form, without changing what gets delivered
+    # if it turns out to be an unrelated, legitimate redirect.
+    if [ $rc -eq 0 ] && ! is_gateway_form "$temp_file" && [ "${http_code:-0}" -ge 300 ] 2>/dev/null && [ "${http_code:-0}" -lt 400 ] 2>/dev/null; then
+        log "Redirect ($http_code) without an inline form, checking where it leads..."
+        if "$CURL_CMD" -s --location-trusted -c "$COOKIE_FILE" -b "$COOKIE_FILE" \
+            "${probe_extra[@]}" "${probe_args[@]}" -o "$peek_file" "$url" \
+            && is_gateway_form "$peek_file"; then
+            temp_file="$peek_file"
+        fi
+    fi
 
     if [ $rc -eq 0 ] && is_gateway_form "$temp_file"; then
         log "Gateway interception detected, processing..."
