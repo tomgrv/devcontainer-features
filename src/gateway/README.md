@@ -10,7 +10,7 @@ SSL inspection tools act as a man-in-the-middle TLS proxy and replace server cer
 
 ## What this feature does
 
-- Installs the SSL inspection root CA certificate(s) found in `.devcontainer/.gateway/certs/*.pem` into the container system trust store (at build time via the provided Dockerfile stub, and at create time via a bind mount + `postCreateCommand`).
+- Installs the SSL inspection root CA certificate(s) found in `.devcontainer/.gateway/certs/*.pem` into the container system trust store (at build time via the provided Dockerfile stub, and at create time via `postCreateCommand` — reached through the workspace's own standard mount, no dedicated bind mount required).
 - Exposes the system CA bundle path via environment variables consumed by common runtimes and tools (Node.js, Python, Git, curl, Composer).
 - Installs a `gateway-curl` wrapper that transparently handles gateway redirect forms and cookie management, and diverts the system `curl` to it — on by default inside a container, opt-in on a host (see [Options](#options)).
 - Optionally prepares the **host** as well, so the devcontainer can actually be created behind the gateway (see [Host installation](#host-installation--get-ready-for-devcontainer-creation)).
@@ -30,7 +30,9 @@ mkdir -p .devcontainer/.gateway/certs
 cp /path/to/your-root-ca.pem .devcontainer/.gateway/certs/gateway.pem
 ```
 
-> The `certs` folder must exist before the container is created: it is bind-mounted into the container so the certificate can be installed without being baked into the image. The certificate itself is optional — everything degrades gracefully until you supply it.
+> The certificate itself is optional — everything degrades gracefully until you supply it. Certificates are picked up through the workspace's own standard mount, so the `certs` folder doesn't need to exist before the container is created; add it any time and re-run `configure-feature gateway` (or rebuild).
+>
+> The stub `devcontainer.json` deployed by [`add gateway`](#quick-install--console-recommended) additionally declares a dedicated bind mount to a fixed, workspace-layout-independent path — useful for non-standard workspaces, but opt-in and freely editable/removable in your own `devcontainer.json`. If you're running in a nested/docker-outside-of-docker setup and see `bind source path does not exist`, that dedicated mount is the one thing to remove — its `${localWorkspaceFolder}` source needs to be a path the Docker daemon itself can see, which a mounted `docker.sock` doesn't guarantee.
 
 ## Quick Install — console (recommended)
 
@@ -162,10 +164,10 @@ openssl x509 -in .devcontainer/.gateway/certs/gateway.pem -noout -subject -issue
 ```
 
 **Certificate added after the container was created**
-Run `configure-feature gateway` inside the container (or rebuild it) to install the newly mounted certificate.
+Run `configure-feature gateway` inside the container (or rebuild it) to install the newly added certificate.
 
-**Container creation fails on the certs mount**
-The bind-mounted folder `.devcontainer/.gateway/certs` must exist on the host — create it (the installer and stubs do this for you).
+**Container creation fails with `bind source path does not exist` on the certs mount**
+Only relevant if your `devcontainer.json` declares the optional dedicated `certs` bind mount (added by the `add gateway` stub). Either create `.devcontainer/.gateway/certs` on the host before creating the container, or — in a nested/docker-outside-of-docker setup, where `${localWorkspaceFolder}` isn't a path the Docker daemon itself can resolve — remove that `mounts` entry from `devcontainer.json` entirely; certificates are still picked up through the workspace's own standard mount.
 
 **curl wrapper causes issues**
 Call `curl.real` directly to bypass the wrapper, set `replaceCurl` to `false` to keep the system curl untouched, or set `GATEWAY_VERBOSE=1` to see what the wrapper is doing.

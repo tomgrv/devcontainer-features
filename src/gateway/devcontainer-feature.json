@@ -17,13 +17,6 @@
             "utils": "bash ca-certificates curl"
         }
     },
-    "mounts": [
-        {
-            "source": "${localWorkspaceFolder}/.devcontainer/.gateway/certs",
-            "target": "/usr/local/share/gateway/certs",
-            "type": "bind"
-        }
-    ],
     "name": "SSL Inspection Gateway handling",
     "options": {
         "replaceCurl": {
