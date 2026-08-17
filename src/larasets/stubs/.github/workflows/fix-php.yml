@@ -57,6 +57,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           paths: ${{ github.event.inputs.paths }}
+          blade: 'true'
           fix: 'true'
 
       - name: Create or update PR

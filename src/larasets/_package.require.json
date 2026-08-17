@@ -2,7 +2,10 @@
     "dependencies": [],
     "devDependencies": [
         "smee-client",
-        "dotenv-cli"
+        "dotenv-cli",
+        "prettier",
+        "prettier-plugin-blade",
+        "prettier-plugin-tailwindcss"
     ],
     "globalDependencies": []
 }
