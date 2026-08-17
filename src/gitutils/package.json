@@ -1,17 +1,7 @@
 {
     "name": "@tomgrv/devcontainer-features-gitutils",
-    "version": "7.17.0",
     "description": "Git utilities and aliases for development workflow",
-    "files": [
-        "_*.sh",
-        "install.sh",
-        "install-config.sh",
-        "install-gitflow.sh",
-        "configure-gitflow.sh",
-        "alias.json",
-        "config.json",
-        "stubs/**/*"
-    ],
+    "version": "7.18.0",
     "bin": {
         "git-align": "_git-align.sh",
         "git-co": "_git-co.sh",
@@ -38,11 +28,17 @@
         "git-release-prod": "_git-release-prod.sh",
         "git-unset": "_git-unset.sh"
     },
-    "scripts": {
-        "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then sh ./install.sh; fi",
-        "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then configure-feature -s . gitutils; fi"
-    },
     "dependencies": {},
+    "files": [
+        "_*.sh",
+        "install.sh",
+        "install-config.sh",
+        "install-gitflow.sh",
+        "configure-gitflow.sh",
+        "alias.json",
+        "config.json",
+        "stubs/**/*"
+    ],
     "peerDependencies": {
         "@tomgrv/devcontainer-features-common-utils": "*",
         "@tomgrv/devcontainer-features-gitversion": "*"
@@ -54,5 +50,9 @@
         "@tomgrv/devcontainer-features-gitversion": {
             "optional": true
         }
+    },
+    "scripts": {
+        "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then sh ./install.sh; fi",
+        "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then configure-feature -s . gitutils; fi"
     }
 }

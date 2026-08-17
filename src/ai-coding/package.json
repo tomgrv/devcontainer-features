@@ -1,12 +1,11 @@
 {
     "name": "@tomgrv/devcontainer-features-ai-coding",
-    "version": "7.17.0",
     "description": "Agent-agnostic AI coding skills plus the Claude Code GitHub Action",
+    "version": "7.18.0",
     "files": [
         "install.sh",
         "stubs/**/*"
     ],
-    "scripts": {},
     "peerDependencies": {
         "@tomgrv/devcontainer-features-common-utils": "*"
     },
@@ -14,5 +13,6 @@
         "@tomgrv/devcontainer-features-common-utils": {
             "optional": true
         }
-    }
+    },
+    "scripts": {}
 }
