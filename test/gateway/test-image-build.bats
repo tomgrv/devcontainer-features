@@ -44,6 +44,18 @@ teardown() {
     [ "$status" -eq 0 ]
 }
 
+@test "image build sets CA env vars for tools that ignore the OS trust store" {
+    make_test_ca "$CERTS_DIR" gateway gateway-test-root-ca
+    run docker build --tag "$IMG_WITH_CA" --file "$STUB_DIR/Dockerfile" "$STUB_DIR"
+    [ "$status" -eq 0 ]
+
+    for var in NODE_EXTRA_CA_CERTS CURL_CA_BUNDLE SSL_CERT_FILE REQUESTS_CA_BUNDLE GIT_SSL_CAINFO COMPOSER_CA_FILE; do
+        run docker run --rm "$IMG_WITH_CA" sh -c "echo \"\$$var\""
+        [ "$status" -eq 0 ]
+        [ "$output" = "/etc/ssl/certs/ca-certificates.crt" ]
+    done
+}
+
 @test "image build degrades gracefully with no certificate present" {
     run docker build --tag "$IMG_NO_CA" --file "$STUB_DIR/Dockerfile" "$STUB_DIR"
     [ "$status" -eq 0 ]
