@@ -1,4 +1,25 @@
 {
+    "id": "larasets",
+    "name": "Laravel settings",
+    "description": "A feature to add useful laravel settings to your shell.",
+    "version": "7.18.0",
+    "dependsOn": {
+        "ghcr.io/devcontainers/features/docker-in-docker:3": {
+            "moby": false
+        },
+        "ghcr.io/devcontainers/features/node:1": {
+            "version": "lts"
+        },
+        "ghcr.io/devcontainers/features/php:1": {
+            "version": "8.3"
+        },
+        "ghcr.io/metcalfc/devcontainer-features/doppler:0": {},
+        "ghcr.io/tomgrv/devcontainer-features/common-utils:7": {}
+    },
+    "installsAfter": [
+        "ghcr.io/tomgrv/devcontainer-features/common-utils",
+        "ghcr.io/devcontainers/features/docker-in-docker"
+    ],
     "containerEnv": {
         "APP_DEBUG": "true",
         "APP_ENV": "local",
@@ -27,24 +48,9 @@
             ]
         }
     },
-    "description": "A feature to add useful laravel settings to your shell.",
-    "id": "larasets",
-    "installsAfter": [
-        "ghcr.io/tomgrv/devcontainer-features/common-utils",
-        "ghcr.io/devcontainers/features/docker-in-docker"
+    "legacyIds": [
+        "larasets"
     ],
-    "dependsOn": {
-        "ghcr.io/devcontainers/features/docker-in-docker:3": {},
-        "ghcr.io/devcontainers/features/node:1": {
-            "version": "lts"
-        },
-        "ghcr.io/devcontainers/features/php:1": {
-            "version": "8.3"
-        },
-        "ghcr.io/metcalfc/devcontainer-features/doppler:0": {},
-        "ghcr.io/tomgrv/devcontainer-features/common-utils:7": {}
-    },
-    "name": "Laravel settings",
     "options": {
         "doppler": {
             "default": "",
@@ -52,10 +58,6 @@
             "type": "string"
         }
     },
-    "version": "7.17.0",
-    "legacyIds": [
-        "larasets"
-    ],
     "postCreateCommand": {
         "config": "configure-feature larasets"
     }

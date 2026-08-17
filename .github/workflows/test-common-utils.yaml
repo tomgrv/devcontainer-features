@@ -1,6 +1,6 @@
 # @format
 
-name: Check common-utils scripts
+name: Test common-utils scripts
 
 on:
   push:

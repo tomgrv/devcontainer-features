@@ -16,6 +16,8 @@ This feature provides a set of settings and utilities for working with Laravel p
 
 ```sh
 npx tomgrv/devcontainer-features -- add larasets
+# or, without node/npm:
+curl -fsSL https://raw.githubusercontent.com/tomgrv/devcontainer-features/develop/setup.sh | sh -s -- add larasets
 ```
 
 ## Quick Install — npm
@@ -109,7 +111,7 @@ The following utilities are added to root composer:
 
 - `inst` - Install dependencies ignoring platform requirements.
 - `link` - Configure local repositories.
-- `lint` - Run Pint linter on staged files (--dirty by default).
+- `lint` - Run Pint linter on staged files (--dirty by default), including Blade template formatting (`--blade`: Alpine attributes, Livewire `wire:` bindings, Tailwind class sorting).
 - `lock` - Validate and update composer.lock with minimal changes.
 - `req` - Require a package with all dependencies ignoring platform requirements.
 - `reqdev` - Require a development package with all dependencies.

@@ -1,4 +1,16 @@
 {
+    "id": "gateway",
+    "name": "SSL Inspection Gateway handling",
+    "description": "Handling SSL Inspection Gateway while building & using devcontainers",
+    "version": "7.18.0",
+    "dependsOn": {
+        "ghcr.io/tomgrv/devcontainer-features/common-utils:7": {
+            "utils": "bash ca-certificates curl"
+        }
+    },
+    "installsAfter": [
+        "ghcr.io/tomgrv/devcontainer-features/common-utils"
+    ],
     "containerEnv": {
         "COMPOSER_CA_FILE": "/etc/ssl/certs/ca-certificates.crt",
         "CURL_CA_BUNDLE": "/etc/ssl/certs/ca-certificates.crt",
@@ -7,24 +19,6 @@
         "REQUESTS_CA_BUNDLE": "/etc/ssl/certs/ca-certificates.crt",
         "SSL_CERT_FILE": "/etc/ssl/certs/ca-certificates.crt"
     },
-    "description": "Handling SSL Inspection Gateway while building & using devcontainers",
-    "id": "gateway",
-    "installsAfter": [
-        "ghcr.io/tomgrv/devcontainer-features/common-utils"
-    ],
-    "dependsOn": {
-        "ghcr.io/tomgrv/devcontainer-features/common-utils:7": {
-            "utils": "bash ca-certificates curl"
-        }
-    },
-    "mounts": [
-        {
-            "source": "${localWorkspaceFolder}/.devcontainer/.gateway/certs",
-            "target": "/usr/local/share/gateway/certs",
-            "type": "bind"
-        }
-    ],
-    "name": "SSL Inspection Gateway handling",
     "options": {
         "replaceCurl": {
             "default": true,
@@ -32,7 +26,6 @@
             "type": "boolean"
         }
     },
-    "version": "7.17.0",
     "postCreateCommand": {
         "config": "configure-feature gateway"
     }

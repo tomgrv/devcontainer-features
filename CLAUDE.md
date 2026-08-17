@@ -19,6 +19,7 @@ Every tool-specific path is a symlink into `.agents/` (the single source of trut
 - **Prettier**: run `npm install` then `npx prettier --write` on new/edited `.md`/`.yml`/`.json` files before committing.
 - **Commits**: Conventional Commits + devmoji emoji required — e.g. `feat(scope): ✨ description`. Validated by commitlint on `review_requested`.
 - **PR base**: always `develop`, not `main`.
+- **CI workflow naming**: any workflow that runs code tests (bats or otherwise) is named `test-<scope>.yaml` under `.github/workflows/` (e.g. `test-common-utils.yaml`). Non-test workflows (`validate-*`, `check-*` for non-test checks, `manage-*`, `publish-*`, `release-*`, `update-*`) keep their existing prefixes.
 
 ## Feature Pattern
 
@@ -47,6 +48,7 @@ Change only what the task requires. Don't touch `package-lock.json`, `src/githoo
 ## PR Branch Rule
 
 **Default base branch is `develop`, never `main`.** Only open PRs against `main` if:
+
 - Explicitly asked ("create a PR against main")
 - Marked as a hotfix (in commit message or request: `hotfix/...`, `@hotfix`)
 

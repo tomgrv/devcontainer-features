@@ -18,6 +18,8 @@ This feature provides common utilities for the devcontainer features.
 
 ```sh
 npx tomgrv/devcontainer-features -- add common-utils
+# or, without node/npm:
+curl -fsSL https://raw.githubusercontent.com/tomgrv/devcontainer-features/develop/setup.sh | sh -s -- add common-utils
 ```
 
 ## Quick Install — npm

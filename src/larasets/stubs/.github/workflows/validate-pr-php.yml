@@ -33,6 +33,7 @@ jobs:
         uses: tomgrv/actions/check-laravel@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          pint-blade: 'true'
 
       - name: Run FilaCheck
         if: ${{ hashFiles('app/Filament/**') != '' }}

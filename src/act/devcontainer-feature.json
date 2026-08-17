@@ -1,15 +1,18 @@
 {
-    "description": "A tool for running GitHub Actions locally",
     "id": "act",
+    "name": "Nektos Act",
+    "description": "A tool for running GitHub Actions locally",
+    "version": "7.18.0",
+    "dependsOn": {
+        "ghcr.io/devcontainers/features/docker-in-docker:3": {
+            "moby": false
+        },
+        "ghcr.io/tomgrv/devcontainer-features/common-utils:7": {}
+    },
     "installsAfter": [
         "ghcr.io/devcontainers/features/docker-in-docker",
         "ghcr.io/tomgrv/devcontainer-features/common-utils"
     ],
-    "dependsOn": {
-        "ghcr.io/devcontainers/features/docker-in-docker:3": {},
-        "ghcr.io/tomgrv/devcontainer-features/common-utils:7": {}
-    },
-    "name": "Nektos Act",
     "options": {
         "version": {
             "default": "master",
@@ -17,7 +20,6 @@
             "type": "string"
         }
     },
-    "version": "7.17.0",
     "postCreateCommand": {
         "config": "configure-feature act"
     }

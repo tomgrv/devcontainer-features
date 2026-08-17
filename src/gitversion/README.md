@@ -20,6 +20,8 @@ More information about GitVersion can be found on the [GitVersion GitHub page](h
 
 ```sh
 npx tomgrv/devcontainer-features -- add gitversion
+# or, without node/npm:
+curl -fsSL https://raw.githubusercontent.com/tomgrv/devcontainer-features/develop/setup.sh | sh -s -- add gitversion
 ```
 
 ## Quick Install — npm
