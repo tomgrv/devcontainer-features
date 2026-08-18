@@ -1,7 +1,13 @@
 {
     "name": "@tomgrv/devcontainer-features-githooks",
+    "version": "8.0.0",
     "description": "Git hooks and linting configuration for development workflow",
-    "version": "7.18.0",
+    "files": [
+        "bin/*.sh",
+        "configure-*.sh",
+        "install.sh",
+        "stubs/**/*"
+    ],
     "bin": {
         "commit-msg": "bin/commit-msg.sh",
         "install-plugins": "bin/install-plugins.sh",
@@ -12,6 +18,12 @@
         "prepare-commit-msg": "bin/prepare-commit-msg.sh",
         "sync-versions": "bin/sync-versions.sh",
         "update-version": "bin/update-version.sh"
+    },
+    "scripts": {
+        "configure-cz": "./configure-cz.sh",
+        "configure-hooks": "./configure-hooks.sh",
+        "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then zz_feature -i -s .; fi",
+        "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then zz_feature -c -s . githooks; fi"
     },
     "dependencies": {
         "@commitlint/cli": "*",
@@ -25,12 +37,6 @@
         "prettier": "*",
         "prettier-plugin-sh": "*"
     },
-    "files": [
-        "bin/*.sh",
-        "configure-*.sh",
-        "install.sh",
-        "stubs/**/*"
-    ],
     "peerDependencies": {
         "@tomgrv/devcontainer-features-common-utils": "*",
         "@tomgrv/devcontainer-features-gitutils": "*"
@@ -42,11 +48,5 @@
         "@tomgrv/devcontainer-features-gitutils": {
             "optional": true
         }
-    },
-    "scripts": {
-        "configure-cz": "./configure-cz.sh",
-        "configure-hooks": "./configure-hooks.sh",
-        "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then zz_feature -i -s .; fi",
-        "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then zz_feature -c -s . githooks; fi"
     }
 }
