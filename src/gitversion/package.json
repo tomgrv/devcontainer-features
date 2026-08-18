@@ -1,14 +1,7 @@
 {
     "name": "@tomgrv/devcontainer-features-gitversion",
+    "version": "8.0.0",
     "description": "GitVersion integration and version management scripts",
-    "version": "7.18.0",
-    "bin": {
-        "bump-changelog": "bin/bump-changelog.sh",
-        "bump-tag": "bin/bump-tag.sh",
-        "bump-version": "bin/bump-version.sh",
-        "gv": "bin/gv.sh"
-    },
-    "dependencies": {},
     "files": [
         "bin/*.sh",
         "install.sh",
@@ -16,6 +9,17 @@
         "configure-*.sh",
         "stubs/**/*"
     ],
+    "bin": {
+        "bump-changelog": "bin/bump-changelog.sh",
+        "bump-tag": "bin/bump-tag.sh",
+        "bump-version": "bin/bump-version.sh",
+        "gv": "bin/gv.sh"
+    },
+    "scripts": {
+        "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then zz_feature -i -s .; fi",
+        "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then zz_feature -c -s . gitversion; fi"
+    },
+    "dependencies": {},
     "peerDependencies": {
         "@tomgrv/devcontainer-features-common-utils": "*"
     },
@@ -23,9 +27,5 @@
         "@tomgrv/devcontainer-features-common-utils": {
             "optional": true
         }
-    },
-    "scripts": {
-        "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then zz_feature -i -s .; fi",
-        "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then zz_feature -c -s . gitversion; fi"
     }
 }

@@ -1,7 +1,14 @@
 {
     "name": "@tomgrv/devcontainer-features-common-utils",
+    "version": "8.0.0",
     "description": "Common utilities and helper scripts for devcontainer features",
-    "version": "7.18.0",
+    "files": [
+        "bin/*.sh",
+        "config/**/*",
+        "configure-*.sh",
+        "install.sh",
+        "stubs/**/*"
+    ],
     "bin": {
         "normalize-json": "bin/normalize-json.sh",
         "validate-json": "bin/validate-json.sh",
@@ -20,16 +27,9 @@
         "zz_persist": "bin/zz_persist.sh",
         "zz_prompt": "bin/zz_prompt.sh"
     },
-    "dependencies": {},
-    "files": [
-        "bin/*.sh",
-        "config/**/*",
-        "configure-*.sh",
-        "install.sh",
-        "stubs/**/*"
-    ],
     "scripts": {
         "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then zz_feature -i -s .; fi",
         "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then zz_feature -c -s . common-utils; fi"
-    }
+    },
+    "dependencies": {}
 }

@@ -1,7 +1,15 @@
 {
     "name": "@tomgrv/devcontainer-features-gitutils",
+    "version": "8.0.0",
     "description": "Git utilities and aliases for development workflow",
-    "version": "7.18.0",
+    "files": [
+        "bin/*.sh",
+        "install.sh",
+        "install-*.sh",
+        "configure-*.sh",
+        "config/**/*",
+        "stubs/**/*"
+    ],
     "bin": {
         "git-align": "bin/git-align.sh",
         "git-co": "bin/git-co.sh",
@@ -28,15 +36,11 @@
         "git-release-prod": "bin/git-release-prod.sh",
         "git-unset": "bin/git-unset.sh"
     },
+    "scripts": {
+        "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then zz_feature -i -s .; fi",
+        "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then zz_feature -c -s . gitutils; fi"
+    },
     "dependencies": {},
-    "files": [
-        "bin/*.sh",
-        "install.sh",
-        "install-*.sh",
-        "configure-*.sh",
-        "config/**/*",
-        "stubs/**/*"
-    ],
     "peerDependencies": {
         "@tomgrv/devcontainer-features-common-utils": "*",
         "@tomgrv/devcontainer-features-gitversion": "*"
@@ -48,9 +52,5 @@
         "@tomgrv/devcontainer-features-gitversion": {
             "optional": true
         }
-    },
-    "scripts": {
-        "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then zz_feature -i -s .; fi",
-        "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then zz_feature -c -s . gitutils; fi"
     }
 }
