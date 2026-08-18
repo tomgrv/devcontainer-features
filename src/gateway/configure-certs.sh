@@ -51,7 +51,7 @@ if ! command -v update-ca-certificates >/dev/null 2>&1; then
     exit 0
 fi
 
-core="$(dirname "$0")/stubs/.devcontainer/.gateway/_install-certs-core.sh"
+core="$(dirname "$0")/stubs/.devcontainer/.gateway/install-certs-core.sh"
 if [ ! -f "$core" ]; then
     zz_log e "Core script not found at {U $core}"
     exit 1

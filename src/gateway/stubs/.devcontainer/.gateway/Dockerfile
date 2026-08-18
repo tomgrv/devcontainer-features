@@ -28,9 +28,9 @@ RUN chmod +x /tmp/gateway/gateway-curl.sh \
 # itself sets these as containerEnv, but that only takes effect once the
 # container is created — too late for a `RUN npm install` here, or in any
 # feature layer that follows this Dockerfile during the image build.
-ENV COMPOSER_CA_FILE=/usr/local/share/ca-certificates/ca-certificates.crt \
-    CURL_CA_BUNDLE=/usr/local/share/ca-certificates/ca-certificates.crt \
-    GIT_SSL_CAINFO=/usr/local/share/ca-certificates/ca-certificates.crt \
-    NODE_EXTRA_CA_CERTS=/usr/local/share/ca-certificates/ca-certificates.crt \
-    REQUESTS_CA_BUNDLE=/usr/local/share/ca-certificates/ca-certificates.crt \
-    SSL_CERT_FILE=/usr/local/share/ca-certificates/ca-certificates.crt
+ENV COMPOSER_CA_FILE=/etc/ssl/certs/ca-certificates.crt \
+    CURL_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt \
+    GIT_SSL_CAINFO=/etc/ssl/certs/ca-certificates.crt \
+    NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt \
+    REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt \
+    SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
