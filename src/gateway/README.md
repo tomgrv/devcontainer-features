@@ -108,7 +108,7 @@ Once the host trusts the CA and the certificate sits in `.devcontainer/.gateway/
 
 Trusting the gateway root CA and diverting `curl` normally only happen at container-create time (`postCreateCommand`), which runs **after** the image is built — too late for any `RUN curl ...` in a custom Dockerfile, or for an earlier-ordered feature that fetches something over HTTPS during its own `install.sh`.
 
-The `.gateway/Dockerfile` stub closes that gap: it bakes both the root CA trust and the `gateway-curl` diversion into the very first layer of the image, before any feature runs. The mechanics it runs (`_install-certs-core.sh`, `_install-curl-wrapper-core.sh`, `_gateway-curl.sh`) live under `stubs/.devcontainer/.gateway/` and are the single source of truth: `configure-certs.sh`/`install-wrapper.sh` call the very same scripts from that same relative path at container-create time, rather than keeping a second copy at the feature root.
+The `.gateway/Dockerfile` stub closes that gap: it bakes both the root CA trust and the `gateway-curl` diversion into the very first layer of the image, before any feature runs. The mechanics it runs (`install-certs-core.sh`, `install-curl-wrapper-core.sh`, `gateway-curl.sh`) live under `stubs/.devcontainer/.gateway/` and are the single source of truth: `configure-certs.sh`/`install-wrapper.sh` call the very same scripts from that same relative path at container-create time, rather than keeping a second copy at the feature root.
 
 ## Modified repository structure
 
@@ -164,7 +164,7 @@ openssl x509 -in .devcontainer/.gateway/certs/gateway.pem -noout -subject -issue
 ```
 
 **Certificate added after the container was created**
-Run `configure-feature gateway` inside the container (or rebuild it) to install the newly added certificate.
+Run `zz_feature -c gateway` inside the container (or rebuild it) to install the newly added certificate.
 
 **Container creation fails with `bind source path does not exist` on the certs mount**
 Only relevant if your `devcontainer.json` declares the optional dedicated `certs` bind mount (added by the `add gateway` stub). Either create `.devcontainer/.gateway/certs` on the host before creating the container, or — in a nested/docker-outside-of-docker setup, where `${localWorkspaceFolder}` isn't a path the Docker daemon itself can resolve — remove that `mounts` entry from `devcontainer.json` entirely; certificates are still picked up through the workspace's own standard mount.

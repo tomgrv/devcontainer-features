@@ -72,8 +72,8 @@ The feature also includes the following VS Code customizations:
 
 ## Install internals
 
-- `_install-bin.sh` installs links for common-utils scripts in a writable bin directory.
-- `_install-bin.sh` resolves the writable bin directory with this fallback order:
+- `zz_feature -i` installs links for a feature's `bin/` scripts in a writable bin directory.
+- It resolves the writable bin directory with this fallback order:
     1. `INSTALL_BIN_DIR` (or `/usr/local/bin` by default)
     2. `~/.local/bin`
     3. First writable directory found in `$PATH` (excluding `node_modules/.bin`)
@@ -250,7 +250,7 @@ normalize-json -w -t 4 -f fallback.schema.json -l ./schemas -i -s custom.schema.
 
 #### Lint-staged
 
-You can use the `normalize-json` utility with `lint-staged` to normalize JSON files before committing them. To do this, add the following configuration to your `package.json`(see [githooks feature](../githooks/_lint-staged.package.json)).
+You can use the `normalize-json` utility with `lint-staged` to normalize JSON files before committing them. To do this, add the following configuration to your `package.json`(see [githooks feature](../githooks/stubs/_lint-staged.package.json)).
 
 ```json
 "lint-staged": {

@@ -1,17 +1,21 @@
 {
     "name": "@tomgrv/devcontainer-features-gateway",
+    "version": "8.0.0",
     "description": "SSL Inspection Gateway handling",
-    "version": "7.18.0",
-    "bin": {
-        "gateway-curl": "stubs/.devcontainer/.gateway/_gateway-curl.sh"
-    },
-    "dependencies": {},
     "files": [
         "configure-*.sh",
         "install-*.sh",
         "install.sh",
         "stubs/**/*"
     ],
+    "bin": {
+        "gateway-curl": "stubs/.devcontainer/.gateway/gateway-curl.sh"
+    },
+    "scripts": {
+        "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then zz_feature -i -s .; fi",
+        "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then zz_feature -c -s . gateway; fi"
+    },
+    "dependencies": {},
     "peerDependencies": {
         "@tomgrv/devcontainer-features-common-utils": "*"
     },
@@ -19,9 +23,5 @@
         "@tomgrv/devcontainer-features-common-utils": {
             "optional": true
         }
-    },
-    "scripts": {
-        "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then sh ./install.sh; fi",
-        "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then configure-feature -s . gateway; fi"
     }
 }

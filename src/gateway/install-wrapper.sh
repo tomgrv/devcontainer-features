@@ -15,14 +15,14 @@ eval $(
 
 stub_dir="$target/stubs/.devcontainer/.gateway"
 
-wrapper="$stub_dir/_gateway-curl.sh"
+wrapper="$stub_dir/gateway-curl.sh"
 if [ ! -f "$wrapper" ]; then
     zz_log e "Wrapper not found at {U $wrapper}"
     exit 1
 fi
 chmod +x "$wrapper"
 
-core="$stub_dir/_install-curl-wrapper-core.sh"
+core="$stub_dir/install-curl-wrapper-core.sh"
 if [ ! -f "$core" ]; then
     zz_log e "Core script not found at {U $core}"
     exit 1

@@ -1,8 +1,56 @@
 {
     "name": "@tomgrv/devcontainer-features",
+    "version": "8.0.0",
     "description": "Configure dev environment with devcontainer, gitflow, gitversion, git aliases & hooks. Can be used a devcontainer features",
-    "version": "7.18.0",
+    "keywords": [
+        "dev",
+        "git",
+        "hooks",
+        "commitlint",
+        "commitizen",
+        "lint-staged",
+        "prettier",
+        "devmoji",
+        "git-precommit-checks",
+        "husky",
+        "conventional-changelog",
+        "gitversion",
+        "gitflow",
+        "changelog",
+        "semver"
+    ],
+    "homepage": "https://github.com/tomgrv/devcontainer-features#readme",
+    "bugs": {
+        "email": "project@hostname.com",
+        "url": "https://github.com/tomgrv/devcontainer-features/issues"
+    },
+    "author": "tomgrv",
+    "files": [
+        "./install*.sh",
+        "./setup.sh",
+        "./src/*",
+        "./stubs/*"
+    ],
+    "bin": {
+        "devcontainer-features": "install.sh",
+        "tomgrv-devcontainer-features": "install.sh"
+    },
     "type": "module",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/tomgrv/devcontainer-features.git"
+    },
+    "funding": {
+        "type": "individual",
+        "url": "https://buymeacoffee.com/tomgrv"
+    },
+    "scripts": {
+        "lint": "npx --yes lint-staged",
+        "release": "commit-and-tag-version --no-verify --",
+        "test": "echo \"Warning: no test specified\"",
+        "update": "npm-check-updates -i -u",
+        "update-all": "npm run update -w --root"
+    },
     "config": {
         "commitizen": {
             "path": "@commitlint/cz-commitlint"
@@ -12,14 +60,60 @@
             "githooks"
         ]
     },
-    "author": "tomgrv",
-    "bin": {
-        "devcontainer-features": "install.sh",
-        "tomgrv-devcontainer-features": "install.sh"
+    "dependencies": {
+        "prettier-plugin-sh": "^0.19.0"
     },
-    "bugs": {
-        "email": "project@hostname.com",
-        "url": "https://github.com/tomgrv/devcontainer-features/issues"
+    "devDependencies": {
+        "npm-check-updates": "*"
+    },
+    "optionalDependencies": {
+        "@tomgrv/devcontainer-features-common-utils": ">=5"
+    },
+    "peerDependencies": {
+        "@commitlint/cli": "^19.2.2",
+        "@commitlint/config-conventional": "^19.2.2",
+        "@commitlint/core": "^19.2.2",
+        "@commitlint/cz-commitlint": "^19.2.0",
+        "commit-and-tag-version": "^12.4.1",
+        "commitizen": "^4.3.0",
+        "devmoji": "^2.3.0",
+        "git-precommit-checks": "3.1.0",
+        "lint-staged": "^15.2.2",
+        "prettier": "^3.2.5",
+        "prettier-plugin-sh": "*"
+    },
+    "overrides": {
+        "uuid": "^11.0.0"
+    },
+    "private": true,
+    "workspaces": [
+        "src/*"
+    ],
+    "prettier": {
+        "insertPragma": true,
+        "overrides": [
+            {
+                "files": "*.{yml,yaml}",
+                "options": {
+                    "tabWidth": 2,
+                    "useTabs": false
+                }
+            },
+            {
+                "files": "*.json",
+                "options": {
+                    "tabWidth": 4,
+                    "useTabs": false
+                }
+            }
+        ],
+        "plugins": [
+            "prettier-plugin-sh"
+        ],
+        "semi": false,
+        "singleQuote": true,
+        "tabWidth": 4,
+        "trailingComma": "es5"
     },
     "bump-changelog": {
         "types": [
@@ -79,22 +173,6 @@
             ]
         }
     },
-    "dependencies": {
-        "prettier-plugin-sh": "^0.19.0"
-    },
-    "devDependencies": {
-        "npm-check-updates": "*"
-    },
-    "files": [
-        "./install*.sh",
-        "./setup.sh",
-        "./src/*",
-        "./stubs/*"
-    ],
-    "funding": {
-        "type": "individual",
-        "url": "https://buymeacoffee.com/tomgrv"
-    },
     "git-precommit-checks": {
         "rules": [
             {
@@ -109,24 +187,6 @@
             }
         ]
     },
-    "homepage": "https://github.com/tomgrv/devcontainer-features#readme",
-    "keywords": [
-        "dev",
-        "git",
-        "hooks",
-        "commitlint",
-        "commitizen",
-        "lint-staged",
-        "prettier",
-        "devmoji",
-        "git-precommit-checks",
-        "husky",
-        "conventional-changelog",
-        "gitversion",
-        "gitflow",
-        "changelog",
-        "semver"
-    ],
     "lint-staged": {
         "!(*schema).json": [
             "normalize-json -c -w -a -i -t 4 -f local -l true"
@@ -147,68 +207,8 @@
             "npm pkg fix"
         ]
     },
-    "optionalDependencies": {
-        "@tomgrv/devcontainer-features-common-utils": ">=5"
-    },
-    "overrides": {
-        "uuid": "^11.0.0"
-    },
-    "peerDependencies": {
-        "@commitlint/cli": "^19.2.2",
-        "@commitlint/config-conventional": "^19.2.2",
-        "@commitlint/core": "^19.2.2",
-        "@commitlint/cz-commitlint": "^19.2.0",
-        "commit-and-tag-version": "^12.4.1",
-        "commitizen": "^4.3.0",
-        "devmoji": "^2.3.0",
-        "git-precommit-checks": "3.1.0",
-        "lint-staged": "^15.2.2",
-        "prettier": "^3.2.5",
-        "prettier-plugin-sh": "*"
-    },
-    "prettier": {
-        "insertPragma": true,
-        "overrides": [
-            {
-                "files": "*.{yml,yaml}",
-                "options": {
-                    "tabWidth": 2,
-                    "useTabs": false
-                }
-            },
-            {
-                "files": "*.json",
-                "options": {
-                    "tabWidth": 4,
-                    "useTabs": false
-                }
-            }
-        ],
-        "plugins": [
-            "prettier-plugin-sh"
-        ],
-        "semi": false,
-        "singleQuote": true,
-        "tabWidth": 4,
-        "trailingComma": "es5"
-    },
-    "private": true,
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/tomgrv/devcontainer-features.git"
-    },
-    "scripts": {
-        "lint": "npx --yes lint-staged",
-        "release": "commit-and-tag-version --no-verify --",
-        "test": "echo \"Warning: no test specified\"",
-        "update": "npm-check-updates -i -u",
-        "update-all": "npm run update -w --root"
-    },
     "validate-branch-name": {
         "errorMsg": "Please use a branch name that follows the pattern: (main|develop) or (feature|bugfix|release|hotfix|support|copilot|claude)/<description>.\nUse git push --no-verify to bypass this check if necessary.",
         "pattern": "^(main|develop){1}$|^(feature|bugfix|release|hotfix|support|copilot|claude)/.+$"
-    },
-    "workspaces": [
-        "src/*"
-    ]
+    }
 }

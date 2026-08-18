@@ -24,6 +24,29 @@ versiontag_prefix="${GITFLOW_VERSIONTAG_PREFIX:-v}"
 git config gitflow.branch.master "$master_branch"
 git config gitflow.branch.develop "$develop_branch"
 
+# Ensure master branch exists. If not, create it as an orphan branch with an initial commit.
+if ! git rev-parse --verify "$master_branch" >/dev/null 2>&1; then
+    zz_log i "Creating master branch '$master_branch'..."
+    git checkout --orphan "$master_branch" >/dev/null 2>&1 || zz_log e "Failed to create master branch '$master_branch'."
+    git commit --allow-empty -m "Initial commit on $master_branch" >/dev/null 2>&1 || zz_log e "Failed to create initial commit on master branch '$master_branch'."
+fi
+
+if ! git rev-parse --verify "$master_branch" >/dev/null 2>&1; then
+    zz_log e "Master branch '$master_branch' does not exist and could not be created."
+    exit 1
+fi
+
+# Ensure develop branch exists. If not, create it from the master branch.
+if ! git rev-parse --verify "$develop_branch" >/dev/null 2>&1; then
+    zz_log i "Creating develop branch '$develop_branch'..."
+    git checkout -b "$develop_branch" "$master_branch" >/dev/null 2>&1 || zz_log e "Failed to create develop branch '$develop_branch'."
+fi  
+
+if ! git rev-parse --verify "$develop_branch" >/dev/null 2>&1; then
+    zz_log e "Develop branch '$develop_branch' does not exist and could not be created."
+    exit 1
+fi
+
 # Prefixes are only read from --system/--global config by 'init', so pass them
 # explicitly to avoid the (empty) built-in defaults, in particular for the tag prefix.
 git stash >/dev/null 2>&1

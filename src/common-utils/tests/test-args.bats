@@ -248,7 +248,7 @@ EOF
 # force the parse through bash explicitly.
 @test "positional (-) binds under bash's non-XSI echo (regression)" {
     run bash -c '
-        eval "$(bash "'"$REPO_ROOT"'/src/common-utils/_zz_args.sh" "test" caller "add" "gateway" <<-EOF
+        eval "$(bash "'"$REPO_ROOT"'/src/common-utils/bin/zz_args.sh" "test" caller "add" "gateway" <<-EOF
 	- cmd cmd       command
 	+ target target target value
 EOF
@@ -260,7 +260,7 @@ EOF
 
 @test "+ capture binds under bash's non-XSI echo (regression)" {
     run bash -c '
-        eval "$(bash "'"$REPO_ROOT"'/src/common-utils/_zz_args.sh" "test" caller "hello" "world" <<-EOF
+        eval "$(bash "'"$REPO_ROOT"'/src/common-utils/bin/zz_args.sh" "test" caller "hello" "world" <<-EOF
 	+ msg message    remaining args
 EOF
 )"

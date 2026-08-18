@@ -42,7 +42,7 @@ Additionally, the feature installs the [git-flow](https://github.com/nvie/gitflo
 
 ### Configure step
 
-`configure-feature gitutils` (run automatically from `postCreateCommand`, and re-runnable at any time from the repository root) runs `configure-gitflow.sh`, which non-interactively runs `git flow init -d -f` with the following branch/prefix scheme:
+`zz_feature -c gitutils` (run automatically from `postCreateCommand`, and re-runnable at any time from the repository root) runs `configure-gitflow.sh`, which non-interactively runs `git flow init -d -f` with the following branch/prefix scheme:
 
 | Prompt                                | Value                  |
 | ------------------------------------- | ---------------------- |

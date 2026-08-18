@@ -18,7 +18,7 @@
 # see, which isn't guaranteed when it's reached through a mounted docker.sock).
 #
 # Missing certificates are not an error: the feature stays dormant until the
-# user drops the gateway root CA in place and re-runs 'configure-feature gateway'.
+# user drops the gateway root CA in place and re-runs 'zz_feature -c gateway'.
 
 . zz_colors
 
@@ -41,7 +41,7 @@ done
 if [ -z "$certs_dir" ]; then
     zz_log w "No gateway root CA certificate found (*.pem)"
     zz_log - "Export your SSL inspection root CA in PEM format to {U .devcontainer/.gateway/certs/gateway.pem}"
-    zz_log - "then run {B configure-feature gateway} again (or rebuild the container)"
+    zz_log - "then run {B zz_feature -c gateway} again (or rebuild the container)"
     exit 0
 fi
 
@@ -51,7 +51,7 @@ if ! command -v update-ca-certificates >/dev/null 2>&1; then
     exit 0
 fi
 
-core="$(dirname "$0")/stubs/.devcontainer/.gateway/_install-certs-core.sh"
+core="$(dirname "$0")/stubs/.devcontainer/.gateway/install-certs-core.sh"
 if [ ! -f "$core" ]; then
     zz_log e "Core script not found at {U $core}"
     exit 1

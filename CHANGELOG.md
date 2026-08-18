@@ -2,6 +2,40 @@
 
 # Changelog
 
+## 8.0.0 (2026-08-18)
+
+_Commits from: v7.18.0..HEAD_
+
+### 💥 BREAKING CHANGES
+
+- ♻️ reorganize feature tree into stubs/configs/bins/tests (#128) ([9c7d16b](https://github.com/tomgrv/devcontainer-features/commit/9c7d16b8685f76f31bb03287c2213e5c96cc498f))
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v7.18.0' into develop ([6aa2c7e](https://github.com/tomgrv/devcontainer-features/commit/6aa2c7e765837c28570c662221a33fd6b8471071))
+
+### 📦 devcontainer-features-gateway changes
+
+#### Bug Fixes
+
+- 🐛 restore SSL cert handling broken by curl-wrapper rename (#130) ([61564ff](https://github.com/tomgrv/devcontainer-features/commit/61564ffa4d373fb164ce246b5bea4c1048930232))
+
+#### Features
+
+- ✨ add placeholder for certs in gateway stubs ([b0072ca](https://github.com/tomgrv/devcontainer-features/commit/b0072ca394080ee55c3a44a0cd8c72a618c1cd55))
+
+#### Other changes
+
+- ♻️ refactor gateway curl wrapper and installation scripts ([36c782a](https://github.com/tomgrv/devcontainer-features/commit/36c782a8c25c3b2436a0fb16a10f179d9b3d766d))
+
+### 📦 devcontainer-features-gitutils changes
+
+#### Features
+
+- ✨ add logging and error handling for branch creation ([7a4490c](https://github.com/tomgrv/devcontainer-features/commit/7a4490c31021bb811f357e116a961eab07673964))
+
 ## 7.18.0 (2026-08-17)
 
 _Commits from: v7.17.0..HEAD_
@@ -1745,4 +1779,4 @@ _Commits from: v5.25.0..HEAD_
 
 ---
 
-_Generated on 2026-08-17 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
+_Generated on 2026-08-18 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_

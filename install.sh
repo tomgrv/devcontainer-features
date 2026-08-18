@@ -4,7 +4,7 @@
 source=$(dirname $(readlink -f $0))
 
 # Source the common utils
-. $source/src/common-utils/_zz_colors.sh
+. $source/src/common-utils/bin/zz_colors.sh
 
 # Internal debug logging: quiet by default, enable with ZZ_LOG_DEBUG=1
 _debug() { [ -n "${ZZ_LOG_DEBUG:-}" ] && echo "${Yellow}$*${End}" >&2 || true; }
@@ -18,21 +18,21 @@ links_up()
     # find keeps traversing this same directory as entries are added/removed
     # under a live pipe, which races under busybox find. Quoted and
     # newline-split (not word-split) so paths with spaces survive.
-    _files=$(find "$source/src/common-utils/" -type f -name "_*.sh")
+    _files=$(find "$source/src/common-utils/bin/" -type f -name "*.sh")
     printf '%s\n' "$_files" | while IFS= read -r file; do
         [ -n "$file" ] || continue
         chmod +x "$file"
-        ln -sf "$file" "$source/src/common-utils/$(basename "$file" | sed 's/^_//;s/.sh$//')"
+        ln -sf "$file" "$source/src/common-utils/$(basename "$file" | sed 's/.sh$//')"
     done
 }
 
 links_down()
 {
     _debug "Unlink common utils"
-    _files=$(find "$source/src/common-utils/" -type f -name "_*.sh")
+    _files=$(find "$source/src/common-utils/bin/" -type f -name "*.sh")
     printf '%s\n' "$_files" | while IFS= read -r file; do
         [ -n "$file" ] || continue
-        rm -f "$source/src/common-utils/$(basename "$file" | sed 's/^_//;s/.sh$//')"
+        rm -f "$source/src/common-utils/$(basename "$file" | sed 's/.sh$//')"
     done
 }
 
@@ -146,7 +146,7 @@ cmd_help() {
 
 cmd_init() {
     zz_log i "Deploying $(count_stubs "$source/stubs") root stub(s)..."
-    sh "$source/src/common-utils/_configure-feature.sh" -s "$source" .
+    sh "$source/src/common-utils/bin/zz_feature.sh" -c -s "$source" .
     zz_log s "Root stubs deployed"
 }
 
