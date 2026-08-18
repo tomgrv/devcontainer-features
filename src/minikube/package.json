@@ -6,8 +6,6 @@
     "files": [
         "bin/*.sh",
         "install.sh",
-        "install-tools.sh",
-        "_scripts.package.json",
         "stubs/**/*"
     ],
     "peerDependencies": {

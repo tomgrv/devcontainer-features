@@ -32,9 +32,8 @@
     "files": [
         "bin/*.sh",
         "install.sh",
-        "install-config.sh",
-        "install-gitflow.sh",
-        "configure-gitflow.sh",
+        "install-*.sh",
+        "configure-*.sh",
         "config/**/*",
         "stubs/**/*"
     ],

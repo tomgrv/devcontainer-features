@@ -13,6 +13,7 @@
         "bin/*.sh",
         "install.sh",
         "install-tools.sh",
+        "configure-*.sh",
         "stubs/**/*"
     ],
     "peerDependencies": {
