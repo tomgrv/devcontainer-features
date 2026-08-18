@@ -5,7 +5,7 @@ eval $(
     zz_args "Import a Docker Hub image into AWS ECR" $0 "$@" <<-help
         r region     region      AWS region (default is the AWS CLI configured region)
         a account    account     AWS account id (default is the current AWS CLI caller's account)
-        n name       repository  ECR repository name (default is '<account>-repository')
+        n name       repository  ECR repository name (default is the Docker Hub image name)
         u user       dockerhub   Docker Hub username
         - image      image       Docker Hub image name
         - tag        tag         Docker Hub image tag (default is 'latest')
@@ -14,7 +14,7 @@ help
 
 region="${region:-$(aws configure get region)}"
 account="${account:-$(aws sts get-caller-identity --query Account --output text)}"
-repository="${repository:-$account-repository}"
+repository="${repository:-$image}"
 tag="${tag:-latest}"
 ecr_registry="$account.dkr.ecr.$region.amazonaws.com"
 
