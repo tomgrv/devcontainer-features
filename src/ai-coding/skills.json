@@ -12,6 +12,10 @@
         {
             "package": "DietrichGebert/ponytail",
             "global": false
+        },
+        {
+            "package": "daniel-p-green/nbj-write-clearly",
+            "global": false
         }
     ]
 }
