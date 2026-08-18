@@ -6,8 +6,8 @@
 # host install, ...).
 #
 # Usage:
-#   _install-curl-wrapper-core.sh install <wrapper_src> <bindir>
-#   _install-curl-wrapper-core.sh divert  <bindir>
+#   install-curl-wrapper-core.sh install <wrapper_src> <bindir>
+#   install-curl-wrapper-core.sh divert  <bindir>
 #
 # 'install' copies <wrapper_src> to <bindir>/gateway-curl.
 # 'divert' points the system curl to <bindir>/gateway-curl, keeping the real
