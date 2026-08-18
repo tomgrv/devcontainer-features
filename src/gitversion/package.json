@@ -25,7 +25,7 @@
         }
     },
     "scripts": {
-        "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then sh ./install.sh; fi",
+        "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then zz_feature -i -s .; fi",
         "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then zz_feature -c -s . gitversion; fi"
     }
 }
