@@ -108,7 +108,7 @@ Once the host trusts the CA and the certificate sits in `.devcontainer/.gateway/
 
 Trusting the gateway root CA and diverting `curl` normally only happen at container-create time (`postCreateCommand`), which runs **after** the image is built — too late for any `RUN curl ...` in a custom Dockerfile, or for an earlier-ordered feature that fetches something over HTTPS during its own `install.sh`.
 
-The `.gateway/Dockerfile` stub closes that gap: it bakes both the root CA trust and the `gateway-curl` diversion into the very first layer of the image, before any feature runs. The mechanics it runs (`_install-certs-core.sh`, `_install-curl-wrapper-core.sh`, `_gateway-curl.sh`) live under `stubs/.devcontainer/.gateway/` and are the single source of truth: `configure-certs.sh`/`install-wrapper.sh` call the very same scripts from that same relative path at container-create time, rather than keeping a second copy at the feature root.
+The `.gateway/Dockerfile` stub closes that gap: it bakes both the root CA trust and the `gateway-curl` diversion into the very first layer of the image, before any feature runs. The mechanics it runs (`install-certs-core.sh`, `install-curl-wrapper-core.sh`, `gateway-curl.sh`) live under `stubs/.devcontainer/.gateway/` and are the single source of truth: `configure-certs.sh`/`install-wrapper.sh` call the very same scripts from that same relative path at container-create time, rather than keeping a second copy at the feature root.
 
 ## Modified repository structure
 

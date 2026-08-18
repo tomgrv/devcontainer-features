@@ -5,7 +5,7 @@
 # when/how/as-whom to invoke it. Runs unprivileged and privileged alike
 # (image build stage, postCreateCommand via sudo, ...).
 #
-# Usage: _install-certs-core.sh <certs_dir>
+# Usage: install-certs-core.sh <certs_dir>
 # Exit codes: 0 = nothing to do / up to date / installed, 1 = copy failed
 #
 # CERT_STORE_DIR overrides the trust store directory (default:

@@ -3,7 +3,7 @@
     "description": "SSL Inspection Gateway handling",
     "version": "7.18.0",
     "bin": {
-        "gateway-curl": "stubs/.devcontainer/.gateway/_gateway-curl.sh"
+        "gateway-curl": "stubs/.devcontainer/.gateway/gateway-curl.sh"
     },
     "dependencies": {},
     "files": [
