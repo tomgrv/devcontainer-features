@@ -7,7 +7,7 @@ FROM mcr.microsoft.com/devcontainers/base:noble
 # own postCreateCommand/install script, which runs too late to help this
 # build stage or any earlier-ordered feature.
 #
-# _install-certs-core.sh / _install-curl-wrapper-core.sh / _gateway-curl.sh
+# install-certs-core.sh / install-curl-wrapper-core.sh / gateway-curl.sh
 # are the single source of truth for this mechanics (also used at container
 # runtime by configure-certs.sh/install-wrapper.sh, and referenced from the
 # same relative path there) — they live here, under the stub tree, because a

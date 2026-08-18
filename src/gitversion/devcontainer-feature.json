@@ -22,6 +22,6 @@
         }
     },
     "postCreateCommand": {
-        "config": "configure-feature gitversion"
+        "config": "zz_feature -c gitversion"
     }
 }

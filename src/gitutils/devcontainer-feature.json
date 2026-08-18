@@ -38,7 +38,7 @@
         }
     },
     "postCreateCommand": {
-        "config": "configure-feature gitutils"
+        "config": "zz_feature -c gitutils"
     },
     "postStartCommand": {
         "blanks": "git fix blanks",

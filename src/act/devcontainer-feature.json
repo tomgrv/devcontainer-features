@@ -21,6 +21,6 @@
         }
     },
     "postCreateCommand": {
-        "config": "configure-feature act"
+        "config": "zz_feature -c act"
     }
 }

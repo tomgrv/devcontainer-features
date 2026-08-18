@@ -3,17 +3,17 @@
     "description": "GitVersion integration and version management scripts",
     "version": "7.18.0",
     "bin": {
-        "bump-changelog": "_bump-changelog.sh",
-        "bump-tag": "_bump-tag.sh",
-        "bump-version": "_bump-version.sh",
-        "gv": "_gv.sh"
+        "bump-changelog": "bin/bump-changelog.sh",
+        "bump-tag": "bin/bump-tag.sh",
+        "bump-version": "bin/bump-version.sh",
+        "gv": "bin/gv.sh"
     },
     "dependencies": {},
     "files": [
-        "_*.sh",
+        "bin/*.sh",
         "install.sh",
         "install-tools.sh",
-        "_scripts.package.json",
+        "configure-*.sh",
         "stubs/**/*"
     ],
     "peerDependencies": {
@@ -25,7 +25,7 @@
         }
     },
     "scripts": {
-        "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then sh ./install.sh; fi",
-        "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then configure-feature -s . gitversion; fi"
+        "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then zz_feature -i -s .; fi",
+        "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then zz_feature -c -s . gitversion; fi"
     }
 }

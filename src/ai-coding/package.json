@@ -3,6 +3,8 @@
     "description": "Agent-agnostic AI coding skills plus the Claude Code GitHub Action",
     "version": "7.18.0",
     "files": [
+        "configure-skills.sh",
+        "config/**/*",
         "install.sh",
         "stubs/**/*"
     ],

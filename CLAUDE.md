@@ -2,7 +2,7 @@
 
 # devcontainer-features
 
-Monorepo of reusable VS Code devcontainer features. Each feature lives under `src/<feature>/` with a `devcontainer-feature.json`, `install.sh`, optional `stubs/` (files deployed to consumer repos), and a `README.md`.
+Monorepo of reusable VS Code devcontainer features. Each feature lives under `src/<feature>/` with a `devcontainer-feature.json`, `install.sh`, a `README.md`, and optional `stubs/` (files deployed to consumer repos, merged into an existing file at the same path when one exists), `config/` (data files a script reads at runtime, e.g. JSON Schemas), `bin/` (scripts installed onto `PATH`), and `tests/` (bats test suites).
 
 ## All AI Tooling Lives in `.agents/` — Use It
 
@@ -13,8 +13,8 @@ Every tool-specific path is a symlink into `.agents/` (the single source of trut
 
 ## Dev Workflow
 
-- **Feature install** (local): `npx tomgrv/devcontainer-features -- add <feature>` → calls `install-feature` → copies `src/<feature>/stubs/` via `cp -a` (symlinks preserved) into target.
-- **Feature configure** (devcontainer): `configure-feature <feature>` → deploys stubs files + symlinks via `src/common-utils/_configure-feature.sh`.
+- **Feature install** (local): `npx tomgrv/devcontainer-features -- add <feature>` → calls `zz_feature -i` → copies `src/<feature>/stubs/` via `cp -a` (symlinks preserved) into target.
+- **Feature configure** (devcontainer): `zz_feature -c <feature>` → deploys stubs files + symlinks via `src/common-utils/bin/zz_feature.sh`.
 - **This repo dogfoods its own features** — root `.github/workflows/`, `.github/skills/`, `.claude/skills/` are the installed output of the ai-coding feature. Edit canonical content under `.agents/skills/` or `src/ai-coding/stubs/`, not the symlinks.
 - **Prettier**: run `npm install` then `npx prettier --write` on new/edited `.md`/`.yml`/`.json` files before committing.
 - **Commits**: Conventional Commits + devmoji emoji required — e.g. `feat(scope): ✨ description`. Validated by commitlint on `review_requested`.
@@ -23,23 +23,38 @@ Every tool-specific path is a symlink into `.agents/` (the single source of trut
 
 ## Feature Pattern
 
-Each feature follows this structure (use `src/pecl/` as the minimal reference):
+Each feature follows this structure (use `src/pecl/` as the minimal reference — just the standard entrypoints plus `stubs/`; `src/githooks/` or `src/larasets/` for a fuller example with all four optional subdirectories):
 
 ```
 src/<feature>/
   devcontainer-feature.json   # id, version, dependsOn, postCreateCommand
-  install.sh                  # runs: install-feature $0
+  install.sh                  # runs: zz_feature -i $0
   package.json                # npm workspace registration
   README.md
-  stubs/                      # files/symlinks deployed to consumer repos
+  configure-*.sh               # optional lifecycle hooks, invoked by name (not on PATH)
+  install-*.sh                 # optional extra install-time scripts
+  stubs/                       # files deployed as-is to consumer repos; merged into an
+                                # existing file at the same path (JSON via merge-json,
+                                # otherwise git merge-file) when one already exists.
+                                # A basename starting with "_" marks a qualifier segment
+                                # (up to the first ".") to strip, so several fragments
+                                # (_foo.package.json, _bar.package.json) can all resolve
+                                # to and accumulate into the same target (package.json).
     .agents/skills/<name>/    # canonical real files
     .github/skills/<name>     # symlink → ../../.agents/skills/<name>
     .claude/skills/<name>     # symlink → ../../.agents/skills/<name>
+  config/                      # optional: data files a script reads at runtime
+                                # (JSON Schemas, alias/config maps, dependency manifests)
+                                # — never deployed to consumers, never merged
+  bin/                         # optional: scripts installed onto PATH by zz_feature -i
+                                # (no leading underscore — directory location alone marks
+                                # a file as a PATH script, unlike stubs/'s qualifier convention)
+  tests/                       # optional: *.bats + helpers.bash, run via `bats src/<feature>/tests/`
 ```
 
 ## Minimal Changes Discipline
 
-Change only what the task requires. Don't touch `package-lock.json`, `src/githooks/_pre-commit.sh` mode, or unrelated features unless the task explicitly calls for it.
+Change only what the task requires. Don't touch `package-lock.json`, `src/githooks/bin/pre-commit.sh` mode, or unrelated features unless the task explicitly calls for it.
 
 ## Claude Feedback Policy
 

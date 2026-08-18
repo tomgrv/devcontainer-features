@@ -27,6 +27,6 @@
         }
     },
     "postCreateCommand": {
-        "config": "configure-feature gateway"
+        "config": "zz_feature -c gateway"
     }
 }

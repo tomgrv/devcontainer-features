@@ -43,7 +43,7 @@ else
     exit 1
 fi
 
-# Configure the feature after installation, from wherever install-feature
+# Configure the feature after installation, from wherever "zz_feature -i"
 # copied it to. Check /usr/local/share first, matching zz_context's own
 # target preference (writable /usr/local/share, else /tmp) — otherwise a
 # stale /tmp/<feature> left over from an earlier run (when /usr/local/share
@@ -56,7 +56,7 @@ elif [ -d "/tmp/$_feature" ]; then
 fi
 
 if [ -n "$_featureSource" ]; then
-    sh "$_source/src/common-utils/_configure-feature.sh" -s "$_featureSource" "$_feature"
+    sh "$_source/src/common-utils/bin/zz_feature.sh" -c -s "$_featureSource" "$_feature"
 else
     echo "Feature $_feature installation target not found" >&2
     exit 1
