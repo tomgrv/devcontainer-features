@@ -1,4 +1,4 @@
 #!/bin/sh
 
 ### Install this feature
-install-feature $0
+zz_feature -i $0

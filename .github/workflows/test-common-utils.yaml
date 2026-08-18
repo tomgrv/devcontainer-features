@@ -1,0 +1,28 @@
+# @format
+
+name: Test common-utils scripts
+
+on:
+  push:
+    paths:
+      - 'src/common-utils/**'
+  pull_request:
+    paths:
+      - 'src/common-utils/**'
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Setup Bats
+        uses: bats-core/bats-action@4.0.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run common-utils tests
+        run: bats src/common-utils/tests/

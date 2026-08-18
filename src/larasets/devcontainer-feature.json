@@ -34,7 +34,9 @@
         "ghcr.io/devcontainers/features/docker-in-docker"
     ],
     "dependsOn": {
-        "ghcr.io/devcontainers/features/docker-in-docker:3": {},
+        "ghcr.io/devcontainers/features/docker-in-docker:3": {
+            "moby": false
+        },
         "ghcr.io/devcontainers/features/node:1": {
             "version": "lts"
         },
@@ -52,11 +54,11 @@
             "type": "string"
         }
     },
-    "version": "7.15.0",
+    "version": "8.0.0",
     "legacyIds": [
         "larasets"
     ],
     "postCreateCommand": {
-        "config": "configure-feature larasets"
+        "config": "zz_feature -c larasets"
     }
 }

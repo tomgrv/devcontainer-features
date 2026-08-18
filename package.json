@@ -1,6 +1,6 @@
 {
     "name": "@tomgrv/devcontainer-features",
-    "version": "7.16.0",
+    "version": "8.0.0",
     "description": "Configure dev environment with devcontainer, gitflow, gitversion, git aliases & hooks. Can be used a devcontainer features",
     "keywords": [
         "dev",
@@ -27,12 +27,13 @@
     "author": "tomgrv",
     "files": [
         "./install*.sh",
+        "./setup.sh",
         "./src/*",
         "./stubs/*"
     ],
     "bin": {
-        "devcontainer-features": "./install.sh",
-        "tomgrv-devcontainer-features": "./install.sh"
+        "devcontainer-features": "install.sh",
+        "tomgrv-devcontainer-features": "install.sh"
     },
     "type": "module",
     "repository": {
@@ -44,7 +45,6 @@
         "url": "https://buymeacoffee.com/tomgrv"
     },
     "scripts": {
-        "install": "sh ./install.sh -s",
         "lint": "npx --yes lint-staged",
         "release": "commit-and-tag-version --no-verify --",
         "test": "echo \"Warning: no test specified\"",
@@ -67,7 +67,7 @@
         "npm-check-updates": "*"
     },
     "optionalDependencies": {
-        "@tomgrv-devcontainer-features/common-utils": ">=5"
+        "@tomgrv/devcontainer-features-common-utils": ">=5"
     },
     "peerDependencies": {
         "@commitlint/cli": "^19.2.2",
@@ -93,7 +93,7 @@
         "insertPragma": true,
         "overrides": [
             {
-                "files": "*.yml",
+                "files": "*.{yml,yaml}",
                 "options": {
                     "tabWidth": 2,
                     "useTabs": false
@@ -199,6 +199,12 @@
         ],
         ".devcontainer/*": [
             "cp -u -t ./stubs/.devcontainer "
+        ],
+        "composer.json": [
+            "composer validate --no-check-all --no-check-lock --no-check-publish"
+        ],
+        "package.json": [
+            "npm pkg fix"
         ]
     },
     "validate-branch-name": {

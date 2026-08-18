@@ -1,30 +1,30 @@
 {
-    "name": "@tomgrv-devcontainer-features/gitversion",
-    "version": "7.15.0",
+    "name": "@tomgrv/devcontainer-features-gitversion",
+    "version": "8.0.0",
     "description": "GitVersion integration and version management scripts",
     "files": [
-        "_*.sh",
+        "bin/*.sh",
         "install.sh",
         "install-tools.sh",
-        "_scripts.package.json",
+        "configure-*.sh",
         "stubs/**/*"
     ],
     "bin": {
-        "bump-changelog": "_bump-changelog.sh",
-        "bump-tag": "_bump-tag.sh",
-        "bump-version": "_bump-version.sh",
-        "gv": "_gv.sh"
+        "bump-changelog": "bin/bump-changelog.sh",
+        "bump-tag": "bin/bump-tag.sh",
+        "bump-version": "bin/bump-version.sh",
+        "gv": "bin/gv.sh"
     },
     "scripts": {
-        "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then sh ./install.sh; fi",
-        "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then configure-feature -s . gitversion; fi"
+        "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then zz_feature -i -s .; fi",
+        "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then zz_feature -c -s . gitversion; fi"
     },
     "dependencies": {},
     "peerDependencies": {
-        "@tomgrv-devcontainer-features/common-utils": "*"
+        "@tomgrv/devcontainer-features-common-utils": "*"
     },
     "peerDependenciesMeta": {
-        "@tomgrv-devcontainer-features/common-utils": {
+        "@tomgrv/devcontainer-features-common-utils": {
             "optional": true
         }
     }

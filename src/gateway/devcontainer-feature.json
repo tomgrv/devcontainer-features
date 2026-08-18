@@ -17,13 +17,6 @@
             "utils": "bash ca-certificates curl"
         }
     },
-    "mounts": [
-        {
-            "source": "${localWorkspaceFolder}/.devcontainer/.gateway/certs",
-            "target": "/usr/local/share/gateway/certs",
-            "type": "bind"
-        }
-    ],
     "name": "SSL Inspection Gateway handling",
     "options": {
         "replaceCurl": {
@@ -32,8 +25,8 @@
             "type": "boolean"
         }
     },
-    "version": "7.16.0",
+    "version": "8.0.0",
     "postCreateCommand": {
-        "config": "configure-feature gateway"
+        "config": "zz_feature -c gateway"
     }
 }

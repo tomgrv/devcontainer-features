@@ -1,35 +1,34 @@
 {
-    "name": "@tomgrv-devcontainer-features/larasets",
-    "version": "7.15.0",
+    "name": "@tomgrv/devcontainer-features-larasets",
+    "version": "8.0.0",
     "description": "Laravel development settings and utilities",
     "files": [
-        "_*.sh",
-        "_*.json",
-        "_*.composer.json",
+        "bin/*.sh",
+        "config/**/*",
         "configure-*.sh",
         "install.sh",
         "install-*.sh",
         "stubs/**/*"
     ],
     "bin": {
-        "art": "_art.sh",
-        "dep": "_dep.sh",
-        "fwd": "_fwd.sh",
-        "run": "_run.sh",
-        "sail": "_sail.sh",
-        "sail-running": "_sail-running.sh",
-        "secret": "_secret.sh",
-        "seed": "_seed.sh",
-        "serve": "_serve.sh",
-        "smee": "_smee.sh",
-        "srv": "_srv.sh"
+        "art": "bin/art.sh",
+        "dep": "bin/dep.sh",
+        "fwd": "bin/fwd.sh",
+        "run": "bin/run.sh",
+        "sail": "bin/sail.sh",
+        "sail-running": "bin/sail-running.sh",
+        "secret": "bin/secret.sh",
+        "seed": "bin/seed.sh",
+        "serve": "bin/serve.sh",
+        "smee": "bin/smee.sh",
+        "srv": "bin/srv.sh"
     },
     "scripts": {
         "configure-composer": "./configure-composer.sh",
         "configure-deployer": "./configure-deployer.sh",
         "configure-sail": "./configure-sail.sh",
-        "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then sh ./install.sh; fi",
-        "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then configure-feature -s . larasets; fi",
+        "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then zz_feature -i -s .; fi",
+        "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then zz_feature -c -s . larasets; fi",
         "test": "echo \"Warning: no test specified\"",
         "update": "npm-check-updates -i -u",
         "update-all": "npm run update -ws --root"
@@ -38,10 +37,10 @@
         "npm-check-updates": "*"
     },
     "peerDependencies": {
-        "@tomgrv-devcontainer-features/common-utils": "*"
+        "@tomgrv/devcontainer-features-common-utils": "*"
     },
     "peerDependenciesMeta": {
-        "@tomgrv-devcontainer-features/common-utils": {
+        "@tomgrv/devcontainer-features-common-utils": {
             "optional": true
         }
     }

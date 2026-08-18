@@ -20,10 +20,12 @@ More information about Minikube can be found on the [official Minikube GitHub re
 
 ```sh
 npx tomgrv/devcontainer-features -- add minikube
+# or, without node/npm:
+curl -fsSL https://raw.githubusercontent.com/tomgrv/devcontainer-features/develop/setup.sh | sh -s -- add minikube
 ```
 
 ## Quick Install — npm
 
 ```sh
-npm install --save-dev @tomgrv-devcontainer-features/minikube
+npm install --save-dev @tomgrv/devcontainer-features-minikube
 ```

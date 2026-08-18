@@ -36,8 +36,8 @@
         "ghcr.io/tomgrv/devcontainer-features/gitutils:7": {}
     },
     "name": "Git Hooks",
-    "version": "7.16.0",
+    "version": "8.0.0",
     "postCreateCommand": {
-        "config": "configure-feature githooks"
+        "config": "zz_feature -c githooks"
     }
 }

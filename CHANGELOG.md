@@ -2,6 +2,120 @@
 
 # Changelog
 
+## 8.0.0 (2026-08-18)
+
+_Commits from: v7.18.0..HEAD_
+
+### 💥 BREAKING CHANGES
+
+- ♻️ reorganize feature tree into stubs/configs/bins/tests (#128) ([9c7d16b](https://github.com/tomgrv/devcontainer-features/commit/9c7d16b8685f76f31bb03287c2213e5c96cc498f))
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v7.18.0' into develop ([6aa2c7e](https://github.com/tomgrv/devcontainer-features/commit/6aa2c7e765837c28570c662221a33fd6b8471071))
+
+### 📦 devcontainer-features-gateway changes
+
+#### Bug Fixes
+
+- 🐛 restore SSL cert handling broken by curl-wrapper rename (#130) ([61564ff](https://github.com/tomgrv/devcontainer-features/commit/61564ffa4d373fb164ce246b5bea4c1048930232))
+
+#### Features
+
+- ✨ add placeholder for certs in gateway stubs ([b0072ca](https://github.com/tomgrv/devcontainer-features/commit/b0072ca394080ee55c3a44a0cd8c72a618c1cd55))
+
+#### Other changes
+
+- ♻️ refactor gateway curl wrapper and installation scripts ([36c782a](https://github.com/tomgrv/devcontainer-features/commit/36c782a8c25c3b2436a0fb16a10f179d9b3d766d))
+
+### 📦 devcontainer-features-gitutils changes
+
+#### Features
+
+- ✨ add logging and error handling for branch creation ([7a4490c](https://github.com/tomgrv/devcontainer-features/commit/7a4490c31021bb811f357e116a961eab07673964))
+
+## 7.18.0 (2026-08-17)
+
+_Commits from: v7.17.0..HEAD_
+
+### 📂 Unscoped changes
+
+#### Bug Fixes
+
+- 🐛 pin docker-in-docker moby:false, revert installsAfter version pin (#125) ([bb79924](https://github.com/tomgrv/devcontainer-features/commit/bb799244838e44313ecb68766702f76c86d08ff0))
+- 🐛 remove redundant install script from package.json ([eb6fe95](https://github.com/tomgrv/devcontainer-features/commit/eb6fe9539ac074197aff506d6e5c00c211515c2d))
+- 🐛 update hooks configuration to use lint-staged precommit script ([ba70818](https://github.com/tomgrv/devcontainer-features/commit/ba70818bc04311e6c614eb58ab56abebc08bc840))
+
+#### Features
+
+- ✨ add setup.sh for single curl-command install (#120) ([3e58ac3](https://github.com/tomgrv/devcontainer-features/commit/3e58ac33b1abe1bda654f859bb03d1609d93cfaa))
+
+#### Other changes
+
+- Merge tag 'v7.17.0' into develop ([193b49d](https://github.com/tomgrv/devcontainer-features/commit/193b49dee0db7c6df6173f23a2dd2b7af1967180))
+- ♻️ 👷 merge check-pr-source-branch into validate-pr-format (#121) ([c5a9f86](https://github.com/tomgrv/devcontainer-features/commit/c5a9f86dd91db8f3268c48e6d2e9d884528fec6c))
+- 🔧 rename test workflows to test-&lt;scope&gt;.yaml convention (#124) ([1253b61](https://github.com/tomgrv/devcontainer-features/commit/1253b61a8f38dd7803c5f53d48fff513c4bc1fae))
+
+### 📦 devcontainer-features-common-utils changes
+
+#### Bug Fixes
+
+- 🐛 route zz_context messages through zz_log (#122) ([f7e3822](https://github.com/tomgrv/devcontainer-features/commit/f7e38226b8ba68847bba36e897947909fc827fc9))
+
+### 📦 devcontainer-features-gateway changes
+
+#### Bug Fixes
+
+- 🐛 handle -0/-O params in curl wrapper (#118) ([19b39ae](https://github.com/tomgrv/devcontainer-features/commit/19b39aee5ef51c93da7a0041f282ad6e9157dc4c))
+- 🐛 recognize non-alnum-led flag clusters like -#0O (#119) ([3e518b0](https://github.com/tomgrv/devcontainer-features/commit/3e518b0b0b70699bc84ca88285ef6bcfa0ab0151))
+
+#### Features
+
+- ✨ make gateway available during OCI image build (#123) ([2572800](https://github.com/tomgrv/devcontainer-features/commit/25728002f13e65f31da13da499f97619ea0375b0))
+
+### 📦 devcontainer-features-githooks changes
+
+#### Bug Fixes
+
+- 🐛 stop lockfile check from running lifecycle scripts (#126) ([22e9991](https://github.com/tomgrv/devcontainer-features/commit/22e99915c428175d4010c4d3149cfd37f6ca9647))
+
+### 📦 devcontainer-features-larasets changes
+
+#### Features
+
+- ✨ enable Blade formatting in Pint lint script (#127) ([bdffd91](https://github.com/tomgrv/devcontainer-features/commit/bdffd91efd27be6066fd1639b89ad700e456d9e6))
+
+## 7.17.0 (2026-08-14)
+
+_Commits from: v7.16.0..HEAD_
+
+### 📂 Unscoped changes
+
+#### Bug Fixes
+
+- 🐛 simplify workflow conditions and update action version ([30454a1](https://github.com/tomgrv/devcontainer-features/commit/30454a1b244551cc0a8db288d3f7d7388c41b767))
+- 🐛 update package names to use correct scope format ([91dc771](https://github.com/tomgrv/devcontainer-features/commit/91dc77158e4e0ab0aa9bc5fc832aec8ca91d1756))
+
+#### Other changes
+
+- Merge tag 'v7.16.0' into develop ([9c9ac02](https://github.com/tomgrv/devcontainer-features/commit/9c9ac027226650feff8bdee81b2d6300584d7732))
+- ♻️ remove outdated commit and repository instruction files ([229ea3e](https://github.com/tomgrv/devcontainer-features/commit/229ea3e90d9f000c8c5a948828264959e6170c36))
+- ♻️ 🔄 revert to npx skills experimental_install, add governance rules (#115) ([63e9836](https://github.com/tomgrv/devcontainer-features/commit/63e9836a5e2132dbffecda38b696607e8ee3c9e1))
+
+### 📦 devcontainer-features-ai-coding changes
+
+#### Features
+
+- ✨ add agent behavior guidelines for Copilot and Claude (#117) ([9fd7d74](https://github.com/tomgrv/devcontainer-features/commit/9fd7d74330d6eb5c197f6690e068536bd0659d84))
+
+### 📦 devcontainer-features-githooks changes
+
+#### Features
+
+- ✨ validate composer.json/package.json via lint-staged (#116) ([e642ff0](https://github.com/tomgrv/devcontainer-features/commit/e642ff090bd35c8f851f6d9ef6b38e695f44f510))
+
 ## 7.16.0 (2026-08-12)
 
 _Commits from: v7.15.0..HEAD_
@@ -1665,4 +1779,4 @@ _Commits from: v5.25.0..HEAD_
 
 ---
 
-_Generated on 2026-08-12 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
+_Generated on 2026-08-18 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_

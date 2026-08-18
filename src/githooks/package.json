@@ -1,30 +1,29 @@
 {
-    "name": "@tomgrv-devcontainer-features/githooks",
-    "version": "7.16.0",
+    "name": "@tomgrv/devcontainer-features-githooks",
+    "version": "8.0.0",
     "description": "Git hooks and linting configuration for development workflow",
     "files": [
-        "_*.sh",
+        "bin/*.sh",
         "configure-*.sh",
         "install.sh",
-        "_*.package.json",
         "stubs/**/*"
     ],
     "bin": {
-        "commit-msg": "_commit-msg.sh",
-        "install-plugins": "_install-plugins.sh",
-        "post-checkout": "_post-checkout.sh",
-        "post-merge": "_post-merge.sh",
-        "pre-commit": "_pre-commit.sh",
-        "pre-push": "_pre-push.sh",
-        "prepare-commit-msg": "_prepare-commit-msg.sh",
-        "sync-versions": "_sync-versions.sh",
-        "update-version": "_update-version.sh"
+        "commit-msg": "bin/commit-msg.sh",
+        "install-plugins": "bin/install-plugins.sh",
+        "post-checkout": "bin/post-checkout.sh",
+        "post-merge": "bin/post-merge.sh",
+        "pre-commit": "bin/pre-commit.sh",
+        "pre-push": "bin/pre-push.sh",
+        "prepare-commit-msg": "bin/prepare-commit-msg.sh",
+        "sync-versions": "bin/sync-versions.sh",
+        "update-version": "bin/update-version.sh"
     },
     "scripts": {
         "configure-cz": "./configure-cz.sh",
         "configure-hooks": "./configure-hooks.sh",
-        "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then sh ./install.sh; fi",
-        "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then configure-feature -s . githooks; fi"
+        "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then zz_feature -i -s .; fi",
+        "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then zz_feature -c -s . githooks; fi"
     },
     "dependencies": {
         "@commitlint/cli": "*",
@@ -39,14 +38,14 @@
         "prettier-plugin-sh": "*"
     },
     "peerDependencies": {
-        "@tomgrv-devcontainer-features/common-utils": "*",
-        "@tomgrv-devcontainer-features/gitutils": "*"
+        "@tomgrv/devcontainer-features-common-utils": "*",
+        "@tomgrv/devcontainer-features-gitutils": "*"
     },
     "peerDependenciesMeta": {
-        "@tomgrv-devcontainer-features/common-utils": {
+        "@tomgrv/devcontainer-features-common-utils": {
             "optional": true
         },
-        "@tomgrv-devcontainer-features/gitutils": {
+        "@tomgrv/devcontainer-features-gitutils": {
             "optional": true
         }
     }

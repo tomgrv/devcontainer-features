@@ -6,7 +6,9 @@
         "ghcr.io/tomgrv/devcontainer-features/common-utils"
     ],
     "dependsOn": {
-        "ghcr.io/devcontainers/features/docker-in-docker:3": {},
+        "ghcr.io/devcontainers/features/docker-in-docker:3": {
+            "moby": false
+        },
         "ghcr.io/tomgrv/devcontainer-features/common-utils:7": {}
     },
     "name": "Nektos Act",
@@ -17,8 +19,8 @@
             "type": "string"
         }
     },
-    "version": "7.15.0",
+    "version": "8.0.0",
     "postCreateCommand": {
-        "config": "configure-feature act"
+        "config": "zz_feature -c act"
     }
 }

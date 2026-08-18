@@ -1,0 +1,83 @@
+{
+    "scripts": {
+        "base": [
+            "composer @additional_args --ignore-platform-req=ext-* --with-all-dependencies --minimal-changes --ansi"
+        ],
+        "helpers": [
+            "@php artisan ide-helper:generate --ansi",
+            "@php artisan ide-helper:meta --ansi"
+        ],
+        "inst": [
+            "composer install --ignore-platform-req=ext-*"
+        ],
+        "link": [
+            "composer config repositories.local '{\"type\": \"path\", \"url\": \"@additional_args\"}' --file composer.json"
+        ],
+        "lint": [
+            "vendor/bin/pint --ansi --dirty --blade"
+        ],
+        "lock": [
+            "@base update --lock --no-scripts --no-interaction --no-progress --no-install",
+            "composer validate --no-check-all --strict 2>&1 | grep -Eoi 'Required \\(in require-dev\\) package \\\"[^\\\"]+' | cut -d\"\\\"\" -f2 | xargs -r -I{} composer reqdev {}",
+            "composer validate --no-check-all --strict 2>&1 | grep -Eoi 'Required package \\\"[^\\\"]+' | cut -d\"\\\"\" -f2 | xargs -r -I{} composer req {}"
+        ],
+        "post-autoload-dump": [
+            "@prepare",
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump"
+        ],
+        "post-create-project-cmd": [
+            "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
+            "@php artisan key:generate --ansi",
+            "@php artisan migrate --graceful --ansi"
+        ],
+        "post-install-cmd": [
+            "@php -r \"if ((string) getenv('COMPOSER_DEV_MODE') === '1') { passthru('composer post-install-cmd-dev', $exitCode); exit($exitCode); }\"",
+            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
+        ],
+        "post-install-cmd-dev": [
+            "@base require laravel/boost --dev --no-interaction --ansi || true"
+        ],
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-update-cmd": [
+            "@php -r \"if ((string) getenv('COMPOSER_DEV_MODE') === '1') { passthru('composer post-update-cmd-dev --no-interaction', $exitCode); exit($exitCode); }\"",
+            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
+        ],
+        "post-update-cmd-dev": [
+            "@php artisan boost:update --ansi && git fix blanks || true"
+        ],
+        "prepare": [
+            "@php artisan package:discover --ansi",
+            "@php artisan optimize --ansi || true",
+            "@php artisan filament:upgrade --ansi || true"
+        ],
+        "pretest": [
+            "@php artisan optimize:clear --ansi || true"
+        ],
+        "req": [
+            "@base require",
+            "@helpers @no_additional_args"
+        ],
+        "reqdev": [
+            "@base require --dev",
+            "@helpers @no_additional_args"
+        ],
+        "rmv": [
+            "@base remove",
+            "@helpers @no_additional_args"
+        ],
+        "test": [
+            "@pretest",
+            "vendor/bin/pest"
+        ],
+        "test-coverage": [
+            "@pretest",
+            "vendor/bin/pest --coverage"
+        ],
+        "upg": [
+            "@base update",
+            "@helpers @no_additional_args"
+        ]
+    }
+}
