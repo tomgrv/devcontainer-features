@@ -16,11 +16,11 @@ FROM mcr.microsoft.com/devcontainers/base:noble
 # Tolerates an empty certs folder and a missing curl: the build succeeds
 # even before the gateway root CA is dropped in .devcontainer/.gateway/certs/.
 COPY ./certs/ /tmp/gateway/certs/
-COPY ./_install-certs-core.sh ./_install-curl-wrapper-core.sh ./_gateway-curl.sh /tmp/gateway/
-RUN chmod +x /tmp/gateway/_gateway-curl.sh \
-    && sh /tmp/gateway/_install-certs-core.sh /tmp/gateway/certs \
-    && sh /tmp/gateway/_install-curl-wrapper-core.sh install /tmp/gateway/_gateway-curl.sh /usr/local/bin \
-    && sh /tmp/gateway/_install-curl-wrapper-core.sh divert /usr/local/bin \
+COPY ./install-certs-core.sh ./install-curl-wrapper-core.sh ./gateway-curl.sh /tmp/gateway/
+RUN chmod +x /tmp/gateway/gateway-curl.sh \
+    && sh /tmp/gateway/install-certs-core.sh /tmp/gateway/certs \
+    && sh /tmp/gateway/install-curl-wrapper-core.sh install /tmp/gateway/gateway-curl.sh /usr/local/bin \
+    && sh /tmp/gateway/install-curl-wrapper-core.sh divert /usr/local/bin \
     && rm -rf /tmp/gateway
 
 # Tools that don't consult the OS trust store on their own (npm/pnpm/Node,
@@ -28,9 +28,9 @@ RUN chmod +x /tmp/gateway/_gateway-curl.sh \
 # itself sets these as containerEnv, but that only takes effect once the
 # container is created — too late for a `RUN npm install` here, or in any
 # feature layer that follows this Dockerfile during the image build.
-ENV COMPOSER_CA_FILE=/etc/ssl/certs/ca-certificates.crt \
-    CURL_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt \
-    GIT_SSL_CAINFO=/etc/ssl/certs/ca-certificates.crt \
-    NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt \
-    REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt \
-    SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
+ENV COMPOSER_CA_FILE=/usr/local/share/ca-certificates/ca-certificates.crt \
+    CURL_CA_BUNDLE=/usr/local/share/ca-certificates/ca-certificates.crt \
+    GIT_SSL_CAINFO=/usr/local/share/ca-certificates/ca-certificates.crt \
+    NODE_EXTRA_CA_CERTS=/usr/local/share/ca-certificates/ca-certificates.crt \
+    REQUESTS_CA_BUNDLE=/usr/local/share/ca-certificates/ca-certificates.crt \
+    SSL_CERT_FILE=/usr/local/share/ca-certificates/ca-certificates.crt
