@@ -28,7 +28,7 @@ teardown() {
 }
 
 @test "install: copies wrapper as gateway-curl, executable" {
-    run install-curl-wrapper-core install "$GATEWAY_STUB_DIR/_gateway-curl.sh" "$BINDIR"
+    run install-curl-wrapper-core install "$GATEWAY_STUB_DIR/gateway-curl.sh" "$BINDIR"
     [ "$status" -eq 0 ]
     [ -x "$BINDIR/gateway-curl" ]
 }
@@ -39,7 +39,7 @@ teardown() {
 }
 
 @test "divert: curl symlinked to wrapper, real curl kept as .real" {
-    install-curl-wrapper-core install "$GATEWAY_STUB_DIR/_gateway-curl.sh" "$BINDIR"
+    install-curl-wrapper-core install "$GATEWAY_STUB_DIR/gateway-curl.sh" "$BINDIR"
     curl_bin="$FAKE_CURL_DIR/curl"
     run install-curl-wrapper-core divert "$BINDIR"
     [ "$status" -eq 0 ]
@@ -48,7 +48,7 @@ teardown() {
 }
 
 @test "divert: idempotent when already diverted" {
-    install-curl-wrapper-core install "$GATEWAY_STUB_DIR/_gateway-curl.sh" "$BINDIR"
+    install-curl-wrapper-core install "$GATEWAY_STUB_DIR/gateway-curl.sh" "$BINDIR"
     install-curl-wrapper-core divert "$BINDIR"
     run install-curl-wrapper-core divert "$BINDIR"
     [ "$status" -eq 0 ]

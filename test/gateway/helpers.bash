@@ -6,10 +6,10 @@ GATEWAY_STUB_DIR="$GATEWAY_DIR/stubs/.devcontainer/.gateway"
 setup_gateway_path() {
     local file
     TEST_BIN=$(mktemp -d)
-    for file in "$GATEWAY_STUB_DIR"/_*.sh; do
+    for file in "$GATEWAY_STUB_DIR"/*.sh; do
         [ -f "$file" ] || continue
         chmod +x "$file"
-        ln -sf "$file" "$TEST_BIN/$(basename "$file" | sed 's/^_//; s/\.sh$//')"
+        ln -sf "$file" "$TEST_BIN/$(basename "$file" .sh)"
     done
     export PATH="$TEST_BIN:$PATH"
 }
