@@ -22,3 +22,4 @@ VERSION
 .toolkit
 /bin
 /obj
+.zz_feature

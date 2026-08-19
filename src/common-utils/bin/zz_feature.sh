@@ -250,21 +250,76 @@ elif [ -n "$configure" ]; then
                 grep -qxF $dest .gitignore || echo "$dest" >>.gitignore
             fi
 
-            # Use git merge-file to merge the file
-            if [ -f $dest ]; then
+            # Deploy the file into dest, merging with whatever is already there
+            if [ "${dest##*.}" = "json" ]; then
 
-                # if json file, use merge-json to merge the file
-                if [ "${dest##*.}" = "json" ]; then
+                # JSON fragments accumulate via merge-json's own recursive merge
+                if [ -f $dest ]; then
                     zz_log - "Merging {U $file} into {U $dest}..."
                     merge-json -t ${tabSize:-4} $dest $file
                 else
-                    zz_log - "Using git merge-file to merge {U $file} into {U $dest}..."
-                    git merge-file -q $dest $file $file
+                    zz_log w "Destination file {U $dest} does not exist. Copying {U $file} to {U $dest}..."
+                    cp $file $dest
                 fi
 
             else
-                zz_log w "Destination file {U $dest} does not exist. Copying {U $file} to {U $dest}..."
-                cp $file $dest
+                # Non-JSON fragments accumulate via a plain line-set
+                # reconciliation, not git merge-file: merge-file's 3-way
+                # diff is positional, and independent fragments routinely
+                # add their distinct lines at the very same spot (end of
+                # the shared common lines), which it reports as a
+                # conflict it can't order rather than two additions to
+                # union. Keep a per-(feature, fragment) snapshot of what
+                # was last deployed and diff the incoming file against it:
+                # lines the snapshot had that the incoming file no longer
+                # does were genuinely dropped upstream and get removed
+                # from dest; lines the incoming file has that the snapshot
+                # didn't get appended if dest doesn't already have them
+                # (from this or any other fragment). No snapshot yet (the
+                # very first deploy of this fragment, or the first fragment
+                # ever deployed to this dest) behaves the same way with an
+                # empty base: nothing to remove, everything to add. Dates
+                # gate the attempt Make-style: skip entirely once this
+                # exact source file hasn't changed since it was captured.
+                snapshot_dir=$(git rev-parse --show-toplevel 2>/dev/null || pwd)/.zz_feature/state
+                snapshot=$snapshot_dir/$(echo "$feature/${file#$source/stubs/}" | tr '/' '_')
+                mkdir -p $snapshot_dir
+                base=$snapshot
+                [ -f $base ] || base=/dev/null
+
+                if [ ! -f $dest ]; then
+                    zz_log w "Destination file {U $dest} does not exist. Copying {U $file} to {U $dest}..."
+                    cp $file $dest
+                elif [ $base != /dev/null ] && [ ! $file -nt $base ]; then
+                    zz_log - "No change in {U $file} since last deploy, skipping merge into {U $dest}"
+                else
+                    zz_log - "Reconciling {U $file} into {U $dest}..."
+
+                    removed=$(mktemp)
+                    grep -vFxf $file $base >$removed
+                    if [ -s $removed ]; then
+                        reconciled=$(mktemp)
+                        grep -vFxf $removed $dest >$reconciled
+                        cat $reconciled >$dest
+                        rm -f $reconciled
+                    fi
+                    rm -f $removed
+
+                    added=$(mktemp)
+                    grep -vFxf $base $file >$added
+                    if [ -s $added ]; then
+                        new=$(mktemp)
+                        grep -vFxf $dest $added >$new
+                        if [ -s $new ]; then
+                            [ -z "$(tail -c1 $dest)" ] || printf '\n' >>$dest
+                            cat $new >>$dest
+                        fi
+                        rm -f $new
+                    fi
+                    rm -f $added
+                fi
+
+                cp -p $file $snapshot
             fi
 
             # Apply the same permissions as the original file
