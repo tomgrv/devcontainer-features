@@ -22,4 +22,4 @@ VERSION
 .toolkit
 /bin
 /obj
-./.gitattributes
+.zz_feature
