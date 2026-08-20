@@ -6,3 +6,6 @@
 *.js linguist-vendored
 *.json merge=json
 CHANGELOG.md export-ignore
+.devcontainer export-ignore
+.github export-ignore
+.vscode export-ignore

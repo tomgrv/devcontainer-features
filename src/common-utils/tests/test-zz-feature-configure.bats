@@ -2,7 +2,10 @@
 # Covers the stub-deploy loop's qualifier-collapse dest logic in
 # zz_feature.sh's -c (configure) mode (_<qualifier>.<yyy.ext> -> <yyy.ext>),
 # the only merge mechanism (the old dedicated package/composer merge pass
-# was removed in favor of routing those fragments through stubs/ too).
+# was removed in favor of routing those fragments through stubs/ too), and
+# the non-JSON accumulation path (line-set reconciliation against a dated
+# per-fragment snapshot, since git merge-file can't union two independent
+# fragments' additions the way merge-json unions JSON fragments).
 
 load helpers
 
@@ -76,4 +79,63 @@ EOF
     (cd "$target_dir" && zz_feature -c -s "$source_dir" myfeature)
 
     [ "$(cat "$target_dir/plain.txt")" = "hello" ]
+}
+
+@test "non-JSON: two different features' fragments both accumulate into the same dest" {
+    other_source="$work/other-feature"
+    mkdir -p "$other_source/stubs"
+
+    printf '* text=auto eol=lf\nCHANGELOG.md export-ignore\n' >"$source_dir/stubs/..gitattributes"
+    printf '* text=auto eol=lf\nCHANGELOG.md export-ignore\n.agents export-ignore\n' >"$other_source/stubs/..gitattributes"
+
+    (cd "$target_dir" && zz_feature -c -s "$source_dir" first-feature)
+    (cd "$target_dir" && zz_feature -c -s "$other_source" second-feature)
+
+    grep -qxF 'CHANGELOG.md export-ignore' "$target_dir/.gitattributes"
+    grep -qxF '.agents export-ignore' "$target_dir/.gitattributes"
+}
+
+@test "non-JSON: unchanged fragment is a true no-op on re-deploy, not duplicated" {
+    printf '* text=auto eol=lf\nCHANGELOG.md export-ignore\n' >"$source_dir/stubs/..gitattributes"
+
+    (cd "$target_dir" && zz_feature -c -s "$source_dir" myfeature)
+    before="$(cat "$target_dir/.gitattributes")"
+    (cd "$target_dir" && zz_feature -c -s "$source_dir" myfeature)
+    after="$(cat "$target_dir/.gitattributes")"
+
+    [ "$before" = "$after" ]
+    [ "$(grep -c 'CHANGELOG.md export-ignore' "$target_dir/.gitattributes")" = 1 ]
+}
+
+@test "non-JSON: a fragment's upstream update patches in just its delta" {
+    printf '* text=auto eol=lf\nCHANGELOG.md export-ignore\n' >"$source_dir/stubs/..gitattributes"
+    (cd "$target_dir" && zz_feature -c -s "$source_dir" myfeature)
+
+    other_source="$work/other-feature"
+    mkdir -p "$other_source/stubs"
+    printf '* text=auto eol=lf\nCHANGELOG.md export-ignore\n.agents export-ignore\n' >"$other_source/stubs/..gitattributes"
+    (cd "$target_dir" && zz_feature -c -s "$other_source" second-feature)
+
+    # first feature's fragment gains a new line upstream
+    printf '* text=auto eol=lf\nCHANGELOG.md export-ignore\n.vscode export-ignore\n' >"$source_dir/stubs/..gitattributes"
+    touch "$source_dir/stubs/..gitattributes"
+    (cd "$target_dir" && zz_feature -c -s "$source_dir" myfeature)
+
+    ! grep -q '<<<<<<<' "$target_dir/.gitattributes"
+    grep -qxF '.vscode export-ignore' "$target_dir/.gitattributes"
+    grep -qxF '.agents export-ignore' "$target_dir/.gitattributes"
+}
+
+@test "non-JSON: a line dropped from a fragment's upstream is removed, manual edits survive" {
+    printf '* text=auto eol=lf\nCHANGELOG.md export-ignore\n.devcontainer export-ignore\n' >"$source_dir/stubs/..gitattributes"
+    (cd "$target_dir" && zz_feature -c -s "$source_dir" myfeature)
+
+    printf 'my-custom-file custom-attr\n' >>"$target_dir/.gitattributes"
+
+    printf '* text=auto eol=lf\nCHANGELOG.md export-ignore\n' >"$source_dir/stubs/..gitattributes"
+    touch "$source_dir/stubs/..gitattributes"
+    (cd "$target_dir" && zz_feature -c -s "$source_dir" myfeature)
+
+    ! grep -qxF '.devcontainer export-ignore' "$target_dir/.gitattributes"
+    grep -qxF 'my-custom-file custom-attr' "$target_dir/.gitattributes"
 }
