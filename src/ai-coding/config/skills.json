@@ -8,6 +8,10 @@
         {
             "package": "JuliusBrussee/caveman",
             "global": false
+        },
+        {
+            "package": "DietrichGebert/ponytail",
+            "global": false
         }
     ]
 }
