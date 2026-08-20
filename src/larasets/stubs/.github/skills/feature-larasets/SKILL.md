@@ -25,6 +25,7 @@ Use this feature for Laravel-focused developer experience in dev containers, inc
 - `secret <...>` - Run any command with the SSH agent loaded and secrets injected: Doppler when available, else `.env`.
 - `composer lint` - Run Pint linting flow for project code, including Blade template formatting.
 - `composer test` - Run Pest test suite.
+- `Livewire::visit(...)->...` in a Pest test - Run a browser test (Pest's browser plugin + Playwright, per Livewire's browser testing docs); Chromium is preinstalled.
 - `composer upg` - Update Composer dependencies with project defaults.
 
 ## Use For
