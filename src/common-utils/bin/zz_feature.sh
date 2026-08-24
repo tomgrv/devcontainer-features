@@ -281,8 +281,8 @@ elif [ -n "$configure" ]; then
                 # empty base: nothing to remove, everything to add. Dates
                 # gate the attempt Make-style: skip entirely once this
                 # exact source file hasn't changed since it was captured.
-                snapshot_dir=$(git rev-parse --show-toplevel 2>/dev/null || pwd)/.zz_feature/state
-                snapshot=$snapshot_dir/$(echo "$feature/${file#$source/stubs/}" | tr '/' '_')
+                snapshot_dir=$(git rev-parse --git-path info 2>/dev/null || echo .git/info)/zz_feature/state
+                snapshot=$snapshot_dir/$(echo -n "$feature/${file#$source/stubs/}" | sha1sum | cut -d' ' -f1)
                 mkdir -p $snapshot_dir
                 base=$snapshot
                 [ -f $base ] || base=/dev/null
