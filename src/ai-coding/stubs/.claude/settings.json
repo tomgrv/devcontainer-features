@@ -6,6 +6,15 @@
         "pr": "",
         "sessionUrl": false
     },
+    "permissions": {
+        "deny": [
+            "ScheduleWakeup",
+            "mcp__claude-code-remote__send_later",
+            "mcp__claude-code-remote__create_trigger",
+            "mcp__claude-code-remote__update_trigger",
+            "mcp__claude-code-remote__fire_trigger"
+        ]
+    },
     "hooks": {
         "PreToolUse": [
             {
