@@ -62,4 +62,8 @@ teardown() {
 
 ## Example
 
-See `src/common-utils/tests/` for a working example, including `test-args.bats` for the `run`-based pattern used to test usage/exit-code behavior.
+`src/common-utils/tests/` no longer follows this `bin/*.sh`-linking pattern:
+that feature's own `bin/*.sh` scripts moved to
+[`tomgrv/scripts`](https://github.com/tomgrv/scripts) (tested there),
+leaving only `install.sh`'s local bootstrap/shim logic to cover here — see
+`test-install.bats` for its own, simpler setup.
