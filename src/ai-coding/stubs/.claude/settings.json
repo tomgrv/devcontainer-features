@@ -6,6 +6,19 @@
         "pr": "",
         "sessionUrl": false
     },
+    "permissions": {
+        "allow": [
+            "Bash(git push:*)",
+            "Bash(git tag:*)"
+        ],
+        "deny": [
+            "ScheduleWakeup",
+            "mcp__claude-code-remote__send_later",
+            "mcp__claude-code-remote__create_trigger",
+            "mcp__claude-code-remote__update_trigger",
+            "mcp__claude-code-remote__fire_trigger"
+        ]
+    },
     "hooks": {
         "PreToolUse": [
             {

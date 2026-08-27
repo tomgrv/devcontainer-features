@@ -24,3 +24,6 @@ Homestead.yaml
 
 ## PHPUnit
 .phpunit.cache/*
+
+## Pest Browser Testing
+tests/Browser/Screenshots

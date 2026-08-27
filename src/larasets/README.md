@@ -34,6 +34,7 @@ npm install --save-dev @tomgrv/devcontainer-features-larasets
 - Supports Laravel Sail for containerized development (wrappers auto-target the Sail container when it is running).
 - Loads secrets into `art`/`run`/`srv`/`serve`/`smee`/`dep` via `secret`: Doppler when available, else `.env` (`seed` inherits this through `art`).
 - Installs necessary extensions and tools for Laravel development.
+- Installs Pest's browser testing plugin (Playwright-backed, per [Livewire's browser testing docs](https://livewire.laravel.com/docs/4.x/testing)) and its browser binaries.
 
 ## Configuration
 
@@ -118,6 +119,7 @@ The following utilities are added to root composer:
 - `rmv` - Remove a package with all dependencies ignoring platform requirements.
 - `test` - Run Pest tests.
 - `test-coverage` - Run Pest tests with coverage.
+- `pestphp/pest-plugin-browser` (installed as a dev dependency) enables `Livewire::visit(...)` browser tests via Playwright — see [Livewire browser testing](https://livewire.laravel.com/docs/4.x/testing). Playwright's Chromium binary is installed automatically (`configure-sail`, and in CI before `run-php-tests`). Screenshots under `tests/Browser/Screenshots` are gitignored.
 - `upg` - Update dependencies with all dependencies ignoring platform requirements.
 
 ## Contributing
