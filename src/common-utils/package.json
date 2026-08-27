@@ -1,6 +1,6 @@
 {
     "name": "@tomgrv/devcontainer-features-common-utils",
-    "version": "8.0.0",
+    "version": "8.1.0",
     "description": "Common utilities and helper scripts for devcontainer features",
     "files": [
         "configure-*.sh",
