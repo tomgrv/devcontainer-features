@@ -7,6 +7,10 @@
         "sessionUrl": false
     },
     "permissions": {
+        "allow": [
+            "Bash(git push:*)",
+            "Bash(git tag:*)"
+        ],
         "deny": [
             "ScheduleWakeup",
             "mcp__claude-code-remote__send_later",
