@@ -15,7 +15,23 @@ dir=$(dirname $(readlink -f $0))
 ### zz_use already on PATH (from a previous install) is reused as-is, and
 ### zz_use itself only fetches/installs whatever isn't already present.
 if ! command -v zz_use >/dev/null 2>&1; then
-    curl -fsSL "${ZZ_SCRIPTS_SETUP_URL:-https://raw.githubusercontent.com/tomgrv/scripts/main/setup.sh}" | sh
+    # Downloaded to a temp file rather than piped straight into sh: a
+    # `curl | sh` pipeline's exit status is sh's, not curl's, so a failed
+    # download would otherwise go unnoticed and this script would carry on
+    # without zz_use.
+    _zz_setup_tmp=$(mktemp) || {
+        echo "install.sh: mktemp failed" >&2
+        exit 1
+    }
+    if ! curl -fsSL "${ZZ_SCRIPTS_SETUP_URL:-https://raw.githubusercontent.com/tomgrv/scripts/main/setup.sh}" -o "$_zz_setup_tmp"; then
+        echo "install.sh: failed to download the zz_use bootstrap" >&2
+        rm -f "$_zz_setup_tmp"
+        exit 1
+    fi
+    sh "$_zz_setup_tmp"
+    _zz_setup_rc=$?
+    rm -f "$_zz_setup_tmp"
+    [ "$_zz_setup_rc" -eq 0 ] || exit "$_zz_setup_rc"
 fi
 export PATH="${INSTALL_BIN_DIR:-/usr/local/bin}:$PATH"
 
@@ -34,6 +50,10 @@ zz_use load-json validate-json normalize-json merge-json resolve-context \
 # under a different name so it doesn't clobber this script's own $dir
 # (its source directory, used below and by the rest of this monorepo's
 # install.sh convention).
+command -v zz_bindir >/dev/null 2>&1 || {
+    echo "install.sh: zz_bindir not found on PATH after zz_use" >&2
+    exit 1
+}
 eval "$(zz_bindir)"
 bindir="$dir"
 dir=$(dirname $(readlink -f $0))
@@ -41,7 +61,11 @@ dir=$(dirname $(readlink -f $0))
 for old_new in zz_context:resolve-context zz_dist:distribute-utils zz_edit:edit-script zz_json:load-json; do
     old=${old_new%%:*}
     new=${old_new#*:}
-    ln -sf "$(command -v "$new")" "$bindir/$old"
+    target=$(command -v "$new") || {
+        echo "install.sh: '$new' not found on PATH after zz_use (needed for the '$old' shim)" >&2
+        exit 1
+    }
+    ln -sf "$target" "$bindir/$old"
 done
 
 cat >"$bindir/zz_feature" <<'SHIM'

@@ -4,6 +4,10 @@
 ### zz_use-bootstrap template (stubs/setup.sh) - deploy/repair it if it's
 ### missing or has drifted, so every start leaves the repo with a working,
 ### up-to-date entrypoint.
+if [ -z "${source:-}" ]; then
+    zz_log e "scripting: \$source not set (expected to be exported by configure-feature)."
+    exit 1
+fi
 canonical="$source/stubs/setup.sh"
 
 if [ -f setup.sh ] && cmp -s setup.sh "$canonical"; then
