@@ -35,6 +35,7 @@
         "devcontainer-features": "install.sh",
         "tomgrv-devcontainer-features": "install.sh"
     },
+    "main": "install.sh",
     "type": "module",
     "repository": {
         "type": "git",
