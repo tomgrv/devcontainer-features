@@ -56,7 +56,7 @@ elif [ -d "/tmp/$_feature" ]; then
 fi
 
 if [ -n "$_featureSource" ]; then
-    sh "$_source/src/common-utils/bin/zz_feature.sh" -c -s "$_featureSource" "$_feature"
+    configure-feature -s "$_featureSource" "$_feature"
 else
     echo "Feature $_feature installation target not found" >&2
     exit 1

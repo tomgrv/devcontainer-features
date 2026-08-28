@@ -3,51 +3,31 @@
 # Load the directory of the current script
 source=$(dirname $(readlink -f $0))
 
-# Source the common utils
-. $source/src/common-utils/bin/zz_colors.sh
+### Bootstrap the shared zz_* core from https://github.com/tomgrv/scripts -
+### the scripts formerly kept in src/common-utils/bin/ now live there,
+### shared across every tomgrv repo. Idempotent: a zz_use already on PATH
+### is reused as-is.
+if ! command -v zz_use >/dev/null 2>&1; then
+    _zz_setup_tmp=$(mktemp) || {
+        echo "install.sh: mktemp failed" >&2
+        exit 1
+    }
+    if ! curl -fsSL "${ZZ_SCRIPTS_SETUP_URL:-https://raw.githubusercontent.com/tomgrv/scripts/main/setup.sh}" -o "$_zz_setup_tmp"; then
+        echo "install.sh: failed to download the zz_use bootstrap" >&2
+        rm -f "$_zz_setup_tmp"
+        exit 1
+    fi
+    sh "$_zz_setup_tmp"
+    _zz_setup_rc=$?
+    rm -f "$_zz_setup_tmp"
+    [ "$_zz_setup_rc" -eq 0 ] || exit "$_zz_setup_rc"
+fi
+export PATH="${INSTALL_BIN_DIR:-/usr/local/bin}:$PATH"
+
+zz_use zz_args zz_log jq resolve-context install-feature configure-feature
 
 # Internal debug logging: quiet by default, enable with ZZ_LOG_DEBUG=1
-_debug() { [ -n "${ZZ_LOG_DEBUG:-}" ] && echo "${Yellow}$*${End}" >&2 || true; }
-
-# Link common utils into src/ for easier sourcing during installation, and ensure they are cleaned up on exit
-
-links_up()
-{
-    _debug "Link common utils"
-    # Capture the full listing before acting on it (not `find | while read`):
-    # find keeps traversing this same directory as entries are added/removed
-    # under a live pipe, which races under busybox find. Quoted and
-    # newline-split (not word-split) so paths with spaces survive.
-    _files=$(find "$source/src/common-utils/bin/" -type f -name "*.sh")
-    printf '%s\n' "$_files" | while IFS= read -r file; do
-        [ -n "$file" ] || continue
-        chmod +x "$file"
-        ln -sf "$file" "$source/src/common-utils/$(basename "$file" | sed 's/.sh$//')"
-    done
-}
-
-links_down()
-{
-    _debug "Unlink common utils"
-    _files=$(find "$source/src/common-utils/bin/" -type f -name "*.sh")
-    printf '%s\n' "$_files" | while IFS= read -r file; do
-        [ -n "$file" ] || continue
-        rm -f "$source/src/common-utils/$(basename "$file" | sed 's/.sh$//')"
-    done
-}
-
-# Track whether this is the root-level invocation to control symlink lifecycle
-_install_root="${INSTALL_ROOT_CALL:-1}"
-export INSTALL_ROOT_CALL=0
-
-# Prepare for local installation by creating a temporary directory and linking common utils
-test "${_install_root}" -eq 1 && links_up && trap links_down EXIT
-
-# Prepend (not append): a previous run may have installed these same-named
-# scripts system-wide (e.g. via the common-utils feature). Without
-# prepending, a stale globally-installed copy would shadow the one this
-# checkout just fetched, silently running old/patched-elsewhere code.
-export PATH=$source/src/common-utils:$PATH
+_debug() { [ -n "${ZZ_LOG_DEBUG:-}" ] && zz_log - "$*" || true; }
 
 eval $(
     zz_args "Manage devcontainer features" $0 "$@" <<-help
@@ -146,7 +126,7 @@ cmd_help() {
 
 cmd_init() {
     zz_log i "Deploying $(count_stubs "$source/stubs") root stub(s)..."
-    sh "$source/src/common-utils/bin/zz_feature.sh" -c -s "$source" .
+    configure-feature -s "$source" .
     zz_log s "Root stubs deployed"
 }
 

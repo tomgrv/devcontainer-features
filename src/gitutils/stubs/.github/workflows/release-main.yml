@@ -22,7 +22,17 @@ jobs:
         uses: tomgrv/actions/setup-node@v2
 
       - name: Install GitUtils
-        run: npm exec --yes --legacy-peer-deps --package github:tomgrv/devcontainer-features -- devcontainer-features -- add gitutils
+        # zz_use/install-feature link git-beta/git-prod/etc. onto a bin dir
+        # that only lasts for *this* step's own shell unless it's also
+        # appended to $GITHUB_PATH - a later step (Run git beta then git
+        # prod) otherwise can't find them even though this step's install
+        # succeeded. Pinning INSTALL_BIN_DIR here keeps both in sync.
+        env:
+          INSTALL_BIN_DIR: ${{ runner.temp }}/gitutils-bin
+        run: |
+          mkdir -p "$INSTALL_BIN_DIR"
+          echo "$INSTALL_BIN_DIR" >> "$GITHUB_PATH"
+          npm exec --yes --legacy-peer-deps --package github:tomgrv/devcontainer-features -- devcontainer-features -- add gitutils
 
       - name: Verify GitUtils aliases
         run: |
