@@ -1,0 +1,28 @@
+# @format
+
+name: Validate PR Lock
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+permissions:
+  contents: read
+  checks: write
+  pull-requests: write
+
+jobs:
+  validate-lock:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node toolchain
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: package.json
+
+      - name: Validate lock coherence
+        uses: tomgrv/actions/check-lock@claude/lock-validation-bare-install-jvp2xm
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
