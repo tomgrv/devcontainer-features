@@ -73,7 +73,7 @@ If no branch is specified in a request, start from `develop`.
 
 **PR titles must follow Conventional Commits format with scope matching the affected workspace/feature.** Format: `<type>(devcontainer-features-<workspace>): <emoji> <description>`.
 
-Valid scopes: `devcontainer-features-act`, `devcontainer-features-ai-coding`, `devcontainer-features-common-utils`, `devcontainer-features-gateway`, `devcontainer-features-githooks`, `devcontainer-features-gitutils`, `devcontainer-features-gitversion`, `devcontainer-features-larasets`, `devcontainer-features-minikube`, `devcontainer-features-pecl`, `devcontainer-features-scripting`.
+Valid scopes (deduced from npm workspace names): `devcontainer-features-act`, `devcontainer-features-ai-coding`, `devcontainer-features-common-utils`, `devcontainer-features-gateway`, `devcontainer-features-githooks`, `devcontainer-features-gitutils`, `devcontainer-features-gitversion`, `devcontainer-features-larasets`, `devcontainer-features-minikube`, `devcontainer-features-pecl`, `devcontainer-features-scripting`.
 
 Example: `fix(devcontainer-features-githooks): 🔧 Add conditional skip when GITLEAKS_LICENSE not set`.
 
