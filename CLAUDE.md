@@ -71,10 +71,10 @@ If no branch is specified in a request, start from `develop`.
 
 ## PR Title Rule
 
-**PR titles must follow Conventional Commits format with scope matching the affected workspace/feature.** Format: `<type>(<workspace>): <emoji> <description>`.
+**PR titles must follow Conventional Commits format with scope matching the affected workspace/feature.** Format: `<type>(devcontainer-features-<workspace>): <emoji> <description>`.
 
-Valid workspaces (from `src/<feature>/`): `gitutils`, `githooks`, `gitversion`, `act`, `pecl`, `larasets`, `common-utils`, `gateway`, `scripting`, `minikube`.
+Valid scopes: `devcontainer-features-act`, `devcontainer-features-ai-coding`, `devcontainer-features-common-utils`, `devcontainer-features-gateway`, `devcontainer-features-githooks`, `devcontainer-features-gitutils`, `devcontainer-features-gitversion`, `devcontainer-features-larasets`, `devcontainer-features-minikube`, `devcontainer-features-pecl`, `devcontainer-features-scripting`.
 
-Example: `fix(githooks): 🔧 Add conditional skip when GITLEAKS_LICENSE not set`.
+Example: `fix(devcontainer-features-githooks): 🔧 Add conditional skip when GITLEAKS_LICENSE not set`.
 
-Validated by `tomgrv/actions/check-pr-format@v2` on PR open/sync. Scope must match files changed; multi-workspace changes use the primary feature modified.
+Validated by `tomgrv/actions/check-pr-format@v2` on PR open/sync. Scope must use full `devcontainer-features-<workspace>` format; multi-workspace changes use the primary feature modified.
