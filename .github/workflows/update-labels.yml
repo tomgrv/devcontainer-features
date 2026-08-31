@@ -22,7 +22,7 @@ jobs:
         uses: tomgrv/actions/setup-node@v2
 
       - name: Update labels
-        uses: tomgrv/actions/update-labels@v1
+        uses: tomgrv/actions/update-labels@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           repository: ${{ github.repository }}
