@@ -68,3 +68,13 @@ Change only what the task requires. Don't touch `package-lock.json`, `src/githoo
 - Marked as a hotfix (in commit message or request: `hotfix/...`, `@hotfix`)
 
 If no branch is specified in a request, start from `develop`.
+
+## PR Title Rule
+
+**PR titles must follow Conventional Commits format with scope matching the affected workspace/feature.** Format: `<type>(<workspace>): <emoji> <description>`.
+
+Valid workspaces (from `src/<feature>/`): `gitutils`, `githooks`, `gitversion`, `act`, `pecl`, `larasets`, `common-utils`, `gateway`, `scripting`, `minikube`.
+
+Example: `fix(githooks): 🔧 Add conditional skip when GITLEAKS_LICENSE not set`.
+
+Validated by `tomgrv/actions/check-pr-format@v2` on PR open/sync. Scope must match files changed; multi-workspace changes use the primary feature modified.
