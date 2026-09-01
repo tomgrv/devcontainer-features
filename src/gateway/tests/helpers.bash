@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
 GATEWAY_DIR="$REPO_ROOT/src/gateway"
 GATEWAY_STUB_DIR="$GATEWAY_DIR/stubs/.devcontainer/.gateway"
 
