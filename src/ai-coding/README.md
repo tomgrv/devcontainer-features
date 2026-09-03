@@ -10,7 +10,7 @@ Other features can opt into skills too: `dependsOn` this feature, ship a `stubs/
 
 ```json
 "features": {
-    "ghcr.io/tomgrv/devcontainer-features/ai-coding:7": {}
+    "ghcr.io/tomgrv/devcontainer-features/ai-coding:8": {}
 }
 ```
 

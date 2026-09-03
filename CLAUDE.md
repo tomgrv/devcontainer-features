@@ -23,7 +23,7 @@ Every tool-specific path is a symlink into `.agents/` (the single source of trut
 
 ## Feature Pattern
 
-Each feature follows this structure (use `src/pecl/` as the minimal reference — just the standard entrypoints plus `stubs/`; `src/githooks/` or `src/larasets/` for a fuller example with all four optional subdirectories):
+Each feature follows this structure (use `src/scripting/` as the minimal reference — just the standard entrypoints plus `stubs/`; `src/githooks/` or `src/larasets/` for a fuller example with all four optional subdirectories):
 
 ```
 src/<feature>/
@@ -68,3 +68,13 @@ Change only what the task requires. Don't touch `package-lock.json`, `src/githoo
 - Marked as a hotfix (in commit message or request: `hotfix/...`, `@hotfix`)
 
 If no branch is specified in a request, start from `develop`.
+
+## PR Title Rule
+
+**PR titles must follow Conventional Commits format with scope matching the affected workspace/feature.** Format: `<type>(devcontainer-features-<workspace>): <emoji> <description>`.
+
+Valid scopes (deduced from npm workspace names): `devcontainer-features-act`, `devcontainer-features-ai-coding`, `devcontainer-features-common-utils`, `devcontainer-features-gateway`, `devcontainer-features-githooks`, `devcontainer-features-gitutils`, `devcontainer-features-gitversion`, `devcontainer-features-larasets`, `devcontainer-features-minikube`, `devcontainer-features-scripting`.
+
+Example: `fix(devcontainer-features-githooks): 🔧 Add conditional skip when GITLEAKS_LICENSE not set`.
+
+Validated by `tomgrv/actions/check-pr-format@v2` on PR open/sync. Scope must use full `devcontainer-features-<workspace>` format; multi-workspace changes use the primary feature modified.

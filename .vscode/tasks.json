@@ -30,21 +30,9 @@
             "problemMatcher": []
         },
         {
-            "label": "🎈 Beta",
-            "type": "shell",
-            "command": "git release beta",
-            "problemMatcher": []
-        },
-        {
             "label": "🚑 Hotfix",
             "type": "shell",
             "command": "git release hotfix",
-            "problemMatcher": []
-        },
-        {
-            "label": "🚀 Prod",
-            "type": "shell",
-            "command": "git release prod",
             "problemMatcher": []
         },
         {

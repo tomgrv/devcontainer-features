@@ -8,7 +8,7 @@ This feature provides a set of utilities for working with Git repositories.
 
 ```json
 "features": {
-    "ghcr.io/tomgrv/devcontainer-features/gitutils:7": {}
+    "ghcr.io/tomgrv/devcontainer-features/gitutils:8": {}
 }
 ```
 
@@ -31,6 +31,12 @@ npm install --save-dev @tomgrv/devcontainer-features-gitutils
 Installs a collection of Git utilities.
 Installs the git-flow extension and sets up Git configuration to use it.
 Adds shortcuts to the git command for easier use of git-flow commands.
+
+The utilities themselves live in [`tomgrv/scripts`](https://github.com/tomgrv/scripts#git-utilities)
+(one source of truth, shared with every other `tomgrv`/`perspikapps` repo)
+and are pulled in via `zz_use` at install time — this feature owns the
+alias/config wiring and the git-flow install/configure lifecycle, not the
+script implementations.
 
 ## GitFlow
 
