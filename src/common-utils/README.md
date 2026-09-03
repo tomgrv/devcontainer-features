@@ -8,7 +8,7 @@ This feature provides common utilities for the devcontainer features.
 
 ```json
 "features": {
-    "ghcr.io/tomgrv/devcontainer-features/common-utils:5": {
+    "ghcr.io/tomgrv/devcontainer-features/common-utils:8": {
         "utils": "jq dos2unix"
     }
 }

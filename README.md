@@ -55,7 +55,6 @@ curl -fsSL https://raw.githubusercontent.com/tomgrv/devcontainer-features/develo
 | [GitHooks](#githooks)         | Commit hooks: commitlint, prettier, lint-staged             |
 | [GitVersion](#gitversion)     | Semantic versioning via GitVersion                          |
 | [Act](#act)                   | Run GitHub Actions locally via nektos/act                   |
-| [PECL](#pecl)                 | PHP extension installer via PECL                            |
 | [Larasets](#larasets)         | Laravel-specific development utilities                      |
 | [Common Utils](#common-utils) | Shared utilities used by other features                     |
 | [Gateway](#gateway)           | SSL certificate management for corporate networks           |
@@ -74,7 +73,7 @@ A collection of Git aliases, git-flow shortcuts, and interactive utilities for a
 
 ```json
 "features": {
-    "ghcr.io/tomgrv/devcontainer-features/gitutils:5": {}
+    "ghcr.io/tomgrv/devcontainer-features/gitutils:8": {}
 }
 ```
 
@@ -104,7 +103,7 @@ Configures Git hooks in one step using commitlint, commitizen, lint-staged, pret
 
 ```json
 "features": {
-    "ghcr.io/tomgrv/devcontainer-features/githooks:5": {}
+    "ghcr.io/tomgrv/devcontainer-features/githooks:8": {}
 }
 ```
 
@@ -134,7 +133,7 @@ Installs [GitVersion](https://gitversion.net/) to calculate semantic version num
 
 ```json
 "features": {
-    "ghcr.io/tomgrv/devcontainer-features/gitversion:6": {}
+    "ghcr.io/tomgrv/devcontainer-features/gitversion:8": {}
 }
 ```
 
@@ -164,7 +163,7 @@ Installs [nektos/act](https://github.com/nektos/act) to run GitHub Actions local
 
 ```json
 "features": {
-    "ghcr.io/tomgrv/devcontainer-features/act:6": {}
+    "ghcr.io/tomgrv/devcontainer-features/act:8": {}
 }
 ```
 
@@ -184,38 +183,6 @@ npm install --save-dev @tomgrv/devcontainer-features-act
 
 ---
 
-### PECL
-
-Installs PHP extensions from the [PHP Extension Community Library (PECL)](https://pecl.php.net/).
-
-📖 [Full documentation](./src/pecl/README.md)
-
-#### Quick Start — devcontainer.json
-
-```json
-"features": {
-    "ghcr.io/tomgrv/devcontainer-features/pecl:5": {
-        "extension": "zip"
-    }
-}
-```
-
-#### Quick Install — console
-
-```sh
-npx tomgrv/devcontainer-features -- add pecl
-# or, without node/npm:
-curl -fsSL https://raw.githubusercontent.com/tomgrv/devcontainer-features/develop/setup.sh | sh -s -- add pecl
-```
-
-#### Quick Install — npm
-
-```sh
-npm install --save-dev @tomgrv/devcontainer-features-pecl
-```
-
----
-
 ### Larasets
 
 Laravel-specific settings, shell utilities, Composer scripts, and VS Code extensions for Laravel development.
@@ -226,7 +193,7 @@ Laravel-specific settings, shell utilities, Composer scripts, and VS Code extens
 
 ```json
 "features": {
-    "ghcr.io/tomgrv/devcontainer-features/larasets:6": {}
+    "ghcr.io/tomgrv/devcontainer-features/larasets:8": {}
 }
 ```
 
@@ -256,7 +223,7 @@ Shared utilities (`jq`, `dos2unix`, JSON helpers, logging) used by other feature
 
 ```json
 "features": {
-    "ghcr.io/tomgrv/devcontainer-features/common-utils:5": {
+    "ghcr.io/tomgrv/devcontainer-features/common-utils:8": {
         "utils": "jq dos2unix"
     }
 }
@@ -288,7 +255,7 @@ Handles SSL inspection certificates for corporate network environments (e.g. Zsc
 
 ```json
 "features": {
-    "ghcr.io/tomgrv/devcontainer-features/gateway:7": {}
+    "ghcr.io/tomgrv/devcontainer-features/gateway:8": {}
 }
 ```
 
@@ -318,7 +285,7 @@ Installs [Minikube](https://minikube.sigs.k8s.io/) to run a single-node Kubernet
 
 ```json
 "features": {
-    "ghcr.io/tomgrv/devcontainer-features/minikube:6": {}
+    "ghcr.io/tomgrv/devcontainer-features/minikube:8": {}
 }
 ```
 
@@ -348,7 +315,7 @@ Agent-agnostic AI coding skills (`.github/skills/`) plus the [Claude Code GitHub
 
 ```json
 "features": {
-    "ghcr.io/tomgrv/devcontainer-features/ai-coding:7": {}
+    "ghcr.io/tomgrv/devcontainer-features/ai-coding:8": {}
 }
 ```
 

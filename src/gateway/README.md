@@ -19,7 +19,7 @@ SSL inspection tools act as a man-in-the-middle TLS proxy and replace server cer
 
 ```json
 "features": {
-    "ghcr.io/tomgrv/devcontainer-features/gateway:7": {}
+    "ghcr.io/tomgrv/devcontainer-features/gateway:8": {}
 }
 ```
 

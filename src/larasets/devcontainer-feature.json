@@ -44,7 +44,7 @@
             "version": "8.3"
         },
         "ghcr.io/metcalfc/devcontainer-features/doppler:0": {},
-        "ghcr.io/tomgrv/devcontainer-features/common-utils:7": {}
+        "ghcr.io/tomgrv/devcontainer-features/common-utils:8": {}
     },
     "name": "Laravel settings",
     "options": {
@@ -55,9 +55,7 @@
         }
     },
     "version": "8.1.0",
-    "legacyIds": [
-        "larasets"
-    ],
+    "legacyIds": ["larasets"],
     "postCreateCommand": {
         "config": "zz_feature -c larasets"
     }
