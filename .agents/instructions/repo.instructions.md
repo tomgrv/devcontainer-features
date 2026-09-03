@@ -16,7 +16,6 @@ This repository contains 7 devcontainer features installed via `install.sh` or `
 | **githooks**     | Dev environment setup: commitlint, prettier, lint-staged |
 | **gitversion**   | Semantic versioning via GitVersion                       |
 | **act**          | Local GitHub Actions via nektos/act                      |
-| **pecl**         | PHP Extensions installer                                 |
 | **larasets**     | Laravel-specific development utilities                   |
 | **common-utils** | Shared scripts used by other features                    |
 | **gateway**      | SSL certificate management for local development         |

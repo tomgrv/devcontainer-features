@@ -38,7 +38,6 @@ Use this feature for Laravel-focused developer experience in dev containers, inc
 
 ## Do Not Use For
 
-- Generic PHP extension installation (use `pecl`).
 - Kubernetes/local cluster workflows (use `minikube`).
 
 ## Agent Guidance
