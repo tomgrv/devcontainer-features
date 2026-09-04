@@ -64,6 +64,8 @@ Additionally, the feature installs the [git-flow](https://github.com/nvie/gitflo
 
 Each value can be overridden by exporting the matching environment variable before `configure-gitflow.sh` runs: `GITFLOW_MASTER_BRANCH`, `GITFLOW_DEVELOP_BRANCH`, `GITFLOW_FEATURE_PREFIX`, `GITFLOW_BUGFIX_PREFIX`, `GITFLOW_RELEASE_PREFIX`, `GITFLOW_HOTFIX_PREFIX`, `GITFLOW_SUPPORT_PREFIX`, `GITFLOW_VERSIONTAG_PREFIX`.
 
+If `main`/`develop` don't exist locally but a matching `origin/main`/`origin/develop` does (e.g. a fresh clone), `configure-gitflow.sh` checks that branch out rather than creating an orphan branch, so existing history is preserved.
+
 Shortcuts are also added to the `git` command to make it easier to use the `git-flow` commands:
 
 - `git beta` is a shortcut for `git flow release start`
