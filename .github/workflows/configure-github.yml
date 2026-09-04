@@ -10,7 +10,6 @@ on:
 permissions:
   contents: write
   pull-requests: write
-  administration: write
 
 jobs:
   configure-github:
@@ -29,10 +28,17 @@ jobs:
           repository: ${{ github.repository }}
           labels-file: .github/labels.json
 
+      - name: Generate a token
+        id: app-token
+        uses: actions/create-github-app-token@v3
+        with:
+          client-id: ${{ secrets.KLICKSPLIT_CLIENT_ID }}
+          private-key: ${{ secrets.KLICKSPLIT_APP_KEY }}
+
       - name: Restrict main to GitHub bot
         uses: actions/github-script@v7
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ steps.app-token.outputs.token }}
           script: |
             await github.rest.repos.updateBranchProtection({
               owner: context.repo.owner,
