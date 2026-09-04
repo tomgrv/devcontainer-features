@@ -55,8 +55,10 @@
         }
     },
     "version": "8.1.0",
-    "legacyIds": ["larasets"],
+    "legacyIds": [
+        "larasets"
+    ],
     "postCreateCommand": {
-        "config": "zz_feature -c larasets"
+        "config": "configure-feature larasets"
     }
 }

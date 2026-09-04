@@ -40,4 +40,4 @@ zz_use git-align git-autorebase git-co git-degit git-fix git-fix-author \
 ### alias/config wiring (install-config.sh), and stubs/config deployment —
 ### there's no bin/ left here for it to copy, the git-* scripts above cover
 ### that now.
-zz_feature -i -s $dir
+install-feature -s $dir

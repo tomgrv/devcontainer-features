@@ -8,7 +8,7 @@ Tests are organized per feature in `src/<feature-name>/tests/`, using [bats-core
 
 1. Create a feature test folder: `src/<feature-name>/tests/`
 
-2. Create a `helpers.bash` in the folder that links the feature's `bin/*.sh` scripts onto `PATH` under their public command names, the same way `zz_feature -i` does:
+2. Create a `helpers.bash` in the folder that links the feature's `bin/*.sh` scripts onto `PATH` under their public command names, the same way `install-feature` does:
 
 ```bash
 #!/usr/bin/env bash

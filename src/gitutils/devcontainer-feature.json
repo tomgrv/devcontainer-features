@@ -38,7 +38,7 @@
     "name": "Git Aliases",
     "version": "8.1.1",
     "postCreateCommand": {
-        "config": "zz_feature -c gitutils"
+        "config": "configure-feature gitutils"
     },
     "postStartCommand": {
         "blanks": "git fix blanks",
