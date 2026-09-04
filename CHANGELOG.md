@@ -1,5 +1,20 @@
 # Changelog
 
+## 8.4.0 (2026-09-04)
+
+*Commits from: v8.3.0..HEAD*
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v8.3.0' into develop ([1976f88](https://github.com/tomgrv/devcontainer-features/commit/1976f88510bd8ccf685dd1530316a7d7d3983e56))
+### 📦 devcontainer-features-gitutils changes
+
+#### Other changes
+
+- ♻️ suppress zz_feature, add release-prod flow (#147) ([b5803ba](https://github.com/tomgrv/devcontainer-features/commit/b5803bacd03c00a836cbe36781b8fa0e16159e61))
+
 ## 8.3.0 (2026-09-04)
 
 *Commits from: v8.2.0..HEAD*
@@ -1871,6 +1886,7 @@ _Commits from: v5.25.0..HEAD_
 
 - ✨ add githook ([ab4c1fc](https://github.com/tomgrv/devcontainer-features/commit/ab4c1fc5eb4f712ed2009baf9a3cadb11097c7b5))
 - add features ([4b26d9d](https://github.com/tomgrv/devcontainer-features/commit/4b26d9d876caffb15078a6baaabf76d1a2707e6f))
+
 
 
 

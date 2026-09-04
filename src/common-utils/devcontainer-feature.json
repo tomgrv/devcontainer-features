@@ -52,6 +52,6 @@
     },
     "version": "8.1.0",
     "postCreateCommand": {
-        "config": "zz_feature -c common-utils"
+        "config": "configure-feature common-utils"
     }
 }

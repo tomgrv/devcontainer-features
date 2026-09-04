@@ -43,7 +43,7 @@ else
     exit 1
 fi
 
-# Configure the feature after installation, from wherever "zz_feature -i"
+# Configure the feature after installation, from wherever "install-feature"
 # copied it to. Check /usr/local/share first, matching zz_context's own
 # target preference (writable /usr/local/share, else /tmp) — otherwise a
 # stale /tmp/<feature> left over from an earlier run (when /usr/local/share

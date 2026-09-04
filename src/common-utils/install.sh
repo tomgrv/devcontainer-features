@@ -39,9 +39,8 @@ zz_use load-json validate-json normalize-json merge-json resolve-context \
     distribute-utils edit-script install-feature configure-feature
 
 ### Compatibility shims: the rest of this monorepo still calls these by
-### their pre-split names (every devcontainer-feature.json's
-### postCreateCommand runs `zz_feature -c <name>`; several other
-### features' install-*.sh scripts call `zz_context`) — install thin
+### their pre-split names (several features' install-*.sh scripts call
+### `zz_context`) — install thin
 ### wrappers over the renamed tomgrv/scripts commands into the same
 ### writable bin dir zz_use just installed everything else to, so they're
 ### resolvable system-wide for as long as those other features need them,
@@ -68,19 +67,6 @@ for old_new in zz_context:resolve-context zz_dist:distribute-utils zz_edit:edit-
     ln -sf "$target" "$bindir/$old"
 done
 
-cat >"$bindir/zz_feature" <<'SHIM'
-#!/bin/sh
-# Compatibility shim: this monorepo calls `zz_feature -i`/`-c` everywhere;
-# the underlying logic now lives at https://github.com/tomgrv/scripts as
-# two separate commands.
-case "$1" in
--i) shift; exec install-feature "$@" ;;
--c) shift; exec configure-feature "$@" ;;
-*) echo "Usage: zz_feature -i|-c [-s source] [-t target] <arg>" >&2; exit 1 ;;
-esac
-SHIM
-chmod +x "$bindir/zz_feature"
-
 ### Install utils
 for bin in $UTILS; do
 
@@ -103,4 +89,4 @@ for bin in $UTILS; do
 done >&2
 
 ### Run Installers
-zz_feature -i -s $dir
+install-feature -s $dir
