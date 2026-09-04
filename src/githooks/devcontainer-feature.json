@@ -38,6 +38,6 @@
     "name": "Git Hooks",
     "version": "8.0.0",
     "postCreateCommand": {
-        "config": "zz_feature -c githooks"
+        "config": "configure-feature githooks"
     }
 }
