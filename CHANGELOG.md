@@ -1,5 +1,20 @@
 # Changelog
 
+## 8.3.0 (2026-09-04)
+
+*Commits from: v8.2.0..HEAD*
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v8.2.0' into develop ([763ff6b](https://github.com/tomgrv/devcontainer-features/commit/763ff6bea038c850407cd1f7650a1b7b1838ec8c))
+### 📦 devcontainer-features-gitutils changes
+
+#### Bug Fixes
+
+- 🐛 don't orphan main/develop from a remote-only branch (#146) ([ca5e671](https://github.com/tomgrv/devcontainer-features/commit/ca5e67194d67c0f6379fbf34df1cbef32ebc6425))
+
 ## 8.2.0 (2026-09-03)
 
 *Commits from: v8.0.0..HEAD*
@@ -1858,5 +1873,6 @@ _Commits from: v5.25.0..HEAD_
 - add features ([4b26d9d](https://github.com/tomgrv/devcontainer-features/commit/4b26d9d876caffb15078a6baaabf76d1a2707e6f))
 
 
+
 ---
-*Generated on 2026-09-03 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)*
+*Generated on 2026-09-04 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)*
