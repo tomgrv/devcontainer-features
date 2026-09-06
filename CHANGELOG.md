@@ -1,5 +1,26 @@
 # Changelog
 
+## 8.5.0 (2026-09-06)
+
+*Commits from: v8.4.0..HEAD*
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v8.4.0' into develop ([5e38cc2](https://github.com/tomgrv/devcontainer-features/commit/5e38cc2bd9c82eac56c5d4854b58218ba9da3094))
+### 📦 devcontainer-features-gitutils changes
+
+#### Bug Fixes
+
+- 🐛 🔧 exit gracefully when ssh-keyscan absent (#149) ([712ee11](https://github.com/tomgrv/devcontainer-features/commit/712ee11b6e22c3f1fb64915dd7fec7cee11c7d52))
+
+### 📦 devcontainer-features-gitversion changes
+
+#### Bug Fixes
+
+- 🐛 republish gitversion, fix stale major pins (#150) ([4afcce3](https://github.com/tomgrv/devcontainer-features/commit/4afcce39f8f75d674cde6b803bc19185937055c5))
+
 ## 8.4.0 (2026-09-04)
 
 *Commits from: v8.3.0..HEAD*
@@ -1890,5 +1911,6 @@ _Commits from: v5.25.0..HEAD_
 
 
 
+
 ---
-*Generated on 2026-09-04 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)*
+*Generated on 2026-09-06 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)*
