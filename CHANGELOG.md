@@ -1,5 +1,20 @@
 # Changelog
 
+## 8.6.0 (2026-09-06)
+
+*Commits from: v8.5.0..HEAD*
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v8.5.0' into develop ([845bd5f](https://github.com/tomgrv/devcontainer-features/commit/845bd5f1e460a05f4113f466b1eff4b8cefa3d79))
+### 📦 devcontainer-features-scripting changes
+
+#### Bug Fixes
+
+- 🐛 pin common-utils dependsOn to major 8 (#151) ([1e03146](https://github.com/tomgrv/devcontainer-features/commit/1e031460bc18d45d9559da10f8b992935d018855))
+
 ## 8.5.0 (2026-09-06)
 
 *Commits from: v8.4.0..HEAD*
@@ -1907,6 +1922,7 @@ _Commits from: v5.25.0..HEAD_
 
 - ✨ add githook ([ab4c1fc](https://github.com/tomgrv/devcontainer-features/commit/ab4c1fc5eb4f712ed2009baf9a3cadb11097c7b5))
 - add features ([4b26d9d](https://github.com/tomgrv/devcontainer-features/commit/4b26d9d876caffb15078a6baaabf76d1a2707e6f))
+
 
 
 

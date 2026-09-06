@@ -5,7 +5,7 @@
         "ghcr.io/tomgrv/devcontainer-features/common-utils"
     ],
     "dependsOn": {
-        "ghcr.io/tomgrv/devcontainer-features/common-utils": {}
+        "ghcr.io/tomgrv/devcontainer-features/common-utils:8": {}
     },
     "name": "Scripting bootstrap (setup.sh)",
     "version": "1.0.0",
