@@ -66,6 +66,8 @@ Each value can be overridden by exporting the matching environment variable befo
 
 If `main`/`develop` don't exist locally but a matching `origin/main`/`origin/develop` does (e.g. a fresh clone), `configure-gitflow.sh` checks that branch out rather than creating an orphan branch, so existing history is preserved.
 
+`configure-feature gitutils` also runs `configure-knownhosts.sh`, which seeds `~/.ssh/known_hosts` with `github.com`'s key via `ssh-keyscan`. `openssh-client` (providing `ssh-keyscan`) is not a hard dependency of this feature — if it isn't installed, the script exits cleanly with no error and no known_hosts changes.
+
 Shortcuts are also added to the `git` command to make it easier to use the `git-flow` commands:
 
 - `git beta` is a shortcut for `git flow release start`

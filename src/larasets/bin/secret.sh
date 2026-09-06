@@ -14,7 +14,11 @@ if [ -z "$ZZ_SECRET" ]; then
     #### Load the SSH key into an agent, best-effort (does not block the command), then run "$@" as-is.
     #### Kept as an argv chain (no string rebuilding) so arguments with quotes, $, or backticks
     #### survive untouched all the way through to the command.
-    set -- ssh-agent sh -c 'echo "$SSH_PRIVATE_KEY" | ssh-add - 2>/dev/null; exec "$@"' sh "$@"
+    if command -v ssh-agent >/dev/null 2>&1; then
+        set -- ssh-agent sh -c 'echo "$SSH_PRIVATE_KEY" | ssh-add - 2>/dev/null; exec "$@"' sh "$@"
+    else
+        zz_log w "ssh-agent not installed. Skipping SSH key injection."
+    fi
 
     if [ -f ./.env ]; then
         zz_log i "Loading root .env."
