@@ -20,7 +20,7 @@
             "type": "string"
         }
     },
-    "version": "8.0.0",
+    "version": "8.0.1",
     "postCreateCommand": {
         "config": "configure-feature gitversion"
     }
