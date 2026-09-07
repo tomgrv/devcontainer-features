@@ -15,7 +15,7 @@ MCP server that lets an agent query this repo directly to set up **another** rep
 ## Run it
 
 ```sh
-node mcp/server.js
+node src/mcp/server.js
 ```
 
 ## Wire it into an agent
@@ -25,7 +25,7 @@ node mcp/server.js
     "mcpServers": {
         "devcontainer-features": {
             "command": "node",
-            "args": ["mcp/server.js"],
+            "args": ["src/mcp/server.js"],
             "cwd": "/path/to/devcontainer-features"
         }
     }
