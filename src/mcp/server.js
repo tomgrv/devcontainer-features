@@ -46,6 +46,91 @@ function setupCommand({ feature, method }) {
     return `curl -fsSL https://raw.githubusercontent.com/tomgrv/devcontainer-features/develop/setup.sh | sh -s -- ${target}`
 }
 
+// Heuristics mapping a signal file in the target repo to the feature it suggests.
+const SIGNALS = [
+    {
+        path: 'composer.json',
+        feature: 'larasets',
+        reason: 'PHP/Composer project',
+    },
+    { path: '.git', feature: 'gitutils', reason: 'Git repository' },
+    { path: '.git', feature: 'githooks', reason: 'Git repository' },
+    {
+        path: 'package.json',
+        feature: 'gitversion',
+        reason: 'npm project (semver releases)',
+    },
+    {
+        path: '.github/workflows',
+        feature: 'act',
+        reason: 'GitHub Actions workflows to run locally',
+    },
+    {
+        path: '.devcontainer',
+        feature: 'gateway',
+        reason: 'devcontainer present (corporate SSL gateways commonly needed)',
+    },
+]
+
+function inspectTargetRepo(targetDir) {
+    if (!existsSync(targetDir))
+        throw new Error(`No such directory: ${targetDir}`)
+    const recommended = SIGNALS.filter((s) =>
+        existsSync(join(targetDir, s.path))
+    )
+    const seen = new Set()
+    return recommended
+        .filter((s) =>
+            seen.has(s.feature) ? false : (seen.add(s.feature), true)
+        )
+        .map(({ feature, reason }) => ({ feature, reason }))
+}
+
+// Read-only preview of what configure-feature would do to a target repo:
+// which stub files are new vs. would merge into an existing file. Mirrors
+// _configure-feature.sh's two rename rules (see that script for the source
+// of truth): a plain stub's basename collapses ".." to "." (e.g.
+// "..gitignore" -> ".gitignore"), while a root-level "_<qualifier>.package.json"
+// or "_<qualifier>.composer.json" fragment merges into the top-level
+// package.json/composer.json instead of deploying under its own name.
+function previewFeature(feature, targetDir) {
+    const stubsDir = join(SRC, feature, 'stubs')
+    if (!existsSync(stubsDir))
+        throw new Error(`Feature has no stubs: ${feature}`)
+    if (!existsSync(targetDir))
+        throw new Error(`No such directory: ${targetDir}`)
+
+    const files = []
+    const walk = (dir, depth) => {
+        for (const entry of readdirSync(dir, { withFileTypes: true })) {
+            const abs = join(dir, entry.name)
+            if (entry.isDirectory()) {
+                walk(abs, depth + 1)
+                continue
+            }
+            const rel = abs.slice(stubsDir.length + 1)
+            const dir_ = dirname(rel)
+            const base = entry.name
+            const rootFragmentMatch =
+                depth === 0 && /^_.*\.(package|composer)\.json$/.test(base)
+            const targetRel = rootFragmentMatch
+                ? base.replace(/^_.*\.(package|composer)\.json$/, '$1.json')
+                : join(dir_, base.replace(/\.\./g, '.'))
+            files.push({
+                stub: rel,
+                target: targetRel,
+                action: rootFragmentMatch
+                    ? 'merge-into-json'
+                    : existsSync(join(targetDir, targetRel))
+                      ? 'merge'
+                      : 'create',
+            })
+        }
+    }
+    walk(stubsDir, 0)
+    return files
+}
+
 const server = new McpServer({
     name: 'devcontainer-features',
     version: '1.0.0',
@@ -104,6 +189,55 @@ server.registerTool(
     },
     async ({ feature, method }) => ({
         content: [{ type: 'text', text: setupCommand({ feature, method }) }],
+    })
+)
+
+server.registerTool(
+    'inspect_target_repo',
+    {
+        title: 'Inspect target repo and recommend features',
+        description:
+            'Look at signal files in a target repo (composer.json, .git, .github/workflows, ...) and recommend which features from this repo fit, so an agent does not have to guess.',
+        inputSchema: {
+            targetDir: z
+                .string()
+                .describe('Absolute path to the target repo on disk'),
+        },
+    },
+    async ({ targetDir }) => ({
+        content: [
+            {
+                type: 'text',
+                text: JSON.stringify(inspectTargetRepo(targetDir), null, 2),
+            },
+        ],
+    })
+)
+
+server.registerTool(
+    'preview_feature_install',
+    {
+        title: 'Dry-run a feature install',
+        description:
+            'List the stub files a feature would deploy into a target repo, and whether each would be created new or merged into a file that already exists there — without writing anything.',
+        inputSchema: {
+            feature: z.string().describe('Feature id, e.g. "githooks"'),
+            targetDir: z
+                .string()
+                .describe('Absolute path to the target repo on disk'),
+        },
+    },
+    async ({ feature, targetDir }) => ({
+        content: [
+            {
+                type: 'text',
+                text: JSON.stringify(
+                    previewFeature(feature, targetDir),
+                    null,
+                    2
+                ),
+            },
+        ],
     })
 )
 
