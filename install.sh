@@ -233,6 +233,13 @@ cmd_update() {
 }
 
 # --- dispatch ---
+# zz_args' getopts only recognizes bare -h as a help flag; a long-form
+# --help token confuses it (invalid short option) and gets dropped instead
+# of reaching $cmd, so catch it here against the original argv.
+case "${1:-}" in
+    -h|--help) cmd_help; exit 0 ;;
+esac
+
 case "${cmd:-}" in
     init)   cmd_init ;;
     list)   cmd_list ;;
