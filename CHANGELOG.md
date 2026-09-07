@@ -1,5 +1,32 @@
 # Changelog
 
+## 8.7.0 (2026-09-07)
+
+*Commits from: v8.6.0..HEAD*
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v8.6.0' into develop ([53383ae](https://github.com/tomgrv/devcontainer-features/commit/53383ae42a33c53c774e009467958abbd77af069))
+### 📦 devcontainer-features-common-utils changes
+
+#### Bug Fixes
+
+- 🐛 remove obsolete VSCode tasks.json file ([2dddd47](https://github.com/tomgrv/devcontainer-features/commit/2dddd47c11ad10b030757edc363dd41f8009b849))
+
+### 📦 devcontainer-features-mcp changes
+
+#### Features
+
+- ✨ Add MCP server for agent-driven setup (#152) ([a60053f](https://github.com/tomgrv/devcontainer-features/commit/a60053f3a955c71c8ef116b7619ffb1f057e0285))
+
+### 📦 devcontainer-features-scripting changes
+
+#### Bug Fixes
+
+- 🐛 update command to use curl for environment updates ([8584327](https://github.com/tomgrv/devcontainer-features/commit/8584327ac222cb57ef23efd21f9d525ac5b78674))
+
 ## 8.6.0 (2026-09-06)
 
 *Commits from: v8.5.0..HEAD*
@@ -1928,5 +1955,6 @@ _Commits from: v5.25.0..HEAD_
 
 
 
+
 ---
-*Generated on 2026-09-06 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)*
+*Generated on 2026-09-07 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)*
