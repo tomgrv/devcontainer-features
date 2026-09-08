@@ -33,6 +33,10 @@ src/<feature>/
   README.md
   configure-*.sh               # optional lifecycle hooks, invoked by name (not on PATH)
   install-*.sh                 # optional extra install-time scripts
+  .clean                       # optional: retires legacy files on deploy, one directive
+                                # per line, paths relative to repo root — "RMV <path>"
+                                # untracks from git (kept on disk), "DEL <path>" deletes
+                                # and untracks
   stubs/                       # files deployed as-is to consumer repos; merged into an
                                 # existing file at the same path (JSON via merge-json,
                                 # otherwise git merge-file) when one already exists.
@@ -43,11 +47,6 @@ src/<feature>/
     .agents/skills/<name>/    # canonical real files
     .github/skills/<name>     # symlink → ../../.agents/skills/<name>
     .claude/skills/<name>     # symlink → ../../.agents/skills/<name>
-    .clean                    # optional, anywhere under stubs/: retires legacy
-                                # files on deploy, one directive per line, paths
-                                # relative to repo root — "RMV <path>" untracks
-                                # from git (kept on disk), "DEL <path>" deletes
-                                # and untracks. Never deployed as a stub itself.
   config/                      # optional: data files a script reads at runtime
                                 # (JSON Schemas, alias/config maps, dependency manifests)
                                 # — never deployed to consumers, never merged
