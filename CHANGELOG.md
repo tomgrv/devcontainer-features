@@ -1,5 +1,30 @@
 # Changelog
 
+## 8.9.0 (2026-09-08)
+
+*Commits from: v8.8.0..HEAD*
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v8.8.0' into develop ([7dc4687](https://github.com/tomgrv/devcontainer-features/commit/7dc4687681aa715796689084c398b929e52d3bef))
+### 📦 devcontainer-features-githooks changes
+
+#### Features
+
+- ✨ wire up clean-branches action (#157) ([24c3f15](https://github.com/tomgrv/devcontainer-features/commit/24c3f152a86b0716a8f1b99dde289eaf11060722))
+
+### 📦 devcontainer-features-gitversion changes
+
+#### Bug Fixes
+
+- 🐛 dedupe "no workspaces affected" warning in bump-version (#156) ([7bfb174](https://github.com/tomgrv/devcontainer-features/commit/7bfb1749bd88c50df1a82b42967de3ff6e2b7f05))
+
+#### Other changes
+
+- ♻️ zz_use gv/bump-* from tomgrv/scripts (#158) ([eefae77](https://github.com/tomgrv/devcontainer-features/commit/eefae77bab3cdcc4d038254133480f7278c0ef16))
+
 ## 8.8.0 (2026-09-08)
 
 *Commits from: v8.7.0..HEAD*
@@ -1970,6 +1995,7 @@ _Commits from: v5.25.0..HEAD_
 
 - ✨ add githook ([ab4c1fc](https://github.com/tomgrv/devcontainer-features/commit/ab4c1fc5eb4f712ed2009baf9a3cadb11097c7b5))
 - add features ([4b26d9d](https://github.com/tomgrv/devcontainer-features/commit/4b26d9d876caffb15078a6baaabf76d1a2707e6f))
+
 
 
 
