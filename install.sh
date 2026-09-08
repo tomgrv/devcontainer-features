@@ -104,7 +104,7 @@ cmd_help() {
     zz_log - "  init             Deploy root stubs into current repo"
     zz_log - "  list   <target>  List selected features"
     zz_log - "  deps   <target>  Show feature dependencies"
-    zz_log - "  add    <target>  Install / deploy feature stubs (default command)"
+    zz_log - "  add    <target>  Install / deploy feature stubs"
     zz_log - "  remove <target>  Remove feature stubs"
     zz_log - "  update <target>  Reinstall features (-a re-detects all)"
     zz_log - "  help             Show this help"
@@ -240,11 +240,7 @@ case "${cmd:-}" in
     add)    cmd_add ;;
     remove) cmd_remove ;;
     update) cmd_update ;;
-    help|-h|--help) cmd_help ;;
-    "")
-        # No command: auto-detect features and add them
-        cmd_add
-        ;;
+    help|-h|--help|"") cmd_help ;;
     *)
         zz_log e "Unknown command: $cmd"
         exit 1
