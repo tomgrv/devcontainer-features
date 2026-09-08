@@ -1,0 +1,2 @@
+DEL .github/workflows/merge-dependabot.yml
+DEL .github/workflows/validate-pr-source.yml
