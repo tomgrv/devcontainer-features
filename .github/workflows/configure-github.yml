@@ -28,6 +28,11 @@ jobs:
           repository: ${{ github.repository }}
           labels-file: .github/labels.json
 
+      - name: Clean branches
+        uses: tomgrv/actions/clean-branches@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Generate a token
         id: app-token
         uses: actions/create-github-app-token@v3
