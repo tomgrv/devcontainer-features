@@ -1,5 +1,26 @@
 # Changelog
 
+## 8.8.0 (2026-09-08)
+
+*Commits from: v8.7.0..HEAD*
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v8.7.0' into develop ([d5b654f](https://github.com/tomgrv/devcontainer-features/commit/d5b654fdb4850ec9001a721a79a2453d3588c707))
+### 📦 devcontainer-features-ai-coding changes
+
+#### Features
+
+- ✨ 🔥 add .clean files for legacy stub cleanup (#155) ([7a83660](https://github.com/tomgrv/devcontainer-features/commit/7a83660d03e73709c1ec8c1f740426dcdb441a32))
+
+### 📦 devcontainer-features-common-utils changes
+
+#### Bug Fixes
+
+- 🔧 show help on no command (#154) ([686eed3](https://github.com/tomgrv/devcontainer-features/commit/686eed3d0cef9b4049d41c976ad939096d556558))
+
 ## 8.7.0 (2026-09-07)
 
 *Commits from: v8.6.0..HEAD*
@@ -1956,5 +1977,6 @@ _Commits from: v5.25.0..HEAD_
 
 
 
+
 ---
-*Generated on 2026-09-07 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)*
+*Generated on 2026-09-08 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)*
