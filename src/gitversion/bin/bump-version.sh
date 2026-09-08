@@ -139,13 +139,25 @@ update_version_files() {
                 zz_log e "Range parameter required for minimal mode"
                 return 1
             fi
-            workspace_list=$(git workspaces -r "$range" 2>/dev/null || echo "")
-            
+            # Affected workspaces depend only on the range, not on which file
+            # is being bumped -- multiple @ws entries in bump-version.files
+            # share the same range, so cache the lookup (and its "no
+            # workspaces affected" warning) per range instead of repeating
+            # both the git-workspaces call and the warning for every entry.
+            if [ "$range" != "${_workspace_list_range:-}" ]; then
+                _workspace_list_range="$range"
+                _workspace_list_cache=$(git workspaces -r "$range" 2>/dev/null || echo "")
+                if [ -z "$_workspace_list_cache" ]; then
+                    zz_log w "No workspaces affected by commits in range $range"
+                else
+                    zz_log i "Minimal mode: updating workspaces affected by $range"
+                fi
+            fi
+            workspace_list="$_workspace_list_cache"
+
             if [ -z "$workspace_list" ]; then
-                zz_log w "No workspaces affected by commits in range $range"
                 return 0
             fi
-            zz_log i "Minimal mode: updating workspaces affected by $range"
         else
             workspace_list=$(git workspaces 2>/dev/null || echo "")
         fi
