@@ -3,18 +3,11 @@
     "version": "8.0.1",
     "description": "GitVersion integration and version management scripts",
     "files": [
-        "bin/*.sh",
         "install.sh",
-        "install-tools.sh",
+        "install-*.sh",
         "configure-*.sh",
         "stubs/**/*"
     ],
-    "bin": {
-        "bump-changelog": "bin/bump-changelog.sh",
-        "bump-tag": "bin/bump-tag.sh",
-        "bump-version": "bin/bump-version.sh",
-        "gv": "bin/gv.sh"
-    },
     "scripts": {
         "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then install-feature -s .; fi",
         "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then configure-feature -s . gitversion; fi"
