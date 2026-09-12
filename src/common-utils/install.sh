@@ -35,7 +35,7 @@ if ! command -v zz_use >/dev/null 2>&1; then
 fi
 export PATH="${INSTALL_BIN_DIR:-/usr/local/bin}:$PATH"
 
-zz_use load-json validate-json normalize-json merge-json resolve-context \
+zz_use load-json validate-json normalize-json merge-json merge-yaml resolve-context \
     distribute-utils edit-script install-feature configure-feature
 
 ### Compatibility shims: the rest of this monorepo still calls these by
