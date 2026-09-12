@@ -24,21 +24,22 @@ versiontag_prefix="${GITFLOW_VERSIONTAG_PREFIX:-v}"
 git config gitflow.branch.master "$master_branch"
 git config gitflow.branch.develop "$develop_branch"
 
-# Ensure master branch exists. If not, but a remote-tracking copy exists, check that
-# out instead of orphaning history; only create an orphan branch on a fresh repo.
+# Ensure master branch exists. If not, but a remote-tracking copy exists, check
+# that out instead of orphaning history. A CI checkout (e.g. actions/checkout)
+# typically leaves HEAD detached at the branch's own commit without creating
+# either a local branch or a refs/remotes/origin/* ref for it, so also try
+# just branching HEAD off where it already sits before assuming this is a
+# genuinely empty, brand-new repo that needs an orphan initial commit.
 if ! git rev-parse --verify "$master_branch" >/dev/null 2>&1; then
     if git rev-parse --verify "refs/remotes/origin/$master_branch" >/dev/null 2>&1; then
         zz_log i "Creating master branch '$master_branch' from 'origin/$master_branch'..."
         git checkout -b "$master_branch" "origin/$master_branch" >/dev/null 2>&1 || zz_log e "Failed to create master branch '$master_branch' from 'origin/$master_branch'."
+    elif git rev-parse --verify HEAD >/dev/null 2>&1; then
+        zz_log i "Creating master branch '$master_branch' from the current (detached) commit..."
+        git checkout -b "$master_branch" >/dev/null 2>&1 || zz_log e "Failed to create master branch '$master_branch' from the current commit."
     else
         zz_log i "Creating master branch '$master_branch'..."
         git checkout --orphan "$master_branch" >/dev/null 2>&1 || zz_log e "Failed to create master branch '$master_branch'."
-
-        # Commit needs a git identity; fall back to a bot identity (locally,
-        # not touching any existing global config) when none is configured.
-        git config user.email >/dev/null 2>&1 || git config user.email "github-actions[bot]@users.noreply.github.com"
-        git config user.name >/dev/null 2>&1 || git config user.name "github-actions[bot]"
-
         git commit --allow-empty -m "Initial commit on $master_branch" >/dev/null 2>&1 || zz_log e "Failed to create initial commit on master branch '$master_branch'."
     fi
 fi
