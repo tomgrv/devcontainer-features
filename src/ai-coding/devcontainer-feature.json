@@ -1,23 +1,23 @@
 {
-    "customizations": {
-        "vscode": {
-            "extensions": [
-                "Anthropic.claude-code"
-            ],
-            "settings": {}
-        }
-    },
-    "description": "Agent-agnostic AI coding skills (.github/skills) plus the Claude Code GitHub Action for @claude mentions.",
-    "id": "ai-coding",
-    "installsAfter": [
-        "ghcr.io/tomgrv/devcontainer-features/common-utils"
-    ],
-    "dependsOn": {
-        "ghcr.io/tomgrv/devcontainer-features/common-utils:8": {}
-    },
-    "name": "AI Coding",
-    "version": "8.1.0",
-    "postCreateCommand": {
-        "config": "configure-feature ai-coding"
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "Anthropic.claude-code"
+      ],
+      "settings": {}
     }
+  },
+  "description": "Agent-agnostic AI coding skills (.github/skills) plus the Claude Code GitHub Action for @claude mentions.",
+  "id": "ai-coding",
+  "installsAfter": [
+    "ghcr.io/tomgrv/devcontainer-features/common-utils"
+  ],
+  "dependsOn": {
+    "ghcr.io/tomgrv/devcontainer-features/common-utils:8": {}
+  },
+  "name": "AI Coding",
+  "version": "8.10.0",
+  "postCreateCommand": {
+    "config": "configure-feature ai-coding"
+  }
 }
