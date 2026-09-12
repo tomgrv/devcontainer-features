@@ -24,12 +24,19 @@ versiontag_prefix="${GITFLOW_VERSIONTAG_PREFIX:-v}"
 git config gitflow.branch.master "$master_branch"
 git config gitflow.branch.develop "$develop_branch"
 
-# Ensure master branch exists. If not, but a remote-tracking copy exists, check that
-# out instead of orphaning history; only create an orphan branch on a fresh repo.
+# Ensure master branch exists. If not, but a remote-tracking copy exists, check
+# that out instead of orphaning history. A CI checkout (e.g. actions/checkout)
+# typically leaves HEAD detached at the branch's own commit without creating
+# either a local branch or a refs/remotes/origin/* ref for it, so also try
+# just branching HEAD off where it already sits before assuming this is a
+# genuinely empty, brand-new repo that needs an orphan initial commit.
 if ! git rev-parse --verify "$master_branch" >/dev/null 2>&1; then
     if git rev-parse --verify "refs/remotes/origin/$master_branch" >/dev/null 2>&1; then
         zz_log i "Creating master branch '$master_branch' from 'origin/$master_branch'..."
         git checkout -b "$master_branch" "origin/$master_branch" >/dev/null 2>&1 || zz_log e "Failed to create master branch '$master_branch' from 'origin/$master_branch'."
+    elif git rev-parse --verify HEAD >/dev/null 2>&1; then
+        zz_log i "Creating master branch '$master_branch' from the current (detached) commit..."
+        git checkout -b "$master_branch" >/dev/null 2>&1 || zz_log e "Failed to create master branch '$master_branch' from the current commit."
     else
         zz_log i "Creating master branch '$master_branch'..."
         git checkout --orphan "$master_branch" >/dev/null 2>&1 || zz_log e "Failed to create master branch '$master_branch'."
