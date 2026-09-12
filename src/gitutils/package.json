@@ -1,56 +1,56 @@
 {
-    "name": "@tomgrv/devcontainer-features-gitutils",
-    "version": "8.1.1",
-    "description": "Git utilities and aliases for development workflow",
-    "files": [
-        "bin/*.sh",
-        "install.sh",
-        "install-*.sh",
-        "configure-*.sh",
-        "config/**/*",
-        "stubs/**/*"
-    ],
-    "bin": {
-        "git-align": "bin/git-align.sh",
-        "git-co": "bin/git-co.sh",
-        "git-degit": "bin/git-degit.sh",
-        "git-fix": "bin/git-fix.sh",
-        "git-fix-author": "bin/git-fix-author.sh",
-        "git-fix-blanks": "bin/git-fix-blanks.sh",
-        "git-fix-emoji": "bin/git-fix-emoji.sh",
-        "git-fix-last": "bin/git-fix-last.sh",
-        "git-fix-lock": "bin/git-fix-lock.sh",
-        "git-fix-mode": "bin/git-fix-mode.sh",
-        "git-fix-privacy": "bin/git-fix-privacy.sh",
-        "git-fix-prune": "bin/git-fix-prune.sh",
-        "git-fix-secrets": "bin/git-fix-secrets.sh",
-        "git-fix-up": "bin/git-fix-up.sh",
-        "git-forall": "bin/git-forall.sh",
-        "git-getcommit": "bin/git-getcommit.sh",
-        "git-integrate": "bin/git-integrate.sh",
-        "git-pick": "bin/git-pick.sh",
-        "git-release": "bin/git-release.sh",
-        "git-release-alpha": "bin/git-release-alpha.sh",
-        "git-release-beta": "bin/git-release-beta.sh",
-        "git-release-hotfix": "bin/git-release-hotfix.sh",
-        "git-release-prod": "bin/git-release-prod.sh",
-        "git-unset": "bin/git-unset.sh"
+  "name": "@tomgrv/devcontainer-features-gitutils",
+  "version": "8.10.0",
+  "description": "Git utilities and aliases for development workflow",
+  "files": [
+    "bin/*.sh",
+    "install.sh",
+    "install-*.sh",
+    "configure-*.sh",
+    "config/**/*",
+    "stubs/**/*"
+  ],
+  "bin": {
+    "git-align": "bin/git-align.sh",
+    "git-co": "bin/git-co.sh",
+    "git-degit": "bin/git-degit.sh",
+    "git-fix": "bin/git-fix.sh",
+    "git-fix-author": "bin/git-fix-author.sh",
+    "git-fix-blanks": "bin/git-fix-blanks.sh",
+    "git-fix-emoji": "bin/git-fix-emoji.sh",
+    "git-fix-last": "bin/git-fix-last.sh",
+    "git-fix-lock": "bin/git-fix-lock.sh",
+    "git-fix-mode": "bin/git-fix-mode.sh",
+    "git-fix-privacy": "bin/git-fix-privacy.sh",
+    "git-fix-prune": "bin/git-fix-prune.sh",
+    "git-fix-secrets": "bin/git-fix-secrets.sh",
+    "git-fix-up": "bin/git-fix-up.sh",
+    "git-forall": "bin/git-forall.sh",
+    "git-getcommit": "bin/git-getcommit.sh",
+    "git-integrate": "bin/git-integrate.sh",
+    "git-pick": "bin/git-pick.sh",
+    "git-release": "bin/git-release.sh",
+    "git-release-alpha": "bin/git-release-alpha.sh",
+    "git-release-beta": "bin/git-release-beta.sh",
+    "git-release-hotfix": "bin/git-release-hotfix.sh",
+    "git-release-prod": "bin/git-release-prod.sh",
+    "git-unset": "bin/git-unset.sh"
+  },
+  "scripts": {
+    "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then install-feature -s .; fi",
+    "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then configure-feature -s . gitutils; fi"
+  },
+  "dependencies": {},
+  "peerDependencies": {
+    "@tomgrv/devcontainer-features-common-utils": "*",
+    "@tomgrv/devcontainer-features-gitversion": "*"
+  },
+  "peerDependenciesMeta": {
+    "@tomgrv/devcontainer-features-common-utils": {
+      "optional": true
     },
-    "scripts": {
-        "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then install-feature -s .; fi",
-        "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then configure-feature -s . gitutils; fi"
-    },
-    "dependencies": {},
-    "peerDependencies": {
-        "@tomgrv/devcontainer-features-common-utils": "*",
-        "@tomgrv/devcontainer-features-gitversion": "*"
-    },
-    "peerDependenciesMeta": {
-        "@tomgrv/devcontainer-features-common-utils": {
-            "optional": true
-        },
-        "@tomgrv/devcontainer-features-gitversion": {
-            "optional": true
-        }
+    "@tomgrv/devcontainer-features-gitversion": {
+      "optional": true
     }
+  }
 }
