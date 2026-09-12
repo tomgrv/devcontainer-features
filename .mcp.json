@@ -1,0 +1,10 @@
+{
+    "mcpServers": {
+        "devcontainer-features": {
+            "command": "node",
+            "args": [
+                ".mcp/server.js"
+            ]
+        }
+    }
+}
