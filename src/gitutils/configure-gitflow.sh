@@ -33,6 +33,12 @@ if ! git rev-parse --verify "$master_branch" >/dev/null 2>&1; then
     else
         zz_log i "Creating master branch '$master_branch'..."
         git checkout --orphan "$master_branch" >/dev/null 2>&1 || zz_log e "Failed to create master branch '$master_branch'."
+
+        # Commit needs a git identity; fall back to a bot identity (locally,
+        # not touching any existing global config) when none is configured.
+        git config user.email >/dev/null 2>&1 || git config user.email "github-actions[bot]@users.noreply.github.com"
+        git config user.name >/dev/null 2>&1 || git config user.name "github-actions[bot]"
+
         git commit --allow-empty -m "Initial commit on $master_branch" >/dev/null 2>&1 || zz_log e "Failed to create initial commit on master branch '$master_branch'."
     fi
 fi
