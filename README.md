@@ -65,7 +65,7 @@ Each row's console command is `add <feature>` (see [Installation](#installation)
 
 ## MCP server for agents
 
-An MCP server under [`src/mcp/`](./src/mcp/README.md) lets an agent list features, read their docs, and get the exact setup command — so it can bootstrap another repo's dev environment without crawling this README by hand.
+An MCP server under [`.mcp/`](./.mcp/README.md) lets an agent list features, read their docs, and get the exact setup command — so it can bootstrap another repo's dev environment without crawling this README by hand.
 
 ## Contributing
 

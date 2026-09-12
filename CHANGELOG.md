@@ -1,5 +1,38 @@
 # Changelog
 
+## 8.10.0 (2026-09-12)
+
+*Commits from: v8.9.0..HEAD*
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v8.9.0' into develop ([ae561f8](https://github.com/tomgrv/devcontainer-features/commit/ae561f8cab763135ac6add8d6aeb2c4b08a7a92a))
+### 📦 devcontainer-features-ai-coding changes
+
+#### Bug Fixes
+
+- 🐛 🔧 configure git identity in update-features workflow (#159) ([108979a](https://github.com/tomgrv/devcontainer-features/commit/108979ac922aa2f0fb4142e8eb1b83762642a4f3))
+- 🐛 🔧 name validate-pr-title job (#162) ([43ed4a4](https://github.com/tomgrv/devcontainer-features/commit/43ed4a4ad45d4e34a8b3ddc652a3fa3775904d1b))
+- 🐛 🔧 relabel PR target-branch check step names (#165) ([09b3d05](https://github.com/tomgrv/devcontainer-features/commit/09b3d0574df875a1562a188309c7d9501f07274e))
+
+#### Features
+
+- ✨ add /merge and /prod skills (#163) ([6203d8f](https://github.com/tomgrv/devcontainer-features/commit/6203d8f121e09021d479539298947440a00d1609))
+
+### 📦 devcontainer-features-gitutils changes
+
+#### Other changes
+
+- 🔧 bump stale release-promote/scripts pins (#160) ([d4609bc](https://github.com/tomgrv/devcontainer-features/commit/d4609bc996006a85cb099af94b593acb926bfdd2))
+
+### 📦 devcontainer-features-mcp changes
+
+#### Other changes
+
+- 📚️ 📝 add .mcp folder with root config and usage doc (#164) ([cc880a7](https://github.com/tomgrv/devcontainer-features/commit/cc880a7b50da05ca654c6d326d53bc92f55f5f09))
+
 ## 8.9.0 (2026-09-08)
 
 *Commits from: v8.8.0..HEAD*
@@ -2004,5 +2037,6 @@ _Commits from: v5.25.0..HEAD_
 
 
 
+
 ---
-*Generated on 2026-09-08 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)*
+*Generated on 2026-09-12 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)*

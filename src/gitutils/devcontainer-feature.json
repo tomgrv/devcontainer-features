@@ -1,48 +1,48 @@
 {
-    "customizations": {
-        "vscode": {
-            "extensions": [
-                "donjayamanne.githistory",
-                "tomblind.scm-buttons-vscode",
-                "mhutchie.git-graph",
-                "arturock.gitstash",
-                "github.copilot",
-                "github.copilot-chat",
-                "github.vscode-github-actions",
-                "gitHub.vscode-pull-request-github",
-                "github.codespaces",
-                "waderyan.gitblame",
-                "shyykoserhiy.git-autoconfig"
-            ],
-            "settings": {
-                "explorer.excludeGitIgnore": true,
-                "git.autorefresh": true
-            }
-        }
-    },
-    "description": "A feature to add useful Git aliases to your shell.",
-    "id": "gitutils",
-    "installsAfter": [
-        "ghcr.io/tomgrv/devcontainer-features/common-utils",
-        "ghcr.io/tomgrv/devcontainer-features/gitversion"
-    ],
-    "dependsOn": {
-        "ghcr.io/devcontainers/features/node:1": {
-            "version": "lts"
-        },
-        "ghcr.io/tomgrv/devcontainer-features/common-utils:8": {
-            "utils": "jq dos2unix git-flow"
-        },
-        "ghcr.io/tomgrv/devcontainer-features/gitversion:8": {}
-    },
-    "name": "Git Aliases",
-    "version": "8.1.1",
-    "postCreateCommand": {
-        "config": "configure-feature gitutils"
-    },
-    "postStartCommand": {
-        "blanks": "git fix blanks",
-        "files": "git fix mode",
-        "prune": "git fix prune"
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "donjayamanne.githistory",
+        "tomblind.scm-buttons-vscode",
+        "mhutchie.git-graph",
+        "arturock.gitstash",
+        "github.copilot",
+        "github.copilot-chat",
+        "github.vscode-github-actions",
+        "gitHub.vscode-pull-request-github",
+        "github.codespaces",
+        "waderyan.gitblame",
+        "shyykoserhiy.git-autoconfig"
+      ],
+      "settings": {
+        "explorer.excludeGitIgnore": true,
+        "git.autorefresh": true
+      }
     }
+  },
+  "description": "A feature to add useful Git aliases to your shell.",
+  "id": "gitutils",
+  "installsAfter": [
+    "ghcr.io/tomgrv/devcontainer-features/common-utils",
+    "ghcr.io/tomgrv/devcontainer-features/gitversion"
+  ],
+  "dependsOn": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "lts"
+    },
+    "ghcr.io/tomgrv/devcontainer-features/common-utils:8": {
+      "utils": "jq dos2unix git-flow"
+    },
+    "ghcr.io/tomgrv/devcontainer-features/gitversion:8": {}
+  },
+  "name": "Git Aliases",
+  "version": "8.10.0",
+  "postCreateCommand": {
+    "config": "configure-feature gitutils"
+  },
+  "postStartCommand": {
+    "blanks": "git fix blanks",
+    "files": "git fix mode",
+    "prune": "git fix prune"
+  }
 }

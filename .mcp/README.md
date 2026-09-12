@@ -4,6 +4,8 @@
 
 MCP server that lets an agent query this repo directly to set up **another** repo's dev environment — no need to read `README.md` or crawl `src/` by hand.
 
+Root `.mcp.json` wires it for Claude Code auto-load on session start.
+
 ## Tools
 
 | Tool                      | Use it to...                                                                          |
@@ -17,7 +19,7 @@ MCP server that lets an agent query this repo directly to set up **another** rep
 ## Run it
 
 ```sh
-node src/mcp/server.js
+node .mcp/server.js
 ```
 
 ## Wire it into an agent
@@ -27,7 +29,7 @@ node src/mcp/server.js
     "mcpServers": {
         "devcontainer-features": {
             "command": "node",
-            "args": ["src/mcp/server.js"],
+            "args": [".mcp/server.js"],
             "cwd": "/path/to/devcontainer-features"
         }
     }
