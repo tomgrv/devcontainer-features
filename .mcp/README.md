@@ -1,10 +1,10 @@
 <!-- @format -->
 
-# MCP usage in this repo
+# devcontainer-features MCP server
 
-This repo ships own MCP server (`src/mcp/server.js`) — let agent query this repo to set up **another** repo's dev environment, no manual `README.md`/`src/` crawl needed.
+MCP server that lets an agent query this repo directly to set up **another** repo's dev environment — no need to read `README.md` or crawl `src/` by hand.
 
-Root `.mcp.json` wire it for Claude Code auto-load on session start.
+Root `.mcp.json` wires it for Claude Code auto-load on session start.
 
 ## Tools
 
@@ -16,4 +16,24 @@ Root `.mcp.json` wire it for Claude Code auto-load on session start.
 | `preview_feature_install` | Dry-run: list the files a feature would create vs. merge in a target repo, no writes. |
 | `get_setup_command`       | Get the exact shell command to run in the target repo (all or one feature).           |
 
-Full server docs (run command, manual wiring for other agents) live at `src/mcp/README.md` — canonical source, this file just point agent to `.mcp.json`.
+## Run it
+
+```sh
+node .mcp/server.js
+```
+
+## Wire it into an agent
+
+```json
+{
+    "mcpServers": {
+        "devcontainer-features": {
+            "command": "node",
+            "args": [".mcp/server.js"],
+            "cwd": "/path/to/devcontainer-features"
+        }
+    }
+}
+```
+
+Point the agent's MCP config (`.vscode/mcp.json`, Claude Desktop/Code config, etc.) at a local clone of this repo, then ask it to set up a target project: it calls `inspect_target_repo` to see what fits, `preview_feature_install` to check what a feature would touch before committing to it, and runs the command `get_setup_command` returns from inside the target repo.

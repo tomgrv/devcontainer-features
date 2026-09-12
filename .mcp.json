@@ -2,7 +2,9 @@
     "mcpServers": {
         "devcontainer-features": {
             "command": "node",
-            "args": ["src/mcp/server.js"]
+            "args": [
+                ".mcp/server.js"
+            ]
         }
     }
 }
