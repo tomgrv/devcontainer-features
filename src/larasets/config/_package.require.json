@@ -5,7 +5,8 @@
         "dotenv-cli",
         "prettier",
         "prettier-plugin-blade",
-        "prettier-plugin-tailwindcss"
+        "prettier-plugin-tailwindcss",
+        "playwright"
     ],
     "globalDependencies": []
 }

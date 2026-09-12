@@ -1,0 +1,15 @@
+{
+    "description": "Ensures a standard root setup.sh is present, installing zz_use + the common zz_* bundle and execing the repo's package.json \"main\" (or a root main.sh)",
+    "id": "scripting",
+    "installsAfter": [
+        "ghcr.io/tomgrv/devcontainer-features/common-utils"
+    ],
+    "dependsOn": {
+        "ghcr.io/tomgrv/devcontainer-features/common-utils:8": {}
+    },
+    "name": "Scripting bootstrap (setup.sh)",
+    "version": "1.0.0",
+    "postStartCommand": {
+        "config": "configure-feature scripting"
+    }
+}

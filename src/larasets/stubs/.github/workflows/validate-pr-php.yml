@@ -73,6 +73,15 @@ jobs:
         id: setup-php
         uses: tomgrv/actions/setup-php@v2
 
+      - name: Set up Node.js
+        uses: tomgrv/actions/setup-node@v2
+        with:
+          node-version: '24'
+
+      - name: Install Playwright browsers
+        if: ${{ hashFiles('node_modules/playwright/**') != '' }}
+        run: npx playwright install --with-deps chromium
+
       - name: Run Pest/PHPUnit tests
         id: tests
         uses: tomgrv/actions/run-phptests@v2

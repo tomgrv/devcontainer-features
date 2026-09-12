@@ -10,7 +10,7 @@
         "ghcr.io/devcontainers/features/docker-in-docker:3": {
             "moby": false
         },
-        "ghcr.io/tomgrv/devcontainer-features/common-utils:7": {}
+        "ghcr.io/tomgrv/devcontainer-features/common-utils:8": {}
     },
     "name": "GitVersion feature",
     "options": {
@@ -20,8 +20,8 @@
             "type": "string"
         }
     },
-    "version": "8.0.0",
+    "version": "8.0.1",
     "postCreateCommand": {
-        "config": "zz_feature -c gitversion"
+        "config": "configure-feature gitversion"
     }
 }

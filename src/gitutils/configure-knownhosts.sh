@@ -4,5 +4,7 @@
 repo_root=$(git rev-parse --show-toplevel 2>/dev/null) || exit 0
 cd "$repo_root" || exit 0
 
+command -v ssh-keyscan >/dev/null 2>&1 || exit 0
+
 mkdir -p ~/.ssh && chmod 700 ~/.ssh && timeout 10 ssh-keyscan -T 5 github.com >>~/.ssh/known_hosts
 

@@ -13,9 +13,9 @@
         "act-run": "bin/act-run.sh"
     },
     "scripts": {
-        "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then zz_feature -i -s .; fi",
+        "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then install-feature -s .; fi",
         "install-act": "./install-act.sh",
-        "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then zz_feature -c -s . act; fi"
+        "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then configure-feature -s . act; fi"
     },
     "peerDependencies": {
         "@tomgrv/devcontainer-features-common-utils": "*"

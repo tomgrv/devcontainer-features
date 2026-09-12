@@ -8,7 +8,7 @@ This feature provides a set of utilities for working with Git repositories.
 
 ```json
 "features": {
-    "ghcr.io/tomgrv/devcontainer-features/gitutils:7": {}
+    "ghcr.io/tomgrv/devcontainer-features/gitutils:8": {}
 }
 ```
 
@@ -32,6 +32,12 @@ Installs a collection of Git utilities.
 Installs the git-flow extension and sets up Git configuration to use it.
 Adds shortcuts to the git command for easier use of git-flow commands.
 
+The utilities themselves live in [`tomgrv/scripts`](https://github.com/tomgrv/scripts#git-utilities)
+(one source of truth, shared with every other `tomgrv`/`perspikapps` repo)
+and are pulled in via `zz_use` at install time — this feature owns the
+alias/config wiring and the git-flow install/configure lifecycle, not the
+script implementations.
+
 ## GitFlow
 
 Additionally, the feature installs the [git-flow](https://github.com/nvie/gitflow) extension and sets up the Git configuration to use it.
@@ -42,7 +48,7 @@ Additionally, the feature installs the [git-flow](https://github.com/nvie/gitflo
 
 ### Configure step
 
-`zz_feature -c gitutils` (run automatically from `postCreateCommand`, and re-runnable at any time from the repository root) runs `configure-gitflow.sh`, which non-interactively runs `git flow init -d -f` with the following branch/prefix scheme:
+`configure-feature gitutils` (run automatically from `postCreateCommand`, and re-runnable at any time from the repository root) runs `configure-gitflow.sh`, which non-interactively runs `git flow init -d -f` with the following branch/prefix scheme:
 
 | Prompt                                | Value                  |
 | ------------------------------------- | ---------------------- |
@@ -58,6 +64,10 @@ Additionally, the feature installs the [git-flow](https://github.com/nvie/gitflo
 
 Each value can be overridden by exporting the matching environment variable before `configure-gitflow.sh` runs: `GITFLOW_MASTER_BRANCH`, `GITFLOW_DEVELOP_BRANCH`, `GITFLOW_FEATURE_PREFIX`, `GITFLOW_BUGFIX_PREFIX`, `GITFLOW_RELEASE_PREFIX`, `GITFLOW_HOTFIX_PREFIX`, `GITFLOW_SUPPORT_PREFIX`, `GITFLOW_VERSIONTAG_PREFIX`.
 
+If `main`/`develop` don't exist locally but a matching `origin/main`/`origin/develop` does (e.g. a fresh clone), `configure-gitflow.sh` checks that branch out rather than creating an orphan branch, so existing history is preserved.
+
+`configure-feature gitutils` also runs `configure-knownhosts.sh`, which seeds `~/.ssh/known_hosts` with `github.com`'s key via `ssh-keyscan`. `openssh-client` (providing `ssh-keyscan`) is not a hard dependency of this feature — if it isn't installed, the script exits cleanly with no error and no known_hosts changes.
+
 Shortcuts are also added to the `git` command to make it easier to use the `git-flow` commands:
 
 - `git beta` is a shortcut for `git flow release start`
@@ -65,6 +75,19 @@ Shortcuts are also added to the `git` command to make it easier to use the `git-
 - `git prod` is a shortcut for `git flow release finish` and `git flow hotfix finish`
 
 These shortcuts work in conjunction with the `gitversion` utility to automatically update the version number of the application.
+
+## Release Flow (CI)
+
+Consumer repos get two deployed workflows under `.github/workflows/`:
+
+- `release-main.yml` — promotes `develop` toward `main` via `tomgrv/actions/release-promote`.
+- `release-prod.yml` — the production release entry point, also via `tomgrv/actions/release-promote`, which drives the same `git-release-beta`/`git-release-prod` flow (`tomgrv/scripts`) exposed above as the `git beta`/`git prod` aliases.
+
+Agent guidance for downstream repos using this feature:
+
+- Always open pull requests with base `develop`, never `main`.
+- Never push or open a PR directly against `main` — production releases go out only through the `release-prod` workflow.
+- Trigger `release-prod` with the `gh-prod` command (a thin `gh workflow run release-prod.yml` wrapper) or via `workflow_dispatch` in the GitHub UI.
 
 ## Interactive Utilities
 
@@ -84,6 +107,7 @@ The feature includes the following interactive utilities:
 - `git release-beta` - Start a new release branch using Git Flow.
 - `git release-hotfix` - Start a new hotfix branch using Git Flow.
 - `git release-prod` - Finish a release or hotfix branch using Git Flow.
+- `gh-prod` - Trigger the `release-prod` GitHub Actions workflow (`gh workflow run release-prod.yml`).
 - `git fix rights` - Set permissions for files and directories according to best practices.
 - `git unset <prefix> [--local|--global|--system]` - Unset all Git config keys starting with the given prefix.
 

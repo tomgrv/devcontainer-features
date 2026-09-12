@@ -24,6 +24,7 @@ Use this feature for advanced Git operations, interactive repository maintenance
 - `git release-hotfix` - Start a Git Flow hotfix branch.
 - `git release-prod` - Finish release/hotfix flow for production.
 - `git unset <prefix> [--local|--global|--system]` - Remove git config keys by prefix.
+- `gh-prod` - Trigger the `release-prod` GitHub Actions workflow.
 
 ## Use For
 
@@ -42,3 +43,5 @@ Use this feature for advanced Git operations, interactive repository maintenance
 - Prefer built-in aliases/utilities before crafting raw multi-step Git commands.
 - For history-rewrite actions, use explicit/force flags only when requested.
 - Keep operations scoped and reversible where possible.
+- Always open pull requests with base `develop`, never `main`.
+- Production releases happen only via the `release-prod` GitHub Actions workflow (triggered with `gh-prod`, or `workflow_dispatch`) — never by pushing or opening a PR directly against `main`.

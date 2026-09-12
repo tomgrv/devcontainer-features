@@ -9,6 +9,7 @@
         "nunomaduro/collision",
         "barryvdh/laravel-ide-helper",
         "pestphp/pest-plugin-arch",
+        "pestphp/pest-plugin-browser",
         "phpmd/phpmd"
     ],
     "globalDependencies": []

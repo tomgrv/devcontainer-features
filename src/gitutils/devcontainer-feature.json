@@ -30,15 +30,15 @@
         "ghcr.io/devcontainers/features/node:1": {
             "version": "lts"
         },
-        "ghcr.io/tomgrv/devcontainer-features/common-utils:7": {
+        "ghcr.io/tomgrv/devcontainer-features/common-utils:8": {
             "utils": "jq dos2unix git-flow"
         },
-        "ghcr.io/tomgrv/devcontainer-features/gitversion:7": {}
+        "ghcr.io/tomgrv/devcontainer-features/gitversion:8": {}
     },
     "name": "Git Aliases",
-    "version": "8.0.0",
+    "version": "8.1.1",
     "postCreateCommand": {
-        "config": "zz_feature -c gitutils"
+        "config": "configure-feature gitutils"
     },
     "postStartCommand": {
         "blanks": "git fix blanks",

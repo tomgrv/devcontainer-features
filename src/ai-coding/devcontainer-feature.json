@@ -13,11 +13,11 @@
         "ghcr.io/tomgrv/devcontainer-features/common-utils"
     ],
     "dependsOn": {
-        "ghcr.io/tomgrv/devcontainer-features/common-utils:7": {}
+        "ghcr.io/tomgrv/devcontainer-features/common-utils:8": {}
     },
     "name": "AI Coding",
-    "version": "8.0.0",
+    "version": "8.1.0",
     "postCreateCommand": {
-        "config": "zz_feature -c ai-coding"
+        "config": "configure-feature ai-coding"
     }
 }

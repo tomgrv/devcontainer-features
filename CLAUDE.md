@@ -13,8 +13,8 @@ Every tool-specific path is a symlink into `.agents/` (the single source of trut
 
 ## Dev Workflow
 
-- **Feature install** (local): `npx tomgrv/devcontainer-features -- add <feature>` → calls `zz_feature -i` → copies `src/<feature>/stubs/` via `cp -a` (symlinks preserved) into target.
-- **Feature configure** (devcontainer): `zz_feature -c <feature>` → deploys stubs files + symlinks via `src/common-utils/bin/zz_feature.sh`.
+- **Feature install** (local): `npx tomgrv/devcontainer-features -- add <feature>` → calls `install-feature` → copies `src/<feature>/stubs/` via `cp -a` (symlinks preserved) into target.
+- **Feature configure** (devcontainer): `configure-feature <feature>` → deploys stubs files + symlinks. Both commands come from `tomgrv/scripts` (fetched via `zz_use` in `src/common-utils/install.sh`).
 - **This repo dogfoods its own features** — root `.github/workflows/`, `.github/skills/`, `.claude/skills/` are the installed output of the ai-coding feature. Edit canonical content under `.agents/skills/` or `src/ai-coding/stubs/`, not the symlinks.
 - **Prettier**: run `npm install` then `npx prettier --write` on new/edited `.md`/`.yml`/`.json` files before committing.
 - **Commits**: Conventional Commits + devmoji emoji required — e.g. `feat(scope): ✨ description`. Validated by commitlint on `review_requested`.
@@ -23,12 +23,12 @@ Every tool-specific path is a symlink into `.agents/` (the single source of trut
 
 ## Feature Pattern
 
-Each feature follows this structure (use `src/pecl/` as the minimal reference — just the standard entrypoints plus `stubs/`; `src/githooks/` or `src/larasets/` for a fuller example with all four optional subdirectories):
+Each feature follows this structure (use `src/scripting/` as the minimal reference — just the standard entrypoints plus `stubs/`; `src/githooks/` or `src/larasets/` for a fuller example with all four optional subdirectories):
 
 ```
 src/<feature>/
   devcontainer-feature.json   # id, version, dependsOn, postCreateCommand
-  install.sh                  # runs: zz_feature -i $0
+  install.sh                  # runs: install-feature $0
   package.json                # npm workspace registration
   README.md
   configure-*.sh               # optional lifecycle hooks, invoked by name (not on PATH)
@@ -43,10 +43,15 @@ src/<feature>/
     .agents/skills/<name>/    # canonical real files
     .github/skills/<name>     # symlink → ../../.agents/skills/<name>
     .claude/skills/<name>     # symlink → ../../.agents/skills/<name>
+    .clean                    # optional, anywhere under stubs/: retires legacy
+                                # files on deploy, one directive per line, paths
+                                # relative to repo root — "RMV <path>" untracks
+                                # from git (kept on disk), "DEL <path>" deletes
+                                # and untracks. Never deployed as a stub itself.
   config/                      # optional: data files a script reads at runtime
                                 # (JSON Schemas, alias/config maps, dependency manifests)
                                 # — never deployed to consumers, never merged
-  bin/                         # optional: scripts installed onto PATH by zz_feature -i
+  bin/                         # optional: scripts installed onto PATH by install-feature
                                 # (no leading underscore — directory location alone marks
                                 # a file as a PATH script, unlike stubs/'s qualifier convention)
   tests/                       # optional: *.bats + helpers.bash, run via `bats src/<feature>/tests/`
@@ -68,3 +73,13 @@ Change only what the task requires. Don't touch `package-lock.json`, `src/githoo
 - Marked as a hotfix (in commit message or request: `hotfix/...`, `@hotfix`)
 
 If no branch is specified in a request, start from `develop`.
+
+## PR Title Rule
+
+**PR titles must follow Conventional Commits format with scope matching the affected workspace/feature.** Format: `<type>(devcontainer-features-<workspace>): <emoji> <description>`.
+
+Valid scopes (deduced from npm workspace names): `devcontainer-features-act`, `devcontainer-features-ai-coding`, `devcontainer-features-common-utils`, `devcontainer-features-gateway`, `devcontainer-features-githooks`, `devcontainer-features-gitutils`, `devcontainer-features-gitversion`, `devcontainer-features-larasets`, `devcontainer-features-minikube`, `devcontainer-features-scripting`.
+
+Example: `fix(devcontainer-features-githooks): 🔧 Add conditional skip when GITLEAKS_LICENSE not set`.
+
+Validated by `tomgrv/actions/check-pr-format@v2` on PR open/sync. Scope must use full `devcontainer-features-<workspace>` format; multi-workspace changes use the primary feature modified.

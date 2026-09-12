@@ -4,7 +4,7 @@ eval $(
     zz_context "$@"
 )
 
-scope=${GIT_CONFIG_SCOPE:---system}
+scope=${GIT_CONFIG_SCOPE:---global}
 
 # Check if jq is installed
 if ! command -v jq >/dev/null 2>&1; then

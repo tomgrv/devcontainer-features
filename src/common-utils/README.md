@@ -8,7 +8,7 @@ This feature provides common utilities for the devcontainer features.
 
 ```json
 "features": {
-    "ghcr.io/tomgrv/devcontainer-features/common-utils:5": {
+    "ghcr.io/tomgrv/devcontainer-features/common-utils:8": {
         "utils": "jq dos2unix"
     }
 }
@@ -72,7 +72,7 @@ The feature also includes the following VS Code customizations:
 
 ## Install internals
 
-- `zz_feature -i` installs links for a feature's `bin/` scripts in a writable bin directory.
+- `install-feature` installs links for a feature's `bin/` scripts in a writable bin directory.
 - It resolves the writable bin directory with this fallback order:
     1. `INSTALL_BIN_DIR` (or `/usr/local/bin` by default)
     2. `~/.local/bin`

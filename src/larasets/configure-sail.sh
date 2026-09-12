@@ -16,6 +16,12 @@ if [ -f "./package.json" ]; then
     npm install --ws --if-present --include-workspace-root || npm install
 fi
 
+### Install Playwright browsers for Pest/Livewire browser testing
+if [ -d "./node_modules/playwright" ]; then
+    zz_log i "Install Playwright browsers"
+    npx playwright install --with-deps chromium
+fi
+
 ### Init env
 zz_log i "Init {B dotenv}"
 touch ./.env

@@ -12,7 +12,7 @@ More information about GitVersion can be found on the [GitVersion GitHub page](h
 
 ```json
 "features": {
-    "ghcr.io/tomgrv/devcontainer-features/gitversion:6": {}
+    "ghcr.io/tomgrv/devcontainer-features/gitversion:8": {}
 }
 ```
 

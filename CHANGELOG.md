@@ -1,6 +1,225 @@
-<!-- @format -->
-
 # Changelog
+
+## 8.9.0 (2026-09-08)
+
+*Commits from: v8.8.0..HEAD*
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v8.8.0' into develop ([7dc4687](https://github.com/tomgrv/devcontainer-features/commit/7dc4687681aa715796689084c398b929e52d3bef))
+### 📦 devcontainer-features-githooks changes
+
+#### Features
+
+- ✨ wire up clean-branches action (#157) ([24c3f15](https://github.com/tomgrv/devcontainer-features/commit/24c3f152a86b0716a8f1b99dde289eaf11060722))
+
+### 📦 devcontainer-features-gitversion changes
+
+#### Bug Fixes
+
+- 🐛 dedupe "no workspaces affected" warning in bump-version (#156) ([7bfb174](https://github.com/tomgrv/devcontainer-features/commit/7bfb1749bd88c50df1a82b42967de3ff6e2b7f05))
+
+#### Other changes
+
+- ♻️ zz_use gv/bump-* from tomgrv/scripts (#158) ([eefae77](https://github.com/tomgrv/devcontainer-features/commit/eefae77bab3cdcc4d038254133480f7278c0ef16))
+
+## 8.8.0 (2026-09-08)
+
+*Commits from: v8.7.0..HEAD*
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v8.7.0' into develop ([d5b654f](https://github.com/tomgrv/devcontainer-features/commit/d5b654fdb4850ec9001a721a79a2453d3588c707))
+### 📦 devcontainer-features-ai-coding changes
+
+#### Features
+
+- ✨ 🔥 add .clean files for legacy stub cleanup (#155) ([7a83660](https://github.com/tomgrv/devcontainer-features/commit/7a83660d03e73709c1ec8c1f740426dcdb441a32))
+
+### 📦 devcontainer-features-common-utils changes
+
+#### Bug Fixes
+
+- 🔧 show help on no command (#154) ([686eed3](https://github.com/tomgrv/devcontainer-features/commit/686eed3d0cef9b4049d41c976ad939096d556558))
+
+## 8.7.0 (2026-09-07)
+
+*Commits from: v8.6.0..HEAD*
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v8.6.0' into develop ([53383ae](https://github.com/tomgrv/devcontainer-features/commit/53383ae42a33c53c774e009467958abbd77af069))
+### 📦 devcontainer-features-common-utils changes
+
+#### Bug Fixes
+
+- 🐛 remove obsolete VSCode tasks.json file ([2dddd47](https://github.com/tomgrv/devcontainer-features/commit/2dddd47c11ad10b030757edc363dd41f8009b849))
+
+### 📦 devcontainer-features-mcp changes
+
+#### Features
+
+- ✨ Add MCP server for agent-driven setup (#152) ([a60053f](https://github.com/tomgrv/devcontainer-features/commit/a60053f3a955c71c8ef116b7619ffb1f057e0285))
+
+### 📦 devcontainer-features-scripting changes
+
+#### Bug Fixes
+
+- 🐛 update command to use curl for environment updates ([8584327](https://github.com/tomgrv/devcontainer-features/commit/8584327ac222cb57ef23efd21f9d525ac5b78674))
+
+## 8.6.0 (2026-09-06)
+
+*Commits from: v8.5.0..HEAD*
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v8.5.0' into develop ([845bd5f](https://github.com/tomgrv/devcontainer-features/commit/845bd5f1e460a05f4113f466b1eff4b8cefa3d79))
+### 📦 devcontainer-features-scripting changes
+
+#### Bug Fixes
+
+- 🐛 pin common-utils dependsOn to major 8 (#151) ([1e03146](https://github.com/tomgrv/devcontainer-features/commit/1e031460bc18d45d9559da10f8b992935d018855))
+
+## 8.5.0 (2026-09-06)
+
+*Commits from: v8.4.0..HEAD*
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v8.4.0' into develop ([5e38cc2](https://github.com/tomgrv/devcontainer-features/commit/5e38cc2bd9c82eac56c5d4854b58218ba9da3094))
+### 📦 devcontainer-features-gitutils changes
+
+#### Bug Fixes
+
+- 🐛 🔧 exit gracefully when ssh-keyscan absent (#149) ([712ee11](https://github.com/tomgrv/devcontainer-features/commit/712ee11b6e22c3f1fb64915dd7fec7cee11c7d52))
+
+### 📦 devcontainer-features-gitversion changes
+
+#### Bug Fixes
+
+- 🐛 republish gitversion, fix stale major pins (#150) ([4afcce3](https://github.com/tomgrv/devcontainer-features/commit/4afcce39f8f75d674cde6b803bc19185937055c5))
+
+## 8.4.0 (2026-09-04)
+
+*Commits from: v8.3.0..HEAD*
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v8.3.0' into develop ([1976f88](https://github.com/tomgrv/devcontainer-features/commit/1976f88510bd8ccf685dd1530316a7d7d3983e56))
+### 📦 devcontainer-features-gitutils changes
+
+#### Other changes
+
+- ♻️ suppress zz_feature, add release-prod flow (#147) ([b5803ba](https://github.com/tomgrv/devcontainer-features/commit/b5803bacd03c00a836cbe36781b8fa0e16159e61))
+
+## 8.3.0 (2026-09-04)
+
+*Commits from: v8.2.0..HEAD*
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v8.2.0' into develop ([763ff6b](https://github.com/tomgrv/devcontainer-features/commit/763ff6bea038c850407cd1f7650a1b7b1838ec8c))
+### 📦 devcontainer-features-gitutils changes
+
+#### Bug Fixes
+
+- 🐛 don't orphan main/develop from a remote-only branch (#146) ([ca5e671](https://github.com/tomgrv/devcontainer-features/commit/ca5e67194d67c0f6379fbf34df1cbef32ebc6425))
+
+## 8.2.0 (2026-09-03)
+
+*Commits from: v8.0.0..HEAD*
+
+### 💥 BREAKING CHANGES
+
+- ✨ move gitutils scripts to tomgrv/scripts, remove pecl (#143) ([e81dde6](https://github.com/tomgrv/devcontainer-features/commit/e81dde6da1fb9e62e33aa266b74aecd545fdf70a))
+### 📂 Unscoped changes
+
+#### Bug Fixes
+
+- repair root install.sh's broken zz_use bootstrap ([74b0e97](https://github.com/tomgrv/devcontainer-features/commit/74b0e977ffda1ff148beee688e5f528a2622aba5))
+
+#### Other changes
+
+- Merge branch 'release/8.1.0' ([e02d7f0](https://github.com/tomgrv/devcontainer-features/commit/e02d7f086cf90eb1996c9526dddc515d17789750))
+- Merge branch 'release/8.1.1' ([4748ac8](https://github.com/tomgrv/devcontainer-features/commit/4748ac8b0b5ac6da27f043cd3272c5cd9498da9a))
+- Merge tag 'v8.0.0' into develop ([286dcbd](https://github.com/tomgrv/devcontainer-features/commit/286dcbd42ce6049bff9040ebdc060e6defead56a))
+- Merge tag 'v8.1.0' into develop ([07aff67](https://github.com/tomgrv/devcontainer-features/commit/07aff673ee3b1e26083e6764b84153d799b277b8))
+- Merge tag 'v8.1.1' into develop ([63627a3](https://github.com/tomgrv/devcontainer-features/commit/63627a381b56c87900e14005c9c1329e7691cdfb))
+- 🔧 allow git push/tag without prompting (#140) ([6831d4a](https://github.com/tomgrv/devcontainer-features/commit/6831d4acc284fb8f724091b611a62a5cfd106edd))
+### 📦 ai-coding changes
+
+#### Features
+
+- deny scheduling tools to enforce event-only reacting (#138) ([1306209](https://github.com/tomgrv/devcontainer-features/commit/1306209d1d7c8d6e1e6f12594a28d0099ee15cd1))
+
+### 📦 devcontainer-features-common-utils changes
+
+#### Bug Fixes
+
+- 🐛 hide zz_feature snapshot state in .git/info (#136) ([a05305b](https://github.com/tomgrv/devcontainer-features/commit/a05305b946cc9b055ddd89ca1c66a990e305318c))
+- 🐛 stop deployed .gitattributes from being gitignored (#132) ([da3c4ad](https://github.com/tomgrv/devcontainer-features/commit/da3c4ad5441014d41f7a52d5f1ef6871f73dca83))
+
+#### Other changes
+
+- ♻️ wire to tomgrv/scripts (#139) ([0a934e9](https://github.com/tomgrv/devcontainer-features/commit/0a934e94e260cfb30e2ed63407aca9b8338c8a5d))
+
+### 📦 devcontainer-features-gateway changes
+
+#### Other changes
+
+- 🚨 ✅ Add bats tests for configure-certs.sh (#142) ([629f8d8](https://github.com/tomgrv/devcontainer-features/commit/629f8d80bb9dac82b88eda6401ab23d128105b5a))
+
+### 📦 devcontainer-features-githooks changes
+
+#### Bug Fixes
+
+- 🐛 Skip gitleaks when license not set 🔧 (#141) ([009be6c](https://github.com/tomgrv/devcontainer-features/commit/009be6c60802b6535ea1c65ab58ba9742fef3285))
+
+### 📦 devcontainer-features-larasets changes
+
+#### Features
+
+- ✨ add Livewire/Pest browser testing support (#134) ([596fe88](https://github.com/tomgrv/devcontainer-features/commit/596fe885f281cdc2aee3bed65acabec932cbe88f))
+
+### 📦 devcontainer-features-minikube changes
+
+#### Features
+
+- ✨ add aws-import-dockerhub.sh script (#131) ([9df85c3](https://github.com/tomgrv/devcontainer-features/commit/9df85c30a2dc3fab1cff454310f4dc77fb5ac430))
+
+### 📦 gitutils changes
+
+#### Bug Fixes
+
+- default git config scope to --global, not --system ([058cda2](https://github.com/tomgrv/devcontainer-features/commit/058cda2776812b49a64195c9d7c9f22c05239e88))
+- pin bin dir and persist it to GITHUB_PATH in release-main.yml ([5fd0ec3](https://github.com/tomgrv/devcontainer-features/commit/5fd0ec3183c2f82e2d042dc9beff45de256cdeaf))
+
+### 📦 release changes
+
+#### Other changes
+
+- 8.1.1 ([67ea83e](https://github.com/tomgrv/devcontainer-features/commit/67ea83ea3921f02f3381205d9d45ccac4fdf4b44))
+- 🚀 8.1.0 ([0e8b52b](https://github.com/tomgrv/devcontainer-features/commit/0e8b52bae314f6f08c299faac1b52d5dd5e5ff68))
+
+### 📦 scripting changes
+
+#### Bug Fixes
+
+- 🐛 regenerate package-lock.json for the new workspace ([1f002b8](https://github.com/tomgrv/devcontainer-features/commit/1f002b8dcb2f15b6af22b7189709b8329550bb44))
 
 ## 8.0.0 (2026-08-18)
 
@@ -1777,6 +1996,13 @@ _Commits from: v5.25.0..HEAD_
 - ✨ add githook ([ab4c1fc](https://github.com/tomgrv/devcontainer-features/commit/ab4c1fc5eb4f712ed2009baf9a3cadb11097c7b5))
 - add features ([4b26d9d](https://github.com/tomgrv/devcontainer-features/commit/4b26d9d876caffb15078a6baaabf76d1a2707e6f))
 
----
 
-_Generated on 2026-08-18 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
+
+
+
+
+
+
+
+---
+*Generated on 2026-09-08 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)*

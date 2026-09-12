@@ -59,5 +59,5 @@ perf(common-utils): reduce script startup time
 refactor(gitversion): extract bump logic into shared function
 docs(gateway): document SSL setup
 chore(githooks): bump @commitlint/cli to latest
-feat!(pecl): remove legacy extension installer — breaking change
+feat!(gateway): remove legacy certificate installer — breaking change
 ```

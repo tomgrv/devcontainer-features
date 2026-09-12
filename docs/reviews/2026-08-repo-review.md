@@ -7,6 +7,12 @@ Scope: whole repository — CI/workflows, `src/*` feature source, and the `.agen
 This is a findings-only report. No code changes are included in this pass; each item below
 is written so a follow-up PR can act on it independently.
 
+> **2026-09 update:** `pecl` (the subject of §2.5 and several other findings below) has been
+> removed from this repository rather than brought into conformance — the findings that
+> reference it are kept as-is for the historical record, but no longer describe anything
+> present in `src/`. `CLAUDE.md`'s "minimal reference" feature pointer was moved to
+> `src/scripting/`.
+
 ## Executive Summary
 
 Six items stand out by impact-to-effort:

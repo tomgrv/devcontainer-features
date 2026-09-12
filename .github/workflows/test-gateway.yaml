@@ -6,11 +6,9 @@ on:
   push:
     paths:
       - 'src/gateway/**'
-      - 'test/gateway/**'
   pull_request:
     paths:
       - 'src/gateway/**'
-      - 'test/gateway/**'
 
 permissions:
   contents: read
@@ -27,4 +25,4 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run gateway tests
-        run: bats test/gateway/
+        run: bats src/gateway/tests/
