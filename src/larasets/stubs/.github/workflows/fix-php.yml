@@ -63,7 +63,7 @@ jobs:
       - name: Create or update PR
         id: create-pr
         if: ${{ steps.fix-phpstan.outputs.has-changes == 'true' || steps.fix-filacheck.outputs.has-changes == 'true' || steps.fix-pint.outputs.has-changes == 'true' }}
-        uses: tomgrv/actions/create-pr@v1
+        uses: tomgrv/actions/create-pr@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           repository: ${{ github.repository }}
