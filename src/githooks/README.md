@@ -8,7 +8,7 @@ This feature provides a set of hooks for working with Git repositories.
 
 ```json
 "features": {
-    "ghcr.io/tomgrv/devcontainer-features/githooks:8": {}
+    "ghcr.io/tomgrv/devcontainer-features/githooks:9": {}
 }
 ```
 
@@ -34,6 +34,21 @@ npm install --save-dev @tomgrv/devcontainer-features-githooks
 - post-merge - Handles changes in package.json and composer.json after a merge.
 - post-checkout - Runs git update to update the current branch with the latest changes from the remote.
 - pre-push - Runs validate-branch-name to validate the branch name before pushing.
+
+## Installation Mechanism
+
+Hooks are wired up via [Husky](https://typicode.github.io/husky/how-to.html) rather than a raw `core.hooksPath .git/hooks` symlink setup:
+
+- `configure-husky.sh` merges a `"prepare": "husky"` script into `package.json` (husky v9+ initializes itself from the npm `prepare` lifecycle script, not `husky install`), then runs `npx husky` immediately so `.husky/` exists in the consumer repo right away — `devcontainer create` doesn't run `npm install` interactively at this stage.
+- `configure-hooks.sh` generates one thin executable wrapper per hook under `.husky/` (`pre-commit`, `prepare-commit-msg`, `commit-msg`, `post-checkout`, `post-merge`, `pre-push`). Each wrapper simply calls the corresponding `git-hook-<name>` command (no internal hyphens, e.g. `pre-commit` -> `git-hook-precommit`), passing all arguments through, e.g.:
+
+    ```sh
+    #!/bin/sh
+    git-hook-precommit "$@"
+    ```
+
+- Husky's own init sets `core.hooksPath .husky` - this feature doesn't touch `git config` directly.
+- The `git-hook-*` commands (and `git-hook-installplugins`, used by `pre-commit`/`prepare-commit-msg`/`commit-msg` to install linked npm plugins) are installed on `PATH` as `devDependencies` from [`tomgrv/scripts`](https://github.com/tomgrv/scripts), delivered via the `package.json` stub merge.
 
 ## Configuration
 
