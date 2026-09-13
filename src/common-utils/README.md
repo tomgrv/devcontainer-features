@@ -70,6 +70,24 @@ The feature also includes the following VS Code customizations:
 - Installs specified common utilities such as jq and dos2unix.
 - Supports specifying additional utilities to install.
 
+## PR Checks (CI)
+
+Consumer repos get one deployed workflow under `.github/workflows/`:
+
+- `validate-pr-lock.yml` — validates `package.json`/`package-lock.json` and
+  `composer.json`/`composer.lock` coherence via
+  [`tomgrv/actions/check-lock`](https://github.com/tomgrv/actions/blob/main/check-lock/README.md),
+  reporting drift inline via reviewdog. `check-lock` detects whichever
+  manifests are present, so this one workflow covers both npm and Composer
+  repos without needing a feature-specific variant. `common-utils` is a
+  transitive dependency of almost every other feature in this repo
+  (`gitutils`, `githooks`, `larasets`, …), so this check ships for nearly
+  every consumer without them needing to add it explicitly.
+- By default it checks the repo root only (`paths: '.'`). If your manifests
+  live in subdirectories, edit the deployed workflow and pass a
+  comma-separated `paths` list (e.g. `.,packages/foo`) to the `check-lock`
+  step.
+
 ## Install internals
 
 - `install-feature` installs links for a feature's `bin/` scripts in a writable bin directory.
