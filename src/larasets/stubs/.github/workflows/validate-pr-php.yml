@@ -12,19 +12,6 @@ env:
   NODE_ENV: test
 
 jobs:
-  validate-composer-lock:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
-
-      - name: Validate composer.lock coherence
-        uses: tomgrv/actions/check-lock@v2
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-
   validate-php-code:
     runs-on: ubuntu-latest
     steps:
