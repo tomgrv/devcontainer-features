@@ -46,6 +46,6 @@ jobs:
           fetch-depth: 0
 
       - name: Validate package-lock coherence
-        uses: tomgrv/actions/check-lock@v1
+        uses: tomgrv/actions/check-lock@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
