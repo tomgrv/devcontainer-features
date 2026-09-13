@@ -1,6 +1,6 @@
 {
     "name": "@tomgrv/devcontainer-features-githooks",
-    "version": "8.0.0",
+    "version": "9.0.0",
     "description": "Git hooks and linting configuration for development workflow",
     "files": [
         "bin/*.sh",
@@ -9,21 +9,15 @@
         "stubs/**/*"
     ],
     "bin": {
-        "commit-msg": "bin/commit-msg.sh",
-        "install-plugins": "bin/install-plugins.sh",
-        "post-checkout": "bin/post-checkout.sh",
-        "post-merge": "bin/post-merge.sh",
-        "pre-commit": "bin/pre-commit.sh",
-        "pre-push": "bin/pre-push.sh",
-        "prepare-commit-msg": "bin/prepare-commit-msg.sh",
         "sync-versions": "bin/sync-versions.sh",
         "update-version": "bin/update-version.sh"
     },
     "scripts": {
         "configure-cz": "./configure-cz.sh",
+        "configure-husky": "./configure-husky.sh",
         "configure-hooks": "./configure-hooks.sh",
         "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then install-feature -s .; fi",
-        "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then configure-feature -s . githooks && install-plugins -- '[.prettier.plugins//\"\",.config.commitizen.path // \"\", .commitlint.extends // \"\"]'; fi"
+        "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then configure-feature -s . githooks && git-hook-installplugins -- '[.prettier.plugins//\"\",.config.commitizen.path // \"\", .commitlint.extends // \"\"]'; fi"
     },
     "dependencies": {
         "@commitlint/cli": "*",
