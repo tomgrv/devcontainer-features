@@ -76,6 +76,22 @@ Shortcuts are also added to the `git` command to make it easier to use the `git-
 
 These shortcuts work in conjunction with the `gitversion` utility to automatically update the version number of the application.
 
+## Merge Drivers
+
+`.gitattributes` marks `*.json` and `*.yaml`/`*.yml` with `merge=json`/`merge=yaml`,
+but a driver name is only meaningful once registered in Git config. The
+`configure-mergedrivers.sh` lifecycle script registers both, at repo scope:
+
+```
+git config merge.json.driver 'merge-json %A %B'
+git config merge.yaml.driver 'merge-yaml %A %B'
+```
+
+With these registered, `git merge`/`git rebase`/`git cherry-pick` resolve
+conflicts on JSON/YAML files by recursively merging objects and
+deduping/unioning arrays (via [`merge-json`/`merge-yaml`](https://github.com/tomgrv/scripts))
+instead of falling back to a line-based 3-way merge.
+
 ## Release Flow (CI)
 
 Consumer repos get two deployed workflows under `.github/workflows/`:

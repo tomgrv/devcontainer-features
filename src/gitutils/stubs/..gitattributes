@@ -5,6 +5,8 @@
 *.scss linguist-vendored
 *.js linguist-vendored
 *.json merge=json
+*.yaml merge=yaml
+*.yml merge=yaml
 CHANGELOG.md export-ignore
 .devcontainer export-ignore
 .github export-ignore
