@@ -36,3 +36,16 @@ jobs:
     steps:
       - name: Check PR source branch
         uses: tomgrv/actions/check-pr-source-branch@v2
+
+  validate-lock:
+    name: Validate package-lock coherence
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Validate package-lock coherence
+        uses: tomgrv/actions/check-lock@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
