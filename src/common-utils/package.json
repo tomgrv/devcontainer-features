@@ -9,7 +9,8 @@
     ],
     "scripts": {
         "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then install-feature -s .; fi",
-        "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then configure-feature -s . common-utils; fi"
+        "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then configure-feature -s . common-utils; fi",
+        "test": "bats tests/"
     },
     "dependencies": {}
 }
