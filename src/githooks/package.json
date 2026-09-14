@@ -17,7 +17,8 @@
         "configure-husky": "./configure-husky.sh",
         "configure-hooks": "./configure-hooks.sh",
         "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then install-feature -s .; fi",
-        "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then configure-feature -s . githooks && git-hook-installplugins -- '[.prettier.plugins//\"\",.config.commitizen.path // \"\", .commitlint.extends // \"\"]'; fi"
+        "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then configure-feature -s . githooks && git-hook-installplugins -- '[.prettier.plugins//\"\",.config.commitizen.path // \"\", .commitlint.extends // \"\"]'; fi",
+        "test": "bats tests/"
     },
     "dependencies": {
         "@commitlint/cli": "*",
