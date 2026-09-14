@@ -1,28 +1,28 @@
 {
-    "name": "@tomgrv/devcontainer-features-gateway",
-    "version": "8.0.0",
-    "description": "SSL Inspection Gateway handling",
-    "files": [
-        "configure-*.sh",
-        "install-*.sh",
-        "install.sh",
-        "stubs/**/*"
-    ],
-    "bin": {
-        "gateway-curl": "stubs/.devcontainer/.gateway/gateway-curl.sh"
-    },
-    "scripts": {
-        "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then install-feature -s .; fi",
-        "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then configure-feature -s . gateway; fi",
-        "test": "bats tests/"
-    },
-    "dependencies": {},
-    "peerDependencies": {
-        "@tomgrv/devcontainer-features-common-utils": "*"
-    },
-    "peerDependenciesMeta": {
-        "@tomgrv/devcontainer-features-common-utils": {
-            "optional": true
-        }
+  "name": "@tomgrv/devcontainer-features-gateway",
+  "version": "8.11.0",
+  "description": "SSL Inspection Gateway handling",
+  "files": [
+    "configure-*.sh",
+    "install-*.sh",
+    "install.sh",
+    "stubs/**/*"
+  ],
+  "bin": {
+    "gateway-curl": "stubs/.devcontainer/.gateway/gateway-curl.sh"
+  },
+  "scripts": {
+    "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then install-feature -s .; fi",
+    "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then configure-feature -s . gateway; fi",
+    "test": "bats tests/"
+  },
+  "dependencies": {},
+  "peerDependencies": {
+    "@tomgrv/devcontainer-features-common-utils": "*"
+  },
+  "peerDependenciesMeta": {
+    "@tomgrv/devcontainer-features-common-utils": {
+      "optional": true
     }
+  }
 }

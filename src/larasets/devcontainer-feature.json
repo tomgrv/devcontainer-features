@@ -1,64 +1,64 @@
 {
-    "containerEnv": {
-        "APP_DEBUG": "true",
-        "APP_ENV": "local",
-        "DB_CONNECTION": "sqlite",
-        "SAIL_XDEBUG_CONFIG": "client_host=host.docker.internal idekey=vscode",
-        "XDEBUG_CONFIG": "client_host=localhost idekey=vscode"
-    },
-    "customizations": {
-        "vscode": {
-            "extensions": [
-                "aaron-bond.better-comments",
-                "alexcvzz.vscode-sqlite",
-                "bmewburn.vscode-intelephense-client",
-                "christian-kohler.npm-intellisense",
-                "davidanson.vscode-markdownlint",
-                "doppler.doppler-vscode",
-                "entexa.tall-stack",
-                "formulahendry.auto-close-tag",
-                "formulahendry.auto-rename-tag",
-                "gruntfuggly.triggertaskonsave",
-                "laravel.vscode-laravel",
-                "marabesi.php-import-checker",
-                "onecentlin.laravel-blade",
-                "pcbowers.alpine-intellisense",
-                "xdebug.php-debug"
-            ]
-        }
-    },
-    "description": "A feature to add useful laravel settings to your shell.",
-    "id": "larasets",
-    "installsAfter": [
-        "ghcr.io/tomgrv/devcontainer-features/common-utils",
-        "ghcr.io/devcontainers/features/docker-in-docker"
-    ],
-    "dependsOn": {
-        "ghcr.io/devcontainers/features/docker-in-docker:3": {
-            "moby": false
-        },
-        "ghcr.io/devcontainers/features/node:1": {
-            "version": "lts"
-        },
-        "ghcr.io/devcontainers/features/php:1": {
-            "version": "8.3"
-        },
-        "ghcr.io/metcalfc/devcontainer-features/doppler:0": {},
-        "ghcr.io/tomgrv/devcontainer-features/common-utils:8": {}
-    },
-    "name": "Laravel settings",
-    "options": {
-        "doppler": {
-            "default": "",
-            "description": "Doppler config name to export as DOPPLER_CONFIG for the `dep`/`secret` helpers. Leave empty to let Doppler resolve the config itself.",
-            "type": "string"
-        }
-    },
-    "version": "8.1.0",
-    "legacyIds": [
-        "larasets"
-    ],
-    "postCreateCommand": {
-        "config": "configure-feature larasets"
+  "containerEnv": {
+    "APP_DEBUG": "true",
+    "APP_ENV": "local",
+    "DB_CONNECTION": "sqlite",
+    "SAIL_XDEBUG_CONFIG": "client_host=host.docker.internal idekey=vscode",
+    "XDEBUG_CONFIG": "client_host=localhost idekey=vscode"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "aaron-bond.better-comments",
+        "alexcvzz.vscode-sqlite",
+        "bmewburn.vscode-intelephense-client",
+        "christian-kohler.npm-intellisense",
+        "davidanson.vscode-markdownlint",
+        "doppler.doppler-vscode",
+        "entexa.tall-stack",
+        "formulahendry.auto-close-tag",
+        "formulahendry.auto-rename-tag",
+        "gruntfuggly.triggertaskonsave",
+        "laravel.vscode-laravel",
+        "marabesi.php-import-checker",
+        "onecentlin.laravel-blade",
+        "pcbowers.alpine-intellisense",
+        "xdebug.php-debug"
+      ]
     }
+  },
+  "description": "A feature to add useful laravel settings to your shell.",
+  "id": "larasets",
+  "installsAfter": [
+    "ghcr.io/tomgrv/devcontainer-features/common-utils",
+    "ghcr.io/devcontainers/features/docker-in-docker"
+  ],
+  "dependsOn": {
+    "ghcr.io/devcontainers/features/docker-in-docker:3": {
+      "moby": false
+    },
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "lts"
+    },
+    "ghcr.io/devcontainers/features/php:1": {
+      "version": "8.3"
+    },
+    "ghcr.io/metcalfc/devcontainer-features/doppler:0": {},
+    "ghcr.io/tomgrv/devcontainer-features/common-utils:8": {}
+  },
+  "name": "Laravel settings",
+  "options": {
+    "doppler": {
+      "default": "",
+      "description": "Doppler config name to export as DOPPLER_CONFIG for the `dep`/`secret` helpers. Leave empty to let Doppler resolve the config itself.",
+      "type": "string"
+    }
+  },
+  "version": "8.11.0",
+  "legacyIds": [
+    "larasets"
+  ],
+  "postCreateCommand": {
+    "config": "configure-feature larasets"
+  }
 }

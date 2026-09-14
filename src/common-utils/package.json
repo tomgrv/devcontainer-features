@@ -1,16 +1,16 @@
 {
-    "name": "@tomgrv/devcontainer-features-common-utils",
-    "version": "8.1.0",
-    "description": "Common utilities and helper scripts for devcontainer features",
-    "files": [
-        "configure-*.sh",
-        "install.sh",
-        "stubs/**/*"
-    ],
-    "scripts": {
-        "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then install-feature -s .; fi",
-        "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then configure-feature -s . common-utils; fi",
-        "test": "bats tests/"
-    },
-    "dependencies": {}
+  "name": "@tomgrv/devcontainer-features-common-utils",
+  "version": "8.11.0",
+  "description": "Common utilities and helper scripts for devcontainer features",
+  "files": [
+    "configure-*.sh",
+    "install.sh",
+    "stubs/**/*"
+  ],
+  "scripts": {
+    "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then install-feature -s .; fi",
+    "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then configure-feature -s . common-utils; fi",
+    "test": "bats tests/"
+  },
+  "dependencies": {}
 }
