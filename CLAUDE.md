@@ -4,6 +4,8 @@
 
 Monorepo of reusable VS Code devcontainer features. Each feature lives under `src/<feature>/` with a `devcontainer-feature.json`, `install.sh`, a `README.md`, and optional `stubs/` (files deployed to consumer repos, merged into an existing file at the same path when one exists), `config/` (data files a script reads at runtime, e.g. JSON Schemas), `bin/` (scripts installed onto `PATH`), and `tests/` (bats test suites).
 
+Tests that guard a convention across the **whole repo** rather than one feature (e.g. how features reference each other, or how `stubs/` files are laid out) live in `.repo/tests/` instead — see `.repo/tests/README.md`. Modeled on [`tomgrv/actions/self-repo-syntax`](https://github.com/tomgrv/actions/tree/develop/self-repo-syntax).
+
 ## All AI Tooling Lives in `.agents/` — Use It
 
 Every tool-specific path is a symlink into `.agents/` (the single source of truth). See `.agents/README.md` for the full layout.
