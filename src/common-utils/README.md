@@ -103,6 +103,10 @@ Consumer repos get one deployed workflow under `.github/workflows/`:
       no output at all (a silently-empty test run), both fail the workspace.
       Add a `"scripts": {"test": "..."}` entry to a workspace's `package.json`
       (e.g. `"test": "bats tests/"`) to opt it into this workflow.
+      The same workflow also runs a `repo-tests` job for repo-wide suites (tests
+      that guard a convention across the whole repo rather than one workspace —
+      see `.repo/tests/README.md`), silently skipped when `.repo/tests/` has no
+      `*.bats` files.
 
 ## Install internals
 
