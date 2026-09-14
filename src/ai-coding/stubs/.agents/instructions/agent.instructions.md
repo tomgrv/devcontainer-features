@@ -31,6 +31,16 @@ When asked a question, answer it. Do not implement it.
 
 When in doubt, assume it's a question. Answer first. Act when told to go.
 
+## Plan Mode: Cost Estimate
+
+When presenting a plan, break it into steps and tag each step with the model that fits its difficulty:
+
+- **Haiku**: boilerplate, search/grep, mechanical renames, file lookups
+- **Sonnet**: routine implementation, standard bug fixes, tests, refactors
+- **Opus**: hard reasoning, architecture decisions, ambiguous/multi-file design work
+
+Estimate each step's token count from its scope (small edit ~1-5K tokens, medium feature ~10-30K, large/multi-file ~50K+; count in and out separately if it matters). Look up current per-token pricing for the tagged models — check the `claude-api` skill or live docs, never quote a remembered price. Sum to a total estimated cost line. State assumptions (token counts are rough) in one line, don't over-explain.
+
 ## Speed (Opus 5 Only)
 
 When running as Opus 5, optimize for wall-clock speed. Finish tasks quickly.

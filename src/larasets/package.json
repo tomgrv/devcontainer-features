@@ -1,47 +1,47 @@
 {
-    "name": "@tomgrv/devcontainer-features-larasets",
-    "version": "8.1.0",
-    "description": "Laravel development settings and utilities",
-    "files": [
-        "bin/*.sh",
-        "config/**/*",
-        "configure-*.sh",
-        "install.sh",
-        "install-*.sh",
-        "stubs/**/*"
-    ],
-    "bin": {
-        "art": "bin/art.sh",
-        "dep": "bin/dep.sh",
-        "fwd": "bin/fwd.sh",
-        "run": "bin/run.sh",
-        "sail": "bin/sail.sh",
-        "sail-running": "bin/sail-running.sh",
-        "secret": "bin/secret.sh",
-        "seed": "bin/seed.sh",
-        "serve": "bin/serve.sh",
-        "smee": "bin/smee.sh",
-        "srv": "bin/srv.sh"
-    },
-    "scripts": {
-        "configure-composer": "./configure-composer.sh",
-        "configure-deployer": "./configure-deployer.sh",
-        "configure-sail": "./configure-sail.sh",
-        "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then install-feature -s .; fi",
-        "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then configure-feature -s . larasets; fi",
-        "test": "echo \"Warning: no test specified\"",
-        "update": "npm-check-updates -i -u",
-        "update-all": "npm run update -ws --root"
-    },
-    "dependencies": {
-        "npm-check-updates": "*"
-    },
-    "peerDependencies": {
-        "@tomgrv/devcontainer-features-common-utils": "*"
-    },
-    "peerDependenciesMeta": {
-        "@tomgrv/devcontainer-features-common-utils": {
-            "optional": true
-        }
+  "name": "@tomgrv/devcontainer-features-larasets",
+  "version": "8.11.0",
+  "description": "Laravel development settings and utilities",
+  "files": [
+    "bin/*.sh",
+    "config/**/*",
+    "configure-*.sh",
+    "install.sh",
+    "install-*.sh",
+    "stubs/**/*"
+  ],
+  "bin": {
+    "art": "bin/art.sh",
+    "dep": "bin/dep.sh",
+    "fwd": "bin/fwd.sh",
+    "run": "bin/run.sh",
+    "sail": "bin/sail.sh",
+    "sail-running": "bin/sail-running.sh",
+    "secret": "bin/secret.sh",
+    "seed": "bin/seed.sh",
+    "serve": "bin/serve.sh",
+    "smee": "bin/smee.sh",
+    "srv": "bin/srv.sh"
+  },
+  "scripts": {
+    "configure-composer": "./configure-composer.sh",
+    "configure-deployer": "./configure-deployer.sh",
+    "configure-sail": "./configure-sail.sh",
+    "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then install-feature -s .; fi",
+    "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then configure-feature -s . larasets; fi",
+    "test": "echo \"Warning: no test specified\"",
+    "update": "npm-check-updates -i -u",
+    "update-all": "npm run update -ws --root"
+  },
+  "dependencies": {
+    "npm-check-updates": "*"
+  },
+  "peerDependencies": {
+    "@tomgrv/devcontainer-features-common-utils": "*"
+  },
+  "peerDependenciesMeta": {
+    "@tomgrv/devcontainer-features-common-utils": {
+      "optional": true
     }
+  }
 }

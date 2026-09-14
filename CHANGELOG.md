@@ -1,5 +1,53 @@
 # Changelog
 
+## 8.11.0 (2026-09-14)
+
+*Commits from: v8.10.0..HEAD*
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v8.10.0' into develop ([1a1a9d1](https://github.com/tomgrv/devcontainer-features/commit/1a1a9d12249e91a66a1363bde22c286d05d39a06))
+### 📦 devcontainer-features-ai-coding changes
+
+#### Features
+
+- ✨ suggest model breakdown and cost estimate in plan mode (#171) ([c148e3b](https://github.com/tomgrv/devcontainer-features/commit/c148e3bee4d579e00f676fed7df2f9e2167cf033))
+
+### 📦 devcontainer-features-common-utils changes
+
+#### Bug Fixes
+
+- 🐛 use valid update -a command in update-features workflow (#172) ([2da2b04](https://github.com/tomgrv/devcontainer-features/commit/2da2b04b836542b5ca9fcf528ca8435dbad7b33c))
+
+#### Features
+
+- ✨ add .repo/tests/ for repo-wide suites (#176) ([253e6bf](https://github.com/tomgrv/devcontainer-features/commit/253e6bf3d8950f75a46d1b946747da80ebd49c0d))
+- ✨ standardize per-workspace test workflow (#173) ([5f45074](https://github.com/tomgrv/devcontainer-features/commit/5f4507453dff9f37bdd3ba2f210f878fe213205e))
+
+### 📦 devcontainer-features-githooks changes
+
+#### Bug Fixes
+
+- 🐛 🔧 fix PATH in generated hook wrappers (#177) ([8e73f23](https://github.com/tomgrv/devcontainer-features/commit/8e73f2381899868ce2a7e7ee61e57d9a1c07bf28))
+
+#### Features
+
+- ✨ migrate git hooks to husky + external scripts (#169) ([f1593e9](https://github.com/tomgrv/devcontainer-features/commit/f1593e99c3cb34abc881b1cb3d688a250fbb3231))
+- ✨ wire githooks tests into test-workspaces.yaml (#175) ([f6149ca](https://github.com/tomgrv/devcontainer-features/commit/f6149ca181be5fed7b1e77cd8f6d3e7a8dd6e4ed))
+
+### 📦 devcontainer-features-gitutils changes
+
+#### Bug Fixes
+
+- 🐛 🔧 bump stale create-pr@v1 pin to v2 (#166) ([e283f54](https://github.com/tomgrv/devcontainer-features/commit/e283f540f2ae2afd1e12107c2599c3d8cce1da15))
+- 🔧 Set fallback git identity before orphan master commit (#167) ([aafbcf3](https://github.com/tomgrv/devcontainer-features/commit/aafbcf318caa56e30d12726690ec09ea6e903249))
+
+#### Features
+
+- ✨ switch to release-prod, add lock coherence checks (#170) ([4881f39](https://github.com/tomgrv/devcontainer-features/commit/4881f3955f7e39412178ab7185e215e6c1538eeb))
+
 ## 8.10.0 (2026-09-12)
 
 *Commits from: v8.9.0..HEAD*
@@ -2038,5 +2086,6 @@ _Commits from: v5.25.0..HEAD_
 
 
 
+
 ---
-*Generated on 2026-09-12 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)*
+*Generated on 2026-09-14 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)*

@@ -1,43 +1,43 @@
 {
-    "customizations": {
-        "vscode": {
-            "extensions": [
-                "vivaxy.vscode-conventional-commits",
-                "softwareape.rebaser",
-                "tomblind.scm-buttons-vscode"
-            ],
-            "settings": {
-                "conventionalCommits.gitmoji": false,
-                "github.copilot.chat.commitMessageGeneration.instructions": [
-                    {
-                        "file": ".github/instructions/commit.instructions.md"
-                    }
-                ],
-                "[javascript]": {
-                    "editor.defaultFormatter": "esbenp.prettier-vscode"
-                },
-                "[json]": {
-                    "editor.defaultFormatter": "esbenp.prettier-vscode"
-                }
-            }
-        }
-    },
-    "description": "A feature to add useful Git hooks to your project",
-    "id": "githooks",
-    "installsAfter": [
-        "ghcr.io/tomgrv/devcontainer-features/common-utils",
-        "ghcr.io/tomgrv/devcontainer-features/gitversion",
-        "ghcr.io/tomgrv/devcontainer-features/gitutils"
-    ],
-    "dependsOn": {
-        "ghcr.io/devcontainers/features/node:1": {
-            "version": "lts"
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "vivaxy.vscode-conventional-commits",
+        "softwareape.rebaser",
+        "tomblind.scm-buttons-vscode"
+      ],
+      "settings": {
+        "conventionalCommits.gitmoji": false,
+        "github.copilot.chat.commitMessageGeneration.instructions": [
+          {
+            "file": ".github/instructions/commit.instructions.md"
+          }
+        ],
+        "[javascript]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
         },
-        "ghcr.io/tomgrv/devcontainer-features/gitutils:8": {}
-    },
-    "name": "Git Hooks",
-    "version": "8.0.0",
-    "postCreateCommand": {
-        "config": "configure-feature githooks"
+        "[json]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        }
+      }
     }
+  },
+  "description": "A feature to add useful Git hooks to your project",
+  "id": "githooks",
+  "installsAfter": [
+    "ghcr.io/tomgrv/devcontainer-features/common-utils",
+    "ghcr.io/tomgrv/devcontainer-features/gitversion",
+    "ghcr.io/tomgrv/devcontainer-features/gitutils"
+  ],
+  "dependsOn": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "lts"
+    },
+    "ghcr.io/tomgrv/devcontainer-features/gitutils:8": {}
+  },
+  "name": "Git Hooks",
+  "version": "8.11.0",
+  "postCreateCommand": {
+    "config": "configure-feature githooks"
+  }
 }

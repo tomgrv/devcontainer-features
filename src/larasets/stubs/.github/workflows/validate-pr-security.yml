@@ -5,7 +5,10 @@ name: Validate PR on security side
 on:
   pull_request:
     types:
+      - opened
+      - reopened
       - ready_for_review
+      - synchronize
 
 env:
   COMPOSER_CACHE_DIR: ~/.composer/cache
