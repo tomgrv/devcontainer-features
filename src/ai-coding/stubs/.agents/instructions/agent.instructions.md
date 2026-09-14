@@ -31,6 +31,10 @@ When asked a question, answer it. Do not implement it.
 
 When in doubt, assume it's a question. Answer first. Act when told to go.
 
+## Plan Mode: Cost Estimate
+
+When presenting a plan, break it into steps and tag each step with the model that fits its difficulty (Haiku for boilerplate/search, Sonnet for routine impl, Opus for hard reasoning). Add a total estimated cost line using current published per-token pricing for those models. State assumptions (token counts are rough) in one line, don't over-explain.
+
 ## Speed (Opus 5 Only)
 
 When running as Opus 5, optimize for wall-clock speed. Finish tasks quickly.
