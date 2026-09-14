@@ -36,7 +36,7 @@ fi
 export PATH="${INSTALL_BIN_DIR:-/usr/local/bin}:$PATH"
 
 zz_use load-json validate-json normalize-json merge-json resolve-context \
-    distribute-utils edit-script install-feature configure-feature
+    distribute-utils edit-script install-feature configure-feature run-workspace-tests
 
 ### Compatibility shims: the rest of this monorepo still calls these by
 ### their pre-split names (several features' install-*.sh scripts call
