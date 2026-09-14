@@ -16,7 +16,7 @@ for hook in pre-commit prepare-commit-msg commit-msg post-checkout post-merge pr
     command=$(printf '%s' "$hook" | tr -d '-')
     cat >".husky/$hook" <<EOF
 #!/bin/sh
-git-hook-$command "\$@"
+PATH="\$(git rev-parse --show-toplevel)/node_modules/.bin:\$PATH" git-hook-$command "\$@"
 EOF
     chmod +x ".husky/$hook" && zz_log s "Generated {U .husky/$hook} calling {U git-hook-$command}"
 done
