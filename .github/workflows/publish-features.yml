@@ -81,6 +81,6 @@ jobs:
       - uses: actions/checkout@v7
 
       - name: Publish ${{ matrix.package.name }}@${{ matrix.package.version }}
-        uses: tomgrv/actions/publish-npm@develop
+        uses: tomgrv/actions/publish-npm@v2
         with:
           path: ${{ matrix.package.path }}

@@ -1,5 +1,20 @@
 # Changelog
 
+## 8.12.0 (2026-09-15)
+
+*Commits from: v8.11.0..HEAD*
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v8.11.0' into develop ([61b5fdb](https://github.com/tomgrv/devcontainer-features/commit/61b5fdb848c74e65a6649ce684df773e204703e4))
+### 📦 devcontainer-features-gitutils changes
+
+#### Bug Fixes
+
+- 🐛 🔧 bump stale release-promote/scripts pins (#180) ([1afaafe](https://github.com/tomgrv/devcontainer-features/commit/1afaafe93d476f53171883a08ffc9b33aadf3231))
+
 ## 8.11.0 (2026-09-14)
 
 *Commits from: v8.10.0..HEAD*
@@ -2087,5 +2102,6 @@ _Commits from: v5.25.0..HEAD_
 
 
 
+
 ---
-*Generated on 2026-09-14 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)*
+*Generated on 2026-09-15 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)*
