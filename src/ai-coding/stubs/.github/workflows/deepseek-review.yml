@@ -1,0 +1,25 @@
+# @format
+name: DeepSeek Code Review
+on:
+  pull_request_target:
+    types:
+      - opened
+      - reopened
+      - synchronize
+  issue_comment:
+    types:
+      - created
+permissions:
+  pull-requests: write
+jobs:
+  deepseek-review:
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    name: DeepSeek Code Review
+    steps:
+      - name: DeepSeek Code Review
+        uses: hustcer/deepseek-review@v1
+        with:
+          chat-token: ${{ secrets.DEEPSEEK_CHAT_TOKEN }}
+          watch-mention: '@deepseek'
+          github-token: ${{ github.token }}
