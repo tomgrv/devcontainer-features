@@ -31,6 +31,7 @@ npm install --save-dev @tomgrv/devcontainer-features-ai-coding
 ## What gets installed
 
 - `.github/workflows/claude.yml` — runs Claude on `@claude` mentions in issue comments, PR comments, PR reviews, PR review comments, and new issues.
+- `.github/workflows/deepseek-review.yml` — runs [DeepSeek Code Review](https://github.com/hustcer/deepseek-review) on every PR open/reopen/sync, posting an automated review.
 - `.agents/skills/caveman*` — ultra-compressed communication mode skills (terse mode, commit messages, PR reviews, markdown compression, help reference). Symlinked from `.github/skills/`; installed live for Claude Code and GitHub Copilot.
 - `.agents/skills/pm/*` — product-management workflow skills: research synthesis, roadmap prioritization brief, PRD drafting, metrics digest, release notes generation. Symlinked from `.github/skills/`; installed live for Claude Code and GitHub Copilot.
 - `.agents/skills/feature-ai-coding/` — self-doc skill for this feature.
@@ -45,5 +46,9 @@ Skills follow the `name`/`description` frontmatter convention in `SKILL.md`. `.a
 ## Setup
 
 After installing, add a repository secret named `ANTHROPIC_API_KEY` (Settings → Secrets and variables → Actions → New repository secret) containing a valid Anthropic API key, so the `claude.yml` workflow can authenticate. Without this secret, `@claude` mentions will not trigger a response.
+
+Likewise, add a repository secret named `DEEPSEEK_CHAT_TOKEN` containing a valid DeepSeek API key, so the `deepseek-review.yml` workflow can authenticate. Without this secret, DeepSeek review comments will not be posted.
+
+Skills already work with DeepSeek and any other file-reading coding assistant with no extra setup: `.agents/skills/` is deployed as plain files (the `universal` agent target in `ai-coding.json`), so any assistant that reads repo files — including DeepSeek-based ones — picks them up without needing a dedicated `npx skills` agent id.
 
 `.claude/hooks/configure-skills.sh` requires `jq` on `PATH` (and `npx`/Node.js for the skills-install step); if either is missing, or root `ai-coding.json` isn't found, it logs a warning and exits cleanly rather than failing the session.
