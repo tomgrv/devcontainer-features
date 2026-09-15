@@ -1,5 +1,20 @@
 # Changelog
 
+## 8.13.0 (2026-09-15)
+
+*Commits from: v8.12.0..HEAD*
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v8.12.0' into develop ([72fc82d](https://github.com/tomgrv/devcontainer-features/commit/72fc82d325ddb7804b15561ea9860546fdc8b7db))
+### 📦 devcontainer-features-common-utils changes
+
+#### Bug Fixes
+
+- 🔧 align actions/checkout pins to v7 across workflows and stubs (#183) ([2b8a798](https://github.com/tomgrv/devcontainer-features/commit/2b8a7986eb63dbd2459526a98b19ae7a5eeafedf))
+
 ## 8.12.0 (2026-09-15)
 
 *Commits from: v8.11.0..HEAD*
@@ -2091,6 +2106,7 @@ _Commits from: v5.25.0..HEAD_
 
 - ✨ add githook ([ab4c1fc](https://github.com/tomgrv/devcontainer-features/commit/ab4c1fc5eb4f712ed2009baf9a3cadb11097c7b5))
 - add features ([4b26d9d](https://github.com/tomgrv/devcontainer-features/commit/4b26d9d876caffb15078a6baaabf76d1a2707e6f))
+
 
 
 
