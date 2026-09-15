@@ -6,6 +6,9 @@ on:
       - opened
       - reopened
       - synchronize
+  issue_comment:
+    types:
+      - created
 permissions:
   pull-requests: write
 jobs:
@@ -18,3 +21,5 @@ jobs:
         uses: hustcer/deepseek-review@v1
         with:
           chat-token: ${{ secrets.DEEPSEEK_CHAT_TOKEN }}
+          watch-mention: '@deepseek'
+          github-token: ${{ github.token }}

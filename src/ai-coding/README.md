@@ -31,7 +31,7 @@ npm install --save-dev @tomgrv/devcontainer-features-ai-coding
 ## What gets installed
 
 - `.github/workflows/claude.yml` — runs Claude on `@claude` mentions in issue comments, PR comments, PR reviews, PR review comments, and new issues.
-- `.github/workflows/deepseek-review.yml` — runs [DeepSeek Code Review](https://github.com/hustcer/deepseek-review) on every PR open/reopen/sync, posting an automated review.
+- `.github/workflows/deepseek-review.yml` — runs [DeepSeek Code Review](https://github.com/hustcer/deepseek-review) on every PR open/reopen/sync, and on demand via an `@deepseek` mention in a PR comment, posting an automated review.
 - `.agents/skills/caveman*` — ultra-compressed communication mode skills (terse mode, commit messages, PR reviews, markdown compression, help reference). Symlinked from `.github/skills/`; installed live for Claude Code and GitHub Copilot.
 - `.agents/skills/pm/*` — product-management workflow skills: research synthesis, roadmap prioritization brief, PRD drafting, metrics digest, release notes generation. Symlinked from `.github/skills/`; installed live for Claude Code and GitHub Copilot.
 - `.agents/skills/feature-ai-coding/` — self-doc skill for this feature.
