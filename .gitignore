@@ -20,5 +20,22 @@ VERSION
 .version.json
 .mono
 .toolkit
-/bin
 /obj
+obj
+## Gitversion
+## Storage
+/public/storage
+./storage
+## Composer
+/vendor
+**/vendor
+_ide_helper.php
+## Homestead
+Homestead.json
+Homestead.yaml
+/.mono
+## Vite
+/public/build
+/public/hot
+/public/css
+/public/js

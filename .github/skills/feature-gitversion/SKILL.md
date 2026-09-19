@@ -29,3 +29,7 @@ Use this feature when an agent must derive application version numbers from Git 
 - Use the installed GitVersion tooling as the source of truth for computed versions.
 - Keep versioning logic centralized; avoid duplicating derivation rules in scripts.
 - Pair with release helpers only when version flow is explicitly required.
+---
+name: feature-gitversion
+description: Semantic versioning utilities that derive versions from git history and update tags/changelog.
+---
