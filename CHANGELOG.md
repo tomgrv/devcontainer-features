@@ -1,5 +1,20 @@
 # Changelog
 
+## 8.14.0 (2026-09-19)
+
+*Commits from: v8.13.0..HEAD*
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v8.13.0' into develop ([cf0cf5d](https://github.com/tomgrv/devcontainer-features/commit/cf0cf5dfd68745074d9211dbe9c03721a225fb2c))
+### 📦 devcontainer-features-ai-coding changes
+
+#### Features
+
+- ✨ add DeepSeek PR review support (#182) ([269ccf5](https://github.com/tomgrv/devcontainer-features/commit/269ccf5ce30175d3f402a0add8fb109dc304a0e8))
+
 ## 8.13.0 (2026-09-15)
 
 *Commits from: v8.12.0..HEAD*
@@ -2119,5 +2134,6 @@ _Commits from: v5.25.0..HEAD_
 
 
 
+
 ---
-*Generated on 2026-09-15 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)*
+*Generated on 2026-09-19 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)*
