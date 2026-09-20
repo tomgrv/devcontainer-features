@@ -7,6 +7,10 @@ on:
       - main
   workflow_dispatch:
 
+permissions:
+  id-token: write # Required for OIDC
+  contents: read
+
 jobs:
   publish-devcontainer:
     runs-on: ubuntu-latest
@@ -30,49 +34,21 @@ jobs:
     permissions:
       contents: read
     outputs:
-      matrix: ${{ steps.detect.outputs.matrix }}
+      matrix: ${{ steps.list.outputs.packages }}
     steps:
       - uses: actions/checkout@v7
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v7
+      - name: List unpublished feature packages
+        id: list
+        uses: tomgrv/actions/list-packages@v2
         with:
-          node-version: 'lts/*'
-
-      - name: Detect unpublished feature packages
-        id: detect
-        run: |
-          packages='[]'
-          for dir in src/*/; do
-            dir="${dir%/}"
-            [ -f "$dir/package.json" ] || continue
-
-            name=$(node -p "require('./$dir/package.json').name")
-            version=$(node -p "require('./$dir/package.json').version")
-            private=$(node -p "require('./$dir/package.json').private || false")
-
-            if [ "$private" = "true" ]; then
-              echo "Skipping $name (private)"
-              continue
-            fi
-
-            if npm view "$name@$version" version >/dev/null 2>&1; then
-              echo "Skipping $name@$version (already published)"
-              continue
-            fi
-
-            echo "Will publish $name@$version"
-            packages=$(echo "$packages" | jq --arg name "$name" --arg version "$version" --arg path "$dir" '. + [{name: $name, version: $version, path: $path}]')
-          done
-          echo "matrix=$(echo "$packages" | jq -c .)" >> "$GITHUB_OUTPUT"
+          require-repository: 'false'
+          filter: '.private == false and (.path | test("(^|/)src/")) and (.registry.npmjs.published | not)'
 
   publish-npm-packages:
     needs: detect-npm-packages
     if: ${{ needs.detect-npm-packages.outputs.matrix != '[]' }}
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      id-token: write
     strategy:
       matrix:
         package: ${{ fromJson(needs.detect-npm-packages.outputs.matrix) }}
@@ -80,7 +56,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - name: Publish ${{ matrix.package.name }}@${{ matrix.package.version }}
+      - name: Publish ${{ matrix.package.name }}
         uses: tomgrv/actions/publish-npm@v2
         with:
           path: ${{ matrix.package.path }}
