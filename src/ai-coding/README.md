@@ -52,3 +52,7 @@ Likewise, add a repository secret named `DEEPSEEK_CHAT_TOKEN` containing a valid
 Skills already work with DeepSeek and any other file-reading coding assistant with no extra setup: `.agents/skills/` is deployed as plain files (the `universal` agent target in `ai-coding.json`), so any assistant that reads repo files — including DeepSeek-based ones — picks them up without needing a dedicated `npx skills` agent id.
 
 `.claude/hooks/configure-skills.sh` requires `jq` on `PATH` (and `npx`/Node.js for the skills-install step); if either is missing, or root `ai-coding.json` isn't found, it logs a warning and exits cleanly rather than failing the session.
+
+## References
+
+- [Playwright MCP](https://playwright.dev/docs/getting-started-mcp) — browser-automation MCP server agents can add for UI-driven verification (screenshots, navigation, DOM inspection) alongside the skills this feature installs.
