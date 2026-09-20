@@ -21,5 +21,6 @@ for hook in pre-commit prepare-commit-msg commit-msg post-checkout post-merge pr
 command -v git-hook-$command >/dev/null 2>&1 || exit 0
 git-hook-$command "\$@"
 EOF
+    zz_use git-hook-$command
     chmod +x ".husky/$hook" && zz_log s "Generated {U .husky/$hook} calling {U git-hook-$command}"
 done
