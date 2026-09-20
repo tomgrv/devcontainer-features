@@ -11,12 +11,20 @@ on:
       - created
 permissions:
   pull-requests: write
+  issues: write
 jobs:
   deepseek-review:
+    if: github.event_name == 'pull_request_target' || contains(github.event.comment.body, '@deepseek')
     timeout-minutes: 30
     runs-on: ubuntu-latest
     name: DeepSeek Code Review
     steps:
+      - name: Acknowledge comment
+        if: github.event_name == 'issue_comment'
+        uses: tomgrv/actions/confirm-pr-comment@v2
+        with:
+          reaction: eyes
+
       - name: DeepSeek Code Review
         uses: hustcer/deepseek-review@v1
         with:
