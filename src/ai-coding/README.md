@@ -40,6 +40,7 @@ npm install --save-dev @tomgrv/devcontainer-features-ai-coding
 - `.claude/settings.json` — seeds `ai-coding.json`'s `plugins` (`caveman`, `ponytail`) via `enabledPlugins`/`extraKnownMarketplaces`; kept in sync by `configure-skills.sh sync` as plugins are added/removed.
 - `CLAUDE.md` — orientation file for Claude Code.
 - `.agents/README.md` — documents the `.agents/` layout.
+- `.vscode/mcp.json` — registers the [Playwright MCP](https://playwright.dev/docs/getting-started-mcp) server (`npx @playwright/mcp@latest`) so VS Code agents can drive a browser for UI-verification tasks; merged into an existing `.vscode/mcp.json` if the consumer repo already has one.
 
 Skills follow the `name`/`description` frontmatter convention in `SKILL.md`. `.agents/` is the single source of truth; Copilot reads a stub copy, Claude Code and GitHub Copilot also fetch the same content live via `npx skills`.
 
@@ -52,3 +53,7 @@ Likewise, add a repository secret named `DEEPSEEK_CHAT_TOKEN` containing a valid
 Skills already work with DeepSeek and any other file-reading coding assistant with no extra setup: `.agents/skills/` is deployed as plain files (the `universal` agent target in `ai-coding.json`), so any assistant that reads repo files — including DeepSeek-based ones — picks them up without needing a dedicated `npx skills` agent id.
 
 `.claude/hooks/configure-skills.sh` requires `jq` on `PATH` (and `npx`/Node.js for the skills-install step); if either is missing, or root `ai-coding.json` isn't found, it logs a warning and exits cleanly rather than failing the session.
+
+## References
+
+- [Playwright MCP](https://playwright.dev/docs/getting-started-mcp) — browser-automation MCP server, wired in via `.vscode/mcp.json`, for UI-driven verification (screenshots, navigation, DOM inspection) alongside the skills this feature installs.
