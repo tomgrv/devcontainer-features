@@ -15,25 +15,11 @@ dir=$(dirname $(readlink -f $0))
 ### zz_use already on PATH (from a previous install) is reused as-is, and
 ### zz_use itself only fetches/installs whatever isn't already present.
 if ! command -v zz_use >/dev/null 2>&1; then
-    # Downloaded to a temp file rather than piped straight into sh: a
-    # `curl | sh` pipeline's exit status is sh's, not curl's, so a failed
-    # download would otherwise go unnoticed and this script would carry on
-    # without zz_use.
-    _zz_setup_tmp=$(mktemp) || {
-        echo "install.sh: mktemp failed" >&2
-        exit 1
-    }
-    if ! curl -fsSL "${ZZ_SCRIPTS_SETUP_URL:-https://raw.githubusercontent.com/tomgrv/scripts/main/setup.sh}" -o "$_zz_setup_tmp"; then
-        echo "install.sh: failed to download the zz_use bootstrap" >&2
-        rm -f "$_zz_setup_tmp"
+    if ! curl -fsSL "${ZZ_SCRIPTS_SETUP_URL:-https://raw.githubusercontent.com/tomgrv/scripts/main/setup.sh}" | sh -; then
+        echo "[zz-setup] failed to download the scripts bootstrap" >&2
         exit 1
     fi
-    sh "$_zz_setup_tmp"
-    _zz_setup_rc=$?
-    rm -f "$_zz_setup_tmp"
-    [ "$_zz_setup_rc" -eq 0 ] || exit "$_zz_setup_rc"
 fi
-export PATH="${INSTALL_BIN_DIR:-/usr/local/bin}:$PATH"
 
 zz_use load-json validate-json normalize-json merge-json resolve-context \
     distribute-utils edit-script install-feature configure-feature run-workspace-tests
@@ -67,26 +53,7 @@ for old_new in zz_context:resolve-context zz_dist:distribute-utils zz_edit:edit-
     ln -sf "$target" "$bindir/$old"
 done
 
-### Install utils
-for bin in $UTILS; do
 
-    zz_log i "Checking {B $bin}..."
-
-    if [ -n "$(command -v $bin)" ]; then
-        zz_log s "{B $bin} is installed."
-    elif [ -f /etc/alpine-release ]; then
-        apk update
-        apk add $bin
-    elif [ $(uname) = "Linux" ] || [ $(uname) = "Darwin" ]; then
-        sudo apt-get update
-        sudo apt-get install -y $bin
-    elif [ $(uname -o) = "Msys" ]; then
-        winget install -s winget -e --name $bin --location /tmp/common-utils
-    else
-        zz_log w "Please install {B $bin} Manually."
-        exit 1
-    fi
-done >&2
 
 ### Run Installers
 install-feature -s $dir
