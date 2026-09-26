@@ -36,3 +36,11 @@ Use this feature for advanced Git operations, interactive repository maintenance
 - Prefer built-in aliases/utilities before crafting raw multi-step Git commands.
 - For history-rewrite actions, use explicit/force flags only when requested.
 - Keep operations scoped and reversible where possible.
+---
+name: feature-gitutils
+description: Advanced git aliases and workflows for branch integration, history maintenance, and release flows.
+---
+- `git fix blanks [-d]` - Drop tracked text-file edits made only of whitespace, blanks, and quote/slash swaps.
+- `gh-prod` - Trigger the `release-prod` GitHub Actions workflow.
+- Always open pull requests with base `develop`, never `main`.
+- Production releases happen only via the `release-prod` GitHub Actions workflow (triggered with `gh-prod`, or `workflow_dispatch`) — never by pushing or opening a PR directly against `main`.

@@ -1,6 +1,6 @@
 {
   "name": "@tomgrv/devcontainer-features-githooks",
-  "version": "8.13.0",
+  "version": "8.15.0",
   "description": "Git hooks and linting configuration for development workflow",
   "files": [
     "bin/*.sh",
