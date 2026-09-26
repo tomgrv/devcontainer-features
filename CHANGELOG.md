@@ -1,5 +1,31 @@
 # Changelog
 
+## 8.15.0 (2026-09-26)
+
+*Commits from: v8.14.0..HEAD*
+
+### 📂 Unscoped changes
+
+#### Features
+
+- ✨ refactor husky hooks to use zz_use for improved installation handling ([10af0a2](https://github.com/tomgrv/devcontainer-features/commit/10af0a2d55faa47eaf794ba04a1d75fef61c90f0))
+
+#### Other changes
+
+- Merge tag 'v8.14.0' into develop ([8150029](https://github.com/tomgrv/devcontainer-features/commit/8150029e17c428462cd3caa85e0bac931fa09cdd))
+- update devcontainer ([e488ccd](https://github.com/tomgrv/devcontainer-features/commit/e488ccdd0dcc04fd820ef2935de43b0cc517e44b))
+### 📦 common-utils changes
+
+#### Bug Fixes
+
+- remove 'bin' from .gitignore ([f03c9be](https://github.com/tomgrv/devcontainer-features/commit/f03c9be745a24228d6201040932fc4bfff9bd534))
+
+### 📦 devcontainer-features-ai-coding changes
+
+#### Bug Fixes
+
+- 🐛 🔧 Migrate lint-staged hook from npm install -g to zz_use (#185) ([fd6686e](https://github.com/tomgrv/devcontainer-features/commit/fd6686e92b48b683ba56c3c80f0aa1b20ed91e59))
+
 ## 8.14.0 (2026-09-19)
 
 *Commits from: v8.13.0..HEAD*
@@ -2135,5 +2161,6 @@ _Commits from: v5.25.0..HEAD_
 
 
 
+
 ---
-*Generated on 2026-09-19 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)*
+*Generated on 2026-09-26 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)*
