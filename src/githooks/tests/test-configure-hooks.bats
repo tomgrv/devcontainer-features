@@ -73,3 +73,12 @@ teardown() {
     [ "$status" -eq 0 ]
     [ ! -d .husky ]
 }
+
+@test "configure-hooks.sh: wrappers bootstrap via .husky/install.sh when zz_use is missing" {
+    run sh "$FEATURE_DIR/configure-hooks.sh"
+    [ "$status" -eq 0 ]
+
+    for hook in pre-commit prepare-commit-msg commit-msg post-checkout post-merge pre-push; do
+        grep -qF 'command -v zz_use >/dev/null 2>&1 || . "$(dirname "$0")/install.sh"' ".husky/$hook"
+    done
+}
