@@ -1,13 +1,11 @@
-<!-- @format -->
-
 ---
-
 name: commit-naming
 description: Generate, review, or improve git commit messages for this repository. Use this skill whenever the user asks for a commit message, commit title, PR-sized commit breakdown, or naming suggestions for a change.
 argument-hint: [changed files or summary of changes]
 user-invocable: true
-
 ---
+
+<!-- @format -->
 
 # Commit Naming
 
