@@ -1,5 +1,21 @@
 # Changelog
 
+## 8.18.0 (2026-09-27)
+
+*Commits from: v8.17.0..HEAD*
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v8.17.0' into develop ([355fc39](https://github.com/tomgrv/devcontainer-features/commit/355fc398aa6f726d3ea32ff617841806025dfce7))
+### 📦 devcontainer-features-githooks changes
+
+#### Bug Fixes
+
+- 🐛 repoint dangling instruction symlinks (#190) ([0af67d5](https://github.com/tomgrv/devcontainer-features/commit/0af67d559ab69f220df0265f46037592c774b62e))
+- 🐛 restore leading frontmatter on skill files (#189) ([d23659d](https://github.com/tomgrv/devcontainer-features/commit/d23659dc00a045dd17b38b95bcd79fb729acc4ed))
+
 ## 8.17.0 (2026-09-27)
 
 *Commits from: v8.16.0..HEAD*
@@ -2197,6 +2213,7 @@ _Commits from: v5.25.0..HEAD_
 
 - ✨ add githook ([ab4c1fc](https://github.com/tomgrv/devcontainer-features/commit/ab4c1fc5eb4f712ed2009baf9a3cadb11097c7b5))
 - add features ([4b26d9d](https://github.com/tomgrv/devcontainer-features/commit/4b26d9d876caffb15078a6baaabf76d1a2707e6f))
+
 
 
 
