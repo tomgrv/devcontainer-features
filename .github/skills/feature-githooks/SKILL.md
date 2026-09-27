@@ -32,3 +32,7 @@ Use this feature when an agent needs consistent local Git quality gates and comm
 - Treat hooks as the default guardrails for local commits.
 - Update hook-related package snippets/scripts instead of introducing duplicate checks.
 - When failures occur, fix the underlying issue and rerun the same hook path.
+---
+name: feature-githooks
+description: Git hook automation for commit quality gates, commit message validation, and staged-file linting.
+---

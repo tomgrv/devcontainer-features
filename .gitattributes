@@ -8,3 +8,11 @@
 *.yaml merge=yaml
 *.yml merge=yaml
 CHANGELOG.md export-ignore
+.devcontainer export-ignore
+.github export-ignore
+.vscode export-ignore
+.agents export-ignore
+.claude export-ignore
+.gemini export-ignore
+*.[cC][mM][dD] text eol=crlf
+*.[bB][aA][tT] text eol=crlf

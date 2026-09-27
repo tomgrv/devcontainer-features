@@ -70,6 +70,44 @@ The feature also includes the following VS Code customizations:
 - Installs specified common utilities such as jq and dos2unix.
 - Supports specifying additional utilities to install.
 
+## PR Checks (CI)
+
+Consumer repos get one deployed workflow under `.github/workflows/`:
+
+- `validate-pr-lock.yml` — validates `package.json`/`package-lock.json` and
+  `composer.json`/`composer.lock` coherence via
+  [`tomgrv/actions/check-lock`](https://github.com/tomgrv/actions/blob/main/check-lock/README.md),
+  reporting drift inline via reviewdog. `check-lock` detects whichever
+  manifests are present, so this one workflow covers both npm and Composer
+  repos without needing a feature-specific variant. `common-utils` is a
+  transitive dependency of almost every other feature in this repo
+  (`gitutils`, `githooks`, `larasets`, …), so this check ships for nearly
+  every consumer without them needing to add it explicitly.
+- By default it checks the repo root only (`paths: '.'`). If your manifests
+  live in subdirectories, edit the deployed workflow and pass a
+  comma-separated `paths` list (e.g. `.,packages/foo`) to the `check-lock`
+  step.
+- `test-workspaces.yaml` — runs each npm/Composer workspace's own test suite
+  with workspace granularity. It discovers workspaces via
+  [`tomgrv/actions/list-packages`](https://github.com/tomgrv/actions/blob/main/list-packages/README.md)
+  and, for every workspace, runs
+  [`tomgrv/actions/run-workspace-tests`](https://github.com/tomgrv/actions/blob/main/run-workspace-tests/README.md)
+  (backed by [`tomgrv/scripts/run-workspace-tests`](https://github.com/tomgrv/scripts/tree/main/run-workspace-tests)).
+  For each root `*.json` file found directly under a workspace (typically
+  `package.json`), that command reads its `.scripts.test` entry as the
+  workspace's generic test entrypoint:
+    - no root `*.json` file in the workspace → silently skipped;
+    - a `*.json` file present but no `.scripts.test` entry → warns, doesn't
+      fail the workspace;
+    - `.scripts.test` present → run it; a non-zero exit, or a zero exit with
+      no output at all (a silently-empty test run), both fail the workspace.
+      Add a `"scripts": {"test": "..."}` entry to a workspace's `package.json`
+      (e.g. `"test": "bats tests/"`) to opt it into this workflow.
+      The same workflow also runs a `repo-tests` job for repo-wide suites (tests
+      that guard a convention across the whole repo rather than one workspace —
+      see `.repo/tests/README.md`), silently skipped when `.repo/tests/` has no
+      `*.bats` files.
+
 ## Install internals
 
 - `install-feature` installs links for a feature's `bin/` scripts in a writable bin directory.

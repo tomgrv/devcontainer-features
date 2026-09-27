@@ -31,3 +31,7 @@ Use this feature as a shared utility layer for shell-based automation across fea
 - Reuse existing `zz_*` scripts before adding new helpers.
 - Prefer `normalize-json`/`validate-json` in lint pipelines for schema-safe edits.
 - Keep automation generic and composable for cross-feature reuse.
+---
+name: feature-common-utils
+description: Shared shell utilities for JSON validation, normalization, and reusable zz_* helper scripts.
+---

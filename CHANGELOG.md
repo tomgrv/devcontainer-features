@@ -1,5 +1,153 @@
 # Changelog
 
+## 8.16.0 (2026-09-27)
+
+*Commits from: v8.15.0..HEAD*
+
+### 📂 Unscoped changes
+
+#### Bug Fixes
+
+- 🐛 update README and JSON configurations for clarity and accuracy ([43eac14](https://github.com/tomgrv/devcontainer-features/commit/43eac14a5358d6353f8ae82415def4bf0c196b39))
+
+#### Features
+
+- ✨ add GitHub configuration workflow for automated branch management and label updates ([a946045](https://github.com/tomgrv/devcontainer-features/commit/a9460452e49fa45efad92ac63916f1efc5c405d5))
+
+#### Other changes
+
+- Merge tag 'v8.15.0' into develop ([4559c9f](https://github.com/tomgrv/devcontainer-features/commit/4559c9f02284550a679952bde51571f0ae1b1bc3))
+### 📦 deps changes
+
+#### Other changes
+
+- bump actions/github-script from 7 to 9 in the github-actions group across 1 directory (#181) ([019cb93](https://github.com/tomgrv/devcontainer-features/commit/019cb93069a0421d58b49e220380b649b88e41a2))
+
+### 📦 devcontainer-features-githooks changes
+
+#### Features
+
+- ✨ install hook commands alongside husky (#187) ([87ad229](https://github.com/tomgrv/devcontainer-features/commit/87ad2298be8412b457d21131f924607c949dacaa))
+
+## 8.15.0 (2026-09-26)
+
+*Commits from: v8.14.0..HEAD*
+
+### 📂 Unscoped changes
+
+#### Features
+
+- ✨ refactor husky hooks to use zz_use for improved installation handling ([10af0a2](https://github.com/tomgrv/devcontainer-features/commit/10af0a2d55faa47eaf794ba04a1d75fef61c90f0))
+
+#### Other changes
+
+- Merge tag 'v8.14.0' into develop ([8150029](https://github.com/tomgrv/devcontainer-features/commit/8150029e17c428462cd3caa85e0bac931fa09cdd))
+- update devcontainer ([e488ccd](https://github.com/tomgrv/devcontainer-features/commit/e488ccdd0dcc04fd820ef2935de43b0cc517e44b))
+### 📦 common-utils changes
+
+#### Bug Fixes
+
+- remove 'bin' from .gitignore ([f03c9be](https://github.com/tomgrv/devcontainer-features/commit/f03c9be745a24228d6201040932fc4bfff9bd534))
+
+### 📦 devcontainer-features-ai-coding changes
+
+#### Bug Fixes
+
+- 🐛 🔧 Migrate lint-staged hook from npm install -g to zz_use (#185) ([fd6686e](https://github.com/tomgrv/devcontainer-features/commit/fd6686e92b48b683ba56c3c80f0aa1b20ed91e59))
+
+## 8.14.0 (2026-09-19)
+
+*Commits from: v8.13.0..HEAD*
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v8.13.0' into develop ([cf0cf5d](https://github.com/tomgrv/devcontainer-features/commit/cf0cf5dfd68745074d9211dbe9c03721a225fb2c))
+### 📦 devcontainer-features-ai-coding changes
+
+#### Features
+
+- ✨ add DeepSeek PR review support (#182) ([269ccf5](https://github.com/tomgrv/devcontainer-features/commit/269ccf5ce30175d3f402a0add8fb109dc304a0e8))
+
+## 8.13.0 (2026-09-15)
+
+*Commits from: v8.12.0..HEAD*
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v8.12.0' into develop ([72fc82d](https://github.com/tomgrv/devcontainer-features/commit/72fc82d325ddb7804b15561ea9860546fdc8b7db))
+### 📦 devcontainer-features-common-utils changes
+
+#### Bug Fixes
+
+- 🔧 align actions/checkout pins to v7 across workflows and stubs (#183) ([2b8a798](https://github.com/tomgrv/devcontainer-features/commit/2b8a7986eb63dbd2459526a98b19ae7a5eeafedf))
+
+## 8.12.0 (2026-09-15)
+
+*Commits from: v8.11.0..HEAD*
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v8.11.0' into develop ([61b5fdb](https://github.com/tomgrv/devcontainer-features/commit/61b5fdb848c74e65a6649ce684df773e204703e4))
+### 📦 devcontainer-features-gitutils changes
+
+#### Bug Fixes
+
+- 🐛 🔧 bump stale release-promote/scripts pins (#180) ([1afaafe](https://github.com/tomgrv/devcontainer-features/commit/1afaafe93d476f53171883a08ffc9b33aadf3231))
+
+## 8.11.0 (2026-09-14)
+
+*Commits from: v8.10.0..HEAD*
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v8.10.0' into develop ([1a1a9d1](https://github.com/tomgrv/devcontainer-features/commit/1a1a9d12249e91a66a1363bde22c286d05d39a06))
+### 📦 devcontainer-features-ai-coding changes
+
+#### Features
+
+- ✨ suggest model breakdown and cost estimate in plan mode (#171) ([c148e3b](https://github.com/tomgrv/devcontainer-features/commit/c148e3bee4d579e00f676fed7df2f9e2167cf033))
+
+### 📦 devcontainer-features-common-utils changes
+
+#### Bug Fixes
+
+- 🐛 use valid update -a command in update-features workflow (#172) ([2da2b04](https://github.com/tomgrv/devcontainer-features/commit/2da2b04b836542b5ca9fcf528ca8435dbad7b33c))
+
+#### Features
+
+- ✨ add .repo/tests/ for repo-wide suites (#176) ([253e6bf](https://github.com/tomgrv/devcontainer-features/commit/253e6bf3d8950f75a46d1b946747da80ebd49c0d))
+- ✨ standardize per-workspace test workflow (#173) ([5f45074](https://github.com/tomgrv/devcontainer-features/commit/5f4507453dff9f37bdd3ba2f210f878fe213205e))
+
+### 📦 devcontainer-features-githooks changes
+
+#### Bug Fixes
+
+- 🐛 🔧 fix PATH in generated hook wrappers (#177) ([8e73f23](https://github.com/tomgrv/devcontainer-features/commit/8e73f2381899868ce2a7e7ee61e57d9a1c07bf28))
+
+#### Features
+
+- ✨ migrate git hooks to husky + external scripts (#169) ([f1593e9](https://github.com/tomgrv/devcontainer-features/commit/f1593e99c3cb34abc881b1cb3d688a250fbb3231))
+- ✨ wire githooks tests into test-workspaces.yaml (#175) ([f6149ca](https://github.com/tomgrv/devcontainer-features/commit/f6149ca181be5fed7b1e77cd8f6d3e7a8dd6e4ed))
+
+### 📦 devcontainer-features-gitutils changes
+
+#### Bug Fixes
+
+- 🐛 🔧 bump stale create-pr@v1 pin to v2 (#166) ([e283f54](https://github.com/tomgrv/devcontainer-features/commit/e283f540f2ae2afd1e12107c2599c3d8cce1da15))
+- 🔧 Set fallback git identity before orphan master commit (#167) ([aafbcf3](https://github.com/tomgrv/devcontainer-features/commit/aafbcf318caa56e30d12726690ec09ea6e903249))
+
+#### Features
+
+- ✨ switch to release-prod, add lock coherence checks (#170) ([4881f39](https://github.com/tomgrv/devcontainer-features/commit/4881f3955f7e39412178ab7185e215e6c1538eeb))
+
 ## 8.10.0 (2026-09-12)
 
 *Commits from: v8.9.0..HEAD*
@@ -2038,5 +2186,11 @@ _Commits from: v5.25.0..HEAD_
 
 
 
+
+
+
+
+
+
 ---
-*Generated on 2026-09-12 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)*
+*Generated on 2026-09-27 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)*

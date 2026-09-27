@@ -94,10 +94,9 @@ instead of falling back to a line-based 3-way merge.
 
 ## Release Flow (CI)
 
-Consumer repos get two deployed workflows under `.github/workflows/`:
+Consumer repos get one deployed workflow under `.github/workflows/`:
 
-- `release-main.yml` — promotes `develop` toward `main` via `tomgrv/actions/release-promote`.
-- `release-prod.yml` — the production release entry point, also via `tomgrv/actions/release-promote`, which drives the same `git-release-beta`/`git-release-prod` flow (`tomgrv/scripts`) exposed above as the `git beta`/`git prod` aliases.
+- `release-prod.yml` — the production release entry point, via `tomgrv/actions/release-promote`, which drives the same `git-release-beta`/`git-release-prod` flow (`tomgrv/scripts`) exposed above as the `git beta`/`git prod` aliases.
 
 Agent guidance for downstream repos using this feature:
 

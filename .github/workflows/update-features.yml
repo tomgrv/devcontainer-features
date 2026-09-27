@@ -25,7 +25,7 @@ jobs:
         uses: tomgrv/actions/config-bot@v2
 
       - name: Update features
-        run: npm exec --yes -- tomgrv/devcontainer-features -u
+        run: npm exec --yes -- tomgrv/devcontainer-features update -a
 
       - name: Detect changes
         id: changes
@@ -49,4 +49,4 @@ jobs:
             Automated weekly feature updates.
 
             Command run:
-            - npm exec --yes -- tomgrv/devcontainer-features -u
+            - npm exec --yes -- tomgrv/devcontainer-features update -a

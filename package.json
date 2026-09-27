@@ -1,6 +1,6 @@
 {
   "name": "@tomgrv/devcontainer-features",
-  "version": "8.10.0",
+  "version": "8.16.0",
   "description": "Configure dev environment with devcontainer, gitflow, gitversion, git aliases & hooks. Can be used a devcontainer features",
   "keywords": [
     "dev",
@@ -46,6 +46,7 @@
   },
   "scripts": {
     "lint": "npx --yes lint-staged",
+    "prepare": "sh .husky/install.sh || echo 'Husky not installed in ' $(pwd)",
     "release": "commit-and-tag-version --no-verify --",
     "test": "echo \"Warning: no test specified\"",
     "update": "npm-check-updates -i -u",
@@ -64,6 +65,7 @@
     "prettier-plugin-sh": "^0.19.0"
   },
   "devDependencies": {
+    "husky": "*",
     "npm-check-updates": "*"
   },
   "optionalDependencies": {
@@ -104,6 +106,13 @@
         "files": "*.json",
         "options": {
           "tabWidth": 4,
+          "useTabs": false
+        }
+      },
+      {
+        "files": "*.yml",
+        "options": {
+          "tabWidth": 2,
           "useTabs": false
         }
       }
@@ -197,6 +206,9 @@
     ],
     "*.php": [
       "composer lint"
+    ],
+    "*.{js,jsx,ts,tsx,md,html,css,vue,yaml,yml,json}": [
+      "npx --yes prettier --write"
     ],
     ".devcontainer/*": [
       "cp -u -t ./stubs/.devcontainer "

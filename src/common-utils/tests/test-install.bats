@@ -34,6 +34,13 @@ teardown() {
     [ "$(basename "$(readlink -f "$TEST_BIN/zz_json")")" = "load-json" ]
 }
 
+@test "install.sh: installs merge-yaml, which configure-feature dispatches YAML stubs to" {
+    run env PATH="$TEST_BIN:$PATH" sh "$FEATURE_DIR/install.sh"
+    [ "$status" -eq 0 ]
+
+    [ -x "$TEST_BIN/merge-yaml" ]
+}
+
 @test "install.sh: is idempotent when zz_use is already on PATH" {
     run env PATH="$TEST_BIN:$PATH" sh "$FEATURE_DIR/install.sh"
     [ "$status" -eq 0 ]

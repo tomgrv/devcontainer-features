@@ -1,32 +1,32 @@
 {
-    "containerEnv": {
-        "COMPOSER_CA_FILE": "/etc/ssl/certs/ca-certificates.crt",
-        "CURL_CA_BUNDLE": "/etc/ssl/certs/ca-certificates.crt",
-        "GIT_SSL_CAINFO": "/etc/ssl/certs/ca-certificates.crt",
-        "NODE_EXTRA_CA_CERTS": "/etc/ssl/certs/ca-certificates.crt",
-        "REQUESTS_CA_BUNDLE": "/etc/ssl/certs/ca-certificates.crt",
-        "SSL_CERT_FILE": "/etc/ssl/certs/ca-certificates.crt"
-    },
-    "description": "Handling SSL Inspection Gateway while building & using devcontainers",
-    "id": "gateway",
-    "installsAfter": [
-        "ghcr.io/tomgrv/devcontainer-features/common-utils"
-    ],
-    "dependsOn": {
-        "ghcr.io/tomgrv/devcontainer-features/common-utils:8": {
-            "utils": "bash ca-certificates curl"
-        }
-    },
-    "name": "SSL Inspection Gateway handling",
-    "options": {
-        "replaceCurl": {
-            "default": true,
-            "description": "Divert the system curl to the gateway-curl wrapper inside the container",
-            "type": "boolean"
-        }
-    },
-    "version": "8.0.0",
-    "postCreateCommand": {
-        "config": "configure-feature gateway"
+  "containerEnv": {
+    "COMPOSER_CA_FILE": "/etc/ssl/certs/ca-certificates.crt",
+    "CURL_CA_BUNDLE": "/etc/ssl/certs/ca-certificates.crt",
+    "GIT_SSL_CAINFO": "/etc/ssl/certs/ca-certificates.crt",
+    "NODE_EXTRA_CA_CERTS": "/etc/ssl/certs/ca-certificates.crt",
+    "REQUESTS_CA_BUNDLE": "/etc/ssl/certs/ca-certificates.crt",
+    "SSL_CERT_FILE": "/etc/ssl/certs/ca-certificates.crt"
+  },
+  "description": "Handling SSL Inspection Gateway while building & using devcontainers",
+  "id": "gateway",
+  "installsAfter": [
+    "ghcr.io/tomgrv/devcontainer-features/common-utils"
+  ],
+  "dependsOn": {
+    "ghcr.io/tomgrv/devcontainer-features/common-utils:8": {
+      "utils": "bash ca-certificates curl"
     }
+  },
+  "name": "SSL Inspection Gateway handling",
+  "options": {
+    "replaceCurl": {
+      "default": true,
+      "description": "Divert the system curl to the gateway-curl wrapper inside the container",
+      "type": "boolean"
+    }
+  },
+  "version": "8.11.0",
+  "postCreateCommand": {
+    "config": "configure-feature gateway"
+  }
 }
