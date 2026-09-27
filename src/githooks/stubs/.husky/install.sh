@@ -13,7 +13,9 @@
 ### subshell, and only the PATH export below leaks into the caller.
 
 ### Appended, not prepended: never shadow the caller's own node/npm/etc.
-export PATH="$PATH:${INSTALL_BIN_DIR:-/usr/local/bin}:$HOME/.local/bin"
+if [ "${HUSKY:-}" != "0" ]; then
+    export PATH="$PATH:${INSTALL_BIN_DIR:-/usr/local/bin}:$HOME/.local/bin"
+fi
 
 (
     [ "${HUSKY:-}" = "0" ] && exit 0
