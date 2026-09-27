@@ -1,5 +1,34 @@
 # Changelog
 
+## 8.16.0 (2026-09-27)
+
+*Commits from: v8.15.0..HEAD*
+
+### 📂 Unscoped changes
+
+#### Bug Fixes
+
+- 🐛 update README and JSON configurations for clarity and accuracy ([43eac14](https://github.com/tomgrv/devcontainer-features/commit/43eac14a5358d6353f8ae82415def4bf0c196b39))
+
+#### Features
+
+- ✨ add GitHub configuration workflow for automated branch management and label updates ([a946045](https://github.com/tomgrv/devcontainer-features/commit/a9460452e49fa45efad92ac63916f1efc5c405d5))
+
+#### Other changes
+
+- Merge tag 'v8.15.0' into develop ([4559c9f](https://github.com/tomgrv/devcontainer-features/commit/4559c9f02284550a679952bde51571f0ae1b1bc3))
+### 📦 deps changes
+
+#### Other changes
+
+- bump actions/github-script from 7 to 9 in the github-actions group across 1 directory (#181) ([019cb93](https://github.com/tomgrv/devcontainer-features/commit/019cb93069a0421d58b49e220380b649b88e41a2))
+
+### 📦 devcontainer-features-githooks changes
+
+#### Features
+
+- ✨ install hook commands alongside husky (#187) ([87ad229](https://github.com/tomgrv/devcontainer-features/commit/87ad2298be8412b457d21131f924607c949dacaa))
+
 ## 8.15.0 (2026-09-26)
 
 *Commits from: v8.14.0..HEAD*
@@ -2162,5 +2191,6 @@ _Commits from: v5.25.0..HEAD_
 
 
 
+
 ---
-*Generated on 2026-09-26 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)*
+*Generated on 2026-09-27 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)*
