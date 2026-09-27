@@ -1,5 +1,26 @@
 # Changelog
 
+## 8.17.0 (2026-09-27)
+
+*Commits from: v8.16.0..HEAD*
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v8.16.0' into develop ([2c7f0a4](https://github.com/tomgrv/devcontainer-features/commit/2c7f0a47127b69c1a56cccad7ae1086424bb0546))
+### 📦 devcontainer-features-common-utils changes
+
+#### Bug Fixes
+
+- 🐛 install merge-yaml alongside configure-feature (#188) ([5173826](https://github.com/tomgrv/devcontainer-features/commit/5173826f5eadf73c1fa07557bc11b2586a44fb50))
+
+### 📦 devcontainer-features-gitutils changes
+
+#### Features
+
+- ✨ register merge-json/merge-yaml as git merge drivers (#168) ([a7e7be2](https://github.com/tomgrv/devcontainer-features/commit/a7e7be26d258829afb7e871910760c311aece8df))
+
 ## 8.16.0 (2026-09-27)
 
 *Commits from: v8.15.0..HEAD*
@@ -2176,6 +2197,7 @@ _Commits from: v5.25.0..HEAD_
 
 - ✨ add githook ([ab4c1fc](https://github.com/tomgrv/devcontainer-features/commit/ab4c1fc5eb4f712ed2009baf9a3cadb11097c7b5))
 - add features ([4b26d9d](https://github.com/tomgrv/devcontainer-features/commit/4b26d9d876caffb15078a6baaabf76d1a2707e6f))
+
 
 
 
