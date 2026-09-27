@@ -11,11 +11,14 @@ mkdir -p .husky
 ### One thin wrapper per hook, delegating logic to the corresponding
 ### git-hook-<name> command (installed on PATH as a devDependency from
 ### tomgrv/scripts). No internal hyphens in <name>, e.g. pre-commit ->
-### git-hook-precommit.
+### git-hook-precommit. When zz_use isn't on PATH (plain `npm install`
+### outside the devcontainer, fresh Claude Code session), the wrapper
+### sources .husky/install.sh first to bootstrap it instead of failing.
 for hook in pre-commit prepare-commit-msg commit-msg post-checkout post-merge pre-push; do
     command=$(printf '%s' "$hook" | tr -d '-')
     cat >".husky/$hook" <<EOF
 #!/bin/sh
+command -v zz_use >/dev/null 2>&1 || . "\$(dirname "\$0")/install.sh"
 zz_use -x git-hook-$command "\$@"
 EOF
     zz_use git-hook-$command

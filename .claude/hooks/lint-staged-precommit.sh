@@ -16,6 +16,12 @@ cd "$repo_root" || exit 0
 
 [ -f package.json ] || exit 0
 
+# Real git hooks already active (githooks feature: husky + .husky/pre-commit
+# running lint-staged) -- let git's own pre-commit do it, don't run twice.
+case "$(git config core.hooksPath)" in
+.husky*) [ -x .husky/pre-commit ] && exit 0 ;;
+esac
+
 if ! command -v normalize-json >/dev/null 2>&1; then
     npm install -g @tomgrv/devcontainer-features-common-utils >&2 || {
         echo "lint-staged-precommit.sh: npm install -g common-utils failed, skipping lint-staged" >&2

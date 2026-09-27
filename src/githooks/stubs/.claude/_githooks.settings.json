@@ -1,0 +1,14 @@
+{
+    "hooks": {
+        "SessionStart": [
+            {
+                "hooks": [
+                    {
+                        "command": "sh \"$CLAUDE_PROJECT_DIR/.husky/install.sh\"",
+                        "type": "command"
+                    }
+                ]
+            }
+        ]
+    }
+}
