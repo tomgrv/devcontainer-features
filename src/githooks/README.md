@@ -37,18 +37,28 @@ npm install --save-dev @tomgrv/devcontainer-features-githooks
 
 ## Installation Mechanism
 
-Hooks are wired up via [Husky](https://typicode.github.io/husky/how-to.html) rather than a raw `core.hooksPath .git/hooks` symlink setup:
+Hooks are wired up via [Husky](https://typicode.github.io/husky/how-to.html) rather than a raw `core.hooksPath .git/hooks` symlink setup. Installing husky and installing the hook commands it calls are one step, `.husky/install.sh` (deployed from `stubs/`), so hooks work wherever the repo is used:
 
-- `configure-husky.sh` merges a `"prepare": "husky"` script into `package.json` (husky v9+ initializes itself from the npm `prepare` lifecycle script, not `husky install`), then runs `npx husky` immediately so `.husky/` exists in the consumer repo right away — `devcontainer create` doesn't run `npm install` interactively at this stage.
-- `configure-hooks.sh` generates one thin executable wrapper per hook under `.husky/` (`pre-commit`, `prepare-commit-msg`, `commit-msg`, `post-checkout`, `post-merge`, `pre-push`). Each wrapper simply calls the corresponding `git-hook-<name>` command (no internal hyphens, e.g. `pre-commit` -> `git-hook-precommit`), passing all arguments through, e.g.:
+- `.husky/install.sh` - idempotent, never fails its caller:
+    - bootstraps `zz_use` from [`tomgrv/scripts`](https://github.com/tomgrv/scripts) when missing (`ZZ_SCRIPTS_SETUP_URL` overrides the `setup.sh` URL);
+    - installs the `git-hook-*` commands onto `PATH` via `zz_use`, and `@tomgrv/devcontainer-features-common-utils` globally when `normalize-json` (used by the lint-staged config) is missing;
+    - runs `husky` (local, else `npx --yes husky`) unless `core.hooksPath` is already `.husky/_`;
+    - when `CLAUDE_ENV_FILE` is set, persists the bin dirs on `PATH` for the rest of the Claude Code session;
+    - `HUSKY=0` skips it entirely.
+- It is called from every entry point:
+    - **npm** - the `package.json` `"prepare": "sh .husky/install.sh || ..."` script, so a plain `npm install` on any machine installs working hooks. (An existing `prepare` script in a consumer `package.json` is kept as-is by the JSON merge; replace it by hand to opt in.)
+    - **devcontainer** - `configure-husky.sh` (run by `configure-feature githooks` on `postCreate`).
+    - **Claude Code** - a `SessionStart` hook merged into `.claude/settings.json` (`stubs/.claude/_githooks.settings.json`), since claude.ai/code web/cloud sessions clone the repo directly and run neither `npm install` nor `postCreate`.
+- `configure-hooks.sh` generates one thin executable wrapper per hook under `.husky/` (`pre-commit`, `prepare-commit-msg`, `commit-msg`, `post-checkout`, `post-merge`, `pre-push`). Each wrapper calls the corresponding `git-hook-<name>` command (no internal hyphens, e.g. `pre-commit` -> `git-hook-precommit`), passing all arguments through, and falls back to sourcing `.husky/install.sh` if `zz_use` isn't on `PATH`:
 
     ```sh
     #!/bin/sh
-    git-hook-precommit "$@"
+    command -v zz_use > /dev/null 2>&1 || . "$(dirname "$0")/install.sh"
+    zz_use -x git-hook-precommit "$@"
     ```
 
-- Husky's own init sets `core.hooksPath .husky` - this feature doesn't touch `git config` directly.
-- The `git-hook-*` commands (and `git-hook-installplugins`, used by `pre-commit`/`prepare-commit-msg`/`commit-msg` to install linked npm plugins) are installed on `PATH` as `devDependencies` from [`tomgrv/scripts`](https://github.com/tomgrv/scripts), delivered via the `package.json` stub merge.
+- Husky's own init sets `core.hooksPath .husky/_` - this feature doesn't touch `git config` directly.
+- With real hooks active, the `ai-coding` feature's `lint-staged-precommit.sh` Claude `PreToolUse` hook steps aside, so lint-staged doesn't run twice per commit.
 
 ## Configuration
 
