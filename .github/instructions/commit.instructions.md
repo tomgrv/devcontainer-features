@@ -1,1 +1,1 @@
-../../src/ai-coding/stubs/.agents/instructions/commit.instructions.md
+../../.agents/instructions/commit.instructions.md
