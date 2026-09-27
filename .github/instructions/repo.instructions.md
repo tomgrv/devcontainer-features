@@ -1,1 +1,1 @@
-../../src/ai-coding/stubs/.agents/instructions/repo.instructions.md
+../../.agents/instructions/repo.instructions.md

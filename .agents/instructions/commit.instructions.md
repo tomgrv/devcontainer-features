@@ -1,1 +1,1 @@
-../../../src/ai-coding/stubs/.agents/instructions/commit.instructions.md
+../../src/githooks/stubs/.github/instructions/commit.instructions.md
