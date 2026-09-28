@@ -1,5 +1,25 @@
 # Changelog
 
+## 8.19.0 (2026-09-28)
+
+*Commits from: v8.18.0..HEAD*
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v8.18.0' into develop ([ae0c2a9](https://github.com/tomgrv/devcontainer-features/commit/ae0c2a9f168e40f40ab9804e15ae4fbe96999632))
+- 🚨 add repo-wide tests for SKILL.md frontmatter and workflow version drift ([fa42e2e](https://github.com/tomgrv/devcontainer-features/commit/fa42e2e42556d6a3e8ec24b33cadfedd7ed338b7))
+### 📦 devcontainer-features-common-utils changes
+
+#### Bug Fixes
+
+- 🐛 provision mikefarah/yq via zz_use (#192) ([3ed39f5](https://github.com/tomgrv/devcontainer-features/commit/3ed39f58a268befb5a36a33dac0da1a80f60fb49))
+
+#### Features
+
+- ✨ install mikefarah yq v4 for merge-yaml (#191) ([2d7ab82](https://github.com/tomgrv/devcontainer-features/commit/2d7ab8228fb5d4dc5b6ba8233c10c81c20ebc04d))
+
 ## 8.18.0 (2026-09-27)
 
 *Commits from: v8.17.0..HEAD*
@@ -2231,5 +2251,6 @@ _Commits from: v5.25.0..HEAD_
 
 
 
+
 ---
-*Generated on 2026-09-27 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)*
+*Generated on 2026-09-28 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)*
