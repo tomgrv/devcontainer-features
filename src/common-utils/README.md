@@ -68,6 +68,9 @@ The feature also includes the following VS Code customizations:
 ## Functional Coverage
 
 - Installs specified common utilities such as jq and dos2unix.
+- Installs [mikefarah/yq](https://github.com/mikefarah/yq) v4 (pinned
+  release binary, via `zz_use yq`), which `merge-yaml` requires; a distro
+  python `yq` already on `PATH` is rejected by `merge-yaml`.
 - Supports specifying additional utilities to install.
 
 ## PR Checks (CI)
@@ -105,7 +108,7 @@ Consumer repos get one deployed workflow under `.github/workflows/`:
       (e.g. `"test": "bats tests/"`) to opt it into this workflow.
       The same workflow also runs a `repo-tests` job for repo-wide suites (tests
       that guard a convention across the whole repo rather than one workspace —
-      see `.repo/tests/README.md`), silently skipped when `.repo/tests/` has no
+      see `tests/README.md`), silently skipped when `tests/` has no
       `*.bats` files.
 
 ## Install internals

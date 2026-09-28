@@ -9,14 +9,13 @@ reference each other, or in how `stubs/` files are laid out. Modeled on
 
 A workspace-specific test (exercising one feature's own script or config)
 belongs in that feature's own `src/<feature>/tests/` instead — see the
-[Feature Pattern](../../CLAUDE.md#feature-pattern) in the root `CLAUDE.md`.
+[Feature Pattern](../CLAUDE.md#feature-pattern) in the root `CLAUDE.md`.
 
 ## Running
 
 ```sh
-bats .repo/tests/
+bats tests/
 ```
 
 CI runs this automatically via `.github/workflows/test-workspaces.yaml`'s
-`repo-tests` job, silently skipped when this directory has no `*.bats` files
-(as it does today — none exist yet).
+`repo-tests` job, silently skipped when this directory has no `*.bats` files.

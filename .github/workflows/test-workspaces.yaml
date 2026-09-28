@@ -60,8 +60,8 @@ jobs:
 
       - name: Run repo-wide tests
         run: |
-          if compgen -G ".repo/tests/*.bats" > /dev/null; then
-            bats .repo/tests/
+          if compgen -G "tests/*.bats" > /dev/null; then
+            bats tests/
           else
-            echo "No repo-wide tests under .repo/tests/, skipping."
+            echo "No repo-wide tests under tests/, skipping."
           fi

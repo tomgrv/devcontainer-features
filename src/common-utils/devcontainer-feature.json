@@ -45,12 +45,12 @@
   "name": "Common Utils",
   "options": {
     "utils": {
-      "default": "jq dos2unix shellcheck",
+      "default": "jq yq dos2unix shellcheck",
       "description": "utilities to install",
       "type": "string"
     }
   },
-  "version": "8.17.0",
+  "version": "8.19.0",
   "postCreateCommand": {
     "config": "configure-feature common-utils"
   }

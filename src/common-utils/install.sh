@@ -21,6 +21,7 @@ if ! command -v zz_use >/dev/null 2>&1; then
     fi
 fi
 
+zz_use jq yq
 zz_use load-json validate-json normalize-json merge-json merge-yaml resolve-context \
     distribute-utils edit-script install-feature configure-feature run-workspace-tests
 
