@@ -40,16 +40,12 @@
         "ghcr.io/devcontainers/features/common-utils"
     ],
     "dependsOn": {
-        "ghcr.io/devcontainers/features/common-utils": {},
-        "ghcr.io/eitsupi/devcontainer-features/jq-likes:2": {
-            "jqVersion": "none",
-            "yqVersion": "4"
-        }
+        "ghcr.io/devcontainers/features/common-utils": {}
     },
     "name": "Common Utils",
     "options": {
         "utils": {
-            "default": "jq dos2unix shellcheck",
+            "default": "jq yq dos2unix shellcheck",
             "description": "utilities to install",
             "type": "string"
         }
