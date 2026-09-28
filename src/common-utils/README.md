@@ -68,6 +68,8 @@ The feature also includes the following VS Code customizations:
 ## Functional Coverage
 
 - Installs specified common utilities such as jq and dos2unix.
+- Installs mikefarah `yq` v4 (via `eitsupi/devcontainer-features/jq-likes`),
+  which `merge-yaml` requires; it takes precedence over a distro python `yq`.
 - Supports specifying additional utilities to install.
 
 ## PR Checks (CI)
