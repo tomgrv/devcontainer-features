@@ -1,5 +1,20 @@
 # Changelog
 
+## 8.22.0 (2026-09-29)
+
+*Commits from: v8.21.0..HEAD*
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v8.21.0' into develop ([8262365](https://github.com/tomgrv/devcontainer-features/commit/8262365d88e99293e3541de81865f063d095a060))
+### 📦 devcontainer-features-larasets changes
+
+#### Other changes
+
+- ♻️ reorganize structure and update dependencies ([795db0c](https://github.com/tomgrv/devcontainer-features/commit/795db0caee5c8c0d95bddded0a3e65a30f847281))
+
 ## 8.21.0 (2026-09-29)
 
 *Commits from: v8.20.0..HEAD*
@@ -2270,6 +2285,7 @@ _Commits from: v5.25.0..HEAD_
 
 - ✨ add githook ([ab4c1fc](https://github.com/tomgrv/devcontainer-features/commit/ab4c1fc5eb4f712ed2009baf9a3cadb11097c7b5))
 - add features ([4b26d9d](https://github.com/tomgrv/devcontainer-features/commit/4b26d9d876caffb15078a6baaabf76d1a2707e6f))
+
 
 
 
