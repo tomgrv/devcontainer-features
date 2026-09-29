@@ -39,7 +39,7 @@
     "ghcr.io/devcontainers/features/php:1": {
       "version": "8.3"
     },
-    "ghcr.io/metcalfc/devcontainer-features/doppler:0": {},
+    "ghcr.io/dopplerhq/devcontainer-features/doppler-cli:0": {},
     "ghcr.io/tomgrv/devcontainer-features/common-utils:8": {}
   },
   "name": "Laravel settings",
@@ -50,7 +50,7 @@
       "type": "string"
     }
   },
-  "version": "8.21.0",
+  "version": "8.22.0",
   "legacyIds": [
     "larasets"
   ],
