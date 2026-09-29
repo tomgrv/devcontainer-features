@@ -1,28 +1,28 @@
 {
-    "name": "@tomgrv/devcontainer-features-act",
-    "version": "8.0.0",
-    "description": "Nektos Act - GitHub Actions local runner integration",
-    "files": [
-        "bin/*.sh",
-        "install.sh",
-        "install-act.sh",
-        "stubs/**/*"
-    ],
-    "bin": {
-        "act-reset": "bin/act-reset.sh",
-        "act-run": "bin/act-run.sh"
-    },
-    "scripts": {
-        "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then install-feature -s .; fi",
-        "install-act": "./install-act.sh",
-        "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then configure-feature -s . act; fi"
-    },
-    "peerDependencies": {
-        "@tomgrv/devcontainer-features-common-utils": "*"
-    },
-    "peerDependenciesMeta": {
-        "@tomgrv/devcontainer-features-common-utils": {
-            "optional": true
-        }
+  "name": "@tomgrv/devcontainer-features-act",
+  "version": "8.21.0",
+  "description": "Nektos Act - GitHub Actions local runner integration",
+  "files": [
+    "bin/*.sh",
+    "install.sh",
+    "install-act.sh",
+    "stubs/**/*"
+  ],
+  "bin": {
+    "act-reset": "bin/act-reset.sh",
+    "act-run": "bin/act-run.sh"
+  },
+  "scripts": {
+    "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then install-feature -s .; fi",
+    "install-act": "./install-act.sh",
+    "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then configure-feature -s . act; fi"
+  },
+  "peerDependencies": {
+    "@tomgrv/devcontainer-features-common-utils": "*"
+  },
+  "peerDependenciesMeta": {
+    "@tomgrv/devcontainer-features-common-utils": {
+      "optional": true
     }
+  }
 }
