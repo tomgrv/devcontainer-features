@@ -17,7 +17,7 @@
   },
   "name": "Minikube feature",
   "options": {},
-  "version": "8.13.0",
+  "version": "8.13.1",
   "postCreateCommand": {
     "config": "configure-feature minikube"
   }
