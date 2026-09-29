@@ -1,5 +1,21 @@
 # Changelog
 
+## 8.20.0 (2026-09-29)
+
+*Commits from: v8.19.0..HEAD*
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v8.19.0' into develop ([0b25ff9](https://github.com/tomgrv/devcontainer-features/commit/0b25ff9d407d6daa2c334ce8e8e4b5e58adc5800))
+- ♻️ standardize workflow formatting and update action versions ([f56c65e](https://github.com/tomgrv/devcontainer-features/commit/f56c65eb612777517dd208a7ad61261c3adb0909))
+### 📦 devcontainer-features-common-utils changes
+
+#### Bug Fixes
+
+- 🐛 chown symlinks without dereferencing them (#193) ([baba787](https://github.com/tomgrv/devcontainer-features/commit/baba787a58be52a16ab958f0dc5018989a839e19))
+
 ## 8.19.0 (2026-09-28)
 
 *Commits from: v8.18.0..HEAD*
@@ -2252,5 +2268,6 @@ _Commits from: v5.25.0..HEAD_
 
 
 
+
 ---
-*Generated on 2026-09-28 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)*
+*Generated on 2026-09-29 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)*
