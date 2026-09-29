@@ -12,8 +12,6 @@ for bin in $UTILS; do
 
     if [ -n "$(command -v $bin)" ]; then
         zz_log s "{B $bin} is installed."
-    elif [ "$(uname -o)" = "Msys" ]; then
-        winget install -s winget -e --name $bin --location /tmp/common-utils
     else
         zz_install $bin || {
             zz_log w "Please install {B $bin} Manually."
