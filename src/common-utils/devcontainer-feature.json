@@ -36,9 +36,6 @@
   },
   "description": "Common utils for tomgrv/devcontainer-features",
   "id": "common-utils",
-  "installsAfter": [
-    "ghcr.io/devcontainers/features/common-utils"
-  ],
   "dependsOn": {
     "ghcr.io/devcontainers/features/common-utils": {}
   },

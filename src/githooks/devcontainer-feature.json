@@ -24,11 +24,6 @@
   },
   "description": "A feature to add useful Git hooks to your project",
   "id": "githooks",
-  "installsAfter": [
-    "ghcr.io/tomgrv/devcontainer-features/common-utils",
-    "ghcr.io/tomgrv/devcontainer-features/gitversion",
-    "ghcr.io/tomgrv/devcontainer-features/gitutils"
-  ],
   "dependsOn": {
     "ghcr.io/devcontainers/features/node:1": {
       "version": "lts"

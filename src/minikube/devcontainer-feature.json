@@ -8,15 +8,12 @@
   },
   "description": "Add minikube to your devcontainer",
   "id": "minikube",
-  "installsAfter": [
-    "ghcr.io/tomgrv/devcontainer-features/common-utils",
-    "ghcr.io/devcontainers/features/docker-in-docker"
-  ],
   "dependsOn": {
     "ghcr.io/devcontainers/features/docker-in-docker:3": {
       "moby": false
     },
-    "ghcr.io/devcontainers/features/kubectl-helm-minikube:1": {}
+    "ghcr.io/devcontainers/features/kubectl-helm-minikube:1": {},
+    "ghcr.io/tomgrv/devcontainer-features/common-utils:8": {}
   },
   "name": "Minikube feature",
   "options": {},
