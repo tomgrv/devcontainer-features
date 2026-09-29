@@ -29,10 +29,6 @@
   },
   "description": "A feature to add useful laravel settings to your shell.",
   "id": "larasets",
-  "installsAfter": [
-    "ghcr.io/tomgrv/devcontainer-features/common-utils",
-    "ghcr.io/devcontainers/features/docker-in-docker"
-  ],
   "dependsOn": {
     "ghcr.io/devcontainers/features/docker-in-docker:3": {
       "moby": false
@@ -54,7 +50,7 @@
       "type": "string"
     }
   },
-  "version": "8.13.0",
+  "version": "8.21.0",
   "legacyIds": [
     "larasets"
   ],

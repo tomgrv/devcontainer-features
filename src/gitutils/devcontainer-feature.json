@@ -22,10 +22,6 @@
   },
   "description": "A feature to add useful Git aliases to your shell.",
   "id": "gitutils",
-  "installsAfter": [
-    "ghcr.io/tomgrv/devcontainer-features/common-utils",
-    "ghcr.io/tomgrv/devcontainer-features/gitversion"
-  ],
   "dependsOn": {
     "ghcr.io/devcontainers/features/node:1": {
       "version": "lts"
@@ -36,7 +32,7 @@
     "ghcr.io/tomgrv/devcontainer-features/gitversion:8": {}
   },
   "name": "Git Aliases",
-  "version": "8.20.0",
+  "version": "8.21.0",
   "postCreateCommand": {
     "config": "configure-feature gitutils"
   },

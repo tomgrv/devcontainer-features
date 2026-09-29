@@ -1,5 +1,26 @@
 # Changelog
 
+## 8.21.0 (2026-09-29)
+
+*Commits from: v8.20.0..HEAD*
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v8.20.0' into develop ([69552f2](https://github.com/tomgrv/devcontainer-features/commit/69552f2f7bc37e4cce571a3a23aaca63ae399648))
+### 📦 devcontainer-features-gateway changes
+
+#### Bug Fixes
+
+- 🐛 decode entities in form fields, show curl errors (#196) the ([411510f](https://github.com/tomgrv/devcontainer-features/commit/411510fdb125cc8613dce6850ad715edaafaabca))
+
+### 📦 devcontainer-features-gitutils changes
+
+#### Other changes
+
+- ♻️ dedupe feature deps and install scripts (#195) ([7531292](https://github.com/tomgrv/devcontainer-features/commit/753129265fe115597babe459a52670a722b5caa3))
+
 ## 8.20.0 (2026-09-29)
 
 *Commits from: v8.19.0..HEAD*
@@ -2249,6 +2270,7 @@ _Commits from: v5.25.0..HEAD_
 
 - ✨ add githook ([ab4c1fc](https://github.com/tomgrv/devcontainer-features/commit/ab4c1fc5eb4f712ed2009baf9a3cadb11097c7b5))
 - add features ([4b26d9d](https://github.com/tomgrv/devcontainer-features/commit/4b26d9d876caffb15078a6baaabf76d1a2707e6f))
+
 
 
 

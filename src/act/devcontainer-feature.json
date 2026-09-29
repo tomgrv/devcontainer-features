@@ -1,26 +1,22 @@
 {
-    "description": "A tool for running GitHub Actions locally",
-    "id": "act",
-    "installsAfter": [
-        "ghcr.io/devcontainers/features/docker-in-docker",
-        "ghcr.io/tomgrv/devcontainer-features/common-utils"
-    ],
-    "dependsOn": {
-        "ghcr.io/devcontainers/features/docker-in-docker:3": {
-            "moby": false
-        },
-        "ghcr.io/tomgrv/devcontainer-features/common-utils:8": {}
+  "description": "A tool for running GitHub Actions locally",
+  "id": "act",
+  "dependsOn": {
+    "ghcr.io/devcontainers/features/docker-in-docker:3": {
+      "moby": false
     },
-    "name": "Nektos Act",
-    "options": {
-        "version": {
-            "default": "master",
-            "description": "The version of act to install",
-            "type": "string"
-        }
-    },
-    "version": "8.0.0",
-    "postCreateCommand": {
-        "config": "configure-feature act"
+    "ghcr.io/tomgrv/devcontainer-features/common-utils:8": {}
+  },
+  "name": "Nektos Act",
+  "options": {
+    "version": {
+      "default": "master",
+      "description": "The version of act to install",
+      "type": "string"
     }
+  },
+  "version": "8.21.0",
+  "postCreateCommand": {
+    "config": "configure-feature act"
+  }
 }

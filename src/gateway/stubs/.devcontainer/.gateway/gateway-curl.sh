@@ -99,7 +99,9 @@ is_gateway_form() {
 
 # Extract the value of a named form field
 parse_form_field() {
-    sed -n "s/.*name=[\"']$2[\"'][^>]*value=[\"']\([^\"']*\)[\"'].*/\1/p" "$1" | head -n1
+    sed -n "s/.*name=[\"']$2[\"'][^>]*value=[\"']\([^\"']*\)[\"'].*/\1/p" "$1" \
+        | head -n1 \
+        | sed -e 's/&amp;/\&/g' -e 's/&#38;/\&/g' -e 's/&#x26;/\&/g' -e 's/&#X26;/\&/g'
 }
 
 # Extract the form action URL
@@ -131,7 +133,7 @@ submit_gateway_form() {
 
     log "Submitting gateway form to: ${form_action}?${query}"
 
-    if "$CURL_CMD" -L -s -c "$COOKIE_FILE" -b "$COOKIE_FILE" \
+    if "$CURL_CMD" -L -sS -c "$COOKIE_FILE" -b "$COOKIE_FILE" \
         -H "User-Agent: Mozilla/5.0 (X11; Linux x86_64) Chrome/120.0" \
         -o /dev/null \
         "${form_action}?${query}"; then
@@ -146,6 +148,7 @@ submit_gateway_form() {
 main() {
     if [ $# -eq 0 ] || [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
         if [ "$(basename "$0")" = "curl" ]; then
+            log "Detected invocation as 'curl', passing through to real curl"
             exec "$CURL_CMD" "$@"
         fi
         usage
@@ -157,6 +160,8 @@ main() {
     local args=("$@") probe_args=()
     local url="" output_file="" passthrough=0 had_fail=0 url_count=0 has_ua=0 remote_name=0
     local i=0 a cluster
+
+    log "Scanning arguments: ${args[*]}"
 
     while [ $i -lt ${#args[@]} ]; do
         a="${args[$i]}"
