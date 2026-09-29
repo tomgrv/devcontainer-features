@@ -1,24 +1,24 @@
 {
-    "name": "@tomgrv/devcontainer-features-gitversion",
-    "version": "8.0.1",
-    "description": "GitVersion integration and version management scripts",
-    "files": [
-        "install.sh",
-        "install-*.sh",
-        "configure-*.sh",
-        "stubs/**/*"
-    ],
-    "scripts": {
-        "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then install-feature -s .; fi",
-        "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then configure-feature -s . gitversion; fi"
-    },
-    "dependencies": {},
-    "peerDependencies": {
-        "@tomgrv/devcontainer-features-common-utils": "*"
-    },
-    "peerDependenciesMeta": {
-        "@tomgrv/devcontainer-features-common-utils": {
-            "optional": true
-        }
+  "name": "@tomgrv/devcontainer-features-gitversion",
+  "version": "8.21.0",
+  "description": "GitVersion integration and version management scripts",
+  "files": [
+    "install.sh",
+    "install-*.sh",
+    "configure-*.sh",
+    "stubs/**/*"
+  ],
+  "scripts": {
+    "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then install-feature -s .; fi",
+    "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then configure-feature -s . gitversion; fi"
+  },
+  "dependencies": {},
+  "peerDependencies": {
+    "@tomgrv/devcontainer-features-common-utils": "*"
+  },
+  "peerDependenciesMeta": {
+    "@tomgrv/devcontainer-features-common-utils": {
+      "optional": true
     }
+  }
 }
