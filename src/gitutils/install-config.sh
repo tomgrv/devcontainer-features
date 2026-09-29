@@ -6,12 +6,6 @@ eval $(
 
 scope=${GIT_CONFIG_SCOPE:---system}
 
-# Check if jq is installed
-if ! command -v jq >/dev/null 2>&1; then
-    zz_log e "jq is not installed. Please install jq to proceed."
-    exit 1
-fi
-
 zz_log i "Installing git configuration in {Purple $scope} scope..."
 
 ### For each entry in config.json file next to this file, create corresponding git config from key and value.
