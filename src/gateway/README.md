@@ -13,6 +13,7 @@ SSL inspection tools act as a man-in-the-middle TLS proxy and replace server cer
 - Installs the SSL inspection root CA certificate(s) found in `.devcontainer/.gateway/certs/*.pem` into the container system trust store (at build time via the provided Dockerfile stub, and at create time via `postCreateCommand` — reached through the workspace's own standard mount, no dedicated bind mount required).
 - Exposes the system CA bundle path via environment variables consumed by common runtimes and tools (Node.js, Python, Git, curl, Composer).
 - Installs a `gateway-curl` wrapper that transparently handles gateway redirect forms and cookie management, and diverts the system `curl` to it — on by default inside a container, opt-in on a host (see [Options](#options)).
+- Provisions VS Code extensions from VSIX packages fetched with `curl` — pre-fetched into the image at build time, then installed by a background flow running in parallel with VS Code attaching — because the VS Code server downloads extensions with Node's own `http` stack, which the curl wrapper cannot help (see [VS Code extensions](#vs-code-extensions-behind-the-gateway)).
 - Optionally prepares the **host** as well, so the devcontainer can actually be created behind the gateway (see [Host installation](#host-installation--get-ready-for-devcontainer-creation)).
 
 ## Quick Start — devcontainer.json
@@ -54,9 +55,10 @@ npm install --save-dev @tomgrv/devcontainer-features-gateway
 
 ## Options
 
-| Option        | Type    | Default | Description                                                                                                          |
-| ------------- | ------- | ------- | -------------------------------------------------------------------------------------------------------------------- |
-| `replaceCurl` | boolean | `true`  | Divert the system `curl` to the `gateway-curl` wrapper inside the container (the real binary is kept as `curl.real`) |
+| Option        | Type    | Default | Description                                                                                                                    |
+| ------------- | ------- | ------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `replaceCurl` | boolean | `true`  | Divert the system `curl` to the `gateway-curl` wrapper inside the container (the real binary is kept as `curl.real`)           |
+| `vsix`        | string  | `""`    | VS Code extensions (`publisher.name[@version]`, comma or space separated) to download with `curl` into the image at build time |
 
 ## Host installation — get ready for devcontainer creation
 
@@ -122,6 +124,50 @@ The `.gateway/Dockerfile` stub closes that gap: it bakes both the root CA trust 
         └── gateway.pem      # Gateway root CA certificate  ← YOU MUST SUPPLY THIS
 ```
 
+## VS Code extensions behind the gateway
+
+The VS Code server installs extensions itself, from the Marketplace, with Node's own `http` stack: it never goes through `curl`, so the `gateway-curl` wrapper can't answer the gateway's interception form on its behalf, and every extension download fails. Trusting the root CA (`NODE_EXTRA_CA_CERTS`) fixes TLS, not the form.
+
+The feature works around it in two flows, both downloading the `.vsix` packages with `curl` (hence through `gateway-curl`) and installing them from disk with the server's own CLI, which then never has to reach the Marketplace:
+
+1. **Build time (docker)** — extensions listed in the `vsix` option are fetched into the image, under `/usr/local/share/gateway/vsix/`:
+
+    ```json
+    "features": {
+        "ghcr.io/tomgrv/devcontainer-features/gateway:8": {
+            "vsix": "esbenp.prettier-vscode, ms-python.python@2024.2.1"
+        }
+    }
+    ```
+
+    Build-time failures (e.g. no root CA baked by the [Dockerfile stub](#availability-during-the-oci-image-build) yet) don't break the build: flow 2 retries.
+
+2. **Container creation (parallel)** — `postCreateCommand` detaches `gateway-vsix sync`, so container creation never waits on it. It fetches every extension your `devcontainer.json` lists under `customizations.vscode.extensions` that the image doesn't already hold (into `~/.cache/gateway/vsix/`), waits for the VS Code server to show up (15 min max), then installs everything cached. Log: `/tmp/gateway-vsix.log`.
+
+VS Code still attempts its own Marketplace install of the `devcontainer.json` extensions in the meantime: those attempts may fail with a notification until `gateway-vsix sync` has installed them — run **Developer: Reload Window** if one doesn't activate. The feature also preconfigures the server with `extensions.autoUpdate` / `extensions.autoCheckUpdates` turned off, so it doesn't keep hitting the Marketplace (and failing) afterwards.
+
+Extensions contributed by other features' own `customizations` aren't visible from inside the container: add them to the `vsix` option.
+
+Manual use:
+
+```sh
+gateway-vsix fetch ~/.cache/gateway/vsix publisher.name[@version]... # download
+gateway-vsix ids .devcontainer/devcontainer.json                     # list what devcontainer.json wants
+gateway-vsix sync                                                    # fetch + wait for server + install
+```
+
+| Variable               | Purpose                                                                                                                   |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `GATEWAY_VSIX_URL`     | Download URL template with `{publisher}` `{name}` `{version}` placeholders (default: Visual Studio Marketplace)           |
+| `GATEWAY_VSIX_DIR`     | Runtime download cache (default: `~/.cache/gateway/vsix`)                                                                 |
+| `GATEWAY_VSIX_CURL`    | curl command (default: `gateway-curl` when on `PATH`, else `curl`)                                                        |
+| `GATEWAY_VSIX_TIMEOUT` | Seconds `sync` waits for the VS Code server (default: `900`)                                                              |
+| `GATEWAY_VSIX_CLI`     | VS Code server CLI to install with (default: newest `code-server` found under `~/.vscode-server`, insiders or Codespaces) |
+
+For Open VSX (pinned versions only): `GATEWAY_VSIX_URL='https://open-vsx.org/api/{publisher}/{name}/{version}/file/{publisher}.{name}-{version}.vsix'`.
+
+Alternative, when the **host** VS Code gets past the gateway (e.g. Windows with `ukoloff.win-ca`): set `"remote.downloadExtensionsLocally": true` in your local user settings, so the host downloads extensions and pushes them into the container.
+
 ## Environment variables set automatically
 
 All variables point to the system CA bundle (`/etc/ssl/certs/ca-certificates.crt`), which includes the gateway root CA once installed:
@@ -168,6 +214,9 @@ Run `configure-feature gateway` inside the container (or rebuild it) to install 
 
 **Container creation fails with `bind source path does not exist` on the certs mount**
 Only relevant if your `devcontainer.json` declares the optional dedicated `certs` bind mount (added by the `add gateway` stub). Either create `.devcontainer/.gateway/certs` on the host before creating the container, or — in a nested/docker-outside-of-docker setup, where `${localWorkspaceFolder}` isn't a path the Docker daemon itself can resolve — remove that `mounts` entry from `devcontainer.json` entirely; certificates are still picked up through the workspace's own standard mount.
+
+**VS Code extensions fail to install**
+Check `/tmp/gateway-vsix.log`, then re-run `gateway-vsix sync` in a terminal once the certificate is in place.
 
 **curl wrapper causes issues**
 Call `curl.real` directly to bypass the wrapper, set `replaceCurl` to `false` to keep the system curl untouched, or set `GATEWAY_VERBOSE=1` to see what the wrapper is doing.
