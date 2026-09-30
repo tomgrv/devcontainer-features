@@ -1,14 +1,27 @@
+<!-- @format -->
+
 # Changelog
+
+## 8.22.1 (2026-09-30)
+
+_Commits from: v8.22.0..HEAD_
+
+### 📦 devcontainer-features-larasets changes
+
+#### Bug Fixes
+
+- 🐛 fix doppler version ([60b3caa](https://github.com/tomgrv/devcontainer-features/commit/60b3caa575e23ec5a47b0c2f67255725d96cdb33))
 
 ## 8.22.0 (2026-09-29)
 
-*Commits from: v8.21.0..HEAD*
+_Commits from: v8.21.0..HEAD_
 
 ### 📂 Unscoped changes
 
 #### Other changes
 
 - Merge tag 'v8.21.0' into develop ([8262365](https://github.com/tomgrv/devcontainer-features/commit/8262365d88e99293e3541de81865f063d095a060))
+
 ### 📦 devcontainer-features-larasets changes
 
 #### Other changes
@@ -17,13 +30,14 @@
 
 ## 8.21.0 (2026-09-29)
 
-*Commits from: v8.20.0..HEAD*
+_Commits from: v8.20.0..HEAD_
 
 ### 📂 Unscoped changes
 
 #### Other changes
 
 - Merge tag 'v8.20.0' into develop ([69552f2](https://github.com/tomgrv/devcontainer-features/commit/69552f2f7bc37e4cce571a3a23aaca63ae399648))
+
 ### 📦 devcontainer-features-gateway changes
 
 #### Bug Fixes
@@ -38,7 +52,7 @@
 
 ## 8.20.0 (2026-09-29)
 
-*Commits from: v8.19.0..HEAD*
+_Commits from: v8.19.0..HEAD_
 
 ### 📂 Unscoped changes
 
@@ -46,6 +60,7 @@
 
 - Merge tag 'v8.19.0' into develop ([0b25ff9](https://github.com/tomgrv/devcontainer-features/commit/0b25ff9d407d6daa2c334ce8e8e4b5e58adc5800))
 - ♻️ standardize workflow formatting and update action versions ([f56c65e](https://github.com/tomgrv/devcontainer-features/commit/f56c65eb612777517dd208a7ad61261c3adb0909))
+
 ### 📦 devcontainer-features-common-utils changes
 
 #### Bug Fixes
@@ -54,7 +69,7 @@
 
 ## 8.19.0 (2026-09-28)
 
-*Commits from: v8.18.0..HEAD*
+_Commits from: v8.18.0..HEAD_
 
 ### 📂 Unscoped changes
 
@@ -62,6 +77,7 @@
 
 - Merge tag 'v8.18.0' into develop ([ae0c2a9](https://github.com/tomgrv/devcontainer-features/commit/ae0c2a9f168e40f40ab9804e15ae4fbe96999632))
 - 🚨 add repo-wide tests for SKILL.md frontmatter and workflow version drift ([fa42e2e](https://github.com/tomgrv/devcontainer-features/commit/fa42e2e42556d6a3e8ec24b33cadfedd7ed338b7))
+
 ### 📦 devcontainer-features-common-utils changes
 
 #### Bug Fixes
@@ -74,13 +90,14 @@
 
 ## 8.18.0 (2026-09-27)
 
-*Commits from: v8.17.0..HEAD*
+_Commits from: v8.17.0..HEAD_
 
 ### 📂 Unscoped changes
 
 #### Other changes
 
 - Merge tag 'v8.17.0' into develop ([355fc39](https://github.com/tomgrv/devcontainer-features/commit/355fc398aa6f726d3ea32ff617841806025dfce7))
+
 ### 📦 devcontainer-features-githooks changes
 
 #### Bug Fixes
@@ -90,13 +107,14 @@
 
 ## 8.17.0 (2026-09-27)
 
-*Commits from: v8.16.0..HEAD*
+_Commits from: v8.16.0..HEAD_
 
 ### 📂 Unscoped changes
 
 #### Other changes
 
 - Merge tag 'v8.16.0' into develop ([2c7f0a4](https://github.com/tomgrv/devcontainer-features/commit/2c7f0a47127b69c1a56cccad7ae1086424bb0546))
+
 ### 📦 devcontainer-features-common-utils changes
 
 #### Bug Fixes
@@ -111,7 +129,7 @@
 
 ## 8.16.0 (2026-09-27)
 
-*Commits from: v8.15.0..HEAD*
+_Commits from: v8.15.0..HEAD_
 
 ### 📂 Unscoped changes
 
@@ -126,6 +144,7 @@
 #### Other changes
 
 - Merge tag 'v8.15.0' into develop ([4559c9f](https://github.com/tomgrv/devcontainer-features/commit/4559c9f02284550a679952bde51571f0ae1b1bc3))
+
 ### 📦 deps changes
 
 #### Other changes
@@ -140,7 +159,7 @@
 
 ## 8.15.0 (2026-09-26)
 
-*Commits from: v8.14.0..HEAD*
+_Commits from: v8.14.0..HEAD_
 
 ### 📂 Unscoped changes
 
@@ -152,6 +171,7 @@
 
 - Merge tag 'v8.14.0' into develop ([8150029](https://github.com/tomgrv/devcontainer-features/commit/8150029e17c428462cd3caa85e0bac931fa09cdd))
 - update devcontainer ([e488ccd](https://github.com/tomgrv/devcontainer-features/commit/e488ccdd0dcc04fd820ef2935de43b0cc517e44b))
+
 ### 📦 common-utils changes
 
 #### Bug Fixes
@@ -166,13 +186,14 @@
 
 ## 8.14.0 (2026-09-19)
 
-*Commits from: v8.13.0..HEAD*
+_Commits from: v8.13.0..HEAD_
 
 ### 📂 Unscoped changes
 
 #### Other changes
 
 - Merge tag 'v8.13.0' into develop ([cf0cf5d](https://github.com/tomgrv/devcontainer-features/commit/cf0cf5dfd68745074d9211dbe9c03721a225fb2c))
+
 ### 📦 devcontainer-features-ai-coding changes
 
 #### Features
@@ -181,13 +202,14 @@
 
 ## 8.13.0 (2026-09-15)
 
-*Commits from: v8.12.0..HEAD*
+_Commits from: v8.12.0..HEAD_
 
 ### 📂 Unscoped changes
 
 #### Other changes
 
 - Merge tag 'v8.12.0' into develop ([72fc82d](https://github.com/tomgrv/devcontainer-features/commit/72fc82d325ddb7804b15561ea9860546fdc8b7db))
+
 ### 📦 devcontainer-features-common-utils changes
 
 #### Bug Fixes
@@ -196,13 +218,14 @@
 
 ## 8.12.0 (2026-09-15)
 
-*Commits from: v8.11.0..HEAD*
+_Commits from: v8.11.0..HEAD_
 
 ### 📂 Unscoped changes
 
 #### Other changes
 
 - Merge tag 'v8.11.0' into develop ([61b5fdb](https://github.com/tomgrv/devcontainer-features/commit/61b5fdb848c74e65a6649ce684df773e204703e4))
+
 ### 📦 devcontainer-features-gitutils changes
 
 #### Bug Fixes
@@ -211,13 +234,14 @@
 
 ## 8.11.0 (2026-09-14)
 
-*Commits from: v8.10.0..HEAD*
+_Commits from: v8.10.0..HEAD_
 
 ### 📂 Unscoped changes
 
 #### Other changes
 
 - Merge tag 'v8.10.0' into develop ([1a1a9d1](https://github.com/tomgrv/devcontainer-features/commit/1a1a9d12249e91a66a1363bde22c286d05d39a06))
+
 ### 📦 devcontainer-features-ai-coding changes
 
 #### Features
@@ -259,13 +283,14 @@
 
 ## 8.10.0 (2026-09-12)
 
-*Commits from: v8.9.0..HEAD*
+_Commits from: v8.9.0..HEAD_
 
 ### 📂 Unscoped changes
 
 #### Other changes
 
 - Merge tag 'v8.9.0' into develop ([ae561f8](https://github.com/tomgrv/devcontainer-features/commit/ae561f8cab763135ac6add8d6aeb2c4b08a7a92a))
+
 ### 📦 devcontainer-features-ai-coding changes
 
 #### Bug Fixes
@@ -292,13 +317,14 @@
 
 ## 8.9.0 (2026-09-08)
 
-*Commits from: v8.8.0..HEAD*
+_Commits from: v8.8.0..HEAD_
 
 ### 📂 Unscoped changes
 
 #### Other changes
 
 - Merge tag 'v8.8.0' into develop ([7dc4687](https://github.com/tomgrv/devcontainer-features/commit/7dc4687681aa715796689084c398b929e52d3bef))
+
 ### 📦 devcontainer-features-githooks changes
 
 #### Features
@@ -313,17 +339,18 @@
 
 #### Other changes
 
-- ♻️ zz_use gv/bump-* from tomgrv/scripts (#158) ([eefae77](https://github.com/tomgrv/devcontainer-features/commit/eefae77bab3cdcc4d038254133480f7278c0ef16))
+- ♻️ zz_use gv/bump-\* from tomgrv/scripts (#158) ([eefae77](https://github.com/tomgrv/devcontainer-features/commit/eefae77bab3cdcc4d038254133480f7278c0ef16))
 
 ## 8.8.0 (2026-09-08)
 
-*Commits from: v8.7.0..HEAD*
+_Commits from: v8.7.0..HEAD_
 
 ### 📂 Unscoped changes
 
 #### Other changes
 
 - Merge tag 'v8.7.0' into develop ([d5b654f](https://github.com/tomgrv/devcontainer-features/commit/d5b654fdb4850ec9001a721a79a2453d3588c707))
+
 ### 📦 devcontainer-features-ai-coding changes
 
 #### Features
@@ -338,13 +365,14 @@
 
 ## 8.7.0 (2026-09-07)
 
-*Commits from: v8.6.0..HEAD*
+_Commits from: v8.6.0..HEAD_
 
 ### 📂 Unscoped changes
 
 #### Other changes
 
 - Merge tag 'v8.6.0' into develop ([53383ae](https://github.com/tomgrv/devcontainer-features/commit/53383ae42a33c53c774e009467958abbd77af069))
+
 ### 📦 devcontainer-features-common-utils changes
 
 #### Bug Fixes
@@ -365,13 +393,14 @@
 
 ## 8.6.0 (2026-09-06)
 
-*Commits from: v8.5.0..HEAD*
+_Commits from: v8.5.0..HEAD_
 
 ### 📂 Unscoped changes
 
 #### Other changes
 
 - Merge tag 'v8.5.0' into develop ([845bd5f](https://github.com/tomgrv/devcontainer-features/commit/845bd5f1e460a05f4113f466b1eff4b8cefa3d79))
+
 ### 📦 devcontainer-features-scripting changes
 
 #### Bug Fixes
@@ -380,13 +409,14 @@
 
 ## 8.5.0 (2026-09-06)
 
-*Commits from: v8.4.0..HEAD*
+_Commits from: v8.4.0..HEAD_
 
 ### 📂 Unscoped changes
 
 #### Other changes
 
 - Merge tag 'v8.4.0' into develop ([5e38cc2](https://github.com/tomgrv/devcontainer-features/commit/5e38cc2bd9c82eac56c5d4854b58218ba9da3094))
+
 ### 📦 devcontainer-features-gitutils changes
 
 #### Bug Fixes
@@ -401,13 +431,14 @@
 
 ## 8.4.0 (2026-09-04)
 
-*Commits from: v8.3.0..HEAD*
+_Commits from: v8.3.0..HEAD_
 
 ### 📂 Unscoped changes
 
 #### Other changes
 
 - Merge tag 'v8.3.0' into develop ([1976f88](https://github.com/tomgrv/devcontainer-features/commit/1976f88510bd8ccf685dd1530316a7d7d3983e56))
+
 ### 📦 devcontainer-features-gitutils changes
 
 #### Other changes
@@ -416,13 +447,14 @@
 
 ## 8.3.0 (2026-09-04)
 
-*Commits from: v8.2.0..HEAD*
+_Commits from: v8.2.0..HEAD_
 
 ### 📂 Unscoped changes
 
 #### Other changes
 
 - Merge tag 'v8.2.0' into develop ([763ff6b](https://github.com/tomgrv/devcontainer-features/commit/763ff6bea038c850407cd1f7650a1b7b1838ec8c))
+
 ### 📦 devcontainer-features-gitutils changes
 
 #### Bug Fixes
@@ -431,11 +463,12 @@
 
 ## 8.2.0 (2026-09-03)
 
-*Commits from: v8.0.0..HEAD*
+_Commits from: v8.0.0..HEAD_
 
 ### 💥 BREAKING CHANGES
 
 - ✨ move gitutils scripts to tomgrv/scripts, remove pecl (#143) ([e81dde6](https://github.com/tomgrv/devcontainer-features/commit/e81dde6da1fb9e62e33aa266b74aecd545fdf70a))
+
 ### 📂 Unscoped changes
 
 #### Bug Fixes
@@ -450,6 +483,7 @@
 - Merge tag 'v8.1.0' into develop ([07aff67](https://github.com/tomgrv/devcontainer-features/commit/07aff673ee3b1e26083e6764b84153d799b277b8))
 - Merge tag 'v8.1.1' into develop ([63627a3](https://github.com/tomgrv/devcontainer-features/commit/63627a381b56c87900e14005c9c1329e7691cdfb))
 - 🔧 allow git push/tag without prompting (#140) ([6831d4a](https://github.com/tomgrv/devcontainer-features/commit/6831d4acc284fb8f724091b611a62a5cfd106edd))
+
 ### 📦 ai-coding changes
 
 #### Features
@@ -2286,26 +2320,6 @@ _Commits from: v5.25.0..HEAD_
 - ✨ add githook ([ab4c1fc](https://github.com/tomgrv/devcontainer-features/commit/ab4c1fc5eb4f712ed2009baf9a3cadb11097c7b5))
 - add features ([4b26d9d](https://github.com/tomgrv/devcontainer-features/commit/4b26d9d876caffb15078a6baaabf76d1a2707e6f))
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ---
-*Generated on 2026-09-29 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)*
+
+_Generated on 2026-09-30 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
