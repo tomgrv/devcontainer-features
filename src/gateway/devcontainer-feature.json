@@ -7,6 +7,14 @@
     "REQUESTS_CA_BUNDLE": "/etc/ssl/certs/ca-certificates.crt",
     "SSL_CERT_FILE": "/etc/ssl/certs/ca-certificates.crt"
   },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "extensions.autoCheckUpdates": false,
+        "extensions.autoUpdate": false
+      }
+    }
+  },
   "description": "Handling SSL Inspection Gateway while building & using devcontainers",
   "id": "gateway",
   "dependsOn": {
@@ -20,9 +28,14 @@
       "default": true,
       "description": "Divert the system curl to the gateway-curl wrapper inside the container",
       "type": "boolean"
+    },
+    "vsix": {
+      "default": "",
+      "description": "VS Code extensions (publisher.name[@version], comma or space separated) to download with curl into the image at build time, installed from disk once the VS Code server starts",
+      "type": "string"
     }
   },
-  "version": "8.21.0",
+  "version": "8.23.0",
   "postCreateCommand": {
     "config": "configure-feature gateway"
   }

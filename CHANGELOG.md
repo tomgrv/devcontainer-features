@@ -1,6 +1,20 @@
-<!-- @format -->
-
 # Changelog
+
+## 8.23.0 (2026-09-30)
+
+*Commits from: v8.22.1..HEAD*
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v8.22.0' into develop ([30d30a0](https://github.com/tomgrv/devcontainer-features/commit/30d30a010b4c0b201a7b618de8dca6b6d3b82469))
+- Merge tag 'v8.22.1' into develop ([6c3d4aa](https://github.com/tomgrv/devcontainer-features/commit/6c3d4aace6840f22bed617b22f5dc3bf0fea5f05))
+### 📦 devcontainer-features-gateway changes
+
+#### Features
+
+- ✨ provision VS Code extensions from curl-fetched VSIX (#199) ([5ef76af](https://github.com/tomgrv/devcontainer-features/commit/5ef76af1dcd309ac3b81113bdeaa93f136c60fbb))
 
 ## 8.22.1 (2026-09-30)
 
@@ -2320,6 +2334,6 @@ _Commits from: v5.25.0..HEAD_
 - ✨ add githook ([ab4c1fc](https://github.com/tomgrv/devcontainer-features/commit/ab4c1fc5eb4f712ed2009baf9a3cadb11097c7b5))
 - add features ([4b26d9d](https://github.com/tomgrv/devcontainer-features/commit/4b26d9d876caffb15078a6baaabf76d1a2707e6f))
 
----
 
-_Generated on 2026-09-30 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)_
+---
+*Generated on 2026-09-30 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)*

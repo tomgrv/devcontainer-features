@@ -1,15 +1,17 @@
 {
   "name": "@tomgrv/devcontainer-features-gateway",
-  "version": "8.21.0",
+  "version": "8.23.0",
   "description": "SSL Inspection Gateway handling",
   "files": [
+    "bin/*.sh",
     "configure-*.sh",
     "install-*.sh",
     "install.sh",
     "stubs/**/*"
   ],
   "bin": {
-    "gateway-curl": "stubs/.devcontainer/.gateway/gateway-curl.sh"
+    "gateway-curl": "stubs/.devcontainer/.gateway/gateway-curl.sh",
+    "gateway-vsix": "bin/gateway-vsix.sh"
   },
   "scripts": {
     "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then install-feature -s .; fi",
