@@ -17,8 +17,12 @@
 #       syntax) are ignored.
 #   gateway-vsix ids [devcontainer.json]
 #       Print customizations.vscode.extensions from a devcontainer.json
-#       (default: .devcontainer/devcontainer.json). Full-line // comments are
-#       tolerated, block comments and trailing commas are not.
+#       (default: .devcontainer/devcontainer.json) and, recursively, from every
+#       feature it references and their dependsOn: OCI features through their
+#       registry manifest ("dev.containers.metadata" annotation), local ./
+#       features from disk. "-publisher.name" entries remove an extension.
+#       Full-line // comments are tolerated, block comments and trailing
+#       commas are not.
 #   gateway-vsix install <cli> <dir>...
 #       Install every *.vsix found in <dir>... with the VS Code server <cli>.
 #   gateway-vsix sync
@@ -144,11 +148,80 @@ fetch() {
     return $rc
 }
 
+# devcontainer-feature.json of a feature reference, on stdout
+feature_meta() {
+    ref="$1"
+    case "$ref" in
+    ./* | ../*)
+        sed 's#^[[:space:]]*//.*$##' "$2/$ref/devcontainer-feature.json" 2>/dev/null
+        return
+        ;;
+    esac
+
+    registry="${ref%%/*}"
+    path="${ref#*/}"
+    case "$registry" in
+    *.* | *:* | localhost) ;;
+    *) return 1 ;; # legacy GitHub-release feature id, no manifest to read
+    esac
+    case "$path" in
+    *@*) repo="${path%@*}" tag="${path#*@}" ;;
+    *:*) repo="${path%:*}" tag="${path##*:}" ;;
+    *) repo="$path" tag=latest ;;
+    esac
+
+    url="https://$registry/v2/$repo/manifests/$tag"
+    accept="Accept: application/vnd.oci.image.manifest.v1+json"
+
+    # Anonymous pull token, as advertised by the registry's challenge
+    auth="X-Anonymous: 1"
+    challenge=$("$CURL" -sI -H "$accept" "$url" 2>/dev/null | tr -d '\r' | sed -n 's/^[Ww][Ww][Ww]-[Aa]uthenticate: *Bearer *//p')
+    if [ -n "$challenge" ]; then
+        realm=$(echo "$challenge" | sed -n 's/.*realm="\([^"]*\)".*/\1/p')
+        service=$(echo "$challenge" | sed -n 's/.*service="\([^"]*\)".*/\1/p')
+        scope=$(echo "$challenge" | sed -n 's/.*scope="\([^"]*\)".*/\1/p')
+        token=$("$CURL" -fsS "$realm?service=$service&scope=$scope" 2>/dev/null | jq -r '.token // .access_token // empty')
+        [ -n "$token" ] && auth="Authorization: Bearer $token"
+    fi
+
+    "$CURL" -fsS -H "$accept" -H "$auth" "$url" 2>/dev/null |
+        jq -r '.annotations["dev.containers.metadata"] // empty'
+}
+
 ids() {
     file="${1:-.devcontainer/devcontainer.json}"
     [ -f "$file" ] || return 0
-    sed 's#^[[:space:]]*//.*$##' "$file" |
-        jq -r '.customizations.vscode.extensions[]? | select(type == "string")' 2>/dev/null
+    base=$(dirname "$file")
+    CURL=$(resolve_curl)
+
+    # Breadth-first over features and their dependsOn, each visited once
+    json=$(sed 's#^[[:space:]]*//.*$##' "$file")
+    queue=""
+    seen=""
+    while :; do
+        printf '%s' "$json" | jq -r '.customizations.vscode.extensions[]? | select(type == "string")' 2>/dev/null
+
+        for ref in $(printf '%s' "$json" | jq -r '(.features // {}), (.dependsOn // {}) | keys[]' 2>/dev/null); do
+            case " $seen " in
+            *" $ref "*) continue ;;
+            esac
+            seen="$seen $ref"
+            queue="$queue $ref"
+        done
+
+        # shellcheck disable=SC2086 # one word per feature reference
+        set -- $queue
+        [ $# -gt 0 ] || break
+        ref="$1"
+        shift
+        queue="$*"
+
+        json=$(feature_meta "$ref" "$base")
+        [ -n "$json" ] || log "No metadata for feature $ref, its extensions are skipped"
+    done | awk '
+        /^-/ { removed[tolower(substr($0, 2))] = 1; next }
+        { id = tolower($0); sub(/@.*/, "", id); if (!(($0) in listed)) { listed[$0] = 1; order[++n] = $0; key[n] = id } }
+        END { for (i = 1; i <= n; i++) if (!(key[i] in removed)) print order[i] }'
 }
 
 # Newest VS Code server CLI found on this machine, if any

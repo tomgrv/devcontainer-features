@@ -146,7 +146,7 @@ The feature works around it in two flows, both downloading the `.vsix` packages 
 
 VS Code still attempts its own Marketplace install of the `devcontainer.json` extensions in the meantime: those attempts may fail with a notification until `gateway-vsix sync` has installed them — run **Developer: Reload Window** if one doesn't activate. The feature also preconfigures the server with `extensions.autoUpdate` / `extensions.autoCheckUpdates` turned off, so it doesn't keep hitting the Marketplace (and failing) afterwards.
 
-Extensions contributed by other features' own `customizations` aren't visible from inside the container: add them to the `vsix` option.
+The extension list is resolved recursively from the root `devcontainer.json`: its own `customizations.vscode.extensions`, then those of every feature it references and, in turn, of their `dependsOn` (each feature visited once). OCI features are read from their registry manifest (`dev.containers.metadata` annotation, anonymous pull token, fetched with `curl` too), local `./` features from disk. A `-publisher.name` entry anywhere removes that extension. A feature whose metadata can't be reached is skipped with a log line.
 
 Manual use:
 

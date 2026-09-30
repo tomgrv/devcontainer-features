@@ -179,3 +179,62 @@ c.d@1.0.0" ]
     [ "$status" -eq 1 ]
     [[ "$output" == *"gateway-vsix fetch"* ]]
 }
+
+@test "ids: recurses into local and OCI features and their dependsOn, once each" {
+    ws="$BATS_TEST_TMPDIR/ws/.devcontainer"
+    mkdir -p "$ws/local"
+    cat >"$ws/devcontainer.json" <<'JSON'
+{
+    // root
+    "features": { "reg.io/o/r/a:1": {}, "./local": {} },
+    "customizations": { "vscode": { "extensions": ["root.ext", "-b.removed"] } }
+}
+JSON
+    echo '{"customizations":{"vscode":{"extensions":["local.ext"]}}}' >"$ws/local/devcontainer-feature.json"
+
+    # Fake registry: bearer challenge, token endpoint, manifests with metadata
+    # annotations; feature a depends on b, b depends back on a (cycle)
+    cat >"$FAKE_CURL" <<'SH'
+#!/bin/sh
+head=0 auth="" url=""
+while [ $# -gt 0 ]; do
+    case "$1" in
+    -sI) head=1 ;;
+    -H) case "$2" in Authorization:*) auth="$2" ;; esac; shift ;;
+    http*) url="$1" ;;
+    esac
+    shift
+done
+echo "$url $auth" >>"$CURL_LOG"
+if [ "$head" = 1 ]; then
+    printf 'HTTP/1.1 401\r\nWWW-Authenticate: Bearer realm="https://reg.io/token",service="reg.io",scope="pull"\r\n\r\n'
+    exit 0
+fi
+case "$url" in
+*/token*) echo '{"token":"t0k"}' ;;
+*/o/r/a/manifests/1)
+    [ "$auth" = "Authorization: Bearer t0k" ] || exit 22
+    jq -n --arg m '{"dependsOn":{"reg.io/o/r/b:2":{}},"customizations":{"vscode":{"extensions":["a.ext","root.ext"]}}}' '{annotations:{"dev.containers.metadata":$m}}' ;;
+*/o/r/b/manifests/2)
+    jq -n --arg m '{"dependsOn":{"reg.io/o/r/a:1":{}},"customizations":{"vscode":{"extensions":["b.ext","b.removed"]}}}' '{annotations:{"dev.containers.metadata":$m}}' ;;
+*) exit 22 ;;
+esac
+SH
+    run sh "$VSIX" ids "$ws/devcontainer.json"
+    [ "$status" -eq 0 ]
+    [ "$output" = "root.ext
+local.ext
+a.ext
+b.ext" ]
+    [ "$(grep -c '/o/r/a/manifests/1 Authorization' "$CURL_LOG")" -eq 1 ]
+}
+
+@test "ids: unreachable feature metadata is skipped, not fatal" {
+    echo '{"features":{"reg.io/o/r/gone:1":{},"legacy/repo/feat":{}},"customizations":{"vscode":{"extensions":["root.ext"]}}}' \
+        >"$BATS_TEST_TMPDIR/devcontainer.json"
+    printf '#!/bin/sh\nexit 22\n' >"$FAKE_CURL"
+    run sh "$VSIX" ids "$BATS_TEST_TMPDIR/devcontainer.json"
+    [ "$status" -eq 0 ]
+    [[ "$output" == *"root.ext"* ]]
+    [[ "$output" == *"No metadata for feature reg.io/o/r/gone:1"* ]]
+}
