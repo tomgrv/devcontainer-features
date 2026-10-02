@@ -71,6 +71,10 @@
             "@pretest",
             "vendor/bin/pest"
         ],
+        "test-changed": [
+            "@pretest",
+            "php-changed -f suites | paste -sd, - | xargs -r -I{} vendor/bin/pest --testsuite={}"
+        ],
         "test-coverage": [
             "@pretest",
             "vendor/bin/pest --coverage"
