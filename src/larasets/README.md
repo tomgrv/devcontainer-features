@@ -129,9 +129,9 @@ Tests are placed by part so a PR only runs the suites it can impact:
 
 - `core` → `tests/{Unit,Feature}`; core tests never import `Modules\*` or package classes.
 - `modules/<X>` and `packages/<org>/<pkg>` → `<part>/tests/{Unit,Feature}`; a module never imports another module. Parts may boot on the core app (`Tests\TestCase`, `User`, `Team`).
-- Every part with tests has a `phpunit.xml` testsuite named after its directory.
+- Every part with tests has a `phpunit.xml` testsuite pointing at its `tests` directory.
 
-The deployed `validate-pr-php.yml` runs `tomgrv/actions/list-php-parts` to build a matrix and runs one `run-php-tests` job per affected part (a core/shared change — `app/`, `config/`, `composer.*`, `phpunit.xml`, … — runs everything). Locally, `composer test-changed` does the same, and `php-test-layout` reports tests that break the placement rules.
+The deployed `validate-pr-php.yml` runs `tomgrv/actions/list-php-parts` to build a matrix and runs one `run-php-tests` job per affected part (`paths: <part>/tests`) (a core/shared change — `app/`, `config/`, `composer.*`, `phpunit.xml`, … — runs everything). Locally, `composer test-changed` does the same, and `php-test-layout` reports tests that break the placement rules.
 
 ## Contributing
 
