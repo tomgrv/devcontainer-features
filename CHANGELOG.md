@@ -1,5 +1,30 @@
 # Changelog
 
+## 8.24.0 (2026-10-02)
+
+*Commits from: v8.23.0..HEAD*
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v8.23.0' into develop ([9965aea](https://github.com/tomgrv/devcontainer-features/commit/9965aea2df672fb2fc329fd2d074c04c0f6e7020))
+### 📦 devcontainer-features-githooks changes
+
+#### Bug Fixes
+
+- 🐛 simplify lint-staged configuration ([0399ba3](https://github.com/tomgrv/devcontainer-features/commit/0399ba3bef2819dd8924c15071aa431b0d42aaef))
+
+### 📦 devcontainer-features-larasets changes
+
+#### Bug Fixes
+
+- 🐛  update secret validation and action usage in workflows ([23ef234](https://github.com/tomgrv/devcontainer-features/commit/23ef23484ef5ec072ad55e5a01082260440db16e))
+
+#### Features
+
+- ⬆️ Upgrade PHP to 8.4 (#200) ([eae18f8](https://github.com/tomgrv/devcontainer-features/commit/eae18f8088dbd3e0086f8b925b13465aeab31590))
+
 ## 8.23.0 (2026-09-30)
 
 *Commits from: v8.22.1..HEAD*
@@ -2335,5 +2360,6 @@ _Commits from: v5.25.0..HEAD_
 - add features ([4b26d9d](https://github.com/tomgrv/devcontainer-features/commit/4b26d9d876caffb15078a6baaabf76d1a2707e6f))
 
 
+
 ---
-*Generated on 2026-09-30 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)*
+*Generated on 2026-10-02 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)*
