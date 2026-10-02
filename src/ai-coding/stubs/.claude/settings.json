@@ -7,10 +7,7 @@
         "sessionUrl": false
     },
     "permissions": {
-        "allow": [
-            "Bash(git push:*)",
-            "Bash(git tag:*)"
-        ],
+        "allow": ["Bash(git push:*)", "Bash(git tag:*)"],
         "deny": [
             "ScheduleWakeup",
             "mcp__claude-code-remote__send_later",
@@ -35,5 +32,8 @@
     },
     "outputStyle": "Caveman",
     "enableWorkflows": true,
-    "includeCoAuthoredBy": false
+    "includeCoAuthoredBy": false,
+    "enabledPlugins": {
+        "superpowers@claude-plugins-official": true
+    }
 }
