@@ -36,11 +36,10 @@ jobs:
 
       - name: Apply PHPStan fixes
         id: fix-phpstan
-        uses: ./packages/tomgrv/actions/run-phpstan
+        uses: tomgrv/actions/run-phpstan@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           paths: ${{ github.event.inputs.paths }}
-          fix: 'true'
 
       - name: Apply FilaCheck fixes
         id: fix-filacheck
@@ -53,12 +52,11 @@ jobs:
 
       - name: Apply Pint fixes
         id: fix-pint
-        uses: ./packages/tomgrv/actions/run-pint
+        uses: tomgrv/actions/run-pint@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           paths: ${{ github.event.inputs.paths }}
           blade: 'true'
-          fix: 'true'
 
       - name: Create or update PR
         id: create-pr
