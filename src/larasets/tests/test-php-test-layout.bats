@@ -1,6 +1,6 @@
 #!/usr/bin/env bats
 # Covers bin/php-test-layout.sh: tests are placed by part (core / modules /
-# packages) so php-changed can run only the impacted suites.
+# packages) so php-list-changed can run only the impacted suites.
 
 FEATURE_DIR="$(cd "$(dirname "${BATS_TEST_FILENAME}")/.." && pwd)"
 

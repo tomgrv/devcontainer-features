@@ -2,7 +2,7 @@
 set -e
 
 # Check PHP tests are placed by part (core / modules / packages) so that
-# `php-changed` can run only the suites a change can impact:
+# `php-list-changed` can run only the suites a change can impact:
 #   - core tests (tests/) never import Modules\* or package classes
 #   - module tests never import another module
 #   - tests live in <part>/tests/{Unit,Feature,Browser,Fixtures,Datasets}

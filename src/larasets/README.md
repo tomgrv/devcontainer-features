@@ -118,7 +118,7 @@ The following utilities are added to root composer:
 - `reqdev` - Require a development package with all dependencies.
 - `rmv` - Remove a package with all dependencies ignoring platform requirements.
 - `test` - Run Pest tests.
-- `test-changed` - Run Pest only for the parts changed since the base branch (core / `modules/*` / `packages/*/*`), via `php-changed`.
+- `test-changed` - Run Pest only for the parts changed since the base branch (core / `modules/*` / `packages/*/*`), via `php-list-changed`.
 - `test-coverage` - Run Pest tests with coverage.
 - `pestphp/pest-plugin-browser` (installed as a dev dependency) enables `Livewire::visit(...)` browser tests via Playwright — see [Livewire browser testing](https://livewire.laravel.com/docs/4.x/testing). Playwright's Chromium binary is installed automatically (`configure-sail`, and in CI before `run-php-tests`). Screenshots under `tests/Browser/Screenshots` are gitignored.
 - `upg` - Update dependencies with all dependencies ignoring platform requirements.
