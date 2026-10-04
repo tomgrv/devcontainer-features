@@ -18,6 +18,7 @@
     "sail": "bin/sail.sh",
     "sail-running": "bin/sail-running.sh",
     "secret": "bin/secret.sh",
+    "php-test-layout": "bin/php-test-layout.sh",
     "seed": "bin/seed.sh",
     "serve": "bin/serve.sh",
     "smee": "bin/smee.sh",
@@ -29,7 +30,7 @@
     "configure-sail": "./configure-sail.sh",
     "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then install-feature -s .; fi",
     "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then configure-feature -s . larasets; fi",
-    "test": "echo \"Warning: no test specified\"",
+    "test": "bats tests/",
     "update": "npm-check-updates -i -u",
     "update-all": "npm run update -ws --root"
   },

@@ -71,6 +71,10 @@
             "@pretest",
             "vendor/bin/pest"
         ],
+        "test-changed": [
+            "@pretest",
+            "php-list-changed -f paths | xargs -r vendor/bin/pest"
+        ],
         "test-coverage": [
             "@pretest",
             "vendor/bin/pest --coverage"
