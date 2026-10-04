@@ -8,11 +8,12 @@
 # version across the repo's own workflows.
 
 setup() {
-  WORKFLOWS_DIR="${BATS_TEST_DIRNAME}/../../.github/workflows"
+  # The repo's own workflows plus the stubs deployed to consumer repos.
+  ROOT="${BATS_TEST_DIRNAME}/.."
 }
 
 @test "tomgrv/actions references use a moving major tag, not a specific release or branch" {
-  run grep -rhoE 'tomgrv/actions/[A-Za-z0-9_-]+@[A-Za-z0-9._-]+' "$WORKFLOWS_DIR"
+  run grep -rhoE 'tomgrv/actions/[A-Za-z0-9_-]+@[A-Za-z0-9._-]+' "$ROOT/.github/workflows" "$ROOT"/src/*/stubs/.github/workflows
   [ "$status" -eq 0 ]
 
   offenders=$(echo "$output" | grep -vE '@v[0-9]+$' || true)
@@ -25,7 +26,7 @@ setup() {
 }
 
 @test "actions/checkout is pinned to a single version across all workflows" {
-  run grep -rhoE 'actions/checkout@v[0-9]+' "$WORKFLOWS_DIR"
+  run grep -rhoE 'actions/checkout@v[0-9]+' "$ROOT/.github/workflows" "$ROOT"/src/*/stubs/.github/workflows
   [ "$status" -eq 0 ]
 
   versions=$(echo "$output" | sort -u)
