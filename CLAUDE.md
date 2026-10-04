@@ -49,7 +49,10 @@ src/<feature>/
                                 # files on deploy, one directive per line, paths
                                 # relative to repo root — "RMV <path>" untracks
                                 # from git (kept on disk), "DEL <path>" deletes
-                                # and untracks. Never deployed as a stub itself.
+                                # and untracks, "KEY <json-file> <json-array-path>"
+                                # drops a key merge-json would otherwise keep
+                                # (e.g. KEY package.json ["lint-staged","old"]).
+                                # Never deployed as a stub itself.
   config/                      # optional: data files a script reads at runtime
                                 # (JSON Schemas, alias/config maps, dependency manifests)
                                 # — never deployed to consumers, never merged
