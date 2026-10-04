@@ -118,9 +118,20 @@ The following utilities are added to root composer:
 - `reqdev` - Require a development package with all dependencies.
 - `rmv` - Remove a package with all dependencies ignoring platform requirements.
 - `test` - Run Pest tests.
+- `test-changed` - Run Pest only for the parts changed since the base branch (core / `modules/*` / `packages/*/*`), via `php-list-changed`.
 - `test-coverage` - Run Pest tests with coverage.
 - `pestphp/pest-plugin-browser` (installed as a dev dependency) enables `Livewire::visit(...)` browser tests via Playwright — see [Livewire browser testing](https://livewire.laravel.com/docs/4.x/testing). Playwright's Chromium binary is installed automatically (`configure-sail`, and in CI before `run-php-tests`). Screenshots under `tests/Browser/Screenshots` are gitignored.
 - `upg` - Update dependencies with all dependencies ignoring platform requirements.
+
+## Per-part PHP tests
+
+Tests are placed by part so a PR only runs the suites it can impact:
+
+- `core` → `tests/{Unit,Feature}`; core tests never import `Modules\*` or package classes.
+- `modules/<X>` and `packages/<org>/<pkg>` → `<part>/tests/{Unit,Feature}`; a module never imports another module. Parts may boot on the core app (`Tests\TestCase`, `User`, `Team`).
+- Every part with tests has a `phpunit.xml` testsuite pointing at its `tests` directory.
+
+The deployed `validate-pr-php.yml` runs `tomgrv/actions/list-php-parts` to build a matrix and runs one `run-php-tests` job per affected part (`paths: <part>/tests`) (a core/shared change — `app/`, `config/`, `composer.*`, `phpunit.xml`, … — runs everything). Locally, `composer test-changed` does the same, and `php-test-layout` reports tests that break the placement rules.
 
 ## Contributing
 
