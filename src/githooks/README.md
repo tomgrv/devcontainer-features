@@ -81,6 +81,16 @@ The following hooks are provided:
 - `post-checkout` - Executes `git update` to synchronize the current branch with the latest changes from the remote repository, keeping the local branch up-to-date.
 - `pre-push` - Runs `validate-branch-name` to ensure that the branch name adheres to the project's naming conventions before pushing changes to the remote repository.
 
+## CI Workflows
+
+Consumer repos get these deployed workflows under `.github/workflows/`. Each has a job timeout and a `concurrency` group: PR checks cancel superseded runs, scheduled jobs queue.
+
+- `validate-pr-format.yml` — checks the PR title (commitlint + devmoji) and the PR source branch.
+- `validate-pr-secret.yml` — scans the PR for secrets with gitleaks on open, reopen and every push; skipped when `GITLEAKS_LICENSE` is not set.
+- `update-labels.yml` — weekly sync of `.github/labels.json` to the repository labels (needs only `issues: write`).
+- `clean-branches.yml` — weekly deletion of branches whose pull request is closed.
+- `configure-github.yml` — weekly restriction of `main` to the GitHub Actions bot.
+
 ## Customizations
 
 The feature also includes the following VS Code customizations:
