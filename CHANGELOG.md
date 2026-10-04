@@ -1,5 +1,20 @@
 # Changelog
 
+## 8.25.0 (2026-10-04)
+
+*Commits from: v8.24.0..HEAD*
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v8.24.0' into develop ([544b7fc](https://github.com/tomgrv/devcontainer-features/commit/544b7fcea1cdfd79360a82b3e2993ee507fcb78f))
+### 📦 devcontainer-features-larasets changes
+
+#### Features
+
+- ✨ run PHP tests per changed part (core/modules/packages) (#201) ([793ff6d](https://github.com/tomgrv/devcontainer-features/commit/793ff6d08e6d96dfba9ffd422562a40a7fd86f40))
+
 ## 8.24.0 (2026-10-02)
 
 *Commits from: v8.23.0..HEAD*
@@ -2361,5 +2376,6 @@ _Commits from: v5.25.0..HEAD_
 
 
 
+
 ---
-*Generated on 2026-10-02 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)*
+*Generated on 2026-10-04 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)*
