@@ -5,15 +5,24 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'src/**'
+      - package.json
+      - .github/workflows/publish-features.yml
   workflow_dispatch:
 
 permissions:
   id-token: write # Required for OIDC
   contents: read
 
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
 jobs:
   publish-devcontainer:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     permissions:
       contents: write
       pull-requests: write
@@ -31,6 +40,7 @@ jobs:
 
   detect-npm-packages:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     permissions:
       contents: read
     outputs:
@@ -49,6 +59,7 @@ jobs:
     needs: detect-npm-packages
     if: ${{ needs.detect-npm-packages.outputs.matrix != '[]' }}
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     strategy:
       matrix:
         package: ${{ fromJson(needs.detect-npm-packages.outputs.matrix) }}
