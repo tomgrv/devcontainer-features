@@ -12,6 +12,13 @@
             "args": [
                 ".mcp/server.js"
             ]
+        },
+        "memory": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-memory"
+            ]
         }
     }
 }
