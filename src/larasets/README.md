@@ -76,7 +76,7 @@ The feature also includes the following VS Code customizations:
 - Deployed `.vscode/` stubs:
     - `tasks.json`: `🚀 Start` (env-aware full dev environment, started sequentially: optimize, serve, logs, schedule, smee), Optimize, Refresh, Install, IDE Helper, and the save-triggered `art-cache-*` tasks.
     - `launch.json`: `Listen for XDebug` launch configuration (port 9003).
-    - `mcp.json`: `laravel-boost` MCP server.
+    - `mcp.json`: `laravel-boost` MCP server (also deployed as root `.mcp.json` for Claude Code).
     - `settings.json`: Doppler autocomplete/hover defaults and `triggerTaskOnSave` cache refresh.
 
 - Save-triggered cache refresh (`triggerTaskOnSave.tasks`, via `gruntfuggly.triggertaskonsave`):

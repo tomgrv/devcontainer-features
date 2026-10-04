@@ -1,0 +1,10 @@
+{
+    "mcpServers": {
+        "laravel-boost": {
+            "command": "art",
+            "args": [
+                "boost:mcp"
+            ]
+        }
+    }
+}

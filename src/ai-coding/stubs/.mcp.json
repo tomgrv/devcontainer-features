@@ -6,12 +6,6 @@
                 "-y",
                 "@upstash/context7-mcp@latest"
             ]
-        },
-        "devcontainer-features": {
-            "command": "node",
-            "args": [
-                ".mcp/server.js"
-            ]
         }
     }
 }
