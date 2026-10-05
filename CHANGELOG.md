@@ -1,5 +1,32 @@
 # Changelog
 
+## 8.26.0 (2026-10-05)
+
+*Commits from: v8.25.0..HEAD*
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v8.25.0' into develop ([ec054eb](https://github.com/tomgrv/devcontainer-features/commit/ec054ebada124afe7c2b8061be053cd5566f0532))
+### 📦 devcontainer-features-ai-coding changes
+
+#### Features
+
+- ✨ add context7 and laravel-boost MCP server stubs (#202) ([f24d92f](https://github.com/tomgrv/devcontainer-features/commit/f24d92f9034b7a88c330439283143cd6316294cd))
+
+### 📦 devcontainer-features-common-utils changes
+
+#### Other changes
+
+- 👷 optimise workflows and replicate through stubs (#203) ([b1f9758](https://github.com/tomgrv/devcontainer-features/commit/b1f9758870f843befda71da5a439d39df87e3cab))
+
+### 📦 devcontainer-features-gitutils changes
+
+#### Features
+
+- ✨ grant pull-requests write for release PR comments (#204) ([7a56933](https://github.com/tomgrv/devcontainer-features/commit/7a569331936964e5f89bf8b39ac1ab0ea50fbcd0))
+
 ## 8.25.0 (2026-10-04)
 
 *Commits from: v8.24.0..HEAD*
@@ -2377,5 +2404,6 @@ _Commits from: v5.25.0..HEAD_
 
 
 
+
 ---
-*Generated on 2026-10-04 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)*
+*Generated on 2026-10-05 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)*
