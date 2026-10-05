@@ -2,3 +2,5 @@ DEL .github/workflows/merge-monorepo.yml
 DEL .github/workflows/split-monorepo.yml
 DEL .github/workflows/rebase-pr.yml
 DEL .github/workflows/release-main.yml
+# Fix the target repository expression that older copies carry (missing `$`).
+KEY .github/workflows/manage-monorepo-merge.yml ["jobs","degit-packages","steps",{"name":"Create or update pull request"},"with","repository"]

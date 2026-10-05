@@ -70,6 +70,15 @@ A default configuration is provided for each utility, but you can override it by
 
 Unlike the other utilities, `validate-branch-name`'s `package.json` config is not static: `configure-validate-branch-name.sh` (run automatically by `configure-feature githooks`) generates it from the git-flow branch/prefix scheme set up by the `gitutils` feature (`gitflow.branch.master`, `gitflow.branch.develop`, `gitflow.prefix.feature`, `.bugfix`, `.release`, `.hotfix`, `.support`), plus a `main`/`develop`/`feature`/`bugfix`/`release`/`hotfix`/`support` fallback when git-flow isn't configured. AI coding agent branch prefixes (`copilot/`, `claude/`) are always allowed too, overridable via the `GITHOOKS_EXTRA_BRANCH_PREFIXES` environment variable (comma-separated). Re-run `configure-feature githooks` after changing the git-flow config to regenerate the pattern.
 
+### lint-staged
+
+The default `lint-staged` config formats JSON with `normalize-json` and everything else with prettier. Lockfiles are excluded from both globs (`!(*schema|package-lock).json` and a prettier glob that skips `package-lock`), because npm owns their formatting and the hook regenerates them whenever a `package.json` is staged. Earlier versions of this stub matched them, which rewrote the whole lockfile on any `package.json` commit.
+
+`configure-feature githooks` merges this config into your `package.json`, and a JSON merge only adds keys. The two superseded globs are therefore removed by `KEY` lines in this feature's `.clean`, which needs a `configure-feature` from a [`tomgrv/scripts`](https://github.com/tomgrv/scripts) release that knows that directive; an older one prints `Unknown .clean directive` and skips the line. If that happens, delete these two keys from `lint-staged` in your `package.json` by hand:
+
+- `!(*schema).json`
+- `!(templates/**/*|.agents/**).{js,jsx,ts,tsx,md,html,css,vue,yaml,yml,json}`
+
 ## Hooks
 
 The following hooks are provided:
@@ -80,6 +89,16 @@ The following hooks are provided:
 - `post-merge` - Handles changes in `package.json` and `composer.json` after a merge, ensuring that dependencies are correctly updated and any necessary post-merge tasks are performed.
 - `post-checkout` - Executes `git update` to synchronize the current branch with the latest changes from the remote repository, keeping the local branch up-to-date.
 - `pre-push` - Runs `validate-branch-name` to ensure that the branch name adheres to the project's naming conventions before pushing changes to the remote repository.
+
+## CI Workflows
+
+Consumer repos get these deployed workflows under `.github/workflows/`. Each has a job timeout and a `concurrency` group: PR checks cancel superseded runs, scheduled jobs queue.
+
+- `validate-pr-format.yml` — checks the PR title (commitlint + devmoji) and the PR source branch.
+- `validate-pr-secret.yml` — scans the PR for secrets with gitleaks on open, reopen and every push; skipped when `GITLEAKS_LICENSE` is not set.
+- `update-labels.yml` — weekly sync of `.github/labels.json` to the repository labels (needs only `issues: write`).
+- `clean-branches.yml` — weekly deletion of branches whose pull request is closed.
+- `configure-github.yml` — weekly restriction of `main` to the GitHub Actions bot.
 
 ## Customizations
 

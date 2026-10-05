@@ -49,7 +49,14 @@ src/<feature>/
                                 # files on deploy, one directive per line, paths
                                 # relative to repo root — "RMV <path>" untracks
                                 # from git (kept on disk), "DEL <path>" deletes
-                                # and untracks. Never deployed as a stub itself.
+                                # and untracks, "KEY <json-or-yaml-file> <json-array-path>"
+                                # drops a key before the merge, so merge-json/merge-yaml
+                                # (which keep the consumer's existing value) write the
+                                # stub's current one, e.g.
+                                # KEY package.json ["lint-staged","old"] or
+                                # KEY .github/workflows/x.yml ["jobs","a","if"]; a path step
+                                # may be {"name":"..."} to select a list item.
+                                # Never deployed as a stub itself.
   config/                      # optional: data files a script reads at runtime
                                 # (JSON Schemas, alias/config maps, dependency manifests)
                                 # — never deployed to consumers, never merged

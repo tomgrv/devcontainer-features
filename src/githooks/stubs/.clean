@@ -1,2 +1,5 @@
 DEL .github/workflows/merge-dependabot.yml
 DEL .github/workflows/validate-pr-source.yml
+# lint-staged keys replaced by lockfile-aware ones in _lint-staged.package.json
+KEY package.json ["lint-staged","!(*schema).json"]
+KEY package.json ["lint-staged","!(templates/**/*|.agents/**).{js,jsx,ts,tsx,md,html,css,vue,yaml,yml,json}"]
