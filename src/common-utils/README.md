@@ -112,9 +112,11 @@ Consumer repos get these deployed workflows under `.github/workflows/`:
       `*.bats` files.
       It runs on every push and pull request except markdown-only changes, and
       a newer run on the same ref cancels the one still in progress.
-- `update-features.yml` — weekly (and on demand) runs
-  `npm exec -- tomgrv/devcontainer-features update -a` and opens a pull request
-  when the installed features changed. Runs are queued, never overlapped.
+- `update-features.yml` — deployed with the repository's root `stubs/` by
+  `npx tomgrv/devcontainer-features -- init`, not by this feature. Weekly (and
+  on demand) it runs `npm exec -- tomgrv/devcontainer-features update -a` and
+  opens a pull request when the installed features changed. Runs are queued,
+  never overlapped.
 
 ## Install internals
 
