@@ -75,7 +75,7 @@ The feature also includes the following VS Code customizations:
 
 ## PR Checks (CI)
 
-Consumer repos get one deployed workflow under `.github/workflows/`:
+Consumer repos get these deployed workflows under `.github/workflows/`:
 
 - `validate-pr-lock.yml` — validates `package.json`/`package-lock.json` and
   `composer.json`/`composer.lock` coherence via
@@ -110,6 +110,13 @@ Consumer repos get one deployed workflow under `.github/workflows/`:
       that guard a convention across the whole repo rather than one workspace —
       see `tests/README.md`), silently skipped when `tests/` has no
       `*.bats` files.
+      It runs on every push and pull request except markdown-only changes, and
+      a newer run on the same ref cancels the one still in progress.
+- `update-features.yml` — deployed with the repository's root `stubs/` by
+  `npx tomgrv/devcontainer-features -- init`, not by this feature. Weekly (and
+  on demand) it runs `npm exec -- tomgrv/devcontainer-features update -a` and
+  opens a pull request when the installed features changed. Runs are queued,
+  never overlapped.
 
 ## Install internals
 

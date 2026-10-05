@@ -1,6 +1,6 @@
 {
   "name": "@tomgrv/devcontainer-features",
-  "version": "8.25.0",
+  "version": "8.26.0",
   "description": "Configure dev environment with devcontainer, gitflow, gitversion, git aliases & hooks. Can be used a devcontainer features",
   "keywords": [
     "dev",
@@ -198,10 +198,10 @@
     ]
   },
   "lint-staged": {
-    "!(*schema).json": [
+    "!(*schema|package-lock).json": [
       "normalize-json -c -w -a -i -t 4 -f local -l true"
     ],
-    "!(templates/**/*|.agents/**).{js,jsx,ts,tsx,md,html,css,vue,yaml,yml,json}": [
+    "!(templates/**/*|.agents/**|**/package-lock|package-lock).{js,jsx,ts,tsx,md,html,css,vue,yaml,yml,json}": [
       "npx --yes prettier --write"
     ],
     "*.php": [
