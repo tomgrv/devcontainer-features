@@ -1,5 +1,20 @@
 # Changelog
 
+## 8.27.0 (2026-10-06)
+
+*Commits from: v8.26.0..HEAD*
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v8.26.0' into develop ([60ce11c](https://github.com/tomgrv/devcontainer-features/commit/60ce11c694ad6b548dc76897294c1b20db35ad18))
+### 📦 devcontainer-features-gitutils changes
+
+#### Bug Fixes
+
+- 🐛 run publish and split workflows after each release (#205) ([ed9e51c](https://github.com/tomgrv/devcontainer-features/commit/ed9e51c0e34857cc944a4e8ad09901dd84e109b5))
+
 ## 8.26.0 (2026-10-05)
 
 *Commits from: v8.25.0..HEAD*
@@ -2405,5 +2420,6 @@ _Commits from: v5.25.0..HEAD_
 
 
 
+
 ---
-*Generated on 2026-10-05 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)*
+*Generated on 2026-10-06 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)*
