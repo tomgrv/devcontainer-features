@@ -25,9 +25,30 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # Secrets cannot be tested in a job-level `if`, so expose their presence as an output.
+  check-app:
+    name: Check split app
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      configured: ${{ steps.check.outputs.configured }}
+    steps:
+      - name: Check KLICKSPLIT_CLIENT_ID
+        id: check
+        env:
+          CLIENT_ID: ${{ secrets.KLICKSPLIT_CLIENT_ID }}
+        run: |
+          if [ -n "$CLIENT_ID" ]; then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::KLICKSPLIT_CLIENT_ID is not set, skipping the split."
+          fi
+
   list-packages:
     name: List packages
-    if: ${{ github.ref_type != 'tag' && (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success') }}
+    needs: check-app
+    if: ${{ needs.check-app.outputs.configured == 'true' && github.ref_type != 'tag' && (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success') }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     outputs:
