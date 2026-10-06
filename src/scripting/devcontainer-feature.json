@@ -5,7 +5,7 @@
     "ghcr.io/tomgrv/devcontainer-features/common-utils:8": {}
   },
   "name": "Scripting bootstrap (setup.sh)",
-  "version": "8.21.0",
+  "version": "8.28.0",
   "postStartCommand": {
     "config": "configure-feature scripting"
   }

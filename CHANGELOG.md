@@ -1,5 +1,20 @@
 # Changelog
 
+## 8.28.0 (2026-10-06)
+
+*Commits from: v8.27.0..HEAD*
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v8.27.0' into develop ([7a9e01f](https://github.com/tomgrv/devcontainer-features/commit/7a9e01fd68827b7d00f081cda51227921672ac0d))
+### 📦 devcontainer-features-gitutils changes
+
+#### Bug Fixes
+
+- 🐛 fix publish OIDC, split guard and package repository (#207) ([63f57e0](https://github.com/tomgrv/devcontainer-features/commit/63f57e0fdad283d7e9109f18e6e0cdd30ceecdea))
+
 ## 8.27.0 (2026-10-06)
 
 *Commits from: v8.26.0..HEAD*
@@ -2415,6 +2430,7 @@ _Commits from: v5.25.0..HEAD_
 
 - ✨ add githook ([ab4c1fc](https://github.com/tomgrv/devcontainer-features/commit/ab4c1fc5eb4f712ed2009baf9a3cadb11097c7b5))
 - add features ([4b26d9d](https://github.com/tomgrv/devcontainer-features/commit/4b26d9d876caffb15078a6baaabf76d1a2707e6f))
+
 
 
 
