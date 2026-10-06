@@ -17,5 +17,10 @@
     "@tomgrv/devcontainer-features-common-utils": {
       "optional": true
     }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tomgrv/devcontainer-features.git",
+    "directory": "src/scripting"
   }
 }

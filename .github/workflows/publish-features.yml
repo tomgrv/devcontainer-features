@@ -73,6 +73,9 @@ jobs:
     if: ${{ needs.detect-npm-packages.outputs.matrix != '[]' }}
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    permissions:
+      contents: read
+      id-token: write # Required for npm trusted publishing (OIDC)
     strategy:
       matrix:
         package: ${{ fromJson(needs.detect-npm-packages.outputs.matrix) }}
