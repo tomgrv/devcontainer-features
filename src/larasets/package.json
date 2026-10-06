@@ -1,6 +1,6 @@
 {
   "name": "@tomgrv/devcontainer-features-larasets",
-  "version": "8.26.0",
+  "version": "8.28.0",
   "description": "Laravel development settings and utilities",
   "files": [
     "bin/*.sh",

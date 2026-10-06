@@ -1,7 +1,7 @@
 {
   "name": "@tomgrv/devcontainer-features-scripting",
   "description": "Ensures a standard root setup.sh (zz_use bootstrap) is present and kept up to date",
-  "version": "8.21.0",
+  "version": "8.28.0",
   "files": [
     "configure-*.sh",
     "install.sh",
