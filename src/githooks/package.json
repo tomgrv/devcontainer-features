@@ -43,5 +43,10 @@
     "@tomgrv/devcontainer-features-gitutils": {
       "optional": true
     }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tomgrv/devcontainer-features.git",
+    "directory": "src/githooks"
   }
 }
