@@ -4,3 +4,5 @@ DEL .github/workflows/rebase-pr.yml
 DEL .github/workflows/release-main.yml
 # Fix the target repository expression that older copies carry (missing `$`).
 KEY .github/workflows/manage-monorepo-merge.yml ["jobs","degit-packages","steps",{"name":"Create or update pull request"},"with","repository"]
+# 8.26 consumers already carry the older job-level `if`; drop it so the merge writes the one that also handles workflow_run.
+KEY .github/workflows/manage-monorepo-split.yml ["jobs","list-packages","if"]
