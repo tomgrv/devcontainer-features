@@ -52,6 +52,7 @@ jobs:
 
   split-packages:
     name: Split packages
+    if: ${{ needs.list-packages.outputs.packages != '[]' }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
     needs: list-packages

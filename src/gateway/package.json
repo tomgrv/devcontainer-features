@@ -1,6 +1,6 @@
 {
   "name": "@tomgrv/devcontainer-features-gateway",
-  "version": "8.23.0",
+  "version": "8.28.0",
   "description": "SSL Inspection Gateway handling",
   "files": [
     "bin/*.sh",
@@ -26,5 +26,10 @@
     "@tomgrv/devcontainer-features-common-utils": {
       "optional": true
     }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tomgrv/devcontainer-features.git",
+    "directory": "src/gateway"
   }
 }

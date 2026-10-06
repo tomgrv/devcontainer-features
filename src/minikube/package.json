@@ -1,6 +1,6 @@
 {
   "name": "@tomgrv/devcontainer-features-minikube",
-  "version": "8.21.0",
+  "version": "8.28.0",
   "description": "Minikube scripts",
   "files": [
     "bin/*.sh",
@@ -19,5 +19,10 @@
     "@tomgrv/devcontainer-features-common-utils": {
       "optional": true
     }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tomgrv/devcontainer-features.git",
+    "directory": "src/minikube"
   }
 }

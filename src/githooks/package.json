@@ -1,6 +1,6 @@
 {
   "name": "@tomgrv/devcontainer-features-githooks",
-  "version": "8.26.0",
+  "version": "8.28.0",
   "description": "Git hooks and linting configuration for development workflow",
   "files": [
     "bin/*.sh",
@@ -43,5 +43,10 @@
     "@tomgrv/devcontainer-features-gitutils": {
       "optional": true
     }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tomgrv/devcontainer-features.git",
+    "directory": "src/githooks"
   }
 }
