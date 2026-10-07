@@ -1,5 +1,20 @@
 # Changelog
 
+## 9.1.0 (2026-10-07)
+
+*Commits from: v9.0.0..HEAD*
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v9.0.0' into develop ([c1b0f90](https://github.com/tomgrv/devcontainer-features/commit/c1b0f90d486aeb3cf8c48c9c6081c82dfe991d48))
+### 📦 devcontainer-features-common-utils changes
+
+#### Other changes
+
+- 📝 add UPGRADING guide (#212) ([b6476d1](https://github.com/tomgrv/devcontainer-features/commit/b6476d1034e7887b703699d436d09f981c4b8826))
+
 ## 9.0.0 (2026-10-07)
 
 *Commits from: v8.29.0..HEAD*
@@ -2462,6 +2477,7 @@ _Commits from: v5.25.0..HEAD_
 
 - ✨ add githook ([ab4c1fc](https://github.com/tomgrv/devcontainer-features/commit/ab4c1fc5eb4f712ed2009baf9a3cadb11097c7b5))
 - add features ([4b26d9d](https://github.com/tomgrv/devcontainer-features/commit/4b26d9d876caffb15078a6baaabf76d1a2707e6f))
+
 
 
 
