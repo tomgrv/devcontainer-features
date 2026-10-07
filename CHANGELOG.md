@@ -1,5 +1,24 @@
 # Changelog
 
+## 8.29.0 (2026-10-07)
+
+*Commits from: v8.28.0..HEAD*
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v8.28.0' into develop ([15da554](https://github.com/tomgrv/devcontainer-features/commit/15da554c58464f253880a88d05e3bab8bd40af93))
+### 📦 devcontainer-features-gitutils changes
+
+#### Bug Fixes
+
+- 🐛 skip split steps when KLICKSPLIT_CLIENT_ID is unset (#208) ([0e5e1ab](https://github.com/tomgrv/devcontainer-features/commit/0e5e1ab213b3a484c0d14f3fb7fb0609a286ddf7))
+
+#### Features
+
+- ✨ add git fix orphans and manage-orphan-branches workflow stub (#210) ([b1f2a47](https://github.com/tomgrv/devcontainer-features/commit/b1f2a472c23db5de2af2ab08aaeffecede96d0a2))
+
 ## 8.28.0 (2026-10-06)
 
 *Commits from: v8.27.0..HEAD*
@@ -2437,5 +2456,6 @@ _Commits from: v5.25.0..HEAD_
 
 
 
+
 ---
-*Generated on 2026-10-06 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)*
+*Generated on 2026-10-07 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)*
