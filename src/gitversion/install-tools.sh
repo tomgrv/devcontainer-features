@@ -1,16 +1,16 @@
 #!/bin/sh
 
 eval $(
-    zz_context "$@"
+    zz-context "$@"
 )
 
 
 ### Install GitVersion
-zz_log i "Install Gitversion..."
+zz-log i "Install Gitversion..."
 #dotnet tool install GitVersion.Tool --version ${VERSION:-5.*} --tool-path /usr/local/bin
 
 ### Create Docker GitVersion wrapper
-zz_log i "Create Docker Gitversion wrapper..."
+zz-log i "Create Docker Gitversion wrapper..."
 (
     echo "#!/bin/sh"
     echo "cd \"\$(git rev-parse --show-toplevel)\" && \\"
@@ -18,5 +18,5 @@ zz_log i "Create Docker Gitversion wrapper..."
 ) > /usr/local/bin/docker-gitversion && chmod ugo+x /usr/local/bin/docker-gitversion
 
 
-zz_log i "Define Gitversion link..."
+zz-log i "Define Gitversion link..."
 ln -sf /usr/local/bin/docker-gitversion /usr/local/bin/gitversion

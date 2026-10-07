@@ -40,8 +40,8 @@ npm install --save-dev @tomgrv/devcontainer-features-githooks
 Hooks are wired up via [Husky](https://typicode.github.io/husky/how-to.html) rather than a raw `core.hooksPath .git/hooks` symlink setup. Installing husky and installing the hook commands it calls are one step, `.husky/install.sh` (deployed from `stubs/`), so hooks work wherever the repo is used:
 
 - `.husky/install.sh` - idempotent, never fails its caller:
-    - bootstraps `zz_use` from [`tomgrv/scripts`](https://github.com/tomgrv/scripts) when missing (`ZZ_SCRIPTS_SETUP_URL` overrides the `setup.sh` URL);
-    - installs the `git-hook-*` commands onto `PATH` via `zz_use`, and `@tomgrv/devcontainer-features-common-utils` globally when `normalize-json` (used by the lint-staged config) is missing;
+    - bootstraps `zz-use` from [`tomgrv/scripts`](https://github.com/tomgrv/scripts) when missing (`ZZ_SCRIPTS_SETUP_URL` overrides the `setup.sh` URL);
+    - installs the `git-hook-*` commands onto `PATH` via `zz-use`, and `@tomgrv/devcontainer-features-common-utils` globally when `json-normalize` (used by the lint-staged config) is missing;
     - runs `husky` (local, else `npx --yes husky`) unless `core.hooksPath` is already `.husky/_`;
     - when `CLAUDE_ENV_FILE` is set, persists the bin dirs on `PATH` for the rest of the Claude Code session;
     - `HUSKY=0` skips it entirely.
@@ -49,12 +49,12 @@ Hooks are wired up via [Husky](https://typicode.github.io/husky/how-to.html) rat
     - **npm** - the `package.json` `"prepare": "sh .husky/install.sh || ..."` script, so a plain `npm install` on any machine installs working hooks. (An existing `prepare` script in a consumer `package.json` is kept as-is by the JSON merge; replace it by hand to opt in.)
     - **devcontainer** - `configure-husky.sh` (run by `configure-feature githooks` on `postCreate`).
     - **Claude Code** - a `SessionStart` hook merged into `.claude/settings.json` (`stubs/.claude/_githooks.settings.json`), since claude.ai/code web/cloud sessions clone the repo directly and run neither `npm install` nor `postCreate`.
-- `configure-hooks.sh` generates one thin executable wrapper per hook under `.husky/` (`pre-commit`, `prepare-commit-msg`, `commit-msg`, `post-checkout`, `post-merge`, `pre-push`). Each wrapper calls the corresponding `git-hook-<name>` command (no internal hyphens, e.g. `pre-commit` -> `git-hook-precommit`), passing all arguments through, and falls back to sourcing `.husky/install.sh` if `zz_use` isn't on `PATH`:
+- `configure-hooks.sh` generates one thin executable wrapper per hook under `.husky/` (`pre-commit`, `prepare-commit-msg`, `commit-msg`, `post-checkout`, `post-merge`, `pre-push`). Each wrapper calls the corresponding `git-hook-<name>` command (no internal hyphens, e.g. `pre-commit` -> `git-hook-precommit`), passing all arguments through, and falls back to sourcing `.husky/install.sh` if `zz-use` isn't on `PATH`:
 
     ```sh
     #!/bin/sh
-    command -v zz_use > /dev/null 2>&1 || . "$(dirname "$0")/install.sh"
-    zz_use -x git-hook-precommit "$@"
+    command -v zz-use > /dev/null 2>&1 || . "$(dirname "$0")/install.sh"
+    zz-use -x git-hook-precommit "$@"
     ```
 
 - Husky's own init sets `core.hooksPath .husky/_` - this feature doesn't touch `git config` directly.
@@ -72,7 +72,7 @@ Unlike the other utilities, `validate-branch-name`'s `package.json` config is no
 
 ### lint-staged
 
-The default `lint-staged` config formats JSON with `normalize-json` and everything else with prettier. Lockfiles are excluded from both globs (`!(*schema|package-lock).json` and a prettier glob that skips `package-lock`), because npm owns their formatting and the hook regenerates them whenever a `package.json` is staged. Earlier versions of this stub matched them, which rewrote the whole lockfile on any `package.json` commit.
+The default `lint-staged` config formats JSON with `json-normalize` and everything else with prettier. Lockfiles are excluded from both globs (`!(*schema|package-lock).json` and a prettier glob that skips `package-lock`), because npm owns their formatting and the hook regenerates them whenever a `package.json` is staged. Earlier versions of this stub matched them, which rewrote the whole lockfile on any `package.json` commit.
 
 `configure-feature githooks` merges this config into your `package.json`, and a JSON merge only adds keys. The two superseded globs are therefore removed by `KEY` lines in this feature's `.clean`, which needs a `configure-feature` from a [`tomgrv/scripts`](https://github.com/tomgrv/scripts) release that knows that directive; an older one prints `Unknown .clean directive` and skips the line. If that happens, delete these two keys from `lint-staged` in your `package.json` by hand:
 

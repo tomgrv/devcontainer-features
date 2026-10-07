@@ -7,10 +7,10 @@ cd "$repo_root" || exit 0
 # .gitattributes declares "*.json merge=json" and "*.yaml/*.yml merge=yaml",
 # but a merge driver name is only meaningful once registered under
 # merge.<name>.driver in git config — without this, git silently falls
-# back to its default 3-way text merge on conflicts. merge-json/merge-yaml
+# back to its default 3-way text merge on conflicts. json-merge/yaml-merge
 # take (target, source) rather than the driver's usual (base, ours,
 # theirs): %A already holds "ours", so the tool reads it as the target,
 # merges %B ("theirs") into it in place, and its exit status reports
 # success/failure directly to git.
-git config merge.json.driver 'merge-json %A %B' && zz_log s "Registered merge.json.driver" || zz_log e "Failed to register merge.json.driver"
-git config merge.yaml.driver 'merge-yaml %A %B' && zz_log s "Registered merge.yaml.driver" || zz_log e "Failed to register merge.yaml.driver"
+git config merge.json.driver 'json-merge %A %B' && zz-log s "Registered merge.json.driver" || zz-log e "Failed to register merge.json.driver"
+git config merge.yaml.driver 'yaml-merge %A %B' && zz-log s "Registered merge.yaml.driver" || zz-log e "Failed to register merge.yaml.driver"

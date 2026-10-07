@@ -6,28 +6,28 @@ cd "$repo_root" || exit 0
 
 
 eval $(
-    zz_context "$@"
+    zz-context "$@"
 )
 
 # Check if jq is installed
 if ! command -v jq >/dev/null 2>&1; then
-    zz_log e "jq is not installed. Please install jq to proceed."
+    zz-log e "jq is not installed. Please install jq to proceed."
     exit 1
 fi
 
-zz_log i "Restoring skills from lockfile..."
+zz-log i "Restoring skills from lockfile..."
 npx --yes skills experimental_install
 
-zz_log i "Get list of installed skills..."
+zz-log i "Get list of installed skills..."
 installed_skills=$(npx --yes skills list --json | jq -r '.[] | .source' | sort -u)
 
-zz_log i "Installing skills in {Purple ${scope:-project}} scope..."
+zz-log i "Installing skills in {Purple ${scope:-project}} scope..."
 
 ### For each entry in config.json file next to this file, create corresponding git config from key and value.
 ### if value is an object, parse it as json and create dotted keys
 if [ -f "$source/config/skills.json" ]; then
     
-    zz_log i "Configuring skills with {U $source/config/skills.json}..."
+    zz-log i "Configuring skills with {U $source/config/skills.json}..."
 
     # get master agent list from skills.json
     master_agents=$(jq -r '.agents // [] | join(",")' "$source/config/skills.json")
@@ -41,7 +41,7 @@ if [ -f "$source/config/skills.json" ]; then
         sub_agents=$(echo "$entry" | cut -d';' -f3)
 
         if echo "$installed_skills" | grep -q "^$package$"; then
-            zz_log i "Skill {B $package} is already installed, skipping..."
+            zz-log i "Skill {B $package} is already installed, skipping..."
             continue
         fi
         
@@ -81,9 +81,9 @@ if [ -f "$source/config/skills.json" ]; then
             agents=$(echo "$master_agents" | tr ',' ' ')
         fi
 
-        zz_log i "Installing skill {B $package} in {Purple ${scope:-project}} scope with agents: {Cyan $agents}..."
+        zz-log i "Installing skill {B $package} in {Purple ${scope:-project}} scope with agents: {Cyan $agents}..."
         npx --yes skills add "$package" ${scope} --yes  --skill '*' --agent $agents
-        zz_log - "Installed skill {B $package} in {Purple ${scope:-project}} scope"
+        zz-log - "Installed skill {B $package} in {Purple ${scope:-project}} scope"
       
     done
 fi
@@ -91,11 +91,11 @@ fi
 # ensure .prettierignore exists in the project root and contains the default .agents entries
 if [ ! -f "$repo_root/.prettierignore" ]; then
     echo ".agents/" > "$repo_root/.prettierignore"
-    zz_log s "Created .prettierignore file in project root with default .agents entry"
+    zz-log s "Created .prettierignore file in project root with default .agents entry"
 else
-    zz_log i "Ensuring .prettierignore file in project root contains default .agents entry..."
+    zz-log i "Ensuring .prettierignore file in project root contains default .agents entry..."
     if ! grep -q "^\.agents/$" "$repo_root/.prettierignore"; then
         echo ".agents/" >> "$repo_root/.prettierignore"
-        zz_log s "Added .agents entry to .prettierignore"
+        zz-log s "Added .agents entry to .prettierignore"
     fi
 fi

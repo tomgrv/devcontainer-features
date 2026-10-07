@@ -5,7 +5,7 @@ set -e
 cd "$(git rev-parse --show-toplevel)" >/dev/null
 
 if [ "$#" -eq 0 ]; then
-    zz_log e "No command provided."
+    zz-log e "No command provided."
     exit 1
 fi
 
@@ -17,21 +17,21 @@ if [ -z "$ZZ_SECRET" ]; then
     if command -v ssh-agent >/dev/null 2>&1; then
         set -- ssh-agent sh -c 'echo "$SSH_PRIVATE_KEY" | ssh-add - 2>/dev/null; exec "$@"' sh "$@"
     else
-        zz_log w "ssh-agent not installed. Skipping SSH key injection."
+        zz-log w "ssh-agent not installed. Skipping SSH key injection."
     fi
 
     if [ -f ./.env ]; then
-        zz_log i "Loading root .env."
+        zz-log i "Loading root .env."
         set -- npx --yes dotenv-cli -e ./.env -- "$@"
     else
-        zz_log w "No root .env found. Skipping dotenv injection."
+        zz-log w "No root .env found. Skipping dotenv injection."
     fi
 
     if command -v doppler >/dev/null 2>&1; then
-        zz_log i "Doppler installed. Injecting secrets."
+        zz-log i "Doppler installed. Injecting secrets."
         set -- doppler run -- "$@"
     else
-        zz_log w "Doppler not installed. Skipping secret injection."
+        zz-log w "Doppler not installed. Skipping secret injection."
     fi
 fi
 

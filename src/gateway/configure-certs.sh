@@ -20,7 +20,7 @@
 # Missing certificates are not an error: the feature stays dormant until the
 # user drops the gateway root CA in place and re-runs 'configure-feature gateway'.
 
-. zz_colors
+. zz-colors
 
 # Escalate only when needed and possible
 asroot=""
@@ -39,28 +39,28 @@ for dir in "${GATEWAY_CERTS_DIR:-}" /usr/local/share/gateway/certs .devcontainer
 done
 
 if [ -z "$certs_dir" ]; then
-    zz_log w "No gateway root CA certificate found (*.pem)"
-    zz_log - "Export your SSL inspection root CA in PEM format to {U .devcontainer/.gateway/certs/gateway.pem}"
-    zz_log - "then run {B configure-feature gateway} again (or rebuild the container)"
+    zz-log w "No gateway root CA certificate found (*.pem)"
+    zz-log - "Export your SSL inspection root CA in PEM format to {U .devcontainer/.gateway/certs/gateway.pem}"
+    zz-log - "then run {B configure-feature gateway} again (or rebuild the container)"
     exit 0
 fi
 
 if ! command -v update-ca-certificates >/dev/null 2>&1; then
-    zz_log w "update-ca-certificates not available on this system"
-    zz_log - "Install the certificates from {U $certs_dir} into your trust store manually"
+    zz-log w "update-ca-certificates not available on this system"
+    zz-log - "Install the certificates from {U $certs_dir} into your trust store manually"
     exit 0
 fi
 
 core="$(dirname "$0")/stubs/.devcontainer/.gateway/install-certs-core.sh"
 if [ ! -f "$core" ]; then
-    zz_log e "Core script not found at {U $core}"
+    zz-log e "Core script not found at {U $core}"
     exit 1
 fi
 
-zz_log i "Installing certificate(s) from {U $certs_dir}..."
+zz-log i "Installing certificate(s) from {U $certs_dir}..."
 if $asroot sh "$core" "$certs_dir"; then
-    zz_log s "Gateway root CA trust store up to date from {U $certs_dir}"
+    zz-log s "Gateway root CA trust store up to date from {U $certs_dir}"
 else
-    zz_log w "Cannot install certificate(s) from {U $certs_dir} (insufficient privileges)"
-    zz_log - "Re-run as root or ensure sudo is available"
+    zz-log w "Cannot install certificate(s) from {U $certs_dir} (insufficient privileges)"
+    zz-log - "Re-run as root or ensure sudo is available"
 fi

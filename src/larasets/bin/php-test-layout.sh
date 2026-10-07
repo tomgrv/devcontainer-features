@@ -59,6 +59,6 @@ for dir in $parts; do
 done
 
 if [ "$errors" -gt 0 ]; then
-    zz_log e "$errors test layout violation(s)" 2>/dev/null || echo "$errors test layout violation(s)" >&2
+    zz-log e "$errors test layout violation(s)" 2>/dev/null || echo "$errors test layout violation(s)" >&2
     exit 1
 fi

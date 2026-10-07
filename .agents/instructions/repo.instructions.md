@@ -44,14 +44,14 @@ find src/common-utils/bin/ -type f -name "*.sh" -exec chmod +x {} \;
 find src/common-utils/bin/ -type f -name "*.sh" | while read file; do
     ln -sf "$file" src/common-utils/bin/$(basename "$file" | sed 's/.sh$//')
 done
-ln -sf src/common-utils/bin/zz_log.sh src/common-utils/bin/zz_logs.sh
+ln -sf src/common-utils/bin/zz-log.sh src/common-utils/bin/zz-logs.sh
 ```
 
 ## Critical Issues & Workarounds
 
 | Issue                          | Cause                                             | Fix                                                                 |
 | ------------------------------ | ------------------------------------------------- | ------------------------------------------------------------------- |
-| `zz_logs.sh: No such file`     | `install.sh` line 9 typo: `zz_logs` vs `zz_log`   | `ln -sf src/common-utils/bin/zz_log.sh src/common-utils/bin/zz_logs.sh` |
+| `zz-logs.sh: No such file`     | `install.sh` line 9 typo: `zz-logs` vs `zz-log`   | `ln -sf src/common-utils/bin/zz-log.sh src/common-utils/bin/zz-logs.sh` |
 | `prettier-plugin-sh not found` | Plugin not installed                              | `npm install prettier-plugin-sh`                                    |
 | `Permission denied` on scripts | Shell scripts not executable                      | `find src/common-utils/bin/ -type f -name "*.sh" -exec chmod +x {} \;` |
 | `No writeable directory found` | Local run outside container                       | Normal — features are designed for devcontainer environments        |

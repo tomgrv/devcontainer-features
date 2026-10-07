@@ -6,7 +6,7 @@ cd "$repo_root" || exit 0
 
 # git-flow itself is installed by install-gitflow.sh at feature install time.
 if ! git flow version >/dev/null 2>&1; then
-    zz_log e "git-flow is not installed. Run the gitutils feature install step first."
+    zz-log e "git-flow is not installed. Run the gitutils feature install step first."
     exit 1
 fi
 
@@ -32,20 +32,20 @@ git config gitflow.branch.develop "$develop_branch"
 # genuinely empty, brand-new repo that needs an orphan initial commit.
 if ! git rev-parse --verify "$master_branch" >/dev/null 2>&1; then
     if git rev-parse --verify "refs/remotes/origin/$master_branch" >/dev/null 2>&1; then
-        zz_log i "Creating master branch '$master_branch' from 'origin/$master_branch'..."
-        git checkout -b "$master_branch" "origin/$master_branch" >/dev/null 2>&1 || zz_log e "Failed to create master branch '$master_branch' from 'origin/$master_branch'."
+        zz-log i "Creating master branch '$master_branch' from 'origin/$master_branch'..."
+        git checkout -b "$master_branch" "origin/$master_branch" >/dev/null 2>&1 || zz-log e "Failed to create master branch '$master_branch' from 'origin/$master_branch'."
     elif git rev-parse --verify HEAD >/dev/null 2>&1; then
-        zz_log i "Creating master branch '$master_branch' from the current (detached) commit..."
-        git checkout -b "$master_branch" >/dev/null 2>&1 || zz_log e "Failed to create master branch '$master_branch' from the current commit."
+        zz-log i "Creating master branch '$master_branch' from the current (detached) commit..."
+        git checkout -b "$master_branch" >/dev/null 2>&1 || zz-log e "Failed to create master branch '$master_branch' from the current commit."
     else
-        zz_log i "Creating master branch '$master_branch'..."
-        git checkout --orphan "$master_branch" >/dev/null 2>&1 || zz_log e "Failed to create master branch '$master_branch'."
-        git commit --allow-empty -m "Initial commit on $master_branch" >/dev/null 2>&1 || zz_log e "Failed to create initial commit on master branch '$master_branch'."
+        zz-log i "Creating master branch '$master_branch'..."
+        git checkout --orphan "$master_branch" >/dev/null 2>&1 || zz-log e "Failed to create master branch '$master_branch'."
+        git commit --allow-empty -m "Initial commit on $master_branch" >/dev/null 2>&1 || zz-log e "Failed to create initial commit on master branch '$master_branch'."
     fi
 fi
 
 if ! git rev-parse --verify "$master_branch" >/dev/null 2>&1; then
-    zz_log e "Master branch '$master_branch' does not exist and could not be created."
+    zz-log e "Master branch '$master_branch' does not exist and could not be created."
     exit 1
 fi
 
@@ -53,16 +53,16 @@ fi
 # out; otherwise create it from the master branch.
 if ! git rev-parse --verify "$develop_branch" >/dev/null 2>&1; then
     if git rev-parse --verify "refs/remotes/origin/$develop_branch" >/dev/null 2>&1; then
-        zz_log i "Creating develop branch '$develop_branch' from 'origin/$develop_branch'..."
-        git checkout -b "$develop_branch" "origin/$develop_branch" >/dev/null 2>&1 || zz_log e "Failed to create develop branch '$develop_branch' from 'origin/$develop_branch'."
+        zz-log i "Creating develop branch '$develop_branch' from 'origin/$develop_branch'..."
+        git checkout -b "$develop_branch" "origin/$develop_branch" >/dev/null 2>&1 || zz-log e "Failed to create develop branch '$develop_branch' from 'origin/$develop_branch'."
     else
-        zz_log i "Creating develop branch '$develop_branch'..."
-        git checkout -b "$develop_branch" "$master_branch" >/dev/null 2>&1 || zz_log e "Failed to create develop branch '$develop_branch'."
+        zz-log i "Creating develop branch '$develop_branch'..."
+        git checkout -b "$develop_branch" "$master_branch" >/dev/null 2>&1 || zz-log e "Failed to create develop branch '$develop_branch'."
     fi
 fi
 
 if ! git rev-parse --verify "$develop_branch" >/dev/null 2>&1; then
-    zz_log e "Develop branch '$develop_branch' does not exist and could not be created."
+    zz-log e "Develop branch '$develop_branch' does not exist and could not be created."
     exit 1
 fi
 
@@ -72,5 +72,5 @@ git stash >/dev/null 2>&1
 git flow init -d -f \
     -p "$feature_prefix" -b "$bugfix_prefix" -r "$release_prefix" \
     -x "$hotfix_prefix" -s "$support_prefix" -t "$versiontag_prefix" \
-    >/dev/null 2>&1 && zz_log s "git-flow initialized successfully." || zz_log e "Failed to initialize git-flow."
+    >/dev/null 2>&1 && zz-log s "git-flow initialized successfully." || zz-log e "Failed to initialize git-flow."
 git stash pop >/dev/null 2>&1

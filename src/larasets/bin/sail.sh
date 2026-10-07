@@ -10,7 +10,7 @@ if [ -f "./sail" ]; then
 elif [ -f "./vendor/bin/sail" ]; then
     sail="./vendor/bin/sail"
 else
-    zz_log e "Laravel Sail not found (no ./sail or ./vendor/bin/sail)"
+    zz-log e "Laravel Sail not found (no ./sail or ./vendor/bin/sail)"
     exit 1
 fi
 

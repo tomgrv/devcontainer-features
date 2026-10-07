@@ -24,7 +24,7 @@ fi
 echo "$_feature" >>"$_tracker"
 
 _stub_count=$(find "$_source/src/$_feature/stubs" \( -type f -o -type l \) 2>/dev/null | wc -l | tr -d ' ')
-zz_log i "Deploying {Purple $_feature} (${_stub_count} stub(s))..."
+zz-log i "Deploying {Purple $_feature} (${_stub_count} stub(s))..."
 
 # Install each dependency first, using install.sh as orchestrator (recursive)
 for _dep in $(sh "$_source/install-deps.sh" "$_source" "$_feature"); do
@@ -44,7 +44,7 @@ else
 fi
 
 # Configure the feature after installation, from wherever "install-feature"
-# copied it to. Check /usr/local/share first, matching zz_context's own
+# copied it to. Check /usr/local/share first, matching zz-context's own
 # target preference (writable /usr/local/share, else /tmp) — otherwise a
 # stale /tmp/<feature> left over from an earlier run (when /usr/local/share
 # wasn't writable) would win over the fresh copy this run just made.

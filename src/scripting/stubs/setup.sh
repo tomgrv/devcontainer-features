@@ -1,5 +1,5 @@
 #!/bin/sh
-# Installs zz_use + the common zz_* bundle, then execs this repo's main
+# Installs zz-use + the common zz-* bundle, then execs this repo's main
 # entrypoint (package.json "main", falling back to a root main.sh, or
 # stopping if neither is found next to this script). See README.md.
 

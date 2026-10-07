@@ -34,7 +34,7 @@ Adds shortcuts to the git command for easier use of git-flow commands.
 
 The utilities themselves live in [`tomgrv/scripts`](https://github.com/tomgrv/scripts#git-utilities)
 (one source of truth, shared with every other `tomgrv`/`perspikapps` repo)
-and are pulled in via `zz_use` at install time — this feature owns the
+and are pulled in via `zz-use` at install time — this feature owns the
 alias/config wiring and the git-flow install/configure lifecycle, not the
 script implementations.
 
@@ -83,13 +83,13 @@ but a driver name is only meaningful once registered in Git config. The
 `configure-mergedrivers.sh` lifecycle script registers both, at repo scope:
 
 ```
-git config merge.json.driver 'merge-json %A %B'
-git config merge.yaml.driver 'merge-yaml %A %B'
+git config merge.json.driver 'json-merge %A %B'
+git config merge.yaml.driver 'yaml-merge %A %B'
 ```
 
 With these registered, `git merge`/`git rebase`/`git cherry-pick` resolve
 conflicts on JSON/YAML files by recursively merging objects and
-deduping/unioning arrays (via [`merge-json`/`merge-yaml`](https://github.com/tomgrv/scripts))
+deduping/unioning arrays (via [`json-merge`/`yaml-merge`](https://github.com/tomgrv/scripts))
 instead of falling back to a line-based 3-way merge.
 
 ## Release Flow (CI)

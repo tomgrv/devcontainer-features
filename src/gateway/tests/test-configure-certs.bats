@@ -9,11 +9,11 @@ setup() {
     ORIG_DIR="$PWD"
     cd "$TEST_DIR"
     mkdir -p "$TEST_DIR/bin"
-    cat >"$TEST_DIR/bin/zz_colors" <<'EOF'
+    cat >"$TEST_DIR/bin/zz-colors" <<'EOF'
 #!/bin/sh
-zz_log() { shift; echo "$@" >&2; }
+zz-log() { shift; echo "$@" >&2; }
 EOF
-    chmod +x "$TEST_DIR/bin/zz_colors"
+    chmod +x "$TEST_DIR/bin/zz-colors"
     export PATH="$TEST_DIR/bin:$PATH"
     unset GATEWAY_CERTS_DIR
 }
