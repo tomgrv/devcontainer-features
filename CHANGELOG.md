@@ -1,5 +1,18 @@
 # Changelog
 
+## 10.0.0 (2026-10-07)
+
+*Commits from: v9.1.0..HEAD*
+
+### 💥 BREAKING CHANGES
+
+- install-feature, configure-feature and resolve-context are replaced by feature-install, feature-configure and feature-context; consumers must move to the new major and to tomgrv/scripts v2 / tomgrv/actions v4. ([d176e0d](https://github.com/tomgrv/devcontainer-features/commit/d176e0d228f90debaa4b76098a3cdacb7a155213))
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v9.1.0' into develop ([2551db5](https://github.com/tomgrv/devcontainer-features/commit/2551db59244b56ec2bc12c78419073acd9cd4417))
+
 ## 9.1.0 (2026-10-07)
 
 *Commits from: v9.0.0..HEAD*
@@ -2477,6 +2490,7 @@ _Commits from: v5.25.0..HEAD_
 
 - ✨ add githook ([ab4c1fc](https://github.com/tomgrv/devcontainer-features/commit/ab4c1fc5eb4f712ed2009baf9a3cadb11097c7b5))
 - add features ([4b26d9d](https://github.com/tomgrv/devcontainer-features/commit/4b26d9d876caffb15078a6baaabf76d1a2707e6f))
+
 
 
 
