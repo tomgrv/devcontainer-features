@@ -9,11 +9,14 @@ setup() {
     ORIG_DIR="$PWD"
     cd "$TEST_DIR"
     mkdir -p "$TEST_DIR/bin"
-    cat >"$TEST_DIR/bin/zz-colors" <<'EOF'
+    printf '#!/bin/sh\n' >"$TEST_DIR/bin/zz-colors"
+    # zz-log is an executable, not a function: POSIX sh names cannot contain "-".
+    cat >"$TEST_DIR/bin/zz-log" <<'EOF'
 #!/bin/sh
-zz-log() { shift; echo "$@" >&2; }
+shift
+echo "$@" >&2
 EOF
-    chmod +x "$TEST_DIR/bin/zz-colors"
+    chmod +x "$TEST_DIR/bin/zz-colors" "$TEST_DIR/bin/zz-log"
     export PATH="$TEST_DIR/bin:$PATH"
     unset GATEWAY_CERTS_DIR
 }

@@ -24,8 +24,8 @@ teardown() {
     [ -L "$TEST_BIN/zz-context" ]
     [ "$(basename "$(readlink -f "$TEST_BIN/zz-context")")" = "resolve-context" ]
 
-    [ -L "$TEST_BIN/zz_dist" ]
-    [ "$(basename "$(readlink -f "$TEST_BIN/zz_dist")")" = "distribute-utils" ]
+    [ -L "$TEST_BIN/zz-dist" ]
+    [ "$(basename "$(readlink -f "$TEST_BIN/zz-dist")")" = "distribute-utils" ]
 
     [ -L "$TEST_BIN/zz-edit" ]
     [ "$(basename "$(readlink -f "$TEST_BIN/zz-edit")")" = "edit-script" ]
