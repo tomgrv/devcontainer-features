@@ -113,6 +113,7 @@ The feature includes the following interactive utilities:
 - `git fix date [options] [<commit>]` - Fix commit dates and times in git history. Options include rescheduling commits on specific days of week outside certain time ranges.
 - `git fix blanks [-d]` - Discard tracked text-file changes when differences are only whitespace, blanks, and quote/slash swaps.
 - `git fix message -m <message> [--force|<commit>]` - Rewrite the commit message of a specific commit.
+- `git fix orphans [-p] [-x <prefix>] [<remote>]` - List (or, with `-p`, rename on the remote) the branches that do not follow the gitflow config and have no pull request, prefixing them with `orphan/`. Does nothing when no gitflow config is defined. The `manage-orphan-branches` workflow runs it weekly.
 - `git fix prune [<remote>]` - Prune remote-tracking references that no longer exist on the remote (defaults to all remotes). Runs automatically on `postStartCommand`.
 - `git fix secrets -g <glob> -s <secret> [-r <replace>] [-f] [-p] [-d] [-m] [-t] [<commit>]` - Redact a secret from files matching a glob pattern (and optionally commit messages and tag annotations) across all git history, replacing it with `****` (or `-r <replace>`).
 - `git fix up [--force|<commit>]` - Amend the specified commit with current changes and rebase (alias: `git fu`).

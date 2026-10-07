@@ -19,6 +19,7 @@ Use this feature for advanced Git operations, interactive repository maintenance
 - `git getcommit [--force|<commit>]` - Resolve/select commit target for fixup.
 - `git fix date [options] [<commit>]` - Rewrite commit times with scheduling rules.
 - `git fix blanks [-d]` - Drop tracked text-file edits made only of whitespace, blanks, and quote/slash swaps.
+- `git fix orphans [-p] [-x <prefix>] [<remote>]` - Prefix remote branches that break the gitflow config and have no PR with `orphan/` (dry run unless `-p`).
 - `git forall <command>` - Execute a command for repository files.
 - `git release-beta` - Start a Git Flow release branch.
 - `git release-hotfix` - Start a Git Flow hotfix branch.

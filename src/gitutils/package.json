@@ -1,6 +1,6 @@
 {
   "name": "@tomgrv/devcontainer-features-gitutils",
-  "version": "8.28.0",
+  "version": "8.29.0",
   "description": "Git utilities and aliases for development workflow",
   "files": [
     "bin/*.sh",
@@ -21,6 +21,7 @@
     "git-fix-last": "bin/git-fix-last.sh",
     "git-fix-lock": "bin/git-fix-lock.sh",
     "git-fix-mode": "bin/git-fix-mode.sh",
+    "git-fix-orphans": "bin/git-fix-orphans.sh",
     "git-fix-privacy": "bin/git-fix-privacy.sh",
     "git-fix-prune": "bin/git-fix-prune.sh",
     "git-fix-secrets": "bin/git-fix-secrets.sh",
