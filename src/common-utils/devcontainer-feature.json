@@ -47,7 +47,7 @@
       "type": "string"
     }
   },
-  "version": "8.28.0",
+  "version": "9.0.0",
   "postCreateCommand": {
     "config": "configure-feature common-utils"
   }
