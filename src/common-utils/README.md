@@ -69,8 +69,8 @@ The feature also includes the following VS Code customizations:
 
 - Installs specified common utilities such as jq and dos2unix.
 - Installs [mikefarah/yq](https://github.com/mikefarah/yq) v4 (pinned
-  release binary, via `zz_use yq`), which `merge-yaml` requires; a distro
-  python `yq` already on `PATH` is rejected by `merge-yaml`.
+  release binary, via `zz-use yq`), which `yaml-merge` requires; a distro
+  python `yq` already on `PATH` is rejected by `yaml-merge`.
 - Supports specifying additional utilities to install.
 
 ## PR Checks (CI)
@@ -131,18 +131,18 @@ Consumer repos get these deployed workflows under `.github/workflows/`:
 
 In addition to the specified utilities, some additional local utilities are also provided:
 
-- `zz_colors`: A set of color codes to source in your scripts for colored output.
-- `zz_log`: A utility to log messages with color
-- `zz_args`: A utility to parse command line arguments and display associated help messages in one go.
+- `zz-colors`: A set of color codes to source in your scripts for colored output.
+- `zz-log`: A utility to log messages with color
+- `zz-args`: A utility to parse command line arguments and display associated help messages in one go.
 
-### Distribute zz\_\* Utilities
+### Distribute zz-* Utilities
 
-The `zz_dist` utility allows you to copy all `zz_*` utilities from the devcontainer-installed location to a target directory. This is useful for maintaining a local copy of utilities in your project.
+The `zz-dist` utility allows you to copy all `zz-*` utilities from the devcontainer-installed location to a target directory. This is useful for maintaining a local copy of utilities in your project.
 
 #### Usage
 
 ```bash
-zz_dist [options]
+zz-dist [options]
 ```
 
 #### Options
@@ -183,22 +183,22 @@ If no target is found and `-q` (quiet mode) is not specified, the script will ex
 # Copy using config file
 echo "./scripts" > .zz_dist
 mkdir -p ./scripts
-zz_dist
+zz-dist
 
 # Copy to specific directory (must exist)
 mkdir -p ./my-utils
-zz_dist -t ./my-utils
+zz-dist -t ./my-utils
 
 # Copy from custom source to existing directory
-zz_dist -s /custom/path -t ./scripts
+zz-dist -s /custom/path -t ./scripts
 
 # Quiet mode - no error if target not configured
-zz_dist -q
+zz-dist -q
 ```
 
 ### Persist a key=value pair
 
-The `zz_persist` utility upserts a `KEY=VALUE` pair into an env-style file
+The `zz-persist` utility upserts a `KEY=VALUE` pair into an env-style file
 and/or a `/etc/profile.d/<profile>.sh` snippet, so the value survives a new
 shell or a script re-run. It only knows about these two generic targets — it
 has no notion of secret stores; layer that on top in your own script if
@@ -207,7 +207,7 @@ needed.
 #### Usage
 
 ```bash
-zz_persist [-f file] [-p profile] <key> <value>
+zz-persist [-f file] [-p profile] <key> <value>
 ```
 
 #### Options
@@ -223,13 +223,13 @@ replaces the existing entry instead of duplicating it.
 #### Example
 
 ```bash
-zz_persist -f .env APP_PORT 8000
-zz_persist -p myfeature MY_VAR value
+zz-persist -f .env APP_PORT 8000
+zz-persist -p myfeature MY_VAR value
 ```
 
 ### Validate JSON
 
-The `validate-json` utility allows you to validate JSON files against a JSON schema. It supports the following features:
+The `json-validate` utility allows you to validate JSON files against a JSON schema. It supports the following features:
 
 - Validate against a schema from a local file or a URL.
 - Infer schema from the JSON Schema Store based on the file name.
@@ -240,7 +240,7 @@ The `validate-json` utility allows you to validate JSON files against a JSON sch
 #### Usage
 
 ```bash
-validate-json [options] <json>
+json-validate [options] <json>
 ```
 
 #### Options
@@ -258,14 +258,14 @@ validate-json [options] <json>
 #### Example
 
 ```bash
-validate-json -a -f fallback.schema.json -l ./schemas -i -s custom.schema.json example.json
+json-validate -a -f fallback.schema.json -l ./schemas -i -s custom.schema.json example.json
 ```
 
 ### Normalize JSON
 
-The `normalize-json` utility allows you to normalize JSON files based on a JSON schema. It supports the following features:
+The `json-normalize` utility allows you to normalize JSON files based on a JSON schema. It supports the following features:
 
-- Validate the JSON file before normalization with the `validate-json` utility.
+- Validate the JSON file before normalization with the `json-validate` utility.
 - Normalize JSON keys according to the
   1 schema definition
   2 alphabetically
@@ -273,7 +273,7 @@ The `normalize-json` utility allows you to normalize JSON files based on a JSON 
 #### Usage
 
 ```bash
-normalize-json [options] <json>
+json-normalize [options] <json>
 ```
 
 #### Options
@@ -293,17 +293,17 @@ normalize-json [options] <json>
 #### Example
 
 ```bash
-normalize-json -w -t 4 -f fallback.schema.json -l ./schemas -i -s custom.schema.json example.json
+json-normalize -w -t 4 -f fallback.schema.json -l ./schemas -i -s custom.schema.json example.json
 ```
 
 #### Lint-staged
 
-You can use the `normalize-json` utility with `lint-staged` to normalize JSON files before committing them. To do this, add the following configuration to your `package.json`(see [githooks feature](../githooks/stubs/_lint-staged.package.json)).
+You can use the `json-normalize` utility with `lint-staged` to normalize JSON files before committing them. To do this, add the following configuration to your `package.json`(see [githooks feature](../githooks/stubs/_lint-staged.package.json)).
 
 ```json
 "lint-staged": {
     "*.json": [
-        "normalize-json -c -w -a -i -t 4 -f local -l true"
+        "json-normalize -c -w -a -i -t 4 -f local -l true"
     ]
 }
 ```

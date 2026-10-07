@@ -1,34 +1,34 @@
 #!/bin/sh
 
 eval $(
-    zz_context "$@"
+    zz-context "$@"
 )
 
 scope=${GIT_CONFIG_SCOPE:---system}
 
-zz_log i "Installing git configuration in {Purple $scope} scope..."
+zz-log i "Installing git configuration in {Purple $scope} scope..."
 
 ### For each entry in config.json file next to this file, create corresponding git config from key and value.
 ### if value is an object, parse it as json and create dotted keys
 if [ -f "$source/config/config.json" ]; then
-    zz_log i "Configuring git with {U $source/config/config.json}..."
+    zz-log i "Configuring git with {U $source/config/config.json}..."
     jq -r 'paths(scalars) as $p | [($p|join(".")), (getpath($p)|tostring)] | join(" ")' $source/config/config.json | while read key value; do
-        git config $scope $key "$value" && zz_log - "Created config $key => $value"
+        git config $scope $key "$value" && zz-log - "Created config $key => $value"
     done
 fi
 
 ### Set the VS Code editor only when its CLI is available, so plain shells keep
 ### their default git editor instead of a broken `code --wait` invocation.
 if command -v code >/dev/null 2>&1; then
-    git config $scope core.editor "code --wait" && zz_log - "Created config core.editor => code --wait"
+    git config $scope core.editor "code --wait" && zz-log - "Created config core.editor => code --wait"
 fi
 
 ### For each entry in alias.json file next to this file, create corresponding git alias from key and value
 if [ -f "$source/config/alias.json" ]; then
-    zz_log i "Configuring aliases with {U $source/config/alias.json}..."
+    zz-log i "Configuring aliases with {U $source/config/alias.json}..."
     jq -r 'keys[]' $source/config/alias.json | while read key; do
         value=$(jq -r ".$key.cmd" $source/config/alias.json)
         escaped_value=$(printf '%s' "$value" | sed "s/'/'\\''/g")
-        git config "$scope" "alias.$key" "!sh -c '$escaped_value' -- \"\$@\"" && zz_log - "Created alias {B $key}"
+        git config "$scope" "alias.$key" "!sh -c '$escaped_value' -- \"\$@\"" && zz-log - "Created alias {B $key}"
     done
 fi

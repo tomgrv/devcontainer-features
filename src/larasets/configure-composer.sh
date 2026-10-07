@@ -9,7 +9,7 @@ if [ -f "./composer.json" ]; then
 
     opts="--prefer-stable --minimal-changes --with-all-dependencies --ignore-platform-reqs --no-update"
 
-    zz_log i "Make sure common dependencies are declared"
+    zz-log i "Make sure common dependencies are declared"
     
     jq '.dependencies | .[]' ${source:-.}/config/_composer.require.json | xargs -I {} composer require --no-dev $opts {}
 

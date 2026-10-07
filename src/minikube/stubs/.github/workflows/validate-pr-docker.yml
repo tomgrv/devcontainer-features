@@ -15,6 +15,6 @@ jobs:
         uses: actions/checkout@v7
 
       - name: Check Dockerfiles
-        uses: tomgrv/actions/check-dockerfile@v2
+        uses: tomgrv/actions/check-dockerfile@v3
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}

@@ -11,14 +11,14 @@
 # already trusted when the downloads start. Container-only: on a host there's
 # no VS Code server to wait for.
 
-. zz_colors
+. zz-colors
 
 if [ ! -f /.dockerenv ] && [ -z "${REMOTE_CONTAINERS:-}" ] && [ "${CODESPACES:-}" != "true" ]; then
     exit 0
 fi
 
 if ! command -v gateway-vsix >/dev/null 2>&1; then
-    zz_log w "gateway-vsix not found on PATH, VS Code extensions left to VS Code itself"
+    zz-log w "gateway-vsix not found on PATH, VS Code extensions left to VS Code itself"
     exit 0
 fi
 
@@ -27,4 +27,4 @@ detach=""
 command -v setsid >/dev/null 2>&1 && detach=setsid
 
 nohup $detach gateway-vsix sync >"$logfile" 2>&1 </dev/null &
-zz_log s "VS Code extensions provisioning started in background, log at {U $logfile}"
+zz-log s "VS Code extensions provisioning started in background, log at {U $logfile}"

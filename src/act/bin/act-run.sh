@@ -3,11 +3,11 @@
 set -e
 
 # Source colors script for colored output
-. zz_colors
+. zz-colors
 
 # Parse arguments and display help if needed
 eval $(
-    zz_args "Run act with predefined arguments" $0 "$@" <<-help
+    zz-args "Run act with predefined arguments" $0 "$@" <<-help
 	help
 )
 
@@ -23,13 +23,13 @@ for e in "KNOWN_HOSTS" "SSH_PRIVATE_KEY" "SSH_CONFIG"; do
 
     # Set the alias name to the value of the underlying variable if it exists
     if [ -n "$v" ]; then
-        zz_log i "Setting <{B $a}>..."
+        zz-log i "Setting <{B $a}>..."
         eval export $a="\$($v)"
     fi
 
     # Build the argument to pass to act if the alias has a value
     if [ -n "$(eval echo "\$$a")" ]; then
-        zz_log i "Passing <{B $a}>..."
+        zz-log i "Passing <{B $a}>..."
         ARGS="$ARGS --secret $a"
     fi
 
@@ -38,7 +38,7 @@ done
 # Handle artifact server path
 if [ -z "$ARTIFACT_SERVER_PATH" ]; then
     export ARTIFACT_SERVER_PATH=./.artifacts
-    zz_log i "Using artifact server path: <{B $ARTIFACT_SERVER_PATH}>"
+    zz-log i "Using artifact server path: <{B $ARTIFACT_SERVER_PATH}>"
 fi
 
 (

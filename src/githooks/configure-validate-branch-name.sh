@@ -33,4 +33,4 @@ jq -n \
     '{"validate-branch-name": {
         "errorMsg": ("Please use a branch name that follows the pattern: (\($masterBranch)|\($developBranch)) or (\($prefixes))/<description>.\nUse git push --no-verify to bypass this check if necessary."),
         "pattern": $pattern
-    }}' | merge-json -t "${tabSize:-4}" package.json -
+    }}' | json-merge -t "${tabSize:-4}" package.json -

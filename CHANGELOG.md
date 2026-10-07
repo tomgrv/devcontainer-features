@@ -1,5 +1,18 @@
 # Changelog
 
+## 9.0.0 (2026-10-07)
+
+*Commits from: v8.29.0..HEAD*
+
+### 💥 BREAKING CHANGES
+
+- requires tomgrv/scripts v1 and tomgrv/actions v3; zz_* commands, <verb>-json/yaml commands and the legacy shim names no longer exist. ([731f166](https://github.com/tomgrv/devcontainer-features/commit/731f166fc6f4fb383b430a136eb88b551d6ce868))
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v8.29.0' into develop ([86b5b24](https://github.com/tomgrv/devcontainer-features/commit/86b5b24cc3cda4322df2eec5a6ccf4b50a2026ae))
+
 ## 8.29.0 (2026-10-07)
 
 *Commits from: v8.28.0..HEAD*
@@ -2449,6 +2462,7 @@ _Commits from: v5.25.0..HEAD_
 
 - ✨ add githook ([ab4c1fc](https://github.com/tomgrv/devcontainer-features/commit/ab4c1fc5eb4f712ed2009baf9a3cadb11097c7b5))
 - add features ([4b26d9d](https://github.com/tomgrv/devcontainer-features/commit/4b26d9d876caffb15078a6baaabf76d1a2707e6f))
+
 
 
 

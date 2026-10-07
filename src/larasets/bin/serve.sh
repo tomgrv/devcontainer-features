@@ -34,7 +34,7 @@ elif [ "${LARAVEL_SAIL:-}" = "1" ] && sail_possible; then
     mode=sail
 elif [ "${LARAVEL_SAIL:-}" = "0" ]; then
     mode=local
-elif sail_possible && zz_ask "Yn" "Start with Laravel Sail (Docker)?"; then
+elif sail_possible && zz-ask "Yn" "Start with Laravel Sail (Docker)?"; then
     mode=sail
 else
     mode=local
@@ -42,7 +42,7 @@ fi
 
 case "$mode" in
 sail)
-    zz_log i "Starting {B Laravel Sail + queue + vite}"
+    zz-log i "Starting {B Laravel Sail + queue + vite}"
     #### Detached so dependent processes can start against the container
     sail up -d
     #### Delegate each process to srv (pm2 start/restart + secret, Sail-aware)
@@ -54,7 +54,7 @@ sail)
     exec sail npx --yes pm2 logs -f
     ;;
 local)
-    zz_log i "Serving on {Purple 0.0.0.0:$port} (local PHP + queue + vite)"
+    zz-log i "Serving on {Purple 0.0.0.0:$port} (local PHP + queue + vite)"
     #### Delegate each process to srv (pm2 start/restart + secret)
     srv -q local-serve art serve --host=0.0.0.0 --port=$port
     srv -q local-queue art queue:work
