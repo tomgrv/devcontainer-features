@@ -23,7 +23,7 @@ Six items stand out by impact-to-effort:
    duplicate PRs against child repos. Deleting the stale pair is a same-day fix.
 2. **Dogfooding is broken**: this repo's own secret-scanning workflow
    (`gitleaks/gitleaks-action@v3`) is not what the `githooks` feature ships to consumers
-   (`tomgrv/actions/check-secret@v2`). The repo isn't running what it publishes.
+   (`tomgrv/actions/check-secret@v3`). The repo isn't running what it publishes.
 3. **8 of 9 non-`ai-coding` features have zero automated tests**, and `publish-features.yml`
    publishes to npm on every `main` push with no test gate at all — including `githooks`
    (controls commit enforcement) and `gitutils` (release automation).
@@ -67,10 +67,10 @@ alone removes duplicate CI runs and the duplicate-PR risk on every release-adjac
 - `validate-pr-secret.yml` (root) uses `gitleaks/gitleaks-action@v3` with no license secret and
   no `checks: write` permission. The stub this repo ships via the `githooks` feature
   (`src/githooks/stubs/.github/workflows/validate-pr-secret.yml`) uses a different action
-  entirely: `tomgrv/actions/check-secret@v2`, with a `GITLEAKS_LICENSE` secret and
+  entirely: `tomgrv/actions/check-secret@v3`, with a `GITLEAKS_LICENSE` secret and
   `checks: write`. This isn't a version-pin drift — it's two different implementations. If the
   intent is "this repo runs its own features' output," that invariant currently doesn't hold.
-- `update-labels.yml`: the stub uses `actions/checkout@v6` + `tomgrv/actions/update-labels@v2`;
+- `update-labels.yml`: the stub uses `actions/checkout@v6` + `tomgrv/actions/update-labels@v3`;
   the installed root workflow uses `checkout@v7` + `update-labels@v1` — root is _ahead_ on
   checkout but _behind_ on the custom action.
 - `claude.yml`, `validate-pr-format.yml`, `release-main.yml` differ from their stubs only by
@@ -111,7 +111,7 @@ the `commit-msg` git hook installed by the `githooks` feature
 `.github/workflows/` runs commitlint. `CLAUDE.md` states commits are "Validated by commitlint on
 `review_requested`" — no workflow anywhere triggers on `review_requested`; the closest is
 `validate-pr-format.yml` (`pull_request: types: [opened, ready_for_review]`), which checks PR
-_title_ via `tomgrv/actions/check-pr-format@v2`, not commit body/type/scope. A local hook is
+_title_ via `tomgrv/actions/check-pr-format@v3`, not commit body/type/scope. A local hook is
 trivially bypassed with `git commit --no-verify` and is never re-checked server-side.
 
 **Recommendation:** either add a real commitlint CI step (e.g. `commitlint --from <base>
@@ -146,7 +146,7 @@ dependency on the already-checked-out `gitutils` source instead of round-trippin
 - No `concurrency:` groups anywhere in the 13 workflows — rapid pushes to the same PR/branch can
   pile up overlapping runs instead of canceling superseded ones.
 - No `actions/cache` or equivalent visible in any workflow (Node setup is delegated to the
-  external `tomgrv/actions/setup-node@v2` action, whose internal caching can't be verified from
+  external `tomgrv/actions/setup-node@v3` action, whose internal caching can't be verified from
   this repo).
 - Dependabot (`.github/dependabot.yml`) has one entry — `github-actions`, directory `/` — with no
   npm ecosystem entry, despite the repo being an npm workspace root with 10 workspace packages.
