@@ -91,7 +91,7 @@ Valid scopes (deduced from npm workspace names): `devcontainer-features-act`, `d
 
 Example: `fix(devcontainer-features-githooks): 🔧 Add conditional skip when GITLEAKS_LICENSE not set`.
 
-Validated by `tomgrv/actions/check-pr-format@v3` on PR open/sync. Scope must use full `devcontainer-features-<workspace>` format; multi-workspace changes use the primary feature modified.
+Validated by `tomgrv/actions/check-pr-format@v4` on PR open/sync. Scope must use full `devcontainer-features-<workspace>` format; multi-workspace changes use the primary feature modified.
 
 ## Upgrading
 

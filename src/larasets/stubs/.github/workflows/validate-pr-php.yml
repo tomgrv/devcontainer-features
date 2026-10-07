@@ -30,10 +30,10 @@ jobs:
 
       - name: Set up PHP toolchain
         id: setup-php
-        uses: tomgrv/actions/setup-php@v3
+        uses: tomgrv/actions/setup-php@v4
 
       - name: Validate composer
-        uses: tomgrv/actions/check-laravel@v3
+        uses: tomgrv/actions/check-laravel@v4
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           pint-blade: 'true'
@@ -58,7 +58,7 @@ jobs:
 
       - name: List affected PHP parts (core, modules, packages)
         id: parts
-        uses: tomgrv/actions/list-php-parts@v3
+        uses: tomgrv/actions/list-php-parts@v4
 
   run-php-tests:
     name: run-php-tests (${{ matrix.part.name }})
@@ -97,10 +97,10 @@ jobs:
 
       - name: Set up PHP toolchain
         id: setup-php
-        uses: tomgrv/actions/setup-php@v3
+        uses: tomgrv/actions/setup-php@v4
 
       - name: Set up Node.js
-        uses: tomgrv/actions/setup-node@v3
+        uses: tomgrv/actions/setup-node@v4
         with:
           node-version: '24'
 
@@ -110,7 +110,7 @@ jobs:
 
       - name: Run Pest/PHPUnit tests
         id: tests
-        uses: tomgrv/actions/run-phptests@v3
+        uses: tomgrv/actions/run-phptests@v4
         with:
           name: phpunit (${{ matrix.part.name }})
           paths: ${{ matrix.part.path }}

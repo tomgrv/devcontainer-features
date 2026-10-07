@@ -27,16 +27,16 @@ jobs:
 
       - name: Configure Bot
         id: config-bot
-        uses: tomgrv/actions/config-bot@v3
+        uses: tomgrv/actions/config-bot@v4
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up PHP toolchain
-        uses: tomgrv/actions/setup-php@v3
+        uses: tomgrv/actions/setup-php@v4
 
       - name: Apply PHPStan fixes
         id: fix-phpstan
-        uses: tomgrv/actions/run-phpstan@v3
+        uses: tomgrv/actions/run-phpstan@v4
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           paths: ${{ github.event.inputs.paths }}
@@ -52,7 +52,7 @@ jobs:
 
       - name: Apply Pint fixes
         id: fix-pint
-        uses: tomgrv/actions/run-pint@v3
+        uses: tomgrv/actions/run-pint@v4
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           paths: ${{ github.event.inputs.paths }}
@@ -61,7 +61,7 @@ jobs:
       - name: Create or update PR
         id: create-pr
         if: ${{ steps.fix-phpstan.outputs.has-changes == 'true' || steps.fix-filacheck.outputs.has-changes == 'true' || steps.fix-pint.outputs.has-changes == 'true' }}
-        uses: tomgrv/actions/create-pr@v3
+        uses: tomgrv/actions/create-pr@v4
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           repository: ${{ github.repository }}
