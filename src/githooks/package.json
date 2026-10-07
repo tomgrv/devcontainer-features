@@ -1,6 +1,6 @@
 {
   "name": "@tomgrv/devcontainer-features-githooks",
-  "version": "9.0.0",
+  "version": "10.0.0",
   "description": "Git hooks and linting configuration for development workflow",
   "files": [
     "bin/*.sh",
@@ -16,8 +16,8 @@
     "configure-cz": "./configure-cz.sh",
     "configure-husky": "./configure-husky.sh",
     "configure-hooks": "./configure-hooks.sh",
-    "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then install-feature -s .; fi",
-    "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then configure-feature -s . githooks && git-hook-installplugins -- '[.prettier.plugins//\"\",.config.commitizen.path // \"\", .commitlint.extends // \"\"]'; fi",
+    "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then feature-install -s .; fi",
+    "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then feature-configure -s . githooks && git-hook-installplugins -- '[.prettier.plugins//\"\",.config.commitizen.path // \"\", .commitlint.extends // \"\"]'; fi",
     "test": "bats tests/"
   },
   "dependencies": {

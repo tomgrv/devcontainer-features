@@ -8,7 +8,7 @@
 # The gateway-curl wrapper is called by path, not through the (possibly not
 # yet) diverted system curl, as install-*.sh scripts run in no fixed order.
 #
-# Download failures are not fatal: 'configure-feature gateway' (configure-vsix.sh)
+# Download failures are not fatal: 'feature-configure gateway' (configure-vsix.sh)
 # retries whatever devcontainer.json lists at container creation, once the
 # root CA is trusted.
 

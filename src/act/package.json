@@ -1,6 +1,6 @@
 {
   "name": "@tomgrv/devcontainer-features-act",
-  "version": "9.0.0",
+  "version": "10.0.0",
   "description": "Nektos Act - GitHub Actions local runner integration",
   "files": [
     "bin/*.sh",
@@ -13,9 +13,9 @@
     "act-run": "bin/act-run.sh"
   },
   "scripts": {
-    "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then install-feature -s .; fi",
+    "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then feature-install -s .; fi",
     "install-act": "./install-act.sh",
-    "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then configure-feature -s . act; fi"
+    "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then feature-configure -s . act; fi"
   },
   "peerDependencies": {
     "@tomgrv/devcontainer-features-common-utils": "*"

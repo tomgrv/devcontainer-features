@@ -22,8 +22,8 @@ if ! command -v zz-use >/dev/null 2>&1; then
 fi
 
 zz-use jq yq
-zz-use json "json-*" yaml "yaml-*" resolve-context \
-    distribute-utils edit-script install-feature configure-feature run-workspace-tests
+zz-use json "json-*" yaml "yaml-*" feature "feature-*" \
+    distribute-utils edit-script run-workspace-tests
 
 ### Compatibility shims: the rest of this monorepo still calls these by
 ### their pre-split names (several features' install-*.sh scripts call
@@ -44,7 +44,7 @@ eval "$(zz-bindir)"
 bindir="$dir"
 dir=$(dirname $(readlink -f $0))
 
-for old_new in zz-context:resolve-context zz-dist:distribute-utils zz-edit:edit-script zz-json:json-load; do
+for old_new in zz-context:feature-context zz-dist:distribute-utils zz-edit:edit-script zz-json:json-load; do
     old=${old_new%%:*}
     new=${old_new#*:}
     target=$(command -v "$new") || {
@@ -57,4 +57,4 @@ done
 
 
 ### Run Installers
-install-feature -s $dir
+feature-install -s $dir

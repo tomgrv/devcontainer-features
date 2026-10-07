@@ -1,6 +1,6 @@
 {
   "name": "@tomgrv/devcontainer-features-minikube",
-  "version": "9.0.0",
+  "version": "10.0.0",
   "description": "Minikube scripts",
   "files": [
     "bin/*.sh",
@@ -8,8 +8,8 @@
     "stubs/**/*"
   ],
   "scripts": {
-    "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then install-feature -s .; fi",
-    "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then configure-feature -s . minikube; fi"
+    "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then feature-install -s .; fi",
+    "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then feature-configure -s . minikube; fi"
   },
   "dependencies": {},
   "peerDependencies": {

@@ -1,6 +1,6 @@
 {
   "name": "@tomgrv/devcontainer-features-gitutils",
-  "version": "9.0.0",
+  "version": "10.0.0",
   "description": "Git utilities and aliases for development workflow",
   "files": [
     "bin/*.sh",
@@ -38,8 +38,8 @@
     "git-unset": "bin/git-unset.sh"
   },
   "scripts": {
-    "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then install-feature -s .; fi",
-    "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then configure-feature -s . gitutils; fi",
+    "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then feature-install -s .; fi",
+    "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then feature-configure -s . gitutils; fi",
     "test": "bats tests/"
   },
   "dependencies": {},

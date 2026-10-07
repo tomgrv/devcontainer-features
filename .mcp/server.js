@@ -86,9 +86,9 @@ function inspectTargetRepo(targetDir) {
         .map(({ feature, reason }) => ({ feature, reason }))
 }
 
-// Read-only preview of what configure-feature would do to a target repo:
+// Read-only preview of what feature-configure would do to a target repo:
 // which stub files are new vs. would merge into an existing file. Mirrors
-// _configure-feature.sh's two rename rules (see that script for the source
+// feature-configure's two rename rules (see that script for the source
 // of truth): a plain stub's basename collapses ".." to "." (e.g.
 // "..gitignore" -> ".gitignore"), while a root-level "_<qualifier>.package.json"
 // or "_<qualifier>.composer.json" fragment merges into the top-level
