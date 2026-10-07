@@ -120,7 +120,7 @@ Consumer repos get these deployed workflows under `.github/workflows/`:
 
 ## Install internals
 
-- `install-feature` installs links for a feature's `bin/` scripts in a writable bin directory.
+- `feature-install` installs links for a feature's `bin/` scripts in a writable bin directory.
 - It resolves the writable bin directory with this fallback order:
     1. `INSTALL_BIN_DIR` (or `/usr/local/bin` by default)
     2. `~/.local/bin`

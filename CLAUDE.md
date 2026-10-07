@@ -15,8 +15,8 @@ Every tool-specific path is a symlink into `.agents/` (the single source of trut
 
 ## Dev Workflow
 
-- **Feature install** (local): `npx tomgrv/devcontainer-features -- add <feature>` → calls `install-feature` → copies `src/<feature>/stubs/` via `cp -a` (symlinks preserved) into target.
-- **Feature configure** (devcontainer): `configure-feature <feature>` → deploys stubs files + symlinks. Both commands come from `tomgrv/scripts` (fetched via `zz-use` in `src/common-utils/install.sh`).
+- **Feature install** (local): `npx tomgrv/devcontainer-features -- add <feature>` → calls `feature-install` → copies `src/<feature>/stubs/` via `cp -a` (symlinks preserved) into target.
+- **Feature configure** (devcontainer): `feature-configure <feature>` → deploys stubs files + symlinks. Both commands come from `tomgrv/scripts` (fetched via `zz-use` in `src/common-utils/install.sh`).
 - **This repo dogfoods its own features** — root `.github/workflows/`, `.github/skills/`, `.claude/skills/` are the installed output of the ai-coding feature. Edit canonical content under `.agents/skills/` or `src/ai-coding/stubs/`, not the symlinks.
 - **Prettier**: run `npm install` then `npx prettier --write` on new/edited `.md`/`.yml`/`.json` files before committing.
 - **Commits**: Conventional Commits + devmoji emoji required — e.g. `feat(scope): ✨ description`. Validated by commitlint on `review_requested`.
@@ -30,7 +30,7 @@ Each feature follows this structure (use `src/scripting/` as the minimal referen
 ```
 src/<feature>/
   devcontainer-feature.json   # id, version, dependsOn, postCreateCommand
-  install.sh                  # runs: install-feature $0
+  install.sh                  # runs: feature-install $0
   package.json                # npm workspace registration
   README.md
   configure-*.sh               # optional lifecycle hooks, invoked by name (not on PATH)
@@ -60,7 +60,7 @@ src/<feature>/
   config/                      # optional: data files a script reads at runtime
                                 # (JSON Schemas, alias/config maps, dependency manifests)
                                 # — never deployed to consumers, never merged
-  bin/                         # optional: scripts installed onto PATH by install-feature
+  bin/                         # optional: scripts installed onto PATH by feature-install
                                 # (no leading underscore — directory location alone marks
                                 # a file as a PATH script, unlike stubs/'s qualifier convention)
   tests/                       # optional: *.bats + helpers.bash, run via `bats src/<feature>/tests/`

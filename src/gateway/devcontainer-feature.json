@@ -37,6 +37,6 @@
   },
   "version": "9.0.0",
   "postCreateCommand": {
-    "config": "configure-feature gateway"
+    "config": "feature-configure gateway"
   }
 }

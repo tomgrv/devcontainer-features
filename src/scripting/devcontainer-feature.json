@@ -7,6 +7,6 @@
   "name": "Scripting bootstrap (setup.sh)",
   "version": "9.0.0",
   "postStartCommand": {
-    "config": "configure-feature scripting"
+    "config": "feature-configure scripting"
   }
 }

@@ -8,8 +8,8 @@
     "stubs/**/*"
   ],
   "scripts": {
-    "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then install-feature -s .; fi",
-    "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then configure-feature -s . common-utils; fi",
+    "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then feature-install -s .; fi",
+    "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then feature-configure -s . common-utils; fi",
     "test": "bats tests/"
   },
   "dependencies": {},

@@ -22,7 +22,7 @@ teardown() {
     [ "$status" -eq 0 ]
 
     [ -L "$TEST_BIN/zz-context" ]
-    [ "$(basename "$(readlink -f "$TEST_BIN/zz-context")")" = "resolve-context" ]
+    [ "$(basename "$(readlink -f "$TEST_BIN/zz-context")")" = "feature-context" ]
 
     [ -L "$TEST_BIN/zz-dist" ]
     [ "$(basename "$(readlink -f "$TEST_BIN/zz-dist")")" = "distribute-utils" ]
@@ -34,7 +34,7 @@ teardown() {
     [ "$(basename "$(readlink -f "$TEST_BIN/zz-json")")" = "json-load" ]
 }
 
-@test "install.sh: installs yaml-merge, which configure-feature dispatches YAML stubs to" {
+@test "install.sh: installs yaml-merge, which feature-configure dispatches YAML stubs to" {
     run env PATH="$TEST_BIN:$PATH" sh "$FEATURE_DIR/install.sh"
     [ "$status" -eq 0 ]
 

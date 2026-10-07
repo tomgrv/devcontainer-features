@@ -47,7 +47,7 @@ Hooks are wired up via [Husky](https://typicode.github.io/husky/how-to.html) rat
     - `HUSKY=0` skips it entirely.
 - It is called from every entry point:
     - **npm** - the `package.json` `"prepare": "sh .husky/install.sh || ..."` script, so a plain `npm install` on any machine installs working hooks. (An existing `prepare` script in a consumer `package.json` is kept as-is by the JSON merge; replace it by hand to opt in.)
-    - **devcontainer** - `configure-husky.sh` (run by `configure-feature githooks` on `postCreate`).
+    - **devcontainer** - `configure-husky.sh` (run by `feature-configure githooks` on `postCreate`).
     - **Claude Code** - a `SessionStart` hook merged into `.claude/settings.json` (`stubs/.claude/_githooks.settings.json`), since claude.ai/code web/cloud sessions clone the repo directly and run neither `npm install` nor `postCreate`.
 - `configure-hooks.sh` generates one thin executable wrapper per hook under `.husky/` (`pre-commit`, `prepare-commit-msg`, `commit-msg`, `post-checkout`, `post-merge`, `pre-push`). Each wrapper calls the corresponding `git-hook-<name>` command (no internal hyphens, e.g. `pre-commit` -> `git-hook-precommit`), passing all arguments through, and falls back to sourcing `.husky/install.sh` if `zz-use` isn't on `PATH`:
 
@@ -68,13 +68,13 @@ A default configuration is provided for each utility, but you can override it by
 
 ### validate-branch-name
 
-Unlike the other utilities, `validate-branch-name`'s `package.json` config is not static: `configure-validate-branch-name.sh` (run automatically by `configure-feature githooks`) generates it from the git-flow branch/prefix scheme set up by the `gitutils` feature (`gitflow.branch.master`, `gitflow.branch.develop`, `gitflow.prefix.feature`, `.bugfix`, `.release`, `.hotfix`, `.support`), plus a `main`/`develop`/`feature`/`bugfix`/`release`/`hotfix`/`support` fallback when git-flow isn't configured. AI coding agent branch prefixes (`copilot/`, `claude/`) are always allowed too, overridable via the `GITHOOKS_EXTRA_BRANCH_PREFIXES` environment variable (comma-separated). Re-run `configure-feature githooks` after changing the git-flow config to regenerate the pattern.
+Unlike the other utilities, `validate-branch-name`'s `package.json` config is not static: `configure-validate-branch-name.sh` (run automatically by `feature-configure githooks`) generates it from the git-flow branch/prefix scheme set up by the `gitutils` feature (`gitflow.branch.master`, `gitflow.branch.develop`, `gitflow.prefix.feature`, `.bugfix`, `.release`, `.hotfix`, `.support`), plus a `main`/`develop`/`feature`/`bugfix`/`release`/`hotfix`/`support` fallback when git-flow isn't configured. AI coding agent branch prefixes (`copilot/`, `claude/`) are always allowed too, overridable via the `GITHOOKS_EXTRA_BRANCH_PREFIXES` environment variable (comma-separated). Re-run `feature-configure githooks` after changing the git-flow config to regenerate the pattern.
 
 ### lint-staged
 
 The default `lint-staged` config formats JSON with `json-normalize` and everything else with prettier. Lockfiles are excluded from both globs (`!(*schema|package-lock).json` and a prettier glob that skips `package-lock`), because npm owns their formatting and the hook regenerates them whenever a `package.json` is staged. Earlier versions of this stub matched them, which rewrote the whole lockfile on any `package.json` commit.
 
-`configure-feature githooks` merges this config into your `package.json`, and a JSON merge only adds keys. The two superseded globs are therefore removed by `KEY` lines in this feature's `.clean`, which needs a `configure-feature` from a [`tomgrv/scripts`](https://github.com/tomgrv/scripts) release that knows that directive; an older one prints `Unknown .clean directive` and skips the line. If that happens, delete these two keys from `lint-staged` in your `package.json` by hand:
+`feature-configure githooks` merges this config into your `package.json`, and a JSON merge only adds keys. The two superseded globs are therefore removed by `KEY` lines in this feature's `.clean`, which needs a `feature-configure` from a [`tomgrv/scripts`](https://github.com/tomgrv/scripts) release that knows that directive; an older one prints `Unknown .clean directive` and skips the line. If that happens, delete these two keys from `lint-staged` in your `package.json` by hand:
 
 - `!(*schema).json`
 - `!(templates/**/*|.agents/**).{js,jsx,ts,tsx,md,html,css,vue,yaml,yml,json}`

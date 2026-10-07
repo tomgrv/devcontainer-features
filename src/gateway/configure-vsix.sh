@@ -7,7 +7,7 @@
 # didn't already pre-fetch, waits for the VS Code server to show up, then
 # installs every cached VSIX with the server's own CLI.
 #
-# Sorted after configure-certs.sh by configure-feature, so the root CA is
+# Sorted after configure-certs.sh by feature-configure, so the root CA is
 # already trusted when the downloads start. Container-only: on a host there's
 # no VS Code server to wait for.
 

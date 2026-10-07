@@ -48,7 +48,7 @@ Additionally, the feature installs the [git-flow](https://github.com/nvie/gitflo
 
 ### Configure step
 
-`configure-feature gitutils` (run automatically from `postCreateCommand`, and re-runnable at any time from the repository root) runs `configure-gitflow.sh`, which non-interactively runs `git flow init -d -f` with the following branch/prefix scheme:
+`feature-configure gitutils` (run automatically from `postCreateCommand`, and re-runnable at any time from the repository root) runs `configure-gitflow.sh`, which non-interactively runs `git flow init -d -f` with the following branch/prefix scheme:
 
 | Prompt                                | Value                  |
 | ------------------------------------- | ---------------------- |
@@ -66,7 +66,7 @@ Each value can be overridden by exporting the matching environment variable befo
 
 If `main`/`develop` don't exist locally but a matching `origin/main`/`origin/develop` does (e.g. a fresh clone), `configure-gitflow.sh` checks that branch out rather than creating an orphan branch, so existing history is preserved.
 
-`configure-feature gitutils` also runs `configure-knownhosts.sh`, which seeds `~/.ssh/known_hosts` with `github.com`'s key via `ssh-keyscan`. `openssh-client` (providing `ssh-keyscan`) is not a hard dependency of this feature — if it isn't installed, the script exits cleanly with no error and no known_hosts changes.
+`feature-configure gitutils` also runs `configure-knownhosts.sh`, which seeds `~/.ssh/known_hosts` with `github.com`'s key via `ssh-keyscan`. `openssh-client` (providing `ssh-keyscan`) is not a hard dependency of this feature — if it isn't installed, the script exits cleanly with no error and no known_hosts changes.
 
 Shortcuts are also added to the `git` command to make it easier to use the `git-flow` commands:
 

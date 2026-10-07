@@ -17,6 +17,6 @@
   },
   "version": "9.0.0",
   "postCreateCommand": {
-    "config": "configure-feature act"
+    "config": "feature-configure act"
   }
 }
