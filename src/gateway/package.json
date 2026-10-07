@@ -14,8 +14,8 @@
     "gateway-vsix": "bin/gateway-vsix.sh"
   },
   "scripts": {
-    "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then install-feature -s .; fi",
-    "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then configure-feature -s . gateway; fi",
+    "install": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then feature-install -s .; fi",
+    "postinstall": "if [ \"$INIT_CWD\" = \"$PWD\" ]; then feature-configure -s . gateway; fi",
     "test": "bats tests/"
   },
   "dependencies": {},

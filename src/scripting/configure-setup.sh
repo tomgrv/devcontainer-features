@@ -5,7 +5,7 @@
 ### missing or has drifted, so every start leaves the repo with a working,
 ### up-to-date entrypoint.
 if [ -z "${source:-}" ]; then
-    zz-log e "scripting: \$source not set (expected to be exported by configure-feature)."
+    zz-log e "scripting: \$source not set (expected to be exported by feature-configure)."
     exit 1
 fi
 canonical="$source/stubs/setup.sh"

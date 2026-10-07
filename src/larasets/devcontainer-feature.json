@@ -55,6 +55,6 @@
     "larasets"
   ],
   "postCreateCommand": {
-    "config": "configure-feature larasets"
+    "config": "feature-configure larasets"
   }
 }

@@ -63,7 +63,7 @@ jobs:
 
       - name: List unpublished feature packages
         id: list
-        uses: tomgrv/actions/list-packages@v3
+        uses: tomgrv/actions/list-packages@v4
         with:
           require-repository: 'false'
           filter: '.private == false and (.path | test("(^|/)src/")) and (.registry.npmjs.published | not)'
@@ -86,6 +86,6 @@ jobs:
           ref: ${{ github.event_name == 'workflow_run' && 'main' || github.sha }}
 
       - name: Publish ${{ matrix.package.name }}
-        uses: tomgrv/actions/publish-npm@v3
+        uses: tomgrv/actions/publish-npm@v4
         with:
           path: ${{ matrix.package.path }}

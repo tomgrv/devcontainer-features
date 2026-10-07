@@ -31,7 +31,7 @@ mkdir -p .devcontainer/.gateway/certs
 cp /path/to/your-root-ca.pem .devcontainer/.gateway/certs/gateway.pem
 ```
 
-> The certificate itself is optional — everything degrades gracefully until you supply it. Certificates are picked up through the workspace's own standard mount, so the `certs` folder doesn't need to exist before the container is created; add it any time and re-run `configure-feature gateway` (or rebuild).
+> The certificate itself is optional — everything degrades gracefully until you supply it. Certificates are picked up through the workspace's own standard mount, so the `certs` folder doesn't need to exist before the container is created; add it any time and re-run `feature-configure gateway` (or rebuild).
 >
 > The stub `devcontainer.json` deployed by [`add gateway`](#quick-install--console-recommended) additionally declares a dedicated bind mount to a fixed, workspace-layout-independent path — useful for non-standard workspaces, but opt-in and freely editable/removable in your own `devcontainer.json`. If you're running in a nested/docker-outside-of-docker setup and see `bind source path does not exist`, that dedicated mount is the one thing to remove — its `${localWorkspaceFolder}` source needs to be a path the Docker daemon itself can see, which a mounted `docker.sock` doesn't guarantee.
 
@@ -210,7 +210,7 @@ openssl x509 -in .devcontainer/.gateway/certs/gateway.pem -noout -subject -issue
 ```
 
 **Certificate added after the container was created**
-Run `configure-feature gateway` inside the container (or rebuild it) to install the newly added certificate.
+Run `feature-configure gateway` inside the container (or rebuild it) to install the newly added certificate.
 
 **Container creation fails with `bind source path does not exist` on the certs mount**
 Only relevant if your `devcontainer.json` declares the optional dedicated `certs` bind mount (added by the `add gateway` stub). Either create `.devcontainer/.gateway/certs` on the host before creating the container, or — in a nested/docker-outside-of-docker setup, where `${localWorkspaceFolder}` isn't a path the Docker daemon itself can resolve — remove that `mounts` entry from `devcontainer.json` entirely; certificates are still picked up through the workspace's own standard mount.

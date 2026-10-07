@@ -24,7 +24,7 @@ if ! command -v zz-use >/dev/null 2>&1; then
 fi
 export PATH="${INSTALL_BIN_DIR:-/usr/local/bin}:$PATH"
 
-zz-use zz-args zz-log jq resolve-context install-feature configure-feature
+zz-use zz-args zz-log jq feature-context feature-install feature-configure
 
 # Internal debug logging: quiet by default, enable with ZZ_LOG_DEBUG=1
 _debug() { [ -n "${ZZ_LOG_DEBUG:-}" ] && zz-log - "$*" || true; }
@@ -126,7 +126,7 @@ cmd_help() {
 
 cmd_init() {
     zz-log i "Deploying $(count_stubs "$source/stubs") root stub(s)..."
-    configure-feature -s "$source" .
+    feature-configure -s "$source" .
     zz-log s "Root stubs deployed"
 }
 

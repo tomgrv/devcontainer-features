@@ -49,6 +49,6 @@
   },
   "version": "9.0.0",
   "postCreateCommand": {
-    "config": "configure-feature common-utils"
+    "config": "feature-configure common-utils"
   }
 }

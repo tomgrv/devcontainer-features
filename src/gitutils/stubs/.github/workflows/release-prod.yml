@@ -12,11 +12,13 @@ on:
 
 permissions:
   contents: write
-
+  pull-requests: write
+  issues: write
+  
 concurrency:
   group: ${{ github.workflow }}
   cancel-in-progress: false
-
+  
 jobs:
   release-prod:
     runs-on: ubuntu-latest
@@ -29,7 +31,7 @@ jobs:
           ref: develop
 
       - name: Release promote
-        uses: tomgrv/actions/release-promote@v3
+        uses: tomgrv/actions/release-promote@v4
         with:
-          scripts-ref: v1
+          scripts-ref: v2
           dry-run: ${{ inputs.dry_run == true }}

@@ -3,7 +3,7 @@
 # zz-use this feature's git-* scripts from https://github.com/tomgrv/scripts.
 # No zz-use bootstrap needed: this feature depends on common-utils (see
 # devcontainer-feature.json's dependsOn), whose own install.sh already put
-# zz-use on PATH before install-feature runs this install-*.sh.
+# zz-use on PATH before feature-install runs this install-*.sh.
 
 zz-use git-align git-autorebase git-co git-degit git-fix git-fix-author \
     git-fix-base git-fix-blanks git-fix-children git-fix-date git-fix-del \
