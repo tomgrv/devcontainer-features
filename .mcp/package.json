@@ -1,6 +1,6 @@
 {
   "name": "@tomgrv/devcontainer-features-mcp",
-  "version": "8.10.0",
+  "version": "10.0.0",
   "description": "MCP server exposing this repo's features so an agent can set up another repo's dev environment",
   "bin": {
     "devcontainer-features-mcp": "server.js"
