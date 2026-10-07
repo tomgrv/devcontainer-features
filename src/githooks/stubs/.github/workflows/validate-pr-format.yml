@@ -20,6 +20,7 @@ concurrency:
 
 jobs:
   validate-pr-title:
+    name: Validate PR title
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -34,7 +35,7 @@ jobs:
           fix: true
 
   check-pr-source-branch:
-    name: Validate PR source branch
+    name: Validate PR target branch
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
