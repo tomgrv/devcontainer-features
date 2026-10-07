@@ -1,6 +1,6 @@
 #!/usr/bin/env bats
 # Covers stubs/.husky/install.sh: installs the git-hook-* commands via
-# zz_use (bootstrapping zz_use when missing) and runs husky, idempotently,
+# zz-use (bootstrapping zz-use when missing) and runs husky, idempotently,
 # from any entry point (npm prepare, devcontainer, Claude SessionStart).
 
 FEATURE_DIR="$(cd "$(dirname "${BATS_TEST_FILENAME}")/.." && pwd)"
@@ -18,7 +18,7 @@ setup() {
     STUB_BIN="$TEST_DIR/stub-bin"
     CALLS="$TEST_DIR/calls"
     mkdir -p "$STUB_BIN"
-    for cmd in zz_use husky curl npm; do
+    for cmd in zz-use husky curl npm; do
         printf '#!/bin/sh\necho "%s $*" >>"%s"\n' "$cmd" "$CALLS" >"$STUB_BIN/$cmd"
         chmod +x "$STUB_BIN/$cmd"
     done
@@ -37,19 +37,19 @@ teardown() {
 @test "install.sh: installs git-hook-* commands and runs husky" {
     run sh .husky/install.sh
     [ "$status" -eq 0 ]
-    grep -q '^zz_use .*git-hook-precommit' "$CALLS"
-    grep -q '^zz_use .*git-hook-commitmsg' "$CALLS"
+    grep -q '^zz-use .*git-hook-precommit' "$CALLS"
+    grep -q '^zz-use .*git-hook-commitmsg' "$CALLS"
     grep -q '^husky' "$CALLS"
     [ "$(git config core.hooksPath)" = ".husky/_" ]
 }
 
-@test "install.sh: installs common-utils only when normalize-json is missing" {
+@test "install.sh: installs common-utils only when json-normalize is missing" {
     run sh .husky/install.sh
     grep -q '^npm install -g @tomgrv/devcontainer-features-common-utils' "$CALLS"
 
     : >"$CALLS"
-    printf '#!/bin/sh\n' >"$STUB_BIN/normalize-json"
-    chmod +x "$STUB_BIN/normalize-json"
+    printf '#!/bin/sh\n' >"$STUB_BIN/json-normalize"
+    chmod +x "$STUB_BIN/json-normalize"
     run sh .husky/install.sh
     ! grep -q '^npm install' "$CALLS"
 }
@@ -61,12 +61,12 @@ teardown() {
     ! grep -q '^husky' "$CALLS"
 }
 
-@test "install.sh: bootstraps zz_use via curl only when missing" {
+@test "install.sh: bootstraps zz-use via curl only when missing" {
     run sh .husky/install.sh
     ! grep -q '^curl' "$CALLS"
 
-    # hide any real zz_use installed on this machine
-    rm "$STUB_BIN/zz_use"
+    # hide any real zz-use installed on this machine
+    rm "$STUB_BIN/zz-use"
     PATH="$STUB_BIN:/usr/bin:/bin" HOME="$TEST_DIR" run sh .husky/install.sh
     [ "$status" -eq 0 ]
     grep -q '^curl .*setup.sh' "$CALLS"

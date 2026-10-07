@@ -3,17 +3,17 @@
 # Load the directory of the current script
 source=$(dirname $(readlink -f $0))
 
-### Bootstrap the shared zz_* core from https://github.com/tomgrv/scripts -
+### Bootstrap the shared zz-* core from https://github.com/tomgrv/scripts -
 ### the scripts formerly kept in src/common-utils/bin/ now live there,
-### shared across every tomgrv repo. Idempotent: a zz_use already on PATH
+### shared across every tomgrv repo. Idempotent: a zz-use already on PATH
 ### is reused as-is.
-if ! command -v zz_use >/dev/null 2>&1; then
+if ! command -v zz-use >/dev/null 2>&1; then
     _zz_setup_tmp=$(mktemp) || {
         echo "install.sh: mktemp failed" >&2
         exit 1
     }
     if ! curl -fsSL "${ZZ_SCRIPTS_SETUP_URL:-https://raw.githubusercontent.com/tomgrv/scripts/main/setup.sh}" -o "$_zz_setup_tmp"; then
-        echo "install.sh: failed to download the zz_use bootstrap" >&2
+        echo "install.sh: failed to download the zz-use bootstrap" >&2
         rm -f "$_zz_setup_tmp"
         exit 1
     fi
@@ -24,13 +24,13 @@ if ! command -v zz_use >/dev/null 2>&1; then
 fi
 export PATH="${INSTALL_BIN_DIR:-/usr/local/bin}:$PATH"
 
-zz_use zz_args zz_log jq resolve-context install-feature configure-feature
+zz-use zz-args zz-log jq resolve-context install-feature configure-feature
 
 # Internal debug logging: quiet by default, enable with ZZ_LOG_DEBUG=1
-_debug() { [ -n "${ZZ_LOG_DEBUG:-}" ] && zz_log - "$*" || true; }
+_debug() { [ -n "${ZZ_LOG_DEBUG:-}" ] && zz-log - "$*" || true; }
 
 eval $(
-    zz_args "Manage devcontainer features" $0 "$@" <<-help
+    zz-args "Manage devcontainer features" $0 "$@" <<-help
     - command   cmd     Command: init|list|deps|add|remove|update|help
     + target    target  Feature name(s), -a (all), -x (defaults), or empty to auto-detect
 help
@@ -96,44 +96,44 @@ count_stubs() {
 }
 
 cmd_help() {
-    zz_log i "{BBlue devcontainer-features} - manage tomgrv devcontainer features"
-    zz_log - ""
-    zz_log - "{Yellow Usage:} npx tomgrv/devcontainer-features -- <command> <target...>"
-    zz_log - ""
-    zz_log - "{Yellow Commands:}"
-    zz_log - "  init             Deploy root stubs into current repo"
-    zz_log - "  list   <target>  List selected features"
-    zz_log - "  deps   <target>  Show feature dependencies"
-    zz_log - "  add    <target>  Install / deploy feature stubs"
-    zz_log - "  remove <target>  Remove feature stubs"
-    zz_log - "  update <target>  Reinstall features (-a re-detects all)"
-    zz_log - "  help             Show this help"
-    zz_log - ""
-    zz_log - "{Yellow Targets:}"
-    zz_log - "  <name>...  One or more feature names (e.g. githooks gitversion)"
-    zz_log - "  -a         All features available in src/"
-    zz_log - "  -x         Default features from stubs devcontainer.json"
-    zz_log - "  (empty)    Auto-detect from .devcontainer/*/devcontainer.json"
-    zz_log - ""
-    zz_log - "{Yellow Examples:}"
-    zz_log - "  npx tomgrv/devcontainer-features -- add -x"
-    zz_log - "  npx tomgrv/devcontainer-features -- add githooks gitversion"
-    zz_log - "  npx tomgrv/devcontainer-features -- list -a"
-    zz_log - "  npx tomgrv/devcontainer-features -- deps gitversion"
-    zz_log - ""
-    zz_log - "Set {U ZZ_LOG_DEBUG=1} for verbose internal logs."
+    zz-log i "{BBlue devcontainer-features} - manage tomgrv devcontainer features"
+    zz-log - ""
+    zz-log - "{Yellow Usage:} npx tomgrv/devcontainer-features -- <command> <target...>"
+    zz-log - ""
+    zz-log - "{Yellow Commands:}"
+    zz-log - "  init             Deploy root stubs into current repo"
+    zz-log - "  list   <target>  List selected features"
+    zz-log - "  deps   <target>  Show feature dependencies"
+    zz-log - "  add    <target>  Install / deploy feature stubs"
+    zz-log - "  remove <target>  Remove feature stubs"
+    zz-log - "  update <target>  Reinstall features (-a re-detects all)"
+    zz-log - "  help             Show this help"
+    zz-log - ""
+    zz-log - "{Yellow Targets:}"
+    zz-log - "  <name>...  One or more feature names (e.g. githooks gitversion)"
+    zz-log - "  -a         All features available in src/"
+    zz-log - "  -x         Default features from stubs devcontainer.json"
+    zz-log - "  (empty)    Auto-detect from .devcontainer/*/devcontainer.json"
+    zz-log - ""
+    zz-log - "{Yellow Examples:}"
+    zz-log - "  npx tomgrv/devcontainer-features -- add -x"
+    zz-log - "  npx tomgrv/devcontainer-features -- add githooks gitversion"
+    zz-log - "  npx tomgrv/devcontainer-features -- list -a"
+    zz-log - "  npx tomgrv/devcontainer-features -- deps gitversion"
+    zz-log - ""
+    zz-log - "Set {U ZZ_LOG_DEBUG=1} for verbose internal logs."
 }
 
 cmd_init() {
-    zz_log i "Deploying $(count_stubs "$source/stubs") root stub(s)..."
+    zz-log i "Deploying $(count_stubs "$source/stubs") root stub(s)..."
     configure-feature -s "$source" .
-    zz_log s "Root stubs deployed"
+    zz-log s "Root stubs deployed"
 }
 
 cmd_list() {
     _features=$(resolve_features $target)
     if [ -z "$_features" ]; then
-        zz_log w "No features found"
+        zz-log w "No features found"
         return 0
     fi
     echo "$_features" | tr ' ' '\n' | grep -v '^$'
@@ -142,12 +142,12 @@ cmd_list() {
 cmd_deps() {
     _features=$(resolve_features $target)
     if [ -z "$_features" ]; then
-        zz_log w "No features specified"
+        zz-log w "No features specified"
         return 0
     fi
     for _f in $(echo "$_features" | tr '\n' ' '); do
         [ -z "$_f" ] && continue
-        zz_log i "Dependencies for $_f:"
+        zz-log i "Dependencies for $_f:"
         sh "$source/install-deps.sh" "$source" "$_f" | grep -v "^${_f}\$" | sed 's/^/  /'
     done
 }
@@ -163,15 +163,15 @@ cmd_add() {
     _features=$(resolve_features $target)
     if [ -z "$_features" ]; then
         if [ -z "${target:-}" ]; then
-            zz_log w "No .devcontainer found to auto-detect features from"
-            zz_log - "Specify feature names, {B -a} for all, or {B -x} for defaults (e.g. {B add -x})"
+            zz-log w "No .devcontainer found to auto-detect features from"
+            zz-log - "Specify feature names, {B -a} for all, or {B -x} for defaults (e.g. {B add -x})"
         else
-            zz_log w "No features to add for target: $target"
+            zz-log w "No features to add for target: $target"
         fi
         return 0
     fi
 
-    zz_log i "Adding: $(echo $_features | tr '\n' ' ')"
+    zz-log i "Adding: $(echo $_features | tr '\n' ' ')"
     for _feature in $(echo "$_features" | tr '\n' ' '); do
         [ -z "$_feature" ] && continue
         # install-feat.sh logs "Deploying <feature>" itself, after checking
@@ -181,13 +181,13 @@ cmd_add() {
         # actually get skipped, making a normal install look like it loops.
         sh "$source/install-feat.sh" "$source" "$_feature"
     done
-    zz_log s "Done adding features"
+    zz-log s "Done adding features"
 }
 
 cmd_remove() {
     _features=$(resolve_features $target)
     if [ -z "$_features" ]; then
-        zz_log w "No features specified"
+        zz-log w "No features specified"
         return 0
     fi
 
@@ -195,19 +195,19 @@ cmd_remove() {
         [ -z "$_feature" ] && continue
         _stub_src="$source/src/$_feature/stubs"
         if [ ! -d "$_stub_src" ]; then
-            zz_log w "No stubs found for $_feature"
+            zz-log w "No stubs found for $_feature"
             continue
         fi
-        zz_log i "Removing {Purple $_feature} stubs ($(count_stubs "$_stub_src") tracked)..."
+        zz-log i "Removing {Purple $_feature} stubs ($(count_stubs "$_stub_src") tracked)..."
         find "$_stub_src" -type f | while read _stub; do
             _rel="${_stub#$_stub_src/}"
             _dest=$(echo "$_rel" | sed 's|^\.\./||;s|/\.\./|/|g')
             if [ -f "$_dest" ]; then
-                zz_log - "Removing {U $_dest}..."
+                zz-log - "Removing {U $_dest}..."
                 rm -f "$_dest"
             fi
         done
-        zz_log s "$_feature stubs removed"
+        zz-log s "$_feature stubs removed"
     done
 }
 
@@ -221,11 +221,11 @@ cmd_update() {
     fi
 
     if [ -z "$_features" ]; then
-        zz_log w "No features to update"
+        zz-log w "No features to update"
         return 0
     fi
 
-    zz_log i "Updating: $(echo $_features | tr '\n' ' ')"
+    zz-log i "Updating: $(echo $_features | tr '\n' ' ')"
     for _feature in $(echo "$_features" | tr '\n' ' '); do
         [ -z "$_feature" ] && continue
         sh "$source/install.sh" add "$_feature"
@@ -242,7 +242,7 @@ case "${cmd:-}" in
     update) cmd_update ;;
     help|-h|--help|"") cmd_help ;;
     *)
-        zz_log e "Unknown command: $cmd"
+        zz-log e "Unknown command: $cmd"
         exit 1
         ;;
 esac

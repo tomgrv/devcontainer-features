@@ -27,8 +27,8 @@ JSON
 XML
     STUB_BIN="$TEST_DIR/stub-bin"
     mkdir -p "$STUB_BIN"
-    printf '#!/bin/sh\nexit 0\n' >"$STUB_BIN/zz_log"
-    chmod +x "$STUB_BIN/zz_log"
+    printf '#!/bin/sh\nexit 0\n' >"$STUB_BIN/zz-log"
+    chmod +x "$STUB_BIN/zz-log"
     export PATH="$STUB_BIN:$PATH"
 }
 

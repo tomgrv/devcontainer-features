@@ -45,9 +45,9 @@ update_json_version() {
         if command -v jq >/dev/null 2>&1; then
             tmp=$(mktemp)
             jq --arg v "$newv" '.version = $v' "$file" > "$tmp" && mv "$tmp" "$file"
-            zz_log s "Updated $file to version $newv"
+            zz-log s "Updated $file to version $newv"
         else
-            zz_log w "jq not available; cannot update $file"
+            zz-log w "jq not available; cannot update $file"
         fi
     fi
 }
@@ -98,12 +98,12 @@ for pattern in $ws; do
                     update_json_version "$pkgjson" "$newv"
                     [ -f "$compjson" ] && update_json_version "$compjson" "$newv"
                 else
-                    zz_log i "No relevant commits for $name"
+                    zz-log i "No relevant commits for $name"
                 fi
             fi
         fi
     done
 done
 
-zz_log s "sync-versions finished"
+zz-log s "sync-versions finished"
 exit 0

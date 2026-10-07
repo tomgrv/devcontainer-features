@@ -12,10 +12,10 @@
 # retries whatever devcontainer.json lists at container creation, once the
 # root CA is trusted.
 
-. zz_colors
+. zz-colors
 
 eval $(
-    zz_context "$@"
+    zz-context "$@"
 )
 
 list=$(echo "${VSIX:-}" | tr ',' ' ')
@@ -25,12 +25,12 @@ wrapper="$target/stubs/.devcontainer/.gateway/gateway-curl.sh"
 [ -f "$wrapper" ] && export GATEWAY_VSIX_CURL="$wrapper"
 
 dest="$target/vsix"
-zz_log i "Pre-fetching VS Code extensions into {U $dest}..."
+zz-log i "Pre-fetching VS Code extensions into {U $dest}..."
 # shellcheck disable=SC2086 # one argument per extension id
 if sh "$target/bin/gateway-vsix.sh" fetch "$dest" $list; then
-    zz_log s "VS Code extensions pre-fetched"
+    zz-log s "VS Code extensions pre-fetched"
 else
-    zz_log w "Some VS Code extensions could not be pre-fetched, retried at container creation"
+    zz-log w "Some VS Code extensions could not be pre-fetched, retried at container creation"
 fi
 chmod -R a+rX "$dest" 2>/dev/null
 exit 0

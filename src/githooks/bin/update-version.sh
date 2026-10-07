@@ -12,9 +12,9 @@ update_version_file() {
     local version="$1"
     if [ -n "$version" ]; then
         echo "$version" > "$VERSION_FILE"
-        zz_log s "Updated VERSION file to: $version"
+        zz-log s "Updated VERSION file to: $version"
     else
-        zz_log w "Could not determine version"
+        zz-log w "Could not determine version"
     fi
 
     # Ensure VERSION file is not committed
@@ -53,7 +53,7 @@ fi
 
 # Final fallback - keep existing version or use default
 if [ -f "$VERSION_FILE" ]; then
-    zz_log w "Could not determine new version, keeping existing VERSION file"
+    zz-log w "Could not determine new version, keeping existing VERSION file"
 else
     update_version_file "1.0.0"
 fi

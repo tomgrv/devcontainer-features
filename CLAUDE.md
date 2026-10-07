@@ -16,7 +16,7 @@ Every tool-specific path is a symlink into `.agents/` (the single source of trut
 ## Dev Workflow
 
 - **Feature install** (local): `npx tomgrv/devcontainer-features -- add <feature>` → calls `install-feature` → copies `src/<feature>/stubs/` via `cp -a` (symlinks preserved) into target.
-- **Feature configure** (devcontainer): `configure-feature <feature>` → deploys stubs files + symlinks. Both commands come from `tomgrv/scripts` (fetched via `zz_use` in `src/common-utils/install.sh`).
+- **Feature configure** (devcontainer): `configure-feature <feature>` → deploys stubs files + symlinks. Both commands come from `tomgrv/scripts` (fetched via `zz-use` in `src/common-utils/install.sh`).
 - **This repo dogfoods its own features** — root `.github/workflows/`, `.github/skills/`, `.claude/skills/` are the installed output of the ai-coding feature. Edit canonical content under `.agents/skills/` or `src/ai-coding/stubs/`, not the symlinks.
 - **Prettier**: run `npm install` then `npx prettier --write` on new/edited `.md`/`.yml`/`.json` files before committing.
 - **Commits**: Conventional Commits + devmoji emoji required — e.g. `feat(scope): ✨ description`. Validated by commitlint on `review_requested`.
@@ -36,7 +36,7 @@ src/<feature>/
   configure-*.sh               # optional lifecycle hooks, invoked by name (not on PATH)
   install-*.sh                 # optional extra install-time scripts
   stubs/                       # files deployed as-is to consumer repos; merged into an
-                                # existing file at the same path (JSON via merge-json,
+                                # existing file at the same path (JSON via json-merge,
                                 # otherwise git merge-file) when one already exists.
                                 # A basename starting with "_" marks a qualifier segment
                                 # (up to the first ".") to strip, so several fragments
@@ -50,7 +50,7 @@ src/<feature>/
                                 # relative to repo root — "RMV <path>" untracks
                                 # from git (kept on disk), "DEL <path>" deletes
                                 # and untracks, "KEY <json-or-yaml-file> <json-array-path>"
-                                # drops a key before the merge, so merge-json/merge-yaml
+                                # drops a key before the merge, so json-merge/yaml-merge
                                 # (which keep the consumer's existing value) write the
                                 # stub's current one, e.g.
                                 # KEY package.json ["lint-staged","old"] or
@@ -91,4 +91,4 @@ Valid scopes (deduced from npm workspace names): `devcontainer-features-act`, `d
 
 Example: `fix(devcontainer-features-githooks): 🔧 Add conditional skip when GITLEAKS_LICENSE not set`.
 
-Validated by `tomgrv/actions/check-pr-format@v2` on PR open/sync. Scope must use full `devcontainer-features-<workspace>` format; multi-workspace changes use the primary feature modified.
+Validated by `tomgrv/actions/check-pr-format@v3` on PR open/sync. Scope must use full `devcontainer-features-<workspace>` format; multi-workspace changes use the primary feature modified.

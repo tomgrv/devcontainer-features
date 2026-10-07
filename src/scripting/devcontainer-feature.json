@@ -1,5 +1,5 @@
 {
-  "description": "Ensures a standard root setup.sh is present, installing zz_use + the common zz_* bundle and execing the repo's package.json \"main\" (or a root main.sh)",
+  "description": "Ensures a standard root setup.sh is present, installing zz-use + the common zz-* bundle and execing the repo's package.json \"main\" (or a root main.sh)",
   "id": "scripting",
   "dependsOn": {
     "ghcr.io/tomgrv/devcontainer-features/common-utils:8": {}

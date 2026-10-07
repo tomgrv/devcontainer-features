@@ -10,15 +10,15 @@ setup() {
     cd "$TEST_DIR"
     git init -q
 
-    # zz_log is provided at runtime by common-utils (zz_use); stub it here
+    # zz-log is provided at runtime by common-utils (zz-use); stub it here
     # as a no-op executable so the scripts run standalone under bats.
     STUB_BIN="$TEST_DIR/stub-bin"
     mkdir -p "$STUB_BIN"
-    cat >"$STUB_BIN/zz_log" <<'EOF'
+    cat >"$STUB_BIN/zz-log" <<'EOF'
 #!/bin/sh
 exit 0
 EOF
-    chmod +x "$STUB_BIN/zz_log"
+    chmod +x "$STUB_BIN/zz-log"
     export PATH="$STUB_BIN:$PATH"
 }
 
@@ -74,11 +74,11 @@ teardown() {
     [ ! -d .husky ]
 }
 
-@test "configure-hooks.sh: wrappers bootstrap via .husky/install.sh when zz_use is missing" {
+@test "configure-hooks.sh: wrappers bootstrap via .husky/install.sh when zz-use is missing" {
     run sh "$FEATURE_DIR/configure-hooks.sh"
     [ "$status" -eq 0 ]
 
     for hook in pre-commit prepare-commit-msg commit-msg post-checkout post-merge pre-push; do
-        grep -qF 'command -v zz_use >/dev/null 2>&1 || . "$(dirname "$0")/install.sh"' ".husky/$hook"
+        grep -qF 'command -v zz-use >/dev/null 2>&1 || . "$(dirname "$0")/install.sh"' ".husky/$hook"
     done
 }

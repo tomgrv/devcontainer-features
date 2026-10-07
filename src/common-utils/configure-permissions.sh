@@ -4,7 +4,7 @@
 cd "$(git rev-parse --show-toplevel)" >/dev/null
 
 ### Set permissions and ownership for workspace files
-zz_log i "Setting permissions and ownership for workspace files..."
+zz-log i "Setting permissions and ownership for workspace files..."
 sudo find "${containerWorkspaceFolder:-.}" -mindepth 1 -type d -exec chmod 755 {} +
 sudo find "${containerWorkspaceFolder:-.}" -mindepth 1 -exec chown -h vscode:vscode {} +
 

@@ -12,17 +12,17 @@ fi
 ### Init db if sqlite and not exists
 case $DB_CONNECTION in
 sqlite)
-    zz_log i "DB_CONNECTION is {Purple $DB_CONNECTION}"
+    zz-log i "DB_CONNECTION is {Purple $DB_CONNECTION}"
     ### Set default sqlite db
     if [ -z "$DB_DATABASE" ]; then
         export DB_DATABASE=database/database.sqlite
     fi
 
-    zz_log i "Ensure sqlite db {Purple $DB_DATABASE} exist"
+    zz-log i "Ensure sqlite db {Purple $DB_DATABASE} exist"
     touch ./$DB_DATABASE
     ;;
 *)
-    zz_log i "DB_CONNECTION is {Purple $DB_CONNECTION}, using existing database server"
+    zz-log i "DB_CONNECTION is {Purple $DB_CONNECTION}, using existing database server"
     ;;
 esac
 

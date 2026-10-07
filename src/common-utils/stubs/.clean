@@ -1,4 +1,4 @@
 # The old stub filtered test-workspaces on '*/package.json', which never matched a
-# workspace. merge-yaml keeps existing keys, so drop the filter from existing copies.
+# workspace. yaml-merge keeps existing keys, so drop the filter from existing copies.
 KEY .github/workflows/test-workspaces.yaml ["on","push","paths"]
 KEY .github/workflows/test-workspaces.yaml ["on","pull_request","paths"]
