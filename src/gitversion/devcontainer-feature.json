@@ -8,7 +8,7 @@
     "ghcr.io/devcontainers/features/docker-in-docker:3": {
       "moby": false
     },
-    "ghcr.io/tomgrv/devcontainer-features/common-utils:8": {}
+    "ghcr.io/tomgrv/devcontainer-features/common-utils:10": {}
   },
   "name": "GitVersion feature",
   "options": {

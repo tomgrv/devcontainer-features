@@ -8,7 +8,7 @@ This feature provides a set of utilities for working with Git repositories.
 
 ```json
 "features": {
-    "ghcr.io/tomgrv/devcontainer-features/gitutils:8": {}
+    "ghcr.io/tomgrv/devcontainer-features/gitutils:10": {}
 }
 ```
 

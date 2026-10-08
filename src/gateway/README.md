@@ -20,7 +20,7 @@ SSL inspection tools act as a man-in-the-middle TLS proxy and replace server cer
 
 ```json
 "features": {
-    "ghcr.io/tomgrv/devcontainer-features/gateway:8": {}
+    "ghcr.io/tomgrv/devcontainer-features/gateway:10": {}
 }
 ```
 
@@ -134,7 +134,7 @@ The feature works around it in two flows, both downloading the `.vsix` packages 
 
     ```json
     "features": {
-        "ghcr.io/tomgrv/devcontainer-features/gateway:8": {
+        "ghcr.io/tomgrv/devcontainer-features/gateway:10": {
             "vsix": "esbenp.prettier-vscode, ms-python.python@2024.2.1"
         }
     }
