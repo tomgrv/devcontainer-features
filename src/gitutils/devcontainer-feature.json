@@ -26,13 +26,13 @@
     "ghcr.io/devcontainers/features/node:1": {
       "version": "lts"
     },
-    "ghcr.io/tomgrv/devcontainer-features/common-utils:8": {
+    "ghcr.io/tomgrv/devcontainer-features/common-utils:10": {
       "utils": "jq dos2unix git-flow"
     },
-    "ghcr.io/tomgrv/devcontainer-features/gitversion:8": {}
+    "ghcr.io/tomgrv/devcontainer-features/gitversion:10": {}
   },
   "name": "Git Aliases",
-  "version": "10.0.0",
+  "version": "10.1.0",
   "postCreateCommand": {
     "config": "feature-configure gitutils"
   },

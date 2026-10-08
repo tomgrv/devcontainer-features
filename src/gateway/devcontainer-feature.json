@@ -18,7 +18,7 @@
   "description": "Handling SSL Inspection Gateway while building & using devcontainers",
   "id": "gateway",
   "dependsOn": {
-    "ghcr.io/tomgrv/devcontainer-features/common-utils:8": {
+    "ghcr.io/tomgrv/devcontainer-features/common-utils:10": {
       "utils": "bash ca-certificates curl"
     }
   },
@@ -35,7 +35,7 @@
       "type": "string"
     }
   },
-  "version": "10.0.0",
+  "version": "10.1.0",
   "postCreateCommand": {
     "config": "feature-configure gateway"
   }
