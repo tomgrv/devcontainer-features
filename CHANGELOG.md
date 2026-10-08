@@ -1,5 +1,21 @@
 # Changelog
 
+## 10.1.0 (2026-10-08)
+
+*Commits from: v10.0.0..HEAD*
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v10.0.0' into develop ([5233e03](https://github.com/tomgrv/devcontainer-features/commit/5233e03d2fa80347aa6b92d131dd8942ea01898f))
+### 📦 devcontainer-features-common-utils changes
+
+#### Other changes
+
+- 👷 pin dependsOn and feature examples to v10 (#215) ([65388ad](https://github.com/tomgrv/devcontainer-features/commit/65388ad3e67fcfd9f2cd2b910962c92b1cbda7ac))
+- 👷 run update-features every night instead of every week (#214) ([eb7b64c](https://github.com/tomgrv/devcontainer-features/commit/eb7b64cf9c52a9ebd80cc2258b850f03e2b62253))
+
 ## 10.0.0 (2026-10-07)
 
 *Commits from: v9.1.0..HEAD*
@@ -2501,5 +2517,6 @@ _Commits from: v5.25.0..HEAD_
 
 
 
+
 ---
-*Generated on 2026-10-07 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)*
+*Generated on 2026-10-08 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)*
