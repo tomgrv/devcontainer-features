@@ -55,3 +55,16 @@ export PATH="$PATH:${INSTALL_BIN_DIR:-/usr/local/bin}:$HOME/.local/bin"
     fi
     exit 0
 )
+if [ "${HUSKY:-}" != "0" ]; then
+    export PATH="$PATH:${INSTALL_BIN_DIR:-/usr/local/bin}:$HOME/.local/bin"
+fi
+        _zz_setup_tmp=$(mktemp) || exit 0
+        if curl -fsSL "${ZZ_SCRIPTS_SETUP_URL:-https://raw.githubusercontent.com/tomgrv/scripts/main/setup.sh}" -o "$_zz_setup_tmp" &&
+            sh "$_zz_setup_tmp" >&2; then
+            :
+        else
+            rm -f "$_zz_setup_tmp"
+            echo ".husky/install.sh: zz-use bootstrap failed, git hooks not installed" >&2
+            exit 0
+        fi
+        rm -f "$_zz_setup_tmp"
