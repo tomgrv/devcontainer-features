@@ -4,7 +4,7 @@
     },
     "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
     "features": {
-        "ghcr.io/tomgrv/devcontainer-features/gateway:7": {}
+        "ghcr.io/tomgrv/devcontainer-features/gateway:10": {}
     },
     "mounts": [
         {

@@ -2,7 +2,7 @@
   "description": "Ensures a standard root setup.sh is present, installing zz-use + the common zz-* bundle and execing the repo's package.json \"main\" (or a root main.sh)",
   "id": "scripting",
   "dependsOn": {
-    "ghcr.io/tomgrv/devcontainer-features/common-utils:8": {}
+    "ghcr.io/tomgrv/devcontainer-features/common-utils:10": {}
   },
   "name": "Scripting bootstrap (setup.sh)",
   "version": "10.0.0",

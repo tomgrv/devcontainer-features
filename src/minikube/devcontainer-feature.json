@@ -13,7 +13,7 @@
       "moby": false
     },
     "ghcr.io/devcontainers/features/kubectl-helm-minikube:1": {},
-    "ghcr.io/tomgrv/devcontainer-features/common-utils:8": {}
+    "ghcr.io/tomgrv/devcontainer-features/common-utils:10": {}
   },
   "name": "Minikube feature",
   "options": {},
