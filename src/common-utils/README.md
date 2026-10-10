@@ -73,6 +73,10 @@ The feature also includes the following VS Code customizations:
   python `yq` already on `PATH` is rejected by `yaml-merge`.
 - Supports specifying additional utilities to install.
 
+## Devcontainer postStart
+
+`stubs/.devcontainer/devcontainer.json` is merged into the consumer's `.devcontainer/devcontainer.json` and adds a `postStartCommand.npm` entry: `npm install` when a `package.json` exists and `npm` is on `PATH`.
+
 ## PR Checks (CI)
 
 Consumer repos get these deployed workflows under `.github/workflows/`:
