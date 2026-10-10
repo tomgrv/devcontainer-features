@@ -5,6 +5,10 @@
 # devcontainer-feature.json's dependsOn), whose own install.sh already put
 # zz_use on PATH before install-feature runs this install-*.sh.
 
+### Resolve scripts from the tomgrv/scripts line this release was built against
+### (same pin as common-utils), not main. Override with ZZ_ORIGIN_REF.
+export ZZ_ORIGIN_REF="${ZZ_ORIGIN_REF:-v0}"
+
 zz_use git-align git-autorebase git-co git-degit git-fix git-fix-author \
     git-fix-base git-fix-blanks git-fix-children git-fix-date git-fix-del \
     git-fix-emoji git-fix-last git-fix-lock git-fix-message git-fix-mode \
