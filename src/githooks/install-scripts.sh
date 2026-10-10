@@ -6,6 +6,10 @@
 # install.sh already put zz_use on PATH before install-feature runs this
 # install-*.sh.
 
+### Resolve scripts from the tomgrv/scripts line this release was built against
+### (same pin as common-utils), not main. Override with ZZ_ORIGIN_REF.
+export ZZ_ORIGIN_REF="${ZZ_ORIGIN_REF:-v0}"
+
 zz_use git-hook-commitmsg git-hook-installplugins git-hook-postcheckout \
     git-hook-postmerge git-hook-precommit git-hook-preparecommitmsg \
     git-hook-prepush
