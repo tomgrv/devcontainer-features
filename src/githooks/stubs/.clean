@@ -3,3 +3,13 @@ DEL .github/workflows/validate-pr-source.yml
 # lint-staged keys replaced by lockfile-aware ones in _lint-staged.package.json
 KEY package.json ["lint-staged","!(*schema).json"]
 KEY package.json ["lint-staged","!(templates/**/*|.agents/**).{js,jsx,ts,tsx,md,html,css,vue,yaml,yml,json}"]
+# Earlier _lint-staged / _husky fragments: pattern replaced, normalize-json renamed to json-normalize, git-hook-* devDependencies dropped (zz-use installs them).
+KEY package.json ["lint-staged","*.{js,jsx,ts,tsx,md,html,css,vue,yaml,yml,json}"]
+KEY package.json ["lint-staged","!(*schema|package-lock).json"]
+KEY package.json ["devDependencies","git-hook-commitmsg"]
+KEY package.json ["devDependencies","git-hook-installplugins"]
+KEY package.json ["devDependencies","git-hook-postcheckout"]
+KEY package.json ["devDependencies","git-hook-postmerge"]
+KEY package.json ["devDependencies","git-hook-precommit"]
+KEY package.json ["devDependencies","git-hook-preparecommitmsg"]
+KEY package.json ["devDependencies","git-hook-prepush"]
