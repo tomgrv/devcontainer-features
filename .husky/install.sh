@@ -12,6 +12,10 @@
 ### Sourced by the wrappers, so no `exit` here: everything runs in a
 ### subshell, and only the PATH export below leaks into the caller.
 
+### Pinned to the tomgrv/scripts major this release was built against, so a
+### later breaking rename on main cannot break installs. Override with ZZ_ORIGIN_REF.
+export ZZ_ORIGIN_REF="${ZZ_ORIGIN_REF:-v2}"
+
 ### Appended, not prepended: never shadow the caller's own node/npm/etc.
 export PATH="$PATH:${INSTALL_BIN_DIR:-/usr/local/bin}:$HOME/.local/bin"
 
@@ -23,7 +27,7 @@ export PATH="$PATH:${INSTALL_BIN_DIR:-/usr/local/bin}:$HOME/.local/bin"
     ### Bootstrap zz-use from tomgrv/scripts when missing (same bootstrap
     ### as the githooks feature's install.sh)
     if ! command -v zz-use >/dev/null 2>&1; then
-        curl -fsSL "${ZZ_SCRIPTS_SETUP_URL:-https://raw.githubusercontent.com/tomgrv/scripts/main/setup.sh}" | sh >&2 ||
+        curl -fsSL "${ZZ_SCRIPTS_SETUP_URL:-https://raw.githubusercontent.com/tomgrv/scripts/$ZZ_ORIGIN_REF/setup.sh}" | sh >&2 ||
             {
                 echo ".husky/install.sh: zz-use bootstrap failed, git hooks not installed" >&2
                 exit 0
@@ -59,7 +63,7 @@ if [ "${HUSKY:-}" != "0" ]; then
     export PATH="$PATH:${INSTALL_BIN_DIR:-/usr/local/bin}:$HOME/.local/bin"
 fi
         _zz_setup_tmp=$(mktemp) || exit 0
-        if curl -fsSL "${ZZ_SCRIPTS_SETUP_URL:-https://raw.githubusercontent.com/tomgrv/scripts/main/setup.sh}" -o "$_zz_setup_tmp" &&
+        if curl -fsSL "${ZZ_SCRIPTS_SETUP_URL:-https://raw.githubusercontent.com/tomgrv/scripts/$ZZ_ORIGIN_REF/setup.sh}" -o "$_zz_setup_tmp" &&
             sh "$_zz_setup_tmp" >&2; then
             :
         else

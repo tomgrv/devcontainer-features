@@ -14,6 +14,18 @@ generic core is kept in each repo's `UPGRADING.md`; only section 0 differs.
 - **What breaks consumers:** installer script lists
   (`src/common-utils/install.sh`), shim names, stub workflows and configs under
   `src/*/stubs/`, `.clean` `KEY` directives, feature options, and the major.
+- **Installers pin the provider ref.** Every bootstrap (`install.sh`,
+  `src/common-utils/install.sh`, `.husky/install.sh` and its stub, the
+  `install-*.sh` scripts, and the generated `.husky/<hook>` shims) defaults
+  `ZZ_ORIGIN_REF` to the `tomgrv/scripts` major this release was built against
+  (today `v2`) and downloads `setup.sh` from that same ref, never `main`.
+  Unpinned, a rename on `main` breaks installs of every past release (v8 failed
+  with `zz_use: not found`, v9 with `resolve-context` not found). Bump the pin
+  in all of these together with `scripts-ref`, in the release that adopts the
+  new provider major. Past breakage is fixed on `support/<major>.x` branches
+  cut from the release tag (pin to the last compatible provider line, e.g.
+  `v0` for v8, the exact minor `v1.1` for v9, since floating `v1` moved to the
+  renamed `v1.2.0`).
 - **Pins live in stubs too:** `src/*/stubs/.github/workflows/*` and the repo's
   own `.github/workflows/*`. Bump both, or every consumer inherits a stale pin.
 - **Edit canonical files:** `.agents/…` and `src/ai-coding/stubs/…`, never the
@@ -43,12 +55,12 @@ generic core is kept in each repo's `UPGRADING.md`; only section 0 differs.
 
 ## 2. Roles and the dependency chain
 
-| Role                  | Owns                              | Typical repos here                     |
-| --------------------- | --------------------------------- | -------------------------------------- |
-| **Provider**          | The commands/APIs being changed   | `tomgrv/scripts`                       |
-| **Tooling**           | Actions that install and run them | `tomgrv/actions`                       |
-| **Distributor**       | Features/stubs copied to others   | `tomgrv/devcontainer-features`         |
-| **Consumer**          | Calls everything above            | `perspikapps/vps`, any downstream repo |
+| Role            | Owns                              | Typical repos here                     |
+| --------------- | --------------------------------- | -------------------------------------- |
+| **Provider**    | The commands/APIs being changed   | `tomgrv/scripts`                       |
+| **Tooling**     | Actions that install and run them | `tomgrv/actions`                       |
+| **Distributor** | Features/stubs copied to others   | `tomgrv/devcontainer-features`         |
+| **Consumer**    | Calls everything above            | `perspikapps/vps`, any downstream repo |
 
 Chain: **Provider → Tooling → Distributor → Consumer.** CI in every repo
 installs the provider's `main` and runs the **published** tooling major, so a
@@ -123,18 +135,18 @@ new pins in the release notes, and tell consumers the order in section 5.
 
 ## 4. Failure catalogue
 
-| Symptom                                                      | Cause                                                                    | Fix                                                                  |
-| ------------------------------------------------------------ | ------------------------------------------------------------------------ | -------------------------------------------------------------------- |
-| `<old>: not found` in CI of every repo                       | CI runs the published tooling major that still calls the old name        | Release provider, then tooling; pin the new major                    |
-| Release fails although the pin points at an old tag          | The pinned tooling bootstraps the provider's **`main`**, not its pin     | Move the release workflow to the new tooling major                   |
-| `npm install` 404 on a renamed package                       | A file merged from the base still lists the old package name             | Merge the base again, rewrite the new files                          |
-| `Syntax error: Bad function name` in a stub                  | POSIX `sh` function names cannot contain `-`                             | Make the stub an executable on `PATH`                                |
-| A test still looks for the old name                          | Quoted or Markdown-escaped occurrences missed by the rewrite             | Grep for quotes and `\_` after rewriting                             |
-| A symlinked file became a regular file                       | `sed -i` replaces symlinks                                               | Rewrite regular files only                                           |
-| Check re-run still sees the old PR title                     | Re-runs reuse the original event payload                                 | Push a commit or mark the PR ready for review                        |
-| `non-fast-forward` when reusing the PR branch name           | The remote branch survived the squash merge                              | Verify its tree equals the base, then `--force-with-lease=<ref>:<sha>` |
-| Install fails only locally                                   | Stale cache from before the provider release                             | Use a fresh cache directory                                          |
-| Title check fails on scope                                   | Each repo has its own scope enum                                         | Use a scope from the repo's list                                     |
+| Symptom                                             | Cause                                                                | Fix                                                                    |
+| --------------------------------------------------- | -------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| `<old>: not found` in CI of every repo              | CI runs the published tooling major that still calls the old name    | Release provider, then tooling; pin the new major                      |
+| Release fails although the pin points at an old tag | The pinned tooling bootstraps the provider's **`main`**, not its pin | Move the release workflow to the new tooling major                     |
+| `npm install` 404 on a renamed package              | A file merged from the base still lists the old package name         | Merge the base again, rewrite the new files                            |
+| `Syntax error: Bad function name` in a stub         | POSIX `sh` function names cannot contain `-`                         | Make the stub an executable on `PATH`                                  |
+| A test still looks for the old name                 | Quoted or Markdown-escaped occurrences missed by the rewrite         | Grep for quotes and `\_` after rewriting                               |
+| A symlinked file became a regular file              | `sed -i` replaces symlinks                                           | Rewrite regular files only                                             |
+| Check re-run still sees the old PR title            | Re-runs reuse the original event payload                             | Push a commit or mark the PR ready for review                          |
+| `non-fast-forward` when reusing the PR branch name  | The remote branch survived the squash merge                          | Verify its tree equals the base, then `--force-with-lease=<ref>:<sha>` |
+| Install fails only locally                          | Stale cache from before the provider release                         | Use a fresh cache directory                                            |
+| Title check fails on scope                          | Each repo has its own scope enum                                     | Use a scope from the repo's list                                       |
 
 ## 5. Upgrading a consumer
 
@@ -205,14 +217,14 @@ PRs (`@v2`→`@v3`, `scripts-ref: v0`→`v1`, `vps` `release-main.yml` →
 
 ### 7.2 Second example: `<verb>-feature` → `feature-<verb>` and the `zz` front door
 
-| Old                                    | New                                                                                  |
-| -------------------------------------- | ------------------------------------------------------------------------------------ |
-| `install-feature`                      | `feature-install`                                                                    |
-| `configure-feature`                    | `feature-configure`                                                                  |
-| `resolve-context`                      | `feature-context`                                                                    |
-| —                                      | `feature <sub>` dispatcher (`feature install`, …)                                    |
-| —                                      | `zz <name> [args]`: runs `zz-<name>` if installed, else `zz-use -x <name> [args]`    |
-| npm `@tomgrv/scripts-install-feature`… | `@tomgrv/scripts-feature-install` …                                                  |
+| Old                                    | New                                                                               |
+| -------------------------------------- | --------------------------------------------------------------------------------- |
+| `install-feature`                      | `feature-install`                                                                 |
+| `configure-feature`                    | `feature-configure`                                                               |
+| `resolve-context`                      | `feature-context`                                                                 |
+| —                                      | `feature <sub>` dispatcher (`feature install`, …)                                 |
+| —                                      | `zz <name> [args]`: runs `zz-<name>` if installed, else `zz-use -x <name> [args]` |
+| npm `@tomgrv/scripts-install-feature`… | `@tomgrv/scripts-feature-install` …                                               |
 
 Lessons it added to the catalogue:
 
