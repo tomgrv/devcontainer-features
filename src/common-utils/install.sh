@@ -14,8 +14,12 @@ dir=$(dirname $(readlink -f $0))
 ### here now live there, shared across every tomgrv repo. Idempotent: a
 ### zz-use already on PATH (from a previous install) is reused as-is, and
 ### zz-use itself only fetches/installs whatever isn't already present.
+### Pinned to the tomgrv/scripts line this release was built against: main has
+### since renamed the scripts it calls, which broke the install. Exported so
+### every zz-use below resolves from the same ref. Override with ZZ_ORIGIN_REF.
+export ZZ_ORIGIN_REF="${ZZ_ORIGIN_REF:-v1.1}"
 if ! command -v zz-use >/dev/null 2>&1; then
-    if ! curl -fsSL "${ZZ_SCRIPTS_SETUP_URL:-https://raw.githubusercontent.com/tomgrv/scripts/main/setup.sh}" | sh -; then
+    if ! curl -fsSL "${ZZ_SCRIPTS_SETUP_URL:-https://raw.githubusercontent.com/tomgrv/scripts/$ZZ_ORIGIN_REF/setup.sh}" | sh -; then
         echo "[zz-setup] failed to download the scripts bootstrap" >&2
         exit 1
     fi
