@@ -43,15 +43,15 @@ teardown() {
     [ "$(git config core.hooksPath)" = ".husky/_" ]
 }
 
-@test "install.sh: installs common-utils only when json-normalize is missing" {
+@test "install.sh: installs json-* scripts only when json-normalize is missing" {
     run sh .husky/install.sh
-    grep -q '^npm install -g @tomgrv/devcontainer-features-common-utils' "$CALLS"
+    grep -q '^zz-use json json-\*' "$CALLS"
 
     : >"$CALLS"
     printf '#!/bin/sh\n' >"$STUB_BIN/json-normalize"
     chmod +x "$STUB_BIN/json-normalize"
     run sh .husky/install.sh
-    ! grep -q '^npm install' "$CALLS"
+    ! grep -q '^zz-use json json-' "$CALLS"
 }
 
 @test "install.sh: skips husky when core.hooksPath already set" {

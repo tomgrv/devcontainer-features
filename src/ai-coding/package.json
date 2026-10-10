@@ -8,7 +8,9 @@
     "install.sh",
     "stubs/**/*"
   ],
-  "scripts": {},
+  "scripts": {
+    "test": "bats tests/"
+  },
   "peerDependencies": {
     "@tomgrv/devcontainer-features-common-utils": "*"
   },

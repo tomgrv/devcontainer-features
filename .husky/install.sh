@@ -13,7 +13,9 @@
 ### subshell, and only the PATH export below leaks into the caller.
 
 ### Appended, not prepended: never shadow the caller's own node/npm/etc.
-export PATH="$PATH:${INSTALL_BIN_DIR:-/usr/local/bin}:$HOME/.local/bin"
+if [ "${HUSKY:-}" != "0" ]; then
+    export PATH="$PATH:${INSTALL_BIN_DIR:-/usr/local/bin}:$HOME/.local/bin"
+fi
 
 (
     [ "${HUSKY:-}" = "0" ] && exit 0
@@ -23,11 +25,16 @@ export PATH="$PATH:${INSTALL_BIN_DIR:-/usr/local/bin}:$HOME/.local/bin"
     ### Bootstrap zz-use from tomgrv/scripts when missing (same bootstrap
     ### as the githooks feature's install.sh)
     if ! command -v zz-use >/dev/null 2>&1; then
-        curl -fsSL "${ZZ_SCRIPTS_SETUP_URL:-https://raw.githubusercontent.com/tomgrv/scripts/main/setup.sh}" | sh >&2 ||
-            {
-                echo ".husky/install.sh: zz-use bootstrap failed, git hooks not installed" >&2
-                exit 0
-            }
+        _zz_setup_tmp=$(mktemp) || exit 0
+        if curl -fsSL "${ZZ_SCRIPTS_SETUP_URL:-https://raw.githubusercontent.com/tomgrv/scripts/main/setup.sh}" -o "$_zz_setup_tmp" &&
+            sh "$_zz_setup_tmp" >&2; then
+            :
+        else
+            rm -f "$_zz_setup_tmp"
+            echo ".husky/install.sh: zz-use bootstrap failed, git hooks not installed" >&2
+            exit 0
+        fi
+        rm -f "$_zz_setup_tmp"
     fi
 
     zz-use git-hook-commitmsg git-hook-installplugins git-hook-postcheckout \
@@ -37,8 +44,8 @@ export PATH="$PATH:${INSTALL_BIN_DIR:-/usr/local/bin}:$HOME/.local/bin"
     ### json-normalize, run by the lint-staged config on staged *.json
     ### (stubs/_lint-staged.package.json), comes from common-utils
     if ! command -v json-normalize >/dev/null 2>&1; then
-        npm install -g @tomgrv/devcontainer-features-common-utils >&2 ||
-            echo ".husky/install.sh: npm install -g common-utils failed" >&2
+        zz-use json "json-*" >&2 ||
+            echo ".husky/install.sh: zz-use json failed" >&2
     fi
 
     ### husky from node_modules/.bin in an npm script, npx otherwise
@@ -55,16 +62,3 @@ export PATH="$PATH:${INSTALL_BIN_DIR:-/usr/local/bin}:$HOME/.local/bin"
     fi
     exit 0
 )
-if [ "${HUSKY:-}" != "0" ]; then
-    export PATH="$PATH:${INSTALL_BIN_DIR:-/usr/local/bin}:$HOME/.local/bin"
-fi
-        _zz_setup_tmp=$(mktemp) || exit 0
-        if curl -fsSL "${ZZ_SCRIPTS_SETUP_URL:-https://raw.githubusercontent.com/tomgrv/scripts/main/setup.sh}" -o "$_zz_setup_tmp" &&
-            sh "$_zz_setup_tmp" >&2; then
-            :
-        else
-            rm -f "$_zz_setup_tmp"
-            echo ".husky/install.sh: zz-use bootstrap failed, git hooks not installed" >&2
-            exit 0
-        fi
-        rm -f "$_zz_setup_tmp"

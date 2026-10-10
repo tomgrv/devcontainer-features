@@ -44,8 +44,8 @@ fi
     ### json-normalize, run by the lint-staged config on staged *.json
     ### (stubs/_lint-staged.package.json), comes from common-utils
     if ! command -v json-normalize >/dev/null 2>&1; then
-        npm install -g @tomgrv/devcontainer-features-common-utils >&2 ||
-            echo ".husky/install.sh: npm install -g common-utils failed" >&2
+        zz-use json "json-*" >&2 ||
+            echo ".husky/install.sh: zz-use json failed" >&2
     fi
 
     ### husky from node_modules/.bin in an npm script, npx otherwise

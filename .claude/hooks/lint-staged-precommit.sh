@@ -5,11 +5,13 @@
 # session. Sessions clone the repo directly and never run the devcontainer
 # postCreateCommand pipeline that would otherwise wire this up.
 #
-# common-utils (json-normalize/etc., used by the lint-staged rules) is
-# resolved directly by package name and installed globally -- it does not
-# rely on this repo's package.json declaring it as a dependency, or on npm
-# workspace linking. Fires as a PreToolUse hook on Bash, filtered to
-# `git commit` commands (see .claude/settings.json).
+# json-normalize (used by the lint-staged rules) ships in tomgrv/scripts,
+# not in the common-utils npm package: it is installed with `zz-use json`.
+# Fires as a PreToolUse hook on Bash (see .claude/settings.json); the
+# `if` filter there is not honoured everywhere, so the command is also
+# checked here, from the hook payload on stdin.
+
+grep -q 'git commit' || exit 0
 
 repo_root=$(git rev-parse --show-toplevel 2>/dev/null) || exit 0
 cd "$repo_root" || exit 0
@@ -23,8 +25,9 @@ case "$(git config core.hooksPath)" in
 esac
 
 if ! command -v json-normalize >/dev/null 2>&1; then
-    npm install -g @tomgrv/devcontainer-features-common-utils >&2 || {
-        echo "lint-staged-precommit.sh: npm install -g common-utils failed, skipping lint-staged" >&2
+    [ -f .husky/install.sh ] && sh .husky/install.sh >&2
+    command -v json-normalize >/dev/null 2>&1 || {
+        echo "lint-staged-precommit.sh: json-normalize unavailable, skipping lint-staged" >&2
         exit 0
     }
 fi
