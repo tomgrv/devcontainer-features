@@ -48,6 +48,7 @@ Hooks are wired up via [Husky](https://typicode.github.io/husky/how-to.html) rat
 - It is called from every entry point:
     - **npm** - the `package.json` `"prepare": "sh .husky/install.sh || ..."` script, so a plain `npm install` on any machine installs working hooks. (An existing `prepare` script in a consumer `package.json` is kept as-is by the JSON merge; replace it by hand to opt in.)
     - **devcontainer** - `configure-husky.sh` (run by `feature-configure githooks` on `postCreate`).
+    - **devcontainer `postStart`** - `npm install` (when a `package.json` exists), merged into `.devcontainer/devcontainer.json` from `stubs/.devcontainer/devcontainer.json`; its `prepare` script then runs this installer.
     - **Claude Code** - a `SessionStart` hook merged into `.claude/settings.json` (`stubs/.claude/_githooks.settings.json`), since claude.ai/code web/cloud sessions clone the repo directly and run neither `npm install` nor `postCreate`.
 - `configure-hooks.sh` generates one thin executable wrapper per hook under `.husky/` (`pre-commit`, `prepare-commit-msg`, `commit-msg`, `post-checkout`, `post-merge`, `pre-push`). Each wrapper calls the corresponding `git-hook-<name>` command (no internal hyphens, e.g. `pre-commit` -> `git-hook-precommit`), passing all arguments through, and falls back to sourcing `.husky/install.sh` if `zz-use` isn't on `PATH`:
 
