@@ -7,12 +7,16 @@ source=$(dirname $(readlink -f $0))
 ### the scripts formerly kept in src/common-utils/bin/ now live there,
 ### shared across every tomgrv repo. Idempotent: a zz-use already on PATH
 ### is reused as-is.
+### Pinned to the tomgrv/scripts line this release was built against: main has
+### since renamed the scripts it calls, which broke the install. Exported so
+### every zz-use below resolves from the same ref. Override with ZZ_ORIGIN_REF.
+export ZZ_ORIGIN_REF="${ZZ_ORIGIN_REF:-v1.1}"
 if ! command -v zz-use >/dev/null 2>&1; then
     _zz_setup_tmp=$(mktemp) || {
         echo "install.sh: mktemp failed" >&2
         exit 1
     }
-    if ! curl -fsSL "${ZZ_SCRIPTS_SETUP_URL:-https://raw.githubusercontent.com/tomgrv/scripts/main/setup.sh}" -o "$_zz_setup_tmp"; then
+    if ! curl -fsSL "${ZZ_SCRIPTS_SETUP_URL:-https://raw.githubusercontent.com/tomgrv/scripts/$ZZ_ORIGIN_REF/setup.sh}" -o "$_zz_setup_tmp"; then
         echo "install.sh: failed to download the zz-use bootstrap" >&2
         rm -f "$_zz_setup_tmp"
         exit 1

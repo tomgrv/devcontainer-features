@@ -22,8 +22,12 @@ export PATH="$PATH:${INSTALL_BIN_DIR:-/usr/local/bin}:$HOME/.local/bin"
 
     ### Bootstrap zz-use from tomgrv/scripts when missing (same bootstrap
     ### as the githooks feature's install.sh)
+    ### Pinned to the tomgrv/scripts line this release was built against: main has
+    ### since renamed the scripts it calls, which broke the install. Exported so
+    ### every zz-use below resolves from the same ref. Override with ZZ_ORIGIN_REF.
+    export ZZ_ORIGIN_REF="${ZZ_ORIGIN_REF:-v1.1}"
     if ! command -v zz-use >/dev/null 2>&1; then
-        curl -fsSL "${ZZ_SCRIPTS_SETUP_URL:-https://raw.githubusercontent.com/tomgrv/scripts/main/setup.sh}" | sh >&2 ||
+        curl -fsSL "${ZZ_SCRIPTS_SETUP_URL:-https://raw.githubusercontent.com/tomgrv/scripts/$ZZ_ORIGIN_REF/setup.sh}" | sh >&2 ||
             {
                 echo ".husky/install.sh: zz-use bootstrap failed, git hooks not installed" >&2
                 exit 0
