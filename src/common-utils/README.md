@@ -73,6 +73,10 @@ The feature also includes the following VS Code customizations:
   python `yq` already on `PATH` is rejected by `yaml-merge`.
 - Supports specifying additional utilities to install.
 
+## Devcontainer postStart
+
+`stubs/.devcontainer/devcontainer.json` is merged into the consumer's `.devcontainer/devcontainer.json` and adds a `postStartCommand.npm` entry: `npm install` when a `package.json` exists and `npm` is on `PATH`.
+
 ## PR Checks (CI)
 
 Consumer repos get these deployed workflows under `.github/workflows/`:
@@ -135,7 +139,7 @@ In addition to the specified utilities, some additional local utilities are also
 - `zz-log`: A utility to log messages with color
 - `zz-args`: A utility to parse command line arguments and display associated help messages in one go.
 
-### Distribute zz-* Utilities
+### Distribute zz-\* Utilities
 
 The `zz-dist` utility allows you to copy all `zz-*` utilities from the devcontainer-installed location to a target directory. This is useful for maintaining a local copy of utilities in your project.
 

@@ -39,3 +39,5 @@ Homestead.yaml
 /public/hot
 /public/css
 /public/js
+# devcontainer
+.devcontainer/devcontainer-lock.json

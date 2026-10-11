@@ -1,5 +1,26 @@
 # Changelog
 
+## 10.2.0 (2026-10-11)
+
+*Commits from: v10.1.0..HEAD*
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v10.1.0' into develop ([ebeeeff](https://github.com/tomgrv/devcontainer-features/commit/ebeeeff29dca8b1c4213cc1bde9b49136220e7e0))
+- update features (#217) ([d632ae3](https://github.com/tomgrv/devcontainer-features/commit/d632ae3330acd50f7888ae0e15f6e3573c5ee44a))
+### 📦 devcontainer-features-common-utils changes
+
+#### Bug Fixes
+
+- 🐛 pin tomgrv/scripts bootstrap to v2 (#223) ([fdc7489](https://github.com/tomgrv/devcontainer-features/commit/fdc74899c171cf54971c1215386fef8e00379ca1))
+- 🐛 push update-features workflow changes via token (#216) ([617e4d9](https://github.com/tomgrv/devcontainer-features/commit/617e4d9c9368c2e12e577c9e1b5226d2fe51f2c0))
+
+#### Features
+
+- ✨ add claude settings schema and npm install postStart (#220) ([928cc1a](https://github.com/tomgrv/devcontainer-features/commit/928cc1a3edaef3a706a88db15738ed1bdaaf84c5))
+
 ## 10.1.0 (2026-10-08)
 
 *Commits from: v10.0.0..HEAD*
@@ -2518,5 +2539,6 @@ _Commits from: v5.25.0..HEAD_
 
 
 
+
 ---
-*Generated on 2026-10-08 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)*
+*Generated on 2026-10-11 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)*
