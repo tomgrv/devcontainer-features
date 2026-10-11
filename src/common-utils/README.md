@@ -139,7 +139,7 @@ In addition to the specified utilities, some additional local utilities are also
 - `zz-log`: A utility to log messages with color
 - `zz-args`: A utility to parse command line arguments and display associated help messages in one go.
 
-### Distribute zz-* Utilities
+### Distribute zz-\* Utilities
 
 The `zz-dist` utility allows you to copy all `zz-*` utilities from the devcontainer-installed location to a target directory. This is useful for maintaining a local copy of utilities in your project.
 
