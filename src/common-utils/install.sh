@@ -17,7 +17,7 @@ dir=$(dirname $(readlink -f $0))
 ### Pinned to the tomgrv/scripts major this release was built against, so a
 ### later breaking rename on main cannot break installs of this release.
 ### Exported so every zz-use below resolves from the same ref. Override with ZZ_ORIGIN_REF.
-export ZZ_ORIGIN_REF="${ZZ_ORIGIN_REF:-v2}"
+export ZZ_ORIGIN_REF="${ZZ_ORIGIN_REF:-v3}"
 if ! command -v zz-use >/dev/null 2>&1; then
     if ! curl -fsSL "${ZZ_SCRIPTS_SETUP_URL:-https://raw.githubusercontent.com/tomgrv/scripts/$ZZ_ORIGIN_REF/setup.sh}" | sh -; then
         echo "[zz-setup] failed to download the scripts bootstrap" >&2
@@ -27,7 +27,7 @@ fi
 
 zz-use jq yq
 zz-use json "json-*" yaml "yaml-*" feature "feature-*" \
-    distribute-utils edit-script run-workspace-tests
+    distribute-utils edit-script ws-test ws-list ws-impacted
 
 ### Compatibility shims: the rest of this monorepo still calls these by
 ### their pre-split names (several features' install-*.sh scripts call

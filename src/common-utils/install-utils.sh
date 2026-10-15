@@ -5,7 +5,7 @@ cd "$(git rev-parse --show-toplevel)" >/dev/null
 
 ### Resolve scripts from the tomgrv/scripts major this release was built against
 ### (same pin as common-utils), not main. Override with ZZ_ORIGIN_REF.
-export ZZ_ORIGIN_REF="${ZZ_ORIGIN_REF:-v2}"
+export ZZ_ORIGIN_REF="${ZZ_ORIGIN_REF:-v3}"
 
 zz-use zz-install
 
