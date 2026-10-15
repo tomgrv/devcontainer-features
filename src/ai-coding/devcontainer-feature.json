@@ -13,7 +13,7 @@
     "ghcr.io/tomgrv/devcontainer-features/common-utils:10": {}
   },
   "name": "AI Coding",
-  "version": "10.2.0",
+  "version": "11.0.0",
   "postCreateCommand": {
     "config": "feature-configure ai-coding"
   }
