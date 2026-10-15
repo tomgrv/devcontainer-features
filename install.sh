@@ -10,7 +10,7 @@ source=$(dirname $(readlink -f $0))
 ### Pinned to the tomgrv/scripts major this release was built against, so a
 ### later breaking rename on main cannot break installs of this release.
 ### Exported so every zz-use below resolves from the same ref. Override with ZZ_ORIGIN_REF.
-export ZZ_ORIGIN_REF="${ZZ_ORIGIN_REF:-v2}"
+export ZZ_ORIGIN_REF="${ZZ_ORIGIN_REF:-v3}"
 if ! command -v zz-use >/dev/null 2>&1; then
     _zz_setup_tmp=$(mktemp) || {
         echo "install.sh: mktemp failed" >&2
