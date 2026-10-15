@@ -19,7 +19,7 @@ for hook in pre-commit prepare-commit-msg commit-msg post-checkout post-merge pr
     cat >".husky/$hook" <<EOF
 #!/bin/sh
 command -v zz-use >/dev/null 2>&1 || . "\$(dirname "\$0")/install.sh"
-export ZZ_ORIGIN_REF="\${ZZ_ORIGIN_REF:-v2}"
+export ZZ_ORIGIN_REF="\${ZZ_ORIGIN_REF:-v3}"
 zz-use -x git-hook-$command "\$@"
 EOF
     zz-use git-hook-$command

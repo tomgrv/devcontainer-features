@@ -30,17 +30,17 @@ jobs:
 
       - name: Set up PHP toolchain
         id: setup-php
-        uses: tomgrv/actions/setup-php@v4
+        uses: tomgrv/actions/setup-php@v5
 
       - name: Validate composer
-        uses: tomgrv/actions/check-laravel@v4
+        uses: tomgrv/actions/check-laravel@v5
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           pint-blade: 'true'
 
       - name: Run FilaCheck
         if: ${{ hashFiles('app/Filament/**') != '' }}
-        uses: tomgrv/actions/run-filacheck@v4
+        uses: tomgrv/actions/run-filacheck@v5
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path: app/Filament
@@ -58,7 +58,7 @@ jobs:
 
       - name: List affected PHP parts (core, modules, packages)
         id: parts
-        uses: tomgrv/actions/list-php-parts@v4
+        uses: tomgrv/actions/list-php-parts@v5
 
   run-php-tests:
     name: run-php-tests (${{ matrix.part.name }})
@@ -97,10 +97,10 @@ jobs:
 
       - name: Set up PHP toolchain
         id: setup-php
-        uses: tomgrv/actions/setup-php@v4
+        uses: tomgrv/actions/setup-php@v5
 
       - name: Set up Node.js
-        uses: tomgrv/actions/setup-node@v4
+        uses: tomgrv/actions/setup-node@v5
         with:
           node-version: '24'
 
@@ -110,7 +110,7 @@ jobs:
 
       - name: Run Pest/PHPUnit tests
         id: tests
-        uses: tomgrv/actions/run-phptests@v4
+        uses: tomgrv/actions/run-phptests@v5
         with:
           name: phpunit (${{ matrix.part.name }})
           paths: ${{ matrix.part.path }}

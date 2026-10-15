@@ -7,7 +7,7 @@
 
 ### Resolve scripts from the tomgrv/scripts major this release was built against
 ### (same pin as common-utils), not main. Override with ZZ_ORIGIN_REF.
-export ZZ_ORIGIN_REF="${ZZ_ORIGIN_REF:-v2}"
+export ZZ_ORIGIN_REF="${ZZ_ORIGIN_REF:-v3}"
 
 zz-use git-align git-autorebase git-co git-degit git-fix git-fix-author \
     git-fix-base git-fix-blanks git-fix-children git-fix-date git-fix-del \
@@ -15,4 +15,4 @@ zz-use git-align git-autorebase git-co git-degit git-fix git-fix-author \
     git-fix-orphans git-fix-privacy git-fix-prune git-fix-rights git-fix-secrets \
     git-fix-up git-forall git-getcommit git-integrate git-pick git-release \
     git-release-alpha git-release-beta git-release-hotfix git-release-prod \
-    git-unset git-workspaces
+    git-unset ws-list
