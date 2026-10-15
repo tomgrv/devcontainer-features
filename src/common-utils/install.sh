@@ -27,7 +27,7 @@ fi
 
 zz-use jq yq
 zz-use json "json-*" yaml "yaml-*" feature "feature-*" \
-    distribute-utils edit-script run-workspace-tests
+    distribute-utils edit-script ws-test ws-list ws-impacted
 
 ### Compatibility shims: the rest of this monorepo still calls these by
 ### their pre-split names (several features' install-*.sh scripts call

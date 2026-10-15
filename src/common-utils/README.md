@@ -99,11 +99,11 @@ Consumer repos get these deployed workflows under `.github/workflows/`:
   [`tomgrv/actions/list-packages`](https://github.com/tomgrv/actions/blob/main/list-packages/README.md)
   and, for every workspace, runs
   [`tomgrv/actions/run-workspace-tests`](https://github.com/tomgrv/actions/blob/main/run-workspace-tests/README.md)
-  (backed by [`tomgrv/scripts/run-workspace-tests`](https://github.com/tomgrv/scripts/tree/main/run-workspace-tests)).
+  (backed by [`tomgrv/scripts/ws-test`](https://github.com/tomgrv/scripts/tree/main/ws-test)).
   A **draft** pull request only runs the workspaces its changes impact: the ones
   owning a changed file plus, transitively, the workspaces depending on them
   (`dependencies`/`peerDependencies`/`devDependencies`/`optionalDependencies`),
-  computed by the deployed `.github/scripts/impacted-workspaces.sh` and passed to
+  computed by [`ws-impacted`](https://github.com/tomgrv/scripts/tree/main/ws-impacted) and passed to
   `list-packages` as its `filter`. Markdown impacts nobody; a changed file owned by
   no workspace (root manifest, shared test helpers, workflows) impacts everybody.
   Marking the pull request ready for review, pushing to a non-draft pull request,

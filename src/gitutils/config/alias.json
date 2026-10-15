@@ -135,8 +135,12 @@
         "cmd": "git reset --soft HEAD^ --",
         "help": "Undo last commit, keep changes staged."
     },
+    "workspaces": {
+        "cmd": "ws-list",
+        "help": "List workspace directories and affected workspaces"
+    },
     "ws": {
-        "cmd": "git workspaces",
+        "cmd": "ws-list",
         "help": "List workspace directories and affected workspaces"
     }
 }
