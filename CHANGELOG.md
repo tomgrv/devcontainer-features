@@ -1,5 +1,23 @@
 # Changelog
 
+## 11.0.0 (2026-10-15)
+
+*Commits from: v10.2.0..HEAD*
+
+### 💥 BREAKING CHANGES
+
+- needs tomgrv/scripts v3 and tomgrv/actions v5; consumers re-run ([985809f](https://github.com/tomgrv/devcontainer-features/commit/985809f63d29084496c615311a5119dbe91f9548))
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v10.2.0' into develop ([3ff473e](https://github.com/tomgrv/devcontainer-features/commit/3ff473eb114271158ae0b79e86effd9da6358306))
+### 📦 devcontainer-features-ai-coding changes
+
+#### Bug Fixes
+
+- 🐛 sync lockfile in update-features workflow (#224) ([7d9438a](https://github.com/tomgrv/devcontainer-features/commit/7d9438ab0060e1c19f07d15b266f29b29b14090e))
+
 ## 10.2.0 (2026-10-11)
 
 *Commits from: v10.1.0..HEAD*
@@ -2540,5 +2558,6 @@ _Commits from: v5.25.0..HEAD_
 
 
 
+
 ---
-*Generated on 2026-10-11 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)*
+*Generated on 2026-10-15 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)*
