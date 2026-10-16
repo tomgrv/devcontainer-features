@@ -1,5 +1,20 @@
 # Changelog
 
+## 11.1.0 (2026-10-16)
+
+*Commits from: v11.0.0..HEAD*
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v11.0.0' into develop ([47b0bec](https://github.com/tomgrv/devcontainer-features/commit/47b0becb029cdfd883b6e8b8f09b4f60eee0b791))
+### 📦 devcontainer-features-common-utils changes
+
+#### Bug Fixes
+
+- 🐛 manage UTILS through zz-use (#227) ([127b386](https://github.com/tomgrv/devcontainer-features/commit/127b386c8394afcf1146790f91a2e576b4f8a96d))
+
 ## 11.0.0 (2026-10-15)
 
 *Commits from: v10.2.0..HEAD*
@@ -2559,5 +2574,6 @@ _Commits from: v5.25.0..HEAD_
 
 
 
+
 ---
-*Generated on 2026-10-15 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)*
+*Generated on 2026-10-16 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)*
