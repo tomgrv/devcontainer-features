@@ -48,6 +48,19 @@ eval "$(zz-bindir)"
 bindir="$dir"
 dir=$(dirname $(readlink -f $0))
 
+### yaml-merge needs mikefarah/yq, but zz-use skips yq when any `yq` is on
+### PATH (e.g. the distro python one). bindir precedes /usr/bin, so installing
+### the pinned release there shadows it. Version read from zz-use's own config.
+if ! yq --version 2>&1 | grep -q mikefarah; then
+    yq_version=$(jq -r '.yq.version' "$bindir/config/zz-use.json")
+    yq_arch=$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/')
+    curl -fsSL "https://github.com/mikefarah/yq/releases/download/v$yq_version/yq_linux_$yq_arch" -o "$bindir/yq" \
+        && chmod +x "$bindir/yq" || {
+        echo "install.sh: failed to install mikefarah/yq v$yq_version" >&2
+        exit 1
+    }
+fi
+
 for old_new in zz-context:feature-context zz-dist:distribute-utils zz-edit:edit-script zz-json:json-load; do
     old=${old_new%%:*}
     new=${old_new#*:}
