@@ -7,19 +7,9 @@ cd "$(git rev-parse --show-toplevel)" >/dev/null
 ### (same pin as common-utils), not main. Override with ZZ_ORIGIN_REF.
 export ZZ_ORIGIN_REF="${ZZ_ORIGIN_REF:-v3}"
 
-zz-use zz-install
-
-### Install utils
-for bin in $UTILS; do
-
-    zz-log i "Checking {B $bin}..."
-
-    if [ -n "$(command -v $bin)" ]; then
-        zz-log s "{B $bin} is installed."
-    else
-        zz-install $bin || {
-            zz-log w "Please install {B $bin} Manually."
-            exit 1
-        }
-    fi
-done >&2
+### Install utils (zz-use applies each tool's config check, e.g. mikefarah yq)
+# shellcheck disable=SC2086
+[ -z "$UTILS" ] || zz-use $UTILS >&2 || {
+    zz-log w "Please install {B $UTILS} Manually."
+    exit 1
+}
