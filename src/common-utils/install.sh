@@ -49,14 +49,19 @@ bindir="$dir"
 dir=$(dirname $(readlink -f $0))
 
 ### yaml-merge needs mikefarah/yq, but zz-use skips yq when any `yq` is on
-### PATH (e.g. the distro python one). bindir precedes /usr/bin, so installing
-### the pinned release there shadows it. Version read from zz-use's own config.
-if ! yq --version 2>&1 | grep -q mikefarah; then
-    yq_version=$(jq -r '.yq.version' "$bindir/config/zz-use.json")
+### PATH (e.g. the distro python one). zz-use.json's pinned release wins: if the
+### yq in use is not that version, install it into bindir and require it to
+### resolve first on PATH. Version read from zz-use's own config.
+yq_version=$(jq -r '.yq.version' "$bindir/config/zz-use.json")
+if ! yq --version 2>&1 | grep -q "mikefarah.* v$yq_version"; then
     yq_arch=$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/')
     curl -fsSL "https://github.com/mikefarah/yq/releases/download/v$yq_version/yq_linux_$yq_arch" -o "$bindir/yq" \
         && chmod +x "$bindir/yq" || {
         echo "install.sh: failed to install mikefarah/yq v$yq_version" >&2
+        exit 1
+    }
+    [ "$(command -v yq)" = "$bindir/yq" ] || {
+        echo "install.sh: $bindir/yq is shadowed by $(command -v yq) on PATH" >&2
         exit 1
     }
 fi
