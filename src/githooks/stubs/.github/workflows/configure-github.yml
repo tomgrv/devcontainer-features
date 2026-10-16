@@ -46,3 +46,31 @@ jobs:
               allow_force_pushes: false,
               allow_deletions: false,
             });
+
+      - name: Require the Tests green check on develop
+        uses: actions/github-script@v9
+        with:
+          github-token: ${{ steps.app-token.outputs.token }}
+          script: |
+            const args = {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              branch: 'develop',
+            };
+            try {
+              // Adds to the existing required checks, keeps the other settings.
+              await github.rest.repos.addStatusChecksContexts({
+                ...args,
+                contexts: ['Tests green'],
+              });
+            } catch (e) {
+              if (e.status !== 404) throw e;
+              // No protection on develop yet: create the minimal one.
+              await github.rest.repos.updateBranchProtection({
+                ...args,
+                required_status_checks: { strict: false, contexts: ['Tests green'] },
+                enforce_admins: false,
+                required_pull_request_reviews: null,
+                restrictions: null,
+              });
+            }
