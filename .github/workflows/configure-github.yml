@@ -18,8 +18,16 @@ jobs:
   configure-github:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    # Secrets cannot be tested in an `if`, but an env var set from one can, at step level.
+    env:
+      KLICKSPLIT_CLIENT_ID: ${{ secrets.KLICKSPLIT_CLIENT_ID }}
     steps:
+      - name: Skip notice
+        if: ${{ env.KLICKSPLIT_CLIENT_ID == '' }}
+        run: echo "::notice::KLICKSPLIT_CLIENT_ID is not set, skipping the GitHub configuration."
+
       - name: Generate a token
+        if: ${{ env.KLICKSPLIT_CLIENT_ID != '' }}
         id: app-token
         uses: actions/create-github-app-token@v3
         with:
@@ -27,6 +35,7 @@ jobs:
           private-key: ${{ secrets.KLICKSPLIT_APP_KEY }}
 
       - name: Restrict main to GitHub bot
+        if: ${{ env.KLICKSPLIT_CLIENT_ID != '' }}
         uses: actions/github-script@v9
         with:
           github-token: ${{ steps.app-token.outputs.token }}
@@ -48,6 +57,7 @@ jobs:
             });
 
       - name: Require the Tests green check on develop
+        if: ${{ env.KLICKSPLIT_CLIENT_ID != '' }}
         uses: actions/github-script@v9
         with:
           github-token: ${{ steps.app-token.outputs.token }}
