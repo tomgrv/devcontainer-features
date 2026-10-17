@@ -72,6 +72,8 @@ jobs:
           workspace: ${{ matrix.package.path }}
 
   repo-tests:
+    # Repo-wide tests are not workspace-scoped: skipped on drafts, run on ready.
+    if: github.event_name != 'pull_request' || !github.event.pull_request.draft
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -89,3 +91,16 @@ jobs:
           else
             echo "No repo-wide tests under tests/, skipping."
           fi
+
+  # Single check to mark as required in branch protection: red if any test
+  # job failed or was cancelled (skipped is fine - drafts skip repo-tests).
+  tests-green:
+    name: Tests green
+    needs: [list-packages, test, repo-tests]
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Fail unless all tests are green
+        if: contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled')
+        run: exit 1
