@@ -1,0 +1,5 @@
+{
+    "features": {
+        "ghcr.io/tomgrv/devcontainer-features/githooks:11": {}
+    }
+}
