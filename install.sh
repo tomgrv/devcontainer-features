@@ -156,6 +156,20 @@ cmd_deps() {
     done
 }
 
+# Declare a feature in the consumer's devcontainer.json (no-op if already
+# listed, whatever its pinned major). Pinned to the feature's current major.
+register_feature() {
+    _feat="$1"
+    _cfg=$(find ".devcontainer" -maxdepth 2 -mindepth 1 -name "devcontainer.json" 2>/dev/null | head -1)
+    [ -n "$_cfg" ] || return 0
+    list_features "$_cfg" | grep -qxF "$_feat" && return 0
+    _major=$(jq -r '.version | split(".")[0]' "$source/src/$_feat/devcontainer-feature.json" 2>/dev/null)
+    [ -n "$_major" ] || return 0
+    # json-merge rejects JSONC (comments): warn instead of leaving it silently stale
+    echo "{\"features\":{\"ghcr.io/tomgrv/devcontainer-features/$_feat:$_major\":{}}}" | json-merge "$_cfg" - \
+        || zz-log w "Could not add {Purple $_feat} to {U $_cfg}, add it manually"
+}
+
 cmd_add() {
     if [ "${target:-}" = "-x" ]; then
         # Deploy root stubs then install each default feature
@@ -175,6 +189,11 @@ cmd_add() {
         return 0
     fi
 
+    # Only features named at the top level are declared in devcontainer.json;
+    # dependencies (nested runs, tracker already exported) come via dependsOn.
+    _top=""
+    [ -z "${INSTALL_FEAT_TRACKER:-}" ] && _top=1
+
     zz-log i "Adding: $(echo $_features | tr '\n' ' ')"
     for _feature in $(echo "$_features" | tr '\n' ' '); do
         [ -z "$_feature" ] && continue
@@ -184,6 +203,7 @@ cmd_add() {
         # unconditionally would print a "Deploying" line for features that
         # actually get skipped, making a normal install look like it loops.
         sh "$source/install-feat.sh" "$source" "$_feature"
+        [ -n "$_top" ] && register_feature "$_feature"
     done
     zz-log s "Done adding features"
 }
