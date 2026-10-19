@@ -1,0 +1,5 @@
+{
+    "features": {
+        "ghcr.io/tomgrv/devcontainer-features/act:10": {}
+    }
+}
