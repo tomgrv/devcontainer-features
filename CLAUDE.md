@@ -13,6 +13,10 @@ Every tool-specific path is a symlink into `.agents/` (the single source of trut
 - **Skills** (`/.agents/skills/`, symlinked into `/.github/skills/` for Copilot and `/.claude/skills/` for Claude Code): `caveman*`, `cavecrew`, `caveman-stats`, `feature-ai-coding`, `pm/*`. Invoke them proactively via the Skill tool — don't wait until stuck.
 - **Instructions** (`/.github/instructions/*.instructions.md` — Copilot's `applyTo`-glob convention; Claude doesn't auto-load these but they document repo conventions): `general`, `repo`, `commit`.
 
+## Harness
+
+This repo dogfoods the `ai-coding` harness (`.agents/skills/harness`). State lives in `.agents/progress.md` and `.agents/features.json`: the `SessionStart` hook prints them with the branch's forge CI status, then work one feature at a time, mark `passing` only with recorded evidence, and update the progress log before stopping. The rules in this file and in `.agents/instructions/` stay authoritative; the `SessionStart` hook lists them.
+
 ## Dev Workflow
 
 - **Feature install** (local): `npx tomgrv/devcontainer-features -- add <feature>` → calls `feature-install` → copies `src/<feature>/stubs/` via `cp -a` (symlinks preserved) into target.

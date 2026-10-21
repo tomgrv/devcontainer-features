@@ -31,6 +31,26 @@
                 ],
                 "matcher": "Bash"
             }
+        ],
+        "SessionStart": [
+            {
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/harness-startup.sh"
+                    }
+                ]
+            }
+        ],
+        "Stop": [
+            {
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/harness-stop.sh"
+                    }
+                ]
+            }
         ]
     },
     "outputStyle": "Caveman",
