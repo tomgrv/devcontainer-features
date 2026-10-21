@@ -18,15 +18,15 @@ Copy from `templates/` next to this file, then adapt — never leave placeholder
 2. `.agents/features.json` — every user-visible feature with `id`, `priority`, `status`, `verification` steps and `evidence`. Write real features from the repo's README/issues/code; all start `not_started`.
 3. Optional for large sessions: `templates/session-handoff.md` → `.agents/handoff.md`.
 
-Set `baseline` in `.agents/features.json` to the repo's real verification command (detect `package.json`, `composer.json`, `bats`, `Makefile`). Dependencies are installed by the devcontainer features, not here. Commit the files as one change. Once `.agents/progress.md` or `.agents/features.json` exists, the `SessionStart` hook prints the state and the `Stop` hook checks the handoff.
+Dependencies are installed by the devcontainer features, not here; the baseline is the CI status on the repo's dev forge (GitHub, GitLab, Azure DevOps), which the hook prints. Put each feature's real verification steps in `.agents/features.json`. Commit the files as one change. Once `.agents/progress.md` or `.agents/features.json` exists, the `SessionStart` hook prints the state and the `Stop` hook checks the handoff.
 
 ## Session start
 
 1. `pwd` — confirm the repo root.
 2. Read the repo's own rules: `CLAUDE.md`, `AGENTS.md`, `.agents/instructions/*.instructions.md` (the `SessionStart` hook lists which exist). They stay authoritative for commit format, PR base/title, scope limits and tooling; the harness adds the loop around them, it never overrides them.
 3. Read `.agents/progress.md`, then `.agents/features.json`.
-4. `git log --oneline -5`. The `SessionStart` hook already printed the state and ran the `baseline` command.
-5. Baseline `FAIL`? Re-run to confirm, then fix it first. No new work on a broken start.
+4. `git log --oneline -5`. The `SessionStart` hook already printed the state and the forge CI status of the branch.
+5. CI red on the branch? That is the baseline: fix it first. No new work on a broken start.
 6. Pick the highest-priority unfinished feature. Set it `in_progress`. One at a time.
 
 ## While working
@@ -42,7 +42,7 @@ Set `baseline` in `.agents/features.json` to the repo's real verification comman
 1. Update `.agents/progress.md`: verified state, what ran, evidence, known risk, next best step.
 2. Update `.agents/features.json` statuses and evidence.
 3. Walk `templates/clean-state-checklist.md`.
-4. Commit once the repo is safe to resume, using the repo's commit and PR conventions from its rules. The next session must pass the `baseline` check immediately, no manual repair.
+4. Commit once the repo is safe to resume, using the repo's commit and PR conventions from its rules. CI on the branch must be green or explained in the progress log; the next session must start without manual repair.
 
 ## Boundaries
 

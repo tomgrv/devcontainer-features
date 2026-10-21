@@ -1,9 +1,10 @@
 #!/bin/sh
 
 # SessionStart hook: the harness startup. Prints the durable state (progress
-# log, next feature, repo rules, recent commits) and runs the baseline
-# verification named in .agents/features.json ("baseline"), so every session
-# starts from files and a known-good or known-broken state instead of guessing.
+# log, next feature, repo rules, recent commits) and the CI status of the
+# current branch on the repo's dev forge (GitHub, GitLab, Azure DevOps), so a
+# session starts from files and a known-good or known-broken state instead of
+# guessing. Nothing repo-controlled is executed: only fixed forge CLI queries.
 # Dependencies are not installed here: the devcontainer features' own install
 # (feature-install / postCreateCommand) already did that.
 # Stdout is added to the session context. Silent unless the repo opted in by
@@ -23,24 +24,24 @@ if [ -f .agents/features.json ] && command -v jq >/dev/null 2>&1; then
     jq -r '([.features[] | select(.status != "passing" and .status != "blocked")] | sort_by(.priority) | first) as $f
         | if $f then "\($f.id) [\($f.status)] \($f.title)" else "nothing actionable (all passing or blocked)" end' \
         .agents/features.json 2>/dev/null
-
-    baseline=$(jq -r '.baseline // empty' .agents/features.json 2>/dev/null)
-    if [ -n "$baseline" ]; then
-        echo "### Baseline verification: $baseline"
-        if command -v timeout >/dev/null 2>&1; then
-            out=$(timeout 600 sh -c "$baseline" 2>&1)
-        else
-            out=$(sh -c "$baseline" 2>&1)
-        fi
-        rc=$?
-        if [ "$rc" -eq 0 ]; then
-            echo "PASS"
-        else
-            echo "FAIL (exit $rc) - fix the baseline before new work"
-            echo "$out" | tail -20
-        fi
-    fi
 fi
+
+branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+remote=$(git remote get-url origin 2>/dev/null)
+case "$remote" in
+*github.com*) forge=GitHub ;;
+*gitlab*) forge=GitLab ;;
+*dev.azure.com* | *visualstudio.com*) forge="Azure DevOps" ;;
+*) forge= ;;
+esac
+echo "### CI status on ${forge:-unknown forge} ($branch)"
+case "$forge" in
+GitHub) command -v gh >/dev/null 2>&1 && gh run list --branch "$branch" --limit 3 --json workflowName,status,conclusion --jq '.[] | "\(.workflowName): \(.status) \(.conclusion)"' 2>/dev/null ;;
+GitLab) command -v glab >/dev/null 2>&1 && glab ci status --branch "$branch" 2>/dev/null ;;
+"Azure DevOps") command -v az >/dev/null 2>&1 && az pipelines runs list --branch "$branch" --top 3 --query "[].join(' ', [definition.name, status, result])" -o tsv 2>/dev/null ;;
+esac
+echo "Red CI on the forge = broken baseline: fix it before new work."
+
 echo "### Repo rules (read before editing)"
 ls CLAUDE.md AGENTS.md .agents/instructions/*.instructions.md 2>/dev/null
 echo "### Recent commits"

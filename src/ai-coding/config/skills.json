@@ -12,6 +12,10 @@
         {
             "package": "DietrichGebert/ponytail",
             "global": false
+        },
+        {
+            "package": "tomgrv/devcontainer-features/.agents/skills/harness",
+            "global": false
         }
     ]
 }

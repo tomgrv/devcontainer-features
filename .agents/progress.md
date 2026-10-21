@@ -4,8 +4,8 @@ Session log for long-running agent work (harness: `.agents/skills/harness`). Rea
 
 ## Current Verified State
 
-- Standard startup: `SessionStart` hook (prints this state, runs `baseline` from `.agents/features.json`; deps come from the devcontainer features)
-- Standard verification: the `baseline` command (`bats -r tests src`: repo-wide tests + every workspace); CI = `.github/workflows/test-workspaces.yaml` (`Tests green`)
+- Standard startup: `SessionStart` hook (prints this state and the forge CI status; deps come from the devcontainer features)
+- Standard verification: CI on the forge (`Tests green` in `.github/workflows/test-workspaces.yaml` runs every workspace); locally `bats -r tests src`
 - Highest-priority actionable feature: `harness-001` (`ci-001` is blocked on repo secrets)
 - Current blocker: `KLICKSPLIT_CLIENT_ID` / `KLICKSPLIT_APP_KEY` not set, so `configure-github` cannot make `Tests green` required on `develop`
 
@@ -21,5 +21,5 @@ Session log for long-running agent work (harness: `.agents/skills/harness`). Rea
 - Commits: see PR #231
 - Known risk or unresolved issue: `Stop` hook blocks once per stop on a dirty tree without a progress update
 - Follow-up (same session): generic conventions (minimal changes, Conventional Commits, branch/PR, format, tests) added to `harness.instructions.md`.
-- Follow-up: state moved to `.agents/progress.md` + `.agents/features.json`; `init.sh` folded into the `SessionStart` hook (runs `baseline`, no dep install). `baseline` covers all workspaces (`bats -r tests src`). In the offline cloud sandbox 3 `common-utils` install tests fail (the `tomgrv/scripts` archive download fails there: truncated gzip); they pass in CI and in networked devcontainers.
+- Follow-up: state moved to `.agents/progress.md` + `.agents/features.json`; `init.sh` removed. Per review, the startup hook no longer runs repo-controlled commands: it prints the branch's CI status from the dev forge (`gh` / `glab` / `az`) instead of a `baseline` command. Harness skill registered in `src/ai-coding/config/skills.json` for consumers.
 - Next best step: set the Klicksplit secrets (or the branch rule by hand), then loop-engineering skill (`harness-002`)

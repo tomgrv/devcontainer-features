@@ -1,7 +1,6 @@
 {
     "project": "devcontainer-features",
     "last_updated": "2026-10-21",
-    "baseline": "npx --yes bats -r tests src",
     "rules": {
         "single_active_feature": true,
         "passing_requires_evidence": true,
@@ -36,7 +35,7 @@
             "user_visible_behavior": "Repos installing ai-coding get the harness skill, SessionStart/Stop hooks and evaluator agent; this repo uses them.",
             "status": "in_progress",
             "verification": [
-                "The baseline command passes (all bats suites).",
+                "CI on the branch is green (Tests green: all workspaces).",
                 "PR #231 CI green and merged."
             ],
             "evidence": [

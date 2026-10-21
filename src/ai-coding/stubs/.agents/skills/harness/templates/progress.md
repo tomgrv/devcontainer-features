@@ -4,7 +4,7 @@ Agent-agnostic session log. Read at session start, update before handoff. (Cours
 
 ## Current Verified State
 
-- Standard startup: `SessionStart` hook (prints this state, runs `baseline` from `.agents/features.json`)
+- Standard startup: `SessionStart` hook (prints this state and the forge CI status)
 - Standard verification path:
 - Highest-priority unfinished feature:
 - Current blocker:

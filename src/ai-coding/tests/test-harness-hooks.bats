@@ -73,13 +73,16 @@ teardown() {
     [ "$status" -eq 0 ]
 }
 
-@test "startup: runs the baseline command and reports PASS/FAIL" {
-    echo '{"baseline":"true","features":[]}' >.agents/features.json
-    run sh .claude/hooks/harness-startup.sh
-    [[ "$output" == *"Baseline verification: true"* ]]
-    [[ "$output" == *"PASS"* ]]
-    echo '{"baseline":"echo boom; false","features":[]}' >.agents/features.json
-    run sh .claude/hooks/harness-startup.sh
-    [[ "$output" == *"FAIL (exit 1)"* ]]
-    [[ "$output" == *"boom"* ]]
+@test "startup: prints CI status via the forge CLI and never executes repo-controlled text" {
+    echo '# log' >.agents/progress.md
+    git remote add origin https://github.com/acme/repo.git
+    echo '{"baseline":"touch pwned","features":[]}' >.agents/features.json
+    mkdir stub-bin
+    printf '#!/bin/sh\necho "ci: completed success"\n' >stub-bin/gh
+    chmod +x stub-bin/gh
+    PATH="$PWD/stub-bin:$PATH" run sh .claude/hooks/harness-startup.sh
+    [ "$status" -eq 0 ]
+    [[ "$output" == *"CI status on GitHub"* ]]
+    [[ "$output" == *"ci: completed success"* ]]
+    [ ! -e pwned ]
 }
