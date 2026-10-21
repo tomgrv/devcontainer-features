@@ -6,10 +6,20 @@ Session log for long-running agent work (harness: `.agents/skills/harness`). Rea
 
 - Standard startup: `SessionStart` hook (prints this state and the forge CI status; deps come from the devcontainer features)
 - Standard verification: CI on the forge (`Tests green` in `.github/workflows/test-workspaces.yaml` runs every workspace); locally `bats -r tests src`
-- Highest-priority actionable feature: `harness-001` (`ci-001` is blocked on repo secrets)
+- Highest-priority actionable feature: `release-001` (`ci-001` is blocked on repo secrets)
 - Current blocker: `KLICKSPLIT_CLIENT_ID` / `KLICKSPLIT_APP_KEY` not set, so `configure-github` cannot make `Tests green` required on `develop`
 
 ## Session Log
+
+### Session 002
+
+- Date: 2026-10-21
+- Goal: align `.agents/features.json` with merged PRs
+- Completed: `harness-001` -> passing (PR #231 merged, CI green on `e13ded4`); added `ci-000` and `ci-003` as passing (PR #226, released in v11.2.0); added `release-001` (harness not yet released to `main`)
+- Verification run: JSON valid; statuses checked against `git log origin/develop`
+- Evidence captured: develop history: `6c1329e` (#226) in release 11.2.0 (`c564ebe`), `bd24855` (#231) after it
+- Known risk or unresolved issue: `ci-003` guard not yet seen on a live no-secret run
+- Next best step: run the release skill (`release-001`)
 
 ### Session 001
 

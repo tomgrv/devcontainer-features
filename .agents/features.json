@@ -14,6 +14,38 @@
     },
     "features": [
         {
+            "id": "ci-000",
+            "priority": 0,
+            "area": "ci",
+            "title": "Tests green gate job; repo tests only on ready PRs",
+            "user_visible_behavior": "Draft PRs run impacted workspace tests only; ready PRs and pushes run everything; a Tests green job fails when any test job fails.",
+            "status": "passing",
+            "verification": [
+                "PR #226 CI: Tests green present and green; repo-tests skipped on draft, run after ready."
+            ],
+            "evidence": [
+                "PR #226 merged as 6c1329e, released in v11.2.0 (c564ebe)",
+                "repo-tests skipped on draft and success after ready on PR #226/#231"
+            ],
+            "notes": ""
+        },
+        {
+            "id": "ci-003",
+            "priority": 0,
+            "area": "ci",
+            "title": "Klicksplit workflows skip cleanly without secrets",
+            "user_visible_behavior": "manage-monorepo-merge, manage-monorepo-split and configure-github print a notice and succeed when KLICKSPLIT_CLIENT_ID is unset.",
+            "status": "passing",
+            "verification": [
+                "Workflow YAML guards on env.KLICKSPLIT_CLIENT_ID in stub and repo copy."
+            ],
+            "evidence": [
+                "PR #226 merged (guards for merge/configure-github; split already guarded)",
+                "Not exercised on a live run without secrets since the guard shipped"
+            ],
+            "notes": "Live no-secret run not yet observed."
+        },
+        {
             "id": "ci-001",
             "priority": 1,
             "area": "ci",
@@ -25,7 +57,7 @@
                 "Open a PR with a failing test and confirm merge is blocked."
             ],
             "evidence": [],
-            "notes": "Blocked: KLICKSPLIT_CLIENT_ID / KLICKSPLIT_APP_KEY secrets missing. Workflow already skips cleanly without them."
+            "notes": "Blocked: KLICKSPLIT_CLIENT_ID / KLICKSPLIT_APP_KEY secrets missing, so configure-github cannot apply the rule. The Tests green job and the develop-protection step shipped (PR #226, released in v11.2.0). Alternative: set the rule by hand in Settings > Branches."
         },
         {
             "id": "harness-001",
@@ -33,16 +65,31 @@
             "area": "ai-coding",
             "title": "Opt-in harness ships to consumers and runs here",
             "user_visible_behavior": "Repos installing ai-coding get the harness skill, SessionStart/Stop hooks and evaluator agent; this repo uses them.",
-            "status": "in_progress",
+            "status": "passing",
             "verification": [
                 "CI on the branch is green (Tests green: all workspaces).",
-                "PR #231 CI green and merged."
+                "PR #231 merged into develop."
             ],
             "evidence": [
-                "bats src/ai-coding/tests tests: pass (local)",
-                "PR #231 CI green on e04b0b3"
+                "PR #231 squash-merged into develop as bd24855",
+                "CI green on e13ded4 (Tests green, 11 workspaces, repo-tests, CodeQL)",
+                "bats -r tests src/ai-coding/tests: pass locally"
             ],
-            "notes": "Pending merge of PR #231."
+            "notes": "Shipped to develop. Consumers get the skill via config/skills.json (fetched from main) only after the next release, see release-001."
+        },
+        {
+            "id": "release-001",
+            "priority": 2,
+            "area": "release",
+            "title": "Harness released to main for consumers",
+            "user_visible_behavior": "Repos installing ai-coding get the harness skill, hooks and evaluator agent.",
+            "status": "not_started",
+            "verification": [
+                "Run the release skill (release-prod.yml), check status 5 min later.",
+                "Confirm .agents/skills/harness exists on main and skills.json lists it."
+            ],
+            "evidence": [],
+            "notes": "Use the release skill. PR #231 is on develop only."
         },
         {
             "id": "harness-002",
