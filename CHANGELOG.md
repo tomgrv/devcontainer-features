@@ -1,5 +1,26 @@
 # Changelog
 
+## 11.2.0 (2026-10-21)
+
+*Commits from: v11.1.0..HEAD*
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v11.1.0' into develop ([2f64dc0](https://github.com/tomgrv/devcontainer-features/commit/2f64dc0554757d584d0705ad848913b70c8b91bb))
+### 📦 devcontainer-features-common-utils changes
+
+#### Features
+
+- ✨ Gate merge on Tests green, repo tests on ready (#226) ([6c1329e](https://github.com/tomgrv/devcontainer-features/commit/6c1329ecc875a3d096eac7f7fdb23c7a0d32e821))
+
+### 📦 devcontainer-features-gitversion changes
+
+#### Bug Fixes
+
+- 🐛 fall back to dotnet tool when docker is unavailable (#228) ([fc69f57](https://github.com/tomgrv/devcontainer-features/commit/fc69f57fd74cf499803bde3f1873075a7d7c9aa5))
+
 ## 11.1.0 (2026-10-16)
 
 *Commits from: v11.0.0..HEAD*
@@ -2575,5 +2596,6 @@ _Commits from: v5.25.0..HEAD_
 
 
 
+
 ---
-*Generated on 2026-10-16 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)*
+*Generated on 2026-10-21 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)*
