@@ -108,7 +108,9 @@ Consumer repos get these deployed workflows under `.github/workflows/`:
   no workspace (root manifest, shared test helpers, workflows) impacts everybody.
   Marking the pull request ready for review, pushing to a non-draft pull request,
   and pushes to `main`/`develop` run every workspace (branches without a pull
-  request are no longer tested: open a draft one).
+  request are no longer tested: open a draft one). Repo-wide `tests/` also wait
+  for ready. The `Tests green` job fails if any test job failed or was cancelled:
+  mark it as a required status check in branch protection to block merging.
   For each root `*.json` file found directly under a workspace (typically
   `package.json`), that command reads its `.scripts.test` entry as the
   workspace's generic test entrypoint:

@@ -51,6 +51,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     needs: list-packages
+    # Secrets cannot be tested in an `if`, but an env var set from one can, at step level.
+    env:
+      KLICKSPLIT_CLIENT_ID: ${{ secrets.KLICKSPLIT_CLIENT_ID }}
     strategy:
       fail-fast: false
       matrix:
@@ -59,7 +62,12 @@ jobs:
       - name: Checkout monorepo
         uses: actions/checkout@v7
 
+      - name: Skip notice
+        if: ${{ env.KLICKSPLIT_CLIENT_ID == '' }}
+        run: echo "::notice::KLICKSPLIT_CLIENT_ID is not set, skipping the degit."
+
       - name: Generate a token
+        if: ${{ env.KLICKSPLIT_CLIENT_ID != '' }}
         id: app-token
         uses: actions/create-github-app-token@v3
         with:
@@ -69,12 +77,14 @@ jobs:
           repositories: ${{ matrix.package.name }}
 
       - name: Configure bot identity
+        if: ${{ env.KLICKSPLIT_CLIENT_ID != '' }}
         uses: tomgrv/actions/config-bot@v5
         with:
           github-token: ${{ steps.app-token.outputs.token }}
           github-app-slug: ${{ steps.app-token.outputs.app-slug }}
 
       - name: Degit package content
+        if: ${{ env.KLICKSPLIT_CLIENT_ID != '' }}
         id: degit
         uses: tomgrv/actions/degit-package@v5
         with:
