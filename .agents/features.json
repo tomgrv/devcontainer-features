@@ -1,7 +1,7 @@
 {
     "project": "devcontainer-features",
     "last_updated": "2026-10-21",
-    "baseline": "npx --yes bats -r tests src/ai-coding/tests",
+    "baseline": "npx --yes bats -r tests src",
     "rules": {
         "single_active_feature": true,
         "passing_requires_evidence": true,
