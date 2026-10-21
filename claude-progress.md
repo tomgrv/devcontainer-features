@@ -20,4 +20,5 @@ Session log for long-running agent work (harness: `.agents/skills/harness`). Rea
 - Evidence captured: PR #231 CI green on `e04b0b3`
 - Commits: see PR #231
 - Known risk or unresolved issue: `Stop` hook blocks once per stop on a dirty tree without a progress update
+- Follow-up (same session): generic conventions (minimal changes, Conventional Commits, branch/PR, format, tests) added to `harness.instructions.md`.
 - Next best step: set the Klicksplit secrets (or the branch rule by hand), then loop-engineering skill (`harness-002`)
