@@ -4,8 +4,8 @@ Session log for long-running agent work (harness: `.agents/skills/harness`). Rea
 
 ## Current Verified State
 
-- Standard startup path: `./init.sh` (npm install + every bats suite)
-- Standard verification path: `./init.sh`; CI = `.github/workflows/test-workspaces.yaml` (`Tests green`)
+- Standard startup: `SessionStart` hook (prints this state, runs `baseline` from `.agents/features.json`; deps come from the devcontainer features)
+- Standard verification: the `baseline` command (fast, network-free bats subset: repo-wide + ai-coding; full per-workspace suites run in CI); CI = `.github/workflows/test-workspaces.yaml` (`Tests green`)
 - Highest-priority actionable feature: `harness-001` (`ci-001` is blocked on repo secrets)
 - Current blocker: `KLICKSPLIT_CLIENT_ID` / `KLICKSPLIT_APP_KEY` not set, so `configure-github` cannot make `Tests green` required on `develop`
 
@@ -21,4 +21,5 @@ Session log for long-running agent work (harness: `.agents/skills/harness`). Rea
 - Commits: see PR #231
 - Known risk or unresolved issue: `Stop` hook blocks once per stop on a dirty tree without a progress update
 - Follow-up (same session): generic conventions (minimal changes, Conventional Commits, branch/PR, format, tests) added to `harness.instructions.md`.
+- Follow-up: state moved to `.agents/progress.md` + `.agents/features.json`; `init.sh` folded into the `SessionStart` hook (runs `baseline`, no dep install). `bats -r tests src` fails locally in `common-utils` install tests (sandbox, cause not investigated), so `baseline` is the fast subset.
 - Next best step: set the Klicksplit secrets (or the branch rule by hand), then loop-engineering skill (`harness-002`)

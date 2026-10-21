@@ -1,6 +1,6 @@
 #!/usr/bin/env bats
 # Covers stubs/.claude/hooks/harness-startup.sh and harness-stop.sh: both are
-# opt-in (silent without claude-progress.md / feature_list.json), the startup
+# opt-in (silent without .agents/progress.md / .agents/features.json), the startup
 # hook prints the next unfinished feature, the stop hook blocks once on
 # uncommitted work without a progress update and never loops.
 
@@ -12,7 +12,7 @@ setup() {
     cd "$TEST_DIR"
     git init -q
     git config user.email t@t && git config user.name t
-    mkdir -p .claude/hooks
+    mkdir -p .claude/hooks .agents
     cp "$FEATURE_DIR"/stubs/.claude/hooks/harness-*.sh .claude/hooks/
     echo x >seed && git add seed && git commit -qm seed
 }
@@ -29,15 +29,15 @@ teardown() {
 }
 
 @test "startup: prints the next unfinished feature by priority" {
-    echo '# log' >claude-progress.md
-    echo '{"features":[{"id":"b","priority":2,"status":"not_started","title":"B"},{"id":"a","priority":1,"status":"in_progress","title":"A"},{"id":"c","priority":0,"status":"passing","title":"C"},{"id":"d","priority":0,"status":"blocked","title":"D"}]}' >feature_list.json
+    echo '# log' >.agents/progress.md
+    echo '{"features":[{"id":"b","priority":2,"status":"not_started","title":"B"},{"id":"a","priority":1,"status":"in_progress","title":"A"},{"id":"c","priority":0,"status":"passing","title":"C"},{"id":"d","priority":0,"status":"blocked","title":"D"}]}' >.agents/features.json
     run sh .claude/hooks/harness-startup.sh
     [ "$status" -eq 0 ]
     [[ "$output" == *"a [in_progress] A"* ]]
 }
 
 @test "startup: lists the repo rule files that exist" {
-    echo '# log' >claude-progress.md
+    echo '# log' >.agents/progress.md
     echo rules >CLAUDE.md
     run sh .claude/hooks/harness-startup.sh
     [ "$status" -eq 0 ]
@@ -52,23 +52,34 @@ teardown() {
 }
 
 @test "stop: blocks dirty tree with an untouched progress log" {
-    echo '# log' >claude-progress.md && git add . && git commit -qm log
+    echo '# log' >.agents/progress.md && git add . && git commit -qm log
     echo dirty >>seed
     run sh -c "echo '{}' | sh .claude/hooks/harness-stop.sh"
     [ "$status" -eq 2 ]
 }
 
 @test "stop: allows once the progress log changed" {
-    echo '# log' >claude-progress.md && git add . && git commit -qm log
+    echo '# log' >.agents/progress.md && git add . && git commit -qm log
     echo dirty >>seed
-    echo update >>claude-progress.md
+    echo update >>.agents/progress.md
     run sh -c "echo '{}' | sh .claude/hooks/harness-stop.sh"
     [ "$status" -eq 0 ]
 }
 
 @test "stop: never loops when stop_hook_active is true" {
-    echo '# log' >claude-progress.md && git add . && git commit -qm log
+    echo '# log' >.agents/progress.md && git add . && git commit -qm log
     echo dirty >>seed
     run sh -c "echo '{\"stop_hook_active\": true}' | sh .claude/hooks/harness-stop.sh"
     [ "$status" -eq 0 ]
+}
+
+@test "startup: runs the baseline command and reports PASS/FAIL" {
+    echo '{"baseline":"true","features":[]}' >.agents/features.json
+    run sh .claude/hooks/harness-startup.sh
+    [[ "$output" == *"Baseline verification: true"* ]]
+    [[ "$output" == *"PASS"* ]]
+    echo '{"baseline":"echo boom; false","features":[]}' >.agents/features.json
+    run sh .claude/hooks/harness-startup.sh
+    [[ "$output" == *"FAIL (exit 1)"* ]]
+    [[ "$output" == *"boom"* ]]
 }

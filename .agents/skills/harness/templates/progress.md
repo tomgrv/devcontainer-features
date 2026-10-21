@@ -1,10 +1,10 @@
 # Progress Log
 
-Agent-agnostic session log. Read at session start, update before handoff. (The `claude-progress.md` name is a course convention, not a Claude Code requirement.)
+Agent-agnostic session log. Read at session start, update before handoff. (Course name: `claude-progress.md`; kept generic here.)
 
 ## Current Verified State
 
-- Standard startup path: `./init.sh`
+- Standard startup: `SessionStart` hook (prints this state, runs `baseline` from `.agents/features.json`)
 - Standard verification path:
 - Highest-priority unfinished feature:
 - Current blocker:

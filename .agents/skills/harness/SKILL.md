@@ -2,10 +2,10 @@
 name: harness
 description: >
   Set up or run the long-running-agent harness: initialize the durable state
-  files (feature_list.json, claude-progress.md, init.sh), then run the fixed
+  files (.agents/features.json, .agents/progress.md), then run the fixed
   startup and end-of-session loop. Use when the user says "/harness", "init the
-  harness", "start a session", "hand off", or when claude-progress.md or
-  feature_list.json exists and a session starts or ends.
+  harness", "start a session", "hand off", or when .agents/progress.md or
+  .agents/features.json exists and a session starts or ends.
 ---
 
 The repository is the system of record. Chat is not. State that must survive a session lives in files; a fresh session recovers it by reading them, not by guessing. Based on [Learn Harness Engineering](https://github.com/walkinglabs/learn-harness-engineering).
@@ -14,22 +14,20 @@ The repository is the system of record. Chat is not. State that must survive a s
 
 Copy from `templates/` next to this file, then adapt — never leave placeholders:
 
-1. `claude-progress.md` — session log + current verified state.
-2. `feature_list.json` — every user-visible feature with `id`, `priority`, `status`, `verification` steps and `evidence`. Write real features from the repo's README/issues/code; all start `not_started`.
-3. `init.sh` — one startup path: install, baseline verification, start command. Use the repo's real commands (detect `package.json`, `composer.json`, `bats`, `Makefile`). `chmod +x`.
-4. Optional: `session-handoff.md`, `clean-state-checklist.md` when sessions are large.
+1. `.agents/progress.md` — session log + current verified state.
+2. `.agents/features.json` — every user-visible feature with `id`, `priority`, `status`, `verification` steps and `evidence`. Write real features from the repo's README/issues/code; all start `not_started`.
+3. Optional for large sessions: `templates/session-handoff.md` → `.agents/handoff.md`.
 
-Commit the four as one change. Once `claude-progress.md` or `feature_list.json` exists, the `SessionStart` hook prints the state and the `Stop` hook checks the handoff.
+Set `baseline` in `.agents/features.json` to the repo's real verification command (detect `package.json`, `composer.json`, `bats`, `Makefile`). Dependencies are installed by the devcontainer features, not here. Commit the files as one change. Once `.agents/progress.md` or `.agents/features.json` exists, the `SessionStart` hook prints the state and the `Stop` hook checks the handoff.
 
 ## Session start
 
 1. `pwd` — confirm the repo root.
 2. Read the repo's own rules: `CLAUDE.md`, `AGENTS.md`, `.agents/instructions/*.instructions.md` (the `SessionStart` hook lists which exist). They stay authoritative for commit format, PR base/title, scope limits and tooling; the harness adds the loop around them, it never overrides them.
-3. Read `claude-progress.md`, then `feature_list.json`.
-4. `git log --oneline -5`.
-5. `./init.sh` — then the baseline smoke/e2e path.
-6. Baseline broken? Fix that first. No new work on a broken start.
-7. Pick the highest-priority unfinished feature. Set it `in_progress`. One at a time.
+3. Read `.agents/progress.md`, then `.agents/features.json`.
+4. `git log --oneline -5`. The `SessionStart` hook already printed the state and ran the `baseline` command.
+5. Baseline `FAIL`? Re-run to confirm, then fix it first. No new work on a broken start.
+6. Pick the highest-priority unfinished feature. Set it `in_progress`. One at a time.
 
 ## While working
 
@@ -41,10 +39,10 @@ Commit the four as one change. Once `claude-progress.md` or `feature_list.json` 
 
 ## Session end
 
-1. Update `claude-progress.md`: verified state, what ran, evidence, known risk, next best step.
-2. Update `feature_list.json` statuses and evidence.
+1. Update `.agents/progress.md`: verified state, what ran, evidence, known risk, next best step.
+2. Update `.agents/features.json` statuses and evidence.
 3. Walk `templates/clean-state-checklist.md`.
-4. Commit once the repo is safe to resume, using the repo's commit and PR conventions from its rules. Next session must run `./init.sh` immediately, no manual repair.
+4. Commit once the repo is safe to resume, using the repo's commit and PR conventions from its rules. The next session must pass the `baseline` check immediately, no manual repair.
 
 ## Boundaries
 

@@ -1,6 +1,7 @@
 {
     "project": "devcontainer-features",
     "last_updated": "2026-10-21",
+    "baseline": "npx --yes bats -r tests src/ai-coding/tests",
     "rules": {
         "single_active_feature": true,
         "passing_requires_evidence": true,
@@ -20,7 +21,10 @@
             "title": "Tests green is a required check on develop",
             "user_visible_behavior": "A PR to develop cannot merge while any test job is red.",
             "status": "blocked",
-            "verification": ["Run configure-github on develop with the Klicksplit secrets set.", "Open a PR with a failing test and confirm merge is blocked."],
+            "verification": [
+                "Run configure-github on develop with the Klicksplit secrets set.",
+                "Open a PR with a failing test and confirm merge is blocked."
+            ],
             "evidence": [],
             "notes": "Blocked: KLICKSPLIT_CLIENT_ID / KLICKSPLIT_APP_KEY secrets missing. Workflow already skips cleanly without them."
         },
@@ -31,8 +35,14 @@
             "title": "Opt-in harness ships to consumers and runs here",
             "user_visible_behavior": "Repos installing ai-coding get the harness skill, SessionStart/Stop hooks and evaluator agent; this repo uses them.",
             "status": "in_progress",
-            "verification": ["./init.sh passes (all bats suites).", "PR #231 CI green and merged."],
-            "evidence": ["bats src/ai-coding/tests tests: pass (local)", "PR #231 CI green on e04b0b3"],
+            "verification": [
+                "The baseline command passes (all bats suites).",
+                "PR #231 CI green and merged."
+            ],
+            "evidence": [
+                "bats src/ai-coding/tests tests: pass (local)",
+                "PR #231 CI green on e04b0b3"
+            ],
             "notes": "Pending merge of PR #231."
         },
         {
@@ -42,7 +52,10 @@
             "title": "Loop engineering skill (maker/checker, loop state)",
             "user_visible_behavior": "A skill runs a maker/checker loop with a loop-state file, from the course's lecture 13 templates.",
             "status": "not_started",
-            "verification": ["Skill frontmatter test passes.", "Dry run of one loop iteration writes the loop-state file."],
+            "verification": [
+                "Skill frontmatter test passes.",
+                "Dry run of one loop iteration writes the loop-state file."
+            ],
             "evidence": [],
             "notes": ""
         },
@@ -53,7 +66,10 @@
             "title": "PHP tests: affected parts on draft, all parts on ready",
             "user_visible_behavior": "larasets validate-pr-php runs only affected parts while draft and every part once ready.",
             "status": "not_started",
-            "verification": ["Check whether tomgrv/actions list-php-parts can return all parts.", "Open a draft and a ready PR and compare the matrix."],
+            "verification": [
+                "Check whether tomgrv/actions list-php-parts can return all parts.",
+                "Open a draft and a ready PR and compare the matrix."
+            ],
             "evidence": [],
             "notes": "Needs list-php-parts input for 'all'."
         }

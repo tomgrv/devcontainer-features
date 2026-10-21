@@ -15,7 +15,7 @@ Every tool-specific path is a symlink into `.agents/` (the single source of trut
 
 ## Harness
 
-This repo dogfoods the `ai-coding` harness (`.agents/skills/harness`). State lives in `claude-progress.md`, `feature_list.json` and `init.sh` at the root: read them at session start, run `./init.sh`, work one feature at a time, mark `passing` only with recorded evidence, and update the progress log before stopping. The rules in this file and in `.agents/instructions/` stay authoritative; the `SessionStart` hook lists them.
+This repo dogfoods the `ai-coding` harness (`.agents/skills/harness`). State lives in `.agents/progress.md` and `.agents/features.json` (with its `baseline` verification command): the `SessionStart` hook prints them and runs the baseline, then work one feature at a time, mark `passing` only with recorded evidence, and update the progress log before stopping. The rules in this file and in `.agents/instructions/` stay authoritative; the `SessionStart` hook lists them.
 
 ## Dev Workflow
 

@@ -1,6 +1,7 @@
 {
     "project": "replace-with-project-name",
     "last_updated": "YYYY-MM-DD",
+    "baseline": "replace with the repo's verification command, e.g. npm test",
     "rules": {
         "single_active_feature": true,
         "passing_requires_evidence": true,
