@@ -24,14 +24,16 @@ Commit the four as one change. Once `claude-progress.md` or `feature_list.json` 
 ## Session start
 
 1. `pwd` — confirm the repo root.
-2. Read `claude-progress.md`, then `feature_list.json`.
-3. `git log --oneline -5`.
-4. `./init.sh` — then the baseline smoke/e2e path.
-5. Baseline broken? Fix that first. No new work on a broken start.
-6. Pick the highest-priority unfinished feature. Set it `in_progress`. One at a time.
+2. Read the repo's own rules: `CLAUDE.md`, `AGENTS.md`, `.agents/instructions/*.instructions.md` (the `SessionStart` hook lists which exist). They stay authoritative for commit format, PR base/title, scope limits and tooling; the harness adds the loop around them, it never overrides them.
+3. Read `claude-progress.md`, then `feature_list.json`.
+4. `git log --oneline -5`.
+5. `./init.sh` — then the baseline smoke/e2e path.
+6. Baseline broken? Fix that first. No new work on a broken start.
+7. Pick the highest-priority unfinished feature. Set it `in_progress`. One at a time.
 
 ## While working
 
+- Follow the repo's rules while working (minimal-change discipline, commit/PR format, CI naming). A rule conflict with the harness: the repo rule wins; record it in the progress log.
 - Stay inside the selected feature. A blocker may justify one narrow supporting fix.
 - `passing` needs the feature's `verification` steps actually run, with evidence recorded (command + result, not "looks fine").
 - Never reword, delete or weaken a feature or test to make it pass. Never loosen verification mid-feature.
@@ -42,7 +44,7 @@ Commit the four as one change. Once `claude-progress.md` or `feature_list.json` 
 1. Update `claude-progress.md`: verified state, what ran, evidence, known risk, next best step.
 2. Update `feature_list.json` statuses and evidence.
 3. Walk `templates/clean-state-checklist.md`.
-4. Commit once the repo is safe to resume. Next session must run `./init.sh` immediately, no manual repair.
+4. Commit once the repo is safe to resume, using the repo's commit and PR conventions from its rules. Next session must run `./init.sh` immediately, no manual repair.
 
 ## Boundaries
 

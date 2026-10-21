@@ -30,10 +30,19 @@ teardown() {
 
 @test "startup: prints the next unfinished feature by priority" {
     echo '# log' >claude-progress.md
-    echo '{"features":[{"id":"b","priority":2,"status":"not_started","title":"B"},{"id":"a","priority":1,"status":"in_progress","title":"A"},{"id":"c","priority":0,"status":"passing","title":"C"}]}' >feature_list.json
+    echo '{"features":[{"id":"b","priority":2,"status":"not_started","title":"B"},{"id":"a","priority":1,"status":"in_progress","title":"A"},{"id":"c","priority":0,"status":"passing","title":"C"},{"id":"d","priority":0,"status":"blocked","title":"D"}]}' >feature_list.json
     run sh .claude/hooks/harness-startup.sh
     [ "$status" -eq 0 ]
     [[ "$output" == *"a [in_progress] A"* ]]
+}
+
+@test "startup: lists the repo rule files that exist" {
+    echo '# log' >claude-progress.md
+    echo rules >CLAUDE.md
+    run sh .claude/hooks/harness-startup.sh
+    [ "$status" -eq 0 ]
+    [[ "$output" == *"Repo rules"* ]]
+    [[ "$output" == *"CLAUDE.md"* ]]
 }
 
 @test "stop: allows when not opted in" {
