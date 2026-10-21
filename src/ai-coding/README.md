@@ -39,6 +39,12 @@ npm install --save-dev @tomgrv/devcontainer-features-ai-coding
 - `.claude/hooks/configure-skills.sh` — the `npx skills` wrapper. `configure-skills.sh sync` reads root `ai-coding.json` and, for each skill, runs `npx skills add tomgrv/devcontainer-features/.agents/skills/<name> -a <agent> ... -y` for every listed agent, then merges each declared plugin into `.claude/settings.json`'s `enabledPlugins`/`extraKnownMarketplaces` (the settings file Claude Code reads to enable plugins). Runs on devcontainer `postCreate` (`configure-skills.sh`) and on every Claude Code `SessionStart` — so it also covers claude.ai/code web/cloud sessions, which never run devcontainer `postCreate`.
 - `.claude/settings.json` — seeds `ai-coding.json`'s `plugins` (`caveman`, `ponytail`) via `enabledPlugins`/`extraKnownMarketplaces`; kept in sync by `configure-skills.sh sync` as plugins are added/removed.
 - `.mcp.json` / `.vscode/mcp.json` — [Context7](https://github.com/upstash/context7) MCP server (up-to-date library docs; add `use context7` to a prompt) and the [Memory](https://github.com/modelcontextprotocol/servers/tree/main/src/memory) knowledge-graph server (cross-session project notes). Merged with other features' MCP entries (e.g. `larasets` adds `laravel-boost`). Needs Node.js.
+- Harness engineering (after [Learn Harness Engineering](https://github.com/walkinglabs/learn-harness-engineering)) — opt-in long-running-agent harness; inert until a repo has `claude-progress.md` or `feature_list.json` at its root:
+    - `.agents/skills/harness/` — init (`feature_list.json`, `claude-progress.md`, `init.sh` from `templates/`) and the fixed session start / end loop. Run `/harness` to initialize.
+    - `.agents/instructions/harness.instructions.md` — short always-on rules: durable state in files, one feature at a time, evidence-gated `passing`, handoff before stopping.
+    - `.claude/hooks/harness-startup.sh` (`SessionStart`) — prints the progress log head, next unfinished feature and recent commits into the session context.
+    - `.claude/hooks/harness-stop.sh` (`Stop`) — blocks once when there is uncommitted work but `claude-progress.md` was not updated; never loops.
+    - `.claude/agents/harness-evaluator.md` — skeptical verifier subagent (fresh context) to run before marking a feature `passing`.
 - `CLAUDE.md` — orientation file for Claude Code.
 - `.agents/README.md` — documents the `.agents/` layout.
 
