@@ -1,0 +1,60 @@
+# @format
+
+name: CodeQL
+
+# Fewest possible runs. A pull request is only scanned when it is ready for
+# review (drafts are skipped), targets a long-lived branch, and touches a file
+# CodeQL can analyze - `paths` only decides whether the workflow runs, it does
+# not narrow what is analyzed. Nothing runs on a push to a long-lived branch:
+# the weekly scan (and a manual run) refresh the baseline the pull requests are
+# compared against.
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, ready_for_review]
+    branches: [main, develop]
+    paths:
+      - '.github/workflows/**'
+      - '**/action.yml'
+      - '**/action.yaml'
+  schedule:
+    - cron: '17 4 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  analyze:
+    name: Analyze (${{ matrix.language }})
+    # schedule and workflow_dispatch have no pull request: only drafts are skipped.
+    if: github.event_name != 'pull_request' || !github.event.pull_request.draft
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      actions: read
+      security-events: write
+    strategy:
+      fail-fast: false
+      matrix:
+        # Add a language here (and its files to `paths` above) when the repo has code in it.
+        language: [actions]
+    steps:
+      - uses: actions/checkout@v7
+
+      # Pinned to a commit: the action's tags are mutable.
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@8498dc4c2b27cdd99baf0f87955b29ebbf30c78d # v4.39.1
+        with:
+          languages: ${{ matrix.language }}
+          # No build: the languages scanned here are interpreted.
+          build-mode: none
+
+      - name: Analyze
+        uses: github/codeql-action/analyze@8498dc4c2b27cdd99baf0f87955b29ebbf30c78d # v4.39.1
+        with:
+          category: /language:${{ matrix.language }}
