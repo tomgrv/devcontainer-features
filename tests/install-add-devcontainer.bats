@@ -60,5 +60,7 @@ teardown() {
     [ "$status" -eq 0 ]
 
     [ "$(grep -c '^one$\|^two$' "$INSTALLED")" -eq 2 ]
-    [ "$(printf '%s\n' "$output" | grep -c 'Deployed .*devcontainer.json')" -eq 1 ]
+    # One log line per deployment, whatever its wording in the zz-* version
+    # install.sh pins (one verb per release): count the lines naming the file.
+    [ "$(printf '%s\n' "$output" | grep -c 'devcontainer\.json')" -eq 1 ]
 }
