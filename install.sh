@@ -99,6 +99,22 @@ count_stubs() {
     find "$_dir" \( -type f -o -type l \) 2>/dev/null | wc -l | tr -d ' '
 }
 
+# Deploy the root devcontainer.json stub (image, name, hooks, default
+# features) on its own, without the other root stubs "init" lays down.
+# Once per run: dependencies re-enter "add" through install-feat.sh, and
+# "-x" / "update -a" already deployed it through "init".
+deploy_devcontainer() {
+    [ -z "${DEVCONTAINER_STUB_DEPLOYED:-}" ] || return 0
+    export DEVCONTAINER_STUB_DEPLOYED=1
+    _stub="$source/stubs/.devcontainer/devcontainer.json"
+    [ -f "$_stub" ] || return 0
+    _tmp=$(mktemp -d)
+    mkdir -p "$_tmp/stubs/.devcontainer"
+    cp "$_stub" "$_tmp/stubs/.devcontainer/"
+    feature-configure -s "$_tmp" .
+    rm -rf "$_tmp"
+}
+
 cmd_help() {
     zz-log i "{BBlue devcontainer-features} - manage tomgrv devcontainer features"
     zz-log - ""
@@ -159,6 +175,7 @@ cmd_deps() {
 cmd_add() {
     if [ "${target:-}" = "-x" ]; then
         # Deploy root stubs then install each default feature
+        export DEVCONTAINER_STUB_DEPLOYED=1
         sh "$source/install.sh" init
         sh "$source/install.sh" add $(default_features | tr '\n' ' ')
         return
@@ -174,6 +191,8 @@ cmd_add() {
         fi
         return 0
     fi
+
+    deploy_devcontainer
 
     zz-log i "Adding: $(echo $_features | tr '\n' ' ')"
     for _feature in $(echo "$_features" | tr '\n' ' '); do
@@ -218,6 +237,7 @@ cmd_remove() {
 cmd_update() {
     if [ "${target:-}" = "-a" ]; then
         # Redeploy root stubs and reinstall all currently detected features
+        export DEVCONTAINER_STUB_DEPLOYED=1
         sh "$source/install.sh" init
         _features=$(find_features "." | tr '\n' ' ')
     else
@@ -228,6 +248,8 @@ cmd_update() {
         zz-log w "No features to update"
         return 0
     fi
+
+    deploy_devcontainer
 
     zz-log i "Updating: $(echo $_features | tr '\n' ' ')"
     for _feature in $(echo "$_features" | tr '\n' ' '); do
