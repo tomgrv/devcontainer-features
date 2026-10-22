@@ -1,5 +1,20 @@
 # Changelog
 
+## 11.5.0 (2026-10-22)
+
+*Commits from: v11.4.0..HEAD*
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v11.4.0' into develop ([4772848](https://github.com/tomgrv/devcontainer-features/commit/47728487b179dfce59c86cd89635b74e5863e14c))
+### 📦 devcontainer-features-common-utils changes
+
+#### Other changes
+
+- 👷 run the tests on pull requests only (#237) ([611fa12](https://github.com/tomgrv/devcontainer-features/commit/611fa12c3391a7e33c2ea05dd1318aaa1e4ee786))
+
 ## 11.4.0 (2026-10-22)
 
 *Commits from: v11.3.0..HEAD*
@@ -2616,6 +2631,7 @@ _Commits from: v5.25.0..HEAD_
 
 - ✨ add githook ([ab4c1fc](https://github.com/tomgrv/devcontainer-features/commit/ab4c1fc5eb4f712ed2009baf9a3cadb11097c7b5))
 - add features ([4b26d9d](https://github.com/tomgrv/devcontainer-features/commit/4b26d9d876caffb15078a6baaabf76d1a2707e6f))
+
 
 
 
