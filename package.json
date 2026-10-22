@@ -209,7 +209,7 @@
     "lint": "npx --yes lint-staged",
     "prepare": "sh .husky/install.sh || echo 'Husky not installed in ' $(pwd)",
     "release": "commit-and-tag-version --no-verify --",
-    "test": "echo \"Warning: no test specified\"",
+    "test": "bats -r tests src",
     "update": "npm-check-updates -i -u",
     "update-all": "npm run update -w --root"
   },
