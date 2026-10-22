@@ -1,0 +1,3 @@
+# Gateway image build installs root CAs and wrappers, so it must run as root;
+# devcontainers switch to remoteUser at runtime.
+DS-0002

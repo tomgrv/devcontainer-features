@@ -31,7 +31,7 @@ jobs:
         with:
           scan-type: fs
           scanners: vuln,misconfig,secret
-          severity: CRITICAL
+          severity: HIGH,CRITICAL
           ignore-unfixed: true
           exit-code: '1'
           format: sarif
