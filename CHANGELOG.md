@@ -1,5 +1,25 @@
 # Changelog
 
+## 11.3.0 (2026-10-22)
+
+*Commits from: v11.2.0..HEAD*
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v11.2.0' into develop ([5c7c761](https://github.com/tomgrv/devcontainer-features/commit/5c7c7618f183bde5f9c779f9913436a2afcb1ad9))
+### 📦 devcontainer-features-ai-coding changes
+
+#### Features
+
+- ✨ Ship opt-in harness engineering stubs (#231) ([bd24855](https://github.com/tomgrv/devcontainer-features/commit/bd24855d5fd0cb1ea660eddece0878f2f8aebaa8))
+- ✨ ship POSIX shell style instructions (#233) ([966832d](https://github.com/tomgrv/devcontainer-features/commit/966832d07fbfcc2f3268373e7b256bc92bd8f133))
+
+#### Other changes
+
+- 🔧 📝 Align harness feature status with merged PRs (#232) ([c187d44](https://github.com/tomgrv/devcontainer-features/commit/c187d44e242502cd9ac9f193624969415934dc31))
+
 ## 11.2.0 (2026-10-21)
 
 *Commits from: v11.1.0..HEAD*
@@ -2597,5 +2617,6 @@ _Commits from: v5.25.0..HEAD_
 
 
 
+
 ---
-*Generated on 2026-10-21 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)*
+*Generated on 2026-10-22 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)*
