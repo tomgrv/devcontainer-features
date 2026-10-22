@@ -96,7 +96,7 @@ Consumer repos get these deployed workflows under `.github/workflows/`. Each has
 
 - `validate-pr-format.yml` — checks the PR title (commitlint + devmoji) and the PR source branch.
 - `validate-pr-secret.yml` — scans the PR for secrets with gitleaks on open, reopen and every push; skipped when `GITLEAKS_LICENSE` is not set.
-- `validate-pr-vulnerabilities.yml` — scans the PR with [Trivy](https://github.com/aquasecurity/trivy-action) (dependencies, IaC misconfigurations, secrets) and fails on fixable HIGH/CRITICAL findings and uploads the SARIF report to the Security tab; the action is pinned to a commit.
+- `validate-pr-vulnerabilities.yml` — scans the PR with [Trivy](https://github.com/aquasecurity/trivy-action) (dependencies, IaC misconfigurations, secrets) when the PR is marked ready for review, and fails on fixable HIGH/CRITICAL findings and uploads the SARIF report to the Security tab; the action is pinned to a commit.
 - `update-labels.yml` — weekly sync of `.github/labels.json` to the repository labels (needs only `issues: write`).
 - `clean-branches.yml` — weekly deletion of branches whose pull request is closed.
 - `configure-github.yml` — weekly restriction of `main` to the GitHub Actions bot.
