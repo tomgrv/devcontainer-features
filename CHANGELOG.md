@@ -1,5 +1,20 @@
 # Changelog
 
+## 11.6.0 (2026-10-22)
+
+*Commits from: v11.5.0..HEAD*
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v11.5.0' into develop ([7a4e3b1](https://github.com/tomgrv/devcontainer-features/commit/7a4e3b1dbfbc8c711475029aa5ce42d3c5e0b3cc))
+### 📦 devcontainer-features-common-utils changes
+
+#### Bug Fixes
+
+- 🐛 deploy the devcontainer.json stub on add (#238) ([b096974](https://github.com/tomgrv/devcontainer-features/commit/b09697439fe4537758c716be46d1eb9fa1a807ed))
+
 ## 11.5.0 (2026-10-22)
 
 *Commits from: v11.4.0..HEAD*
@@ -2631,6 +2646,7 @@ _Commits from: v5.25.0..HEAD_
 
 - ✨ add githook ([ab4c1fc](https://github.com/tomgrv/devcontainer-features/commit/ab4c1fc5eb4f712ed2009baf9a3cadb11097c7b5))
 - add features ([4b26d9d](https://github.com/tomgrv/devcontainer-features/commit/4b26d9d876caffb15078a6baaabf76d1a2707e6f))
+
 
 
 

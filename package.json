@@ -1,7 +1,7 @@
 {
   "name": "@tomgrv/devcontainer-features",
   "description": "Configure dev environment with devcontainer, gitflow, gitversion, git aliases & hooks. Can be used a devcontainer features",
-  "version": "11.5.0",
+  "version": "11.6.0",
   "type": "module",
   "config": {
     "commitizen": {
