@@ -1,13 +1,13 @@
 {
   "name": "@tomgrv/devcontainer-features-mcp",
-  "version": "10.0.0",
+  "version": "11.4.0",
   "description": "MCP server exposing this repo's features so an agent can set up another repo's dev environment",
   "bin": {
     "devcontainer-features-mcp": "server.js"
   },
   "type": "module",
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.12.0",
+    "@modelcontextprotocol/sdk": "^1.32.1",
     "zod": "^3.24.0"
   },
   "private": true

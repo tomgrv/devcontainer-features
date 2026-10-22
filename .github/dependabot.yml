@@ -21,3 +21,19 @@ updates:
     labels:
       - dependencies
       - github-actions
+
+  # Fixable npm advisories fail validate-pr-vulnerabilities (Trivy), so bump
+  # them before they block unrelated PRs.
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      npm:
+        patterns:
+          - '*'
+    commit-message:
+      prefix: chore
+      include: scope
+    labels:
+      - dependencies

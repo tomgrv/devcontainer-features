@@ -1,5 +1,20 @@
 # Changelog
 
+## 11.4.0 (2026-10-22)
+
+*Commits from: v11.3.0..HEAD*
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v11.3.0' into develop ([78d644c](https://github.com/tomgrv/devcontainer-features/commit/78d644cd19f4ee061026dc1eb63ef81303d09f2f))
+### 📦 devcontainer-features-githooks changes
+
+#### Features
+
+- ✨ Add trivy vulnerability scan stub (#234) ([8685e37](https://github.com/tomgrv/devcontainer-features/commit/8685e37c741ff516870ce0e60df1d926a5483cb9))
+
 ## 11.3.0 (2026-10-22)
 
 *Commits from: v11.2.0..HEAD*
@@ -2601,6 +2616,7 @@ _Commits from: v5.25.0..HEAD_
 
 - ✨ add githook ([ab4c1fc](https://github.com/tomgrv/devcontainer-features/commit/ab4c1fc5eb4f712ed2009baf9a3cadb11097c7b5))
 - add features ([4b26d9d](https://github.com/tomgrv/devcontainer-features/commit/4b26d9d876caffb15078a6baaabf76d1a2707e6f))
+
 
 
 
