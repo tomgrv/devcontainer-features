@@ -6,7 +6,7 @@ applyTo: '**'
 
 # Devcontainer Features Repository
 
-This repository contains 7 devcontainer features installed via `install.sh` or `npx tomgrv/devcontainer-features`.
+This repository contains 10 devcontainer features installed via `install.sh` or `npx tomgrv/devcontainer-features`.
 
 ## Repository Architecture
 
@@ -19,6 +19,9 @@ This repository contains 7 devcontainer features installed via `install.sh` or `
 | **larasets**     | Laravel-specific development utilities                   |
 | **common-utils** | Shared scripts used by other features                    |
 | **gateway**      | SSL certificate management for local development         |
+| **ai-coding**    | AI tooling stubs: skills, instructions, harness          |
+| **scripting**    | Shared scripting entrypoints                             |
+| **minikube**     | Local Kubernetes via minikube                            |
 
 Key files: `package.json`, `install.sh`, `.github/workflows/validate.yml`, `.github/workflows/release.yaml`, `stubs/`
 
@@ -27,7 +30,7 @@ Key files: `package.json`, `install.sh`, `.github/workflows/validate.yml`, `.git
 | Command                            | Purpose              | Duration                        |
 | ---------------------------------- | -------------------- | ------------------------------- |
 | `npm run lint`                     | Lint staged files    | 1-2s (empty), up to 15s (files) |
-| `npm test`                         | Run tests            | <1s (no tests exist yet)        |
+| `npm test`                         | Run bats suites      | seconds (`bats -r tests src`)   |
 | `./install.sh -s`                  | Install stubs only   | 10-15s                          |
 | `./install.sh -a`                  | Install all features | 15-20s                          |
 | `./install.sh <feature>`           | Install one feature  | 5-10s                           |
@@ -40,21 +43,27 @@ Key files: `package.json`, `install.sh`, `.github/workflows/validate.yml`, `.git
 ```bash
 npm install
 npm install prettier-plugin-sh
-find src/common-utils/bin/ -type f -name "*.sh" -exec chmod +x {} \;
-find src/common-utils/bin/ -type f -name "*.sh" | while read file; do
-    ln -sf "$file" src/common-utils/bin/$(basename "$file" | sed 's/.sh$//')
-done
-ln -sf src/common-utils/bin/zz-log.sh src/common-utils/bin/zz-logs.sh
 ```
+
+The `zz-*` helper scripts no longer live in `src/common-utils/bin/`: `src/common-utils/install.sh` fetches them from [`tomgrv/scripts`](https://github.com/tomgrv/scripts) via `zz-use` (pinned by `ZZ_ORIGIN_REF`).
+
+## Installing Packages in a Feature
+
+Never write inline `apt-get`/`apk`/`sudo` branching. Use the shared helper:
+
+```sh
+zz-use zz-install
+zz-install git-flow apk=gitflow-avh dnf=gitflow brew=git-flow-avh
+```
+
+See `src/gitutils/install-gitflow.sh`.
 
 ## Critical Issues & Workarounds
 
-| Issue                          | Cause                                             | Fix                                                                 |
-| ------------------------------ | ------------------------------------------------- | ------------------------------------------------------------------- |
-| `zz-logs.sh: No such file`     | `install.sh` line 9 typo: `zz-logs` vs `zz-log`   | `ln -sf src/common-utils/bin/zz-log.sh src/common-utils/bin/zz-logs.sh` |
-| `prettier-plugin-sh not found` | Plugin not installed                              | `npm install prettier-plugin-sh`                                    |
-| `Permission denied` on scripts | Shell scripts not executable                      | `find src/common-utils/bin/ -type f -name "*.sh" -exec chmod +x {} \;` |
-| `No writeable directory found` | Local run outside container                       | Normal — features are designed for devcontainer environments        |
+| Issue                          | Cause                       | Fix                                                          |
+| ------------------------------ | --------------------------- | ------------------------------------------------------------ |
+| `prettier-plugin-sh not found` | Plugin not installed        | `npm install prettier-plugin-sh`                             |
+| `No writeable directory found` | Local run outside container | Normal — features are designed for devcontainer environments |
 
 ## Testing Changes
 
