@@ -21,15 +21,15 @@
     "test": "bats tests/"
   },
   "dependencies": {
-    "@commitlint/cli": "*",
+    "@commitlint/cli": "^21.2.4",
     "@commitlint/config-conventional": "*",
-    "@commitlint/config-workspace-scopes": "*",
-    "@commitlint/cz-commitlint": "*",
-    "commit-and-tag-version": "*",
+    "@commitlint/config-workspace-scopes": "^21.2.0",
+    "@commitlint/cz-commitlint": "^21.2.4",
+    "commit-and-tag-version": "^13.3.0",
     "commitizen": "*",
     "git-precommit-checks": "*",
-    "lint-staged": "*",
-    "prettier": "*",
+    "lint-staged": "^17.6.0",
+    "prettier": "^3.9.10",
     "prettier-plugin-sh": "*"
   },
   "peerDependencies": {
