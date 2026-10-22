@@ -2,3 +2,5 @@
 # workspace. yaml-merge keeps existing keys, so drop the filter from existing copies.
 KEY .github/workflows/test-workspaces.yaml ["on","push","paths"]
 KEY .github/workflows/test-workspaces.yaml ["on","pull_request","paths"]
+# Tests run on pull requests only. yaml-merge keeps existing keys, so drop the push trigger from existing copies.
+KEY .github/workflows/test-workspaces.yaml ["on","push"]
