@@ -1,5 +1,20 @@
 # Changelog
 
+## 11.7.0 (2026-10-22)
+
+*Commits from: v11.6.0..HEAD*
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v11.6.0' into develop ([8385337](https://github.com/tomgrv/devcontainer-features/commit/83853371a647b5823451b8af52bd13f4db47b7ce))
+### 📦 devcontainer-features-common-utils changes
+
+#### Other changes
+
+- 📚️ 📝 drop stale bin/ workarounds, run bats in npm test (#240) ([589b723](https://github.com/tomgrv/devcontainer-features/commit/589b723ede408d982ee93a1bfaba0323842793ec))
+
 ## 11.6.0 (2026-10-22)
 
 *Commits from: v11.5.0..HEAD*
@@ -2646,6 +2661,7 @@ _Commits from: v5.25.0..HEAD_
 
 - ✨ add githook ([ab4c1fc](https://github.com/tomgrv/devcontainer-features/commit/ab4c1fc5eb4f712ed2009baf9a3cadb11097c7b5))
 - add features ([4b26d9d](https://github.com/tomgrv/devcontainer-features/commit/4b26d9d876caffb15078a6baaabf76d1a2707e6f))
+
 
 
 

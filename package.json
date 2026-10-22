@@ -1,7 +1,7 @@
 {
   "name": "@tomgrv/devcontainer-features",
   "description": "Configure dev environment with devcontainer, gitflow, gitversion, git aliases & hooks. Can be used a devcontainer features",
-  "version": "11.6.0",
+  "version": "11.7.0",
   "type": "module",
   "config": {
     "commitizen": {
@@ -209,7 +209,7 @@
     "lint": "npx --yes lint-staged",
     "prepare": "sh .husky/install.sh || echo 'Husky not installed in ' $(pwd)",
     "release": "commit-and-tag-version --no-verify --",
-    "test": "echo \"Warning: no test specified\"",
+    "test": "bats -r tests src",
     "update": "npm-check-updates -i -u",
     "update-all": "npm run update -w --root"
   },
