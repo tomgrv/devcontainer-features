@@ -49,14 +49,7 @@ The `zz-*` helper scripts no longer live in `src/common-utils/bin/`: `src/common
 
 ## Installing Packages in a Feature
 
-Never write inline `apt-get`/`apk`/`sudo` branching. Use the shared helper:
-
-```sh
-zz-use zz-install
-zz-install git-flow apk=gitflow-avh dnf=gitflow brew=git-flow-avh
-```
-
-See `src/gitutils/install-gitflow.sh`.
+Use `zz-install`, never inline package-manager branching. See `shell.instructions.md` and `src/gitutils/install-gitflow.sh`.
 
 ## Critical Issues & Workarounds
 

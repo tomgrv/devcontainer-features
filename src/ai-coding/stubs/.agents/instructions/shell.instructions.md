@@ -27,6 +27,8 @@ A script whose later arguments depend on earlier work (a second `zz-args` call a
 
 Prompt with `zz-prompt` (confirmations: `zz-prompt -c Yn "Q?"`; secrets: `zz-prompt -s`, persisted with `zz-persist -s`), install with `zz-install`, pick a bin dir with `zz-bindir`, fetch repos with `zz-fetch`, choose with `zz-menu`.
 
+Never write inline `apt-get`/`apk`/`sudo` branching. Install system packages with `zz-use zz-install` then `zz-install <pkg> apk=<alt> brew=<alt>` (see `src/gitutils/install-gitflow.sh`).
+
 ### Logging
 
 - Script messages go through `zz-log <level>`; the caller sets `ZZ_LOG_STEP` (current step) and raises `ZZ_LOG_INDENT` by 2 for a nested child.
