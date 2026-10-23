@@ -8,7 +8,7 @@ This feature provides common utilities for the devcontainer features.
 
 ```json
 "features": {
-    "ghcr.io/tomgrv/devcontainer-features/common-utils:10": {
+    "ghcr.io/tomgrv/devcontainer-features/common-utils:11": {
         "utils": "jq dos2unix"
     }
 }
@@ -30,9 +30,9 @@ npm install --save-dev @tomgrv/devcontainer-features-common-utils
 
 ## Options
 
-| Options Id | Description               | Type   | Default Value |
-| ---------- | ------------------------- | ------ | ------------- |
-| utils      | The utilities to install. | string | jq dos2unix   |
+| Options Id | Description               | Type   | Default Value             |
+| ---------- | ------------------------- | ------ | ------------------------- |
+| utils      | The utilities to install. | string | jq yq dos2unix shellcheck |
 
 ## Utilities
 
@@ -144,184 +144,17 @@ Consumer repos get these deployed workflows under `.github/workflows/`:
 
 ## Additional utilities
 
-In addition to the specified utilities, some additional local utilities are also provided:
+Installed from [`tomgrv/scripts`](https://github.com/tomgrv/scripts); each has its own README with usage and options.
 
-- `zz-colors`: A set of color codes to source in your scripts for colored output.
-- `zz-log`: A utility to log messages with color
-- `zz-args`: A utility to parse command line arguments and display associated help messages in one go.
-
-### Distribute zz-\* Utilities
-
-The `zz-dist` utility allows you to copy all `zz-*` utilities from the devcontainer-installed location to a target directory. This is useful for maintaining a local copy of utilities in your project.
-
-#### Usage
-
-```bash
-zz-dist [options]
-```
-
-#### Options
-
-| Option     | Description                                                                        |
-| ---------- | ---------------------------------------------------------------------------------- |
-| `-t <dir>` | Target directory (required unless specified in config).                            |
-| `-s <dir>` | Source directory (default: `/usr/local/share/common-utils`).                       |
-| `-q`       | Quiet mode: exit silently (code 0) if no target found instead of generating error. |
-
-#### Configuration
-
-The target directory **must** be specified using one of these methods (checked in order):
-
-1. **Command-line option**: Use the `-t` parameter to explicitly specify the target directory.
-
-2. **`.zz_dist` file**: Create a `.zz_dist` file in your project root with the target directory path on the first line.
-
-```bash
-echo "./scripts" > .zz_dist
-```
-
-3. **`package.json`**: Add a `config.zz_dist` entry to your `package.json`:
-
-```json
-{
-    "config": {
-        "zz_dist": "./scripts"
-    }
-}
-```
-
-If no target is found and `-q` (quiet mode) is not specified, the script will exit with an error. The target directory must exist before running the script.
-
-#### Example
-
-```bash
-# Copy using config file
-echo "./scripts" > .zz_dist
-mkdir -p ./scripts
-zz-dist
-
-# Copy to specific directory (must exist)
-mkdir -p ./my-utils
-zz-dist -t ./my-utils
-
-# Copy from custom source to existing directory
-zz-dist -s /custom/path -t ./scripts
-
-# Quiet mode - no error if target not configured
-zz-dist -q
-```
-
-### Persist a key=value pair
-
-The `zz-persist` utility upserts a `KEY=VALUE` pair into an env-style file
-and/or a `/etc/profile.d/<profile>.sh` snippet, so the value survives a new
-shell or a script re-run. It only knows about these two generic targets — it
-has no notion of secret stores; layer that on top in your own script if
-needed.
-
-#### Usage
-
-```bash
-zz-persist [-f file] [-p profile] <key> <value>
-```
-
-#### Options
-
-| Option      | Description                                                       |
-| ----------- | ----------------------------------------------------------------- |
-| `-f <file>` | Upsert `KEY=VALUE` into this env-style file (created if missing). |
-| `-p <name>` | Upsert `export KEY=VALUE` into `/etc/profile.d/<name>.sh`.        |
-
-At least one of `-f`/`-p` is required. Both are idempotent — running twice
-replaces the existing entry instead of duplicating it.
-
-#### Example
-
-```bash
-zz-persist -f .env APP_PORT 8000
-zz-persist -p myfeature MY_VAR value
-```
-
-### Validate JSON
-
-The `json-validate` utility allows you to validate JSON files against a JSON schema. It supports the following features:
-
-- Validate against a schema from a local file or a URL.
-- Infer schema from the JSON Schema Store based on the file name.
-- Use a fallback schema if no schema is found locally or inferred.
-- Allow additional properties at the root level with the `-a` flag.
-- Cache schema validation maps for faster subsequent validations.
-
-#### Usage
-
-```bash
-json-validate [options] <json>
-```
-
-#### Options
-
-| Option      | Description                                                                                               |
-| ----------- | --------------------------------------------------------------------------------------------------------- |
-| `-a`        | Allow additional properties at the root level.                                                            |
-| `-d`        | Enable debug output.                                                                                      |
-| `-c`        | Allow caching of schema validation maps.                                                                  |
-| `-f <file>` | Specify a fallback schema to use if none is found locally or inferred.                                    |
-| `-l <path>` | Infer schema from a local folder based on the JSON file name (e.g., `x.y.json` → `<path>/y.schema.json`). |
-| `-i`        | Infer schema from the JSON Schema Store if nothing is found locally.                                      |
-| `-s <file>` | Specify a schema file or URL to use for validation.                                                       |
-
-#### Example
-
-```bash
-json-validate -a -f fallback.schema.json -l ./schemas -i -s custom.schema.json example.json
-```
-
-### Normalize JSON
-
-The `json-normalize` utility allows you to normalize JSON files based on a JSON schema. It supports the following features:
-
-- Validate the JSON file before normalization with the `json-validate` utility.
-- Normalize JSON keys according to the
-  1 schema definition
-  2 alphabetically
-
-#### Usage
-
-```bash
-json-normalize [options] <json>
-```
-
-#### Options
-
-| Option      | Description                                                                                                                                                         |
-| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `-w`        | Write the normalized JSON back to the original file.                                                                                                                |
-| `-t <size>` | Specify the tab size for indentation.                                                                                                                               |
-| `-c`        | Allow caching of schema validation maps.                                                                                                                            |
-| `-a`        | Allow additional properties at the root level.                                                                                                                      |
-| `-d`        | Enable debug output.                                                                                                                                                |
-| `-f <file>` | Specify a fallback schema to use if none is found locally or inferred.                                                                                              |
-| `-l <path>` | Infer schema from a local folder based on the JSON file name (e.g., `x.y.json` → `<path>/y.schema.json`). Use 'local' to target feature folder with default schemas |
-| `-i`        | Infer schema from the JSON Schema Store if nothing is found locally.                                                                                                |
-| `-s <file>` | Specify a schema file or URL to use for normalization.                                                                                                              |
-
-#### Example
-
-```bash
-json-normalize -w -t 4 -f fallback.schema.json -l ./schemas -i -s custom.schema.json example.json
-```
-
-#### Lint-staged
-
-You can use the `json-normalize` utility with `lint-staged` to normalize JSON files before committing them. To do this, add the following configuration to your `package.json`(see [githooks feature](../githooks/stubs/_lint-staged.package.json)).
-
-```json
-"lint-staged": {
-    "*.json": [
-        "json-normalize -c -w -a -i -t 4 -f local -l true"
-    ]
-}
-```
+| Utility                                                                            | Purpose                                                         |
+| ---------------------------------------------------------------------------------- | --------------------------------------------------------------- |
+| [`zz-colors`](https://github.com/tomgrv/scripts/tree/main/zz-colors)               | color codes to source in your scripts                           |
+| [`zz-log`](https://github.com/tomgrv/scripts/tree/main/zz-log)                     | log messages with color                                         |
+| [`zz-args`](https://github.com/tomgrv/scripts/tree/main/zz-args)                   | parse command line arguments and print help in one go           |
+| [`distribute-utils`](https://github.com/tomgrv/scripts/tree/main/distribute-utils) | copy the `zz-*` utilities into a project folder (was `zz-dist`) |
+| [`zz-persist`](https://github.com/tomgrv/scripts/tree/main/zz-persist)             | upsert a `KEY=VALUE` into an env file and/or `/etc/profile.d`   |
+| [`json-validate`](https://github.com/tomgrv/scripts/tree/main/json-validate)       | validate JSON against a local, inferred or remote schema        |
+| [`json-normalize`](https://github.com/tomgrv/scripts/tree/main/json-normalize)     | order JSON keys by schema, then alphabetically                  |
 
 ## Contributing
 

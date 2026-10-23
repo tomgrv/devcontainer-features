@@ -49,7 +49,7 @@ curl -fsSL https://raw.githubusercontent.com/tomgrv/devcontainer-features/develo
 
 ## Features Overview
 
-Each row's console command is `add <feature>` (see [Installation](#installation)); the devcontainer.json id is `ghcr.io/tomgrv/devcontainer-features/<feature>:8`; the npm package is `@tomgrv/devcontainer-features-<feature>`.
+Each row's console command is `add <feature>` (see [Installation](#installation)); the devcontainer.json id is `ghcr.io/tomgrv/devcontainer-features/<feature>:11`; the npm package is `@tomgrv/devcontainer-features-<feature>`.
 
 | Feature                                      | `<feature>`    | Description                                                               |
 | -------------------------------------------- | -------------- | ------------------------------------------------------------------------- |
@@ -61,6 +61,7 @@ Each row's console command is `add <feature>` (see [Installation](#installation)
 | [Common Utils](./src/common-utils/README.md) | `common-utils` | Shared utilities (`jq`, `dos2unix`, ...) used by other features           |
 | [Gateway](./src/gateway/README.md)           | `gateway`      | SSL inspection certs for corporate networks; also installable on the host |
 | [Minikube](./src/minikube/README.md)         | `minikube`     | Local Kubernetes cluster via Minikube                                     |
+| [Scripting](./src/scripting/README.md)       | `scripting`    | Standard root `setup.sh` bootstrapping `zz-use` and the repo entrypoint   |
 | [AI Coding](./src/ai-coding/README.md)       | `ai-coding`    | Agent-agnostic AI coding skills + Claude Code GitHub Action               |
 
 ## MCP server for agents

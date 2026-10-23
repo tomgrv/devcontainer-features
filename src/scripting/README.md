@@ -17,7 +17,7 @@ self-heals back to the standard.
 
 ```json
 "features": {
-    "ghcr.io/tomgrv/devcontainer-features/scripting:10": {}
+    "ghcr.io/tomgrv/devcontainer-features/scripting:11": {}
 }
 ```
 
