@@ -15,16 +15,16 @@ Use this feature as a shared utility layer for shell-based automation across fea
 
 - `json-validate [options] <json>` - Validate JSON against a schema.
 - `json-normalize [options] <json>` - Normalize JSON order/format using schema rules.
-- `zz-dist [options]` - Copy `zz-*` helpers to a target directory.
+- `distribute-utils [options]` - Copy `zz-*` helpers to a target directory.
 - `zz-args` - Parse command-line arguments in shell scripts.
 - `zz-log` - Emit structured/colorized shell logs.
-- `zz-json` - Read or manipulate JSON from shell scripts.
+- `json-load` - Load JSON from a file or URL, tagging it with `$id`.
 
 ## Use For
 
 - JSON validation/normalization workflows (`json-validate`, `json-normalize`).
-- Shell scripting with standardized logging, argument parsing, and prompts (`zz-log`, `zz-args`, `zz-ask`).
-- Distributing shared helper scripts into project folders (`zz-dist`).
+- Shell scripting with standardized logging, argument parsing, and prompts (`zz-log`, `zz-args`, `zz-prompt`).
+- Distributing shared helper scripts into project folders (`distribute-utils`).
 
 ## Do Not Use For
 
