@@ -49,7 +49,7 @@ curl -fsSL https://raw.githubusercontent.com/tomgrv/devcontainer-features/develo
 
 ## Features Overview
 
-Each row's console command is `add <feature>` (see [Installation](#installation)); the devcontainer.json id is `ghcr.io/tomgrv/devcontainer-features/<feature>:10`; the npm package is `@tomgrv/devcontainer-features-<feature>`.
+Each row's console command is `add <feature>` (see [Installation](#installation)); the devcontainer.json id is `ghcr.io/tomgrv/devcontainer-features/<feature>:11`; the npm package is `@tomgrv/devcontainer-features-<feature>`.
 
 | Feature                                      | `<feature>`    | Description                                                               |
 | -------------------------------------------- | -------------- | ------------------------------------------------------------------------- |

@@ -28,7 +28,7 @@
     "ghcr.io/devcontainers/features/node:1": {
       "version": "lts"
     },
-    "ghcr.io/tomgrv/devcontainer-features/gitutils:10": {}
+    "ghcr.io/tomgrv/devcontainer-features/gitutils:11": {}
   },
   "name": "Git Hooks",
   "version": "11.4.0",

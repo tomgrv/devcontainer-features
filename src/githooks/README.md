@@ -8,7 +8,7 @@ This feature provides a set of hooks for working with Git repositories.
 
 ```json
 "features": {
-    "ghcr.io/tomgrv/devcontainer-features/githooks:10": {}
+    "ghcr.io/tomgrv/devcontainer-features/githooks:11": {}
 }
 ```
 
