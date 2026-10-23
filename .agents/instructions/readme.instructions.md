@@ -1,0 +1,1 @@
+../../src/ai-coding/stubs/.agents/instructions/readme.instructions.md
