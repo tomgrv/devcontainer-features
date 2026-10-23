@@ -1,5 +1,15 @@
 # Changelog
 
+## 11.8.0 (2026-10-23)
+
+*Commits from: v11.7.0..HEAD*
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v11.7.0' into develop ([12332ba](https://github.com/tomgrv/devcontainer-features/commit/12332ba2d5c92d83192f9308a5487c0ff623f061))
+
 ## 11.7.0 (2026-10-22)
 
 *Commits from: v11.6.0..HEAD*
@@ -2682,5 +2692,6 @@ _Commits from: v5.25.0..HEAD_
 
 
 
+
 ---
-*Generated on 2026-10-22 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)*
+*Generated on 2026-10-23 by [tomgrv/devcontainer-features](https://github.com/tomgrv/devcontainer-features)*
