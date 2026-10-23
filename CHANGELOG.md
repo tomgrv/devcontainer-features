@@ -1,5 +1,20 @@
 # Changelog
 
+## 11.9.0 (2026-10-23)
+
+*Commits from: v11.8.0..HEAD*
+
+### 📂 Unscoped changes
+
+#### Other changes
+
+- Merge tag 'v11.8.0' into develop ([0b1bfc9](https://github.com/tomgrv/devcontainer-features/commit/0b1bfc9454593547ce5159ae1e7e640469dddda2))
+### 📦 devcontainer-features-ai-coding changes
+
+#### Other changes
+
+- 📚️ add zz-setup compatibility conventions (#241) ([776af7d](https://github.com/tomgrv/devcontainer-features/commit/776af7d948c58e7078502d8cbda3809efc4be152))
+
 ## 11.8.0 (2026-10-23)
 
 *Commits from: v11.7.0..HEAD*
@@ -2671,6 +2686,7 @@ _Commits from: v5.25.0..HEAD_
 
 - ✨ add githook ([ab4c1fc](https://github.com/tomgrv/devcontainer-features/commit/ab4c1fc5eb4f712ed2009baf9a3cadb11097c7b5))
 - add features ([4b26d9d](https://github.com/tomgrv/devcontainer-features/commit/4b26d9d876caffb15078a6baaabf76d1a2707e6f))
+
 
 
 
