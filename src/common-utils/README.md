@@ -30,9 +30,9 @@ npm install --save-dev @tomgrv/devcontainer-features-common-utils
 
 ## Options
 
-| Options Id | Description               | Type   | Default Value |
-| ---------- | ------------------------- | ------ | ------------- |
-| utils      | The utilities to install. | string | jq dos2unix   |
+| Options Id | Description               | Type   | Default Value             |
+| ---------- | ------------------------- | ------ | ------------------------- |
+| utils      | The utilities to install. | string | jq yq dos2unix shellcheck |
 
 ## Utilities
 
