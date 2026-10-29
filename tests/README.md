@@ -19,3 +19,7 @@ bats tests/
 
 CI runs this automatically via `.github/workflows/test-workspaces.yaml`'s
 `repo-tests` job, silently skipped when this directory has no `*.bats` files.
+
+## GitLab fragments
+
+`gitlab-fragments.bats` guards the `_<workflow>...gitlab-ci.yml` stubs: each deploys to the dotted `.gitlab-ci.yml` (the three dots survive `feature-configure`'s `..` collapse and `_` qualifier strip), is present for every GitHub workflow, defines unique jobs, and calls `tomgrv/actions` through `zz-use -x` only.

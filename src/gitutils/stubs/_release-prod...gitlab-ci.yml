@@ -1,0 +1,22 @@
+# @format
+
+# Counterpart of .github/workflows/release-prod.yml
+#
+# Pending: release-promote pushes and opens releases through `gh` (GitHub API).
+# `DRY_RUN` is the `dry_run` input: set it when running the pipeline manually.
+release-prod:
+  extends: .zz-use
+  stage: deploy
+  timeout: 30m
+  resource_group: release-prod
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "web"
+      when: manual
+      allow_failure: true
+  variables:
+    GIT_DEPTH: '0'
+    DRY_RUN: 'false'
+    SCRIPTS_REF: v3
+  script:
+    - git checkout -B develop origin/develop
+    - zz-use -x tomgrv/actions/release-promote

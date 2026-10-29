@@ -1,0 +1,23 @@
+# @format
+
+# Counterpart of .github/workflows/manage-orphan-branches.yml
+#
+# Pending: prefix-orphan-branches renames branches through `gh` (GitHub API). Run
+# it on demand until a GitLab variant exists, then switch the rule to the weekly
+# schedule (CI/CD > Schedules, `0 4 * * 1`): $CI_PIPELINE_SOURCE == "schedule".
+# `DRY_RUN` is the `dry_run` input: set it when running the pipeline manually.
+prefix-orphan-branches:
+  extends: .zz-use
+  stage: deploy
+  timeout: 10m
+  resource_group: prefix-orphan-branches
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "web"
+      when: manual
+      allow_failure: true
+  variables:
+    GIT_DEPTH: '0'
+    DRY_RUN: 'false'
+    GH_REPO: $CI_PROJECT_PATH
+  script:
+    - zz-use -x tomgrv/actions/prefix-orphan-branches

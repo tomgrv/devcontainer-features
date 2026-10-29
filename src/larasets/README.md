@@ -136,3 +136,11 @@ The deployed `validate-pr-php.yml` runs `tomgrv/actions/list-php-parts` to build
 ## Contributing
 
 If you have a feature that you would like to add to this repository, please open an issue or submit a pull request.
+
+## GitLab CI
+
+Each workflow above has a GitLab counterpart, deployed as a fragment merged into the repository's `.gitlab-ci.yml` (`stubs/_<workflow>...gitlab-ci.yml`). `tomgrv/actions` steps run through `zz-use -x tomgrv/actions/<name>`, with the action inputs set as environment variables.
+
+- `.zz-use-php`: shared base (PHP, Composer, reviewdog) of the jobs below.
+- `validate-php-code`, `run-php-tests`, `security-audit`: run on merge requests (`check-laravel` has no script to run through `zz-use`, only its pint step is ported).
+- `fix-phpinsights`: pending, manual job - `create-pr` uses the GitHub API.

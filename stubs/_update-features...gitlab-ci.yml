@@ -1,0 +1,38 @@
+# @format
+
+# Counterpart of .github/workflows/update-features.yml
+update-features:
+  extends: .zz-use
+  stage: deploy
+  timeout: 15m
+  resource_group: update-features
+  # Pending: create-pr opens a GitHub pull request through `gh`. Run it on demand
+  # until a GitLab variant exists, then switch the rule to the nightly schedule
+  # (CI/CD > Schedules, `0 3 * * *`): $CI_PIPELINE_SOURCE == "schedule".
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "web"
+      when: manual
+      allow_failure: true
+  variables:
+    GIT_DEPTH: '0'
+    HEAD_BRANCH: chore/update-features
+    WORKING_DIRECTORY: $CI_PROJECT_DIR
+    COMMIT_MESSAGE: 'chore: update features'
+    PR_TITLE: 'chore: update features'
+    PR_BODY: |
+      Automated nightly feature updates.
+
+      Command run:
+      - npm exec --yes -- tomgrv/devcontainer-features update -a
+    REPOSITORY: $CI_PROJECT_PATH
+  script:
+    - zz-use -x tomgrv/actions/config-bot
+    - npm exec --yes -- tomgrv/devcontainer-features update -a
+    - npm install --package-lock-only --ignore-scripts --no-audit --no-fund
+    # A CI job token cannot push .github/workflows changes: drop them, like the
+    # GitHub workflow does without UPDATE_FEATURES_TOKEN.
+    - git checkout -- .github/workflows && git clean -fdq -- .github/workflows
+    - |
+      if ! git diff --quiet -- .; then
+        zz-use -x tomgrv/actions/create-pr
+      fi

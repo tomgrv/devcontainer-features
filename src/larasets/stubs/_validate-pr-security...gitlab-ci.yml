@@ -1,0 +1,12 @@
+# @format
+
+# Counterpart of .github/workflows/validate-pr-security.yml
+security-audit:
+  extends: .zz-use-php
+  stage: test
+  interruptible: true
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+  script:
+    - zz-use -x tomgrv/actions/check-security-npm
+    - zz-use -x tomgrv/actions/check-security-composer

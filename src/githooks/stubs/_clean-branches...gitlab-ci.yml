@@ -1,0 +1,19 @@
+# @format
+
+# Counterpart of .github/workflows/clean-branches.yml
+clean-branches:
+  extends: .zz-use
+  stage: deploy
+  timeout: 10m
+  resource_group: clean-branches
+  # Pending: clean-branches deletes branches through `gh` (GitHub API). Run it on
+  # demand until a GitLab variant exists, then switch the rule to the weekly
+  # schedule (CI/CD > Schedules, `0 5 * * 1`): $CI_PIPELINE_SOURCE == "schedule".
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "web"
+      when: manual
+      allow_failure: true
+  variables:
+    REPO: $CI_PROJECT_PATH
+  script:
+    - zz-use -x tomgrv/actions/clean-branches

@@ -1,0 +1,20 @@
+# @format
+
+# Counterpart of .github/workflows/update-labels.yml
+update-labels:
+  extends: .zz-use
+  stage: deploy
+  timeout: 10m
+  resource_group: update-labels
+  # Pending: update-labels syncs GitHub issue labels through `gh`. Run it on demand
+  # until a GitLab variant exists, then switch the rule to the weekly schedule
+  # (CI/CD > Schedules, `0 4 * * 1`): $CI_PIPELINE_SOURCE == "schedule".
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "web"
+      when: manual
+      allow_failure: true
+  variables:
+    REPOSITORY: $CI_PROJECT_PATH
+    LABELS_FILE: .github/labels.json
+  script:
+    - zz-use -x tomgrv/actions/update-labels

@@ -1,0 +1,21 @@
+# @format
+
+# Counterpart of .github/workflows/configure-github.yml
+#
+# Pending: the workflow sets GitHub branch protection (`main` restricted to the
+# bot, "Tests green" required on `develop`) with a GitHub App token. GitLab
+# keeps this in protected branches, set through the project API. No
+# tomgrv/actions step is involved.
+configure-gitlab:
+  stage: deploy
+  timeout: 10m
+  resource_group: configure-gitlab
+  image: alpine:latest
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "web"
+      when: manual
+      allow_failure: true
+  script:
+    # TODO(gitlab): PATCH/POST $CI_API_V4_URL/projects/$CI_PROJECT_ID/protected_branches
+    # for `main` (push_access_level: 0) and `develop`, with a project access token.
+    - echo "Pending - protected branches are not configured by this job yet."

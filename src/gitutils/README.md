@@ -185,3 +185,9 @@ Both rewrite history: use `-f` carefully, it allows overwriting pushed history.
 ## Contributing
 
 If you have a feature that you would like to add to this repository, please open an issue or submit a pull request.
+
+## GitLab CI
+
+Each workflow above has a GitLab counterpart, deployed as a fragment merged into the repository's `.gitlab-ci.yml` (`stubs/_<workflow>...gitlab-ci.yml`). `tomgrv/actions` steps run through `zz-use -x tomgrv/actions/<name>`, with the action inputs set as environment variables.
+
+- `release-prod`, `manage-orphan-branches`, `manage-monorepo-merge`, `manage-monorepo-split`: pending, manual jobs - the actions behind them use the GitHub API. `DRY_RUN`, `SOURCE_BRANCH` and `EXCLUDE_PATHS` replace the workflow inputs.
