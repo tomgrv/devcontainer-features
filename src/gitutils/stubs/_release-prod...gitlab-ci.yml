@@ -2,8 +2,10 @@
 
 # Counterpart of .github/workflows/release-prod.yml
 #
-# Pending: release-promote pushes and opens releases through `gh` (GitHub API).
-# `DRY_RUN` is the `dry_run` input: set it when running the pipeline manually.
+# Needs tomgrv/actions#152 (release-promote on GitLab). GITLAB_TOKEN: CI/CD variable,
+# project access token with the `api` and `write_repository` scopes, allowed to push
+# to `main` and to create tags. `DRY_RUN` is the `dry_run` input: set it when running
+# the pipeline manually.
 release-prod:
   extends: .zz-use
   stage: deploy
@@ -16,7 +18,11 @@ release-prod:
   variables:
     GIT_DEPTH: '0'
     DRY_RUN: 'false'
-    SCRIPTS_REF: v3
   script:
+    - git config user.name "$GITLAB_USER_NAME"
+    - git config user.email "$GITLAB_USER_EMAIL"
     - git checkout -B develop origin/develop
+    - zz-use git-release-beta git-release-prod ws-list
+    - zz-use -x tomgrv/actions/setup-gitversion
+    - zz-use -x tomgrv/actions/setup-gitflow
     - zz-use -x tomgrv/actions/release-promote

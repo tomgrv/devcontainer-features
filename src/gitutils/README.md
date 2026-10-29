@@ -191,4 +191,5 @@ If you have a feature that you would like to add to this repository, please open
 Each workflow above has a GitLab counterpart, deployed as a fragment merged into the repository's `.gitlab-ci.yml` (`stubs/_<workflow>...gitlab-ci.yml`). `tomgrv/actions` steps run through `zz-use -x tomgrv/actions/<name>`, with the action inputs set as environment variables.
 
 - `manage-orphan-branches`: through the GitLab API (tomgrv/scripts#107), weekly once a pipeline schedule is created, with a `GITLAB_TOKEN` variable.
-- `release-prod`, `manage-monorepo-merge`, `manage-monorepo-split`: pending, manual jobs - the actions behind them use the GitHub API (the monorepo jobs open pull requests on the GitHub package repositories with `FORGE=github`). `DRY_RUN`, `SOURCE_BRANCH` and `EXCLUDE_PATHS` replace the workflow inputs.
+- `release-prod`: manual job, pushes the release and comments the merge requests through the GitLab API (tomgrv/actions#152), with a `GITLAB_TOKEN` variable allowed to push to `main` and create tags.
+- `manage-monorepo-merge`, `manage-monorepo-split`: pending, manual jobs - the actions behind them use the GitHub API (the monorepo jobs open pull requests on the GitHub package repositories with `FORGE=github`). `DRY_RUN`, `SOURCE_BRANCH` and `EXCLUDE_PATHS` replace the workflow inputs.
