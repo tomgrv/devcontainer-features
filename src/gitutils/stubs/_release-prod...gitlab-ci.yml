@@ -1,0 +1,28 @@
+# @format
+
+# Counterpart of .github/workflows/release-prod.yml
+#
+# Needs tomgrv/actions#152 (release-promote on GitLab). GITLAB_TOKEN: CI/CD variable,
+# project access token with the `api` and `write_repository` scopes, allowed to push
+# to `main` and to create tags. `DRY_RUN` is the `dry_run` input: set it when running
+# the pipeline manually.
+release-prod:
+  extends: .zz-use
+  stage: deploy
+  timeout: 30m
+  resource_group: release-prod
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "web"
+      when: manual
+      allow_failure: true
+  variables:
+    GIT_DEPTH: '0'
+    DRY_RUN: 'false'
+  script:
+    - git config user.name "$GITLAB_USER_NAME"
+    - git config user.email "$GITLAB_USER_EMAIL"
+    - git checkout -B develop origin/develop
+    - zz-use git-release-beta git-release-prod ws-list
+    - zz-use -x tomgrv/actions/setup-gitversion
+    - zz-use -x tomgrv/actions/setup-gitflow
+    - zz-use -x tomgrv/actions/release-promote

@@ -29,3 +29,9 @@ curl -fsSL https://raw.githubusercontent.com/tomgrv/devcontainer-features/develo
 ```sh
 npm install --save-dev @tomgrv/devcontainer-features-minikube
 ```
+
+## GitLab CI
+
+Each workflow above has a GitLab counterpart, deployed as a fragment merged into the repository's `.gitlab-ci.yml` (`stubs/_<workflow>...gitlab-ci.yml`). `tomgrv/actions` steps run through `zz-use -x tomgrv/actions/<name>`, with the action inputs set as environment variables.
+
+- `validate-pr-docker`: `check-dockerfile` on merge requests.

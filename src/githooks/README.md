@@ -116,3 +116,12 @@ The feature also includes the following VS Code customizations:
 ## Contributing
 
 If you have a feature that you would like to add to this repository, please open an issue or submit a pull request.
+
+## GitLab CI
+
+Each workflow above has a GitLab counterpart, deployed as a fragment merged into the repository's `.gitlab-ci.yml` (`stubs/_<workflow>...gitlab-ci.yml`). `tomgrv/actions` steps run through `zz-use -x tomgrv/actions/<name>`, with the action inputs set as environment variables.
+
+- `check-pr-source-branch`, `validate-pr-secret` (gitleaks CLI), `validate-pr-vulnerabilities` (trivy CLI): run on merge requests.
+- `validate-pr-title`: `check-pr-format` through the GitLab API; set a `GITLAB_TOKEN` variable (project access token, `api` scope) to let it fix the title.
+- `clean-branches`, `update-labels`: through the GitLab API (tomgrv/actions#152), weekly once a pipeline schedule is created, with a `GITLAB_TOKEN` variable.
+- `configure-gitlab`: protects `main` (maintainers only) and `develop`, and requires successful pipelines for merge requests, through the project API. Needs a `GITLAB_TOKEN` with the `api` scope and the Owner role; weekly once a pipeline schedule is created.

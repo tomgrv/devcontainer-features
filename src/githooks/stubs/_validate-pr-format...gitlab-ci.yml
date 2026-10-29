@@ -1,0 +1,35 @@
+# @format
+
+# Counterpart of .github/workflows/validate-pr-format.yml
+validate-pr-title:
+  extends: .zz-use
+  stage: test
+  timeout: 10m
+  interruptible: true
+  # Needs tomgrv/actions#152 (GitLab API support in check-pr-format). Without a
+  # GITLAB_TOKEN CI/CD variable (project access token, `api` scope) the title is
+  # only validated, not fixed.
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+  variables:
+    GIT_DEPTH: '0'
+    FIX: 'true'
+    PR_TITLE: $CI_MERGE_REQUEST_TITLE
+    PR_NUMBER: $CI_MERGE_REQUEST_IID
+    REPO: $CI_PROJECT_PATH
+    HEAD_REPO_FULL_NAME: $CI_MERGE_REQUEST_SOURCE_PROJECT_PATH
+  script:
+    - zz-use -x tomgrv/actions/check-pr-format
+
+check-pr-source-branch:
+  extends: .zz-use
+  stage: test
+  timeout: 10m
+  interruptible: true
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+  variables:
+    TARGET_BRANCH: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME
+    PR_TITLE: $CI_MERGE_REQUEST_TITLE
+  script:
+    - zz-use -x tomgrv/actions/check-pr-source-branch

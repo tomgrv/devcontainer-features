@@ -34,6 +34,7 @@ npm install --save-dev @tomgrv/devcontainer-features-ai-coding
 - `.github/workflows/deepseek-review.yml` — runs [DeepSeek Code Review](https://github.com/hustcer/deepseek-review) on every PR open/reopen/sync, and on demand via an `@deepseek` mention in a PR comment, posting an automated review.
 - `.agents/skills/caveman*` — ultra-compressed communication mode skills (terse mode, commit messages, PR reviews, markdown compression, help reference). Symlinked from `.github/skills/`; installed live for Claude Code and GitHub Copilot.
 - `.agents/skills/pm/*` — product-management workflow skills: research synthesis, roadmap prioritization brief, PRD drafting, metrics digest, release notes generation. Symlinked from `.github/skills/`; installed live for Claude Code and GitHub Copilot.
+- `.agents/skills/github-actions-to-gitlab-ci/` — [GitLab's](https://gitlab.com/gitlab-org/ci-cd/github-actions-to-gitlab-ci) (MIT) GitHub Actions to GitLab CI/CD translator, vendored unchanged. Symlinked from `.github/skills/`.
 - `.agents/skills/feature-ai-coding/` — self-doc skill for this feature.
 - `ai-coding.json` (repo root) — the dedicated manifest listing everything installed: `skills` (names under `.agents/skills/`), `agents` (`npx skills` target ids — `claude-code`, `github-copilot`), and `plugins` (Claude Code plugin-marketplace entries — name, marketplace, git URL). Add or drop a skill/agent/plugin here, not in the scripts. Other features that `dependsOn` `ai-coding` can ship their own `stubs/ai-coding.json` fragment — `feature-configure`'s generic JSON-stub merge unions it into this same root file.
 - `.claude/hooks/configure-skills.sh` — the `npx skills` wrapper. `configure-skills.sh sync` reads root `ai-coding.json` and, for each skill, runs `npx skills add tomgrv/devcontainer-features/.agents/skills/<name> -a <agent> ... -y` for every listed agent, then merges each declared plugin into `.claude/settings.json`'s `enabledPlugins`/`extraKnownMarketplaces` (the settings file Claude Code reads to enable plugins). Runs on devcontainer `postCreate` (`configure-skills.sh`) and on every Claude Code `SessionStart` — so it also covers claude.ai/code web/cloud sessions, which never run devcontainer `postCreate`.
@@ -59,3 +60,9 @@ Likewise, add a repository secret named `DEEPSEEK_CHAT_TOKEN` containing a valid
 Skills already work with DeepSeek and any other file-reading coding assistant with no extra setup: `.agents/skills/` is deployed as plain files (the `universal` agent target in `ai-coding.json`), so any assistant that reads repo files — including DeepSeek-based ones — picks them up without needing a dedicated `npx skills` agent id.
 
 `.claude/hooks/configure-skills.sh` requires `jq` on `PATH` (and `npx`/Node.js for the skills-install step); if either is missing, or root `ai-coding.json` isn't found, it logs a warning and exits cleanly rather than failing the session.
+
+## GitLab CI
+
+Each workflow above has a GitLab counterpart, deployed as a fragment merged into the repository's `.gitlab-ci.yml` (`stubs/_<workflow>...gitlab-ci.yml`). `tomgrv/actions` steps run through `zz-use -x tomgrv/actions/<name>`, with the action inputs set as environment variables.
+
+- `review-deepseek`: pending, manual merge request job (GitLab pipelines do not run on comments); `confirm-pr-comment` and the DeepSeek review still target GitHub.

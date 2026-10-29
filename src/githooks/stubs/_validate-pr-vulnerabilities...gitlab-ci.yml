@@ -1,0 +1,21 @@
+# @format
+
+# Counterpart of .github/workflows/validate-pr-vulnerabilities.yml
+#
+# aquasecurity/trivy-action becomes the trivy CLI; the SARIF upload to the
+# GitHub Security tab has no equivalent here, the report is a job artifact.
+validate-pr-vulnerabilities:
+  stage: test
+  timeout: 10m
+  interruptible: true
+  image:
+    name: aquasec/trivy:latest
+    entrypoint: ['']
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TITLE !~ /^(Draft:|\[Draft\]|\(Draft\))/i
+  script:
+    - trivy fs --scanners vuln,misconfig,secret --severity HIGH,CRITICAL --ignore-unfixed --exit-code 1 --format sarif --output trivy.sarif .
+  artifacts:
+    when: always
+    paths:
+      - trivy.sarif

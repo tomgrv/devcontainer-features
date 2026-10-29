@@ -1,0 +1,23 @@
+# @format
+
+# Base of the larasets GitLab jobs (counterpart of the `setup-php`,
+# `setup-node` and `setup-reviewdog` GitHub actions): the zz-use base image
+# (Node) plus PHP, Composer and reviewdog.
+.zz-use-php:
+  extends: .zz-use
+  variables:
+    COMPOSER_CACHE_DIR: $CI_PROJECT_DIR/.cache/composer
+    NODE_ENV: test
+    # TODO(gitlab): reviewdog reports to the merge request with this reporter,
+    # and needs a masked REVIEWDOG_GITLAB_API_TOKEN CI/CD variable.
+    REVIEWDOG_REPORTER: gitlab-mr-discussion
+  cache:
+    key: zz-use-php
+    paths:
+      - .cache/zz_scripts/
+      - .cache/composer/
+  before_script:
+    - !reference [.zz-use, before_script]
+    # shortcut: the distribution PHP version, pin one (e.g. sury.org) when it matters
+    - apt-get update -qq && apt-get install -y -qq php-cli php-mbstring php-xml php-curl php-zip php-mysql composer unzip
+    - curl -sfL https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.sh | sh -s -- -b /usr/local/bin v0.20.3
