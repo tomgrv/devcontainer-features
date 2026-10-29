@@ -6,10 +6,12 @@ update-features:
   stage: deploy
   timeout: 15m
   resource_group: update-features
-  # Pending: create-pr opens a GitHub pull request through `gh`. Run it on demand
-  # until a GitLab variant exists, then switch the rule to the nightly schedule
-  # (CI/CD > Schedules, `0 3 * * *`): $CI_PIPELINE_SOURCE == "schedule".
+  # Needs tomgrv/actions#152 (create-pr on GitLab). Nightly: create the schedule under
+  # CI/CD > Schedules (`0 3 * * *`); it can also be started by hand.
+  # GITLAB_TOKEN: CI/CD variable, project access token with the `api` scope
+  # (plus `write_repository` where the job pushes).
   rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
     - if: $CI_PIPELINE_SOURCE == "web"
       when: manual
       allow_failure: true

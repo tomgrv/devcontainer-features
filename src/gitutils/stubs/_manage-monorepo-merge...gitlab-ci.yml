@@ -34,7 +34,7 @@ manage-monorepo-merge:
           zz-use -x tomgrv/actions/degit-package || { failed=1; continue; }
         [ "$(out has-changes)" = true ] || continue
         branch=$(out source-branch)
-        REPOSITORY=$org/$name HEAD_BRANCH=$(out degit-branch) WORKING_DIRECTORY=$(out degit-workdir) \
+        FORGE=github REPOSITORY=$org/$name HEAD_BRANCH=$(out degit-branch) WORKING_DIRECTORY=$(out degit-workdir) \
           COMMIT_MESSAGE="sync: degit from $org/$name@$branch" \
           PR_TITLE="sync: degit from $org/$name" \
           PR_BODY="Automated degit sync from $org/$name. Source branch: $branch. Source commit: $(out source-sha)" \

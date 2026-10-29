@@ -143,4 +143,4 @@ Each workflow above has a GitLab counterpart, deployed as a fragment merged into
 
 - `.zz-use-php`: shared base (PHP, Composer, reviewdog) of the jobs below.
 - `validate-php-code`, `run-php-tests`, `security-audit`: run on merge requests (`check-laravel` has no script to run through `zz-use`, only its pint step is ported).
-- `fix-phpinsights`: pending, manual job - `create-pr` uses the GitHub API.
+- `fix-phpinsights`: manual job, opens a merge request through the GitLab API (tomgrv/actions#152) with a `GITLAB_TOKEN` variable.

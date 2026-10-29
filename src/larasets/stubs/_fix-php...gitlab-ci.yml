@@ -2,9 +2,9 @@
 
 # Counterpart of .github/workflows/fix-php.yml
 #
-# Pending: create-pr opens a GitHub pull request through `gh` (GitHub API). Run
-# it on demand until a GitLab variant exists. `TARGET_PATHS` and `BASE_BRANCH`
-# are the `paths` / `base_branch` inputs: set them when running manually.
+# Needs tomgrv/actions#152 (create-pr on GitLab); GITLAB_TOKEN needs the `api` and
+# `write_repository` scopes. `TARGET_PATHS` and `BASE_BRANCH` are the `paths` /
+# `base_branch` inputs: set them when running manually.
 fix-phpinsights:
   extends: .zz-use-php
   stage: deploy

@@ -36,7 +36,7 @@ manage-monorepo-split:
         PACKAGE_DIR=$(echo "$pkg" | jq -r .path) REPO_ORG=$org REPO_NAME=$name \
           zz-use -x tomgrv/actions/split-package || { failed=1; continue; }
         [ -n "$(out split-branch)" ] || continue
-        REPOSITORY=$org/$name HEAD_BRANCH=$(out split-branch) WORKING_DIRECTORY=$(out split-workdir) \
+        FORGE=github REPOSITORY=$org/$name HEAD_BRANCH=$(out split-branch) WORKING_DIRECTORY=$(out split-workdir) \
           COMMIT_MESSAGE="sync: import from monorepo $CI_PROJECT_PATH" \
           PR_TITLE="sync: import from monorepo $CI_PROJECT_PATH" \
           PR_BODY="Automated sync from monorepo $CI_PROJECT_URL, at commit $CI_COMMIT_SHA ($CI_PROJECT_URL/-/commit/$CI_COMMIT_SHA)." \

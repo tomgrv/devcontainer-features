@@ -6,10 +6,12 @@ update-labels:
   stage: deploy
   timeout: 10m
   resource_group: update-labels
-  # Pending: update-labels syncs GitHub issue labels through `gh`. Run it on demand
-  # until a GitLab variant exists, then switch the rule to the weekly schedule
-  # (CI/CD > Schedules, `0 4 * * 1`): $CI_PIPELINE_SOURCE == "schedule".
+  # Needs tomgrv/actions#152. Weekly: create the schedule under CI/CD > Schedules
+  # (`0 4 * * 1`); it can also be started by hand.
+  # GITLAB_TOKEN: CI/CD variable, project access token with the `api` scope
+  # (plus `write_repository` where the job pushes).
   rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
     - if: $CI_PIPELINE_SOURCE == "web"
       when: manual
       allow_failure: true
