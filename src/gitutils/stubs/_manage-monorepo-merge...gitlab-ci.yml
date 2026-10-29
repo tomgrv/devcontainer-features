@@ -20,7 +20,8 @@ manage-monorepo-merge:
     SOURCE_BRANCH: ''
     EXCLUDE_PATHS: .github,.devcontainer,.git
   script:
-    - zz-use -x tomgrv/actions/list-packages
+    # The actions print their outputs on stdout; the GitHub action wrapper appends them to GITHUB_OUTPUT
+    - zz-use -x tomgrv/actions/list-packages >> "$GITHUB_OUTPUT"
     - sed -n 's/^packages=//p' "$GITHUB_OUTPUT" | tail -1 | jq -c '.[]' > .packages
     - zz-use -x tomgrv/actions/config-bot
     - |
@@ -31,7 +32,7 @@ manage-monorepo-merge:
         name=$(echo "$pkg" | jq -r .name)
         : > "$GITHUB_OUTPUT"
         SOURCE_ORG=$org SOURCE_NAME=$name TARGET_SUBDIR=$(echo "$pkg" | jq -r .location) \
-          zz-use -x tomgrv/actions/degit-package || { failed=1; continue; }
+          zz-use -x tomgrv/actions/degit-package >> "$GITHUB_OUTPUT" || { failed=1; continue; }
         [ "$(out has-changes)" = true ] || continue
         branch=$(out source-branch)
         FORGE=github REPOSITORY=$org/$name HEAD_BRANCH=$(out degit-branch) WORKING_DIRECTORY=$(out degit-workdir) \

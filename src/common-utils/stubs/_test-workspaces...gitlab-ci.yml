@@ -30,7 +30,8 @@ test-workspaces:
         FILTER=$(ws-impacted -r "$CI_MERGE_REQUEST_DIFF_BASE_SHA..HEAD")
       fi
       export FILTER
-    - zz-use -x tomgrv/actions/list-packages
+    # The actions print their outputs on stdout; the GitHub action wrapper appends them to GITHUB_OUTPUT
+    - zz-use -x tomgrv/actions/list-packages >> "$GITHUB_OUTPUT"
     - sed -n 's/^packages=//p' "$GITHUB_OUTPUT" | tail -1 | jq -r '.[].path' > .packages
     - |
       failed=0

@@ -44,7 +44,8 @@ run-php-tests:
     DB_USERNAME: root
     DB_PASSWORD: ''
   script:
-    - zz-use -x tomgrv/actions/list-php-parts
+    # The actions print their outputs on stdout; the GitHub action wrapper appends them to GITHUB_OUTPUT
+    - zz-use -x tomgrv/actions/list-php-parts >> "$GITHUB_OUTPUT"
     - |
       out() { sed -n "s/^$1=//p" "$GITHUB_OUTPUT" | tail -1; }
       [ "$(out has-parts)" = true ] || { echo "No PHP parts affected, skipping."; exit 0; }

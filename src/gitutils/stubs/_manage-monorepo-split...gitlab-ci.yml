@@ -23,7 +23,8 @@ manage-monorepo-split:
   variables:
     GIT_DEPTH: '0'
   script:
-    - zz-use -x tomgrv/actions/list-packages
+    # The actions print their outputs on stdout; the GitHub action wrapper appends them to GITHUB_OUTPUT
+    - zz-use -x tomgrv/actions/list-packages >> "$GITHUB_OUTPUT"
     - sed -n 's/^packages=//p' "$GITHUB_OUTPUT" | tail -1 | jq -c '.[]' > .packages
     - zz-use -x tomgrv/actions/config-bot
     - |
@@ -34,7 +35,7 @@ manage-monorepo-split:
         name=$(echo "$pkg" | jq -r .name)
         : > "$GITHUB_OUTPUT"
         PACKAGE_DIR=$(echo "$pkg" | jq -r .path) REPO_ORG=$org REPO_NAME=$name \
-          zz-use -x tomgrv/actions/split-package || { failed=1; continue; }
+          zz-use -x tomgrv/actions/split-package >> "$GITHUB_OUTPUT" || { failed=1; continue; }
         [ -n "$(out split-branch)" ] || continue
         FORGE=github REPOSITORY=$org/$name HEAD_BRANCH=$(out split-branch) WORKING_DIRECTORY=$(out split-workdir) \
           COMMIT_MESSAGE="sync: import from monorepo $CI_PROJECT_PATH" \
