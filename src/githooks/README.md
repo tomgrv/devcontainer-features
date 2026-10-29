@@ -122,4 +122,5 @@ If you have a feature that you would like to add to this repository, please open
 Each workflow above has a GitLab counterpart, deployed as a fragment merged into the repository's `.gitlab-ci.yml` (`stubs/_<workflow>...gitlab-ci.yml`). `tomgrv/actions` steps run through `zz-use -x tomgrv/actions/<name>`, with the action inputs set as environment variables.
 
 - `check-pr-source-branch`, `validate-pr-secret` (gitleaks CLI), `validate-pr-vulnerabilities` (trivy CLI): run on merge requests.
-- `validate-pr-title`, `clean-branches`, `update-labels`, `configure-gitlab`: pending, manual jobs - the actions behind them use the GitHub API (`gh`) and need a GitHub token in `GITHUB_TOKEN`.
+- `validate-pr-title`: `check-pr-format` through the GitLab API; set a `GITLAB_TOKEN` variable (project access token, `api` scope) to let it fix the title.
+- `clean-branches`, `update-labels`, `configure-gitlab`: pending, manual jobs - the actions behind them use the GitHub API (`gh`) and need a GitHub token in `GITHUB_TOKEN`.
