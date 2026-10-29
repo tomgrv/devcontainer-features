@@ -2,11 +2,13 @@
 
 # Counterpart of .github/workflows/manage-monorepo-merge.yml
 #
-# Pending: degit-package and create-pr push to and open pull requests on the
-# GitHub package repositories (GitHub API). The GitHub App token is replaced by
-# a GITHUB_TOKEN CI/CD variable that can write to those repositories. The
-# package matrix is a loop, and the PHP/Node setup steps are the job image.
-# Set SOURCE_BRANCH / EXCLUDE_PATHS (the workflow inputs) when running manually.
+# Opens merge requests on the package projects of the same GitLab instance. Set the
+# `FORGE` CI/CD variable to `github` when the packages live on GitHub (then use
+# `GITHUB_TOKEN` instead of `GITLAB_TOKEN`). GITLAB_TOKEN: project access token
+# with the `api` and `write_repository` scopes on each package project (needs
+# tomgrv/actions#152). The package matrix is a loop, and the PHP/Node setup steps
+# are the job image. Set SOURCE_BRANCH / EXCLUDE_PATHS (the workflow inputs) when
+# running manually.
 manage-monorepo-merge:
   extends: .zz-use
   stage: deploy
@@ -19,11 +21,15 @@ manage-monorepo-merge:
   variables:
     SOURCE_BRANCH: ''
     EXCLUDE_PATHS: .github,.devcontainer,.git
+  before_script:
+    - !reference [.zz-use, before_script]
+    - apt-get update -qq && apt-get install -y -qq rsync tree
+    - '[ ! -f composer.json ] || { apt-get update -qq && apt-get install -y -qq php-cli php-mbstring php-xml php-curl php-zip composer unzip; }'
   script:
     # The actions print their outputs on stdout; the GitHub action wrapper appends them to GITHUB_OUTPUT
     - zz-use -x tomgrv/actions/list-packages >> "$GITHUB_OUTPUT"
     - sed -n 's/^packages=//p' "$GITHUB_OUTPUT" | tail -1 | jq -c '.[]' > .packages
-    - zz-use -x tomgrv/actions/config-bot
+    - BOT_NAME=gitlab-ci BOT_EMAIL=gitlab-ci@$CI_SERVER_HOST zz-use -x tomgrv/actions/config-bot
     - |
       out() { sed -n "s/^$1=//p" "$GITHUB_OUTPUT" | tail -1; }
       failed=0
@@ -35,7 +41,7 @@ manage-monorepo-merge:
           zz-use -x tomgrv/actions/degit-package >> "$GITHUB_OUTPUT" || { failed=1; continue; }
         [ "$(out has-changes)" = true ] || continue
         branch=$(out source-branch)
-        FORGE=github REPOSITORY=$org/$name HEAD_BRANCH=$(out degit-branch) WORKING_DIRECTORY=$(out degit-workdir) \
+        REPOSITORY=$org/$name HEAD_BRANCH=$(out degit-branch) WORKING_DIRECTORY=$(out degit-workdir) \
           COMMIT_MESSAGE="sync: degit from $org/$name@$branch" \
           PR_TITLE="sync: degit from $org/$name" \
           PR_BODY="Automated degit sync from $org/$name. Source branch: $branch. Source commit: $(out source-sha)" \

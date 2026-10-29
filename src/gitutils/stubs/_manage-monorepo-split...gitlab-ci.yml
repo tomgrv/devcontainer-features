@@ -2,12 +2,14 @@
 
 # Counterpart of .github/workflows/manage-monorepo-split.yml
 #
-# Pending: create-pr opens pull requests on the GitHub package repositories
-# (GitHub API). The GitHub App token is replaced by a GITHUB_TOKEN CI/CD
-# variable that can write to those repositories. The package matrix is a loop,
-# and the PHP/Node setup steps are the job image. The `workflow_run` trigger
-# (after "Release Prod") has no counterpart: add `needs:`/`trigger:` from the
-# release pipeline if the split must follow a release.
+# Opens merge requests on the package projects of the same GitLab instance. Set the
+# `FORGE` CI/CD variable to `github` when the packages live on GitHub (then use
+# `GITHUB_TOKEN` instead of `GITLAB_TOKEN`). GITLAB_TOKEN: project access token
+# with the `api` and `write_repository` scopes on each package project (needs
+# tomgrv/actions#152). The package matrix is a loop, and the PHP/Node setup steps
+# are the job image. The `workflow_run` trigger (after "Release Prod") has no
+# counterpart: add `needs:`/`trigger:` from the release pipeline if the split must
+# follow a release.
 manage-monorepo-split:
   extends: .zz-use
   stage: deploy
@@ -22,11 +24,15 @@ manage-monorepo-split:
       allow_failure: true
   variables:
     GIT_DEPTH: '0'
+  before_script:
+    - !reference [.zz-use, before_script]
+    - '[ ! -f composer.json ] || { apt-get update -qq && apt-get install -y -qq php-cli php-mbstring php-xml php-curl php-zip composer unzip; }'
+    - curl -fsSL https://github.com/splitsh/lite/releases/download/v1.0.1/lite_linux_amd64.tar.gz | tar -xz -C /usr/local/bin splitsh-lite
   script:
     # The actions print their outputs on stdout; the GitHub action wrapper appends them to GITHUB_OUTPUT
     - zz-use -x tomgrv/actions/list-packages >> "$GITHUB_OUTPUT"
     - sed -n 's/^packages=//p' "$GITHUB_OUTPUT" | tail -1 | jq -c '.[]' > .packages
-    - zz-use -x tomgrv/actions/config-bot
+    - BOT_NAME=gitlab-ci BOT_EMAIL=gitlab-ci@$CI_SERVER_HOST zz-use -x tomgrv/actions/config-bot
     - |
       out() { sed -n "s/^$1=//p" "$GITHUB_OUTPUT" | tail -1; }
       failed=0
@@ -37,7 +43,7 @@ manage-monorepo-split:
         PACKAGE_DIR=$(echo "$pkg" | jq -r .path) REPO_ORG=$org REPO_NAME=$name \
           zz-use -x tomgrv/actions/split-package >> "$GITHUB_OUTPUT" || { failed=1; continue; }
         [ -n "$(out split-branch)" ] || continue
-        FORGE=github REPOSITORY=$org/$name HEAD_BRANCH=$(out split-branch) WORKING_DIRECTORY=$(out split-workdir) \
+        REPOSITORY=$org/$name HEAD_BRANCH=$(out split-branch) WORKING_DIRECTORY=$(out split-workdir) \
           COMMIT_MESSAGE="sync: import from monorepo $CI_PROJECT_PATH" \
           PR_TITLE="sync: import from monorepo $CI_PROJECT_PATH" \
           PR_BODY="Automated sync from monorepo $CI_PROJECT_URL, at commit $CI_COMMIT_SHA ($CI_PROJECT_URL/-/commit/$CI_COMMIT_SHA)." \
