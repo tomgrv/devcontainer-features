@@ -34,6 +34,24 @@ jobs:
           client-id: ${{ secrets.KLICKSPLIT_CLIENT_ID }}
           private-key: ${{ secrets.KLICKSPLIT_APP_KEY }}
 
+      - name: Configure repository settings
+        if: ${{ env.KLICKSPLIT_CLIENT_ID != '' }}
+        uses: actions/github-script@v9
+        with:
+          github-token: ${{ steps.app-token.outputs.token }}
+          script: |
+            await github.rest.repos.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              allow_squash_merge: true,
+              allow_merge_commit: false,
+              allow_rebase_merge: false,
+              allow_update_branch: true,
+              delete_branch_on_merge: true,
+              has_issues: false,
+              has_projects: false,
+            });
+
       - name: Restrict main to GitHub bot
         if: ${{ env.KLICKSPLIT_CLIENT_ID != '' }}
         uses: actions/github-script@v9
