@@ -10,15 +10,18 @@ on:
         type: boolean
         default: false
 
+
 permissions:
   contents: write
   pull-requests: write
   issues: write
   
+
 concurrency:
   group: ${{ github.workflow }}
   cancel-in-progress: false
   
+
 jobs:
   release-prod:
     runs-on: ubuntu-latest
