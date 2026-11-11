@@ -67,7 +67,7 @@ jobs:
         run: echo "::notice::KLICKSPLIT_CLIENT_ID is not set, skipping the degit."
 
       - name: Generate a token
-        if: ${{ env.KLICKSPLIT_CLIENT_ID != '' && github.server_url == 'https://github.com' }}
+        if: ${{ env.KLICKSPLIT_CLIENT_ID != '' && !endsWith(github.api_url, '/api/v1') }}
         id: app-token
         uses: actions/create-github-app-token@v3
         with:
