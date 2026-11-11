@@ -1,0 +1,26 @@
+# @format
+
+# Forgejo has no ready_for_review pull request type: same checks on the usual PR events.
+# Skipped on github.com, where the ready_for_review workflow of the same name runs.
+
+name: Validate PR on Docker side (Forgejo)
+
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+
+jobs:
+  docker-lint:
+    if: ${{ github.server_url != 'https://github.com' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Check Dockerfiles
+        uses: tomgrv/actions/check-dockerfile@v5
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
