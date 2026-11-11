@@ -64,6 +64,10 @@ Features are also published to npm as `@tomgrv/devcontainer-features-<feature>`.
 An [MCP server](./.mcp/README.md) lets an AI agent list the features, read their
 docs and get the exact setup command for another repository.
 
+## Forgejo
+
+The workflow stubs run on GitHub and on [Forgejo Actions](https://forgejo.org/docs/latest/user/actions/overview/) (Forgejo falls back to `.github/workflows`). GitHub-only steps (GitHub App tokens, branch protection, SARIF upload) are skipped off github.com; on Forgejo set the `KLICKSPLIT_CLIENT_ID` and `KLICKSPLIT_TOKEN` (personal access token) secrets for the monorepo split/merge workflows. The `workflow_run` event and the `ready_for_review` pull request type are not available on Forgejo, so workflows relying on them need `workflow_dispatch` there. See the [tomgrv/actions Forgejo notes](https://github.com/tomgrv/actions#forgejo-actions) for the runner setup (`DEFAULT_ACTIONS_URL`, image tooling).
+
 ## Contributing
 
 Open an issue or a pull request against `develop`. Commit and PR title rules:
