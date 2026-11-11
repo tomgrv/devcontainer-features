@@ -66,7 +66,7 @@ docs and get the exact setup command for another repository.
 
 ## Forgejo
 
-The workflow stubs run on GitHub and on [Forgejo Actions](https://forgejo.org/docs/latest/user/actions/overview/) (Forgejo falls back to `.github/workflows`). GitHub-only steps (GitHub App tokens, branch protection, SARIF upload) run only on GitHub; on Forgejo set the `KLICKSPLIT_CLIENT_ID` and `KLICKSPLIT_TOKEN` (personal access token) secrets for the monorepo split/merge workflows. The workflows only use triggers that both forges support: there is no `workflow_run` or `ready_for_review`, and no workflow starts another one: after a release, run `manage-monorepo-split` (and `publish-features` here) with `workflow_dispatch`, because a push made with `GITHUB_TOKEN` starts no workflow. See the [tomgrv/actions Forgejo notes](https://github.com/tomgrv/actions#forgejo-actions) for the runner setup (`DEFAULT_ACTIONS_URL`, image tooling).
+The workflow stubs run on GitHub and on [Forgejo Actions](https://forgejo.org/docs/latest/user/actions/overview/) (Forgejo falls back to `.github/workflows`). GitHub-only steps (GitHub App tokens, branch protection, SARIF upload) run only on GitHub; on Forgejo set the `KLICKSPLIT_CLIENT_ID` and `KLICKSPLIT_TOKEN` (personal access token) secrets for the monorepo split/merge workflows. The workflows only use triggers that both forges support: `workflow_run` (which Forgejo and Gitea handle) starts the split and publish workflows after _Release Prod_, and there is no `ready_for_review`. See the [tomgrv/actions Forgejo notes](https://github.com/tomgrv/actions#forgejo-actions) for the runner setup (`DEFAULT_ACTIONS_URL`, image tooling).
 
 ## Contributing
 

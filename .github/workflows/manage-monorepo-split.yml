@@ -8,8 +8,13 @@ on:
       - main
     tags:
       - '*'
-  # Release Prod pushes with GITHUB_TOKEN, which does not start push workflows (GitHub or Forgejo):
-  # run this workflow with workflow_dispatch once a release has completed.
+  # release-promote pushes with GITHUB_TOKEN, and a push made with that token does not
+  # trigger the push workflows. Run once a release has completed instead.
+  workflow_run:
+    workflows:
+      - 'Release Prod'
+    types:
+      - completed
   workflow_dispatch:
 
 permissions:
@@ -22,7 +27,7 @@ concurrency:
 jobs:
   list-packages:
     name: List packages
-    if: ${{ github.ref_type != 'tag' }}
+    if: ${{ github.ref_type != 'tag' && (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success') }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     outputs:
@@ -31,6 +36,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
         with:
+          ref: ${{ github.event_name == 'workflow_run' && 'main' || github.sha }}
 
       - name: Set up PHP
         uses: tomgrv/actions/setup-php@v5
@@ -62,6 +68,7 @@ jobs:
         uses: actions/checkout@v7
         with:
           fetch-depth: 0
+          ref: ${{ github.event_name == 'workflow_run' && 'main' || github.sha }}
 
       - name: Skip notice
         if: ${{ env.KLICKSPLIT_CLIENT_ID == '' }}

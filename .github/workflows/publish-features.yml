@@ -9,8 +9,13 @@ on:
       - 'src/**'
       - package.json
       - .github/workflows/publish-features.yml
-  # Release Prod pushes with GITHUB_TOKEN, which does not start push workflows (GitHub or Forgejo):
-  # run this workflow with workflow_dispatch once a release has completed.
+  # release-promote pushes with GITHUB_TOKEN, and a push made with that token does not
+  # trigger the push workflows. Run once a release has completed instead.
+  workflow_run:
+    workflows:
+      - 'Release Prod'
+    types:
+      - completed
   workflow_dispatch:
 
 permissions:
@@ -23,6 +28,7 @@ concurrency:
 
 jobs:
   publish-devcontainer:
+    if: ${{ (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success') }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
     permissions:
@@ -31,6 +37,8 @@ jobs:
       packages: write
     steps:
       - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event_name == 'workflow_run' && 'main' || github.sha }}
 
       - name: 'Publish Features'
         uses: devcontainers/action@v1
@@ -41,6 +49,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   detect-npm-packages:
+    if: ${{ (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success') }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
@@ -49,6 +58,8 @@ jobs:
       matrix: ${{ steps.list.outputs.packages }}
     steps:
       - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event_name == 'workflow_run' && 'main' || github.sha }}
 
       - name: List unpublished feature packages
         id: list
@@ -71,6 +82,8 @@ jobs:
       fail-fast: false
     steps:
       - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event_name == 'workflow_run' && 'main' || github.sha }}
 
       - name: Publish ${{ matrix.package.name }}
         uses: tomgrv/actions/publish-npm@v5
