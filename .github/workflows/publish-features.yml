@@ -9,6 +9,8 @@ on:
       - 'src/**'
       - package.json
       - .github/workflows/publish-features.yml
+  # Release Prod pushes with GITHUB_TOKEN, which does not start push workflows (GitHub or Forgejo):
+  # run this workflow with workflow_dispatch once a release has completed.
   workflow_dispatch:
 
 permissions:

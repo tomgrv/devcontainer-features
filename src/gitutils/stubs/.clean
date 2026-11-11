@@ -7,4 +7,5 @@ KEY .github/workflows/manage-monorepo-merge.yml ["jobs","degit-packages","steps"
 # 8.26 consumers already carry the older job-level `if`; drop it so the merge writes the one that also handles workflow_run.
 KEY .github/workflows/manage-monorepo-split.yml ["jobs","list-packages","if"]
 # The split no longer chains on Release Prod (Forgejo has no workflow_run); drop the carried-over trigger.
+# Run the split with workflow_dispatch after a release.
 KEY .github/workflows/manage-monorepo-split.yml ["on","workflow_run"]
