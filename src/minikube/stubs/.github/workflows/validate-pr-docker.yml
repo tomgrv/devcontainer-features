@@ -5,7 +5,9 @@ name: Validate PR on Docker side
 on:
   pull_request:
     types:
-      - ready_for_review
+      - opened
+      - reopened
+      - synchronize
 
 jobs:
   docker-lint:

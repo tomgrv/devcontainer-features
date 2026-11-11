@@ -5,7 +5,9 @@ name: Validate PR is not introducing vulnerabilities
 on:
   pull_request:
     types:
-      - ready_for_review
+      - opened
+      - reopened
+      - synchronize
 
 permissions:
   contents: read

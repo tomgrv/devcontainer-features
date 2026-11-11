@@ -66,7 +66,7 @@ docs and get the exact setup command for another repository.
 
 ## Forgejo
 
-The workflow stubs run on GitHub and on [Forgejo Actions](https://forgejo.org/docs/latest/user/actions/overview/) (Forgejo falls back to `.github/workflows`). GitHub-only steps (GitHub App tokens, branch protection, SARIF upload) are skipped off github.com; on Forgejo set the `KLICKSPLIT_CLIENT_ID` and `KLICKSPLIT_TOKEN` (personal access token) secrets for the monorepo split/merge workflows. The `workflow_run` event and the `ready_for_review` pull request type are not available on Forgejo: _Release Prod_ dispatches the follow-up workflows itself, and the `ready_for_review`-only workflows have a `-forgejo` twin (skipped on github.com). See the [tomgrv/actions Forgejo notes](https://github.com/tomgrv/actions#forgejo-actions) for the runner setup (`DEFAULT_ACTIONS_URL`, image tooling).
+The workflow stubs run on GitHub and on [Forgejo Actions](https://forgejo.org/docs/latest/user/actions/overview/) (Forgejo falls back to `.github/workflows`). GitHub-only steps (GitHub App tokens, branch protection, SARIF upload) run only on GitHub; on Forgejo set the `KLICKSPLIT_CLIENT_ID` and `KLICKSPLIT_TOKEN` (personal access token) secrets for the monorepo split/merge workflows. The workflows only use triggers that both forges support: there is no `workflow_run` or `ready_for_review`, and _Release Prod_ dispatches the follow-up workflows itself. See the [tomgrv/actions Forgejo notes](https://github.com/tomgrv/actions#forgejo-actions) for the runner setup (`DEFAULT_ACTIONS_URL`, image tooling).
 
 ## Contributing
 
