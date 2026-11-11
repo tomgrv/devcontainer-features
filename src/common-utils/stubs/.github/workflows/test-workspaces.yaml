@@ -4,12 +4,14 @@ name: Test workspaces
 
 # A draft pull request only runs the workspaces its changes impact (the ones
 # owning a changed file, and what depends on them - see
-# ws-impacted); marking it ready for review and any push to a non-draft pull
-# request run every workspace. Nothing runs on a push to a long-lived branch:
-# they are only tested through their pull requests.
+# ws-impacted); any push to a non-draft pull request runs every workspace, so a
+# draft marked ready runs the full suite on its next push (Forgejo has no
+# ready_for_review event, the triggers are the same on both forges). Nothing runs
+# on a push to a long-lived branch: they are only tested through their pull
+# requests.
 on:
   pull_request:
-    types: [opened, reopened, synchronize, ready_for_review]
+    types: [opened, reopened, synchronize]
 
 permissions:
   contents: read
