@@ -1,0 +1,15 @@
+# @format
+
+# Counterpart of .github/workflows/validate-pr-docker.yml
+validate-pr-docker:
+  extends: .zz-use
+  stage: test
+  interruptible: true
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TITLE !~ /^(Draft:|\[Draft\]|\(Draft\))/i
+  variables:
+    # TODO(gitlab): reviewdog reports to the merge request with this reporter,
+    # and needs a masked REVIEWDOG_GITLAB_API_TOKEN CI/CD variable.
+    REVIEWDOG_REPORTER: gitlab-mr-discussion
+  script:
+    - zz-use -x tomgrv/actions/check-dockerfile

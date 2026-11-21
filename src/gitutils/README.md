@@ -185,3 +185,11 @@ Both rewrite history: use `-f` carefully, it allows overwriting pushed history.
 ## Contributing
 
 If you have a feature that you would like to add to this repository, please open an issue or submit a pull request.
+
+## GitLab CI
+
+Each workflow above has a GitLab counterpart, deployed as a fragment merged into the repository's `.gitlab-ci.yml` (`stubs/_<workflow>...gitlab-ci.yml`). `tomgrv/actions` steps run through `zz-use -x tomgrv/actions/<name>`, with the action inputs set as environment variables.
+
+- `manage-orphan-branches`: through the GitLab API (tomgrv/scripts#107), weekly once a pipeline schedule is created, with a `GITLAB_TOKEN` variable.
+- `release-prod`: manual job, pushes the release and comments the merge requests through the GitLab API (tomgrv/actions#152), with a `GITLAB_TOKEN` variable allowed to push to `main` and create tags.
+- `manage-monorepo-merge`, `manage-monorepo-split`: manual jobs, open merge requests on the package projects of the same GitLab instance (tomgrv/actions#152). Set `FORGE=github` for GitHub package repositories. `SOURCE_BRANCH` and `EXCLUDE_PATHS` replace the workflow inputs.

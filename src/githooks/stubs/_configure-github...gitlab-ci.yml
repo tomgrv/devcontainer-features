@@ -1,0 +1,48 @@
+# @format
+
+# Counterpart of .github/workflows/configure-github.yml
+#
+# GitLab has no GitHub App: protected branches and the merge request setting are
+# set through the project API. GITLAB_TOKEN: CI/CD variable, project access token
+# with the `api` scope and the Owner role (or a maintainer's personal token).
+# Weekly: create the schedule under CI/CD > Schedules (`0 4 * * 1`); it can also
+# be started by hand. Without GITLAB_TOKEN the job only prints a notice.
+configure-gitlab:
+  stage: deploy
+  timeout: 10m
+  resource_group: configure-gitlab
+  image: alpine:latest
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+    - if: $CI_PIPELINE_SOURCE == "web"
+      when: manual
+      allow_failure: true
+  before_script:
+    - apk add --no-cache curl
+  script:
+    - |
+      if [ -z "$GITLAB_TOKEN" ]; then
+        echo "GITLAB_TOKEN is not set, skipping the GitLab configuration."
+        exit 0
+      fi
+      api() {
+        method=$1; path=$2; shift 2
+        curl -sS -o /dev/null -w '%{http_code}' --request "$method" --header "PRIVATE-TOKEN: $GITLAB_TOKEN" \
+          "$CI_API_V4_URL/projects/$CI_PROJECT_ID/$path" "$@"
+      }
+      expect() { # expect <label> <status> <accepted statuses...>
+        label=$1; status=$2; shift 2
+        for ok in "$@"; do [ "$status" = "$ok" ] && return 0; done
+        echo "$label failed (HTTP $status)" >&2
+        exit 1
+      }
+      # main: only maintainers push (the release pipeline's project access token needs the
+      # Maintainer role: "No one" would block it too), and merge
+      api DELETE protected_branches/main >/dev/null
+      expect "Protecting main" "$(api POST protected_branches --data-urlencode name=main --data push_access_level=40 --data merge_access_level=40)" 201
+      # Merge requests need a successful pipeline (the "Tests green" check of the GitHub setup)
+      expect "Requiring pipelines to succeed" "$(api PUT '' --data only_allow_merge_if_pipeline_succeeds=true)" 200
+      # develop: protected for developers when it is not yet
+      if [ "$(api GET protected_branches/develop)" = 404 ]; then
+        expect "Protecting develop" "$(api POST protected_branches --data-urlencode name=develop --data push_access_level=30 --data merge_access_level=30)" 201
+      fi

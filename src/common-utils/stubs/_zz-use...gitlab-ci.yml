@@ -1,0 +1,21 @@
+# @format
+
+# Shared base of the GitLab fragments of every feature (counterpart of the
+# `setup-scripts` GitHub action): installs the zz-* scripts, so a job can run
+# `zz-use -x tomgrv/actions/<name>`. The actions read their inputs from
+# environment variables, set under `variables:` of each job.
+.zz-use:
+  image: node:lts
+  variables:
+    ZZ_CACHE_DIR: $CI_PROJECT_DIR/.cache/zz_scripts
+    # Same versioned ref as common-utils/install.sh, never main (see UPGRADING.md)
+    ZZ_ORIGIN_REF: v3
+    # Where the actions write their outputs (name=value lines), read back by the jobs
+    GITHUB_OUTPUT: $CI_PROJECT_DIR/.zz-output
+  cache:
+    key: zz-use
+    paths:
+      - .cache/zz_scripts/
+  before_script:
+    - curl -fsSL https://raw.githubusercontent.com/tomgrv/scripts/$ZZ_ORIGIN_REF/setup.sh | sh
+    - ': > "$GITHUB_OUTPUT"'

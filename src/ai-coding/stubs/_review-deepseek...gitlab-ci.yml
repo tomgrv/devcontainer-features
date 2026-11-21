@@ -1,0 +1,23 @@
+# @format
+
+# Counterpart of .github/workflows/review-deepseek.yml
+#
+# Pending: GitLab pipelines do not run on comment events, so the review is a
+# manual merge request job instead of an `@deepseek` mention.
+review-deepseek:
+  extends: .zz-use
+  stage: test
+  timeout: 30m
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: manual
+      allow_failure: true
+  variables:
+    REACTION: eyes
+  script:
+    # TODO(gitlab): confirm-pr-comment reacts to a GitHub comment (COMMENT_URL or
+    # COMMENT_ID); it needs a GitLab emoji-award variant before it is useful here.
+    - zz-use -x tomgrv/actions/confirm-pr-comment
+    # TODO(gitlab): run hustcer/deepseek-review against the merge request, with the
+    # DEEPSEEK_CHAT_TOKEN CI/CD variable.
+    - echo "Pending - deepseek-review is not wired to GitLab yet."

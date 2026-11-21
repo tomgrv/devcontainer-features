@@ -1,0 +1,22 @@
+# @format
+
+# Counterpart of .github/workflows/update-labels.yml
+update-labels:
+  extends: .zz-use
+  stage: deploy
+  timeout: 10m
+  resource_group: update-labels
+  # Needs tomgrv/actions#152. Weekly: create the schedule under CI/CD > Schedules
+  # (`0 4 * * 1`); it can also be started by hand.
+  # GITLAB_TOKEN: CI/CD variable, project access token with the `api` scope
+  # (plus `write_repository` where the job pushes).
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+    - if: $CI_PIPELINE_SOURCE == "web"
+      when: manual
+      allow_failure: true
+  variables:
+    REPOSITORY: $CI_PROJECT_PATH
+    LABELS_FILE: .github/labels.json
+  script:
+    - zz-use -x tomgrv/actions/update-labels

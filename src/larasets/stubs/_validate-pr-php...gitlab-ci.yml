@@ -1,0 +1,60 @@
+# @format
+
+# Counterpart of .github/workflows/validate-pr-php.yml
+#
+# tomgrv/actions/check-laravel has no run.sh (it is a composite of other
+# actions), so zz-use cannot run it: its pint step is run here, the rest of its
+# checks are pending. The `part` matrix is a loop over list-php-parts.
+validate-php-code:
+  extends: .zz-use-php
+  stage: test
+  interruptible: true
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+  variables:
+    GIT_DEPTH: '0'
+    BLADE: 'true'
+  script:
+    # TODO(gitlab): add the remaining check-laravel steps (phpstan, phpinsights, phpmd, composer validate).
+    - zz-use -x tomgrv/actions/run-pint
+    - |
+      if [ -d app/Filament ]; then
+        FILACHECK_PATH=app/Filament zz-use -x tomgrv/actions/run-filacheck
+      fi
+
+run-php-tests:
+  extends: .zz-use-php
+  stage: test
+  needs:
+    - validate-php-code
+  interruptible: true
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+  services:
+    - name: mysql:8.0
+      alias: mysql
+  variables:
+    GIT_DEPTH: '0'
+    MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    MYSQL_DATABASE: testing
+    DB_CONNECTION: mysql
+    DB_HOST: mysql
+    DB_PORT: '3306'
+    DB_DATABASE: testing
+    DB_USERNAME: root
+    DB_PASSWORD: ''
+  script:
+    # The actions print their outputs on stdout; the GitHub action wrapper appends them to GITHUB_OUTPUT
+    - zz-use -x tomgrv/actions/list-php-parts >> "$GITHUB_OUTPUT"
+    - |
+      out() { sed -n "s/^$1=//p" "$GITHUB_OUTPUT" | tail -1; }
+      [ "$(out has-parts)" = true ] || { echo "No PHP parts affected, skipping."; exit 0; }
+      out matrix | jq -c '.[]' > .parts
+    - '[ ! -d node_modules/playwright ] || npx playwright install --with-deps chromium'
+    - |
+      failed=0
+      while read -r part; do
+        REVIEWDOG_NAME="phpunit ($(echo "$part" | jq -r .name))" TEST_PATHS=$(echo "$part" | jq -r .path) \
+          zz-use -x tomgrv/actions/run-phptests || failed=1
+      done < .parts
+      exit $failed

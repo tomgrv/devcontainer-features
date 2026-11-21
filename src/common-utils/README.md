@@ -159,3 +159,11 @@ Installed from [`tomgrv/scripts`](https://github.com/tomgrv/scripts); each has i
 ## Contributing
 
 If you have a feature that you would like to add to this repository, please open an issue or submit a pull request.
+
+## GitLab CI
+
+Each workflow above has a GitLab counterpart, deployed as a fragment merged into the repository's `.gitlab-ci.yml` (`stubs/_<workflow>...gitlab-ci.yml`). `tomgrv/actions` steps run through `zz-use -x tomgrv/actions/<name>`, with the action inputs set as environment variables.
+
+- `.zz-use`: shared base image and `zz-use` bootstrap, extended by the jobs of every feature.
+- `test-workspaces` / `repo-tests`: the workspace matrix is a loop; drafts are detected from the merge request title.
+- `validate-pr-lock`: `check-lock`, reporting through reviewdog (`REVIEWDOG_GITLAB_API_TOKEN` variable required).

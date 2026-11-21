@@ -1,0 +1,20 @@
+# @format
+
+# Counterpart of .github/workflows/validate-pr-lock.yml
+validate-pr-lock:
+  extends: .zz-use
+  stage: test
+  timeout: 10m
+  interruptible: true
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+  variables:
+    GIT_DEPTH: '0'
+    # '.' checks the repo root; pass a comma-separated list (e.g. '.,packages/foo')
+    # if manifests live in subdirectories.
+    TARGET_PATHS: .
+    # TODO(gitlab): reviewdog reports to the merge request with this reporter,
+    # and needs a masked REVIEWDOG_GITLAB_API_TOKEN CI/CD variable.
+    REVIEWDOG_REPORTER: gitlab-mr-discussion
+  script:
+    - zz-use -x tomgrv/actions/check-lock

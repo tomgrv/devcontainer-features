@@ -1,0 +1,25 @@
+# @format
+
+# Counterpart of .github/workflows/manage-orphan-branches.yml
+#
+# Needs tomgrv/scripts#107 (git-fix-orphans on GitLab). Weekly: create the schedule
+# under CI/CD > Schedules (`0 4 * * 1`); it can also be started by hand.
+# `DRY_RUN` is the `dry_run` input: set it when running the pipeline manually.
+prefix-orphan-branches:
+  extends: .zz-use
+  stage: deploy
+  timeout: 10m
+  resource_group: prefix-orphan-branches
+  # GITLAB_TOKEN: CI/CD variable, project access token with the `api` scope
+  # (plus `write_repository` where the job pushes).
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+    - if: $CI_PIPELINE_SOURCE == "web"
+      when: manual
+      allow_failure: true
+  variables:
+    GIT_DEPTH: '0'
+    DRY_RUN: 'false'
+    GH_REPO: $CI_PROJECT_PATH
+  script:
+    - zz-use -x tomgrv/actions/prefix-orphan-branches
